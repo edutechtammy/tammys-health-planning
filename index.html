@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Health Planning Hub</title>
+<style>
+  :root {
+    --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;--green-pale:#d8f3dc;
+    --amber:#e9c46a;--amber-dark:#f4a261;--sky:#90e0ef;--sky-dark:#0077b6;
+    --purple:#c77dff;--purple-dark:#7b2d8b;--red:#e63946;--red-pale:#fde8ea;
+    --border:#d1e8d5;--text:#1a1a2e;--muted:#6c757d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);font-size:17px;line-height:1.6;min-height:100vh}
+  header{background:linear-gradient(135deg,var(--green-dark),var(--sky-dark));color:#fff;padding:3rem 1.5rem 2.5rem;text-align:center}
+  header h1{font-size:2.2rem;margin-bottom:.5rem}
+  header p{font-size:1.05rem;opacity:.88;max-width:620px;margin:0 auto}
+  main{max-width:860px;margin:0 auto;padding:2.5rem 1.2rem 4rem}
+
+  /* INTRO */
+  .intro{background:#fff;border-radius:12px;border:1px solid var(--border);padding:1.4rem 1.6rem;margin-bottom:2rem}
+  .intro p{margin-bottom:.7rem;font-size:.97rem}
+  .intro p:last-child{margin-bottom:0}
+
+  /* CONDITION PILLS */
+  .pill{display:inline-block;padding:.2rem .7rem;border-radius:999px;font-size:.8rem;font-weight:600;margin:.15rem}
+  .pill-purple{background:#f3e5ff;color:var(--purple-dark)}
+  .pill-sky{background:#e0f7fa;color:var(--sky-dark)}
+  .pill-amber{background:#fff3cd;color:#7a5c00}
+  .pill-red{background:var(--red-pale);color:var(--red)}
+  .tag-row{display:flex;flex-wrap:wrap;gap:.3rem;margin:.6rem 0 .3rem}
+
+  /* APP CARDS */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;margin-bottom:2rem}
+  .card{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:box-shadow .2s,transform .15s}
+  .card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px)}
+  .card-banner{padding:1.4rem 1.2rem 1rem;display:flex;align-items:center;gap:.8rem}
+  .card-banner .icon{font-size:2.2rem}
+  .card-banner h2{font-size:1.1rem;font-weight:700}
+  .card-body{padding:.2rem 1.2rem 1.2rem;font-size:.9rem;color:var(--muted);flex:1}
+  .card-footer{padding:.75rem 1.2rem;font-size:.85rem;font-weight:600;border-top:1px solid var(--border);display:flex;align-items:center;gap:.4rem}
+
+  .card-green .card-banner{background:var(--green-pale)}
+  .card-green .card-footer{color:var(--green-dark);background:#f7fbf8}
+  .card-amber .card-banner{background:#fff8e1}
+  .card-amber .card-footer{color:#7a5c00;background:#fffdf0}
+  .card-sky   .card-banner{background:#e0f7fa}
+  .card-sky   .card-footer{color:var(--sky-dark);background:#f0fbfd}
+
+  /* FAMILY NOTE */
+  .family-section{background:#fff;border-radius:12px;border:1px solid var(--border);padding:1.4rem 1.6rem;margin-bottom:2rem}
+  .family-section h2{font-size:1.1rem;font-weight:700;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+  .condition-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.8rem}
+  @media(max-width:560px){.condition-grid{grid-template-columns:1fr}}
+  .cond-card{border-radius:8px;padding:.65rem .9rem;font-size:.88rem;border:1px solid #ddd}
+  .cond-purple{background:#f3e5ff;border-color:#c77dff}
+  .cond-sky{background:#e0f7fa;border-color:#90e0ef}
+  .cond-amber{background:#fff8e1;border-color:#e9c46a}
+  .cond-red{background:var(--red-pale);border-color:#f4a261}
+  .cond-card strong{display:block;margin-bottom:.2rem}
+
+  /* CALLOUT */
+  .callout{border-radius:8px;padding:.85rem 1.1rem;margin:.75rem 0;font-size:.93rem}
+  .callout-green{background:var(--green-pale);border-left:4px solid var(--green-mid)}
+  .callout-amber{background:#fff8e1;border-left:4px solid var(--amber-dark)}
+  .callout strong{display:block;margin-bottom:.3rem}
+
+  footer{text-align:center;padding:1.5rem;font-size:.82rem;color:var(--muted)}
+  footer a{color:var(--green-mid)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌿 Family Health Planning Hub</h1>
+  <p>A personal health reference built around the genetic and autoimmune conditions shared in our family — curated with care so you can take the same steps early.</p>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <p>This site was built as a personal health tool and shared with family because several of the conditions documented here have a genetic basis. If you carry <strong>MTHFR, Celiac, or APOE variants</strong>, knowing early — and acting on it — is genuinely protective.</p>
+    <p>This is not a medical website and nothing here replaces your own doctor. Think of it as a well-researched starting point: what to ask about, what labs to request, and what daily choices move the needle.</p>
+    <div class="tag-row">
+      <span class="pill pill-purple">MTHFR C677T</span>
+      <span class="pill pill-sky">Celiac Disease</span>
+      <span class="pill pill-amber">APOE4 (cognitive risk)</span>
+      <span class="pill pill-amber">Pre-diabetes · Dawn Phenomenon</span>
+      <span class="pill pill-red">Kidney Stone (oxalate)</span>
+      <span class="pill pill-red">Klebsiella UTI history</span>
+    </div>
+  </div>
+
+  <!-- APP CARDS -->
+  <div class="card-grid">
+    <a class="card card-green" href="health-reference.html">
+      <div class="card-banner">
+        <span class="icon">📋</span>
+        <h2>Health Reference</h2>
+      </div>
+      <div class="card-body">Guidelines for all six conditions — supplements, food rules, labs to request, and how everything connects.</div>
+      <div class="card-footer">Open Reference →</div>
+    </a>
+    <a class="card card-amber" href="weekly-meal-plan.html">
+      <div class="card-banner">
+        <span class="icon">🥗</span>
+        <h2>Weekly Meal Plan</h2>
+      </div>
+      <div class="card-body">A full 7-day whole-foods meal plan built around low-oxalate, GF, glucose-friendly, anti-inflammatory eating.</div>
+      <div class="card-footer">Open Meal Plan →</div>
+    </a>
+    <a class="card card-sky" href="health-tracker.html">
+      <div class="card-banner">
+        <span class="icon">📈</span>
+        <h2>Health Tracker</h2>
+      </div>
+      <div class="card-body">Daily logging for weight, glucose (×3), Dawn Phenomenon delta, stress, sleep, and mood. Data stays local in your browser.</div>
+      <div class="card-footer">Open Tracker →</div>
+    </a>
+  </div>
+
+  <!-- FAMILY RELEVANCE -->
+  <div class="family-section">
+    <h2>👨‍👩‍👧‍👦 Why This Matters for Our Family</h2>
+    <p style="font-size:.93rem;margin-bottom:.5rem">Both parents carry <strong>MTHFR C677T</strong> and <strong>Celiac Disease</strong> — both are autosomal, meaning each child has a meaningful chance of inheriting one or both. Getting tested and starting methylated B-vitamins and a strict GF diet early prevents decades of subclinical damage.</p>
+    <div class="condition-grid">
+      <div class="cond-card cond-purple">
+        <strong>🧬 MTHFR C677T</strong>
+        Both parents carry this variant. Reduces folate processing ~40–70%. Simple fix: methylfolate (not folic acid) + B2. Test: request MTHFR genotype + homocysteine level from your GP.
+      </div>
+      <div class="cond-card cond-sky">
+        <strong>🌾 Celiac Disease</strong>
+        First-degree relatives have ~10% risk vs ~1% in general population. Can present silently for years. Test: tTG-IgA antibody (must be eating gluten at time of test). Do not go GF before testing.
+      </div>
+      <div class="cond-card cond-amber">
+        <strong>🧠 APOE Genotype</strong>
+        Dad carries two APOE3 (e3/e3) — the neutral, most common form. Mom carries one APOE4 copy. Each child has a ~50% chance of inheriting one APOE4 from Mom and will have e3/e4. Knowing early means you can start brain-protective habits in your 30s–40s when they matter most. Test: direct-to-consumer (23andMe) or ask your GP.
+      </div>
+      <div class="cond-card cond-amber">
+        <strong>🌅 Pre-diabetes / Dawn Phenomenon</strong>
+        MTHFR + stress + family metabolic history = higher risk. A fasting insulin + glucose (HOMA-IR) test at your annual physical is all it takes to catch this early. Reversible with diet and sleep — much harder once A1c climbs.
+      </div>
+    </div>
+    <div class="callout callout-green" style="margin-top:1rem">
+      <strong>💡 The simplest first step for any family member</strong>
+      Ask your doctor for: tTG-IgA (Celiac) · Homocysteine · MTHFR genotype · Fasting insulin + glucose. Four tests. One blood draw. Enormous peace of mind — or a very actionable early warning.
+    </div>
+    <div class="callout callout-amber" style="margin-top:.5rem">
+      <strong>⚠️ Important: Do not go gluten-free before Celiac testing</strong>
+      The tTG-IgA test requires active gluten exposure to detect antibodies. If you suspect Celiac, get tested first, then go GF after confirmation.
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Family Health Planning Hub · Not medical advice · Always work with your own healthcare team<br>
+  Built May 2026 · <a href="health-reference.html">Reference</a> · <a href="weekly-meal-plan.html">Meal Plan</a> · <a href="health-tracker.html">Tracker</a>
+</footer>
+
+</body>
+</html>

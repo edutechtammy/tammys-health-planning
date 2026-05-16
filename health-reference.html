@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Reference · Tammy</title>
+<style>
+  :root {
+    --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;--green-pale:#d8f3dc;
+    --amber:#e9c46a;--amber-dark:#f4a261;--sky:#90e0ef;--sky-dark:#0077b6;
+    --purple:#c77dff;--purple-dark:#7b2d8b;--red:#e63946;--red-pale:#fde8ea;
+    --slate:#f8f9fa;--border:#d1e8d5;--text:#1a1a2e;--muted:#6c757d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);font-size:17px;line-height:1.6}
+  /* NAV */
+  nav{background:var(--green-dark);padding:.75rem 1.5rem;display:flex;gap:1.5rem;align-items:center}
+  nav a{color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;opacity:.85;transition:opacity .2s}
+  nav a:hover,nav a.active{opacity:1;text-decoration:underline}
+  /* HEADER */
+  header{background:linear-gradient(135deg,var(--green-dark),var(--sky-dark));color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center}
+  header h1{font-size:2rem;margin-bottom:.4rem}
+  header p{font-size:1rem;opacity:.85}
+  /* LAYOUT */
+  main{max-width:960px;margin:0 auto;padding:2rem 1.2rem 4rem}
+  /* SECTION */
+  .section{background:#fff;border-radius:12px;border:1px solid var(--border);margin-bottom:2rem;overflow:hidden}
+  .section-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.4rem;cursor:pointer;user-select:none}
+  .section-header h2{font-size:1.15rem;flex:1}
+  .section-header .icon{font-size:1.5rem;width:2rem;text-align:center}
+  .section-header .toggle{font-size:1.1rem;color:var(--muted);transition:transform .25s}
+  .section-body{padding:1rem 1.4rem 1.4rem;border-top:1px solid var(--border)}
+  .section.collapsed .section-body{display:none}
+  .section.collapsed .toggle{transform:rotate(-90deg)}
+  /* COLOR BANDS */
+  .band-green .section-header{background:var(--green-pale)}
+  .band-amber .section-header{background:#fff8e1}
+  .band-sky   .section-header{background:#e0f7fa}
+  .band-purple.section-header,.band-purple .section-header{background:#f3e5ff}
+  .band-red   .section-header{background:var(--red-pale)}
+  .band-teal  .section-header{background:#e0f2f1}
+  /* GRID */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr}}
+  /* PILLS */
+  .pill{display:inline-block;padding:.18rem .65rem;border-radius:999px;font-size:.8rem;font-weight:600;margin:.15rem}
+  .pill-green{background:var(--green-pale);color:var(--green-dark)}
+  .pill-red{background:var(--red-pale);color:var(--red)}
+  .pill-amber{background:#fff3cd;color:#7a5c00}
+  .pill-sky{background:#e0f7fa;color:var(--sky-dark)}
+  .pill-purple{background:#f3e5ff;color:var(--purple-dark)}
+  /* LISTS */
+  ul.ref{padding-left:1.3rem;margin:.5rem 0}
+  ul.ref li{margin:.35rem 0;font-size:.97rem}
+  ul.ref li::marker{color:var(--green-mid)}
+  /* SUPPLEMENT TABLE */
+  .supp-table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:.5rem}
+  .supp-table th{background:var(--green-dark);color:#fff;padding:.5rem .75rem;text-align:left}
+  .supp-table td{padding:.45rem .75rem;border-bottom:1px solid #e8f0eb;vertical-align:top}
+  .supp-table tr:nth-child(even) td{background:#f7fbf8}
+  .supp-table .timing{color:var(--sky-dark);font-weight:600;white-space:nowrap}
+  .supp-table .warn{color:var(--red);font-size:.82rem}
+  /* CALLOUT */
+  .callout{border-radius:8px;padding:.85rem 1.1rem;margin:.75rem 0;font-size:.93rem}
+  .callout-green{background:var(--green-pale);border-left:4px solid var(--green-mid)}
+  .callout-amber{background:#fff8e1;border-left:4px solid var(--amber-dark)}
+  .callout-red{background:var(--red-pale);border-left:4px solid var(--red)}
+  .callout-sky{background:#e0f7fa;border-left:4px solid var(--sky-dark)}
+  .callout strong{display:block;margin-bottom:.2rem}
+  /* FOOD GRID */
+  .food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;margin:.6rem 0}
+  .food-card{border-radius:8px;padding:.5rem .8rem;font-size:.88rem;border:1px solid #ddd}
+  .food-ok{background:#f0fff4;border-color:#74c69d}
+  .food-limit{background:#fff8e1;border-color:#e9c46a}
+  .food-avoid{background:var(--red-pale);border-color:#f4a261}
+  .food-card strong{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;opacity:.7;margin-bottom:.15rem}
+  /* TAG ROW */
+  .tag-row{display:flex;flex-wrap:wrap;gap:.35rem;margin:.5rem 0}
+  /* FOOTNOTE */
+  footer{text-align:center;padding:1.5rem;font-size:.82rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html" class="active">📋 Reference</a>
+</nav>
+
+<header>
+  <h1>📋 Health Reference</h1>
+  <p>Personal guidelines · MTHFR · Celiac · APOE4 · Pre-diabetes · Oxalate · Klebsiella</p>
+</header>
+
+<main>
+
+  <!-- ── QUICK SUMMARY ── -->
+  <div class="section band-green" id="sec-summary">
+    <div class="section-header" onclick="toggle('sec-summary')">
+      <span class="icon">🗂️</span>
+      <h2>Condition Overview &amp; How They Interact</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-weight:700;margin-bottom:.5rem">Your conditions at a glance:</p>
+          <div class="tag-row">
+            <span class="pill pill-purple">MTHFR C677T</span>
+            <span class="pill pill-sky">Celiac Disease</span>
+            <span class="pill pill-amber">APOE4 carrier</span>
+            <span class="pill pill-amber">Pre-diabetes / Dawn Phenomenon</span>
+            <span class="pill pill-red">9mm Kidney Stone (oxalate likely)</span>
+            <span class="pill pill-red">Klebsiella UTI history (Dec 2025)</span>
+          </div>
+          <div class="callout callout-green" style="margin-top:1rem">
+            <strong>The common thread</strong>
+            All six conditions share one lever: <em>gut health</em>. A repaired gut lining improves folate absorption (MTHFR), reduces systemic inflammation (APOE4, glucose), decreases oxalate absorption (stone), and displaces Klebsiella colonisation.
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.5rem">Key interactions to know:</p>
+          <ul class="ref">
+            <li><strong>Celiac → MTHFR severity:</strong> damaged villi = poor folate/B12 absorption, making your MTHFR variant hit harder. Strict GF diet is non-negotiable.</li>
+            <li><strong>MTHFR → homocysteine → APOE4:</strong> elevated homocysteine is independently linked to neurodegeneration. Methylated B-vitamins lower it.</li>
+            <li><strong>Gut dysbiosis → oxalate:</strong> loss of <em>Oxalobacter formigenes</em> (wiped out by antibiotics for Klebsiella) raises urinary oxalate → stone growth.</li>
+            <li><strong>Dawn Phenomenon → APOE4:</strong> chronic fasting hyperglycaemia is a direct risk factor for the cognitive trajectory APOE4 raises odds for. Controlling DP is brain-protective.</li>
+            <li><strong>Stress → all of the above:</strong> cortisol drives glucose, suppresses gut immunity, worsens methylation demand. Recovery from caregiving stress is therapeutic.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MTHFR ── -->
+  <div class="section band-purple" id="sec-mthfr">
+    <div class="section-header" onclick="toggle('sec-mthfr')">
+      <span class="icon">🧬</span>
+      <h2>MTHFR — Methylation Support</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Use ONLY methylated forms:</p>
+          <ul class="ref">
+            <li>✅ <strong>Methylfolate</strong> (5-MTHF) — NOT folic acid</li>
+            <li>✅ <strong>Methylcobalamin</strong> (B12) — NOT cyanocobalamin</li>
+            <li>✅ <strong>P5P</strong> (pyridoxal-5-phosphate, active B6)</li>
+            <li>✅ <strong>Riboflavin</strong> (B2) — cofactor for MTHFR enzyme; 200–400 mg/day in C677T</li>
+            <li>✅ <strong>Betaine (TMG)</strong> — backup methyl donor</li>
+          </ul>
+          <div class="callout callout-red" style="margin-top:.8rem">
+            <strong>⚠️ Avoid folic acid fortified foods</strong>
+            Unmetabolised folic acid competes with methylfolate at receptors. Read labels on GF breads, cereals, and "enriched" products — many are fortified.
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Why this matters:</p>
+          <ul class="ref">
+            <li>MTHFR converts folic acid → active methylfolate. C677T variant reduces enzyme efficiency ~70% (homozygous) or ~40% (heterozygous).</li>
+            <li>Methylfolate feeds the methylation cycle that makes SAMe — your body's universal methyl donor for DNA repair, neurotransmitters, and detox.</li>
+            <li>Poor methylation → elevated homocysteine → vascular and cognitive risk (especially relevant with APOE4).</li>
+            <li>Demand surges under stress (caregiving period). You're in recovery — replenish now.</li>
+          </ul>
+          <div class="callout callout-amber">
+            <strong>Start low, go slow</strong>
+            Some people get anxious/irritable starting methylfolate. Begin at 200–400 mcg and increase gradually. If overstimulated, niacin (not niacinamide) can mop up excess methyl groups.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CELIAC ── -->
+  <div class="section band-sky" id="sec-celiac">
+    <div class="section-header" onclick="toggle('sec-celiac')">
+      <span class="icon">🌾</span>
+      <h2>Celiac — Absorption &amp; Gut Healing</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Nutrient watchlist (malabsorption risk):</p>
+          <ul class="ref">
+            <li>🩸 <strong>Iron</strong> — absorbed in upper small intestine (most damaged). Monitor ferritin, not just hemoglobin.</li>
+            <li>🧪 <strong>B12</strong> — use sublingual methylcobalamin; bypasses gut.</li>
+            <li>🌿 <strong>Folate</strong> — already covered by MTHFR protocol above.</li>
+            <li>☀️ <strong>Vitamin D3</strong> — fat-soluble; poor fat absorption means low D. Target 50–70 ng/mL. Take with K2 (MK-7).</li>
+            <li>⚡ <strong>Magnesium</strong> — use glycinate or malate; citrate also fine (bonus for stones). Avoid oxide.</li>
+            <li>🦴 <strong>Zinc</strong> — supports gut lining repair, immune function. Picolinate form preferred.</li>
+            <li>🐟 <strong>Omega-3</strong> — anti-inflammatory; low EPA/DHA is common in celiac. Wild salmon ✓, supplement if needed.</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Hidden gluten sources:</p>
+          <ul class="ref">
+            <li>Oats — even certified GF oats may trigger; avoid initially</li>
+            <li>Soy sauce, tamari (check label), malt vinegar</li>
+            <li>Supplements with wheat starch fillers</li>
+            <li>Communion wafers, medications (check inactive ingredients)</li>
+            <li>Shared cutting boards, toasters, colanders, wooden utensils</li>
+            <li>Lipstick / lip balm / hand cream (absorbed via touching food)</li>
+          </ul>
+          <div class="callout callout-green" style="margin-top:.8rem">
+            <strong>Gut-healing priority supplements</strong>
+            L-glutamine (5g/day) · Zinc carnosine · Bone broth · Collagen peptides · Quercetin (reduces intestinal permeability) · Probiotic with <em>Lactobacillus rhamnosus GG</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── APOE4 ── -->
+  <div class="section band-amber" id="sec-apoe4">
+    <div class="section-header" onclick="toggle('sec-apoe4')">
+      <span class="icon">🧠</span>
+      <h2>APOE4 — Brain-Protective Lifestyle</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="callout callout-sky">
+        <strong>What APOE4 actually means</strong>
+        APOE4 is a risk <em>modifier</em>, not a sentence. One copy (~25% of people) roughly doubles lifetime Alzheimer's risk. Two copies raises it more. The most powerful modifiers are glucose control, sleep quality, stress reduction, and omega-3 status — all things you're already working on.
+      </div>
+      <div class="two-col" style="margin-top:1rem">
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Diet priorities for APOE4:</p>
+          <div class="food-grid">
+            <div class="food-card food-ok"><strong>✅ Emphasise</strong>Wild salmon · Sardines · EVOO · Avocado · Walnuts · Blueberries · Dark leafy greens · Eggs · Grass-fed beef (lean cuts)</div>
+            <div class="food-card food-limit"><strong>⚠️ Limit</strong>Saturated fat (butter, full-fat dairy, fatty red meat) · Added sugars · Refined starches · Alcohol</div>
+            <div class="food-card food-avoid"><strong>�� Avoid</strong>Ultra-processed foods · Trans fats · High-fructose corn syrup · Folic acid (unmetabolised form)</div>
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Key supplements for APOE4:</p>
+          <ul class="ref">
+            <li>🐟 <strong>Omega-3 (EPA+DHA)</strong> 2–3g/day — APOE4 carriers have impaired lipid transport; dietary DHA matters more for you than average.</li>
+            <li>🧬 <strong>Methylated B-complex</strong> — lowers homocysteine (already in MTHFR protocol).</li>
+            <li>☀️ <strong>Vitamin D3 + K2</strong> — neuroprotective; APOE4 carriers tend to run lower.</li>
+            <li>🫐 <strong>Lion's Mane mushroom</strong> — supports BDNF (nerve growth factor); promising early data.</li>
+            <li>🫚 <strong>MCT oil</strong> — ketones as alternative brain fuel; start with 1 tsp, increase slowly.</li>
+            <li>🌿 <strong>Resveratrol</strong> — activates SIRT1; 150–500 mg with fatty meal.</li>
+          </ul>
+          <div class="callout callout-green" style="margin-top:.8rem">
+            <strong>💡 Glucose control = brain protection</strong>
+            Tracking and reducing your Dawn Phenomenon isn't just metabolic — it's directly reducing the #1 modifiable risk factor for APOE4 carriers. Every morning fasting number matters.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRE-DIABETES / DAWN PHENOMENON ── -->
+  <div class="section band-amber" id="sec-dp">
+    <div class="section-header" onclick="toggle('sec-dp')">
+      <span class="icon">🌅</span>
+      <h2>Pre-diabetes &amp; Dawn Phenomenon</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">What's happening at dawn:</p>
+          <ul class="ref">
+            <li>3–8 AM: cortisol and growth hormone rise naturally to prepare the body for waking.</li>
+            <li>These hormones signal the liver to release glucose (glycogenolysis).</li>
+            <li>In healthy metabolism, matching insulin blunts the spike. In pre-diabetes, that matching is delayed or insufficient.</li>
+            <li><strong>Stress amplifies this</strong> — elevated baseline cortisol (caregiving years) makes the dawn spike larger and longer.</li>
+            <li>Recovery after leaving work = cortisol normalisation = smaller DP. You are on this arc.</li>
+          </ul>
+          <div class="callout callout-green">
+            <strong>Target ranges (pre-diabetes context)</strong>
+            Fasting: &lt;100 mg/dL · Post-meal 2hr: &lt;140 · DP Delta: &lt;15 · A1c: &lt;5.7
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Practical interventions:</p>
+          <ul class="ref">
+            <li>🚶 <strong>10-min walk after dinner</strong> — lowers next-morning fasting glucose significantly.</li>
+            <li>🥜 <strong>Small protein snack before bed</strong> — e.g., 1 oz walnuts or 2 tbsp hemp seeds — blunts liver glucose dump.</li>
+            <li>💊 <strong>Berberine</strong> 500 mg with dinner — comparable to metformin in some studies for insulin sensitivity.</li>
+            <li>🥣 <strong>Apple cider vinegar</strong> 1 tbsp in water with dinner — reduces post-meal and fasting glucose.</li>
+            <li>💤 <strong>Sleep quality</strong> — even one night of poor sleep raises next-day fasting glucose. Your tracker captures this — look for the correlation.</li>
+            <li>🧘 <strong>Stress reduction</strong> — THE lever right now. Already tracked. Your recovery arc is the treatment.</li>
+          </ul>
+          <div class="callout callout-amber">
+            <strong>⚠️ Berberine + metformin</strong>
+            Do not combine with prescription metformin — additive hypoglycaemia risk. Let your doctor know if you add berberine.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── KIDNEY STONE ── -->
+  <div class="section band-red" id="sec-stone">
+    <div class="section-header" onclick="toggle('sec-stone')">
+      <span class="icon">🪨</span>
+      <h2>Kidney Stone — Oxalate Management</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="callout callout-red">
+        <strong>Current status: 9mm stone, in situ (as of summary)</strong>
+        At 9mm, spontaneous passage is unlikely without intervention. Confirm stone composition when/if you pass it or have it removed — management differs for calcium oxalate vs. uric acid. This guidance assumes calcium oxalate (most common, ~80%).
+      </div>
+      <div class="two-col" style="margin-top:1rem">
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Dietary rules for oxalate stones:</p>
+          <ul class="ref">
+            <li>💧 <strong>Hydration first</strong> — 2.5–3L water/day. Urine should be pale yellow. This is the single most effective intervention.</li>
+            <li>🥛 <strong>Calcium WITH meals</strong> — 1000–1200 mg/day from food or supplement. Calcium binds oxalate in the gut → excreted in stool, not urine. <em>Never skip calcium to "protect" kidneys — the opposite is true.</em></li>
+            <li>🧂 <strong>Low sodium</strong> — high sodium raises urinary calcium. Aim &lt;2300 mg/day.</li>
+            <li>🥩 <strong>Moderate animal protein</strong> — excess acidifies urine, raises uric acid and calcium excretion.</li>
+            <li>🍋 <strong>Lemon juice</strong> — citrate inhibits crystal formation. Half lemon in water daily.</li>
+          </ul>
+          <p style="font-weight:700;margin:.8rem 0 .4rem">High-oxalate foods to limit/avoid:</p>
+          <div class="tag-row">
+            <span class="pill pill-red">Spinach</span><span class="pill pill-red">Almonds</span>
+            <span class="pill pill-red">Beets</span><span class="pill pill-red">Swiss chard</span>
+            <span class="pill pill-red">Rhubarb</span><span class="pill pill-red">Dark chocolate</span>
+            <span class="pill pill-red">Cashews</span><span class="pill pill-red">Peanuts</span>
+            <span class="pill pill-red">Wheat bran</span><span class="pill pill-red">Soy</span>
+            <span class="pill pill-amber">Sweet potato (limit)</span>
+            <span class="pill pill-amber">Raspberries (limit)</span>
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Key supplements for stones:</p>
+          <ul class="ref">
+            <li>🍋 <strong>Magnesium citrate</strong> 300–400 mg/day — binds oxalate; citrate raises urinary citrate (inhibits crystals). Preferred form for stone prevention.</li>
+            <li>💊 <strong>P5P (active B6)</strong> 25–50 mg/day — reduces endogenous oxalate production in the liver. Synergistic with MTHFR protocol.</li>
+            <li>🌿 <strong>Chanca piedra</strong> ("stone breaker") — traditional herb; some evidence for reducing stone size and urinary oxalate.</li>
+          </ul>
+          <div class="callout callout-red">
+            <strong>⚠️ Avoid high-dose Vitamin C</strong>
+            &gt;1000 mg/day ascorbic acid is metabolised to oxalate. Keep supplemental C at ≤500 mg/day. Food sources (bell peppers, strawberries) are fine.
+          </div>
+          <div class="callout callout-amber">
+            <strong>Gut bacteria &amp; oxalate</strong>
+            <em>Oxalobacter formigenes</em> in the colon degrades dietary oxalate. Repeated antibiotic use (your Klebsiella treatment) wipes it out. Probiotics with <em>L. acidophilus</em> and <em>L. plantarum</em> partially compensate. See Klebsiella section.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── KLEBSIELLA ── -->
+  <div class="section band-teal" id="sec-kleb">
+    <div class="section-header" onclick="toggle('sec-kleb')">
+      <span class="icon">🦠</span>
+      <h2>Klebsiella — UTI History &amp; Gut Colonisation</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="callout callout-sky">
+        <strong>Context:</strong> Klebsiella UTI contracted Dec 2025 during catheter care at mother's memory care facility. Multiple antibiotic courses likely. Klebsiella can persist as gut colonisation and is an opportunistic uropathogen — it ascends from the gut, not just the environment. D-mannose does NOT work for Klebsiella (that's E. coli specific).
+      </div>
+      <div class="two-col" style="margin-top:1rem">
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">To reduce gut colonisation risk:</p>
+          <ul class="ref">
+            <li>🧫 <strong>Stool test</strong> — consider a comprehensive gut panel (e.g., Genova GI Effects, Viome, or Doctor's Data) to confirm current Klebsiella status. This is the only way to know if it's still there.</li>
+            <li>🌿 <strong>Low-starch diet phases</strong> — Klebsiella thrives on resistant starches. A temporary low-starch phase can reduce its competitive advantage.</li>
+            <li>🫙 <strong>Antimicrobial herbs</strong> (work with practitioner): Berberine · Oil of oregano · Allicin (garlic extract) · Uva ursi (short term)</li>
+            <li>💧 <strong>Hydration</strong> — high urine flow dilutes bacterial load and flushes the urinary tract.</li>
+            <li>🚫 <strong>Avoid catheterisation</strong> if at all possible going forward — highest infection risk route for Klebsiella.</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Probiotic strains that help with Klebsiella:</p>
+          <ul class="ref">
+            <li>🦠 <em><strong>Lactobacillus rhamnosus GG</strong></em> — competitive inhibition; most studied for UTI prevention</li>
+            <li>🦠 <em><strong>Lactobacillus crispatus</strong></em> — dominates vaginal microbiome; displaces uropathogens (look for targeted urinary/vaginal probiotic)</li>
+            <li>🦠 <em><strong>Lactobacillus plantarum</strong></em> — also partially degrades oxalate (dual benefit)</li>
+            <li>🦠 <em><strong>Saccharomyces boulardii</strong></em> — yeast, not bacteria; survives antibiotic courses, restores flora balance, reduces C. diff and Klebsiella overgrowth</li>
+            <li>🦠 <em><strong>Lacticaseibacillus reuteri</strong></em> — anti-inflammatory gut repair</li>
+          </ul>
+          <div class="callout callout-amber">
+            <strong>After antibiotics: timing matters</strong>
+            Take <em>S. boulardii</em> during and after any antibiotic course (it won't be killed). Start other strains 2+ hours apart from antibiotics, and continue for at least 4–8 weeks after the course ends.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FERMENTS ── -->
+  <div class="section band-teal" id="sec-ferments">
+    <div class="section-header" onclick="toggle('sec-ferments')">
+      <span class="icon">🫙</span>
+      <h2>Fermented Foods — Your Active Cultures</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="callout callout-green">
+        <strong>Why ferments matter across all six conditions</strong>
+        Fermented foods deliver live bacteria directly with food — often at higher colony counts than capsule supplements, and with the added benefit of fermentation byproducts (short-chain fatty acids, B vitamins, bioavailable minerals) that support gut lining repair (Celiac), oxalate degradation (Stone), Klebsiella displacement, glucose metabolism (DP), and neuroinflammation reduction (APOE4).
+      </div>
+
+      <!-- KEFIR -->
+      <p style="font-weight:700;margin:1rem 0 .4rem;font-size:1rem">🥛 Kefir — Grain-Based (coming) + Lifeway (current bridge)</p>
+      <div class="two-col">
+        <div>
+          <ul class="ref">
+            <li><strong>Grain kefir strengths:</strong> higher colony counts than store-bought, more strain diversity, lower lactose (especially at 24–36 hr ferment), produces kefiran (anti-inflammatory polysaccharide unique to grains).</li>
+            <li><strong>Lifeway bridge strategy:</strong> keep drinking Lifeway daily now for <em>L. rhamnosus</em>, <em>L. plantarum</em>, and <em>L. reuteri</em> — these are your targeted Klebsiella and oxalate strains. Grain kefir won't reliably carry them.</li>
+            <li><strong>Use A2 whole milk</strong> for your grains once they arrive — gentler on digestion, same calcium benefit.</li>
+            <li><strong>Longer ferment = better blood sugar</strong> — 24–36 hrs at room temp consumes ~80% of lactose and produces more acetate, which blunts post-meal glucose. Experiment once grains are established.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="callout callout-amber">
+            <strong>Grain kefir vs. Lifeway — run both</strong>
+            Grain kefir = volume, diversity, kefiran, low lactose. Lifeway (or an <em>L. rhamnosus GG</em> capsule) = targeted Klebsiella competitive inhibition. They serve different roles. Grain kefir alone is not a full substitute for the targeted UTI protection strains.
+          </div>
+          <div class="callout callout-sky">
+            <strong>Fermentation tip</strong>
+            If grains arrive sluggish, do 1–2 "activation" batches using whole milk at room temp 24 hrs, discarding the kefir and reusing just the grains. They'll wake up within 2–3 batches.
+          </div>
+        </div>
+      </div>
+
+      <p style="font-weight:700;margin:1rem 0 .3rem;font-size:.95rem">Lifeway Kefir — Culture Breakdown &amp; What Each Does for You</p>
+      <table class="supp-table" style="margin-bottom:.5rem">
+        <thead>
+          <tr><th>Strain</th><th>What it Does</th><th>Most Relevant For You</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><em>Lactobacillus acidophilus</em></td><td>Aids digestion; supports nutrient absorption</td><td>MTHFR — improves folate &amp; B12 uptake in damaged gut · Celiac recovery</td></tr>
+          <tr><td><em>Lactobacillus casei</em></td><td>Strengthens gut barrier / reduces permeability</td><td>Celiac — leaky gut repair; reduces systemic inflammation feeding APOE4 risk</td></tr>
+          <tr><td><em>Lactobacillus plantarum</em></td><td>Anti-inflammatory; partially degrades oxalate</td><td>⭐ Kidney stone — lowers urinary oxalate · APOE4 neuroinflammation reduction</td></tr>
+          <tr><td><em>Lactobacillus rhamnosus</em></td><td>Protects gut microbiome; competitive inhibition of pathogens</td><td>⭐⭐ Klebsiella — most-studied strain for UTI prevention; your primary Klebsiella defence</td></tr>
+          <tr><td><em>Lactobacillus reuteri</em></td><td>Directly targets and displaces pathogenic microbes</td><td>⭐⭐ Klebsiella displacement · gut wound healing supports Celiac villi repair</td></tr>
+          <tr><td><em>Bifidobacterium longum</em></td><td>Gut barrier integrity; immune support</td><td>Celiac — reinforces tight junctions in damaged intestinal lining</td></tr>
+          <tr><td><em>Bifidobacterium breve</em></td><td>Breaks down dietary fibre; produces short-chain fatty acids</td><td>Microbiome diversity; SCFAs feed colonocytes and reduce Klebsiella's food supply</td></tr>
+          <tr><td><em>Bifidobacterium lactis</em></td><td>Speeds up transit time in the colon</td><td>⭐ Kidney stone — faster transit = less oxalate absorbed through the colon wall</td></tr>
+          <tr><td><em>Lactococcus lactis</em> (lactis &amp; cremoris)</td><td>Suppresses food-borne and opportunistic pathogens</td><td>Klebsiella colonisation control; general gut protection post-antibiotic courses</td></tr>
+          <tr><td><em>Streptococcus diacetylactis</em></td><td>Synthesises B vitamins in the gut</td><td>⭐⭐ MTHFR — in-gut B vitamin production partially compensates for your reduced methylation capacity</td></tr>
+          <tr><td><em>Saccharomyces florentinus</em> (yeast)</td><td>Crowds out pathogenic yeasts</td><td>Post-antibiotic yeast balance; prevents opportunistic overgrowth after Klebsiella treatment</td></tr>
+        </tbody>
+      </table>
+      <div class="callout callout-amber" style="margin-bottom:1rem">
+        <strong>Why Lifeway is not just a bridge — it's doing targeted work</strong>
+        The <em>L. rhamnosus + L. reuteri</em> combination is your primary Klebsiella defence. <em>S. diacetylactis</em> is actively synthesising B vitamins your MTHFR variant struggles to convert. <em>B. lactis</em> is accelerating oxalate clearance. <em>L. plantarum</em> is partially degrading dietary oxalate. This is a functionally dense product for your specific condition stack — keep it as a daily staple even after your grain kefir is established.
+      </div>
+
+      <!-- SUGAR SHIFT YOGURT -->
+      <p style="font-weight:700;margin:1.2rem 0 .4rem;font-size:1rem">🍶 Sugar Shift Yogurt (BioQuest) — Targeted Blood Sugar Culture</p>
+      <p style="font-weight:700;margin:.5rem 0 .3rem;font-size:.95rem">Sugar Shift Culture Breakdown &amp; What Each Does for You</p>
+      <table class="supp-table" style="margin-bottom:.75rem">
+        <thead>
+          <tr><th>Strain</th><th>What it Does</th><th>Most Relevant For You</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><em>Lactobacillus plantarum</em> LP-36</td><td>Breaks down glyphosate residues; anti-inflammatory</td><td>Celiac gut healing (reduces inflammatory load on healing villi) · Klebsiella competition</td></tr>
+          <tr><td><em>Leuconostoc mesenteroides</em> LM-37</td><td>Anti-swelling; reduces systemic inflammation</td><td>APOE4 — reduces neuroinflammation · Celiac — calms post-exposure gut inflammation</td></tr>
+          <tr><td><em>Pediococcus acidilactici</em> PA-68</td><td>Antiviral immune support</td><td>Post-antibiotic immune recovery; supports immune surveillance weakened by Klebsiella treatment</td></tr>
+          <tr><td><em>Lactobacillus paracasei</em></td><td>Immune modulation; IgA production</td><td>Celiac immune response regulation · Klebsiella recovery — boosts mucosal immunity</td></tr>
+          <tr><td><em>Bacillus subtilis</em> DE111 (Deerland)</td><td>Gut lining support; immune + metabolic function</td><td>Celiac — supports tight junction repair · Pre-diabetes — improves glucose metabolism signalling</td></tr>
+          <tr><td><em>Bifidobacterium longum</em></td><td>Immune support; gut barrier integrity</td><td>Celiac — reinforces intestinal lining · APOE4 — reduces gut-origin systemic inflammation</td></tr>
+          <tr><td><em>Lactobacillus reuteri</em> PCR07</td><td>Gut wound healing; anti-inflammatory peptides</td><td>⭐ Celiac — villi repair (this strain specifically shown to accelerate intestinal wound healing) · DP — reduces post-meal inflammatory response</td></tr>
+        </tbody>
+      </table>
+      <div class="two-col">
+        <div>
+          <div class="callout callout-green">
+            <strong>⭐ The glucose angle — why this yogurt earns its place</strong>
+            Sugar Shift strains collectively metabolise sugars in the gut before absorption, directly reducing glycaemic load. This is your most targeted fermented food for both Dawn Phenomenon and post-meal spikes.
+            <br><br>
+            <strong>🌙 Before bed = best for Dawn Phenomenon.</strong> Key strains (*B. subtilis* DE111, *L. reuteri* PCR07) produce butyrate and propionate overnight — SCFAs that signal the liver to reduce glucose output during the critical 3–8 AM window. A small serving before bed also doubles as the protein snack already recommended for DP, so you get both benefits at once.
+            <br><br>
+            <strong>🍽️ With dinner = best for post-meal spikes.</strong> ACV before dinner + Sugar Shift yogurt with dinner = a compounding glucose-blunting protocol for your largest carb meal.
+            <br><br>
+            If you make enough, a small bedtime portion (DP-targeted) + a larger dinner portion (post-meal) is the ideal split.
+          </div>
+        </div>
+        <div>
+          <div class="callout callout-sky">
+            <strong>💡 Make it with A2 milk</strong>
+            BioQuest sells Sugar Shift as a starter culture — ferment it yourself in A2 whole milk for the same A2 protein benefit as your daily milk. Ferment 8–12 hrs at ~110°F. Optional: add 1 tbsp grain kefir whey as a co-inoculant for extra diversity without displacing the Sugar Shift strains.
+          </div>
+        </div>
+      </div>
+
+      <!-- SAUERKRAUT -->
+      <p style="font-weight:700;margin:1.2rem 0 .4rem;font-size:1rem">🥬 Sauerkraut — Purple Cabbage (starting today)</p>
+      <div class="two-col">
+        <div>
+          <p style="font-weight:700;margin-bottom:.3rem;font-size:.95rem">Why purple cabbage is the right choice:</p>
+          <ul class="ref">
+            <li>🟣 <strong>Anthocyanins</strong> — the purple pigment is a powerful polyphenol. Anti-inflammatory, crosses the blood-brain barrier, directly relevant for APOE4 neuroprotection. Green cabbage doesn't have this.</li>
+            <li>🦠 <strong>Wild fermentation</strong> delivers <em>L. plantarum</em>, <em>L. brevis</em>, and <em>Leuconostoc mesenteroides</em> naturally — all good for gut diversity and Klebsiella competition.</li>
+            <li>🪨 <strong>Low oxalate</strong> — cabbage is safe for your stone protocol.</li>
+            <li>🌾 <strong>Celiac benefit</strong> — fermentation increases bioavailability of zinc and magnesium from the cabbage.</li>
+          </ul>
+          <p style="font-weight:700;margin:.8rem 0 .3rem;font-size:.95rem">Procedural tips:</p>
+          <ul class="ref">
+            <li>Use <strong>2% salt by weight</strong> (e.g., 20g salt per 1kg cabbage) — promotes <em>Lactobacillus</em> while suppressing pathogens including Klebsiella-family organisms.</li>
+            <li><strong>Ferment cool and slow</strong> — 65–72°F for 2–4 weeks produces more diverse strains and higher lactic acid content than fast warm ferments. Your first batch will be ready faster but improves with time.</li>
+            <li><strong>Keep it submerged</strong> — any cabbage above the brine is a mould risk. Use a zip-lock bag filled with brine as a weight.</li>
+            <li><strong>Taste at 7, 14, and 21 days</strong> — stop when the tang level suits you. More time = more sour, more bacteria, lower residual sugars (better for DP).</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.3rem;font-size:.95rem">Ingredient additions to boost for your conditions:</p>
+          <div class="callout callout-green">
+            <strong>✅ Add to your batch today</strong>
+            <ul class="ref" style="margin-top:.3rem">
+              <li>🧄 <strong>Garlic (3–5 cloves per kg)</strong> — allicin is directly antimicrobial against Klebsiella and gram-negative bacteria. Fermentation mellows the raw heat but preserves the bioactive compounds.</li>
+              <li>🫚 <strong>Caraway seeds (1 tsp per kg)</strong> — traditional kraut addition; supports digestion, reduces bloating during die-off, gentle antimicrobial.</li>
+              <li>🌿 <strong>Fresh dill (small bunch)</strong> — low oxalate, adds <em>L. dillii</em> wild strains, pleasant flavour. Traditional with purple kraut.</li>
+              <li>🫚 <strong>Black pepper (½ tsp per kg)</strong> — piperine enhances absorption of the anthocyanins from the purple cabbage. Small addition, meaningful effect.</li>
+            </ul>
+          </div>
+          <div class="callout callout-amber">
+            <strong>⚠️ Skip these common additions</strong>
+            <ul class="ref" style="margin-top:.3rem">
+              <li>❌ <strong>Juniper berries</strong> — mild diuretic, avoid with kidney stone</li>
+              <li>❌ <strong>Apple</strong> — moderate oxalate, adds sugar (DP concern)</li>
+              <li>❌ <strong>Beets</strong> — high oxalate, contraindicated for your stone</li>
+            </ul>
+          </div>
+          <div class="callout callout-sky">
+            <strong>Optional: boost with a starter</strong>
+            Add 2 tbsp of brine from your Lifeway kefir (the liquid, not the grains) to the kraut in the first 24 hrs. This seeds <em>L. rhamnosus</em> into the ferment. It may not persist long-term but gives early-batch diversity a head start.
+          </div>
+        </div>
+      </div>
+
+      <!-- TEPACHE -->
+      <p style="font-weight:700;margin:1.2rem 0 .4rem;font-size:1rem">🍍 Tepache — Paused (right call)</p>
+      <div class="two-col">
+        <div>
+          <ul class="ref">
+            <li>You were right to stop — pineapple is moderate-to-high oxalate, and the rinds (where tepache gets its flavour and wild yeast) concentrate oxalate more than the flesh.</li>
+            <li>Tepache is a wild-fermented drink with modest probiotic benefit and significant residual sugars — it was the weakest performer in your ferment lineup for your conditions anyway.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="callout callout-green">
+            <strong>Lower-oxalate tepache alternatives</strong>
+            <ul class="ref" style="margin-top:.3rem">
+              <li>🍐 <strong>Pear tepache</strong> — use pear cores/skins, same process. Low oxalate, nice flavour, wild fermentation.</li>
+              <li>🍎 <strong>Apple scrap vinegar / light apple tepache</strong> — apple cores and peels in water with a little raw honey. Ferments to a lightly effervescent, low-sugar drink.</li>
+              <li>🫚 <strong>Ginger bug</strong> — wild-fermented ginger starter; anti-inflammatory (APOE4), digestive, low oxalate. Can carbonate any fruit juice.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- KOMBUCHA -->
+      <p style="font-weight:700;margin:1.2rem 0 .4rem;font-size:1rem">🍵 Kombucha — Your husband's (one flag for you)</p>
+      <ul class="ref">
+        <li>Good that your husband enjoys it and you're not drinking it regularly. Kombucha is brewed with <strong>black tea</strong>, which is one of the highest dietary oxalate sources. A typical 8 oz serving can contribute 15–50 mg oxalate — meaningful for someone with an active stone. It's not categorically off-limits, but it's not a ferment to add to your daily rotation given your stone protocol.</li>
+        <li>If you ever want a kombucha-style drink, <strong>green tea kombucha</strong> (SCOBY fermented on green tea instead of black) has significantly lower oxalate. Worth noting if you ever brew your own.</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- ── SUPPLEMENT TIMING TABLE ── -->
+  <div class="section band-green" id="sec-supps">
+    <div class="section-header" onclick="toggle('sec-supps')">
+      <span class="icon">💊</span>
+      <h2>Supplement Timing Master Table</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:.75rem;color:var(--muted);font-size:.92rem">This is a suggested schedule — not medical advice. Review with your doctor or pharmacist, especially if adding berberine (glucose effects) or changing anything near surgery for your kidney stone.</p>
+      <table class="supp-table">
+        <thead>
+          <tr><th>Supplement</th><th>Dose</th><th>Timing</th><th>With/Without Food</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <!-- ── MORNING ── -->
+          <tr><td colspan="5" style="background:var(--green-pale);font-weight:700;color:var(--green-dark);padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">☀️ Morning</td></tr>
+          <tr><td>Probiotics (multi-strain)</td><td>per label</td><td class="timing">Empty stomach</td><td>30 min before breakfast</td><td>Include L. rhamnosus GG, L. plantarum, S. boulardii</td></tr>
+          <tr><td>Methylfolate (5-MTHF)</td><td>400–800 mcg</td><td class="timing">Morning</td><td>Either</td><td>Start low; increase if tolerated</td></tr>
+          <tr><td>Methylcobalamin (B12)</td><td>1000 mcg</td><td class="timing">Morning</td><td>Sublingual — no food needed</td><td>Sublingual bypasses gut absorption issues</td></tr>
+          <tr><td>Riboflavin (B2)</td><td>200–400 mg</td><td class="timing">Morning</td><td>With food</td><td>MTHFR enzyme cofactor; urine turns bright yellow — normal</td></tr>
+          <tr><td>Betaine (TMG)</td><td>500–1000 mg</td><td class="timing">Morning</td><td>With food</td><td>Backup methyl donor; avoid if prone to depression</td></tr>
+          <tr><td>P5P (active B6)</td><td>25–50 mg</td><td class="timing">Morning</td><td>With food</td><td>Reduces liver oxalate production</td></tr>
+          <tr><td>Vitamin D3</td><td>2000–5000 IU</td><td class="timing">Morning</td><td>With fat (breakfast)</td><td>Test levels; target 50–70 ng/mL</td></tr>
+          <tr><td>Vitamin K2 (MK-7)</td><td>100–200 mcg</td><td class="timing">Morning</td><td>With fat (breakfast)</td><td>Take with D3; directs calcium to bones not arteries</td></tr>
+          <tr><td>Lion's Mane</td><td>500–1000 mg</td><td class="timing">Morning</td><td>With food</td><td>BDNF support; APOE4 protocol</td></tr>
+          <tr><td>MCT Oil</td><td>1–2 tsp → 1 tbsp</td><td class="timing">Morning</td><td>In coffee or food</td><td>Start with 1 tsp; increase over 2 weeks to avoid GI upset</td></tr>
+          <!-- ── MEAL-ASSOCIATED ── -->
+          <tr><td colspan="5" style="background:#fff8e1;font-weight:700;color:#7a5c00;padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">🍽️ Meal-Associated</td></tr>
+          <tr><td>Omega-3 (EPA+DHA)</td><td>2–3 g</td><td class="timing">With largest meal</td><td>With food</td><td>Reduces fishy burps; critical for APOE4</td></tr>
+          <tr><td>Vitamin C</td><td>≤500 mg</td><td class="timing">With any meal</td><td>With food</td><td class="warn">⚠️ Do NOT exceed 500 mg — metabolises to oxalate</td></tr>
+          <tr><td>Chanca Piedra</td><td>per product</td><td class="timing">Between meals</td><td>Away from food</td><td>Stone protocol; short-term use</td></tr>
+          <tr><td>Apple Cider Vinegar</td><td>1 tbsp in water</td><td class="timing">Before dinner</td><td>Diluted in water</td><td>Glucose control; protect tooth enamel — use straw</td></tr>
+          <tr><td>Berberine</td><td>500 mg</td><td class="timing">With dinner</td><td>With meal</td><td class="warn">⚠️ Do not combine with metformin. Check with doctor.</td></tr>
+          <!-- ── EVENING ── -->
+          <tr><td colspan="5" style="background:#e0f7fa;font-weight:700;color:var(--sky-dark);padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">🌙 Evening</td></tr>
+          <tr><td>Magnesium Citrate</td><td>200–400 mg</td><td class="timing">Bedtime</td><td>With or without food</td><td>Stone prevention + sleep quality + glucose. Take at bedtime — <strong>2+ hrs after Zinc</strong></td></tr>
+          <tr><td>Zinc Picolinate</td><td>15–25 mg</td><td class="timing">With dinner</td><td>With food (reduces nausea)</td><td>Take with dinner — <strong>2+ hrs before Magnesium</strong>. They compete for the same transporter (DMT1); zinc wins and blocks Mg absorption if taken together.</td></tr>
+          <tr><td>L-Glutamine</td><td>5 g</td><td class="timing">Evening</td><td>20 min away from food</td><td>Gut lining repair; celiac recovery</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── LOW OXALATE FOOD GUIDE ── -->
+  <div class="section band-green" id="sec-oxalate">
+    <div class="section-header" onclick="toggle('sec-oxalate')">
+      <span class="icon">🥦</span>
+      <h2>Low-Oxalate Food Reference</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="food-grid">
+        <div class="food-card food-ok"><strong>✅ Vegetables</strong>Broccoli · Cauliflower · Cabbage · Kale · Zucchini · Green beans · Peas · Cucumber · Lettuces · Bell peppers · Onion · Garlic · Asparagus</div>
+        <div class="food-card food-ok"><strong>✅ Proteins</strong>Wild salmon · Sardines · Chicken · Turkey · Grass-fed beef · Eggs · Tuna · Cod · Shrimp · Scallops</div>
+        <div class="food-card food-ok"><strong>✅ Fruit</strong>Blueberries · Apples · Pears · Cantaloupe · Honeydew · Grapes · Cherries · Peaches · Plums · Banana (moderate)</div>
+        <div class="food-card food-ok"><strong>✅ Grains (GF)</strong>Homemade GF sourdough · Corn tortillas · Quinoa (rinsed) · Millet · Sorghum · Buckwheat · Tapioca</div>
+        <div class="food-card food-ok"><strong>✅ Dairy / Calcium</strong>Plain yogurt · Kefir · Hard cheeses · Canned salmon w/ bones · Broccoli · Fortified GF milk</div>
+        <div class="food-card food-ok"><strong>✅ Fats / Nuts</strong>EVOO · Avocado · Flaxseed · Macadamia nuts · Sunflower seeds · Pumpkin seeds · Coconut oil</div>
+        <div class="food-card food-limit"><strong>⚠️ Limit (moderate oxalate)</strong>Sweet potato · Raspberries · Kiwi · Oranges · Pineapple · Brown rice · Chickpeas · Lentils</div>
+        <div class="food-card food-avoid"><strong>🚫 High Oxalate — Avoid</strong>Spinach · Almonds · Beets · Swiss chard · Rhubarb · Dark chocolate · Cashews · Peanuts · Wheat bran · Soy milk · Tahini · Black tea</div>
+      </div>
+      <div class="callout callout-green" style="margin-top:1rem">
+        <strong>💡 Pairing rule:</strong> Always eat calcium-rich food <em>at the same meal</em> as any moderate-oxalate food. The calcium binds oxalate in the gut and prevents absorption. E.g., plain yogurt + raspberries = safer than raspberries alone.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LABS TO TRACK ── -->
+  <div class="section band-sky" id="sec-labs">
+    <div class="section-header" onclick="toggle('sec-labs')">
+      <span class="icon">🩺</span>
+      <h2>Labs to Request &amp; Track</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Metabolic &amp; pre-diabetes:</p>
+          <ul class="ref">
+            <li>HbA1c — every 3 months while in pre-diabetes range</li>
+            <li>Fasting insulin + glucose → HOMA-IR (insulin resistance score)</li>
+            <li>Fasting triglycerides + HDL (metabolic syndrome markers)</li>
+            <li>Uric acid — elevated in stone and pre-diabetes</li>
+          </ul>
+          <p style="font-weight:700;margin:.8rem 0 .4rem">MTHFR / methylation:</p>
+          <ul class="ref">
+            <li>Homocysteine — target &lt;8 µmol/L (ideally &lt;7)</li>
+            <li>RBC folate (not serum) — better marker of tissue stores</li>
+            <li>Serum B12 + MMA (methylmalonic acid) if B12 is borderline</li>
+          </ul>
+          <p style="font-weight:700;margin:.8rem 0 .4rem">Celiac recovery:</p>
+          <ul class="ref">
+            <li>tTG-IgA — monitors gut healing (should normalise 12–18 mo strict GF)</li>
+            <li>Ferritin (not just hemoglobin)</li>
+            <li>25-OH Vitamin D</li>
+            <li>Zinc, RBC magnesium</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:.4rem">Kidney stone:</p>
+          <ul class="ref">
+            <li>24-hour urine collection (gold standard): oxalate, citrate, calcium, uric acid, volume, pH</li>
+            <li>Serum calcium + PTH — rule out hyperparathyroidism</li>
+            <li>Urinalysis with microscopy — monitor for crystals / infection</li>
+          </ul>
+          <p style="font-weight:700;margin:.8rem 0 .4rem">Klebsiella / gut:</p>
+          <ul class="ref">
+            <li>Comprehensive stool panel (GI Effects, Doctor's Data, or similar)</li>
+            <li>Urine culture if any UTI symptoms — Klebsiella requires targeted antibiotics</li>
+            <li>Consider urine oxalate in 24-hour panel to assess Oxalobacter gap</li>
+          </ul>
+          <p style="font-weight:700;margin:.8rem 0 .4rem">APOE4 / cognitive:</p>
+          <ul class="ref">
+            <li>Lipid panel with LDL particle size (NMR preferred for APOE4)</li>
+            <li>hsCRP (high-sensitivity C-reactive protein) — inflammation marker</li>
+            <li>APOE genotyping (if not already done — confirms e3/e4 vs e4/e4)</li>
+            <li>Baseline cognitive screening (MoCA) — establishes baseline now at 62</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Personal health reference for Tammy · Not medical advice · Always work with your healthcare team<br>
+  Built May 2026 · <a href="health-tracker.html" style="color:var(--green-mid)">Health Tracker</a> · <a href="weekly-meal-plan.html" style="color:var(--green-mid)">Meal Plan</a>
+</footer>
+
+<script>
+function toggle(id) {
+  const sec = document.getElementById(id);
+  sec.classList.toggle('collapsed');
+}
+</script>
+</body>
+</html>

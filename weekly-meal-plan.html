@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weekly Whole Foods Menu</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #2d6a4f;
+      --green-mid:    #40916c;
+      --green-light:  #d8f3dc;
+      --green-pale:   #f0faf2;
+      --salmon:       #e07a5f;
+      --beef:         #b5432a;
+      --poultry:      #e9a84c;
+      --rest:         #6b8cba;
+      --text:         #1e2d24;
+      --muted:        #5a7263;
+      --border:       #b7ddc4;
+      --card-shadow:  0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--green-pale);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--green-dark);
+      letter-spacing: -.5px;
+    }
+    header p.subtitle {
+      margin-top: .4rem;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    .nav-link {
+      display: inline-block;
+      margin-top: .9rem;
+      font-size: .82rem;
+      color: var(--green-mid);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: .25rem .85rem;
+    }
+    .nav-link:hover { background: var(--green-light); }
+    .header-leaf {
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: .4rem;
+    }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem .8rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Grid ── */
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* ── Day Card ── */
+    .day-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+    }
+
+    .day-header {
+      padding: 1rem 1.2rem .8rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+    .day-header .day-icon { font-size: 1.6rem; }
+    .day-header .day-info { flex: 1; }
+    .day-header .day-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .day-header .day-focus {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      opacity: .85;
+      margin-top: .1rem;
+    }
+
+    /* Focus colour themes */
+    .focus-beef   .day-header { background: #fdf0ed; color: var(--beef); }
+    .focus-beef   .day-header .day-focus { color: var(--beef); }
+    .focus-salmon .day-header { background: #fef4f1; color: var(--salmon); }
+    .focus-salmon .day-header .day-focus { color: var(--salmon); }
+    .focus-poultry .day-header { background: #fdf6ec; color: var(--poultry); }
+    .focus-poultry .day-header .day-focus { color: var(--poultry); }
+    .focus-rest   .day-header { background: #eef2f9; color: var(--rest); }
+    .focus-rest   .day-header .day-focus { color: var(--rest); }
+
+    /* ── Meals ── */
+    .meals { padding: .6rem .2rem .8rem; flex: 1; }
+
+    .meal {
+      display: flex;
+      gap: 0;
+      padding: .55rem 1.2rem;
+      border-bottom: 1px solid #f0f5f1;
+      align-items: flex-start;
+    }
+    .meal:last-child { border-bottom: none; }
+
+    .meal-label {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      min-width: 105px;
+      flex-shrink: 0;
+    }
+    .meal-label .meal-icon { font-size: 1.1rem; }
+    .meal-label span {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meal-desc {
+      font-size: .9rem;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .meal-desc .tag {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: .68rem;
+      font-weight: 600;
+      padding: .05rem .4rem;
+      border-radius: 20px;
+      margin-left: .3rem;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .meal { padding: .5rem .9rem; }
+      .meal-label { min-width: 90px; }
+    }
+
+    /* ── Calorie Bar ── */
+    .cal-bar {
+      margin: .5rem 1.2rem .9rem;
+      background: #f0faf2;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .55rem .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: .3rem;
+    }
+    .cal-total {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+    .cal-breakdown {
+      font-size: .75rem;
+      color: var(--muted);
+    }
+    .cal-note {
+      font-size: .72rem;
+      color: var(--muted);
+      font-style: italic;
+      width: 100%;
+      margin-top: .1rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="header-leaf">🌿</span>
+    <h1>Weekly Whole Foods Menu</h1>
+    <p class="subtitle">A balanced, low-oxalate, whole-food weekly meal plan</p>
+    <a class="nav-link" href="health-tracker.html">🩺 Health Tracker →</a>
+  <a class="nav-link" href="health-reference.html">📋 Reference</a>
+  </header>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--beef)"></span> Beef Focus</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--salmon)"></span> Salmon Focus</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--poultry)"></span> Poultry &amp; Ferments</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--rest)"></span> Rest &amp; Prep</div>
+    <div class="legend-item"><span style="font-size:.95rem;line-height:1">🥛</span> A2 Whole Milk (lunch &amp; dinner)</div>
+  </div>
+
+  <div class="week-grid">
+
+    <!-- ── MONDAY ── -->
+    <article class="day-card focus-beef">
+      <div class="day-header">
+        <span class="day-icon">🥩</span>
+        <div class="day-info">
+          <div class="day-name">Monday</div>
+          <div class="day-focus">Beef Focus</div>
+        </div>
+      </div>
+      <div class="meals">
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌅</span><span>Breakfast</span></div>
+          <div class="meal-desc">Two eggs with a side of homemade gluten-free sourdough <span class="tag">Eggs Sourdough</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">☀️</span><span>Lunch</span></div>
+          <div class="meal-desc">Sliced chicken breast over romaine lettuce with cucumbers and bell peppers</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌙</span><span>Dinner</span></div>
+          <div class="meal-desc">Lean beef steak with steamed broccoli and a slice of homemade GF sourdough <em>(millet · sorghum · tapioca — sourdough fermentation lowers GI vs plain bread)</em></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+      </div>
+      <div class="cal-bar">
+        <span class="cal-total">~385 kcal free choice</span>
+        <span class="cal-breakdown">Plan meals: ~1,215 kcal · Daily target: 1,600 kcal</span>
+        <span class="cal-note">Reserve ~185 for bedtime DP snack (essential) · ~200 kcal truly free</span>
+      </div>
+    </article>
+
+    <!-- ── TUESDAY ── -->
+    <article class="day-card focus-salmon">
+      <div class="day-header">
+        <span class="day-icon">🐟</span>
+        <div class="day-info">
+          <div class="day-name">Tuesday</div>
+          <div class="day-focus">Salmon Focus</div>
+        </div>
+      </div>
+      <div class="meals">
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌅</span><span>Breakfast</span></div>
+          <div class="meal-desc">Homemade yogurt <em>(calcium-rich)</em> topped with a small portion of blueberries</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">☀️</span><span>Lunch</span></div>
+          <div class="meal-desc">Chicken breast strips with zucchini slices and fresh guacamole <span class="tag">APOE4 ✓</span><br><small style="color:#b5432a;font-size:.78rem">⚠ Swapped from hummus — tahini is high oxalate</small></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌙</span><span>Dinner</span></div>
+          <div class="meal-desc">Baked salmon seasoned with lemon and dill, served with roasted cauliflower</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+      </div>
+      <div class="cal-bar">
+        <span class="cal-total">~535 kcal free choice</span>
+        <span class="cal-breakdown">Plan meals: ~1,065 kcal · Daily target: 1,600 kcal</span>
+        <span class="cal-note">Reserve ~185 for bedtime DP snack (essential) · ~350 kcal truly free</span>
+      </div>
+    </article>
+
+    <!-- ── WEDNESDAY ── -->
+    <article class="day-card focus-beef">
+      <div class="day-header">
+        <span class="day-icon">🥩</span>
+        <div class="day-info">
+          <div class="day-name">Wednesday</div>
+          <div class="day-focus">Beef Focus</div>
+        </div>
+      </div>
+      <div class="meals">
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌅</span><span>Breakfast</span></div>
+          <div class="meal-desc">Scrambled eggs with onions and bell peppers</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">☀️</span><span>Lunch</span></div>
+          <div class="meal-desc">Leftover chicken breast with homemade sauerkraut <span class="tag">Ferment 1.1.3</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌙</span><span>Dinner</span></div>
+          <div class="meal-desc">Beef roast with carrots and onions; paired with feta cheese to bind trace oxalates</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+      </div>
+      <div class="cal-bar">
+        <span class="cal-total">~500 kcal free choice</span>
+        <span class="cal-breakdown">Plan meals: ~1,100 kcal · Daily target: 1,600 kcal</span>
+        <span class="cal-note">Reserve ~185 for bedtime DP snack (essential) · ~315 kcal truly free</span>
+      </div>
+    </article>
+
+    <!-- ── THURSDAY ── -->
+    <article class="day-card focus-poultry">
+      <div class="day-header">
+        <span class="day-icon">🍗</span>
+        <div class="day-info">
+          <div class="day-name">Thursday</div>
+          <div class="day-focus">Poultry &amp; Ferments</div>
+        </div>
+      </div>
+      <div class="meals">
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌅</span><span>Breakfast</span></div>
+          <div class="meal-desc">Gluten-free sourdough toast topped with sliced hard-boiled eggs</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">☀️</span><span>Lunch</span></div>
+          <div class="meal-desc">Sardines on GF rice crackers with sliced avocado and cucumber <span class="tag">APOE4 ✓</span> <span class="tag">DHA</span><br><small style="color:#5a7263;font-size:.78rem">💡 Sardines = highest DHA per serving; avocado = brain-protective fat</small></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌙</span><span>Dinner</span></div>
+          <div class="meal-desc">Grilled chicken breast with kale <em>(low-oxalate, folate-rich — sauté with garlic &amp; EVOO)</em></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+      </div>
+      <div class="cal-bar">
+        <span class="cal-total">~445 kcal free choice</span>
+        <span class="cal-breakdown">Plan meals: ~1,155 kcal · Daily target: 1,600 kcal</span>
+        <span class="cal-note">Reserve ~185 for bedtime DP snack (essential) · ~260 kcal truly free</span>
+      </div>
+    </article>
+
+    <!-- ── FRIDAY ── -->
+    <article class="day-card focus-salmon">
+      <div class="day-header">
+        <span class="day-icon">🐟</span>
+        <div class="day-info">
+          <div class="day-name">Friday</div>
+          <div class="day-focus">Salmon Focus</div>
+        </div>
+      </div>
+      <div class="meals">
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌅</span><span>Breakfast</span></div>
+          <div class="meal-desc">Greek yogurt or homemade yogurt with 2 tbsp hemp seeds and blueberries <span class="tag">APOE4 ✓</span><br><small style="color:#b5432a;font-size:.78rem">⚠ Swapped chia (moderate oxalate) → hemp seeds (low oxalate, higher protein)</small></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">☀️</span><span>Lunch</span></div>
+          <div class="meal-desc">Chicken breast over rinsed quinoa with cucumber, bell pepper, and EVOO dressing <span class="tag">Rinse quinoa</span><br><small style="color:#b5432a;font-size:.78rem">⚠ Swapped tomatoes (moderate oxalate) → cucumber + bell pepper</small></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌙</span><span>Dinner</span></div>
+          <div class="meal-desc">Broiled salmon with steamed green beans and a slice of homemade GF sourdough</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+      </div>
+      <div class="cal-bar">
+        <span class="cal-total">~290 kcal free choice</span>
+        <span class="cal-breakdown">Plan meals: ~1,310 kcal · Daily target: 1,600 kcal</span>
+        <span class="cal-note">Reserve ~185 for bedtime DP snack (essential) · ~105 kcal truly free — plan a lighter free choice today</span>
+      </div>
+    </article>
+
+    <!-- ── SATURDAY ── -->
+    <article class="day-card focus-beef">
+      <div class="day-header">
+        <span class="day-icon">🥩</span>
+        <div class="day-info">
+          <div class="day-name">Saturday</div>
+          <div class="day-focus">Beef Focus</div>
+        </div>
+      </div>
+      <div class="meals">
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌅</span><span>Breakfast</span></div>
+          <div class="meal-desc">Poached eggs over a slice of gluten-free sourdough</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">☀️</span><span>Lunch</span></div>
+          <div class="meal-desc">Chicken breast "stir-fry" <em>(whole ingredients)</em> with cabbage and mushrooms</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌙</span><span>Dinner</span></div>
+          <div class="meal-desc">Sirloin steak with asparagus <em>(steamed or roasted — try each on consecutive weeks)</em> and a side of homemade fermented yogurt <em>(savory dip)</em></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+      </div>
+      <div class="cal-bar">
+        <span class="cal-total">~400 kcal free choice</span>
+        <span class="cal-breakdown">Plan meals: ~1,200 kcal · Daily target: 1,600 kcal</span>
+        <span class="cal-note">Reserve ~185 for bedtime DP snack (essential) · ~215 kcal truly free</span>
+      </div>
+    </article>
+
+    <!-- ── SUNDAY ── -->
+    <article class="day-card focus-rest">
+      <div class="day-header">
+        <span class="day-icon">🥗</span>
+        <div class="day-info">
+          <div class="day-name">Sunday</div>
+          <div class="day-focus">Rest &amp; Prep</div>
+        </div>
+      </div>
+      <div class="meals">
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌅</span><span>Breakfast</span></div>
+          <div class="meal-desc">Larger brunch: eggs, sliced chicken breast, and homemade kefir on the side</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">☀️</span><span>Lunch</span></div>
+          <div class="meal-desc">Light meal of chicken breast and fresh cucumber slices</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🌙</span><span>Dinner</span></div>
+          <div class="meal-desc">Mixed plate with small portions of leftover proteins and a large serving of steamed broccoli &amp; cauliflower</div>
+        </div>
+        <div class="meal">
+          <div class="meal-label"><span class="meal-icon">🥛</span><span>Drink</span></div>
+          <div class="meal-desc">A2 whole milk <span class="tag">Ca²⁺ binds oxalate</span></div>
+        </div>
+      </div>
+      <div class="cal-bar">
+        <span class="cal-total">~295 kcal free choice</span>
+        <span class="cal-breakdown">Plan meals: ~1,305 kcal · Daily target: 1,600 kcal</span>
+        <span class="cal-note">Reserve ~185 for bedtime DP snack (essential) · ~110 kcal truly free — plan a lighter free choice today</span>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ── DP DAILY HABITS ── -->
+  <div style="max-width:1280px;margin:2rem auto 0;background:#fff;border-radius:16px;border:1px solid #b7ddc4;box-shadow:0 2px 12px rgba(45,106,79,.12);overflow:hidden">
+    <div style="background:#d8f3dc;padding:.85rem 1.4rem;display:flex;align-items:center;gap:.6rem">
+      <span style="font-size:1.4rem">🌅</span>
+      <strong style="font-size:1.05rem;color:#2d6a4f">Daily Dawn Phenomenon Habits — Every Day</strong>
+    </div>
+    <div style="padding:1rem 1.4rem 1.2rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem">
+      <div style="background:#f0faf2;border-radius:10px;padding:.7rem 1rem;border:1px solid #b7ddc4">
+        <strong style="display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:#40916c;margin-bottom:.3rem">🌙 Bedtime Snack (every night)</strong>
+        <span style="font-size:.9rem"><strong>Best:</strong> Small bowl of Sugar Shift yogurt with 2 tbsp hemp seeds stirred in. Sugar Shift strains produce butyrate &amp; propionate overnight — SCFAs that signal the liver to reduce its 3–8 AM glucose dump. Hemp seeds add magnesium (sleep quality + insulin sensitivity) and complete protein (blunts the dump further). <strong>Backup if no yogurt:</strong> 1 oz macadamia nuts + 2 tbsp hemp seeds.</span>
+      </div>
+      <div style="background:#f0faf2;border-radius:10px;padding:.7rem 1rem;border:1px solid #b7ddc4">
+        <strong style="display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:#40916c;margin-bottom:.3rem">🥣 Before Dinner (every night)</strong>
+        <span style="font-size:.9rem">1 tbsp apple cider vinegar in a full glass of water before eating. Use a straw to protect tooth enamel. Reduces post-meal and next-morning fasting glucose.</span>
+      </div>
+      <div style="background:#f0faf2;border-radius:10px;padding:.7rem 1rem;border:1px solid #b7ddc4">
+        <strong style="display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:#40916c;margin-bottom:.3rem">🚶 After Dinner (every night)</strong>
+        <span style="font-size:.9rem">10-minute walk within 30 min of finishing dinner. Muscle uptake of glucose during this window is the single most effective way to lower next-morning fasting glucose.</span>
+      </div>
+      <div style="background:#f0faf2;border-radius:10px;padding:.7rem 1rem;border:1px solid #b7ddc4">
+        <strong style="display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:#40916c;margin-bottom:.3rem">🍋 Morning (every day)</strong>
+        <span style="font-size:.9rem">Half a lemon squeezed into water first thing. Citrate inhibits kidney stone crystal formation. Also helps alkalise urine gently.</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🌿 Whole foods · Low oxalate · Homemade ferments · Gluten-free sourdough</p>
+  </footer>
+
+</body>
+</html>

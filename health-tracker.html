@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #2d6a4f; --green-mid: #40916c; --green-light: #d8f3dc;
+      --green-pale:  #f0faf2; --border: #b7ddc4; --text: #1e2d24; --muted: #5a7263;
+      --card-shadow: 0 2px 14px rgba(45,106,79,.11);
+      --amber: #e9a84c; --sky: #4a90c4; --purple: #8b6abf; --red: #c0392b;
+    }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--green-pale); color:var(--text); line-height:1.6; padding:2rem 1rem 5rem; }
+    header { text-align:center; margin-bottom:2.2rem; }
+    header h1 { font-size:clamp(1.6rem,4vw,2.4rem); color:var(--green-dark); }
+    header p { color:var(--muted); font-size:.95rem; margin-top:.3rem; }
+    .nav-link { display:inline-block; margin-top:.9rem; font-size:.82rem; color:var(--green-mid); text-decoration:none; border:1px solid var(--border); border-radius:20px; padding:.25rem .85rem; }
+    .nav-link:hover { background:var(--green-light); }
+    .page { max-width:1160px; margin:0 auto; }
+    .card { background:#fff; border-radius:16px; border:1px solid var(--border); box-shadow:var(--card-shadow); padding:1.5rem 1.6rem; margin-bottom:1.6rem; }
+    .card h2 { font-size:1.05rem; color:var(--green-dark); margin-bottom:1.1rem; display:flex; align-items:center; gap:.5rem; }
+
+    /* ── Dawn Phenomenon Info Card ── */
+    .dp-info-card { background:linear-gradient(135deg,#fef9f0 0%,#f0faf6 100%); border:1px solid #f0d9a8; }
+    .dp-info-card h2 { color:#8b5e1a; }
+    .dp-info-body { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+    @media(max-width:680px){ .dp-info-body { grid-template-columns:1fr; } }
+    .dp-explainer { font-size:.88rem; color:#5a4020; line-height:1.7; }
+    .dp-explainer strong { color:#7a4010; }
+    .dp-explainer ul { margin:.5rem 0 0 1.1rem; }
+    .dp-explainer li { margin-bottom:.35rem; }
+    .dp-scale { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.85rem; font-size:.74rem; }
+    .dp-badge { padding:.2rem .55rem; border-radius:20px; font-weight:600; }
+    .dp-badge.good   { background:#e8f8ef; color:#1e8449; }
+    .dp-badge.normal { background:#eefaf5; color:#1a6b47; }
+    .dp-badge.mild   { background:#fef5e7; color:#9a6000; }
+    .dp-badge.high   { background:#fdf0ed; color:#a93226; }
+
+    /* Recovery timeline */
+    .recovery-timeline { padding-top:.3rem; }
+    .recovery-timeline h3 { font-size:.82rem; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin-bottom:.9rem; }
+    .timeline { position:relative; padding-left:1.4rem; }
+    .timeline::before { content:''; position:absolute; left:.42rem; top:.4rem; bottom:.4rem; width:2px; background:linear-gradient(to bottom,#e8c87a,#74c69d,#95d5b2,#aaa); border-radius:2px; }
+    .tl-item { position:relative; margin-bottom:.9rem; padding-left:.7rem; }
+    .tl-item::before { content:''; position:absolute; left:-1.05rem; top:.45rem; width:10px; height:10px; border-radius:50%; border:2px solid #fff; }
+    .tl-item.milestone-past::before  { background:#7fb77e; box-shadow:0 0 0 1.5px #7fb77e; }
+    .tl-item.milestone-soon::before  { background:var(--amber); box-shadow:0 0 0 1.5px var(--amber); }
+    .tl-item.milestone-open::before  { background:#ccc; box-shadow:0 0 0 1.5px #ccc; }
+    .tl-date  { font-size:.73rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.3px; }
+    .tl-label { font-size:.88rem; font-weight:600; color:var(--text); }
+    .tl-note  { font-size:.78rem; color:var(--muted); margin-top:.08rem; }
+
+    /* ── Form ── */
+    .form-section-label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--green-mid); margin:1rem 0 .5rem; border-bottom:1px solid var(--border); padding-bottom:.25rem; }
+    .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(165px,1fr)); gap:.8rem 1rem; }
+    .field { display:flex; flex-direction:column; gap:.25rem; }
+    .field label { font-size:.78rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; }
+    .field input { border:1px solid var(--border); border-radius:8px; padding:.45rem .7rem; font-size:.95rem; color:var(--text); background:#f9fdf9; outline:none; transition:border-color .2s; }
+    .field input:focus { border-color:var(--green-mid); background:#fff; }
+    .range-wrap { display:flex; align-items:center; gap:.5rem; }
+    .range-wrap input[type=range] { flex:1; accent-color:var(--green-mid); cursor:pointer; height:4px; }
+    .range-val { min-width:1.8rem; text-align:center; font-size:.9rem; font-weight:700; color:var(--green-dark); }
+    .range-hint { font-size:.7rem; color:var(--muted); margin-top:.1rem; display:flex; justify-content:space-between; }
+    .form-actions { margin-top:1rem; display:flex; gap:.7rem; flex-wrap:wrap; align-items:center; }
+    .btn { padding:.5rem 1.2rem; border:none; border-radius:8px; font-size:.9rem; font-weight:600; cursor:pointer; transition:opacity .15s; }
+    .btn:hover { opacity:.86; }
+    .btn-primary { background:var(--green-mid); color:#fff; }
+    .btn-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
+    .btn-danger     { background:#fdf0ed; color:var(--red); border:1px solid #f5c0b0; }
+    .btn-export     { background:#eef6fb; color:#1a5276; border:1px solid #aed6f1; }
+    .btn-import-wrap{ background:#f4f0fb; color:#4a235a; border:1px solid #c39bd3; }
+    #save-msg { font-size:.82rem; color:var(--green-mid); font-weight:600; opacity:0; transition:opacity .4s; }
+    #save-msg.show { opacity:1; }
+
+    /* ── Stats ── */
+    .stats-bar { display:grid; grid-template-columns:repeat(auto-fill,minmax(128px,1fr)); gap:.8rem; margin-bottom:1.6rem; }
+    .stat-box { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.9rem 1rem; text-align:center; box-shadow:var(--card-shadow); }
+    .stat-box .stat-val { font-size:1.35rem; font-weight:700; line-height:1.1; }
+    .stat-box .stat-label { font-size:.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin-top:.25rem; }
+    .stat-box .stat-trend { font-size:.72rem; margin-top:.15rem; }
+
+    /* ── Charts ── */
+    .charts-grid-2 { display:grid; grid-template-columns:1fr; gap:1.4rem; margin-bottom:1.6rem; }
+    .chart-wrap { position:relative; height:300px; }
+    .chart-wrap-tall { position:relative; height:320px; }
+    .ref-legend { display:flex; flex-wrap:wrap; gap:.4rem .9rem; margin-top:.6rem; font-size:.75rem; color:var(--muted); }
+    .ref-legend span { display:flex; align-items:center; gap:.3rem; }
+    .ref-dot { width:10px; height:3px; border-radius:2px; display:inline-block; }
+
+    /* ── Table ── */
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:.83rem; }
+    thead tr { background:var(--green-light); }
+    th,td { padding:.5rem .7rem; text-align:left; border-bottom:1px solid #eaf4ec; white-space:nowrap; }
+    th { font-size:.7rem; text-transform:uppercase; letter-spacing:.4px; color:var(--green-dark); font-weight:700; }
+    tbody tr:hover { background:#f5fbf6; }
+    .del-btn { background:none; border:none; cursor:pointer; color:#ccc; font-size:1rem; padding:0 .2rem; transition:color .15s; }
+    .del-btn:hover { color:var(--red); }
+    .empty-msg { text-align:center; color:var(--muted); padding:1.8rem; font-size:.9rem; }
+    .pips { display:flex; gap:2px; }
+    .pip { width:7px; height:7px; border-radius:50%; background:#ddd; }
+    .pip.on { background:var(--sky); }
+    .stress-pill { display:inline-block; padding:.05rem .4rem; border-radius:10px; font-size:.78rem; font-weight:600; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>🩺 Health Tracker</h1>
+  <p>Weight · Glucose · Dawn Phenomenon · Sleep · Stress Recovery</p>
+  <a class="nav-link" href="weekly-meal-plan.html">← Weekly Meal Plan</a>
+  <a class="nav-link" href="health-reference.html">📋 Reference</a>
+</header>
+
+<!-- Dawn Phenomenon Info Card -->
+<div class="card dp-info-card">
+  <h2>🌅 Understanding Your Dawn Phenomenon &amp; Stress Recovery</h2>
+  <div class="dp-info-body">
+    <div class="dp-explainer">
+      <p><strong>What is Dawn Phenomenon?</strong> Each morning around 4–8 AM, your body releases a surge of cortisol and stress hormones to prepare you for the day. This signals the liver to release glucose — causing fasting blood sugar to be measurably higher than the evening before.</p>
+      <ul>
+        <li>Under <strong>chronic stress</strong>, cortisol stays elevated day and night. The morning surge is amplified, pushing fasting glucose far above your pre-bed reading.</li>
+        <li>This tracker calculates your <strong>DP Delta</strong> — today's fasting glucose minus yesterday's evening glucose. A healthy delta is roughly <em>0–15 mg/dL</em>.</li>
+        <li>As <strong>cortisol normalizes</strong> over weeks/months after major stressors resolve, the delta should gradually shrink — often before weight changes appear.</li>
+        <li>Watching sleep quality improve alongside a falling DP delta is a direct window into your nervous system recalibrating.</li>
+      </ul>
+      <div class="dp-scale">
+        <span class="dp-badge good">≤ 10 &nbsp;Excellent</span>
+        <span class="dp-badge normal">11–20 &nbsp;Normal</span>
+        <span class="dp-badge mild">21–35 &nbsp;Elevated</span>
+        <span class="dp-badge high">&gt; 35 &nbsp;High</span>
+      </div>
+    </div>
+    <div class="recovery-timeline">
+      <h3>Your Recovery Journey</h3>
+      <div class="timeline">
+        <div class="tl-item milestone-past">
+          <div class="tl-date">2024 – Early 2026</div>
+          <div class="tl-label">Peak chronic stress period 🌊</div>
+          <div class="tl-note">Full-time work + caregiving for Mom through dementia with violent behaviors</div>
+        </div>
+        <div class="tl-item milestone-past">
+          <div class="tl-date">Mid-March 2026</div>
+          <div class="tl-label">Mom at peace 🕊️</div>
+          <div class="tl-note">A profound loss — and the beginning of release from acute caregiving stress</div>
+        </div>
+        <div class="tl-item milestone-soon">
+          <div class="tl-date">Late May 2026</div>
+          <div class="tl-label">Last day of work 🎉</div>
+          <div class="tl-note">Second major stressor resolves — cortisol recovery can begin in earnest</div>
+        </div>
+        <div class="tl-item milestone-open">
+          <div class="tl-date">Weeks → Months ahead</div>
+          <div class="tl-label">Cortisol recalibration</div>
+          <div class="tl-note">Watch for: deeper sleep → lower DP delta → lower fasting glucose → weight shift</div>
+        </div>
+        <div class="tl-item milestone-open">
+          <div class="tl-date">The longer horizon</div>
+          <div class="tl-label">Returning to baseline health ✨</div>
+          <div class="tl-note">The body is remarkably resilient — this tracker helps you witness the recalibration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Entry Form -->
+<div class="card">
+  <h2>📋 Log an Entry</h2>
+  <div class="form-section-label">📅 Date &amp; Body</div>
+  <div class="form-grid">
+    <div class="field"><label>Date</label><input type="date" id="f-date" /></div>
+    <div class="field"><label>Weight (lbs)</label><input type="number" id="f-weight" step="0.1" min="0" placeholder="e.g. 148.5" /></div>
+    <div class="field"><label>Bedtime</label><input type="time" id="f-bedtime" /></div>
+    <div class="field"><label>Sleep Hours</label><input type="number" id="f-sleep-hrs" step="0.5" min="0" max="14" placeholder="e.g. 7.5" /></div>
+  </div>
+  <div class="form-section-label">🩸 Glucose (mg/dL)</div>
+  <div class="form-grid">
+    <div class="field"><label>Fasting (morning)</label><input type="number" id="f-g-fast" step="1" min="0" placeholder="e.g. 95" /></div>
+    <div class="field"><label>Midday</label><input type="number" id="f-g-mid" step="1" min="0" placeholder="e.g. 110" /></div>
+    <div class="field"><label>Evening (pre-bed)</label><input type="number" id="f-g-eve" step="1" min="0" placeholder="e.g. 100" /></div>
+  </div>
+  <div class="form-section-label">🧠 Stress &amp; Wellbeing</div>
+  <div class="form-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem 1.4rem;">
+    <div class="field">
+      <label>Sleep Quality (1–5)</label>
+      <div class="range-wrap">
+        <input type="range" id="f-sleep-q" min="1" max="5" step="1" value="3" oninput="document.getElementById('sq-val').textContent=this.value" />
+        <span class="range-val" id="sq-val">3</span>
+      </div>
+      <div class="range-hint"><span>😩 Poor</span><span>😴 OK</span><span>🌟 Great</span></div>
+    </div>
+    <div class="field">
+      <label>Morning Stress Feel (1–10)</label>
+      <div class="range-wrap">
+        <input type="range" id="f-stress" min="1" max="10" step="1" value="5" oninput="document.getElementById('stress-val').textContent=this.value;updateStressColor(this.value)" />
+        <span class="range-val" id="stress-val">5</span>
+      </div>
+      <div class="range-hint"><span>😌 Calm</span><span>😰 Wired</span></div>
+    </div>
+    <div class="field">
+      <label>Overall Mood (1–5)</label>
+      <div class="range-wrap">
+        <input type="range" id="f-mood" min="1" max="5" step="1" value="3" oninput="document.getElementById('mood-val').textContent=this.value" />
+        <span class="range-val" id="mood-val">3</span>
+      </div>
+      <div class="range-hint"><span>😔</span><span>😐</span><span>😊</span></div>
+    </div>
+    <div class="field" style="align-self:center;">
+      <label>Notes</label>
+      <input type="text" id="f-notes" placeholder="Optional note…" />
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-primary" onclick="saveEntry()">Save Entry</button>
+    <button class="btn btn-outline" onclick="clearForm()">Clear</button>
+    <span id="save-msg">✓ Saved!</span>
+    <div style="margin-left:auto;display:flex;gap:.7rem;flex-wrap:wrap;">
+      <button class="btn btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn btn-import-wrap" onclick="document.getElementById('csv-import').click()">⬆ Import CSV</button>
+      <input type="file" id="csv-import" accept=".csv" style="display:none" onchange="importCSV(this)" />
+      <button class="btn btn-danger" onclick="confirmClearAll()">Clear All Data</button>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-bar" id="stats-bar"></div>
+
+<!-- Charts row 1 -->
+<div class="charts-grid-2">
+  <div class="card">
+    <h2>⚖️ Weight Over Time</h2>
+    <div class="chart-wrap"><canvas id="chart-weight"></canvas></div>
+  </div>
+  <div class="card">
+    <h2>🩸 Glucose Over Time</h2>
+    <div class="chart-wrap"><canvas id="chart-glucose"></canvas></div>
+    <div class="ref-legend">
+      <span><span class="ref-dot" style="background:#27ae60"></span> Normal &lt;100</span>
+      <span><span class="ref-dot" style="background:#f39c12"></span> Pre-diabetic 100–125</span>
+      <span><span class="ref-dot" style="background:#e74c3c"></span> High ≥126</span>
+    </div>
+  </div>
+</div>
+
+<!-- Charts row 2 -->
+<div class="charts-grid-2">
+  <div class="card">
+    <h2>🌅 Dawn Phenomenon Delta <span style="font-size:.75rem;font-weight:400;color:var(--muted)">(Fasting − Previous Evening)</span></h2>
+    <div class="chart-wrap-tall"><canvas id="chart-dp"></canvas></div>
+    <div class="ref-legend">
+      <span><span class="ref-dot" style="background:#27ae60"></span> ≤10 Excellent</span>
+      <span><span class="ref-dot" style="background:#52b788"></span> 11–20 Normal</span>
+      <span><span class="ref-dot" style="background:#f39c12"></span> 21–35 Elevated</span>
+      <span><span class="ref-dot" style="background:#e74c3c"></span> &gt;35 High</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🧠 Stress &amp; Sleep Quality</h2>
+    <div class="chart-wrap-tall"><canvas id="chart-stress"></canvas></div>
+    <div class="ref-legend">
+      <span><span class="ref-dot" style="background:#e07a5f"></span> Stress (1–10, left)</span>
+      <span><span class="ref-dot" style="background:#4a90c4"></span> Sleep Quality (1–5, right)</span>
+      <span><span class="ref-dot" style="background:#8b6abf"></span> Mood (1–5, right)</span>
+    </div>
+  </div>
+</div>
+
+<!-- Log Table -->
+<div class="card">
+  <h2>📅 Entry Log</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th><th>Weight</th><th>Fasting</th><th>Midday</th><th>Evening</th>
+          <th>DP Δ</th><th>Sleep hrs</th><th>Sleep Q</th><th>Stress</th><th>Mood</th><th>Notes</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="log-body"></tbody>
+    </table>
+    <p class="empty-msg" id="empty-msg">No entries yet — log your first reading above.</p>
+  </div>
+</div>
+
+</div><!-- /page -->
+<script>
+const STORE_KEY = 'tammys_health_log';
+function loadEntries(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||[]; }catch{ return []; } }
+function saveEntries(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr)); }
+
+function todayISO(){ return new Date().toLocaleDateString('en-CA'); }
+document.getElementById('f-date').value = todayISO();
+document.getElementById('f-date').addEventListener('change', function(){ loadEntryIntoForm(this.value); });
+window.addEventListener('load', function(){ loadEntryIntoForm(todayISO()); });
+
+function updateStressColor(val){
+  const el=document.getElementById('stress-val');
+  const v=parseInt(val);
+  el.style.color = v<=3?'#27ae60':v<=6?'#e67e22':'#e74c3c';
+}
+updateStressColor(5);
+
+function clearForm(){
+  document.getElementById('f-date').value='';
+  document.getElementById('f-date').value=todayISO();
+  ['f-weight','f-bedtime','f-sleep-hrs','f-g-fast','f-g-mid','f-g-eve','f-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-sleep-q').value='3'; document.getElementById('sq-val').textContent='3';
+  document.getElementById('f-stress').value='5';  document.getElementById('stress-val').textContent='5';
+  document.getElementById('f-mood').value='3';    document.getElementById('mood-val').textContent='3';
+  updateStressColor(5);
+}
+
+function loadEntryIntoForm(date){
+  const entries = loadEntries();
+  const e = entries.find(en=>en.date===date);
+  if(!e) return;
+  if(e.weight)   document.getElementById('f-weight').value=e.weight;
+  if(e.bedtime)  document.getElementById('f-bedtime').value=e.bedtime;
+  if(e.sleepHrs) document.getElementById('f-sleep-hrs').value=e.sleepHrs;
+  if(e.gFast)    document.getElementById('f-g-fast').value=e.gFast;
+  if(e.gMid)     document.getElementById('f-g-mid').value=e.gMid;
+  if(e.gEve)     document.getElementById('f-g-eve').value=e.gEve;
+  if(e.sleepQ){  document.getElementById('f-sleep-q').value=e.sleepQ; document.getElementById('sq-val').textContent=e.sleepQ; }
+  if(e.stress){  document.getElementById('f-stress').value=e.stress;  document.getElementById('stress-val').textContent=e.stress; updateStressColor(e.stress); }
+  if(e.mood){    document.getElementById('f-mood').value=e.mood;       document.getElementById('mood-val').textContent=e.mood; }
+  if(e.notes)    document.getElementById('f-notes').value=e.notes;
+}
+
+function saveEntry(){
+  const date    = document.getElementById('f-date').value;
+  const weight  = parseFloat(document.getElementById('f-weight').value)||null;
+  const bedtime = document.getElementById('f-bedtime').value||null;
+  const sleepHrs= parseFloat(document.getElementById('f-sleep-hrs').value)||null;
+  const gFast   = parseFloat(document.getElementById('f-g-fast').value)||null;
+  const gMid    = parseFloat(document.getElementById('f-g-mid').value)||null;
+  const gEve    = parseFloat(document.getElementById('f-g-eve').value)||null;
+  const sleepQ  = parseInt(document.getElementById('f-sleep-q').value)||null;
+  const stress  = parseInt(document.getElementById('f-stress').value)||null;
+  const mood    = parseInt(document.getElementById('f-mood').value)||null;
+  const notes   = document.getElementById('f-notes').value.trim();
+  if(!date){ alert('Please pick a date.'); return; }
+  if(weight===null&&gFast===null&&gMid===null&&gEve===null){ alert('Enter at least one reading before saving.'); return; }
+  const entries=loadEntries();
+  const idx=entries.findIndex(e=>e.date===date);
+  const entry={date,weight,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,notes};
+  if(idx>=0) entries[idx]=entry; else entries.push(entry);
+  entries.sort((a,b)=>a.date.localeCompare(b.date));
+  saveEntries(entries);
+  const msg=document.getElementById('save-msg');
+  msg.classList.add('show'); setTimeout(()=>msg.classList.remove('show'),2200);
+  render();
+}
+
+function deleteEntry(date){
+  if(!confirm(`Delete entry for ${formatDate(date)}?`)) return;
+  saveEntries(loadEntries().filter(e=>e.date!==date)); render();
+}
+function confirmClearAll(){
+  if(!confirm('Delete ALL health entries? This cannot be undone.')) return;
+  localStorage.removeItem(STORE_KEY); render();
+}
+
+function formatDate(iso){
+  const[y,m,d]=iso.split('-');
+  return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+function avg(arr){ const v=arr.filter(x=>x!==null&&x!==undefined); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; }
+function fmt(val,dec=1){ return(val!==null&&val!==undefined)?(+val).toFixed(dec):'—'; }
+function glucoseColor(v){ if(v===null)return''; if(v<100)return'color:#27ae60'; if(v<126)return'color:#e67e22'; return'color:#e74c3c'; }
+function dpColor(v){ if(v===null||v===undefined)return'color:#aaa'; if(v<=10)return'color:#27ae60'; if(v<=20)return'color:#52b788'; if(v<=35)return'color:#e67e22'; return'color:#e74c3c'; }
+function stressColor(v){ if(!v)return'#aaa'; if(v<=3)return'#27ae60'; if(v<=6)return'#e67e22'; return'#e74c3c'; }
+function trendArrow(vals){
+  const v=vals.filter(x=>x!==null&&x!==undefined);
+  if(v.length<4)return'';
+  const half=Math.floor(v.length/2);
+  const diff=avg(v.slice(-half))-avg(v.slice(0,half));
+  if(Math.abs(diff)<0.5)return' →';
+  return diff<0?' ↓':' ↑';
+}
+function sleepPips(q){
+  if(!q)return'—';
+  let h='<div class="pips">';
+  for(let i=1;i<=5;i++) h+=`<div class="pip${i<=q?' on':''}"></div>`;
+  return h+'</div>';
+}
+function stressPill(v){
+  if(!v)return'—';
+  const c=v<=3?'#e8f8ef;color:#1e8449':v<=6?'#fef5e7;color:#9a6000':'#fdf0ed;color:#a93226';
+  return`<span class="stress-pill" style="background:${c}">${v}/10</span>`;
+}
+
+function computeDPDeltas(entries){
+  return entries.map((e,i)=>{
+    if(e.gFast===null)return null;
+    const prev=i>0?entries[i-1]:null;
+    if(prev&&prev.gEve!==null)return e.gFast-prev.gEve;
+    if(e.gEve!==null)return e.gFast-e.gEve;
+    return null;
+  });
+}
+
+let chartWeight=null,chartGlucose=null,chartDP=null,chartStress=null;
+
+function buildCharts(entries){
+  const labels=entries.map(e=>formatDate(e.date));
+  const baseOpts={
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:11},boxWidth:12}}},
+    scales:{
+      x:{ticks:{font:{size:10},maxRotation:45},grid:{color:'#eaf4ec'}},
+      y:{ticks:{font:{size:10}},grid:{color:'#eaf4ec'}}
+    }
+  };
+
+  if(chartWeight)chartWeight.destroy();
+  chartWeight=new Chart(document.getElementById('chart-weight'),{
+    type:'line',
+    data:{labels,datasets:[{label:'Weight (lbs)',data:entries.map(e=>e.weight),borderColor:'#40916c',backgroundColor:'rgba(64,145,108,.12)',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#40916c',tension:.35,spanGaps:true}]},
+    options:{...baseOpts}
+  });
+
+  if(chartGlucose)chartGlucose.destroy();
+  chartGlucose=new Chart(document.getElementById('chart-glucose'),{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Fasting', data:entries.map(e=>e.gFast), borderColor:'#4a90c4',backgroundColor:'rgba(74,144,196,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#4a90c4',tension:.35,spanGaps:true},
+      {label:'Midday',  data:entries.map(e=>e.gMid),  borderColor:'#e9a84c',backgroundColor:'rgba(233,168,76,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#e9a84c',tension:.35,spanGaps:true},
+      {label:'Evening', data:entries.map(e=>e.gEve),  borderColor:'#8b6abf',backgroundColor:'rgba(139,106,191,.1)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#8b6abf',tension:.35,spanGaps:true}
+    ]},
+    options:{...baseOpts}
+  });
+
+  const dpDeltas=computeDPDeltas(entries);
+  const dpColors=dpDeltas.map(v=>v===null?'rgba(200,200,200,.4)':v<=10?'rgba(39,174,96,.75)':v<=20?'rgba(82,183,136,.75)':v<=35?'rgba(230,126,34,.75)':'rgba(231,76,60,.75)');
+  if(chartDP)chartDP.destroy();
+  chartDP=new Chart(document.getElementById('chart-dp'),{
+    type:'bar',
+    data:{labels,datasets:[{label:'DP Delta (mg/dL)',data:dpDeltas,backgroundColor:dpColors,borderColor:dpColors,borderWidth:1,borderRadius:4}]},
+    options:{
+      ...baseOpts,
+      plugins:{...baseOpts.plugins,tooltip:{callbacks:{label:ctx=>{const v=ctx.raw;if(v===null)return'No data';const g=v<=10?'Excellent':v<=20?'Normal':v<=35?'Elevated':'High';return` ${v>=0?'+':''}${v} mg/dL — ${g}`;  }}}},
+      scales:{
+        x:{...baseOpts.scales.x},
+        y:{...baseOpts.scales.y,title:{display:true,text:'Fasting − Prev. Evening (mg/dL)',font:{size:10},color:'#5a7263'}}
+      }
+    }
+  });
+
+  if(chartStress)chartStress.destroy();
+  chartStress=new Chart(document.getElementById('chart-stress'),{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Stress (1–10)', data:entries.map(e=>e.stress), borderColor:'#e07a5f',backgroundColor:'rgba(224,122,95,.1)', borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#e07a5f',tension:.35,spanGaps:true,yAxisID:'y'},
+      {label:'Sleep Q (1–5)', data:entries.map(e=>e.sleepQ), borderColor:'#4a90c4',backgroundColor:'rgba(74,144,196,.1)',  borderWidth:2,  pointRadius:4,pointBackgroundColor:'#4a90c4',tension:.35,spanGaps:true,yAxisID:'y2'},
+      {label:'Mood (1–5)',    data:entries.map(e=>e.mood),   borderColor:'#8b6abf',backgroundColor:'rgba(139,106,191,.1)',borderWidth:2,  pointRadius:3,pointBackgroundColor:'#8b6abf',tension:.35,spanGaps:true,yAxisID:'y2'}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{size:11},boxWidth:12}}},
+      scales:{
+        x:{ticks:{font:{size:10},maxRotation:45},grid:{color:'#eaf4ec'}},
+        y: {type:'linear',position:'left', min:1,max:10,ticks:{font:{size:10},stepSize:2},grid:{color:'#eaf4ec'},title:{display:true,text:'Stress',font:{size:10},color:'#e07a5f'}},
+        y2:{type:'linear',position:'right',min:1,max:5, ticks:{font:{size:10},stepSize:1},grid:{drawOnChartArea:false},title:{display:true,text:'Sleep Q / Mood',font:{size:10},color:'#4a90c4'}}
+      }
+    }
+  });
+}
+
+function buildStats(entries){
+  const bar=document.getElementById('stats-bar');
+  if(!entries.length){bar.innerHTML='';return;}
+  const weights =entries.map(e=>e.weight).filter(Boolean);
+  const fasts   =entries.map(e=>e.gFast).filter(Boolean);
+  const stresses=entries.map(e=>e.stress).filter(Boolean);
+  const sleeps  =entries.map(e=>e.sleepHrs).filter(Boolean);
+  const deltas  =computeDPDeltas(entries).filter(v=>v!==null);
+  const weightDelta=weights.length>=2?weights[weights.length-1]-weights[0]:null;
+  const avgDP=avg(deltas);
+  const recentDP=avg(deltas.slice(-7));
+
+  const stats=[
+    {val:weights.length?fmt(weights[weights.length-1])+' lbs':'—',label:'Latest Weight',color:'#40916c',trend:''},
+    {val:weightDelta!==null?(weightDelta>0?'+':'')+fmt(weightDelta)+' lbs':'—',label:'Weight Change',color:weightDelta===null?'#aaa':weightDelta<=0?'#27ae60':'#e74c3c',trend:''},
+    {val:fasts.length?fmt(avg(fasts),0):'—',label:'Avg Fasting',color:fasts.length?(avg(fasts)<100?'#27ae60':avg(fasts)<126?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(fasts)},
+    {val:avgDP!==null?(avgDP>=0?'+':'')+fmt(avgDP,0)+' mg/dL':'—',label:'Avg DP Delta',color:avgDP===null?'#aaa':avgDP<=10?'#27ae60':avgDP<=20?'#52b788':avgDP<=35?'#e67e22':'#e74c3c',trend:trendArrow(deltas)},
+    {val:recentDP!==null?(recentDP>=0?'+':'')+fmt(recentDP,0):'—',label:'DP Delta 7d',color:recentDP===null?'#aaa':recentDP<=10?'#27ae60':recentDP<=20?'#52b788':recentDP<=35?'#e67e22':'#e74c3c',trend:''},
+    {val:stresses.length?fmt(avg(stresses),1):'—',label:'Avg Stress',color:stressColor(avg(stresses)),trend:trendArrow(stresses)},
+    {val:sleeps.length?fmt(avg(sleeps),1)+'h':'—',label:'Avg Sleep',color:sleeps.length?(avg(sleeps)>=7?'#27ae60':avg(sleeps)>=6?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(sleeps)},
+    {val:entries.length,label:'Days Logged',color:'#40916c',trend:''}
+  ];
+  bar.innerHTML=stats.map(s=>`<div class="stat-box"><div class="stat-val" style="color:${s.color}">${s.val}</div><div class="stat-label">${s.label}</div>${s.trend?`<div class="stat-trend" style="color:${s.color}">${s.trend}</div>`:''}</div>`).join('');
+}
+
+function buildTable(entries){
+  const tbody=document.getElementById('log-body');
+  const emptyMsg=document.getElementById('empty-msg');
+  if(!entries.length){tbody.innerHTML='';emptyMsg.style.display='block';return;}
+  emptyMsg.style.display='none';
+  const deltas=computeDPDeltas(entries);
+  tbody.innerHTML=[...entries].map((e,i)=>({e,dp:deltas[i]})).reverse().map(({e,dp})=>`
+    <tr>
+      <td>${formatDate(e.date)}</td>
+      <td>${e.weight?fmt(e.weight)+' lbs':'—'}</td>
+      <td style="${glucoseColor(e.gFast)}">${fmt(e.gFast,0)}</td>
+      <td style="${glucoseColor(e.gMid)}">${fmt(e.gMid,0)}</td>
+      <td style="${glucoseColor(e.gEve)}">${fmt(e.gEve,0)}</td>
+      <td style="${dpColor(dp)};font-weight:600">${dp!==null?(dp>=0?'+':'')+dp:'—'}</td>
+      <td>${e.sleepHrs?fmt(e.sleepHrs)+'h':'—'}</td>
+      <td>${sleepPips(e.sleepQ)}</td>
+      <td>${stressPill(e.stress)}</td>
+      <td style="color:var(--purple);font-weight:600">${e.mood?e.mood+'/5':'—'}</td>
+      <td style="color:var(--muted);font-size:.8rem;max-width:160px;white-space:normal">${e.notes||''}</td>
+      <td><button class="del-btn" onclick="deleteEntry('${e.date}')" title="Delete">✕</button></td>
+    </tr>`).join('');
+}
+
+function exportCSV(){
+  const entries=loadEntries();
+  if(!entries.length){ alert('No entries to export yet.'); return; }
+  const headers=['Date','Weight (lbs)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Notes'];
+  const rows=entries.map(e=>[
+    e.date,
+    e.weight??'',
+    e.bedtime??'',
+    e.sleepHrs??'',
+    e.gFast??'',
+    e.gMid??'',
+    e.gEve??'',
+    e.sleepQ??'',
+    e.stress??'',
+    e.mood??'',
+    (e.notes||'').replace(/"/g,'""')
+  ].map((v,i)=>i===10?`"${v}"`:v).join(','));
+  const csv=[headers.join(','),...rows].join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  const d=new Date().toLocaleDateString('en-CA');
+  a.download=`health-log-${d}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importCSV(input){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const lines=e.target.result.split('\n').map(l=>l.trim()).filter(Boolean);
+    if(lines.length<2){ alert('CSV appears empty or invalid.'); return; }
+    const imported=[];
+    for(let i=1;i<lines.length;i++){
+      // Split on commas, but respect quoted fields
+      const cols=[];
+      let cur='', inQ=false;
+      for(const ch of lines[i]){
+        if(ch==='"'){ inQ=!inQ; }
+        else if(ch===','&&!inQ){ cols.push(cur); cur=''; }
+        else { cur+=ch; }
+      }
+      cols.push(cur);
+      const clean=v=>(v===undefined||v.trim()==='')?null:v.trim().replace(/""/g,'"');
+      const num=v=>{ const n=parseFloat(v); return isNaN(n)?null:n; };
+      const int=v=>{ const n=parseInt(v); return isNaN(n)?null:n; };
+      const date=clean(cols[0]);
+      if(!date||!/^\d{4}-\d{2}-\d{2}$/.test(date))continue;
+      imported.push({
+        date,
+        weight:  num(clean(cols[1])),
+        bedtime: clean(cols[2]),
+        sleepHrs:num(clean(cols[3])),
+        gFast:   num(clean(cols[4])),
+        gMid:    num(clean(cols[5])),
+        gEve:    num(clean(cols[6])),
+        sleepQ:  int(clean(cols[7])),
+        stress:  int(clean(cols[8])),
+        mood:    int(clean(cols[9])),
+        notes:   clean(cols[10])??''
+      });
+    }
+    if(!imported.length){ alert('No valid rows found in CSV.'); return; }
+    const existing=loadEntries();
+    const merged=[...existing];
+    let added=0, updated=0;
+    imported.forEach(row=>{
+      const idx=merged.findIndex(e=>e.date===row.date);
+      if(idx>=0){ merged[idx]=row; updated++; }
+      else{ merged.push(row); added++; }
+    });
+    merged.sort((a,b)=>a.date.localeCompare(b.date));
+    saveEntries(merged);
+    alert(`Import complete: ${added} new row(s) added, ${updated} row(s) updated.`);
+    render();
+  };
+  reader.readAsText(file);
+  input.value='';
+}
+
+function render(){
+  const entries=loadEntries();
+  buildStats(entries);
+  buildCharts(entries);
+  buildTable(entries);
+}
+
+/* Demo data — a 60-day arc starting just after Mom's passing,
+   showing stress gradually falling after the last work day (~day 44).
+   Remove the seedDemoData() call below for a clean start. */
+function seedDemoData(){
+  if(loadEntries().length>0)return;
+  const base=new Date('2026-03-17');
+  const demo=[];
+  for(let i=0;i<60;i++){
+    const d=new Date(base); d.setDate(d.getDate()+i);
+    const phase=i<44?0:Math.min(1,(i-44)/16);
+    const n=()=>(Math.random()-.5);
+    const stressBase=8-phase*4;
+    const fastBase=119-phase*16;
+    const eveBase=99-phase*6;
+    demo.push({
+      date:d.toLocaleDateString('en-CA'),
+      weight:+(158-i*0.04+n()*0.7).toFixed(1),
+      bedtime:null,
+      sleepHrs:+(5.5+phase*2+n()*0.8).toFixed(1),
+      gFast:Math.max(70,Math.round(fastBase+n()*9)),
+      gMid: Math.max(80,Math.round(fastBase+12+n()*12)),
+      gEve: Math.max(70,Math.round(eveBase+n()*8)),
+      sleepQ:Math.max(1,Math.min(5,Math.round(2+phase*2+n()))),
+      stress:Math.max(1,Math.min(10,Math.round(stressBase+n()*1.5))),
+      mood:  Math.max(1,Math.min(5,Math.round(2+phase*2+n()))),
+      notes: i===0?'A few days after Mom\'s passing':i===44?'Last day of work 🎉':''
+    });
+  }
+  saveEntries(demo);
+}
+seedDemoData();
+render();
+</script>
+</body>
+</html>

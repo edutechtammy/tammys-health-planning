@@ -1,0 +1,30 @@
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*.orig
+*.tmp
+*~
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (if tooling ever added)
+node_modules/
+npm-debug.log*
+
+# Local environment
+.env
+.env.local
