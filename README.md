@@ -2,8 +2,8 @@
 
 A personal health reference and meal planning tool built around genetic and autoimmune conditions shared in our family. Shared here so adult children can access the same information, ask their doctors the right questions, and make informed choices early.
 
-**Live site:** [View on GitHub Pages](https://YOUR-USERNAME.github.io/tammys-health-planning/)
-*(Update this link after enabling GitHub Pages — see setup instructions below)*
+**Live site:** [View on GitHub Pages](https://edutechtammy.github.io/tammys-health-planning/)
+*(Enable GitHub Pages: repo Settings → Pages → Source: main branch → Save)*
 
 ---
 
