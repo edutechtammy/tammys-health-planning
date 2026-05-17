@@ -187,6 +187,7 @@
             <li>hsCRP (high-sensitivity C-reactive protein) — inflammation marker</li>
             <li>APOE genotyping (if not already done — confirms e3/e4 vs e4/e4)</li>
             <li>Baseline cognitive screening (MoCA) — establishes baseline now at 62</li>
+            <li>⭐ pTau217 / β-Amyloid 1-42 Plasma Ratio (Lumipulse G) — <strong>research study, blood draw May 19</strong> — detects amyloid plaque accumulation via blood draw (~95% concordant with PET scan); critical early marker for APOE4 carriers</li>
           </ul>
         </div>
       </div>
@@ -335,6 +336,9 @@ const TESTS = [
   { id:'moca',            name:'MoCA Cognitive Score', cat:'APOE4 / Cognitive', unit:'/30',
     target:'26–30 normal · 18–25 mild impairment · <18 moderate — establishes baseline now at 62',
     status: v => +v >= 26 ? 'green' : +v >= 18 ? 'yellow' : 'red' },
+  { id:'ptau217-abeta',   name:'pTau217 / β-Amyloid 1-42 Ratio (Lumipulse G)', cat:'APOE4 / Cognitive', unit:'ratio',
+    target:'Enter result as: negative · gray-zone · positive — Negative = no significant amyloid accumulation detected (reassuring, especially with APOE4). Gray-zone = intermediate, repeat testing recommended. Positive = amyloid accumulation consistent with pre-clinical AD pathology. Important: "Positive" does NOT mean Alzheimer\'s — it means the biological process that precedes it is detectable, often 10–20 years before symptoms. With APOE4, you may accumulate amyloid earlier than non-carriers, so a negative result at 62 is genuinely meaningful. Research study result — ~95% concordant with PET scan. Enter the qualitative result (negative/gray-zone/positive) and any ratio value provided in notes.',
+    status: v => v.toLowerCase().includes('negative') ? 'green' : v.toLowerCase().includes('gray') ? 'yellow' : v.toLowerCase().includes('positive') ? 'red' : 'neutral' },
 
   // Klebsiella / Gut
   { id:'stool-panel',     name:'Comprehensive Stool Panel', cat:'Klebsiella / Gut', unit:'notes',
