@@ -259,7 +259,7 @@ const TESTS = [
     target:'<100 mg/dL optimal · 100–149 acceptable · ≥150 elevated',
     status: v => +v < 100 ? 'green' : +v < 150 ? 'yellow' : 'red' },
   { id:'hdl',             name:'HDL Cholesterol',      cat:'Metabolic & Pre-diabetes', unit:'mg/dL',
-    target:'>65 mg/dL optimal · 50–65 acceptable · <50 low',
+    target:'>65 mg/dL optimal · 50–65 acceptable · <50 low — Note: lab portals often show 30–78 mg/dL as "normal" (population reference range). This tracker uses a higher APOE4-specific goal: HDL >65 is actively protective for APOE4 brain and cardiovascular health, not just "not abnormal."',
     status: v => +v > 65 ? 'green' : +v >= 50 ? 'yellow' : 'red' },
   { id:'uric-acid',       name:'Uric Acid',            cat:'Metabolic & Pre-diabetes', unit:'mg/dL',
     target:'<5.0 optimal · 5.0–6.0 borderline · >6.0 elevated',
