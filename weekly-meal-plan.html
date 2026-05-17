@@ -226,6 +226,104 @@
       color: var(--muted);
       font-size: .8rem;
     }
+
+    /* ── Active Foods Section ── */
+    .active-foods {
+      max-width: 1280px;
+      margin: 2.5rem auto 0;
+    }
+    .active-foods-header {
+      background: #2d6a4f;
+      color: #fff;
+      border-radius: 16px 16px 0 0;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+    .active-foods-header h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .active-foods-header p {
+      font-size: .82rem;
+      opacity: .8;
+      margin: .2rem 0 0;
+    }
+    .active-foods-body {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      padding: 1.4rem;
+    }
+    .af-category {
+      margin-bottom: 1.6rem;
+    }
+    .af-category:last-child { margin-bottom: 0; }
+    .af-category-title {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--green-mid);
+      border-bottom: 2px solid var(--green-light);
+      padding-bottom: .35rem;
+      margin-bottom: .9rem;
+    }
+    .af-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: .85rem;
+    }
+    .af-card {
+      background: var(--green-pale);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .75rem 1rem;
+    }
+    .af-card-top {
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
+      margin-bottom: .35rem;
+      flex-wrap: wrap;
+    }
+    .af-name {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .af-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .25rem;
+    }
+    .af-badge {
+      font-size: .63rem;
+      font-weight: 700;
+      padding: .08rem .42rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .badge-mthfr  { background: #e8d5f5; color: #6a1e9e; }
+    .badge-apoe4  { background: #d0e8ff; color: #1a4f8a; }
+    .badge-dp     { background: #d4f4dd; color: #1e6b3a; }
+    .badge-kidney { background: #fde8cc; color: #8a4200; }
+    .badge-celiac { background: #fef0d0; color: #7a5000; }
+    .badge-uti    { background: #fce4e4; color: #8a1a1a; }
+    .af-desc {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .af-mechanism {
+      font-size: .78rem;
+      color: #40916c;
+      font-style: italic;
+      margin-top: .25rem;
+    }
   </style>
 </head>
 <body>
@@ -543,6 +641,287 @@
       </div>
     </div>
   </div>
+
+  <!-- ── ACTIVE FOODS ── -->
+  <section class="active-foods">
+    <div class="active-foods-header">
+      <span style="font-size:1.5rem">⚡</span>
+      <div>
+        <h2>Active Foods — What Each One Is Actually Doing</h2>
+        <p>These foods go beyond filling a nutritional slot. Each one has a specific mechanism relevant to your conditions.</p>
+      </div>
+    </div>
+    <div class="active-foods-body">
+
+      <!-- FERMENTS -->
+      <div class="af-category">
+        <div class="af-category-title">🧫 Fermented Foods</div>
+        <div class="af-grid">
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥛 Sugar Shift Yogurt</span>
+              <div class="af-badges">
+                <span class="af-badge badge-dp">Dawn Phenomenon</span>
+                <span class="af-badge badge-apoe4">APOE4</span>
+              </div>
+            </div>
+            <div class="af-desc">BioQuest Sugar Shift strains (<em>L. reuteri</em>, <em>L. fermentum</em>) ferment lactose into shorter-chain sugars with a lower glycaemic load — the milk sugar is literally transformed before you eat it. During overnight digestion the strains produce butyrate and propionate (short-chain fatty acids) that signal the liver to reduce its 3–8 AM glucose dump.</div>
+            <div class="af-mechanism">→ Directly targets Dawn Phenomenon via SCFA liver signalling. Bedtime dose is the most potent timing.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥬 Homemade Sauerkraut</span>
+              <div class="af-badges">
+                <span class="af-badge badge-celiac">Celiac / Gut</span>
+                <span class="af-badge badge-uti">UTI Recovery</span>
+                <span class="af-badge badge-dp">DP</span>
+              </div>
+            </div>
+            <div class="af-desc"><em>Lactobacillus plantarum</em> (dominant in lacto-fermented cabbage) competes directly with Klebsiella and other gram-negative pathogens in the gut. It also produces lactic acid that lowers intestinal pH, creating an unfavourable environment for opportunistic bacteria. The prebiotic fibre in cabbage feeds diverse microbiome species that produce insulin-sensitising SCFAs.</div>
+            <div class="af-mechanism">→ Gut microbiome restoration after Klebsiella UTI; secondary benefit to post-meal glucose via SCFA production.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥛 Homemade Kefir</span>
+              <div class="af-badges">
+                <span class="af-badge badge-celiac">Celiac / Gut</span>
+                <span class="af-badge badge-dp">DP</span>
+              </div>
+            </div>
+            <div class="af-desc">Kefir contains 30–50 distinct microbial strains vs 2–5 in commercial yogurt. The yeast-bacteria co-culture produces kefiran — a polysaccharide with documented gut-lining protective properties. For Celiac, where intestinal villi are damaged or healing, kefiran actively supports tight junction integrity. Also partially lactose-hydrolysed by the culture, making it well-tolerated.</div>
+            <div class="af-mechanism">→ Gut lining repair (Celiac recovery); diverse strain colonisation; partial lactose conversion.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🍞 Homemade GF Sourdough</span>
+              <div class="af-badges">
+                <span class="af-badge badge-dp">DP / Blood Sugar</span>
+                <span class="af-badge badge-celiac">Celiac</span>
+              </div>
+            </div>
+            <div class="af-desc">Sourdough fermentation by wild <em>Lactobacillus</em> and yeasts partially breaks down starches before you eat them, lowering the effective glycaemic index significantly vs the same flour baked without fermentation. Phytate degradation during the long ferment also improves absorption of magnesium and zinc — both critical for insulin signalling. Your millet-sorghum-tapioca blend is entirely low-oxalate and gluten-free.</div>
+            <div class="af-mechanism">→ Lower post-meal glucose spike vs plain GF bread; improved mineral bioavailability; Celiac-safe.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PROTEINS -->
+      <div class="af-category">
+        <div class="af-category-title">🥩 Proteins</div>
+        <div class="af-grid">
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🐟 Salmon &amp; Sardines</span>
+              <div class="af-badges">
+                <span class="af-badge badge-apoe4">APOE4</span>
+                <span class="af-badge badge-mthfr">MTHFR</span>
+              </div>
+            </div>
+            <div class="af-desc">DHA and EPA omega-3 fatty acids are the primary structural fats of neuronal cell membranes. APOE4 carriers have impaired lipid transport into brain tissue — dietary DHA bypasses this by crossing the blood-brain barrier directly. Sardines deliver the highest DHA per gram of any common food. DHA also reduces neuroinflammation, which APOE4 amplifies. B12 in both fish supports the MTHFR methylation cycle.</div>
+            <div class="af-mechanism">→ APOE4 brain protection — direct DHA delivery; methylation cofactor B12; anti-neuroinflammatory.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥚 Eggs</span>
+              <div class="af-badges">
+                <span class="af-badge badge-mthfr">MTHFR</span>
+                <span class="af-badge badge-apoe4">APOE4</span>
+              </div>
+            </div>
+            <div class="af-desc">Eggs are the richest dietary source of choline — a methyl donor that feeds into the same one-carbon metabolism cycle impaired by MTHFR C677T. When MTHFR is reduced-function, choline provides an alternative methylation pathway (via PEMT) that doesn't require the folate cycle to work perfectly. Egg yolk phosphatidylcholine is also a precursor to acetylcholine, the memory neurotransmitter most affected in APOE4-associated cognitive decline.</div>
+            <div class="af-mechanism">→ Alternative methylation pathway for MTHFR; acetylcholine precursor for APOE4 brain health.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥩 Lean Beef</span>
+              <div class="af-badges">
+                <span class="af-badge badge-mthfr">MTHFR</span>
+              </div>
+            </div>
+            <div class="af-desc">Beef is one of the best sources of B12 and zinc in bioavailable (animal) form. MTHFR C677T requires adequate B12 to function even at reduced capacity — B12 is a direct cofactor for methionine synthase, the enzyme that converts homocysteine back to methionine. Without enough B12, homocysteine accumulates (elevated homocysteine is the primary measurable harm of MTHFR). Zinc supports the immune system and is critical for insulin receptor function.</div>
+            <div class="af-mechanism">→ B12 to prevent homocysteine accumulation (MTHFR); zinc for insulin receptor sensitivity (DP).</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- VEGETABLES -->
+      <div class="af-category">
+        <div class="af-category-title">🥦 Vegetables</div>
+        <div class="af-grid">
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥦 Broccoli &amp; Cauliflower</span>
+              <div class="af-badges">
+                <span class="af-badge badge-mthfr">MTHFR</span>
+                <span class="af-badge badge-apoe4">APOE4</span>
+                <span class="af-badge badge-celiac">Celiac</span>
+              </div>
+            </div>
+            <div class="af-desc">Cruciferous vegetables contain glucoraphanin, which converts to sulforaphane during chewing. Sulforaphane activates the Nrf2 pathway — a master switch for cellular antioxidant and detoxification genes. For MTHFR, Nrf2 activation reduces oxidative stress that accumulates when methylation is impaired. For APOE4, sulforaphane reduces neuroinflammation and supports the brain's own antioxidant system. For Celiac, it supports gut-lining repair.</div>
+            <div class="af-mechanism">→ Nrf2 / sulforaphane activation: reduces oxidative load from MTHFR + neuroinflammation from APOE4.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥬 Kale</span>
+              <div class="af-badges">
+                <span class="af-badge badge-mthfr">MTHFR</span>
+                <span class="af-badge badge-kidney">Kidney Stone</span>
+              </div>
+            </div>
+            <div class="af-desc">Kale provides natural folate (5-methyltetrahydrofolate precursor) — the food form MTHFR can actually use, unlike synthetic folic acid which competes for receptors. Critically, kale is low-oxalate (~15 mg/100g vs spinach's ~750 mg), making it the rare leafy green that delivers folate without kidney stone risk. Also provides vitamin K and lutein.</div>
+            <div class="af-mechanism">→ Usable folate for MTHFR methylation; low-oxalate profile safe for 9mm kidney stone history.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🫑 Bell Peppers &amp; Asparagus</span>
+              <div class="af-badges">
+                <span class="af-badge badge-mthfr">MTHFR</span>
+                <span class="af-badge badge-kidney">Kidney Stone</span>
+              </div>
+            </div>
+            <div class="af-desc">Bell peppers are exceptionally high in vitamin C — a co-factor for collagen synthesis and iron absorption, and an antioxidant that offsets MTHFR-related oxidative stress. Asparagus contains inulin (a prebiotic fibre that feeds <em>Bifidobacterium</em>) and natural folate. Both are low-oxalate. Asparagus also supports kidney health by acting as a mild diuretic, increasing urine flow to flush oxalate crystals.</div>
+            <div class="af-mechanism">→ Asparagus: folate + kidney-flushing diuretic effect. Bell pepper: vitamin C antioxidant for MTHFR.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥑 Avocado / Guacamole</span>
+              <div class="af-badges">
+                <span class="af-badge badge-apoe4">APOE4</span>
+                <span class="af-badge badge-dp">DP</span>
+              </div>
+            </div>
+            <div class="af-desc">Avocado is ~75% monounsaturated fat (oleic acid) — the same fat profile as EVOO. APOE4 carriers do better on MUFA-dominant fats than saturated or polyunsaturated fats, as MUFAs reduce LDL particle oxidation (APOE4 makes LDL more oxidation-prone). Avocado also provides potassium and magnesium which improve insulin sensitivity, directly supporting DP management. High fibre slows gastric emptying, blunting post-meal glucose.</div>
+            <div class="af-mechanism">→ APOE4-friendly fat profile; magnesium + potassium for insulin sensitivity; fibre blunts glucose spike.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🧅 Cabbage</span>
+              <div class="af-badges">
+                <span class="af-badge badge-celiac">Celiac / Gut</span>
+                <span class="af-badge badge-uti">UTI Recovery</span>
+              </div>
+            </div>
+            <div class="af-desc">Raw and cooked cabbage is high in L-glutamine — the primary fuel source for intestinal epithelial cells. For Celiac, where villi are damaged or in recovery, glutamine is essential for rebuilding the gut lining. Cabbage also contains glucosinolates with documented antimicrobial activity against gram-negative bacteria including Klebsiella. Plus it's the substrate for your homemade sauerkraut — the fermented form multiplies all these benefits.</div>
+            <div class="af-mechanism">→ Gut lining fuel (Celiac healing); glucosinolate antimicrobial activity (Klebsiella UTI recovery).</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FATS, SEEDS & CONDIMENTS -->
+      <div class="af-category">
+        <div class="af-category-title">🫒 Fats, Seeds &amp; Condiments</div>
+        <div class="af-grid">
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🫒 Extra-Virgin Olive Oil (EVOO)</span>
+              <div class="af-badges">
+                <span class="af-badge badge-apoe4">APOE4</span>
+                <span class="af-badge badge-mthfr">MTHFR</span>
+              </div>
+            </div>
+            <div class="af-desc">EVOO contains oleocanthal (an ibuprofen-like anti-inflammatory compound) and hydroxytyrosol (a polyphenol). For APOE4, oleocanthal reduces amyloid-β aggregation — the protein that forms plaques associated with Alzheimer's. APOE4 impairs amyloid clearance, so reducing production and aggregation is directly protective. Hydroxytyrosol also reduces oxidative stress from the impaired methylation cycle in MTHFR.</div>
+            <div class="af-mechanism">→ Oleocanthal inhibits amyloid-β aggregation (APOE4 brain); polyphenol antioxidant (MTHFR oxidative load).</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🌿 Hemp Seeds / Hearts</span>
+              <div class="af-badges">
+                <span class="af-badge badge-dp">DP</span>
+                <span class="af-badge badge-mthfr">MTHFR</span>
+              </div>
+            </div>
+            <div class="af-desc">Hemp seeds are one of the few plant sources of complete protein (all essential amino acids) and contain an ideal 3:1 omega-6:omega-3 ratio. The GLA (gamma-linolenic acid) in hemp is an omega-6 that — unusually — is anti-inflammatory. Magnesium content supports both sleep quality and insulin receptor sensitivity. Bedtime hemp seeds in your yogurt extend satiety overnight, reducing the hormonal stress response that worsens the liver glucose dump.</div>
+            <div class="af-mechanism">→ Magnesium for insulin sensitivity + sleep quality (DP); complete protein blunts overnight liver glucose dump.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🍎 Apple Cider Vinegar</span>
+              <div class="af-badges">
+                <span class="af-badge badge-dp">DP / Blood Sugar</span>
+              </div>
+            </div>
+            <div class="af-desc">Acetic acid (the active compound in ACV) inhibits alpha-amylase and alpha-glucosidase — the enzymes that break starch into glucose in the small intestine. This slows glucose absorption from the meal that follows. Studies consistently show 1 tbsp before dinner reduces post-meal glucose by 20–30% and lowers fasting glucose the next morning. The effect is dose-dependent and timing-sensitive — it only works if taken within 15 min before eating.</div>
+            <div class="af-mechanism">→ Inhibits starch-to-glucose enzymes; reduces post-meal spike and next-morning fasting glucose (DP).</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🧄 Garlic</span>
+              <div class="af-badges">
+                <span class="af-badge badge-uti">UTI Recovery</span>
+                <span class="af-badge badge-dp">DP</span>
+              </div>
+            </div>
+            <div class="af-desc">Allicin (formed when garlic is crushed or chopped) has documented antimicrobial activity against Klebsiella pneumoniae — the strain from your December 2025 UTI. Fresh garlic added during cooking, especially when allowed to sit for 10 min after chopping (maximises allicin formation), provides ongoing microbiome support. Garlic is also a potent prebiotic (fructooligosaccharides) feeding beneficial gut bacteria that produce insulin-sensitising SCFAs.</div>
+            <div class="af-mechanism">→ Allicin active against Klebsiella; FOS prebiotic feeds SCFA-producing bacteria (DP/insulin sensitivity).</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="af-category">
+        <div class="af-category-title">🥛 Drinks</div>
+        <div class="af-grid">
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🥛 A2 Whole Milk</span>
+              <div class="af-badges">
+                <span class="af-badge badge-kidney">Kidney Stone</span>
+                <span class="af-badge badge-celiac">Celiac</span>
+              </div>
+            </div>
+            <div class="af-desc">Calcium from dairy consumed with meals binds oxalate in the gut — before it can be absorbed into the bloodstream and eventually deposited in the kidneys. This is the primary dietary strategy for calcium oxalate kidney stones: the calcium must come with food, not as a supplement taken separately. A2 milk (beta-casein A2 variant) avoids the BCM-7 peptide from A1 casein that may irritate the gut lining — relevant for Celiac where intestinal sensitivity is elevated.</div>
+            <div class="af-mechanism">→ Calcium binds dietary oxalate in gut (kidney stone prevention); A2 protein gentler on healing intestinal lining.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🍋 Lemon Water (morning)</span>
+              <div class="af-badges">
+                <span class="af-badge badge-kidney">Kidney Stone</span>
+              </div>
+            </div>
+            <div class="af-desc">Citrate — from lemon juice — is a direct inhibitor of calcium oxalate crystal formation in the kidneys. It works by binding to calcium in the urine before oxalate can, and by coating existing microcrystals to prevent them from growing. With a 9mm stone history, daily citrate is one of the most evidence-based dietary interventions available. Half a lemon in water provides a therapeutic dose. Timing first thing in the morning helps establish urinary citrate levels before the first meal.</div>
+            <div class="af-mechanism">→ Urinary citrate inhibits calcium oxalate crystal nucleation and growth (kidney stone prevention).</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">🫐 Blueberries</span>
+              <div class="af-badges">
+                <span class="af-badge badge-apoe4">APOE4</span>
+                <span class="af-badge badge-mthfr">MTHFR</span>
+              </div>
+            </div>
+            <div class="af-desc">Blueberries contain pterostilbene and anthocyanins — compounds with the strongest documented evidence for crossing the blood-brain barrier and reducing neuroinflammation. Multiple RCTs in APOE4 carriers specifically show blueberry supplementation improving memory performance. For MTHFR, anthocyanins reduce vascular oxidative stress (elevated homocysteine damages blood vessel walls — antioxidants directly mitigate this). Among all fruits, blueberries have the lowest glycaemic impact per serving.</div>
+            <div class="af-mechanism">→ Anthocyanins cross blood-brain barrier (APOE4 neuroprotection); vascular antioxidant (MTHFR/homocysteine).</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <footer>
     <p>🌿 Whole foods · Low oxalate · Homemade ferments · Gluten-free sourdough</p>
