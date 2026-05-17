@@ -108,6 +108,20 @@
 
     /* EMPTY STATE */
     .empty-state { text-align: center; color: var(--muted); padding: 2.5rem 1rem; font-size: .95rem; }
+
+    /* LABS REFERENCE PANEL */
+    .labs-ref-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); margin-bottom: 2rem; overflow: hidden; }
+    .labs-ref-summary { list-style: none; padding: .9rem 1.4rem; background: var(--sky); font-weight: 700; font-size: 1rem; color: var(--sky-dark); cursor: pointer; display: flex; align-items: center; gap: .5rem; }
+    .labs-ref-summary::-webkit-details-marker { display: none; }
+    .labs-ref-summary::before { content: '▾'; font-size: .9rem; transition: transform .2s; }
+    details:not([open]) .labs-ref-summary::before { content: '▸'; }
+    .labs-ref-hint { font-size: .75rem; font-weight: 400; color: var(--sky-dark); opacity: .7; margin-left: auto; }
+    .labs-ref-body { padding: 1.2rem 1.4rem; }
+    .labs-ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem 2rem; }
+    .labs-ref-cat { font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--sky-dark); margin: .9rem 0 .35rem; }
+    .labs-ref-cat:first-child { margin-top: 0; }
+    .labs-ref-body ul { padding-left: 1.2rem; }
+    .labs-ref-body li { font-size: .88rem; color: var(--muted); margin-bottom: .25rem; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -126,6 +140,58 @@
 </header>
 
 <div class="main-wrap">
+
+  <!-- LABS REFERENCE -->
+  <details class="labs-ref-panel" open>
+    <summary class="labs-ref-summary">🩺 Labs to Request &amp; Track <span class="labs-ref-hint">(click to collapse)</span></summary>
+    <div class="labs-ref-body">
+      <div class="labs-ref-grid">
+        <div>
+          <p class="labs-ref-cat">Metabolic &amp; Pre-diabetes</p>
+          <ul>
+            <li>HbA1c — every 3 months while in pre-diabetes range</li>
+            <li>Fasting insulin + glucose → HOMA-IR (insulin resistance score)</li>
+            <li>Fasting triglycerides + HDL (metabolic syndrome markers)</li>
+            <li>Uric acid — elevated in stone and pre-diabetes</li>
+          </ul>
+          <p class="labs-ref-cat">MTHFR / Methylation</p>
+          <ul>
+            <li>Homocysteine — target &lt;8 µmol/L (ideally &lt;7)</li>
+            <li>RBC folate (not serum) — better marker of tissue stores</li>
+            <li>Serum B12 + MMA (methylmalonic acid) if B12 is borderline</li>
+          </ul>
+          <p class="labs-ref-cat">Celiac Recovery</p>
+          <ul>
+            <li>tTG-IgA — monitors gut healing (should normalise 12–18 mo strict GF)</li>
+            <li>Ferritin (not just hemoglobin)</li>
+            <li>25-OH Vitamin D</li>
+            <li>Zinc, RBC magnesium</li>
+          </ul>
+        </div>
+        <div>
+          <p class="labs-ref-cat">Kidney Stone</p>
+          <ul>
+            <li>24-hour urine collection (gold standard): oxalate, citrate, calcium, uric acid, volume, pH</li>
+            <li>Serum calcium + PTH — rule out hyperparathyroidism</li>
+            <li>Urinalysis with microscopy — monitor for crystals / infection</li>
+          </ul>
+          <p class="labs-ref-cat">Klebsiella / Gut</p>
+          <ul>
+            <li>Comprehensive stool panel (GI Effects, Doctor’s Data, or similar)</li>
+            <li>Urine culture if any UTI symptoms — Klebsiella requires targeted antibiotics</li>
+            <li>Consider urine oxalate in 24-hour panel to assess Oxalobacter gap</li>
+          </ul>
+          <p class="labs-ref-cat">APOE4 / Cognitive</p>
+          <ul>
+            <li>Lipid panel with LDL particle size (NMR preferred for APOE4)</li>
+            <li>hsCRP (high-sensitivity C-reactive protein) — inflammation marker</li>
+            <li>APOE genotyping (if not already done — confirms e3/e4 vs e4/e4)</li>
+            <li>Baseline cognitive screening (MoCA) — establishes baseline now at 62</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
 
   <!-- ENTRY FORM -->
   <div class="entry-card">
