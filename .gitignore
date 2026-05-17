@@ -11,6 +11,9 @@ Desktop.ini
 # Backup files
 *.bak
 *.backup
+
+# Manual backups folder
+manual-backups/
 *.orig
 *.tmp
 *~
