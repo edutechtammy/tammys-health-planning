@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab Results Tracker</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --sky:         #e0f7fa;
+      --sky-dark:    #00838f;
+      --amber:       #fff8e1;
+      --red-pale:    #fce4e4;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    /* NAV */
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    /* HEADER */
+    header { text-align: center; padding: 2rem 1rem 1.5rem; }
+    header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--green-dark); }
+    header p  { color: var(--muted); margin-top: .4rem; }
+
+    /* WRAP */
+    .main-wrap { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+
+    /* ENTRY CARD */
+    .entry-card { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 2rem; }
+    .entry-card-header { background: var(--green-dark); color: #fff; padding: .85rem 1.4rem; display: flex; align-items: center; gap: .6rem; font-weight: 700; font-size: 1.05rem; }
+
+    .entry-form { padding: 1.2rem 1.4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .85rem; align-items: start; }
+    .field { display: flex; flex-direction: column; gap: .3rem; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .field input, .field select, .field textarea { border: 1px solid var(--border); border-radius: 8px; padding: .5rem .75rem; font-size: .92rem; color: var(--text); background: var(--green-pale); font-family: inherit; }
+    .field textarea { resize: vertical; min-height: 62px; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--green-mid); background: #fff; }
+
+    .target-hint { grid-column: 1 / -1; font-size: .82rem; color: var(--green-dark); background: var(--green-light); border-radius: 8px; padding: .55rem .85rem; min-height: 36px; }
+
+    .btn-row { grid-column: 1 / -1; display: flex; gap: .75rem; flex-wrap: wrap; padding-top: .2rem; }
+    .btn { padding: .55rem 1.3rem; border: none; border-radius: 8px; font-size: .92rem; font-weight: 600; cursor: pointer; transition: opacity .2s; }
+    .btn:hover { opacity: .82; }
+    .btn-primary  { background: var(--green-dark); color: #fff; }
+    .btn-clear    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn-export   { background: #fff; color: #1a4f8a; border: 1.5px solid #4a90c4; }
+
+    /* STATUS */
+    .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; margin-right: .3rem; vertical-align: middle; }
+    .dot-green   { background: #27ae60; }
+    .dot-yellow  { background: #f39c12; }
+    .dot-red     { background: #e74c3c; }
+    .dot-neutral { background: #95a5a6; }
+
+    /* TREND */
+    .trend { font-size: .85rem; margin-left: .35rem; font-weight: 700; }
+    .trend-better { color: #27ae60; }
+    .trend-worse  { color: #e74c3c; }
+    .trend-same   { color: #95a5a6; }
+
+    /* CATEGORY */
+    .category-section { margin-bottom: 2.2rem; }
+    .category-title { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--green-mid); border-bottom: 2px solid var(--green-light); padding-bottom: .35rem; margin-bottom: 1rem; }
+
+    /* TEST GRID */
+    .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+
+    .test-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 6px rgba(45,106,79,.08); }
+    .test-card-header { padding: .65rem 1rem; display: flex; align-items: center; gap: .4rem; border-bottom: 1px solid var(--border); }
+    .test-name { font-weight: 700; font-size: .93rem; flex: 1; }
+    .latest-val { font-size: 1.1rem; font-weight: 700; color: var(--green-dark); white-space: nowrap; }
+    .latest-unit { font-size: .72rem; color: var(--muted); margin-left: .2rem; }
+
+    .test-card-target { padding: .4rem 1rem; font-size: .75rem; color: var(--muted); background: var(--green-pale); border-bottom: 1px solid var(--border); line-height: 1.4; }
+
+    .test-history { padding: .5rem .3rem; }
+    .history-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .history-table th { padding: .25rem .55rem; text-align: left; color: var(--muted); font-weight: 600; font-size: .7rem; text-transform: uppercase; letter-spacing: .03em; }
+    .history-table td { padding: .32rem .55rem; border-top: 1px solid #f0f5f1; vertical-align: top; }
+    .history-table tr:first-child td { border-top: none; }
+
+    .btn-del { background: none; border: none; color: #ccc; cursor: pointer; font-size: .78rem; padding: 0 .2rem; line-height: 1; }
+    .btn-del:hover { color: #c0392b; }
+
+    /* NOT YET RECORDED */
+    .pending-section { margin-bottom: 2rem; }
+    .pending-title { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .6rem; }
+    .pending-grid { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .pending-pill { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: .22rem .75rem; font-size: .78rem; color: var(--muted); cursor: pointer; transition: all .15s; }
+    .pending-pill:hover { background: var(--green-light); color: var(--green-dark); border-color: var(--green-mid); }
+
+    /* TOAST */
+    #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--green-dark); color: #fff; padding: .6rem 1.3rem; border-radius: 8px; font-size: .88rem; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+    #toast.show { opacity: 1; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; color: var(--muted); padding: 2.5rem 1rem; font-size: .95rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="lab-tracker.html" class="active">🧪 Lab Results</a>
+</nav>
+
+<header>
+  <h1>🧪 Lab Results Tracker</h1>
+  <p>Log blood work and urine panels · Track trends over months and years · Export for doctor visits</p>
+</header>
+
+<div class="main-wrap">
+
+  <!-- ENTRY FORM -->
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <span>➕</span> Log a Lab Result
+    </div>
+    <div class="entry-form">
+      <div class="field">
+        <label>Date</label>
+        <input type="date" id="f-date" />
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <select id="f-cat" onchange="filterTests()">
+          <option value="">All categories</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Test</label>
+        <select id="f-test" onchange="showTarget()">
+          <option value="">— select a test —</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Result <span id="f-unit-label" style="color:var(--green-mid);font-weight:400;text-transform:none;font-size:.85rem;letter-spacing:0"></span></label>
+        <input type="text" id="f-value" placeholder="e.g. 5.9" />
+      </div>
+      <div class="target-hint" id="target-hint">Select a test above to see its target range.</div>
+      <div class="field full">
+        <label>Notes (optional)</label>
+        <textarea id="f-notes" placeholder="e.g. fasting 12 hrs · drawn at Quest · doctor comments"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveEntry()">💾 Save Result</button>
+        <button class="btn btn-clear"   onclick="clearForm()">✕ Clear</button>
+        <button class="btn btn-export"  onclick="exportCSV()">📥 Export CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-wrap"></div>
+
+</div>
+
+<div id="toast">Saved!</div>
+
+<script>
+// ── TEST DEFINITIONS ──────────────────────────────────────────────────────
+const TESTS = [
+  // Metabolic & Pre-diabetes
+  { id:'hba1c',           name:'HbA1c',               cat:'Metabolic & Pre-diabetes', unit:'%',
+    target:'<5.7% optimal · 5.7–6.4% pre-diabetes · ≥6.5% diabetes',
+    status: v => +v < 5.7 ? 'green' : +v < 6.5 ? 'yellow' : 'red' },
+  { id:'fasting-glucose', name:'Fasting Glucose',      cat:'Metabolic & Pre-diabetes', unit:'mg/dL',
+    target:'<100 mg/dL optimal · 100–125 pre-diabetes · ≥126 diabetes',
+    status: v => +v < 100 ? 'green' : +v < 126 ? 'yellow' : 'red' },
+  { id:'fasting-insulin', name:'Fasting Insulin',      cat:'Metabolic & Pre-diabetes', unit:'µIU/mL',
+    target:'<5 optimal · 5–10 acceptable · >10 elevated',
+    status: v => +v < 5 ? 'green' : +v <= 10 ? 'yellow' : 'red' },
+  { id:'homa-ir',         name:'HOMA-IR',              cat:'Metabolic & Pre-diabetes', unit:'',
+    target:'<1.0 optimal · 1.0–1.9 borderline · ≥2.0 insulin resistant',
+    status: v => +v < 1.0 ? 'green' : +v < 2.0 ? 'yellow' : 'red' },
+  { id:'triglycerides',   name:'Triglycerides',        cat:'Metabolic & Pre-diabetes', unit:'mg/dL',
+    target:'<100 mg/dL optimal · 100–149 acceptable · ≥150 elevated',
+    status: v => +v < 100 ? 'green' : +v < 150 ? 'yellow' : 'red' },
+  { id:'hdl',             name:'HDL Cholesterol',      cat:'Metabolic & Pre-diabetes', unit:'mg/dL',
+    target:'>65 mg/dL optimal · 50–65 acceptable · <50 low',
+    status: v => +v > 65 ? 'green' : +v >= 50 ? 'yellow' : 'red' },
+  { id:'uric-acid',       name:'Uric Acid',            cat:'Metabolic & Pre-diabetes', unit:'mg/dL',
+    target:'<5.0 optimal · 5.0–6.0 borderline · >6.0 elevated',
+    status: v => +v <= 5.0 ? 'green' : +v <= 6.0 ? 'yellow' : 'red' },
+
+  // MTHFR / Methylation
+  { id:'homocysteine',    name:'Homocysteine',         cat:'MTHFR / Methylation', unit:'µmol/L',
+    target:'<7 optimal · 7–10 borderline · >10 elevated (MTHFR risk zone)',
+    status: v => +v < 7 ? 'green' : +v <= 10 ? 'yellow' : 'red' },
+  { id:'rbc-folate',      name:'RBC Folate',           cat:'MTHFR / Methylation', unit:'nmol/L',
+    target:'>800 optimal · 563–800 acceptable · <563 deficient',
+    status: v => +v >= 800 ? 'green' : +v >= 563 ? 'yellow' : 'red' },
+  { id:'serum-b12',       name:'Serum B12',            cat:'MTHFR / Methylation', unit:'pg/mL',
+    target:'>600 optimal (functional) · 400–600 acceptable · <400 deficient',
+    status: v => +v >= 600 ? 'green' : +v >= 400 ? 'yellow' : 'red' },
+  { id:'mma',             name:'MMA (Methylmalonic Acid)', cat:'MTHFR / Methylation', unit:'µmol/L',
+    target:'<0.20 optimal · 0.20–0.40 borderline · >0.40 functional B12 deficiency',
+    status: v => +v < 0.20 ? 'green' : +v <= 0.40 ? 'yellow' : 'red' },
+
+  // Celiac Recovery
+  { id:'ttg-iga',         name:'tTG-IgA',              cat:'Celiac Recovery', unit:'U/mL',
+    target:'<4 U/mL negative · 4–10 weak positive · >10 active Celiac response',
+    status: v => +v < 4 ? 'green' : +v <= 10 ? 'yellow' : 'red' },
+  { id:'ferritin',        name:'Ferritin',             cat:'Celiac Recovery', unit:'ng/mL',
+    target:'50–150 ng/mL optimal · 20–50 low-normal · <20 deficient',
+    status: v => +v >= 50 && +v <= 150 ? 'green' : +v >= 20 ? 'yellow' : 'red' },
+  { id:'vitamin-d',       name:'25-OH Vitamin D',      cat:'Celiac Recovery', unit:'ng/mL',
+    target:'50–70 ng/mL optimal · 30–50 insufficient · <30 deficient',
+    status: v => +v >= 50 && +v <= 80 ? 'green' : +v >= 30 ? 'yellow' : 'red' },
+  { id:'zinc',            name:'Zinc (serum)',         cat:'Celiac Recovery', unit:'µg/dL',
+    target:'80–120 optimal · 70–80 borderline · <70 deficient',
+    status: v => +v >= 80 ? 'green' : +v >= 70 ? 'yellow' : 'red' },
+  { id:'rbc-magnesium',   name:'RBC Magnesium',        cat:'Celiac Recovery', unit:'mg/dL',
+    target:'5.0–6.8 optimal · 4.2–5.0 borderline · <4.2 deficient',
+    status: v => +v >= 5.0 && +v <= 6.8 ? 'green' : +v >= 4.2 ? 'yellow' : 'red' },
+
+  // Kidney Stone
+  { id:'24hr-oxalate',    name:'24hr Urine Oxalate',   cat:'Kidney Stone', unit:'mg/day',
+    target:'<20 mg/day optimal · 20–40 borderline · >40 high risk',
+    status: v => +v < 20 ? 'green' : +v <= 40 ? 'yellow' : 'red' },
+  { id:'24hr-citrate',    name:'24hr Urine Citrate',   cat:'Kidney Stone', unit:'mg/day',
+    target:'>600 mg/day optimal · 400–600 borderline · <400 low (stone risk)',
+    status: v => +v >= 600 ? 'green' : +v >= 400 ? 'yellow' : 'red' },
+  { id:'24hr-calcium',    name:'24hr Urine Calcium',   cat:'Kidney Stone', unit:'mg/day',
+    target:'<150 mg/day optimal · 150–250 borderline · >250 hypercalciuria',
+    status: v => +v < 150 ? 'green' : +v <= 250 ? 'yellow' : 'red' },
+  { id:'24hr-volume',     name:'24hr Urine Volume',    cat:'Kidney Stone', unit:'mL/day',
+    target:'>2500 mL/day optimal · 2000–2500 acceptable · <2000 low (stone risk)',
+    status: v => +v >= 2500 ? 'green' : +v >= 2000 ? 'yellow' : 'red' },
+  { id:'urine-ph',        name:'Urine pH',             cat:'Kidney Stone', unit:'',
+    target:'6.0–7.0 optimal · 5.5–6.0 or 7.0–7.5 borderline',
+    status: v => +v >= 6.0 && +v <= 7.0 ? 'green' : +v >= 5.5 && +v <= 7.5 ? 'yellow' : 'red' },
+  { id:'serum-calcium',   name:'Serum Calcium',        cat:'Kidney Stone', unit:'mg/dL',
+    target:'8.5–10.2 mg/dL normal · 10.2–10.5 borderline · >10.5 evaluate PTH',
+    status: v => +v >= 8.5 && +v <= 10.2 ? 'green' : +v > 10.2 && +v <= 10.5 ? 'yellow' : 'red' },
+  { id:'pth',             name:'PTH (Parathyroid Hormone)', cat:'Kidney Stone', unit:'pg/mL',
+    target:'15–65 pg/mL normal · elevated with high calcium = evaluate hyperparathyroidism',
+    status: v => +v >= 15 && +v <= 65 ? 'green' : 'yellow' },
+
+  // APOE4 / Cognitive
+  { id:'ldl',             name:'LDL Cholesterol',      cat:'APOE4 / Cognitive', unit:'mg/dL',
+    target:'<70 mg/dL optimal for APOE4 · 70–100 borderline · >100 elevated',
+    status: v => +v < 70 ? 'green' : +v <= 100 ? 'yellow' : 'red' },
+  { id:'hscrp',           name:'hsCRP',                cat:'APOE4 / Cognitive', unit:'mg/L',
+    target:'<0.5 mg/L optimal · 0.5–1.0 good · 1.0–3.0 moderate risk · >3.0 high',
+    status: v => +v < 0.5 ? 'green' : +v <= 1.0 ? 'yellow' : 'red' },
+  { id:'total-chol',      name:'Total Cholesterol',    cat:'APOE4 / Cognitive', unit:'mg/dL',
+    target:'<180 mg/dL optimal (APOE4) · 180–200 borderline · >200 elevated',
+    status: v => +v < 180 ? 'green' : +v <= 200 ? 'yellow' : 'red' },
+  { id:'ldl-particles',   name:'LDL Particle Size (NMR)', cat:'APOE4 / Cognitive', unit:'notes',
+    target:'Pattern A (large, buoyant) preferred · Pattern B (small, dense) higher cardiovascular risk',
+    status: () => 'neutral' },
+  { id:'moca',            name:'MoCA Cognitive Score', cat:'APOE4 / Cognitive', unit:'/30',
+    target:'26–30 normal · 18–25 mild impairment · <18 moderate — establishes baseline now at 62',
+    status: v => +v >= 26 ? 'green' : +v >= 18 ? 'yellow' : 'red' },
+
+  // Klebsiella / Gut
+  { id:'stool-panel',     name:'Comprehensive Stool Panel', cat:'Klebsiella / Gut', unit:'notes',
+    target:'Qualitative — enter key findings, Klebsiella status, and diversity markers in notes',
+    status: () => 'neutral' },
+  { id:'urine-culture',   name:'Urine Culture',        cat:'Klebsiella / Gut', unit:'notes',
+    target:'Qualitative — enter organism and antibiotic sensitivities in notes',
+    status: () => 'neutral' },
+];
+
+const CATEGORIES = [...new Set(TESTS.map(t => t.cat))];
+const STORAGE_KEY = 'tammys-lab-log';
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
+  CATEGORIES.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    document.getElementById('f-cat').appendChild(o);
+  });
+  populateTestDropdown('');
+  renderResults();
+});
+
+function populateTestDropdown(cat) {
+  const sel = document.getElementById('f-test');
+  sel.innerHTML = '<option value="">— select a test —</option>';
+  (cat ? TESTS.filter(t => t.cat === cat) : TESTS).forEach(t => {
+    const o = document.createElement('option');
+    o.value = t.id; o.textContent = t.name;
+    sel.appendChild(o);
+  });
+}
+
+function filterTests() {
+  populateTestDropdown(document.getElementById('f-cat').value);
+  document.getElementById('target-hint').textContent = 'Select a test above to see its target range.';
+  document.getElementById('f-unit-label').textContent = '';
+}
+
+function showTarget() {
+  const test = TESTS.find(t => t.id === document.getElementById('f-test').value);
+  document.getElementById('target-hint').textContent = test ? '🎯 ' + test.target : 'Select a test above to see its target range.';
+  document.getElementById('f-unit-label').textContent = test && test.unit ? '(' + test.unit + ')' : '';
+}
+
+// ── STORAGE ───────────────────────────────────────────────────────────────
+function loadEntries() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch { return []; }
+}
+function saveEntries(e) { localStorage.setItem(STORAGE_KEY, JSON.stringify(e)); }
+
+// ── SAVE / DELETE ─────────────────────────────────────────────────────────
+function saveEntry() {
+  const date   = document.getElementById('f-date').value;
+  const testId = document.getElementById('f-test').value;
+  const value  = document.getElementById('f-value').value.trim();
+  const notes  = document.getElementById('f-notes').value.trim();
+  if (!date || !testId || !value) { alert('Please fill in Date, Test, and Result.'); return; }
+  const entries = loadEntries();
+  entries.push({ id: Date.now().toString(), date, testId, value, notes });
+  saveEntries(entries);
+  clearForm();
+  renderResults();
+  showToast('Lab result saved ✓');
+}
+
+function deleteEntry(id) {
+  if (!confirm('Delete this entry?')) return;
+  saveEntries(loadEntries().filter(e => e.id !== id));
+  renderResults();
+}
+
+function clearForm() {
+  document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('f-cat').value  = '';
+  filterTests();
+  document.getElementById('f-value').value = '';
+  document.getElementById('f-notes').value = '';
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function dotHtml(status) {
+  const cls = 'dot dot-' + (status === 'neutral' ? 'neutral' : status);
+  return `<span class="${cls}"></span>`;
+}
+
+function trendHtml(entries, test) {
+  if (entries.length < 2 || test.status() === 'neutral') return '';
+  const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+  const rank = { green: 2, yellow: 1, red: 0 };
+  const diff = rank[test.status(sorted[sorted.length - 1].value)] - rank[test.status(sorted[sorted.length - 2].value)];
+  if (diff > 0) return '<span class="trend trend-better" title="Improving">▲</span>';
+  if (diff < 0) return '<span class="trend trend-worse"  title="Worsening">▼</span>';
+  return '<span class="trend trend-same" title="Unchanged">→</span>';
+}
+
+function renderResults() {
+  const entries = loadEntries();
+  const wrap = document.getElementById('results-wrap');
+  wrap.innerHTML = '';
+
+  if (entries.length === 0) {
+    wrap.innerHTML = '<div class="empty-state">No lab results logged yet. Use the form above to add your first result.<br><br>All test names are pre-loaded — just select a category, choose the test, enter the value, and save.</div>';
+    return;
+  }
+
+  // Group by testId, sort each group descending by date
+  const byTest = {};
+  entries.forEach(e => { (byTest[e.testId] = byTest[e.testId] || []).push(e); });
+  Object.values(byTest).forEach(arr => arr.sort((a, b) => b.date.localeCompare(a.date)));
+  const testedIds = new Set(Object.keys(byTest));
+
+  // Render logged results by category
+  CATEGORIES.forEach(cat => {
+    const catTests = TESTS.filter(t => t.cat === cat && testedIds.has(t.id));
+    if (!catTests.length) return;
+
+    const sec = document.createElement('div');
+    sec.className = 'category-section';
+    sec.innerHTML = `<div class="category-title">${cat}</div>`;
+
+    const grid = document.createElement('div');
+    grid.className = 'test-grid';
+
+    catTests.forEach(test => {
+      const testEntries = byTest[test.id];
+      const latest = testEntries[0];
+      const status = test.status(latest.value);
+
+      const rows = testEntries.map(e => `
+        <tr>
+          <td>${e.date}</td>
+          <td>${dotHtml(test.status(e.value))} <strong>${e.value}</strong>${test.unit ? ' <span style="color:var(--muted);font-size:.72rem">' + test.unit + '</span>' : ''}</td>
+          <td style="color:var(--muted)">${e.notes || '—'}</td>
+          <td><button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">✕</button></td>
+        </tr>`).join('');
+
+      const card = document.createElement('div');
+      card.className = 'test-card';
+      card.innerHTML = `
+        <div class="test-card-header">
+          ${dotHtml(status)}
+          <span class="test-name">${test.name}</span>
+          <span class="latest-val">${latest.value}</span>
+          <span class="latest-unit">${test.unit}</span>
+          ${trendHtml(testEntries, test)}
+        </div>
+        <div class="test-card-target">${test.target}</div>
+        <div class="test-history">
+          <table class="history-table">
+            <thead><tr><th>Date</th><th>Result</th><th>Notes</th><th></th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    sec.appendChild(grid);
+    wrap.appendChild(sec);
+  });
+
+  // Not yet recorded pills
+  const pending = TESTS.filter(t => !testedIds.has(t.id));
+  if (pending.length) {
+    const sec = document.createElement('div');
+    sec.className = 'pending-section';
+    sec.innerHTML = `<div class="pending-title">Not yet recorded — click to quick-select</div>
+      <div class="pending-grid">${pending.map(t =>
+        `<span class="pending-pill" onclick="quickSelect('${t.id}')">${t.name}</span>`).join('')}
+      </div>`;
+    wrap.appendChild(sec);
+  }
+}
+
+function quickSelect(testId) {
+  const test = TESTS.find(t => t.id === testId);
+  if (!test) return;
+  document.getElementById('f-cat').value = test.cat;
+  filterTests();
+  document.getElementById('f-test').value = testId;
+  showTarget();
+  document.getElementById('entry-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.getElementById('f-value').focus();
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────────────────────
+function exportCSV() {
+  const entries = loadEntries();
+  if (!entries.length) { alert('No data to export.'); return; }
+  const rows = [['Date', 'Category', 'Test', 'Value', 'Unit', 'Notes']];
+  [...entries].sort((a, b) => a.date.localeCompare(b.date)).forEach(e => {
+    const test = TESTS.find(t => t.id === e.testId) || { name: e.testId, cat: '', unit: '' };
+    rows.push([e.date, test.cat, test.name, e.value, test.unit, e.notes]);
+  });
+  const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'lab-results-' + new Date().toISOString().slice(0, 10) + '.csv';
+  a.click();
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+
+</body>
+</html>
