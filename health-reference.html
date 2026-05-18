@@ -60,11 +60,11 @@
   ul.ref li{margin:.35rem 0;font-size:.97rem}
   ul.ref li::marker{color:var(--green-mid)}
   /* SUPPLEMENT TABLE */
-  .supp-table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:.5rem}
+  .supp-table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:.5rem;table-layout:fixed}
   .supp-table th{background:var(--green-dark);color:#fff;padding:.5rem .75rem;text-align:left}
-  .supp-table td{padding:.45rem .75rem;border-bottom:1px solid #e8f0eb;vertical-align:top}
+  .supp-table td{padding:.45rem .75rem;border-bottom:1px solid #e8f0eb;vertical-align:top;word-wrap:break-word;overflow-wrap:break-word}
   .supp-table tr:nth-child(even) td{background:#f7fbf8}
-  .supp-table .timing{color:var(--sky-dark);font-weight:600;white-space:nowrap}
+  .supp-table .timing{color:var(--sky-dark);font-weight:600;white-space:normal}
   .supp-table .warn{color:var(--red);font-size:.82rem}
   /* CALLOUT */
   .callout{border-radius:8px;padding:.85rem 1.1rem;margin:.75rem 0;font-size:.93rem}
@@ -839,7 +839,7 @@
 
       <table class="supp-table">
         <thead>
-          <tr><th style="width:2.2rem;text-align:center">✓</th><th>Supplement</th><th>Dose</th><th>Timing</th><th>With/Without Food</th><th>Notes</th></tr>
+          <tr><th style="width:2.2rem;text-align:center">✓</th><th style="width:14%">Supplement</th><th style="width:9%">Dose</th><th style="width:14%">Timing</th><th style="width:14%">With/Without Food</th><th>Notes</th></tr>
         </thead>
         <tbody>
           <!-- ── MORNING ── -->
