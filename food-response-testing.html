@@ -190,7 +190,7 @@
 
   <!-- ENTRY FORM -->
   <div class="card">
-    <h2>➕ Log a Test</h2>
+    <h2 id="form-heading">➕ Log a Test</h2>
     <div class="form-grid wide">
       <div class="field">
         <label>Date</label>
@@ -274,7 +274,7 @@
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="saveTest()">Save Test</button>
+      <button class="btn btn-primary" id="save-btn" onclick="saveTest()">Save Test</button>
       <button class="btn btn-outline" onclick="clearForm()">Clear</button>
       <span id="save-msg">✓ Saved!</span>
       <div style="margin-left:auto;display:flex;gap:.7rem;flex-wrap:wrap;">
@@ -393,14 +393,41 @@ function formatDate(iso){
 
 function todayISO(){ return new Date().toLocaleDateString('en-CA'); }
 
+let editingId=null;
+
 function clearForm(){
+  editingId=null;
   document.getElementById('f-date').value=todayISO();
   ['f-food','f-portion','f-notes','f-t0','f-t30','f-t60','f-t120'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='grain';
   document.getElementById('f-berberine').value='';
   document.getElementById('f-acv').value='';
   document.getElementById('f-walk').value='';
+  document.getElementById('save-btn').textContent='Save Test';
+  document.getElementById('form-heading').textContent='➕ Log a Test';
   updatePreview();
+}
+
+function editTest(id){
+  const t=loadTests().find(x=>x.id===id);
+  if(!t) return;
+  editingId=id;
+  document.getElementById('f-date').value=t.date||'';
+  document.getElementById('f-food').value=t.food||'';
+  document.getElementById('f-cat').value=t.cat||'grain';
+  document.getElementById('f-portion').value=t.portion||'';
+  document.getElementById('f-t0').value=t.t0!=null?t.t0:'';
+  document.getElementById('f-t30').value=t.t30!=null?t.t30:'';
+  document.getElementById('f-t60').value=t.t60!=null?t.t60:'';
+  document.getElementById('f-t120').value=t.t120!=null?t.t120:'';
+  document.getElementById('f-berberine').value=t.berberine||'';
+  document.getElementById('f-acv').value=t.acv||'';
+  document.getElementById('f-walk').value=t.walk||'';
+  document.getElementById('f-notes').value=t.notes||'';
+  document.getElementById('save-btn').textContent='Update Test';
+  document.getElementById('form-heading').textContent='✏️ Edit Test — add readings as they come in';
+  updatePreview();
+  document.getElementById('f-food').scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function saveTest(){
@@ -418,10 +445,13 @@ function saveTest(){
   const notes  = document.getElementById('f-notes').value.trim();
   if(!date||!food){ alert('Please enter a date and food name.'); return; }
   if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
-  if(!t30&&!t60&&!t120){ alert('Please enter at least one post-meal reading.'); return; }
-  const id=Date.now().toString();
-  const tests=loadTests();
-  tests.push({id,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes});
+  let tests=loadTests();
+  if(editingId){
+    tests=tests.map(x=>x.id===editingId?{...x,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes}:x);
+  } else {
+    const id=Date.now().toString();
+    tests.push({id,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes});
+  }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
   saveTests(tests);
   const msg=document.getElementById('save-msg');
@@ -479,6 +509,7 @@ function render(){
             <div class="test-date">${formatDate(t.date)}</div>
           </div>
           <span class="cat-pill" style="background:${catStyle.split(';')[0].replace('background:','')};${catStyle.split(';')[1]||''}">${catLabel}</span>
+          ${(!t.t30||!t.t60||!t.t120)?`<span style="font-size:.68rem;font-weight:700;background:#fff8e1;color:#7a5c00;border:1px solid #f0d080;border-radius:20px;padding:.12rem .5rem;margin-left:.3rem;white-space:nowrap">⏳ In progress</span>`:''}
         </div>
         <div class="test-card-readings">
           <div class="reading-box"><div class="r-label">Baseline</div><div class="r-val" style="color:var(--muted)">${t.t0}</div></div>
@@ -494,6 +525,7 @@ function render(){
         </div>`:''}
         ${t.notes?`<div class="test-card-notes">${t.notes}</div>`:''}
         <div class="test-card-actions">
+          <button class="btn-sm btn-sm-outline" onclick="editTest('${t.id}')">✏️ Add / Edit Readings</button>
           <button class="btn-sm btn-sm-danger" onclick="deleteTest('${t.id}')">Delete</button>
         </div>
       </div>`;
