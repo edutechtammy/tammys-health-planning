@@ -428,6 +428,10 @@ function formatDate(iso){
   const[y,m,d]=iso.split('-');
   return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
+function formatDateShort(iso){
+  const[y,m,d]=iso.split('-');
+  return `${m}/${d}/${y.slice(2)}`;
+}
 function avg(arr){ const v=arr.filter(x=>x!==null&&x!==undefined); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; }
 function fmt(val,dec=1){ return(val!==null&&val!==undefined)?(+val).toFixed(dec):'—'; }
 function glucoseColor(v){ if(v===null)return''; if(v<100)return'color:#27ae60'; if(v<126)return'color:#e67e22'; return'color:#e74c3c'; }
@@ -563,7 +567,7 @@ function buildTable(entries){
   const deltas=computeDPDeltas(entries);
   tbody.innerHTML=[...entries].map((e,i)=>({e,dp:deltas[i]})).reverse().map(({e,dp})=>`
     <tr>
-      <td>${formatDate(e.date)}</td>
+      <td style="white-space:nowrap;font-size:.8rem">${formatDateShort(e.date)}</td>
       <td>${e.weight?fmt(e.weight)+' lbs':'—'}</td>
       <td style="${glucoseColor(e.gFast)}">${fmt(e.gFast,0)}</td>
       <td style="${glucoseColor(e.gMid)}">${fmt(e.gMid,0)}</td>
