@@ -75,6 +75,28 @@
     #save-msg { font-size:.82rem; color:var(--green-mid); font-weight:600; opacity:0; transition:opacity .4s; }
     #save-msg.show { opacity:1; }
 
+    /* ── Habit chips ── */
+    .habit-row { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.3rem; }
+    .habit-chip { padding:.35rem .85rem; border-radius:20px; font-size:.83rem; font-weight:600; cursor:pointer; border:1.5px solid var(--border); background:#f9fdf9; color:var(--muted); user-select:none; transition:background .15s,color .15s,border-color .15s; }
+    .habit-chip.habit-on { background:var(--green-pale); color:var(--green-dark); border-color:var(--green-mid); }
+    /* ── Walk toggle ── */
+    .walk-toggle { display:inline-flex; align-items:center; gap:.6rem; cursor:pointer; margin-top:.25rem; padding:.3rem .85rem; border-radius:20px; border:1.5px solid var(--border); background:#f9fdf9; font-size:.88rem; font-weight:600; color:var(--muted); user-select:none; transition:background .15s,color .15s,border-color .15s; }
+    .walk-toggle.walk-on { background:#e8f5e9; color:#2e7d32; border-color:#81c784; }
+    /* ── Supplement select ── */
+    .field select { border:1px solid var(--border); border-radius:8px; padding:.45rem .7rem; font-size:.93rem; color:var(--text); background:#f9fdf9; outline:none; transition:border-color .2s; }
+    .field select:focus { border-color:var(--green-mid); background:#fff; }
+    /* ── Weekly card ── */
+    .weekly-card { background:linear-gradient(135deg,#f0faf2 0%,#f5f0ff 100%); border:1px solid #c3d9c8; }
+    .weekly-card h2 { color:var(--green-dark); }
+    .weekly-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    @media(max-width:640px){ .weekly-grid { grid-template-columns:1fr; } }
+    .weekly-prev { background:#fff; border-radius:10px; padding:.8rem 1rem; border:1px solid var(--border); font-size:.85rem; color:var(--muted); }
+    .weekly-prev strong { display:block; margin-bottom:.4rem; color:var(--text); font-size:.88rem; }
+    .weekly-textarea { width:100%; border:1px solid var(--border); border-radius:8px; padding:.5rem .75rem; font-size:.9rem; color:var(--text); background:#fff; font-family:inherit; resize:vertical; min-height:64px; outline:none; }
+    .weekly-textarea:focus { border-color:var(--green-mid); }
+    .weekly-saved { font-size:.78rem; color:var(--green-mid); font-weight:600; opacity:0; transition:opacity .4s; }
+    .weekly-saved.show { opacity:1; }
+
     /* ── Stats ── */
     .stats-bar { display:grid; grid-template-columns:repeat(auto-fill,minmax(128px,1fr)); gap:.8rem; margin-bottom:1.6rem; }
     .stat-box { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.9rem 1rem; text-align:center; box-shadow:var(--card-shadow); }
@@ -200,13 +222,17 @@
   <div class="form-section-label">💧 Hydration</div>
   <div class="form-grid">
     <div class="field full">
-      <label>💧 General Liquids — tap to fill &nbsp;·&nbsp; each icon = 1 bottle fill (3 cups / 24 oz) &nbsp;·&nbsp; Goal: 4 fills ≈ 12 cups / 2.8L (kidney stone prevention target)</label>
+      <label>💧 General Liquids — tap to fill &nbsp;·&nbsp; each icon = 1 bottle fill (1.5 cups / 12 oz, with ice) &nbsp;·&nbsp; Goal: 8 fills ≈ 12 cups / 2.8L (kidney stone prevention target)</label>
       <div class="hydra-row" id="hydra-gen-row">
         <span class="hydra-icon" onclick="tapHydra('gen',1)">💧</span>
         <span class="hydra-icon" onclick="tapHydra('gen',2)">💧</span>
         <span class="hydra-icon" onclick="tapHydra('gen',3)">💧</span>
         <span class="hydra-icon" onclick="tapHydra('gen',4)">💧</span>
-        <span class="hydra-count" id="hydra-gen-count">0 / 4</span>
+        <span class="hydra-icon" onclick="tapHydra('gen',5)">💧</span>
+        <span class="hydra-icon" onclick="tapHydra('gen',6)">💧</span>
+        <span class="hydra-icon" onclick="tapHydra('gen',7)">💧</span>
+        <span class="hydra-icon" onclick="tapHydra('gen',8)">💧</span>
+        <span class="hydra-count" id="hydra-gen-count">0 / 8</span>
       </div>
     </div>
     <div class="field full">
@@ -253,6 +279,72 @@
       <input type="text" id="f-notes" placeholder="Optional note…" />
     </div>
   </div>
+
+  <div class="form-section-label">🏃 Movement — Treadmill</div>
+  <div class="form-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem 1.2rem;">
+    <div class="field">
+      <label>Post-Lunch Walk</label>
+      <div id="walk-lunch-toggle" class="walk-toggle" onclick="toggleWalk('lunch')">
+        <span>🚶</span><span id="walk-lunch-label">30 min — tap to log</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Post-Dinner Walk</label>
+      <div id="walk-dinner-toggle" class="walk-toggle" onclick="toggleWalk('dinner')">
+        <span>🚶</span><span id="walk-dinner-label">30 min — tap to log</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Pre-Bed Slow Walk <span style="font-size:.72rem;font-weight:400;color:var(--muted)">easy pace only</span></label>
+      <div id="walk-prebed-toggle" class="walk-toggle" onclick="toggleWalk('prebed')">
+        <span>🌙🚶</span><span id="walk-prebed-label">20–30 min — tap to log</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Total Treadmill Minutes Today</label>
+      <input type="number" id="f-move-min" step="5" min="0" placeholder="e.g. 60" />
+    </div>
+  </div>
+
+  <div class="form-section-label">🌿 Cortisol Recovery Behaviors — tap each one you did today</div>
+  <div style="padding:.2rem 0 .7rem">
+    <div class="habit-row">
+      <span class="habit-chip" id="hab-outdoors"  onclick="toggleHabit('outdoors')">☀️ Time Outdoors &gt;20 min, sunrise</span>
+      <span class="habit-chip" id="hab-screenFree" onclick="toggleHabit('screenFree')">📵 Screen-Free 90 min pre-bed</span>
+      <span class="habit-chip" id="hab-unrushed"  onclick="toggleHabit('unrushed')">🌅 Unrushed Morning</span>
+      <span class="habit-chip" id="hab-rest"      onclick="toggleHabit('rest')">😴 Nap / Rest</span>
+    </div>
+  </div>
+
+  <div class="form-section-label">💊 Supplements &amp; Symptoms</div>
+  <div class="form-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.1rem 1.4rem;">
+    <div class="field">
+      <label>Supplements Taken</label>
+      <select id="f-supps">
+        <option value="">— not logged —</option>
+        <option value="all">✅ All taken</option>
+        <option value="partial">⚠️ Partial</option>
+        <option value="none">❌ Skipped</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>GI Status (1–5)</label>
+      <div class="range-wrap">
+        <input type="range" id="f-gi" min="1" max="5" step="1" value="3" oninput="document.getElementById('gi-val').textContent=this.value" />
+        <span class="range-val" id="gi-val">3</span>
+      </div>
+      <div class="range-hint"><span>😣 Bad</span><span>😐 OK</span><span>✅ Good</span></div>
+    </div>
+    <div class="field">
+      <label>Energy Level (1–5)</label>
+      <div class="range-wrap">
+        <input type="range" id="f-energy" min="1" max="5" step="1" value="3" oninput="document.getElementById('energy-val').textContent=this.value" />
+        <span class="range-val" id="energy-val">3</span>
+      </div>
+      <div class="range-hint"><span>🪫 Depleted</span><span>😐 OK</span><span>⚡ Energised</span></div>
+    </div>
+  </div>
+
   <div class="form-actions">
     <button class="btn btn-primary" onclick="saveEntry()">Save Entry</button>
     <button class="btn btn-outline" onclick="clearForm()">Clear</button>
@@ -263,6 +355,28 @@
       <input type="file" id="csv-import" accept=".csv" style="display:none" onchange="importCSV(this)" />
       <button class="btn btn-danger" onclick="confirmClearAll()">Clear All Data</button>
     </div>
+  </div>
+</div>
+
+<!-- Weekly Check-in -->
+<div class="card weekly-card">
+  <h2>📓 Weekly Check-in <span id="w-week-label" style="font-size:.8rem;font-weight:400;color:var(--muted);margin-left:.5rem"></span></h2>
+  <div class="weekly-grid">
+    <div>
+      <div class="field" style="margin-bottom:.85rem">
+        <label>🎯 This week I'm focusing on…</label>
+        <textarea class="weekly-textarea" id="w-focus" placeholder="e.g. consistent bedtime, daily walk, reducing screen time…" oninput="weeklyAutoSave()"></textarea>
+      </div>
+      <div class="field">
+        <label>💭 Reflection — how did last week go?</label>
+        <textarea class="weekly-textarea" id="w-reflect" placeholder="What worked, what didn't, how does your body feel compared to the week before…" oninput="weeklyAutoSave()"></textarea>
+      </div>
+      <div style="margin-top:.5rem;display:flex;align-items:center;gap:.5rem">
+        <span style="font-size:.78rem;color:var(--muted)">Auto-saves as you type</span>
+        <span class="weekly-saved" id="weekly-saved">✓ Saved</span>
+      </div>
+    </div>
+    <div id="w-prev-content" class="weekly-prev"></div>
   </div>
 </div>
 
@@ -317,7 +431,7 @@
       <thead>
         <tr>
           <th>Date</th><th>Weight</th><th>Fasting</th><th>Midday</th><th>Evening</th>
-          <th>DP Δ</th><th>Sleep hrs</th><th>Sleep Q</th><th>Stress</th><th>Mood</th><th>💧 Gen</th><th>🥛 Milk</th><th>Notes</th><th>Del</th>
+          <th>DP Δ</th><th>Sleep hrs</th><th>Sleep Q</th><th>Stress</th><th>Mood</th><th>💧 Gen</th><th>🥛 Milk</th><th>🏃 Move</th><th>💊</th><th>GI</th><th>⚡</th><th>🌿 Habits</th><th>Notes</th><th>Del</th>
         </tr>
       </thead>
       <tbody id="log-body"></tbody>
@@ -332,6 +446,80 @@ const STORE_KEY = 'tammys_health_log';
 function loadEntries(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||[]; }catch{ return []; } }
 function saveEntries(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr)); }
 
+// ── WEEKLY CHECK-IN ────────────────────────────────────────────────────────
+const WEEKLY_KEY = 'tammys_weekly_log';
+function getMondayISO(date){
+  const d=new Date(date);
+  const day=d.getDay();
+  d.setDate(d.getDate()+(day===0?-6:1-day));
+  return d.toLocaleDateString('en-CA');
+}
+function getWeeklyLogs(){ try{ return JSON.parse(localStorage.getItem(WEEKLY_KEY))||{}; }catch{ return {}; } }
+function saveWeeklyEntry(k,data){ const logs=getWeeklyLogs(); logs[k]=data; localStorage.setItem(WEEKLY_KEY,JSON.stringify(logs)); }
+let weeklyDebounce=null;
+function weeklyAutoSave(){
+  clearTimeout(weeklyDebounce);
+  weeklyDebounce=setTimeout(()=>{
+    const k=getMondayISO(new Date());
+    saveWeeklyEntry(k,{focus:document.getElementById('w-focus').value,reflect:document.getElementById('w-reflect').value,savedAt:new Date().toISOString()});
+    const msg=document.getElementById('weekly-saved');
+    msg.classList.add('show'); setTimeout(()=>msg.classList.remove('show'),1800);
+  },800);
+}
+function renderWeekly(){
+  const today=new Date();
+  const thisMonday=getMondayISO(today);
+  const prevMonday=getMondayISO(new Date(today.getTime()-7*24*60*60*1000));
+  const logs=getWeeklyLogs();
+  const thisWeek=logs[thisMonday]||{};
+  const prevWeek=logs[prevMonday]||{};
+  const d=new Date(thisMonday+'T12:00:00');
+  document.getElementById('w-week-label').textContent='Week of '+d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  document.getElementById('w-focus').value=thisWeek.focus||'';
+  document.getElementById('w-reflect').value=thisWeek.reflect||'';
+  const prevEl=document.getElementById('w-prev-content');
+  const pd=new Date(prevMonday+'T12:00:00');
+  prevEl.innerHTML=(prevWeek.focus||prevWeek.reflect)
+    ?'<strong>Last week ('+pd.toLocaleDateString('en-US',{month:'short',day:'numeric'})+'):</strong>'+(prevWeek.focus?'<p style="margin:.4rem 0 0"><em>Focus:</em> '+prevWeek.focus+'</p>':'')+(prevWeek.reflect?'<p style="margin:.4rem 0 0"><em>Reflection:</em> '+prevWeek.reflect+'</p>':'')
+    :'<em style="opacity:.6">No entry for last week yet.</em>';
+}
+
+// ── MOVEMENT & HABITS ────────────────────────────────────────────────────
+let lunchWalk=false, dinnerWalk=false, prebedWalk=false;
+let recovHabits={outdoors:false,screenFree:false,unrushed:false,rest:false};
+function toggleWalk(which){
+  if(which==='lunch')       lunchWalk=!lunchWalk;
+  else if(which==='dinner') dinnerWalk=!dinnerWalk;
+  else                      prebedWalk=!prebedWalk;
+  renderWalks();
+}
+function renderWalks(){
+  document.getElementById('walk-lunch-toggle').classList.toggle('walk-on',lunchWalk);
+  document.getElementById('walk-lunch-label').textContent=lunchWalk?'Done ✓':'30 min — tap to log';
+  document.getElementById('walk-dinner-toggle').classList.toggle('walk-on',dinnerWalk);
+  document.getElementById('walk-dinner-label').textContent=dinnerWalk?'Done ✓':'30 min — tap to log';
+  document.getElementById('walk-prebed-toggle').classList.toggle('walk-on',prebedWalk);
+  document.getElementById('walk-prebed-label').textContent=prebedWalk?'Done ✓':'20–30 min — tap to log';
+}
+function toggleHabit(key){
+  recovHabits[key]=!recovHabits[key];
+  document.getElementById('hab-'+key).classList.toggle('habit-on',recovHabits[key]);
+}
+function renderHabits(){
+  ['outdoors','screenFree','unrushed','rest'].forEach(k=>{
+    document.getElementById('hab-'+k).classList.toggle('habit-on',recovHabits[k]);
+  });
+  renderWalks();
+}
+function habitsCell(e){
+  const h=e.habits||{};
+  const walkIcons=(e.lunchWalk?'🍽🚶 ':'')+( e.dinnerWalk?'🍻🚶 ':'')+( e.prebedWalk?'🌙🚶 ':'');
+  const habitIcons=['outdoors','screenFree','unrushed','rest'].map((k,i)=>{
+    return `<span style="opacity:${h[k]?1:.15};font-size:.88rem">${['☀️','📵','🌅','😴'][i]}</span>`;
+  }).join('');
+  return (walkIcons?`<span style="font-size:.8rem;margin-right:.15rem">${walkIcons}</span>`:'') + habitIcons;
+}
+
 // ── HYDRATION ──────────────────────────────────────────────────────────────
 let hydraGen=0, hydraMilk=0;
 function tapHydra(type, n){
@@ -343,8 +531,8 @@ function renderHydra(){
   document.querySelectorAll('#hydra-gen-row .hydra-icon').forEach((el,i)=>el.classList.toggle('hydra-on', i<hydraGen));
   document.querySelectorAll('#hydra-milk-row .hydra-icon').forEach((el,i)=>el.classList.toggle('hydra-on', i<hydraMilk));
   const gc=document.getElementById('hydra-gen-count');
-  gc.textContent=hydraGen+' / 4';
-  gc.className='hydra-count'+(hydraGen>=4?' hydra-goal-met':'');
+  gc.textContent=hydraGen+' / 8';
+  gc.className='hydra-count'+(hydraGen>=8?' hydra-goal-met':'');
   document.getElementById('hydra-milk-count').textContent=hydraMilk+' / 6';
 }
 function hydraCell(n, max, icon){
@@ -356,7 +544,7 @@ function hydraCell(n, max, icon){
 function todayISO(){ return new Date().toLocaleDateString('en-CA'); }
 document.getElementById('f-date').value = todayISO();
 document.getElementById('f-date').addEventListener('change', function(){ loadEntryIntoForm(this.value); });
-window.addEventListener('load', function(){ loadEntryIntoForm(todayISO()); });
+window.addEventListener('load', function(){ loadEntryIntoForm(todayISO()); renderWeekly(); });
 
 function updateStressColor(val){
   const el=document.getElementById('stress-val');
@@ -368,12 +556,16 @@ updateStressColor(5);
 function clearForm(){
   document.getElementById('f-date').value='';
   document.getElementById('f-date').value=todayISO();
-  ['f-weight','f-bedtime','f-sleep-hrs','f-g-fast','f-g-mid','f-g-eve','f-notes'].forEach(id=>document.getElementById(id).value='');
+  ['f-weight','f-bedtime','f-sleep-hrs','f-g-fast','f-g-mid','f-g-eve','f-notes','f-move-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-sleep-q').value='3'; document.getElementById('sq-val').textContent='3';
   document.getElementById('f-stress').value='5';  document.getElementById('stress-val').textContent='5';
   document.getElementById('f-mood').value='3';    document.getElementById('mood-val').textContent='3';
+  document.getElementById('f-gi').value='3';      document.getElementById('gi-val').textContent='3';
+  document.getElementById('f-energy').value='3'; document.getElementById('energy-val').textContent='3';
+  document.getElementById('f-supps').value='';
   updateStressColor(5);
   hydraGen=0; hydraMilk=0; renderHydra();
+  dinnerWalk=false; lunchWalk=false; prebedWalk=false; recovHabits={outdoors:false,screenFree:false,unrushed:false,rest:false}; renderHabits();
 }
 
 function loadEntryIntoForm(date){
@@ -391,6 +583,15 @@ function loadEntryIntoForm(date){
   if(e.mood){    document.getElementById('f-mood').value=e.mood;       document.getElementById('mood-val').textContent=e.mood; }
   if(e.notes)    document.getElementById('f-notes').value=e.notes;
   hydraGen=e.hydraGen||0; hydraMilk=e.hydraMilk||0; renderHydra();
+  document.getElementById('f-move-min').value=e.moveMin||'';
+  document.getElementById('f-supps').value=e.suppTaken||'';
+  if(e.gi!=null){     document.getElementById('f-gi').value=e.gi;     document.getElementById('gi-val').textContent=e.gi; }
+  if(e.energy!=null){ document.getElementById('f-energy').value=e.energy; document.getElementById('energy-val').textContent=e.energy; }
+  dinnerWalk=e.dinnerWalk||false;
+  lunchWalk=e.lunchWalk||false;
+  prebedWalk=e.prebedWalk||false;
+  recovHabits=Object.assign({outdoors:false,screenFree:false,unrushed:false,rest:false},e.habits||{});
+  renderHabits();
 }
 
 function saveEntry(){
@@ -405,11 +606,16 @@ function saveEntry(){
   const stress  = parseInt(document.getElementById('f-stress').value)||null;
   const mood    = parseInt(document.getElementById('f-mood').value)||null;
   const notes   = document.getElementById('f-notes').value.trim();
+  const moveMin  = parseFloat(document.getElementById('f-move-min').value)||null;
+  const suppTaken= document.getElementById('f-supps').value||null;
+  const gi       = parseInt(document.getElementById('f-gi').value)||null;
+  const energy   = parseInt(document.getElementById('f-energy').value)||null;
+  const habits   = {...recovHabits};
   if(!date){ alert('Please pick a date.'); return; }
   if(weight===null&&gFast===null&&gMid===null&&gEve===null){ alert('Enter at least one reading before saving.'); return; }
   const entries=loadEntries();
   const idx=entries.findIndex(e=>e.date===date);
-  const entry={date,weight,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,hydraGen,hydraMilk,notes};
+  const entry={date,weight,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,hydraGen,hydraMilk,moveMin,lunchWalk,dinnerWalk,prebedWalk,suppTaken,gi,energy,habits,notes};
   if(idx>=0) entries[idx]=entry; else entries.push(entry);
   entries.sort((a,b)=>a.date.localeCompare(b.date));
   saveEntries(entries);
@@ -551,6 +757,8 @@ function buildStats(entries){
   const stresses=entries.map(e=>e.stress).filter(Boolean);
   const sleeps  =entries.map(e=>e.sleepHrs).filter(Boolean);
   const deltas  =computeDPDeltas(entries).filter(v=>v!==null);
+  const energies=entries.map(e=>e.energy).filter(Boolean);
+  const moves   =entries.map(e=>e.moveMin).filter(v=>v!=null&&v>0);
   const weightDelta=weights.length>=2?weights[weights.length-1]-weights[0]:null;
   const avgDP=avg(deltas);
   const recentDP=avg(deltas.slice(-7));
@@ -563,6 +771,8 @@ function buildStats(entries){
     {val:recentDP!==null?(recentDP>=0?'+':'')+fmt(recentDP,0):'—',label:'DP Delta 7d',color:recentDP===null?'#aaa':recentDP<=10?'#27ae60':recentDP<=20?'#52b788':recentDP<=35?'#e67e22':'#e74c3c',trend:''},
     {val:stresses.length?fmt(avg(stresses),1):'—',label:'Avg Stress',color:stressColor(avg(stresses)),trend:trendArrow(stresses)},
     {val:sleeps.length?fmt(avg(sleeps),1)+'h':'—',label:'Avg Sleep',color:sleeps.length?(avg(sleeps)>=7?'#27ae60':avg(sleeps)>=6?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(sleeps)},
+    {val:energies.length?fmt(avg(energies),1):'—',label:'Avg Energy',color:energies.length?(avg(energies)>=4?'#27ae60':avg(energies)>=3?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(energies)},
+    {val:moves.length?Math.round(avg(moves))+'min':'—',label:'Avg Movement',color:moves.length?(avg(moves)>=30?'#27ae60':avg(moves)>=15?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(moves)},
     {val:entries.length,label:'Days Logged',color:'#40916c',trend:''}
   ];
   bar.innerHTML=stats.map(s=>`<div class="stat-box"><div class="stat-val" style="color:${s.color}">${s.val}</div><div class="stat-label">${s.label}</div>${s.trend?`<div class="stat-trend" style="color:${s.color}">${s.trend}</div>`:''}</div>`).join('');
@@ -586,8 +796,13 @@ function buildTable(entries){
       <td>${sleepPips(e.sleepQ)}</td>
       <td>${stressPill(e.stress)}</td>
       <td style="color:var(--purple);font-weight:600">${e.mood?e.mood+'/5':'—'}</td>
-      <td style="white-space:nowrap">${hydraCell(e.hydraGen,4,'💧')}</td>
+      <td style="white-space:nowrap">${hydraCell(e.hydraGen,8,'💧')}</td>
       <td style="white-space:nowrap">${hydraCell(e.hydraMilk,6,'🥛')}</td>
+      <td style="font-size:.8rem;white-space:nowrap">${e.moveMin?e.moveMin+'m':'—'}${e.lunchWalk?' 🍽️🚶':''}${e.dinnerWalk?' 🍻🚶':''}${e.prebedWalk?' 🌙🚶':''}</td>
+      <td style="font-size:.88rem;text-align:center">${e.suppTaken==='all'?'✅':e.suppTaken==='partial'?'⚠️':e.suppTaken==='none'?'❌':'—'}</td>
+      <td style="font-size:.8rem;text-align:center;font-weight:600;color:${e.gi>=4?'#27ae60':e.gi<=2?'#e74c3c':'#e67e22'}">${e.gi?e.gi+'/5':'—'}</td>
+      <td style="font-size:.8rem;text-align:center;font-weight:600;color:${e.energy>=4?'#27ae60':e.energy<=2?'#e74c3c':'#e67e22'}">${e.energy?'⚡'+e.energy:'—'}</td>
+      <td style="white-space:nowrap">${habitsCell(e)}</td>
       <td style="color:var(--muted);font-size:.8rem;max-width:160px;white-space:normal">${e.notes||''}</td>
       <td><button class="del-btn" onclick="deleteEntry('${e.date}')" title="Delete">✕</button></td>
     </tr>`).join('');
@@ -596,7 +811,7 @@ function buildTable(entries){
 function exportCSV(){
   const entries=loadEntries();
   if(!entries.length){ alert('No entries to export yet.'); return; }
-  const headers=['Date','Weight (lbs)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Hydration Bottles (0-4)','Milk Glasses (0-6)','Notes'];
+  const headers=['Date','Weight (lbs)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Hydration Bottles (0-8)','Milk Glasses (0-6)','Treadmill Minutes','Lunch Walk','Dinner Walk','Pre-Bed Walk','Supplements','GI Status (1-5)','Energy (1-5)','Outdoors','Screen-Free','Unrushed Morning','Rest/Nap','Notes'];
   const rows=entries.map(e=>[
     e.date,
     e.weight??'',
@@ -610,8 +825,19 @@ function exportCSV(){
     e.mood??'',
     e.hydraGen??'',
     e.hydraMilk??'',
+    e.moveMin??'',
+    e.lunchWalk?1:0,
+    e.dinnerWalk?1:0,
+    e.prebedWalk?1:0,
+    e.suppTaken??'',
+    e.gi??'',
+    e.energy??'',
+    e.habits?.outdoors?1:0,
+    e.habits?.screenFree?1:0,
+    e.habits?.unrushed?1:0,
+    e.habits?.rest?1:0,
     (e.notes||'').replace(/"/g,'""')
-  ].map((v,i)=>i===12?`"${v}"`:v).join(','));
+  ].map((v,i)=>i===23?`"${v}"`:v).join(','));
   const csv=[headers.join(','),...rows].join('\n');
   const blob=new Blob([csv],{type:'text/csv'});
   const url=URL.createObjectURL(blob);
@@ -646,20 +872,34 @@ function importCSV(input){
       const int=v=>{ const n=parseInt(v); return isNaN(n)?null:n; };
       const date=clean(cols[0]);
       if(!date||!/^\d{4}-\d{2}-\d{2}$/.test(date))continue;
+      const isNew=cols.length>=22;
       imported.push({
         date,
-        weight:  num(clean(cols[1])),
-        bedtime: clean(cols[2]),
-        sleepHrs:num(clean(cols[3])),
-        gFast:   num(clean(cols[4])),
-        gMid:    num(clean(cols[5])),
-        gEve:    num(clean(cols[6])),
-        sleepQ:  int(clean(cols[7])),
-        stress:  int(clean(cols[8])),
-        mood:    int(clean(cols[9])),
+        weight:   num(clean(cols[1])),
+        bedtime:  clean(cols[2]),
+        sleepHrs: num(clean(cols[3])),
+        gFast:    num(clean(cols[4])),
+        gMid:     num(clean(cols[5])),
+        gEve:     num(clean(cols[6])),
+        sleepQ:   int(clean(cols[7])),
+        stress:   int(clean(cols[8])),
+        mood:     int(clean(cols[9])),
         hydraGen: int(clean(cols[10])),
         hydraMilk:int(clean(cols[11])),
-        notes:   clean(cols[12])??''
+        moveMin:   isNew?num(clean(cols[12])):null,
+        lunchWalk: isNew?clean(cols[13])==='1':false,
+        dinnerWalk:isNew?clean(cols[14])==='1':false,
+        prebedWalk:isNew?clean(cols[15])==='1':false,
+        suppTaken: isNew?clean(cols[16])||null:null,
+        gi:        isNew?int(clean(cols[17])):null,
+        energy:    isNew?int(clean(cols[18])):null,
+        habits:{
+          outdoors:  isNew?clean(cols[19])==='1':false,
+          screenFree:isNew?clean(cols[20])==='1':false,
+          unrushed:  isNew?clean(cols[21])==='1':false,
+          rest:      isNew?clean(cols[22])==='1':false
+        },
+        notes: isNew?clean(cols[23])??'':clean(cols[12])??''
       });
     }
     if(!imported.length){ alert('No valid rows found in CSV.'); return; }
