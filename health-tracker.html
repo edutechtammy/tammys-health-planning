@@ -100,6 +100,14 @@
     .del-btn { background:none; border:none; cursor:pointer; color:#ccc; font-size:1rem; padding:0 .2rem; transition:color .15s; }
     .del-btn:hover { color:var(--red); }
     .empty-msg { text-align:center; color:var(--muted); padding:1.8rem; font-size:.9rem; }
+
+    /* HYDRATION TRACKER */
+    .hydra-row { display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; margin-top:.3rem; }
+    .hydra-icon { font-size:1.55rem; cursor:pointer; opacity:.2; transition:opacity .15s,transform .12s; user-select:none; line-height:1; }
+    .hydra-icon:hover { transform:scale(1.2); opacity:.5; }
+    .hydra-icon.hydra-on { opacity:1; }
+    .hydra-count { font-size:.85rem; font-weight:700; color:var(--sky-dark); margin-left:.5rem; }
+    .hydra-goal-met { color:#27ae60 !important; }
     .pips { display:flex; gap:2px; }
     .pip { width:7px; height:7px; border-radius:50%; background:#ddd; }
     .pip.on { background:var(--sky); }
@@ -185,6 +193,31 @@
     <div class="field"><label>Fasting (morning)</label><input type="number" id="f-g-fast" step="1" min="0" placeholder="e.g. 95" /></div>
     <div class="field"><label>Midday</label><input type="number" id="f-g-mid" step="1" min="0" placeholder="e.g. 110" /></div>
     <div class="field"><label>Evening (pre-bed)</label><input type="number" id="f-g-eve" step="1" min="0" placeholder="e.g. 100" /></div>
+  </div>
+  <div class="form-section-label">💧 Hydration</div>
+  <div class="form-grid">
+    <div class="field full">
+      <label>💧 General Liquids — tap to fill &nbsp;·&nbsp; each icon = 1 bottle fill (3 cups / 24 oz) &nbsp;·&nbsp; Goal: 4 fills ≈ 12 cups / 2.8L (kidney stone prevention target)</label>
+      <div class="hydra-row" id="hydra-gen-row">
+        <span class="hydra-icon" onclick="tapHydra('gen',1)">💧</span>
+        <span class="hydra-icon" onclick="tapHydra('gen',2)">💧</span>
+        <span class="hydra-icon" onclick="tapHydra('gen',3)">💧</span>
+        <span class="hydra-icon" onclick="tapHydra('gen',4)">💧</span>
+        <span class="hydra-count" id="hydra-gen-count">0 / 4</span>
+      </div>
+    </div>
+    <div class="field full">
+      <label>🥛 Milk / Dairy — tap to log &nbsp;·&nbsp; each icon = 1 glass (tracking only — not part of goal; compare against glucose readings for pattern spotting)</label>
+      <div class="hydra-row" id="hydra-milk-row">
+        <span class="hydra-icon" onclick="tapHydra('milk',1)">🥛</span>
+        <span class="hydra-icon" onclick="tapHydra('milk',2)">🥛</span>
+        <span class="hydra-icon" onclick="tapHydra('milk',3)">🥛</span>
+        <span class="hydra-icon" onclick="tapHydra('milk',4)">🥛</span>
+        <span class="hydra-icon" onclick="tapHydra('milk',5)">🥛</span>
+        <span class="hydra-icon" onclick="tapHydra('milk',6)">🥛</span>
+        <span class="hydra-count" id="hydra-milk-count">0 / 6</span>
+      </div>
+    </div>
   </div>
   <div class="form-section-label">🧠 Stress &amp; Wellbeing</div>
   <div class="form-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem 1.4rem;">
@@ -281,7 +314,7 @@
       <thead>
         <tr>
           <th>Date</th><th>Weight</th><th>Fasting</th><th>Midday</th><th>Evening</th>
-          <th>DP Δ</th><th>Sleep hrs</th><th>Sleep Q</th><th>Stress</th><th>Mood</th><th>Notes</th><th></th>
+          <th>DP Δ</th><th>Sleep hrs</th><th>Sleep Q</th><th>Stress</th><th>Mood</th><th>💧 Gen</th><th>🥛 Milk</th><th>Notes</th><th>Del</th>
         </tr>
       </thead>
       <tbody id="log-body"></tbody>
@@ -295,6 +328,28 @@
 const STORE_KEY = 'tammys_health_log';
 function loadEntries(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||[]; }catch{ return []; } }
 function saveEntries(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr)); }
+
+// ── HYDRATION ──────────────────────────────────────────────────────────────
+let hydraGen=0, hydraMilk=0;
+function tapHydra(type, n){
+  if(type==='gen')  hydraGen  = (hydraGen===n)  ? n-1 : n;
+  else              hydraMilk = (hydraMilk===n) ? n-1 : n;
+  renderHydra();
+}
+function renderHydra(){
+  document.querySelectorAll('#hydra-gen-row .hydra-icon').forEach((el,i)=>el.classList.toggle('hydra-on', i<hydraGen));
+  document.querySelectorAll('#hydra-milk-row .hydra-icon').forEach((el,i)=>el.classList.toggle('hydra-on', i<hydraMilk));
+  const gc=document.getElementById('hydra-gen-count');
+  gc.textContent=hydraGen+' / 4';
+  gc.className='hydra-count'+(hydraGen>=4?' hydra-goal-met':'');
+  document.getElementById('hydra-milk-count').textContent=hydraMilk+' / 6';
+}
+function hydraCell(n, max, icon){
+  if(n===null||n===undefined) return '—';
+  let s='';
+  for(let i=0;i<max;i++) s+=`<span style="opacity:${i<n?'1':'.18'};font-size:1rem">${icon}</span>`;
+  return s+`&nbsp;<span style="font-size:.75rem;color:var(--muted)">${n}/${max}</span>`;
+}
 
 function todayISO(){ return new Date().toLocaleDateString('en-CA'); }
 document.getElementById('f-date').value = todayISO();
@@ -316,6 +371,7 @@ function clearForm(){
   document.getElementById('f-stress').value='5';  document.getElementById('stress-val').textContent='5';
   document.getElementById('f-mood').value='3';    document.getElementById('mood-val').textContent='3';
   updateStressColor(5);
+  hydraGen=0; hydraMilk=0; renderHydra();
 }
 
 function loadEntryIntoForm(date){
@@ -332,6 +388,7 @@ function loadEntryIntoForm(date){
   if(e.stress){  document.getElementById('f-stress').value=e.stress;  document.getElementById('stress-val').textContent=e.stress; updateStressColor(e.stress); }
   if(e.mood){    document.getElementById('f-mood').value=e.mood;       document.getElementById('mood-val').textContent=e.mood; }
   if(e.notes)    document.getElementById('f-notes').value=e.notes;
+  hydraGen=e.hydraGen||0; hydraMilk=e.hydraMilk||0; renderHydra();
 }
 
 function saveEntry(){
@@ -350,7 +407,7 @@ function saveEntry(){
   if(weight===null&&gFast===null&&gMid===null&&gEve===null){ alert('Enter at least one reading before saving.'); return; }
   const entries=loadEntries();
   const idx=entries.findIndex(e=>e.date===date);
-  const entry={date,weight,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,notes};
+  const entry={date,weight,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,hydraGen,hydraMilk,notes};
   if(idx>=0) entries[idx]=entry; else entries.push(entry);
   entries.sort((a,b)=>a.date.localeCompare(b.date));
   saveEntries(entries);
@@ -517,6 +574,8 @@ function buildTable(entries){
       <td>${sleepPips(e.sleepQ)}</td>
       <td>${stressPill(e.stress)}</td>
       <td style="color:var(--purple);font-weight:600">${e.mood?e.mood+'/5':'—'}</td>
+      <td style="white-space:nowrap">${hydraCell(e.hydraGen,4,'💧')}</td>
+      <td style="white-space:nowrap">${hydraCell(e.hydraMilk,6,'🥛')}</td>
       <td style="color:var(--muted);font-size:.8rem;max-width:160px;white-space:normal">${e.notes||''}</td>
       <td><button class="del-btn" onclick="deleteEntry('${e.date}')" title="Delete">✕</button></td>
     </tr>`).join('');
@@ -525,7 +584,7 @@ function buildTable(entries){
 function exportCSV(){
   const entries=loadEntries();
   if(!entries.length){ alert('No entries to export yet.'); return; }
-  const headers=['Date','Weight (lbs)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Notes'];
+  const headers=['Date','Weight (lbs)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Hydration Bottles (0-4)','Milk Glasses (0-6)','Notes'];
   const rows=entries.map(e=>[
     e.date,
     e.weight??'',
@@ -537,8 +596,10 @@ function exportCSV(){
     e.sleepQ??'',
     e.stress??'',
     e.mood??'',
+    e.hydraGen??'',
+    e.hydraMilk??'',
     (e.notes||'').replace(/"/g,'""')
-  ].map((v,i)=>i===10?`"${v}"`:v).join(','));
+  ].map((v,i)=>i===12?`"${v}"`:v).join(','));
   const csv=[headers.join(','),...rows].join('\n');
   const blob=new Blob([csv],{type:'text/csv'});
   const url=URL.createObjectURL(blob);
@@ -584,7 +645,9 @@ function importCSV(input){
         sleepQ:  int(clean(cols[7])),
         stress:  int(clean(cols[8])),
         mood:    int(clean(cols[9])),
-        notes:   clean(cols[10])??''
+        hydraGen: int(clean(cols[10])),
+        hydraMilk:int(clean(cols[11])),
+        notes:   clean(cols[12])??''
       });
     }
     if(!imported.length){ alert('No valid rows found in CSV.'); return; }
