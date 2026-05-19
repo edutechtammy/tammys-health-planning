@@ -84,8 +84,11 @@
 
     /* ── Charts ── */
     .charts-grid-2 { display:grid; grid-template-columns:1fr; gap:1.4rem; margin-bottom:1.6rem; }
-    .chart-wrap { position:relative; height:300px; }
-    .chart-wrap-tall { position:relative; height:320px; }
+    .chart-scroll { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; border-radius:6px; }
+    .chart-scroll::-webkit-scrollbar { height:5px; }
+    .chart-scroll::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+    .chart-wrap      { position:relative; height:300px; min-width:100%; }
+    .chart-wrap-tall { position:relative; height:320px; min-width:100%; }
     .ref-legend { display:flex; flex-wrap:wrap; gap:.4rem .9rem; margin-top:.6rem; font-size:.75rem; color:var(--muted); }
     .ref-legend span { display:flex; align-items:center; gap:.3rem; }
     .ref-dot { width:10px; height:3px; border-radius:2px; display:inline-block; }
@@ -270,11 +273,11 @@
 <div class="charts-grid-2">
   <div class="card">
     <h2>⚖️ Weight Over Time</h2>
-    <div class="chart-wrap"><canvas id="chart-weight"></canvas></div>
+    <div class="chart-scroll"><div class="chart-wrap" id="wrap-weight"><canvas id="chart-weight"></canvas></div></div>
   </div>
   <div class="card">
     <h2>🩸 Glucose Over Time</h2>
-    <div class="chart-wrap"><canvas id="chart-glucose"></canvas></div>
+    <div class="chart-scroll"><div class="chart-wrap" id="wrap-glucose"><canvas id="chart-glucose"></canvas></div></div>
     <div class="ref-legend">
       <span><span class="ref-dot" style="background:#27ae60"></span> Normal &lt;100</span>
       <span><span class="ref-dot" style="background:#f39c12"></span> Pre-diabetic 100–125</span>
@@ -287,7 +290,7 @@
 <div class="charts-grid-2">
   <div class="card">
     <h2>🌅 Dawn Phenomenon Delta <span style="font-size:.75rem;font-weight:400;color:var(--muted)">(Fasting − Previous Evening)</span></h2>
-    <div class="chart-wrap-tall"><canvas id="chart-dp"></canvas></div>
+    <div class="chart-scroll"><div class="chart-wrap-tall" id="wrap-dp"><canvas id="chart-dp"></canvas></div></div>
     <div class="ref-legend">
       <span><span class="ref-dot" style="background:#27ae60"></span> ≤10 Excellent</span>
       <span><span class="ref-dot" style="background:#52b788"></span> 11–20 Normal</span>
@@ -297,7 +300,7 @@
   </div>
   <div class="card">
     <h2>🧠 Stress &amp; Sleep Quality</h2>
-    <div class="chart-wrap-tall"><canvas id="chart-stress"></canvas></div>
+    <div class="chart-scroll"><div class="chart-wrap-tall" id="wrap-stress"><canvas id="chart-stress"></canvas></div></div>
     <div class="ref-legend">
       <span><span class="ref-dot" style="background:#e07a5f"></span> Stress (1–10, left)</span>
       <span><span class="ref-dot" style="background:#4a90c4"></span> Sleep Quality (1–5, right)</span>
@@ -471,6 +474,12 @@ let chartWeight=null,chartGlucose=null,chartDP=null,chartStress=null;
 
 function buildCharts(entries){
   const labels=entries.map(e=>formatDate(e.date));
+  const PX_PER_POINT = 44;
+  const minW = Math.max(entries.length * PX_PER_POINT, 400);
+  ['wrap-weight','wrap-glucose','wrap-dp','wrap-stress'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.width=minW+'px';
+  });
   const baseOpts={
     responsive:true, maintainAspectRatio:false,
     plugins:{legend:{labels:{font:{size:11},boxWidth:12}}},
