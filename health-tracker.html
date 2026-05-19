@@ -345,10 +345,9 @@ function renderHydra(){
   document.getElementById('hydra-milk-count').textContent=hydraMilk+' / 6';
 }
 function hydraCell(n, max, icon){
-  if(n===null||n===undefined) return '—';
-  let s='';
-  for(let i=0;i<max;i++) s+=`<span style="opacity:${i<n?'1':'.18'};font-size:1rem">${icon}</span>`;
-  return s+`&nbsp;<span style="font-size:.75rem;color:var(--muted)">${n}/${max}</span>`;
+  if(n===null||n===undefined||n===0) return '<span style="color:#ccc;font-size:.8rem">—</span>';
+  const color = (icon==='💧' && n>=max) ? '#27ae60' : (icon==='💧' ? '#00838f' : '#5a7263');
+  return `<span style="font-size:.95rem">${icon}</span><span style="font-size:.78rem;font-weight:700;color:${color};margin-left:.15rem">${n}/${max}</span>`;
 }
 
 function todayISO(){ return new Date().toLocaleDateString('en-CA'); }
