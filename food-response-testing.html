@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Response Testing</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #2d6a4f; --green-mid: #40916c; --green-light: #d8f3dc;
+      --green-pale:  #f0faf2; --border: #b7ddc4; --text: #1e2d24; --muted: #5a7263;
+      --amber: #e9a84c; --amber-pale: #fff8e1; --sky: #4a90c4; --sky-pale: #e0f7fa;
+      --purple: #8b6abf; --red: #c0392b; --red-pale: #fdf0ed;
+      --card-shadow: 0 2px 14px rgba(45,106,79,.11);
+    }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--green-pale); color:var(--text); line-height:1.6; padding-bottom:5rem; }
+
+    /* NAV */
+    nav { background:var(--green-dark); padding:.75rem 1.5rem; display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; font-size:.95rem; opacity:.85; transition:opacity .2s; }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+
+    /* HEADER */
+    header { text-align:center; padding:2rem 1rem 1.5rem; }
+    header h1 { font-size:clamp(1.6rem,4vw,2.4rem); color:var(--green-dark); }
+    header p  { color:var(--muted); margin-top:.4rem; max-width:640px; margin-left:auto; margin-right:auto; }
+
+    .page { max-width:1200px; margin:0 auto; padding:0 1rem; }
+
+    /* CARDS */
+    .card { background:#fff; border-radius:16px; border:1px solid var(--border); box-shadow:var(--card-shadow); padding:1.4rem 1.6rem; margin-bottom:1.6rem; }
+    .card h2 { font-size:1.05rem; color:var(--green-dark); margin-bottom:1.1rem; display:flex; align-items:center; gap:.5rem; }
+
+    /* INFO CALLOUT */
+    .callout { border-radius:8px; padding:.85rem 1.1rem; margin:.6rem 0; font-size:.9rem; }
+    .callout-amber { background:var(--amber-pale); border-left:4px solid var(--amber); }
+    .callout-green { background:var(--green-light); border-left:4px solid var(--green-mid); }
+    .callout-sky   { background:var(--sky-pale);    border-left:4px solid var(--sky); }
+    .callout strong { display:block; margin-bottom:.25rem; }
+
+    /* PROTOCOL TIMELINE */
+    .protocol-row { display:flex; flex-wrap:wrap; gap:.6rem; margin:.6rem 0; }
+    .proto-step { background:#fff; border:1.5px solid var(--border); border-radius:10px; padding:.5rem .9rem; font-size:.85rem; display:flex; align-items:center; gap:.5rem; }
+    .proto-step .t { font-weight:700; color:var(--green-dark); min-width:3.2rem; }
+    .proto-step.t0 { border-color:#4a90c4; background:#f0f8ff; }
+    .proto-step.t30 { border-color:#e9a84c; background:#fffbf0; }
+    .proto-step.t60 { border-color:#e9a84c; background:#fffbf0; }
+    .proto-step.t120 { border-color:#27ae60; background:#f0fff4; }
+
+    /* FORM */
+    .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(175px,1fr)); gap:.85rem 1rem; }
+    .form-grid.wide { grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
+    .field { display:flex; flex-direction:column; gap:.28rem; }
+    .field.full { grid-column:1/-1; }
+    .field label { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+    .field input, .field select, .field textarea {
+      border:1px solid var(--border); border-radius:8px; padding:.45rem .7rem;
+      font-size:.93rem; color:var(--text); background:#f9fdf9; font-family:inherit;
+    }
+    .field textarea { resize:vertical; min-height:56px; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline:2px solid var(--green-mid); background:#fff; }
+
+    .spike-preview { grid-column:1/-1; background:var(--green-pale); border-radius:8px; padding:.6rem 1rem; font-size:.85rem; color:var(--green-dark); min-height:36px; border:1px solid var(--border); }
+
+    .btn-row { display:flex; gap:.7rem; flex-wrap:wrap; margin-top:.8rem; align-items:center; }
+    .btn { padding:.5rem 1.2rem; border:none; border-radius:8px; font-size:.9rem; font-weight:600; cursor:pointer; transition:opacity .15s; }
+    .btn:hover { opacity:.84; }
+    .btn-primary { background:var(--green-mid); color:#fff; }
+    .btn-outline  { background:transparent; border:1px solid var(--border); color:var(--muted); }
+    .btn-export   { background:#eef6fb; color:#1a5276; border:1px solid #aed6f1; }
+    .btn-danger   { background:var(--red-pale); color:var(--red); border:1px solid #f5c0b0; }
+    #save-msg { font-size:.82rem; color:var(--green-mid); font-weight:600; opacity:0; transition:opacity .4s; }
+    #save-msg.show { opacity:1; }
+
+    /* FILTER BAR */
+    .filter-bar { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.2rem; align-items:center; }
+    .filter-bar label { font-size:.8rem; font-weight:600; color:var(--muted); margin-right:.3rem; }
+    .filter-chip { padding:.28rem .75rem; border-radius:20px; font-size:.8rem; font-weight:600; cursor:pointer; border:1.5px solid var(--border); background:#f9fdf9; color:var(--muted); user-select:none; transition:background .15s,color .15s; }
+    .filter-chip.on { background:var(--green-light); color:var(--green-dark); border-color:var(--green-mid); }
+    .search-box { border:1px solid var(--border); border-radius:8px; padding:.35rem .75rem; font-size:.85rem; background:#fff; color:var(--text); min-width:180px; }
+
+    /* RESULTS GRID */
+    .results-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem; }
+
+    .test-card { background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:0 1px 8px rgba(45,106,79,.07); }
+    .test-card-header { padding:.7rem 1rem; display:flex; align-items:flex-start; gap:.6rem; border-bottom:1px solid var(--border); }
+    .test-food { font-weight:700; font-size:.95rem; flex:1; }
+    .test-date { font-size:.72rem; color:var(--muted); white-space:nowrap; margin-top:.1rem; }
+    .cat-pill { font-size:.7rem; font-weight:700; padding:.18rem .55rem; border-radius:20px; white-space:nowrap; }
+
+    .test-card-readings { padding:.65rem 1rem; display:grid; grid-template-columns:repeat(4,1fr); gap:.3rem; border-bottom:1px solid var(--border); }
+    .reading-box { text-align:center; }
+    .reading-box .r-label { font-size:.64rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+    .reading-box .r-val   { font-size:1.05rem; font-weight:700; }
+
+    .test-card-summary { padding:.55rem 1rem; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; }
+    .spike-badge { font-size:.78rem; font-weight:700; padding:.2rem .6rem; border-radius:20px; }
+    .spike-flat    { background:#e8f8ef; color:#1e8449; }
+    .spike-mild    { background:#fef9e7; color:#9a7d0a; }
+    .spike-moderate{ background:#fef5e7; color:#9a6000; }
+    .spike-high    { background:var(--red-pale); color:var(--red); }
+
+    .test-card-notes { padding:.4rem 1rem .7rem; font-size:.8rem; color:var(--muted); font-style:italic; }
+
+    .test-card-actions { padding:.4rem .75rem .6rem; display:flex; gap:.5rem; border-top:1px solid var(--border); }
+    .btn-sm { padding:.28rem .75rem; border:none; border-radius:6px; font-size:.78rem; font-weight:600; cursor:pointer; }
+    .btn-sm-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
+    .btn-sm-danger  { background:var(--red-pale); color:var(--red); border:1px solid #f5c0b0; }
+    .btn-sm-outline:hover { background:var(--green-pale); }
+    .btn-sm-danger:hover  { opacity:.8; }
+
+    /* CHART */
+    .chart-scroll { overflow-x:auto; }
+    .chart-wrap   { min-width:400px; height:260px; }
+
+    /* SUMMARY TABLE */
+    .sum-table { width:100%; border-collapse:collapse; font-size:.85rem; }
+    .sum-table th { background:var(--green-dark); color:#fff; padding:.45rem .75rem; text-align:left; font-size:.78rem; }
+    .sum-table td { padding:.4rem .75rem; border-bottom:1px solid #e8f0eb; vertical-align:middle; }
+    .sum-table tr:nth-child(even) td { background:#f7fbf8; }
+    .sum-table .best { color:#1e8449; font-weight:700; }
+    .sum-table .warn { color:var(--red); font-weight:700; }
+
+    .empty-msg { text-align:center; color:var(--muted); font-size:.92rem; padding:2rem 1rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="food-response-testing.html" class="active">🍽️ Food Testing</a>
+</nav>
+
+<header>
+  <h1>🍽️ Personal Food Response Testing</h1>
+  <p>End-of-fast glucose response tests — log what you ate, when you read, and how your body responded. Build your own personal glycemic map over time.</p>
+</header>
+
+<div class="page">
+
+  <!-- PROTOCOL CARD -->
+  <div class="card">
+    <h2>📋 Testing Protocol</h2>
+    <div class="callout callout-amber" style="margin-bottom:.9rem">
+      <strong>⚠️ Dawn Phenomenon note</strong>
+      Your fasting baseline will run higher than population norms due to DP — that's expected and doesn't invalidate the data. What matters is the <strong>spike above your own baseline</strong> (not the absolute number) and how quickly it returns. Compare test days to each other, not to a textbook fasting target.
+    </div>
+    <div class="protocol-row">
+      <div class="proto-step t0"><span class="t">T=0</span> Log fasting baseline glucose, then eat test food</div>
+      <div class="proto-step t30"><span class="t">+30 min</span> First finger stick — catches fast-spiking carbs</div>
+      <div class="proto-step t60"><span class="t">+60 min</span> Second reading — most informative single time point for mixed meals</div>
+      <div class="proto-step t120"><span class="t">+120 min</span> Return reading — should be within ~30 of baseline if insulin response is healthy</div>
+    </div>
+    <div class="callout callout-green" style="margin-top:.8rem">
+      <strong>💡 What the spike shape tells you</strong>
+      Fast spike + fast return → decent insulin response &nbsp;·&nbsp; Slow climb + slow return → insulin resistance pattern &nbsp;·&nbsp; High peak → food is problematic regardless of health reputation &nbsp;·&nbsp; Flat line → safe food for you
+    </div>
+    <div class="callout callout-sky" style="margin-top:.6rem">
+      <strong>🧪 High-value foods to test first (for your condition stack)</strong>
+      A2 whole milk · GF sourdough vs. unfermented GF bread · Quinoa vs. millet vs. rice · Kefir alone · Sweet potato with/without EVOO · Any food + Ceylon cinnamon vs. without · Dark chocolate + milk (paired) · Berries alone vs. with yogurt
+    </div>
+  </div>
+
+  <!-- ENTRY FORM -->
+  <div class="card">
+    <h2>➕ Log a Test</h2>
+    <div class="form-grid wide">
+      <div class="field">
+        <label>Date</label>
+        <input type="date" id="f-date" />
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <select id="f-cat">
+          <option value="grain">🌾 Grain / Starch</option>
+          <option value="dairy">🥛 Dairy / Fermented</option>
+          <option value="fruit">🍓 Fruit</option>
+          <option value="protein">🥩 Protein</option>
+          <option value="fat-carb">🥑 Fat + Carb Combo</option>
+          <option value="supplement">💊 Supplement Effect</option>
+          <option value="other">🔬 Other</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Food / Combination Tested</label>
+        <input type="text" id="f-food" placeholder="e.g. GF sourdough (2 slices) + EVOO · or: A2 whole milk (1 cup)" />
+      </div>
+    </div>
+
+    <div style="margin:.9rem 0 .4rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--green-mid);border-bottom:1px solid var(--border);padding-bottom:.25rem">🩸 Glucose Readings (mg/dL)</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Baseline (T=0, fasting)</label>
+        <input type="number" id="f-t0" step="1" min="0" placeholder="e.g. 118" oninput="updatePreview()" />
+      </div>
+      <div class="field">
+        <label>+30 min</label>
+        <input type="number" id="f-t30" step="1" min="0" placeholder="e.g. 145" oninput="updatePreview()" />
+      </div>
+      <div class="field">
+        <label>+60 min</label>
+        <input type="number" id="f-t60" step="1" min="0" placeholder="e.g. 138" oninput="updatePreview()" />
+      </div>
+      <div class="field">
+        <label>+120 min</label>
+        <input type="number" id="f-t120" step="1" min="0" placeholder="e.g. 122" oninput="updatePreview()" />
+      </div>
+      <div class="field full">
+        <div class="spike-preview" id="spike-preview">Enter baseline + at least one reading to see spike analysis…</div>
+      </div>
+    </div>
+
+    <div style="margin:.9rem 0 .4rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--green-mid);border-bottom:1px solid var(--border);padding-bottom:.25rem">📝 Context</div>
+    <div class="form-grid wide">
+      <div class="field">
+        <label>Portion / Quantity</label>
+        <input type="text" id="f-portion" placeholder="e.g. 1 cup, 2 slices, 100g" />
+      </div>
+      <div class="field">
+        <label>Was Berberine taken?</label>
+        <select id="f-berberine">
+          <option value="">— not logged —</option>
+          <option value="yes">Yes (with dinner night before)</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Was ACV taken?</label>
+        <select id="f-acv">
+          <option value="">— not logged —</option>
+          <option value="yes">Yes (before dinner night before)</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Walk before test?</label>
+        <select id="f-walk">
+          <option value="">— not logged —</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Notes / Observations</label>
+        <textarea id="f-notes" placeholder="How did you feel? Any unusual symptoms? Patterns you noticed? Variations from previous test of same food?"></textarea>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="saveTest()">Save Test</button>
+      <button class="btn btn-outline" onclick="clearForm()">Clear</button>
+      <span id="save-msg">✓ Saved!</span>
+      <div style="margin-left:auto;display:flex;gap:.7rem;flex-wrap:wrap;">
+        <button class="btn btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="btn btn-danger" onclick="confirmClearAll()">Clear All Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <label>Filter:</label>
+    <span class="filter-chip on" data-cat="all"    onclick="setFilter('all')">All</span>
+    <span class="filter-chip"   data-cat="grain"   onclick="setFilter('grain')">🌾 Grain</span>
+    <span class="filter-chip"   data-cat="dairy"   onclick="setFilter('dairy')">🥛 Dairy</span>
+    <span class="filter-chip"   data-cat="fruit"   onclick="setFilter('fruit')">🍓 Fruit</span>
+    <span class="filter-chip"   data-cat="protein" onclick="setFilter('protein')">🥩 Protein</span>
+    <span class="filter-chip"   data-cat="fat-carb" onclick="setFilter('fat-carb')">🥑 Fat+Carb</span>
+    <span class="filter-chip"   data-cat="supplement" onclick="setFilter('supplement')">💊 Supplement</span>
+    <span class="filter-chip"   data-cat="other"   onclick="setFilter('other')">🔬 Other</span>
+    <input class="search-box" id="search-box" type="text" placeholder="Search food name…" oninput="render()" />
+  </div>
+
+  <!-- RESULTS GRID -->
+  <div class="results-grid" id="results-grid"></div>
+  <p class="empty-msg" id="empty-msg" style="display:none">No tests logged yet — add your first one above.</p>
+
+  <!-- CHARTS -->
+  <div class="card" id="chart-card" style="display:none">
+    <h2>📈 Response Curves — All Tests</h2>
+    <div class="chart-scroll"><div class="chart-wrap" style="height:300px"><canvas id="chart-curves"></canvas></div></div>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:.5rem">Each line = one test. X-axis = time points (baseline → +30 → +60 → +120). Hover for food name and values.</p>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="card" id="summary-card" style="display:none">
+    <h2>📊 Summary — Ranked by Peak Spike</h2>
+    <div style="overflow-x:auto">
+      <table class="sum-table" id="sum-table">
+        <thead>
+          <tr>
+            <th>Food / Combination</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Baseline</th>
+            <th>Peak</th>
+            <th>Spike ↑</th>
+            <th>120-min Δ from baseline</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody id="sum-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+const STORE_KEY = 'tammys_food_response';
+function loadTests(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||[]; }catch{ return []; } }
+function saveTests(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr)); }
+
+const CAT_LABELS = {
+  grain:'🌾 Grain', dairy:'🥛 Dairy', fruit:'🍓 Fruit',
+  protein:'🥩 Protein', 'fat-carb':'🥑 Fat+Carb',
+  supplement:'💊 Supplement', other:'🔬 Other'
+};
+const CAT_COLORS = {
+  grain:'#fff3cd;color:#7a5c00', dairy:'#e0f7fa;color:#006064',
+  fruit:'#fce4ec;color:#880e4f', protein:'#e8f5e9;color:#1b5e20',
+  'fat-carb':'#f3e5f5;color:#4a148c', supplement:'#e3f2fd;color:#0d47a1',
+  other:'#f5f5f5;color:#424242'
+};
+
+function spikeAnalysis(t0,t30,t60,t120){
+  const readings=[t30,t60,t120].filter(v=>v!=null);
+  if(!t0||!readings.length) return null;
+  const peak=Math.max(...readings);
+  const spikeAbs=peak-t0;
+  const ret120=t120!=null?t120-t0:null;
+  let rating, cls;
+  if(spikeAbs<=20){      rating='Flat ✅';      cls='spike-flat'; }
+  else if(spikeAbs<=40){ rating='Mild ✅';       cls='spike-mild'; }
+  else if(spikeAbs<=60){ rating='Moderate ⚠️';  cls='spike-moderate'; }
+  else {                  rating='High 🚫';       cls='spike-high'; }
+  return {peak,spikeAbs,ret120,rating,cls};
+}
+
+function updatePreview(){
+  const t0  =parseFloat(document.getElementById('f-t0').value)||null;
+  const t30 =parseFloat(document.getElementById('f-t30').value)||null;
+  const t60 =parseFloat(document.getElementById('f-t60').value)||null;
+  const t120=parseFloat(document.getElementById('f-t120').value)||null;
+  const el=document.getElementById('spike-preview');
+  const a=spikeAnalysis(t0,t30,t60,t120);
+  if(!a){ el.textContent='Enter baseline + at least one reading to see spike analysis…'; el.style.background=''; return; }
+  const ret=a.ret120!=null?(a.ret120>=0?'+':'')+a.ret120+' mg/dL from baseline at 120 min':'120-min not yet entered';
+  el.innerHTML=`<strong>Peak: ${a.peak} mg/dL &nbsp;·&nbsp; Spike above baseline: +${a.spikeAbs} mg/dL &nbsp;·&nbsp; ${ret}</strong> &nbsp; <span style="font-weight:700">${a.rating}</span>`;
+  const bg={flat:'#e8f8ef','spike-flat':'#e8f8ef','spike-mild':'#fefbe7','spike-moderate':'#fef5e7','spike-high':'#fdf0ed'};
+  el.style.background=bg[a.cls]||'';
+}
+
+let activeFilter='all';
+function setFilter(cat){
+  activeFilter=cat;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===cat));
+  render();
+}
+
+function formatDate(iso){
+  if(!iso)return'';
+  const[y,m,d]=iso.split('-');
+  return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+function todayISO(){ return new Date().toLocaleDateString('en-CA'); }
+
+function clearForm(){
+  document.getElementById('f-date').value=todayISO();
+  ['f-food','f-portion','f-notes','f-t0','f-t30','f-t60','f-t120'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-cat').value='grain';
+  document.getElementById('f-berberine').value='';
+  document.getElementById('f-acv').value='';
+  document.getElementById('f-walk').value='';
+  updatePreview();
+}
+
+function saveTest(){
+  const date   = document.getElementById('f-date').value;
+  const food   = document.getElementById('f-food').value.trim();
+  const cat    = document.getElementById('f-cat').value;
+  const portion= document.getElementById('f-portion').value.trim();
+  const t0     = parseFloat(document.getElementById('f-t0').value)||null;
+  const t30    = parseFloat(document.getElementById('f-t30').value)||null;
+  const t60    = parseFloat(document.getElementById('f-t60').value)||null;
+  const t120   = parseFloat(document.getElementById('f-t120').value)||null;
+  const berberine=document.getElementById('f-berberine').value||null;
+  const acv    = document.getElementById('f-acv').value||null;
+  const walk   = document.getElementById('f-walk').value||null;
+  const notes  = document.getElementById('f-notes').value.trim();
+  if(!date||!food){ alert('Please enter a date and food name.'); return; }
+  if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
+  if(!t30&&!t60&&!t120){ alert('Please enter at least one post-meal reading.'); return; }
+  const id=Date.now().toString();
+  const tests=loadTests();
+  tests.push({id,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes});
+  tests.sort((a,b)=>b.date.localeCompare(a.date));
+  saveTests(tests);
+  const msg=document.getElementById('save-msg');
+  msg.classList.add('show'); setTimeout(()=>msg.classList.remove('show'),2200);
+  clearForm();
+  render();
+}
+
+function deleteTest(id){
+  if(!confirm('Delete this test entry?')) return;
+  saveTests(loadTests().filter(t=>t.id!==id));
+  render();
+}
+
+function confirmClearAll(){
+  if(!confirm('Delete ALL food response tests? This cannot be undone.')) return;
+  localStorage.removeItem(STORE_KEY); render();
+}
+
+let curveChart=null;
+
+function render(){
+  const all=loadTests();
+  const search=(document.getElementById('search-box').value||'').toLowerCase();
+  const filtered=all.filter(t=>{
+    const catOk=activeFilter==='all'||t.cat===activeFilter;
+    const searchOk=!search||t.food.toLowerCase().includes(search);
+    return catOk&&searchOk;
+  });
+
+  const grid=document.getElementById('results-grid');
+  const empty=document.getElementById('empty-msg');
+
+  if(!filtered.length){
+    grid.innerHTML='';
+    empty.style.display='block';
+  } else {
+    empty.style.display='none';
+    grid.innerHTML=filtered.map(t=>{
+      const a=spikeAnalysis(t.t0,t.t30,t.t60,t.t120);
+      const catStyle=CAT_COLORS[t.cat]||'';
+      const catLabel=CAT_LABELS[t.cat]||t.cat;
+      const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
+      const contextBits=[
+        t.berberine==='yes'?'💊 Berberine':'',
+        t.acv==='yes'?'🍎 ACV':'',
+        t.walk==='yes'?'🚶 Walk':'',
+      ].filter(Boolean).join(' · ');
+      return `
+      <div class="test-card">
+        <div class="test-card-header">
+          <div style="flex:1">
+            <div class="test-food">${t.food}</div>
+            ${t.portion?`<div style="font-size:.75rem;color:var(--muted);margin-top:.1rem">${t.portion}</div>`:''}
+            <div class="test-date">${formatDate(t.date)}</div>
+          </div>
+          <span class="cat-pill" style="background:${catStyle.split(';')[0].replace('background:','')};${catStyle.split(';')[1]||''}">${catLabel}</span>
+        </div>
+        <div class="test-card-readings">
+          <div class="reading-box"><div class="r-label">Baseline</div><div class="r-val" style="color:var(--muted)">${t.t0}</div></div>
+          <div class="reading-box"><div class="r-label">+30 min</div>${rVal(t.t30,t.t0)}</div>
+          <div class="reading-box"><div class="r-label">+60 min</div>${rVal(t.t60,t.t0)}</div>
+          <div class="reading-box"><div class="r-label">+120 min</div>${rVal(t.t120,t.t0)}</div>
+        </div>
+        ${a?`<div class="test-card-summary">
+          <span class="spike-badge ${a.cls}">${a.rating}</span>
+          <span style="font-size:.8rem;color:var(--muted)">Peak +${a.spikeAbs} mg/dL above baseline</span>
+          ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
+          ${contextBits?`<span style="font-size:.75rem;color:var(--muted);margin-left:auto">${contextBits}</span>`:''}
+        </div>`:''}
+        ${t.notes?`<div class="test-card-notes">${t.notes}</div>`:''}
+        <div class="test-card-actions">
+          <button class="btn-sm btn-sm-danger" onclick="deleteTest('${t.id}')">Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Summary table & charts use all tests (not filtered) sorted by spike
+  const chartCard=document.getElementById('chart-card');
+  const sumCard=document.getElementById('summary-card');
+  if(!all.length){ chartCard.style.display='none'; sumCard.style.display='none'; return; }
+  chartCard.style.display=''; sumCard.style.display='';
+
+  // Summary table — rank by spikeAbs descending
+  const withSpike=all.map(t=>({...t,a:spikeAnalysis(t.t0,t.t30,t.t60,t.t120)})).filter(t=>t.a).sort((a,b)=>b.a.spikeAbs-a.a.spikeAbs);
+  document.getElementById('sum-body').innerHTML=withSpike.map((t,i)=>{
+    const worst=i===0&&withSpike.length>1;
+    const best=i===withSpike.length-1&&withSpike.length>1;
+    return `<tr>
+      <td class="${worst?'warn':best?'best':''}">${t.food}${t.portion?` <span style="color:var(--muted);font-size:.78rem">(${t.portion})</span>`:''}</td>
+      <td style="white-space:nowrap;font-size:.8rem">${formatDate(t.date)}</td>
+      <td style="font-size:.8rem">${CAT_LABELS[t.cat]||t.cat}</td>
+      <td>${t.t0}</td>
+      <td style="font-weight:700">${t.a.peak}</td>
+      <td class="${worst?'warn':best?'best':''}" style="font-weight:700">+${t.a.spikeAbs}</td>
+      <td style="color:${t.a.ret120!=null&&Math.abs(t.a.ret120)<=20?'#27ae60':'#e67e22'}">${t.a.ret120!=null?(t.a.ret120>=0?'+':'')+t.a.ret120+' mg/dL':'—'}</td>
+      <td><span class="spike-badge ${t.a.cls}">${t.a.rating}</span></td>
+    </tr>`;
+  }).join('');
+
+  // Curves chart
+  const colors=['#4a90c4','#e9a84c','#8b6abf','#27ae60','#e07a5f','#00838f','#c0392b','#f39c12','#1abc9c','#9b59b6'];
+  const datasets=all.filter(t=>t.t0).map((t,i)=>({
+    label:t.food.length>30?t.food.slice(0,28)+'…':t.food,
+    data:[t.t0,t.t30??null,t.t60??null,t.t120??null],
+    borderColor:colors[i%colors.length],
+    backgroundColor:'transparent',
+    borderWidth:2, pointRadius:4, tension:.3, spanGaps:true
+  }));
+  if(curveChart) curveChart.destroy();
+  curveChart=new Chart(document.getElementById('chart-curves'),{
+    type:'line',
+    data:{labels:['Baseline (T=0)','+30 min','+60 min','+120 min'],datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{size:10},boxWidth:12}}},
+      scales:{
+        x:{ticks:{font:{size:11}},grid:{color:'#eaf4ec'}},
+        y:{ticks:{font:{size:10}},grid:{color:'#eaf4ec'},title:{display:true,text:'Glucose (mg/dL)',font:{size:10}}}
+      }
+    }
+  });
+}
+
+// Init
+document.getElementById('f-date').value=todayISO();
+render();
+</script>
+</body>
+</html>
