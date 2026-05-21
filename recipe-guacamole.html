@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guacamole — Classic with Garlic & Lemon</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Guacamole — Classic with Garlic & Lemon",
+    "description": "Ripe avocado mashed with lemon juice, activated garlic, fresh coriander, and sea salt. No cooking required. Avocado is approximately 75% monounsaturated fat (oleic acid) — the same therapeutic fat profile as EVOO, directly recommended for APOE4 carriers. Potassium and magnesium improve insulin sensitivity for Dawn Phenomenon management. High fibre slows gastric emptying and blunts post-meal glucose. Low oxalate. Ready in 5 minutes.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT5M",
+    "cookTime": "PT0M",
+    "totalTime": "PT10M",
+    "recipeCategory": "Side Dish / Condiment",
+    "recipeCuisine": "Mexican-inspired",
+    "keywords": "guacamole, avocado, gluten-free, low oxalate, APOE4, dawn phenomenon, blood sugar, no cook, MUFA",
+    "recipeIngredient": [
+      "2 ripe avocados (skin should yield to gentle pressure)",
+      "Juice of 1 lemon (or 1 lime if preferred)",
+      "1–2 cloves garlic, crushed (rest 5 minutes before using)",
+      "1/4 tsp sea salt",
+      "Small handful fresh coriander, roughly chopped (optional but recommended)",
+      "1/4 small red onion, very finely diced (optional)",
+      "1/4 tsp ground cumin (optional — adds depth)",
+      "Pinch of cayenne or smoked paprika (optional)",
+      "Extra lemon wedge to serve"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate the garlic",
+        "text": "Crush 1–2 garlic cloves and set aside for 5 minutes before adding to the avocado. The 5-minute rest allows alliinase to form allicin before it contacts any acid from the lemon juice, which can slow the conversion. While the garlic rests, prepare the other ingredients."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Prepare the avocado",
+        "text": "Halve the avocados lengthwise, twist to separate, and remove the stone. Scoop the flesh into a bowl with a large spoon. The avocado should be soft enough to mash easily — if it is still firm at the centre, it needs another day to ripen at room temperature."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Mash to your preferred texture",
+        "text": "Use a fork to mash the avocado. For chunky guacamole, mash loosely leaving visible pieces. For smooth, mash thoroughly or use the back of a spoon. Do not use a blender — it incorporates too much air, which accelerates browning."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add lemon, garlic, and seasonings",
+        "text": "Add the lemon juice immediately — the citric acid slows oxidative browning and adds urinary citrate for kidney stone prevention. Add the rested garlic, salt, coriander, red onion, cumin, and cayenne if using. Stir to combine. Taste and adjust salt and lemon."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Serve or store",
+        "text": "Serve immediately for the best colour and flavour. To store: press plastic wrap or beeswax wrap directly onto the surface of the guacamole (no air gap) and refrigerate for up to 24 hours. Some surface browning is normal and harmless — the layer underneath will still be bright green. The avocado stone placed in the bowl does not prevent browning; direct surface contact with wrap does."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 80px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-zero { color: #95a5a6; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .ripeness-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .ripeness-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .75rem; font-weight: 700; }
+    .ripeness-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .65rem; }
+    .ripeness-card { border-radius: 10px; padding: .65rem .85rem; font-size: .82rem; line-height: 1.5; border: 1px solid var(--border); }
+    .ripeness-card strong { display: block; font-size: .8rem; margin-bottom: .2rem; }
+    .ripe-firm   { background: #fff8e1; }
+    .ripe-firm   strong { color: #78350f; }
+    .ripe-ready  { background: #e8f5e9; }
+    .ripe-ready  strong { color: #1b5e20; }
+    .ripe-over   { background: #fff5f5; }
+    .ripe-over   strong { color: #991b1b; }
+    .ripe-plan   { background: #e3f2fd; }
+    .ripe-plan   strong { color: #0d47a1; }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .pairing-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .pairing-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .pairing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .65rem; }
+    .pairing-card { background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .6rem .85rem; font-size: .82rem; line-height: 1.5; }
+    .pairing-card strong { display: block; color: var(--green-dark); font-size: .79rem; margin-bottom: .15rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Yield = 2 servings. No cook time.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🥑 🍋 🧄</div>
+    <div class="recipe-hero-body">
+      <h1>Guacamole — Classic with Garlic & Lemon</h1>
+      <p>Two ripe avocados, lemon juice, 5-minute activated garlic, fresh coriander, and sea salt. No cooking. Five minutes. This is not a filler recipe — avocado's fat profile (~75% monounsaturated oleic acid) is the same therapeutic fat class as EVOO, and it is one of the few whole foods with a meaningful potassium-to-sodium ratio that directly supports insulin sensitivity. For APOE4 carriers, MUFAs are the preferred dietary fat because they reduce LDL oxidation — and APOE4 makes LDL significantly more oxidation-prone than in non-carriers. The lemon juice is not just flavour — it prevents browning and delivers urinary citrate for kidney stone management at the same time.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 5 min</span>
+        <span>🔥 Cook: none</span>
+        <span>⏳ Total: ~5–10 min</span>
+        <span>🍽 Yield: 2 servings</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Low GI — fat + fibre combination; avocado does not spike glucose
+      </div>
+    </div>
+  </div>
+
+  <!-- RIPENESS GUIDE -->
+  <div class="ripeness-panel">
+    <h3>🥑 How to know when your avocado is ready</h3>
+    <div class="ripeness-grid">
+      <div class="ripeness-card ripe-firm">
+        <strong>⚠️ Too firm — not ready</strong>
+        Feels hard when squeezed. Flesh will be pale and starchy inside. Leave at room temperature (not fridge) for 1–3 more days. Do not refrigerate until ripe.
+      </div>
+      <div class="ripeness-card ripe-ready">
+        <strong>✅ Ready to use</strong>
+        Yields gently to thumb pressure but springs back slightly. Dark green-black skin (Hass variety). This is the window — use today or refrigerate to pause ripening for up to 2 days.
+      </div>
+      <div class="ripeness-card ripe-over">
+        <strong>❌ Overripe — past it</strong>
+        Feels very soft or mushy, with no resistance. Brown or stringy flesh inside, possible off smell. Discard. Using overripe avocado produces a bitter, oxidised flavour in guacamole.
+      </div>
+      <div class="ripeness-card ripe-plan">
+        <strong>📅 Batch planning tip</strong>
+        Buy 2–3 avocados at different stages of ripeness. One firm (ready in 3 days), one medium (ready tomorrow), one ripe (today). Rotate continuously so you always have one ready.
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD TEST LINK -->
+  <div class="test-bar">
+    <p>Avocado has near-zero glucose impact. Log a food test the first time you pair it with a new carb component (e.g. millet crackers or GF bread) to track that combination's response — not the avocado itself.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 servings</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Essential</li>
+          <li class="ing-item"><span class="ing-amount">2</span><span class="ing-name">Ripe avocados</span><span class="ing-note ox-zero">⬜ zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">juice of 1</span><span class="ing-name">Lemon (or lime)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1–2 cloves</span><span class="ing-name">Garlic, crushed (rest 5 min)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Sea salt</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Recommended additions</li>
+          <li class="ing-item"><span class="ing-amount">handful</span><span class="ing-name">Fresh coriander, chopped</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ small</span><span class="ing-name">Red onion, very finely diced</span><span class="ing-note ox-low">🟢 low ox</span></li>
+
+          <li class="ing-section-label">Optional</li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Ground cumin</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span class="ing-name">Cayenne or smoked paprika</span><span class="ing-note ox-zero">⬜ trace</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Oxalate: Near-zero.</strong> Avocado is zero oxalate. Lemon juice is zero oxalate and adds urinary citrate. One of the safest whole foods in the library for kidney stone management.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Activate the garlic first</div>
+              Crush 1–2 garlic cloves and rest for <strong>5 minutes</strong>. The lemon juice you'll add in step 4 can slow the alliinase reaction if garlic contacts it too early — let the allicin form in air first. Finely chop the coriander and dice the red onion during this window.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Open and scoop the avocados</div>
+              Halve each avocado lengthwise and twist the halves apart. Tap the stone with the heel of a knife (it will grip the stone), twist gently, and lift it out. Scoop the flesh into a bowl using a large spoon — run it along the skin to get all of it. Discard the skin.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Mash to your texture preference</div>
+              Use a fork. <strong>Chunky:</strong> mash loosely, leaving visible pieces — better texture for eating alongside chicken or fish. <strong>Smooth:</strong> mash thoroughly with the back of a spoon. Do not use a blender — it aerates the mixture and makes it brown faster.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Add lemon, garlic, and seasonings</div>
+              Squeeze in the lemon juice immediately — this slows browning right away. Add the rested garlic, salt, coriander, red onion, cumin, and cayenne if using. Stir to combine. Taste: needs more salt? More lemon? Adjust now.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Serve immediately or store correctly</div>
+              Best served right away. To store: press wrap <strong>directly onto the surface</strong> with no air gap — this is what slows browning, not the stone. Refrigerate up to 24 hours. Surface browning when you open it is harmless oxidation — scrape off the top layer, the bright green guacamole underneath is perfectly fine.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Mechanism summary:</strong> Avocado oleic acid (MUFA) → reduces LDL oxidation (directly relevant for APOE4) + hepatocyte insulin signalling (EVOO-equivalent fat for fatty liver / DP) · Potassium (~975mg per avocado) + magnesium → insulin sensitivity improvement, DP amplitude reduction · Soluble fibre (beta-glucan-type) → slows gastric emptying → blunts post-meal glucose · Garlic allicin (5-min pre-rest) → AMPK, glutathione induction (MTHFR) · Lemon juice → urinary citrate (kidney stone prevention) + prevents oxidative browning. Zero oxalate. No cooking required.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- HOW TO SERVE IT -->
+  <div class="pairing-panel">
+    <h3>🍽 How to use guacamole in your meal plan</h3>
+    <div class="pairing-grid">
+      <div class="pairing-card">
+        <strong>🍗 Chicken + zucchini lunch (menu default)</strong>
+        The primary use on your meal plan. Guacamole alongside chicken breast strips and roasted zucchini — the MUFA fat from avocado slows gastric emptying and replaces any temptation to use a higher-saturated-fat sauce or dressing.
+      </div>
+      <div class="pairing-card">
+        <strong>🐟 With golden paste salmon</strong>
+        A spoonful of guacamole alongside the salmon adds a second MUFA source to the same meal and provides potassium to balance the sodium from the seasoning. The cool, creamy texture also contrasts the warm golden crust.
+      </div>
+      <div class="pairing-card">
+        <strong>🥚 With shakshuka</strong>
+        Serve a small dish of guacamole on the side. The fat slows absorption of the tomato lycopene (fat-soluble carotenoid), improves curcumin carry-through from the spice blend, and adds a third source of monounsaturated fat to the meal alongside the EVOO already in the sauce.
+      </div>
+      <div class="pairing-card">
+        <strong>🍳 With eggs at any meal</strong>
+        Eggs + avocado is a natural combination — egg yolk phosphatidylcholine (liver fat export) + avocado oleic acid (hepatocyte insulin signalling) address the same fatty liver pathway from different angles. Works for any egg preparation.
+      </div>
+      <div class="pairing-card">
+        <strong>🥒 As a dip with vegetables</strong>
+        Cucumber slices, celery sticks, or blanched broccoli florets as dippers — all low-oxalate, all zero glucose impact. This replaces any chip or cracker component with a snack that is entirely condition-compatible.
+      </div>
+      <div class="pairing-card">
+        <strong>🍞 On GF bread or millet toast</strong>
+        Spread on a slice of the Olive & Feta Cheese Bread or toasted millet slices. The fat from avocado slows the grain GI further. Monitor with a food test if combining with a bread component for the first time.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why this is a targeted recipe, not a filler</h3>
+    <ul>
+      <li><strong>APOE4 and monounsaturated fat:</strong> APOE4 carriers have a specific lipoprotein metabolism difference — their LDL particles are smaller, denser, and more prone to oxidation than in non-carriers. Oxidised LDL is the form that crosses the blood-brain barrier and contributes to neuroinflammation. Dietary monounsaturated fats (oleic acid, the primary fat in both EVOO and avocado) reduce LDL oxidation directly. This is why the meal plan specifies avocado and EVOO as fat sources rather than butter, coconut oil, or vegetable oils — it is a specific APOE4 dietary strategy, not a general health recommendation.</li>
+      <li><strong>Potassium and Dawn Phenomenon:</strong> Potassium is a cofactor in the sodium-potassium ATPase pump, which regulates cellular glucose uptake. Low potassium is associated with impaired insulin secretion and higher fasting glucose — both of which worsen the Dawn Phenomenon. One whole avocado provides ~975mg potassium (roughly the same as two bananas, but with zero glucose impact). This makes avocado one of the most efficient potassium delivery mechanisms in the meal plan.</li>
+      <li><strong>Soluble fibre and post-meal glucose:</strong> Avocado contains approximately 10g fibre per fruit, of which a significant portion is soluble (beta-glucan-type). Soluble fibre forms a gel in the digestive tract that physically slows the passage of food and blunts the absorption rate of any carbohydrates eaten alongside it. This is the same mechanism exploited by the overnight kefir fermentation in the porridge recipe — here, it happens passively from the avocado's natural composition.</li>
+      <li><strong>Why coriander is recommended (not just optional):</strong> Fresh coriander (cilantro) contains quercetin and flavonols with documented anti-inflammatory activity. It is also a traditional heavy metal chelator in folk medicine — while the chelation evidence is modest, it contains chlorophyll and active compounds that support phase II liver detoxification, directly relevant for fatty liver and MTHFR. It is low-oxalate, flavour-complementary, and costs nothing to include. If you dislike coriander strongly (there is a well-documented genetic taste sensitivity), substitute fresh parsley — similar flavonol profile.</li>
+      <li><strong>The browning myth — avocado stones do not work:</strong> The browning is enzymatic oxidation (polyphenol oxidase reacting with air). The stone only prevents browning in the tiny area it physically touches. The correct technique is removing all air contact — press wrap directly onto every part of the surface with no bubbles. Lemon juice (citric acid) also slows the reaction by lowering pH and chelating the copper ion that the enzyme requires. Both methods together (lemon juice + direct-contact wrap) are the correct storage approach.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
