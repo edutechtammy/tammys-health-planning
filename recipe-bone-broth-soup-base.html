@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bone Broth Soup Base — Master Recipe</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Bone Broth Soup Base — Master Recipe",
+    "description": "A slow-simmered bone broth base built around chicken or beef bones, activated garlic, fresh ginger, and apple cider vinegar to draw collagen and minerals from the bones. Rich in glycine, proline, and glutamine — directly supporting gut lining repair, liver detoxification, and MTHFR methylation support. Makes a large batch used as a cooking liquid throughout the week: for millet, shakshuka, soups, or drunk warm as a daily habit.",
+    "recipeYield": "8–10 cups (about 2–2.5 litres)",
+    "prepTime": "PT15M",
+    "cookTime": "PT720M",
+    "totalTime": "PT735M",
+    "recipeCategory": "Base / Stock",
+    "recipeCuisine": "Foundational",
+    "keywords": "bone broth, gluten-free, gut healing, celiac, fatty liver, MTHFR, glycine, collagen, low oxalate, batch cooking",
+    "recipeIngredient": [
+      "1.2–1.5 kg (about 3 lbs) chicken carcasses, necks, and feet (or beef marrow and knuckle bones — see variations)",
+      "2 medium carrots, roughly chopped",
+      "3 celery stalks, roughly chopped",
+      "1 medium yellow onion, halved (skin on is fine)",
+      "6 cloves garlic, crushed (rest 5 minutes before adding)",
+      "1 thumb-sized piece fresh ginger, sliced",
+      "2 tbsp apple cider vinegar (or 2 ACV capsules dissolved — helps draw minerals from bones)",
+      "1 tsp black peppercorns",
+      "2 bay leaves",
+      "1 tsp sea salt (adjust after reducing)",
+      "Cold filtered water to cover — approximately 2.5–3 litres",
+      "Optional: 1 strip kombu seaweed (adds iodine and umami, trace minerals)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Optional: roast the bones",
+        "text": "For a richer, darker broth, spread bones on a baking tray and roast at 200°C (400°F) for 25–30 minutes until golden. This is optional but adds significant flavour depth through Maillard compounds. Skip this step for a lighter, cleaner broth — both are equally therapeutic."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Activate the garlic",
+        "text": "Crush all 6 garlic cloves and set aside for 5 minutes before adding to the pot. The 5-minute rest allows alliinase to form allicin before the slow heat of the broth gradually deactivates the enzyme. Some allicin survives gentle long-cooking; the rest converts to stable diallyl sulfide compounds that are also bioactive."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Combine everything in the pot",
+        "text": "Place bones, vegetables, rested garlic, ginger, ACV, peppercorns, bay leaves, and kombu (if using) in a large stockpot or slow cooker. Cover with cold filtered water — the cold start helps draw proteins and minerals out gradually. Do not add salt yet."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Bring to a near-boil, then skim",
+        "text": "On the stovetop, bring to just below a boil over medium heat. A grey-brown foam will rise to the surface — this is coagulated protein, not harmful but cloudy. Skim it off with a ladle or large spoon during the first 20–30 minutes until the foam stops appearing. Then reduce heat to the lowest possible simmer."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Simmer low and slow",
+        "text": "Simmer uncovered or partially covered on the absolute lowest heat for: Chicken: 10–14 hours minimum. Beef/lamb: 16–24 hours. Slow cooker LOW: 18–24 hours. The liquid should barely move — a gentle tremor, not a rolling boil. A hard boil makes the broth cloudy and can degrade some collagen into fragments rather than full gelatin chains."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Strain and cool",
+        "text": "Strain the broth through a fine mesh sieve into a large bowl or pot. Discard solids. Allow to cool at room temperature for 30 minutes, then refrigerate overnight. The fat will solidify on the surface as a white layer — skim this off the next day for a clear, lower-fat broth, or leave it in for extra fat-soluble nutrients."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Portion and store",
+        "text": "Refrigerate up to 5 days, or freeze in 1-cup portions (silicone ice cube trays work well) for up to 3 months. A properly made broth will gel solid in the fridge — this means high gelatin content, which is exactly what you want. If it does not gel, simmer uncovered for another 1–2 hours to reduce and concentrate."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 90px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-zero { color: #95a5a6; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .usage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .75rem; margin-bottom: 1.5rem; }
+    .usage-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .75rem 1rem; font-size: .84rem; line-height: 1.55; }
+    .usage-card strong { display: block; color: var(--green-dark); margin-bottom: .25rem; font-size: .82rem; }
+    .usage-section-title { grid-column: 1 / -1; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); font-weight: 700; padding-bottom: .3rem; border-bottom: 1px solid var(--border); }
+
+    .gel-callout { background: #f0fdf4; border: 1px solid var(--border); border-radius: 12px; padding: .85rem 1.2rem; font-size: .85rem; color: var(--green-dark); line-height: 1.65; margin-bottom: 1.5rem; }
+    .gel-callout strong { color: var(--green-dark); }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .variation-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .variation-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+    .var-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .83rem; line-height: 1.5; }
+    .var-card strong { display: block; color: var(--green-dark); margin-bottom: .2rem; font-size: .8rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+
+    .timing-table { width: 100%; border-collapse: collapse; font-size: .83rem; margin-top: .5rem; }
+    .timing-table th { background: var(--green-dark); color: #fff; padding: .45rem .75rem; text-align: left; font-weight: 600; }
+    .timing-table td { padding: .4rem .75rem; border-bottom: 1px solid var(--green-light); vertical-align: top; }
+    .timing-table tr:last-child td { border-bottom: none; }
+    .timing-table tr:nth-child(even) td { background: var(--green-pale); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Yield = 8–10 cups. This is a base recipe — log it as a batch prep item rather than a single meal.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍖 🫙 🔥</div>
+    <div class="recipe-hero-body">
+      <h1>Bone Broth Soup Base — Master Recipe</h1>
+      <p>The foundational batch-cook recipe for the week. Chicken or beef bones simmered for 10–24 hours with activated garlic, fresh ginger, and a splash of ACV to pull collagen and minerals from the bone matrix. The result — a deeply flavoured, gelling broth — is the cooking liquid behind the Ginger-Garlic Millet Bowl, the base for weekly soups, a warm morning drink, and the glycine source that supports both gut lining repair and liver phase II detoxification. Make one large batch on the weekend; use it every day of the week.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 15 min</span>
+        <span>🔥 Simmer: 10–24 hrs</span>
+        <span>📦 Yield: 8–10 cups</span>
+        <span>❄️ Freezes: up to 3 months</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+        <span class="badge badge-apoe4">APOE4</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Negligible GI — pure protein and mineral liquid, no carbohydrates
+      </div>
+    </div>
+  </div>
+
+  <!-- GELATIN QUALITY CHECK -->
+  <div class="gel-callout">
+    <strong>✅ The gelatin quality test:</strong> After chilling overnight, a properly made bone broth will set like a loose jello — it should hold its shape when you tilt the jar. This gel = high gelatin content = hydroxyproline and proline-rich collagen peptides that directly repair intestinal tight junctions (Celiac gut healing) and support liver collagen synthesis. If your broth does not gel, return it to the pot and simmer uncovered for 1–2 more hours to reduce. Add more bones next batch (chicken feet are the highest-gelatin addition you can make).
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="test-bar">
+    <p>Bone broth as a standalone warm drink has near-zero glucose impact. Log a test if pairing with a higher-GI food to isolate that food's contribution.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — makes 8–10 cups</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Bones (choose one base)</li>
+          <li class="ing-item"><span class="ing-amount">1.2–1.5 kg</span><span class="ing-name">Chicken carcasses, necks + feet</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">— or —</span><span class="ing-name">Beef marrow + knuckle bones</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Aromatics</li>
+          <li class="ing-item"><span class="ing-amount">6 cloves</span><span class="ing-name">Garlic, crushed (rest 5 min)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 thumb</span><span class="ing-name">Fresh ginger, sliced</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">2 medium</span><span class="ing-name">Carrots, roughly chopped</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">3 stalks</span><span class="ing-name">Celery, roughly chopped</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 medium</span><span class="ing-name">Yellow onion, halved</span><span class="ing-note ox-low">🟢 low ox</span></li>
+
+          <li class="ing-section-label">Acid + seasoning</li>
+          <li class="ing-item"><span class="ing-amount">2 tbsp</span><span class="ing-name">Apple cider vinegar (or 2 capsules)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">Black peppercorns</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">2</span><span class="ing-name">Bay leaves</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">Sea salt (adjust at end)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Liquid + optional</li>
+          <li class="ing-item"><span class="ing-amount">2.5–3 L</span><span class="ing-name">Cold filtered water</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 strip</span><span class="ing-name">Kombu seaweed (optional)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Oxalate: Near-zero throughout.</strong> All ingredients here are low or zero oxalate. The finished broth is the safest possible cooking liquid for kidney stone management — and provides calcium and magnesium directly from the bone matrix.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Optional: roast bones first</div>
+              Spread bones on a tray, roast at 200°C / 400°F for 25–30 minutes until golden. Adds colour, depth, and Maillard compounds. Skip for a lighter, cleaner broth — both are equally therapeutic.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Activate the garlic</div>
+              Crush all 6 cloves, rest <strong>5 minutes</strong> before adding to the pot. Some allicin survives gentle long simmering; the rest converts to stable diallyl sulfide compounds that retain AMPK activity.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Combine and cold-start</div>
+              Add bones, vegetables, garlic, ginger, ACV, peppercorns, bay leaves, and kombu to a large stockpot or slow cooker. Cover with <strong>cold</strong> water — the cold start draws proteins and minerals out more gradually, producing a clearer broth. Do not add salt yet.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Bring up slowly, skim foam</div>
+              Bring to just below a boil over medium heat (about 20 minutes). Grey-brown foam will appear — skim it off with a ladle. Continue skimming until foam stops, then reduce to the <strong>absolute lowest simmer</strong>: liquid should tremble, not bubble.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Simmer (see timing table)</div>
+              Chicken: 10–14 hours. Beef/lamb: 16–24 hours. Slow cooker LOW: 18–24 hours. Do not rush — collagen → gelatin conversion requires sustained low heat over time. A hard boil shortens this.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Strain and chill</div>
+              Strain through a fine mesh sieve. Cool 30 minutes at room temperature, then refrigerate overnight. Skim solidified fat from surface next day. Season with salt once chilled and tasted at full concentration.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">7</span>
+            <div>
+              <div class="step-name">Portion and store</div>
+              Refrigerate up to 5 days. Freeze in 1-cup portions for up to 3 months. A properly made broth <strong>gels solid</strong> when cold — this is the gelatin quality marker. If liquid, return to pot and reduce further.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Layered mechanism summary:</strong> Glycine + proline from collagen → intestinal tight junction repair (Celiac), liver phase II glucuronidation and glutathione conjugation (Fatty Liver / MTHFR) · Glutamine (bone marrow) → primary fuel for enterocytes, accelerates gut lining turnover · Calcium + magnesium leached from bones via ACV acid → replaces mineral losses, supports kidney stone citrate balance · Garlic diallyl sulfides (heat-stable) → phase II liver enzyme induction · Ginger shogaols (heat-stable) → AMPK activation · ACV acetic acid residual → modest post-meal insulin sensitisation. This is the most foundational therapeutic recipe in the stack — everything else in the library is built on it.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- SIMMER TIMING TABLE -->
+  <div class="panel" style="margin-bottom:1.5rem">
+    <div class="panel-header">⏱ Simmer time reference</div>
+    <div class="panel-body" style="padding:0">
+      <table class="timing-table">
+        <thead>
+          <tr><th>Bone type</th><th>Method</th><th>Minimum</th><th>Optimal</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Chicken carcass + necks</td><td>Stovetop</td><td>8 hrs</td><td>12–14 hrs</td><td>Feet add significant extra gelatin</td></tr>
+          <tr><td>Chicken carcass + necks</td><td>Slow cooker LOW</td><td>14 hrs</td><td>18–20 hrs</td><td>No skimming required; set overnight</td></tr>
+          <tr><td>Beef marrow + knuckle</td><td>Stovetop</td><td>14 hrs</td><td>20–24 hrs</td><td>Roast bones first for best flavour</td></tr>
+          <tr><td>Beef marrow + knuckle</td><td>Slow cooker LOW</td><td>18 hrs</td><td>24 hrs</td><td>Highest glycine yield; richest gel</td></tr>
+          <tr><td>Mixed (chicken + beef)</td><td>Stovetop</td><td>12 hrs</td><td>16–18 hrs</td><td>Best of both: light colour + high gelatin</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- HOW TO USE THIS BROTH -->
+  <div class="variation-panel">
+    <h3>🔄 How to use this broth through the week</h3>
+    <div class="var-grid">
+      <div class="var-card">
+        <strong>🥣 Millet cooking liquid</strong>
+        Replace all water with bone broth when cooking millet (Ginger-Garlic Millet Bowl). The grain absorbs the glycine, minerals, and shogaols directly. Zero additional prep time; major therapeutic upgrade.
+      </div>
+      <div class="var-card">
+        <strong>☕ Warm morning drink</strong>
+        Heat 1 cup and drink warm before breakfast — especially valuable on Dawn Phenomenon mornings when glucose is elevated and appetite is disrupted. Near-zero calorie load, immediate gut support, glycine activates liver glucuronidation from first thing.
+      </div>
+      <div class="var-card">
+        <strong>🍳 Shakshuka sauce starter</strong>
+        Add ½ cup to the tomato sauce base instead of extra water. Deepens flavour and adds glycine to the egg dish. The calcium from broth also contributes to oxalate binding alongside the feta.
+      </div>
+      <div class="var-card">
+        <strong>🥬 Vegetable braising liquid</strong>
+        Use as the cooking liquid for braised greens (kale, bok choy, zucchini). Adds minerals without added fat or sodium. Especially useful for Celiac days when gut absorption needs maximum mineral support.
+      </div>
+      <div class="var-card">
+        <strong>🫙 Weekly soup base</strong>
+        Add whatever protein and low-oxalate vegetables you have — shredded chicken, diced zucchini, bok choy, carrots. Season with garlic and ginger. A different soup every week from the same broth foundation.
+      </div>
+      <div class="var-card">
+        <strong>💊 Medication / supplement rinse</strong>
+        A small warm cup alongside fat-soluble supplements (Vitamin D, K2, EVOO-based curcumin) aids absorption. The fat from marrow and the warmth improve fat-soluble nutrient uptake without a full meal.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why this recipe is foundational</h3>
+    <ul>
+      <li><strong>Glycine — the most under-dosed amino acid in modern diets:</strong> Glycine is the most abundant amino acid in collagen and the rate-limiting substrate for glutathione synthesis (the master antioxidant). MTHFR impairs the methylation cycle that recycles homocysteine — glycine from bone broth provides an alternative route to glutathione via the transsulfuration pathway. It is also a primary substrate for phase II liver glucuronidation, directly clearing toxins and lipid peroxidation products in fatty liver.</li>
+      <li><strong>Proline and hydroxyproline — tight junction repair:</strong> In Celiac disease, the intestinal villi and tight junctions between enterocytes are damaged by gluten-triggered inflammation. Proline and hydroxyproline are the structural amino acids of collagen, which is the extracellular matrix on which those tight junctions are anchored. Regular gelatin/collagen intake directly supports the regeneration of this architecture — not just the symptoms.</li>
+      <li><strong>ACV in the simmer liquid:</strong> Acetic acid lowers the pH of the liquid slightly, which solubilises calcium phosphate and magnesium from the bone matrix. This is why broth made with ACV is meaningfully higher in minerals than broth without it. The acid flavour cooks off completely; you will not taste it in the finished broth. Use liquid ACV in cooking for this step — the capsule form is for oral use before meals.</li>
+      <li><strong>Cold-start vs. hot-start:</strong> Starting bones in cold water and heating slowly extracts proteins as a gradual process, producing a clearer broth with more intact collagen chains. Hot-start causes rapid surface protein coagulation and a cloudier result — not harmful, but lower gelatin clarity. This also affects texture when used as a cooking liquid for millet or grains.</li>
+      <li><strong>Chicken feet:</strong> If you can source them, chicken feet are the single highest-gelatin addition to bone broth. The tissue between the toe bones is almost pure collagen. Even one or two feet per batch will noticeably increase gel strength. Asian grocery stores carry them fresh or frozen reliably.</li>
+      <li><strong>The gelatin test:</strong> After overnight chilling, the broth should set to a loose jello consistency. This is not the same as fat solidifying (fat will be white and solid on top — skim that off). The gel itself is translucent and amber-coloured. If it does not gel at all, either the simmer time was too short, the heat was too high (boiling breaks gelatin chains), or not enough collagen-rich material was used. All three are correctable on the next batch.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
