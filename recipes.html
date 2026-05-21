@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Library — Tammy's Health Planning</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --sky:         #e0f7fa;
+      --sky-dark:    #00838f;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    header { text-align: center; padding: 2rem 1rem 1rem; }
+    header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--green-dark); }
+    header p { color: var(--muted); margin-top: .4rem; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+    .main-wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+    /* FILTER BAR */
+    .filter-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .85rem 1.2rem; margin-bottom: 1.5rem; display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; box-shadow: var(--shadow); }
+    .filter-bar label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-right: .25rem; }
+    .filter-btn { border: 1.5px solid var(--border); background: #fff; border-radius: 20px; padding: .25rem .85rem; font-size: .8rem; font-weight: 600; cursor: pointer; transition: all .15s; color: var(--muted); }
+    .filter-btn:hover, .filter-btn.active { background: var(--green-light); color: var(--green-dark); border-color: var(--green-mid); }
+    .filter-btn.active { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+
+    /* RECIPE GRID */
+    .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.4rem; }
+
+    /* RECIPE CARD */
+    .recipe-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .recipe-card-img { width: 100%; height: 160px; object-fit: cover; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .recipe-card-body { padding: 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; gap: .6rem; }
+    .recipe-card-title { font-size: 1.05rem; font-weight: 700; color: var(--green-dark); }
+    .recipe-card-meta { display: flex; gap: .9rem; font-size: .78rem; color: var(--muted); }
+    .recipe-card-meta span { display: flex; align-items: center; gap: .2rem; }
+
+    /* BADGES */
+    .badge-row { display: flex; flex-wrap: wrap; gap: .3rem; }
+    .badge { border-radius: 12px; padding: .18rem .6rem; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    /* GLUCOSE INDICATOR */
+    .glucose-row { display: flex; align-items: center; gap: .4rem; font-size: .78rem; font-weight: 600; }
+    .gi-low      { color: #27ae60; }
+    .gi-moderate { color: #f39c12; }
+    .gi-test     { color: #e74c3c; }
+    .gi-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .gi-dot-low  { background: #27ae60; }
+    .gi-dot-mod  { background: #f39c12; }
+    .gi-dot-test { background: #e74c3c; }
+
+    /* OXALATE FLAG */
+    .ox-low  { color: #27ae60; font-weight: 700; }
+    .ox-mod  { color: #f39c12; font-weight: 700; }
+    .ox-high { color: #e74c3c; font-weight: 700; }
+
+    .recipe-card-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; }
+    .recipe-card-footer { padding: .85rem 1.2rem; border-top: 1px solid var(--green-light); display: flex; gap: .6rem; flex-wrap: wrap; }
+    .btn-recipe { padding: .42rem 1rem; border-radius: 8px; font-size: .83rem; font-weight: 600; cursor: pointer; border: none; transition: opacity .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; }
+    .btn-recipe:hover { opacity: .82; }
+    .btn-view   { background: var(--green-dark); color: #fff; }
+    .btn-test   { background: #fff; color: #1565c0; border: 1.5px solid #90caf9; }
+
+    /* FULL RECIPE PANEL */
+    .recipe-full { display: none; background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); margin-top: 1rem; overflow: hidden; }
+    .recipe-full.open { display: block; }
+    .rf-header { background: var(--green-dark); color: #fff; padding: 1.1rem 1.4rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .rf-header h2 { font-size: 1.2rem; }
+    .btn-close { background: rgba(255,255,255,.2); border: none; color: #fff; border-radius: 8px; padding: .3rem .75rem; cursor: pointer; font-size: .85rem; font-weight: 600; }
+    .btn-close:hover { background: rgba(255,255,255,.35); }
+    .rf-body { padding: 1.4rem; display: grid; grid-template-columns: 1fr 1.6fr; gap: 1.8rem; }
+    @media (max-width: 700px) { .rf-body { grid-template-columns: 1fr; } }
+    .rf-section-title { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin-bottom: .6rem; border-bottom: 1.5px solid var(--green-light); padding-bottom: .25rem; }
+    .ingredient-list { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .ingredient-list li { font-size: .88rem; display: flex; align-items: baseline; gap: .5rem; line-height: 1.45; }
+    .ing-amount { font-weight: 700; white-space: nowrap; min-width: 90px; color: var(--green-dark); }
+    .ing-ox { font-size: .7rem; margin-left: auto; white-space: nowrap; padding-left: .4rem; }
+    .instruction-list { list-style: none; display: flex; flex-direction: column; gap: .8rem; counter-reset: step; }
+    .instruction-list li { font-size: .88rem; display: flex; gap: .75rem; align-items: flex-start; line-height: 1.6; counter-increment: step; }
+    .instruction-list li::before { content: counter(step); background: var(--green-dark); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .15rem; }
+    .rf-notes { grid-column: 1 / -1; background: var(--amber); border-radius: 10px; padding: 1rem 1.2rem; font-size: .85rem; line-height: 1.7; }
+    .rf-notes strong { color: var(--amber-dark); }
+    .rf-meta-strip { grid-column: 1 / -1; display: flex; gap: 1.2rem; flex-wrap: wrap; font-size: .82rem; color: var(--muted); background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; }
+    .rf-meta-strip span { display: flex; align-items: center; gap: .3rem; }
+
+    /* EMPTY */
+    .empty-state { text-align: center; color: var(--muted); padding: 3rem 1rem; font-size: .95rem; }
+
+    /* INTRO CALLOUT */
+    .intro-callout { background: var(--sky); border: 1px solid #b2ebf2; border-radius: 12px; padding: .85rem 1.2rem; margin-bottom: 1.4rem; font-size: .88rem; color: var(--sky-dark); line-height: 1.6; }
+    .intro-callout strong { color: #006064; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<header>
+  <h1>👩‍🍳 Recipe Library</h1>
+  <p>Recipes built around your condition stack — every ingredient vetted for oxalate, APOE4, Celiac, and glucose impact. Import any recipe into Mealboard via the View Full Recipe page link.</p>
+</header>
+
+<div class="main-wrap">
+
+  <div class="intro-callout">
+    <strong>📲 Mealboard import:</strong> Open a recipe's full page link in Mealboard's "Add from Web" importer. Each page uses schema.org/Recipe markup so the title, ingredients, and instructions import automatically.
+    &nbsp;·&nbsp; <strong>🟢 Low GI</strong> = safe without testing &nbsp;·&nbsp; <strong>🟡 Moderate GI</strong> = monitor first few uses &nbsp;·&nbsp; <strong>🔴 Test Recommended</strong> = run T0/T30/T60/T120 before regular use.
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <label>Filter:</label>
+    <button class="filter-btn active" onclick="filterRecipes('all', this)">All</button>
+    <button class="filter-btn" onclick="filterRecipes('apoe4', this)">APOE4</button>
+    <button class="filter-btn" onclick="filterRecipes('celiac', this)">Celiac / GF</button>
+    <button class="filter-btn" onclick="filterRecipes('dp', this)">DP / Blood Sugar</button>
+    <button class="filter-btn" onclick="filterRecipes('liver', this)">Fatty Liver</button>
+    <button class="filter-btn" onclick="filterRecipes('mthfr', this)">MTHFR</button>
+    <button class="filter-btn" onclick="filterRecipes('kidney', this)">Kidney Stone</button>
+    <button class="filter-btn" onclick="filterRecipes('low-ox', this)">Low Oxalate</button>
+  </div>
+
+  <!-- RECIPE GRID -->
+  <div class="recipe-grid" id="recipe-grid">
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 1 — OLIVE CHEESE BREAD
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+      <div class="recipe-card-img">🫒🧀🍞</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Olive & Feta Cheese Bread (GF Sourdough-Style)</div>
+        <div class="recipe-card-meta">
+          <span>⏱ Prep 15 min</span>
+          <span>🔥 Bake 42 min</span>
+          <span>🍽 8 slices</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-low"></span>
+          <span class="gi-low">Low GI</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— food-tested, T+120 returned well</span>
+        </div>
+        <div class="recipe-card-desc">Millet-sorghum loaf with EVOO, kalamata olives, feta, and garlic. Fermented with kefir for a mild sourdough tang that lowers the glycaemic index. Feta calcium covers any trace oxalate from olives. Works as the sourdough component on food-testing days.</div>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipe-olive-cheese-bread.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+  </div><!-- /recipe-grid -->
+
+  <p style="color:var(--muted);font-size:.82rem;margin-top:1.5rem;text-align:center">More recipes added as they are developed and tested. Each one is built specifically around your condition stack.</p>
+
+</div><!-- /main-wrap -->
+
+<script>
+function filterRecipes(tag, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    if (tag === 'all') { card.style.display = ''; return; }
+    if (tag === 'low-ox') {
+      card.style.display = card.dataset.oxalate === 'low' ? '' : 'none';
+    } else {
+      card.style.display = card.dataset.conditions.includes(tag) ? '' : 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
