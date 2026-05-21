@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ginger-Garlic Millet Bowl with Golden Paste</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Ginger-Garlic Millet Bowl with Golden Paste",
+    "description": "Millet cooked in bone broth and ginger bug liquid, topped with golden paste (turmeric, black pepper, EVOO), sautéed garlic, ginger, and your choice of protein. Targets fatty liver, Dawn Phenomenon, MTHFR, and APOE4 through layered complementary mechanisms in a single bowl.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT10M",
+    "cookTime": "PT25M",
+    "totalTime": "PT35M",
+    "recipeCategory": "Main Dish",
+    "recipeCuisine": "Mediterranean-inspired",
+    "keywords": "gluten-free, low glycaemic, low oxalate, APOE4, fatty liver, MTHFR, bone broth, turmeric, ginger, millet bowl",
+    "recipeIngredient": [
+      "1 cup millet, rinsed",
+      "1 cup bone broth (homemade preferred)",
+      "1/2 cup water or ginger bug liquid (use bug liquid if available)",
+      "4 cloves garlic, crushed (rest 5 minutes before using)",
+      "1 tbsp fresh ginger, grated (or 2 tbsp ginger bug liquid added to cooking water)",
+      "2 tbsp extra-virgin olive oil (EVOO), divided",
+      "1/2 tsp ground turmeric",
+      "1/4 tsp freshly ground black pepper (non-negotiable with turmeric)",
+      "1/2 tsp ground cumin",
+      "1/4 tsp sea salt",
+      "1 cup protein of choice: shredded chicken breast, sliced sardines, or soft-boiled eggs (2 per serving)",
+      "1/2 cup cucumber, diced",
+      "1/2 cup roasted zucchini or steamed broccoli",
+      "1 tbsp fresh lemon juice",
+      "Fresh parsley or coriander to finish (optional)",
+      "Drizzle of EVOO to serve"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate the garlic",
+        "text": "Crush or finely chop all 4 garlic cloves. Set aside for 5 minutes before using — this rest period allows alliinase to convert alliin into allicin, the active therapeutic compound. Do not add to the pan immediately."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Cook the millet in bone broth",
+        "text": "Combine rinsed millet, bone broth, and water (or ginger bug liquid) in a medium saucepan. If using fresh grated ginger, add it now. Bring to a boil, then reduce to a low simmer, cover, and cook 18–20 minutes until liquid is absorbed and millet is fluffy. Remove from heat and let sit covered for 5 minutes, then fluff with a fork."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Make the golden paste",
+        "text": "While millet cooks, stir together 1 tbsp EVOO, turmeric, black pepper, and cumin in a small bowl to form a loose paste. The fat and piperine are essential — they raise curcumin bioavailability by approximately 2000%. Set aside."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Sauté garlic and ginger",
+        "text": "Heat remaining 1 tbsp EVOO in a small pan over medium-low heat. Add the rested garlic (and fresh grated ginger if not added to the millet water). Sauté gently for 2–3 minutes until fragrant and just golden — do not brown. Remove from heat."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Assemble the bowl",
+        "text": "Divide cooked millet between two bowls. Spoon the golden paste over the warm millet and stir through gently — the heat of the millet warms the paste and distributes the turmeric. Top with the sautéed garlic and ginger, your chosen protein, cucumber, and roasted or steamed vegetables."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish and serve",
+        "text": "Squeeze lemon juice over each bowl, drizzle with a little extra EVOO, and scatter fresh parsley or coriander if using. Serve immediately while warm."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #fff8e1; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #92400e; }
+    .gi-dot-mod { width: 9px; height: 9px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 100px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-mod  { color: #f39c12; }
+    .ox-zero { color: #95a5a6; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; counter-increment: step; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .variation-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .variation-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+    .var-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .83rem; line-height: 1.5; }
+    .var-card strong { display: block; color: var(--green-dark); margin-bottom: .2rem; font-size: .8rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Verify yield (2 servings) after import.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🫚 🧄 🥣</div>
+    <div class="recipe-hero-body">
+      <h1>Ginger-Garlic Millet Bowl with Golden Paste</h1>
+      <p>Millet cooked in bone broth and ginger bug liquid — every component of the cooking liquid doing therapeutic work before the bowl is even assembled. Topped with a turmeric-black pepper-EVOO golden paste that activates as it hits the warm grain, sautéed garlic (activated by the 5-minute crush-and-rest), and your choice of protein. Four of the highest-impact compounds in your condition stack — ginger, garlic, turmeric, and EVOO — working through complementary pathways in one dish.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 10 min</span>
+        <span>🔥 Cook: 25 min</span>
+        <span>⏳ Total: ~35 min</span>
+        <span>🍽 Yield: 2 servings</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-mod"></span>
+        Moderate GI — monitor first few uses; millet GI varies by cooking method
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD TEST LINK -->
+  <div class="test-bar">
+    <p>Millet is on the active foods list with a moderate GI note. Log a test session on your first preparation to establish your personal response.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 servings</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Grain base</li>
+          <li class="ing-item"><span class="ing-amount">1 cup</span><span class="ing-name">Millet, rinsed</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 cup</span><span class="ing-name">Bone broth (homemade)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ cup</span><span class="ing-name">Ginger bug liquid (or water)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">Fresh ginger, grated</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Golden paste</li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">EVOO</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span class="ing-name">Ground turmeric</span><span class="ing-note ox-mod">🟡 mod ox — Ca²⁺ in broth covers</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Freshly ground black pepper</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span class="ing-name">Ground cumin</span><span class="ing-note ox-low">🟢 low ox</span></li>
+
+          <li class="ing-section-label">Aromatics</li>
+          <li class="ing-item"><span class="ing-amount">4 cloves</span><span class="ing-name">Garlic, crushed (rest 5 min)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">EVOO (for sauté)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Toppings</li>
+          <li class="ing-item"><span class="ing-amount">1 cup</span><span class="ing-name">Protein: chicken, sardines, or 2 eggs</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ cup</span><span class="ing-name">Cucumber, diced</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ cup</span><span class="ing-name">Zucchini (roasted) or broccoli (steamed)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">Lemon juice</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">to finish</span><span class="ing-name">EVOO drizzle + fresh parsley</span><span class="ing-note ox-zero">⬜ zero</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Overall oxalate: Low.</strong> Turmeric is moderate-ox but used at ½ tsp — calcium from bone broth and any dairy protein topping covers this comfortably. Lemon juice adds urinary citrate (kidney stone benefit) at zero oxalate cost.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Activate the garlic first</div>
+              Crush or finely chop all 4 garlic cloves. Set aside for <strong>5 minutes</strong> — this is the most important timing step in the recipe. Alliinase is destroyed by heat; allicin only forms during this pre-heat rest. Start everything else while the garlic sits.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Cook millet in bone broth</div>
+              Combine rinsed millet, bone broth, ginger bug liquid (or water), and fresh grated ginger in a saucepan. Bring to a boil, reduce to low, cover, and simmer <strong>18–20 minutes</strong> until liquid is absorbed. Remove from heat, keep covered, rest 5 minutes, then fluff with a fork.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Make the golden paste</div>
+              While millet cooks, stir 1 tbsp EVOO with turmeric, black pepper, and cumin in a small bowl. The fat and piperine together raise curcumin bioavailability ~2000%. Set aside — it will be stirred into the warm millet at assembly, not cooked.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Sauté garlic (and ginger if preferred)</div>
+              Heat 1 tbsp EVOO in a small pan over medium-low. Add the rested garlic. Sauté <strong>2–3 minutes</strong> until fragrant and just golden — do not let it brown, which degrades allicin. Remove from heat.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Assemble</div>
+              Spoon warm millet into bowls. Stir the golden paste through while the grain is still hot — the warmth activates and distributes the turmeric evenly. Top with sautéed garlic, protein, cucumber, and cooked vegetables.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Finish and serve</div>
+              Squeeze lemon juice over each bowl, add a final drizzle of EVOO, and scatter fresh parsley if using. The lemon also brightens the turmeric flavour and adds urinary citrate for kidney stone prevention.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Layered mechanism summary:</strong> Ginger bug liquid in cooking water → AMPK activation + shogaols (fatty liver / DP) · Bone broth cooking liquid → glycine + gelatin (Celiac gut healing, liver phase II detox) · Golden paste at assembly → curcumin + piperine + EVOO fat (APOE4 neuroprotection, hepatic inflammation) · Garlic 5-min rest → allicin (AMPK, glutathione induction for MTHFR) · Lemon finish → urinary citrate (kidney stone prevention). Each step targets a different pathway — none are redundant.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- PROTEIN VARIATIONS -->
+  <div class="variation-panel">
+    <h3>🔄 Protein options — all condition-appropriate</h3>
+    <div class="var-grid">
+      <div class="var-card">
+        <strong>🐟 Sardines (APOE4 priority)</strong>
+        Highest DHA per serving of any common food. Drain, rinse, and lay over the bowl. DHA crosses the blood-brain barrier directly; critical for APOE4 carriers.
+      </div>
+      <div class="var-card">
+        <strong>🍗 Shredded chicken breast</strong>
+        Lean, low-oxalate, neutral glucose impact. Cook a batch earlier in the week — season with garlic powder and lemon, shred, refrigerate. Add cold or briefly warmed.
+      </div>
+      <div class="var-card">
+        <strong>🥚 Soft-boiled eggs (2 per serving)</strong>
+        Phosphatidylcholine in egg yolk supports liver fat export (VLDL pathway) — directly relevant for fatty liver. 7-minute eggs keep a slightly soft yolk; slice over the warm millet.
+      </div>
+      <div class="var-card">
+        <strong>🥩 Sliced lean beef</strong>
+        B12 and zinc for MTHFR methylation. Sear briefly, rest, slice thin over the bowl. Keep portions to 3–4 oz to maintain the low-fat profile.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why each component is here</h3>
+    <ul>
+      <li><strong>Ginger bug liquid as cooking water:</strong> fermented ginger delivers shogaols (more potent anti-inflammatory than fresh gingerols) and live Lactobacillus directly into the grain as it cooks. The heat kills the live bacteria but the bioactive compounds — shogaols, gingerols, acetic acid traces — survive and infuse the millet. Zero sugar concern when used as cooking liquid rather than a drink.</li>
+      <li><strong>Bone broth as cooking base:</strong> glycine and proline from collagen support intestinal tight junction repair (Celiac), and glycine specifically supports phase II liver detoxification via glucuronidation and glutathione conjugation — both impaired in fatty liver and MTHFR. The minerals (calcium, magnesium) from homemade broth also contribute to the calcium-at-meal oxalate-binding strategy.</li>
+      <li><strong>Golden paste stirred in at assembly (not cooked):</strong> curcumin is heat-stable but the EVOO and piperine bioavailability synergy is maximised when the fat coats the curcumin molecules rather than being cooked off. Stirring the paste into warm (not boiling) grain preserves this. Fat + piperine together = ~2000% better curcumin absorption vs. dry turmeric alone.</li>
+      <li><strong>Garlic — 5-minute pre-rest, low-heat sauté:</strong> alliinase converts alliin to allicin only during the rest period; high heat immediately destroys the enzyme. Medium-low sauté for 2–3 minutes warms and softens without degrading allicin. Three separate AMPK pathways in this dish: ginger (gingerols/shogaols), garlic (allicin), and turmeric (curcumin via NF-κB) — all complementary, no redundancy.</li>
+      <li><strong>Lemon juice finish:</strong> citrate from lemon juice is a direct inhibitor of calcium oxalate crystal formation in the kidneys — same mechanism as morning lemon water, but built into dinner. Zero cost, adds brightness, and counts toward daily citrate load.</li>
+      <li><strong>EVOO throughout:</strong> the recipe uses EVOO in three places (cooking liquid splash, golden paste, finish drizzle) deliberately. EVOO's oleic acid improves hepatocyte insulin signalling directly — relevant for both fatty liver and Dawn Phenomenon. For APOE4, oleocanthal reduces amyloid-β aggregation.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
