@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shakshuka (GF) — Eggs in Spiced Tomato-Pepper Sauce</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Shakshuka — Eggs in Spiced Tomato-Pepper Sauce",
+    "description": "Eggs poached directly in a rich, spiced tomato and roasted pepper sauce with garlic, turmeric, cumin, and smoked paprika. Naturally gluten-free. Tomato is a moderate-oxalate food — this recipe pairs it with feta or a calcium-rich side at every serving to bind oxalate in the gut before absorption. A fast, deeply flavoured meal that works at any time of day.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT10M",
+    "cookTime": "PT25M",
+    "totalTime": "PT35M",
+    "recipeCategory": "Main Dish",
+    "recipeCuisine": "Middle Eastern / North African",
+    "keywords": "gluten-free, shakshuka, low glycaemic, APOE4, fatty liver, MTHFR, eggs, tomato, turmeric, garlic",
+    "recipeIngredient": [
+      "4 large eggs",
+      "1 can (400g / 14oz) crushed or diced tomatoes, no added sugar",
+      "1 large red bell pepper, diced",
+      "1 medium yellow onion, diced",
+      "4 cloves garlic, crushed (rest 5 minutes before using)",
+      "2 tbsp extra-virgin olive oil (EVOO)",
+      "1/2 tsp ground turmeric",
+      "1/4 tsp freshly ground black pepper",
+      "1 tsp ground cumin",
+      "1 tsp smoked paprika",
+      "1/4 tsp cayenne (optional — skip if GI-sensitive)",
+      "1/4 tsp sea salt",
+      "1/2 cup crumbled feta cheese (calcium source — pairs with tomato oxalate)",
+      "Small handful fresh parsley or coriander, chopped",
+      "Lemon wedge to serve",
+      "GF bread or millet slices to serve (optional)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate the garlic",
+        "text": "Crush or finely chop all 4 garlic cloves and set aside for 5 minutes. This rest period allows alliinase to complete the conversion of alliin to allicin before heat destroys the enzyme. Do not add garlic to the pan yet."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Sauté onion and pepper",
+        "text": "Heat EVOO in a wide, oven-safe skillet or deep frying pan over medium heat. Add diced onion and red bell pepper. Cook, stirring occasionally, for 7–8 minutes until softened and the onion is translucent."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add garlic and spices",
+        "text": "Add the rested garlic to the pan. Stir for 1 minute until fragrant. Add turmeric, black pepper, cumin, smoked paprika, cayenne (if using), and salt. Stir everything together and cook for another 60 seconds to bloom the spices in the EVOO."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add tomatoes and simmer",
+        "text": "Pour in the crushed tomatoes. Stir to combine, reduce heat to medium-low, and simmer uncovered for 10 minutes until the sauce has thickened slightly and the flavours have deepened. Taste and adjust salt."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Poach the eggs",
+        "text": "Use a spoon to create 4 small wells in the sauce. Crack one egg into each well. Cover the pan with a lid and cook on low heat for 5–8 minutes — 5 minutes gives a runny yolk, 8 gives a fully set yolk. Check at 5 minutes and continue to your preference."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish and serve",
+        "text": "Remove the lid. Scatter crumbled feta over the top, followed by fresh parsley or coriander. Serve directly from the pan with a lemon wedge squeezed over each serving. Pair with GF bread or millet slices if using."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --red-pale:    #fff5f5;
+      --red-border:  #fca5a5;
+      --red-dark:    #991b1b;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low  { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 90px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-mod  { color: #f39c12; }
+    .ox-zero { color: #95a5a6; }
+    .ox-ca   { color: #1565c0; font-weight: 700; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; counter-increment: step; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .callout-red { background: var(--red-pale); border: 1px solid var(--red-border); border-radius: 12px; padding: .85rem 1.1rem; font-size: .85rem; color: var(--red-dark); line-height: 1.65; margin-bottom: 1.5rem; }
+    .callout-red strong { color: var(--red-dark); }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .variation-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .variation-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+    .var-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .83rem; line-height: 1.5; }
+    .var-card strong { display: block; color: var(--green-dark); margin-bottom: .2rem; font-size: .8rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Verify yield (2 servings) after import.
+  </div>
+
+  <!-- OXALATE WARNING -->
+  <div class="callout-red">
+    <strong>⚠️ Tomato oxalate strategy:</strong> Canned tomatoes are a moderate-oxalate food. This recipe is designed around the calcium-pairing principle — feta is added at the finish specifically to bind dietary oxalate in the gut and reduce urinary absorption. <strong>Do not skip the feta if kidney stone prevention is a goal.</strong> If you are dairy-free, serve with a calcium-containing side (A2 whole milk, sardines with bones) rather than removing the pairing entirely.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍅 🥚 🫑</div>
+    <div class="recipe-hero-body">
+      <h1>Shakshuka — Eggs in Spiced Tomato-Pepper Sauce</h1>
+      <p>Eggs poached in a rich, deeply spiced tomato and roasted pepper sauce with 5-minute activated garlic, turmeric-black pepper, cumin, and smoked paprika. Naturally gluten-free, protein-dense, and ready in 35 minutes. The whole egg delivers phosphatidylcholine for liver fat export, garlic activates AMPK, turmeric targets hepatic inflammation — and the feta at the finish handles the tomato oxalate load with calcium binding. Works for breakfast, lunch, or a fast dinner.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 10 min</span>
+        <span>🔥 Cook: 25 min</span>
+        <span>⏳ Total: ~35 min</span>
+        <span>🍽 Yield: 2 servings</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Low GI — eggs + sauce only; monitor if adding GF bread on the side
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD TEST LINK -->
+  <div class="test-bar">
+    <p>If this is your first time having tomatoes in a food test context, log a session. Tomato sauce can affect some DP patterns at dinner — note timing and T+120 glucose response.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 servings</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Sauce base</li>
+          <li class="ing-item"><span class="ing-amount">1 can (400g)</span><span class="ing-name">Crushed tomatoes, no added sugar</span><span class="ing-note ox-mod">🟡 mod ox — Ca²⁺ pair</span></li>
+          <li class="ing-item"><span class="ing-amount">1 large</span><span class="ing-name">Red bell pepper, diced</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 medium</span><span class="ing-name">Yellow onion, diced</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">4 cloves</span><span class="ing-name">Garlic, crushed (rest 5 min)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">2 tbsp</span><span class="ing-name">EVOO</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Spice blend</li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span class="ing-name">Ground turmeric</span><span class="ing-note ox-mod">🟡 mod — small amount</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Freshly ground black pepper</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">Ground cumin</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">Smoked paprika</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Cayenne (optional)</span><span class="ing-note ox-zero">⬜ trace at dose</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Sea salt</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Eggs</li>
+          <li class="ing-item"><span class="ing-amount">4 large</span><span class="ing-name">Eggs</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Finish (calcium pairing)</li>
+          <li class="ing-item"><span class="ing-amount">½ cup</span><span class="ing-name">Crumbled feta</span><span class="ing-note ox-ca">Ca²⁺ binds tomato ox</span></li>
+          <li class="ing-item"><span class="ing-amount">handful</span><span class="ing-name">Fresh parsley or coriander</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">to serve</span><span class="ing-name">Lemon wedge</span><span class="ing-note ox-zero">⬜ zero</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Oxalate strategy:</strong> Tomato is mod-ox but served with feta (calcium). Lemon juice adds urinary citrate. Combined: net kidney stone risk is low when the pairing is maintained. If dairy-free, substitute a calcium-rich side.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Activate the garlic first</div>
+              Crush or finely chop all 4 garlic cloves. Set aside for <strong>5 minutes</strong>. This is the most important timing step — alliinase is destroyed by heat and allicin only forms during this pre-heat rest. Start the onion and pepper while the garlic sits.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Sauté onion and pepper</div>
+              Heat EVOO in a wide pan over medium heat. Add onion and red bell pepper. Cook 7–8 minutes, stirring occasionally, until softened and the onion is translucent. The fat from EVOO will carry the spices in the next step.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Add garlic and bloom spices</div>
+              Add the rested garlic. Stir 1 minute until fragrant. Add turmeric, black pepper, cumin, smoked paprika, cayenne (if using), and salt. Stir and cook 60 seconds — the fat blooms the fat-soluble curcumin and spice compounds, intensifying flavour and bioavailability simultaneously.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Add tomatoes and simmer</div>
+              Pour in crushed tomatoes. Stir to combine and reduce heat to medium-low. Simmer uncovered for <strong>10 minutes</strong>, stirring occasionally, until the sauce thickens and deepens in colour. Taste and adjust salt.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Poach the eggs</div>
+              Use a spoon to press 4 shallow wells in the sauce. Crack one egg into each well. Cover with a lid and cook on low for <strong>5–8 minutes</strong>: 5 min = runny yolk, 8 min = set. Check at 5 and continue to your preference. The yolk is where the phosphatidylcholine lives — don't overcook if fatty liver is a concern.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Finish and serve</div>
+              Scatter crumbled feta over the top (the calcium in feta binds residual dietary oxalate from the tomato). Add fresh parsley or coriander, squeeze a lemon wedge over each portion, and serve directly from the pan. Pair with GF bread or millet slices if adding a carb component.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Layered mechanism summary:</strong> Whole eggs → phosphatidylcholine (VLDL-mediated liver fat export, directly targets fatty liver) · Garlic 5-min rest → allicin (AMPK, glutathione induction for MTHFR) · Turmeric bloomed in EVOO → curcumin + piperine + fat carrier (APOE4 neuroprotection, hepatic NF-κB suppression) · Smoked paprika + cumin → anti-inflammatory phenolics · Feta finish → calcium binds tomato oxalate in gut before renal absorption · Lemon → urinary citrate (kidney stone prevention). No step is decorative.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- VARIATIONS -->
+  <div class="variation-panel">
+    <h3>🔄 Variations</h3>
+    <div class="var-grid">
+      <div class="var-card">
+        <strong>🐟 Sardine Shakshuka (APOE4 upgrade)</strong>
+        Add 1 tin of sardines (drained) to the sauce before poaching the eggs. The sardine calcium also contributes to oxalate binding. Reduce eggs to 2 if adding sardines to keep portions balanced. DHA + eggs = maximum APOE4 brain support in one dish.
+      </div>
+      <div class="var-card">
+        <strong>🧀 Dairy-free calcium swap</strong>
+        Replace feta with sardines-with-bones as the calcium source, or serve alongside 4 oz A2 whole milk. The pairing must happen at the same meal to be effective — calcium needs to be present in the gut at the same time as the oxalate.
+      </div>
+      <div class="var-card">
+        <strong>🫑 Add kale (MTHFR folate)</strong>
+        Stir a large handful of finely chopped kale into the sauce 5 minutes before adding the eggs. Kale is high in folate (directly supports MTHFR methylation), vitamin K2, and low-oxalate compared to spinach. Do not use spinach — very high oxalate.
+      </div>
+      <div class="var-card">
+        <strong>🌿 Make it a DP dinner</strong>
+        Serve as the main at dinner with no added carb on the side. The protein and fat from eggs + feta will keep the glucose flat through the night, reducing the amplitude of the Dawn Phenomenon glucose rise by morning. Log a food test to confirm your personal response.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why each component is here</h3>
+    <ul>
+      <li><strong>Eggs — soft-to-medium yolk preferred:</strong> Egg yolks contain phosphatidylcholine, the primary substrate for VLDL assembly in the liver. VLDL exports packaged triglycerides out of hepatocytes — impaired VLDL assembly is one mechanism through which fat accumulates in fatty liver. Cook yolks to your preference but note that very hard yolks oxidise some of the delicate phospholipids.</li>
+      <li><strong>Garlic — always the 5-minute pre-rest:</strong> Alliinase is a heat-labile enzyme. Once garlic hits a hot pan, the conversion of alliin to allicin stops. The 5-minute room-temperature rest after crushing ensures maximum allicin yield before any heat exposure. Three AMPK activators are in this dish (garlic allicin, turmeric curcumin, EVOO oleic acid) — each targets a different pathway node.</li>
+      <li><strong>Turmeric bloomed in EVOO at the spice step:</strong> Curcumin is fat-soluble. Cooking it briefly in EVOO with black pepper (piperine) before the tomatoes go in is not just flavour development — it maximises bioavailability before the water-based tomato liquid dilutes the fat phase.</li>
+      <li><strong>Feta at the finish — not during cooking:</strong> Calcium binds oxalate in the gut as an insoluble complex that passes through without absorbing. This binding happens in the digestive tract, so the calcium must arrive at the same meal. Adding feta cold at the end preserves its texture and live culture content (if using traditional feta). Do not omit if kidney stone prevention is a priority.</li>
+      <li><strong>Smoked paprika and cumin:</strong> Paprika (from red peppers) is a source of capsanthin — an anti-inflammatory carotenoid with direct antioxidant activity. Cumin has been shown to modestly improve fasting glucose and insulin sensitivity in small trials. Both are low-oxalate. Both bloom well in EVOO at medium heat.</li>
+      <li><strong>No spinach:</strong> Traditional shakshuka sometimes includes spinach. Spinach is very high oxalate (~755mg per cooked cup) — incompatible with kidney stone management. Kale is the substitution if you want added greens (low oxalate, high folate). Red bell pepper already provides vitamin C and carotenoids from a low-oxalate source.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
