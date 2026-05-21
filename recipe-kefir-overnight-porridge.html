@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kefir Overnight Grain Porridge — Millet or Sorghum</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Kefir Overnight Grain Porridge — Millet or Sorghum",
+    "description": "Whole millet or sorghum soaked overnight in homemade kefir, eaten cold or gently warmed in the morning. Ceylon cinnamon stirred in before bed, blueberries and a drizzle of EVOO added at serving. Designed specifically around the bedtime-to-morning glucose chain: the overnight kefir fermentation lowers the grain's glycaemic index, the live cultures trigger GLP-1 secretion for a slower morning glucose rise, and Ceylon cinnamon supports insulin receptor sensitivity through the GLUT4 pathway.",
+    "recipeYield": "1 serving",
+    "prepTime": "PT5M",
+    "cookTime": "PT0M",
+    "totalTime": "PT485M",
+    "recipeCategory": "Breakfast",
+    "recipeCuisine": "Foundational",
+    "keywords": "overnight porridge, kefir, millet, sorghum, gluten-free, low glycaemic, dawn phenomenon, blood sugar, APOE4, MTHFR, Ceylon cinnamon, blueberries",
+    "recipeIngredient": [
+      "1/3 cup whole millet OR whole sorghum (rinsed)",
+      "2/3 cup homemade kefir (or store-bought full-fat kefir if homemade not available)",
+      "1/4 tsp Ceylon cinnamon (NOT Cassia — must be Ceylon for safe daily use)",
+      "Pinch of sea salt",
+      "1/3 cup fresh or frozen blueberries (thawed overnight is fine)",
+      "1 tbsp extra-virgin olive oil (EVOO) — drizzled at serving",
+      "Optional: 1 tsp chia seeds (adds omega-3 ALA, thickens further)",
+      "Optional: 1 tbsp pumpkin seeds (zinc for MTHFR methylation, low oxalate)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Assemble the night before (5 minutes)",
+        "text": "Rinse millet or sorghum under cold water. Add to a jar or bowl with a lid. Pour kefir over the grain — the kefir should fully cover it. Stir in Ceylon cinnamon and a pinch of salt. Add chia seeds if using. Stir well, cover, and refrigerate overnight — minimum 8 hours, up to 14 hours is fine."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Morning: check texture",
+        "text": "Remove from the fridge. The grain will have absorbed most of the kefir and softened significantly. It should be creamy and thick. If it seems too thick, stir in 1–2 tbsp cold water or a splash more kefir. If too thin, it needed longer or more grain — adjust next batch."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Eat cold or warm gently",
+        "text": "Option A (cold): eat directly from the jar — the cold temperature further slows gastric emptying, which is beneficial for Dawn Phenomenon glucose management. Option B (warm): transfer to a small saucepan and warm over very low heat, stirring, for 2–3 minutes. Do not boil — this destroys the live Lactobacillus cultures that are half the therapeutic point of this recipe."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add toppings and serve",
+        "text": "Top with blueberries, drizzle with EVOO, and scatter pumpkin seeds if using. Eat within 10–15 minutes of preparation — once the live cultures are at room temperature, the fermentation continues and the bowl acidifies further. This is not harmful but changes the flavour."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --red-pale:    #fff5f5;
+      --red-border:  #fca5a5;
+      --red-dark:    #991b1b;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 80px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-zero { color: #95a5a6; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .callout-red { background: var(--red-pale); border: 1px solid var(--red-border); border-radius: 12px; padding: .85rem 1.1rem; font-size: .85rem; color: var(--red-dark); line-height: 1.65; margin-bottom: 1.5rem; }
+    .callout-red strong { color: var(--red-dark); }
+
+    .dp-chain-panel { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .dp-chain-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: #0d47a1; margin-bottom: .9rem; font-weight: 700; }
+    .dp-chain { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; font-size: .83rem; }
+    .dp-chain-step { background: #fff; border: 1px solid #90caf9; border-radius: 8px; padding: .4rem .75rem; color: #1565c0; font-weight: 600; white-space: nowrap; }
+    .dp-chain-arrow { color: #1565c0; font-weight: 700; font-size: 1rem; }
+    .dp-chain-outcome { background: #1565c0; color: #fff; border-radius: 8px; padding: .4rem .75rem; font-weight: 700; font-size: .83rem; }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .variation-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .variation-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+    .var-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .83rem; line-height: 1.5; }
+    .var-card strong { display: block; color: var(--green-dark); margin-bottom: .2rem; font-size: .8rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+
+    .grain-compare { width: 100%; border-collapse: collapse; font-size: .83rem; }
+    .grain-compare th { background: var(--green-dark); color: #fff; padding: .45rem .75rem; text-align: left; font-weight: 600; }
+    .grain-compare td { padding: .4rem .75rem; border-bottom: 1px solid var(--green-light); vertical-align: top; }
+    .grain-compare tr:last-child td { border-bottom: none; }
+    .grain-compare tr:nth-child(even) td { background: var(--green-pale); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Yield = 1 serving. Note: total time includes 8-hour overnight soak — active prep is 5 minutes.
+  </div>
+
+  <!-- CINNAMON WARNING -->
+  <div class="callout-red">
+    <strong>⚠️ Ceylon cinnamon only — not Cassia:</strong> Cassia cinnamon (the standard supermarket variety sold simply as "cinnamon") contains high levels of coumarin — a natural blood thinner that accumulates with daily use and is hepatotoxic at regular doses. <strong>This is directly contraindicated with fatty liver.</strong> Ceylon cinnamon (true cinnamon, <em>Cinnamomum verum</em>) contains negligible coumarin and is safe for daily therapeutic use. Check your jar: if it does not say "Ceylon" or "true cinnamon" or "Cinnamomum verum," it is Cassia. Replace it before using this recipe daily.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🥛 🌾 🫐</div>
+    <div class="recipe-hero-body">
+      <h1>Kefir Overnight Grain Porridge</h1>
+      <p>Five minutes of prep the night before — millet or sorghum stirred into homemade kefir with Ceylon cinnamon, left to ferment and soften overnight in the fridge. Eaten cold or gently warmed in the morning with blueberries, EVOO, and pumpkin seeds. Every element addresses a specific link in the bedtime-to-morning glucose chain: overnight kefir fermentation lowers the grain GI by continuing to consume available sugars; live cultures trigger GLP-1 at breakfast; Ceylon cinnamon improves GLUT4 translocation before the glucose load arrives; the cold serving temperature slows gastric emptying further. The result is a breakfast that acts on Dawn Phenomenon from multiple angles simultaneously.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 5 min (night before)</span>
+        <span>🌙 Soak: 8–14 hrs</span>
+        <span>☀️ Morning: 2 min</span>
+        <span>🍽 Yield: 1 serving</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+        <span class="badge badge-apoe4">APOE4</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Low GI — kefir fermentation reduces available starch overnight; food-test your first batch
+      </div>
+    </div>
+  </div>
+
+  <!-- DP CHAIN VISUAL -->
+  <div class="dp-chain-panel">
+    <h3>🌙 The bedtime-to-morning glucose chain — how this recipe intervenes</h3>
+    <div class="dp-chain">
+      <span class="dp-chain-step">Liver glycogen depletes overnight</span>
+      <span class="dp-chain-arrow">→</span>
+      <span class="dp-chain-step">Cortisol + glucagon rise at 3–5am</span>
+      <span class="dp-chain-arrow">→</span>
+      <span class="dp-chain-step">Hepatic glucose output ↑</span>
+      <span class="dp-chain-arrow">→</span>
+      <span class="dp-chain-step">Fasting glucose elevated on waking</span>
+      <span class="dp-chain-arrow">→</span>
+      <span class="dp-chain-step">Breakfast glucose spike on top of already-high base</span>
+    </div>
+    <div style="margin-top:.85rem;font-size:.82rem;color:#1565c0;line-height:1.65">
+      <strong>Where this recipe intervenes:</strong>
+      <strong>Ceylon cinnamon</strong> (night before + morning) → improves GLUT4 translocation, increasing peripheral glucose uptake before the morning cortisol wave.
+      <strong>Live kefir cultures</strong> → stimulate GLP-1 secretion from L-cells in the small intestine → slows gastric emptying at breakfast, blunting the post-meal spike.
+      <strong>Cold serving</strong> → retrograde starch formation in the overnight grain → additional GI lowering beyond the fermentation effect.
+      <strong>EVOO</strong> → fat at breakfast → slows gastric emptying a third way and improves hepatocyte insulin signalling through oleic acid.
+    </div>
+  </div>
+
+  <!-- FOOD TEST LINK -->
+  <div class="test-bar">
+    <p>Log a food test on your first batch — note fasting glucose before eating, then T+60 and T+120. This is one of the most important tests in the DP management stack. Track whether cold vs. warm serving changes your personal response.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 1 serving</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">The night before</li>
+          <li class="ing-item"><span class="ing-amount">⅓ cup</span><span class="ing-name">Millet OR sorghum, rinsed</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">⅔ cup</span><span class="ing-name">Homemade kefir (full-fat)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Ceylon cinnamon (NOT Cassia)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span class="ing-name">Sea salt</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">Chia seeds (optional)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+
+          <li class="ing-section-label">Morning toppings</li>
+          <li class="ing-item"><span class="ing-amount">⅓ cup</span><span class="ing-name">Fresh or thawed blueberries</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">EVOO</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">Pumpkin seeds (optional)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Oxalate: Low throughout.</strong> Blueberries are low-ox (unlike strawberries or raspberries). Millet and sorghum are both low-ox whole grains. Kefir calcium from the overnight soak provides additional gut-level oxalate binding.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Night before — assemble (5 min)</div>
+              Rinse grain under cold water. Add to a jar or lidded bowl. Pour kefir over — it should fully submerge the grain. Stir in Ceylon cinnamon, salt, and chia seeds (if using). Cover and refrigerate. Minimum 8 hours; up to 14 is ideal. Place blueberries in a small dish alongside to thaw if frozen.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Morning — check consistency</div>
+              The grain will have absorbed most of the kefir and softened to a creamy, thick porridge. If too thick, stir in 1–2 tbsp water or a splash more kefir. If still too firm, your kefir may be thicker or the grain needed longer — rest at room temperature for 10 minutes and stir again.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Eat cold or warm gently</div>
+              <strong>Cold (preferred for DP):</strong> eat directly from the jar. Cold temperature causes retrograde starch crystallisation — effectively a second GI-lowering mechanism on top of the kefir fermentation. <br /><br />
+              <strong>Warm option:</strong> transfer to a small saucepan, heat on the absolute lowest setting for 2–3 minutes, stirring. <strong>Do not boil or simmer</strong> — temperatures above 60°C destroy the live Lactobacillus cultures and deactivate the GLP-1 signalling mechanism. Warm is 40–50°C (barely above body temperature).
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Top and serve immediately</div>
+              Add blueberries, drizzle EVOO, scatter pumpkin seeds. Eat within 15 minutes — once at room temperature, the live cultures continue fermenting and the bowl acidifies. Perfectly safe; the flavour just sharpens noticeably.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Layered mechanism summary:</strong> Overnight kefir fermentation → Lactobacillus consumes available sugars in the grain → lowers effective GI before breakfast · Live cultures at serving → GLP-1 secretion from intestinal L-cells → slows gastric emptying, blunts morning glucose spike · Ceylon cinnamon → GLUT4 translocation improvement → peripheral glucose uptake ↑ before cortisol peak · Cold serving → retrograde starch crystallisation → resistant starch → further GI lowering · EVOO → oleic acid → hepatocyte insulin signalling + gastric emptying delay · Blueberries → pterostilbene (APOE4 neuroprotection, low GI anthocyanin load) · Pumpkin seeds → zinc (MTHFR methylation enzyme cofactor). Five independent mechanisms targeting the same morning glucose outcome.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- GRAIN COMPARISON -->
+  <div class="panel" style="margin-bottom:1.5rem">
+    <div class="panel-header">🌾 Millet vs. Sorghum — which to use</div>
+    <div class="panel-body" style="padding:0">
+      <table class="grain-compare">
+        <thead>
+          <tr><th>Property</th><th>Millet</th><th>Sorghum</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Texture after overnight soak</td><td>Creamy, porridge-like, slightly grainy</td><td>Chewier, more defined grain, less smooth</td></tr>
+          <tr><td>GI (overnight kefir soak)</td><td>Low–moderate (soak reduces from ~71 raw)</td><td>Low (naturally lower GI than millet)</td></tr>
+          <tr><td>Oxalate</td><td>Low</td><td>Low</td></tr>
+          <tr><td>Protein content</td><td>~11g per 100g dry</td><td>~11g per 100g dry (similar)</td></tr>
+          <tr><td>Resistant starch (cold)</td><td>Moderate</td><td>Higher — more resistant starch naturally</td></tr>
+          <tr><td>Best for</td><td>Smooth, traditional porridge texture preference</td><td>More stable post-meal glucose; better DP management</td></tr>
+          <tr><td>Sourcing</td><td>Health food stores, bulk section</td><td>Health food stores, African/Caribbean grocers</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- VARIATIONS -->
+  <div class="variation-panel">
+    <h3>🔄 Variations</h3>
+    <div class="var-grid">
+      <div class="var-card">
+        <strong>❄️ Fully cold — maximum DP benefit</strong>
+        Eat straight from the fridge without any warming. The cold temperature causes retrograde starch crystallisation overnight — a physical structure change that makes the starch partially resistant to digestion. This is the best option for Dawn Phenomenon mornings when fasting glucose is already elevated.
+      </div>
+      <div class="var-card">
+        <strong>🍋 Lemon + blueberry (kidney stone)</strong>
+        Add a squeeze of lemon juice (½ lemon) at serving alongside the blueberries. Lemon provides urinary citrate — the primary kidney stone prevention mechanism. Low-ox, zero glucose impact, brightens the kefir tang.
+      </div>
+      <div class="var-card">
+        <strong>🐟 Savoury sorghum bowl (APOE4)</strong>
+        Skip blueberries; instead serve with soft-boiled egg halves, a tin of sardines, cucumber slices, and extra EVOO. Sorghum holds up better in savoury preparations than millet. DHA from sardines + EVOO oleocanthal = maximum APOE4 morning neuroprotection.
+      </div>
+      <div class="var-card">
+        <strong>🫙 Make 3–4 jars at once</strong>
+        Scale to 3–4 portions, prepare Sunday night, and refrigerate. Each jar is ready Monday through Thursday morning — zero prep time on weekdays. Kefir-soaked grain keeps well for 3–4 days in the fridge and continues slowly fermenting (will become more tart over time, which is fine).
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why each component is here</h3>
+    <ul>
+      <li><strong>Kefir as the soaking liquid (not water or milk):</strong> Soaking in kefir does two things simultaneously — it softens the grain (improving digestibility) and the Lactobacillus cultures continue fermenting throughout the overnight rest, consuming available sugars and partially pre-digesting the starch matrix. The result is a meaningfully lower glycaemic response than the same grain cooked in water. Store-bought kefir that has been pasteurised post-fermentation will not achieve this — live cultures are required. Homemade kefir from active grains is the correct choice.</li>
+      <li><strong>Ceylon cinnamon added the night before (not just at serving):</strong> Stirring the cinnamon into the kefir-grain mixture overnight allows the cinnamaldehyde and procyanidins to infuse the grain during the soak. They are also active at room temperature and cold — you do not need heat to extract them. Adding a second small pinch at serving is optional but reinforces the GLUT4 effect at the exact time of eating.</li>
+      <li><strong>Cold serving vs. warm:</strong> When cooked or soaked starch is chilled, some of it recrystallises into a different physical structure called resistant starch (RS3 type). Resistant starch is not broken down in the small intestine — it passes to the colon where it acts as prebiotic fibre, feeding the same Lactobacillus strains in your kefir. This creates a self-reinforcing loop: kefir lowers the grain GI → cold storage increases resistant starch → resistant starch feeds gut bacteria → gut bacteria produce SCFAs → SCFAs improve insulin sensitivity → insulin sensitivity lowers DP amplitude.</li>
+      <li><strong>EVOO at serving — not at prep:</strong> Adding EVOO at serving rather than mixing it in overnight maintains its fresh polyphenol content (oleocanthal, oleacein). These compounds are mildly heat- and light-sensitive over extended periods. A tablespoon of EVOO at breakfast also slows gastric emptying — a third independent mechanism acting on the same post-breakfast glucose curve alongside the kefir cultures and the cinnamon.</li>
+      <li><strong>Blueberries — not strawberries or raspberries:</strong> Blueberries are low-oxalate (~4mg per cup) and contain pterostilbene — a methylated form of resveratrol that crosses the blood-brain barrier more efficiently than resveratrol itself. Pterostilbene has shown APOE4-relevant effects on amyloid precursor protein processing in animal models. Strawberries and raspberries are moderate-to-high oxalate and should not be used as a daily substitute in this recipe for kidney stone management.</li>
+      <li><strong>Pumpkin seeds:</strong> Zinc is an essential cofactor for MTHFR and for multiple methylation enzymes. Pumpkin seeds are one of the highest dietary zinc sources and are low-oxalate. One tablespoon adds crunch, texture contrast, and meaningful zinc without adding carbohydrates. They also contain tryptophan (serotonin precursor), which has indirect relevance to morning cortisol regulation — the hormone that drives the Dawn Phenomenon rise.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
