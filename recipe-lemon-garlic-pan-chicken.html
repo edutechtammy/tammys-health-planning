@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lemon-Garlic Pan Chicken with Bone Broth Pan Sauce</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Lemon-Garlic Pan Chicken with Bone Broth Pan Sauce",
+    "description": "Chicken breast flattened to even thickness, seared in extra virgin olive oil until golden, then rested while a quick pan sauce is made with bone broth, activated garlic, lemon juice, and fresh thyme. Deglazing with bone broth recovers all the collagen and mineral-rich fond from the pan. EVOO provides APOE4-compatible MUFA fat; bone broth adds glycine and minerals; garlic delivers allicin post-cook; lemon provides urinary citrate. Low oxalate, negligible GI, gluten-free. Ready in 25 minutes. Works as the default elevated chicken for any meal on the plan.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT8M",
+    "cookTime": "PT18M",
+    "totalTime": "PT26M",
+    "recipeCategory": "Main",
+    "recipeCuisine": "Mediterranean",
+    "keywords": "pan chicken, bone broth pan sauce, lemon garlic chicken, gluten-free, low oxalate, APOE4, MTHFR, dawn phenomenon, EVOO",
+    "recipeIngredient": [
+      "2 chicken breasts (approx 180–200g each)",
+      "1½ tbsp extra virgin olive oil (EVOO) — for searing",
+      "¼ tsp flaky sea salt",
+      "Freshly ground black pepper",
+      "3 cloves garlic, crushed (rest 5 minutes — added to sauce after pan is off heat)",
+      "180ml (¾ cup) homemade bone broth",
+      "Juice of ½ lemon (about 1½ tbsp) — add at finish",
+      "3–4 sprigs fresh thyme (or ½ tsp dried thyme)",
+      "1 tsp EVOO or unsalted butter — to finish the sauce (optional, adds gloss)",
+      "Fresh parsley, roughly chopped — to serve (optional, MTHFR folate)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate garlic and flatten chicken",
+        "text": "Crush 3 garlic cloves and set aside for 5 minutes — the allicin activation window runs while you prep the chicken. Place each chicken breast between two sheets of baking paper and use a rolling pin or heavy pan to flatten the thickest part to approximately the same thickness as the thinnest part (aim for about 2cm even thickness). Even thickness is the single most important technique step — it means the whole breast reaches safe temperature at the same time, so the thin end is not dry by the time the thick end is cooked through."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Season and bring to room temperature",
+        "text": "Pat the flattened chicken dry with paper towel — a dry surface browns far better than a damp one. Season both sides with salt and pepper. If you have time, leave on the board for 10 minutes before cooking so the surface is truly dry and not fridge-cold."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Sear the chicken",
+        "text": "Heat EVOO in a heavy frying pan (stainless steel or cast iron — not non-stick for this recipe, you need the fond) over medium-high heat. When the oil shimmers and a drop of water flicked in spits immediately, add the chicken. Press lightly with a spatula to ensure full contact. Do not move it for 5–6 minutes. It is ready to flip when it releases cleanly from the pan — if it sticks, it is not ready. Flip and cook the second side for 4–5 minutes until golden. Internal temperature should reach 74°C (165°F). Transfer to a plate and cover loosely with foil to rest — do not slice yet."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Deglaze and build the pan sauce",
+        "text": "With the pan still hot (reduce heat to medium), pour in the bone broth. It will bubble vigorously — use a wooden spoon to scrape up all the browned bits from the base of the pan (this is the fond: concentrated protein, minerals, and collagen from the chicken — do not leave any behind). Add the thyme sprigs. Let the broth simmer and reduce by about half, approximately 3–4 minutes, until slightly thickened and more concentrated in flavour."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish with garlic, lemon, and serve",
+        "text": "Remove the pan from the heat. Add the activated garlic to the sauce now — off-heat preserves the allicin fully. Squeeze in the lemon juice. Stir in the optional finishing butter or EVOO for gloss. Taste and adjust salt. Discard the thyme sprigs. Slice the chicken across the grain and arrange on plates. Pour the pan sauce over. Scatter fresh parsley if using. Serve immediately alongside roasted asparagus, kale, or a quinoa or millet base."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 80px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-zero { color: #95a5a6; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .technique-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .technique-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .75rem; font-weight: 700; }
+    .technique-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: .65rem; }
+    .technique-card { border-radius: 10px; padding: .65rem .85rem; font-size: .82rem; line-height: 1.5; border: 1px solid var(--border); }
+    .technique-card strong { display: block; font-size: .8rem; margin-bottom: .2rem; }
+    .tc-flatten { background: #e3f2fd; } .tc-flatten strong { color: #0d47a1; }
+    .tc-dry     { background: #e8f5e9; } .tc-dry     strong { color: #1b5e20; }
+    .tc-fond    { background: #fff8e1; } .tc-fond    strong { color: #78350f; }
+    .tc-garlic  { background: #f3e5f5; } .tc-garlic  strong { color: #6a1b9a; }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .pairing-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .pairing-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .pairing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .65rem; }
+    .pairing-card { background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .6rem .85rem; font-size: .82rem; line-height: 1.5; }
+    .pairing-card strong { display: block; color: var(--green-dark); font-size: .79rem; margin-bottom: .15rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Yield = 2 servings. Total ~26 min.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍗 🫒 🍋</div>
+    <div class="recipe-hero-body">
+      <h1>Lemon-Garlic Pan Chicken with Bone Broth Pan Sauce</h1>
+      <p>Chicken breast seared golden in extra virgin olive oil, rested, then a two-minute bone broth pan sauce is built in the same pan — scraping up every bit of the fond (caramelised protein and collagen from the sear) and finishing with 5-minute activated garlic and lemon. This is the default elevated chicken recipe for your plan. It works alongside roasted asparagus, sautéed kale, or a millet or quinoa base. The technique produces consistently juicy breast every time: flatten to even thickness so the whole piece finishes simultaneously, sear without moving, and rest before slicing. The pan sauce turns a plain protein into a complete therapeutic meal — bone broth glycine, EVOO MUFA, allicin, and urinary citrate in a 90-second sauce.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 8 min</span>
+        <span>🔥 Cook: 18 min</span>
+        <span>⏳ Total: ~26 min</span>
+        <span>🍽 Yield: 2 servings</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Negligible GI — pure protein and fat; glucose response determined by the side dish
+      </div>
+    </div>
+  </div>
+
+  <!-- TECHNIQUE GUIDE -->
+  <div class="technique-panel">
+    <h3>🔪 Four technique points that make or break pan chicken</h3>
+    <div class="technique-grid">
+      <div class="technique-card tc-flatten">
+        <strong>1. Flatten to even thickness</strong>
+        Chicken breast is shaped like a teardrop. The thin end cooks 2–3 minutes faster than the thick end. Without flattening, one end is dry before the other is safe. Bash the thick end down to ~2cm. One minute of effort; consistently better result.
+      </div>
+      <div class="technique-card tc-dry">
+        <strong>2. Dry the surface completely</strong>
+        Moisture on the surface creates steam in the pan. Steam = grey boiled chicken, not golden sear. Pat with paper towel until the surface feels slightly tacky, not damp. Leave on the board uncovered for 5–10 min if time allows.
+      </div>
+      <div class="technique-card tc-fond">
+        <strong>3. Scrape the fond — all of it</strong>
+        The brown layer stuck to the pan after searing is not burnt food. It is the Maillard reaction product of proteins, collagen, and sugars — concentrated flavour and nutrition. The bone broth deglaze dissolves it instantly. Scrape every bit into the sauce.
+      </div>
+      <div class="technique-card tc-garlic">
+        <strong>4. Garlic goes in off-heat</strong>
+        Allicin forms during the 5-minute pre-rest and survives brief gentle heat. A hot pan above ~160°C destroys it quickly and burns the garlic to bitterness. Add the activated garlic to the sauce after removing the pan from the heat — residual warmth is enough.
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD TEST BAR -->
+  <div class="test-bar">
+    <p>Chicken + pan sauce is negligible GI. Food-test the full meal (chicken + side dish combination) if the side is millet, quinoa, or GF bread — the chicken itself does not require testing.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 servings</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Chicken</li>
+          <li class="ing-item"><span class="ing-amount">2</span><span class="ing-name">Chicken breasts (~180–200g each)</span><span class="ing-note ox-zero">⬜ zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1½ tbsp</span><span class="ing-name">Extra virgin olive oil (EVOO)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Flaky sea salt</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">to taste</span><span class="ing-name">Freshly ground black pepper</span><span class="ing-note ox-zero">⬜ trace</span></li>
+
+          <li class="ing-section-label">Pan Sauce</li>
+          <li class="ing-item"><span class="ing-amount">3 cloves</span><span class="ing-name">Garlic, crushed (rest 5 min, add off-heat)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">180ml</span><span class="ing-name">Homemade bone broth</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ lemon</span><span class="ing-name">Lemon juice (at finish)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">3–4 sprigs</span><span class="ing-name">Fresh thyme (or ½ tsp dried)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+
+          <li class="ing-section-label">Optional</li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">EVOO or butter (sauce finish, for gloss)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">handful</span><span class="ing-name">Fresh parsley, chopped (MTHFR folate)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Oxalate: Near-zero.</strong> Chicken, EVOO, bone broth, and lemon are all zero oxalate. This is one of the safest main dishes in the library. Use your homemade bone broth — store-bought is lower in collagen and minerals.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Activate garlic and flatten chicken</div>
+              Crush 3 garlic cloves and rest on the board for 5 minutes. Meanwhile, place each breast between two sheets of baking paper and bash the thick end with a rolling pin or heavy pan until the whole breast is approximately 2cm thick throughout. Pat both sides completely dry with paper towel. Season generously with salt and pepper.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Sear the first side — do not touch it</div>
+              Heat EVOO in a stainless steel or cast iron pan over medium-high heat until shimmering. Add chicken and press lightly with a spatula to ensure full surface contact. <strong>Do not move it.</strong> Cook for 5–6 minutes. It is ready to flip when it releases cleanly — if you have to force it, it needs another 30–60 seconds.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Flip and finish</div>
+              Flip and cook the second side 4–5 minutes until golden. Internal temperature at the thickest point should reach 74°C (165°F). Transfer to a plate, tent loosely with foil, and rest for 5 minutes. Do not slice yet — resting allows the juices to redistribute. The chicken will continue cooking slightly off-heat.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Build the pan sauce</div>
+              Reduce heat to medium. Pour in the bone broth — it will bubble hard. Immediately scrape the base of the pan with a wooden spoon to dissolve all the fond. Add the thyme. Simmer 3–4 minutes until reduced by roughly half and the sauce coats the back of a spoon lightly.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Finish off-heat and serve</div>
+              Remove pan from heat. Stir in the activated garlic. Add lemon juice. Stir in the finishing EVOO or butter if using. Taste and adjust salt. Discard thyme sprigs. Slice the chicken across the grain, pour the pan sauce over, and scatter fresh parsley. Serve immediately with your chosen side.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Mechanism summary:</strong> EVOO oleic acid (MUFA) → APOE4 LDL oxidation reduction · Bone broth glycine → liver phase II detox (glycine conjugation), gut lining integrity (Celiac) · Garlic allicin added off-heat (full preservation) → AMPK, glutathione induction (MTHFR) · Lemon juice → urinary citrate (kidney stone prevention) · Chicken protein → satiety, stable post-meal glucose (DP), lean muscle maintenance · Zero oxalate. GI determined by side dish only.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- PAIRING SUGGESTIONS -->
+  <div class="pairing-panel">
+    <h3>🍽 Meal plan pairings — how to use this chicken</h3>
+    <div class="pairing-grid">
+      <div class="pairing-card">
+        <strong>🌿 With roasted asparagus (primary)</strong>
+        The natural dinner pair. EVOO on both, lemon on both, garlic on both — consistent therapeutic fat and compound delivery across the whole plate. Asparagus inulin + bone broth glycine together support gut lining and DP overnight GLP-1 simultaneously.
+      </div>
+      <div class="pairing-card">
+        <strong>🥬 With sautéed kale (Tuesday / Friday)</strong>
+        Kale sautéed in EVOO with garlic is already on your meal plan. Slice this chicken over the kale and spoon the pan sauce through both. Kale's folate + chicken protein + bone broth minerals = one of the most nutrient-dense plates in the week.
+      </div>
+      <div class="pairing-card">
+        <strong>🥑 With guacamole (lunch default)</strong>
+        Slice the cooked chicken breast and serve alongside guacamole and zucchini — the meal plan's Tuesday and Thursday lunch format. The pan sauce can be used as a light dressing or served separately. Avocado MUFA + EVOO MUFA = dual oleic acid meal.
+      </div>
+      <div class="pairing-card">
+        <strong>🥣 Over a millet or quinoa base</strong>
+        Slice the chicken over a bowl of millet or rinsed quinoa cooked in bone broth. Spoon the pan sauce over everything — it doubles as the grain seasoning. A complete protein + slow-release carb meal with a full therapeutic compound base.
+      </div>
+      <div class="pairing-card">
+        <strong>🥒 Cold sliced for next-day lunch</strong>
+        Cook a double batch. Slice the second breast cold the next day over romaine with cucumber and bell pepper — this is your Wednesday lunch (eggs + sliced chicken). The bone broth pan sauce can be refrigerated and used as a warm dressing the next day.
+      </div>
+      <div class="pairing-card">
+        <strong>🫙 With sauerkraut on the side</strong>
+        Your Friday meal includes leftover chicken + sauerkraut. The lemon-garlic pan chicken is ideal here — the clean flavour profile works well alongside sauerkraut's acidity, and the combination of allicin (garlic) + live cultures (sauerkraut) provides a stacked gut-support plate.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why the technique choices are therapeutic, not just culinary</h3>
+    <ul>
+      <li><strong>Why EVOO for searing (not butter, not coconut oil):</strong> EVOO's smoke point (~200°C) is sufficient for medium-high searing and the oleic acid content makes it the correct fat for APOE4 carriers. Butter adds saturated fat (SFA) and coconut oil is almost entirely SFA — both increase LDL oxidation risk in APOE4 carriers. Using EVOO here is a deliberate APOE4 fat strategy, not a flavour choice. The small amount used for searing is also absorbed by the chicken surface and becomes part of the meal's fat profile.</li>
+      <li><strong>Why bone broth (not water, not store-bought stock):</strong> The pan sauce needs a liquid with body — plain water produces a thin, flavourless deglaze. Homemade bone broth contains dissolved collagen (gelatin), glycine, proline, minerals, and trace glucosamine. Glycine is the rate-limiting amino acid for hepatic phase II detoxification (glycine conjugation of metabolic waste and drugs) — directly relevant for MTHFR and fatty liver. Store-bought stock is largely water with added sodium and flavouring; the collagen and mineral content is negligible compared to a properly made 12-hour homemade batch.</li>
+      <li><strong>Why garlic goes in off-heat:</strong> The 5-minute pre-crush activates allicin. Adding it to a hot pan above ~160°C degrades allicin within 30–60 seconds and produces bitter compounds. Adding it to the sauce immediately after pulling the pan from the heat exposes it to ~85–90°C residual warmth — enough to mellow the raw edge and allow it to infuse the sauce, but not enough to destroy the allicin. This is the same principle used in every recipe in this library.</li>
+      <li><strong>Why lemon at the finish (not as a marinade):</strong> Acid (citric acid, lemon juice) denatures surface proteins if used as a marinade — it "cooks" the outer layer of the chicken, creating a mealy texture and poor browning. As a finish, it provides flavour brightness, activates salivary amylase (improves digestion), and delivers urinary citrate for kidney stone management without any negative effect on the cooked chicken's texture.</li>
+      <li><strong>Why rest the chicken before slicing:</strong> Cutting immediately after cooking causes all the accumulated juices to run out of the muscle fibres onto the plate, leaving the chicken dry. Resting for 5 minutes under foil allows the muscle fibres to relax and reabsorb the juices. This is not optional technique — it is the difference between a dry and a moist breast, and it continues during the 3–4 minutes you spend making the pan sauce, so it costs zero additional time.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
