@@ -176,9 +176,18 @@
             <li>Serum calcium + PTH — rule out hyperparathyroidism</li>
             <li>Urinalysis with microscopy — monitor for crystals / infection</li>
           </ul>
+          <p class="labs-ref-cat">Fatty Liver / Hepatic Health</p>
+          <ul>
+            <li>ALT (Alanine Aminotransferase) — primary hepatocyte damage marker; trends down as liver fat clears</li>
+            <li>AST (Aspartate Aminotransferase) — secondary liver marker; AST/ALT ratio &gt;1 suggests advancing disease</li>
+            <li>GGT (Gamma-glutamyl transferase) — most sensitive early stress marker; also tracks hepatic glutathione status (MTHFR link)</li>
+            <li>ALP (Alkaline Phosphatase) — general liver/bile duct health</li>
+            <li>Liver ultrasound — qualitative finding every 6–12 months; echogenicity tracks fat reduction progress</li>
+            <li>Fasting triglycerides + HOMA-IR — already in Metabolic panel; also the primary hepatic fat export and IR markers</li>
+          </ul>
           <p class="labs-ref-cat">Klebsiella / Gut</p>
           <ul>
-            <li>Comprehensive stool panel (GI Effects, Doctor’s Data, or similar)</li>
+            <li>Comprehensive stool panel (GI Effects, Doctor's Data, or similar)</li>
             <li>Urine culture if any UTI symptoms — Klebsiella requires targeted antibiotics</li>
             <li>Consider urine oxalate in 24-hour panel to assess Oxalobacter gap</li>
           </ul>
@@ -340,6 +349,26 @@ const TESTS = [
   { id:'ptau217-abeta',   name:'pTau217 / β-Amyloid 1-42 Ratio (Lumipulse G)', cat:'APOE4 / Cognitive', unit:'ratio',
     target:'Enter result as: negative · gray-zone · positive — Negative = no significant amyloid accumulation detected (reassuring, especially with APOE4). Gray-zone = intermediate, repeat testing recommended. Positive = amyloid accumulation consistent with pre-clinical AD pathology. Important: "Positive" does NOT mean Alzheimer\'s — it means the biological process that precedes it is detectable, often 10–20 years before symptoms. With APOE4, you may accumulate amyloid earlier than non-carriers, so a negative result at 62 is genuinely meaningful. Research study result — ~95% concordant with PET scan. Enter the qualitative result (negative/gray-zone/positive) and any ratio value provided in notes.',
     status: v => v.toLowerCase().includes('negative') ? 'green' : v.toLowerCase().includes('gray') ? 'yellow' : v.toLowerCase().includes('positive') ? 'red' : 'neutral' },
+
+  // Fatty Liver / Hepatic Health
+  { id:'alt',             name:'ALT (Alanine Aminotransferase)', cat:'Fatty Liver / Hepatic Health', unit:'U/L',
+    target:'<25 U/L optimal (women) · 25–35 borderline · >35 elevated — Note: lab portals flag <35 U/L as normal for women (population range). The tracker uses <25 as optimal because ALT in the 26–34 range — portal "normal" — is still associated with early hepatic steatosis. Trending ALT downward toward <20 over months is a direct signal that liver fat is clearing. This is your primary progress marker for fatty liver.',
+    status: v => +v < 25 ? 'green' : +v <= 35 ? 'yellow' : 'red' },
+  { id:'ast',             name:'AST (Aspartate Aminotransferase)', cat:'Fatty Liver / Hepatic Health', unit:'U/L',
+    target:'<22 U/L optimal (women) · 22–35 borderline · >35 elevated — Note: In fatty liver, AST is typically lower than ALT (AST/ALT ratio <1). If AST rises to equal or exceed ALT (ratio ≥1), this signals more advanced liver injury or other causes. Track the ratio trend alongside absolute values.',
+    status: v => +v < 22 ? 'green' : +v <= 35 ? 'yellow' : 'red' },
+  { id:'ast-alt-ratio',   name:'AST/ALT Ratio',        cat:'Fatty Liver / Hepatic Health', unit:'ratio',
+    target:'<0.8 typical in NAFLD/MASLD (fatty liver) · 0.8–1.0 borderline · >1.0 evaluate for advanced fibrosis or other causes — Calculate: AST ÷ ALT. A ratio under 0.8 is the expected pattern in simple steatosis (fat without major fibrosis). Rising ratio toward or above 1.0 warrants follow-up.',
+    status: v => +v < 0.8 ? 'green' : +v <= 1.0 ? 'yellow' : 'red' },
+  { id:'ggt',             name:'GGT (Gamma-glutamyl transferase)', cat:'Fatty Liver / Hepatic Health', unit:'U/L',
+    target:'<20 U/L optimal (women) · 20–30 borderline · >30 elevated — Note: GGT is the most sensitive early marker of hepatic stress — it rises before ALT in many cases. Also directly relevant for MTHFR: GGT reflects hepatic glutathione status and oxidative load. GGT trending down alongside ALT is confirmation the liver protocol is working from two different angles.',
+    status: v => +v < 20 ? 'green' : +v <= 30 ? 'yellow' : 'red' },
+  { id:'alp',             name:'ALP (Alkaline Phosphatase)', cat:'Fatty Liver / Hepatic Health', unit:'U/L',
+    target:'44–98 U/L normal range · <44 low (less concerning) · >98 elevated — ALP elevation in fatty liver is less common than ALT/GGT elevation but persistently high ALP warrants evaluation for bile duct involvement. Track alongside ALT for a full hepatic picture.',
+    status: v => +v >= 44 && +v <= 98 ? 'green' : +v > 98 ? 'red' : 'yellow' },
+  { id:'liver-ultrasound', name:'Liver Ultrasound (echogenicity)', cat:'Fatty Liver / Hepatic Health', unit:'notes',
+    target:'Qualitative finding — enter the radiologist\'s description. Normal: homogeneous echogenicity. Mild steatosis: mildly increased echogenicity. Moderate: brighter than kidney cortex. Severe: very bright, posterior beam attenuation. Trending from moderate/severe toward mild or normal over 6–12 months is direct imaging evidence of fat clearance.',
+    status: () => 'neutral' },
 
   // Klebsiella / Gut
   { id:'stool-panel',     name:'Comprehensive Stool Panel', cat:'Klebsiella / Gut', unit:'notes',
