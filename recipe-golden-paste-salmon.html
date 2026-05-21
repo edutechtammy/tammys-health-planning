@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Golden Paste Salmon — Turmeric, Black Pepper & EVOO</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Golden Paste Salmon — Turmeric, Black Pepper & EVOO",
+    "description": "Salmon fillet coated in a paste of turmeric, freshly ground black pepper, EVOO, garlic, and lemon zest, then baked or pan-seared. The fat-soluble curcumin is carried directly into the fish by the EVOO coating, with piperine from black pepper raising bioavailability ~2000%. Atlantic or sockeye salmon provides the highest DHA of any common food — directly relevant for APOE4 carriers. Lowest-oxalate recipe in the library. Ready in under 30 minutes.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT10M",
+    "cookTime": "PT15M",
+    "totalTime": "PT25M",
+    "recipeCategory": "Main Dish",
+    "recipeCuisine": "Mediterranean-inspired",
+    "keywords": "gluten-free, low oxalate, APOE4, fatty liver, DHA, turmeric, salmon, golden paste, anti-inflammatory, MTHFR",
+    "recipeIngredient": [
+      "2 salmon fillets, skin-on (150–180g / 5–6oz each) — Atlantic or sockeye preferred",
+      "2 tbsp extra-virgin olive oil (EVOO)",
+      "1 tsp ground turmeric",
+      "1/2 tsp freshly ground black pepper (essential — do not substitute pre-ground)",
+      "3 cloves garlic, crushed (rest 5 minutes before using)",
+      "Zest of 1 lemon",
+      "1 tbsp lemon juice",
+      "1/4 tsp sea salt",
+      "1/4 tsp ground cumin (optional — adds depth)",
+      "1/4 tsp smoked paprika (optional)",
+      "Extra lemon wedges to serve",
+      "Fresh parsley or coriander to finish",
+      "Low-oxalate side: roasted zucchini, steamed broccoli, cucumber, or wilted kale"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate the garlic",
+        "text": "Crush the 3 garlic cloves and set aside for 5 minutes before using. The 5-minute rest allows alliinase to form allicin before heat exposure. While the garlic rests, prepare the paste and preheat your cooking surface."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Make the golden paste",
+        "text": "Combine EVOO, turmeric, black pepper, lemon zest, lemon juice, salt, cumin, and paprika in a small bowl. Add the rested garlic and stir to a smooth paste. The fat in the EVOO solubilises the curcumin immediately — this is why the paste is mixed before it touches the fish rather than sprinkling dry spices on top."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Coat the salmon",
+        "text": "Pat the salmon fillets dry with paper towel — moisture prevents the paste from adhering and causes steaming rather than searing. Spoon the golden paste over the flesh side (not the skin side) and spread evenly with the back of a spoon. Let sit for 5 minutes while the oven or pan heats up."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Cook — oven method (preferred)",
+        "text": "Preheat oven to 200°C / 400°F. Place salmon paste-side up on a lined baking tray or oven-safe dish. Bake 12–15 minutes depending on thickness — the paste should be set and fragrant, the flesh should flake easily at the thickest point. The oven method preserves the paste coating better than pan-searing and requires no additional fat."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Cook — pan method (alternative)",
+        "text": "Heat a non-stick or cast-iron pan over medium heat with a small splash of EVOO. Place salmon skin-side down first. Cook 4–5 minutes until the skin is crispy and the colour has crept halfway up the fillet. Flip carefully to paste-side down and cook 2–3 minutes more. The paste will form a golden crust — this is the Maillard reaction on the turmeric compounds, which does not significantly degrade curcumin at these temperatures."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Rest, plate, and serve",
+        "text": "Rest for 2 minutes before plating. The internal temperature should be 52–55°C (125–130°F) for medium — salmon at this temperature retains maximum omega-3 content and the flesh stays moist. Plate with your low-oxalate side, squeeze a lemon wedge over each fillet, and scatter fresh parsley or coriander."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 80px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-mod  { color: #f39c12; }
+    .ox-zero { color: #95a5a6; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .apoe4-callout { background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .apoe4-callout h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: #1b5e20; margin-bottom: .7rem; font-weight: 700; }
+    .apoe4-callout p { font-size: .87rem; color: #2e7d32; line-height: 1.65; }
+    .apoe4-callout strong { color: #1b5e20; }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .variation-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .variation-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+    .var-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .83rem; line-height: 1.5; }
+    .var-card strong { display: block; color: var(--green-dark); margin-bottom: .2rem; font-size: .8rem; }
+
+    .sides-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .sides-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .sides-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: .65rem; }
+    .side-item { background: var(--green-pale); border: 1px solid var(--border); border-radius: 8px; padding: .55rem .8rem; font-size: .82rem; line-height: 1.45; }
+    .side-item strong { display: block; color: var(--green-dark); font-size: .79rem; margin-bottom: .15rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+
+    .dha-bar { background: #fff8e1; border: 1px solid var(--amber-border); border-radius: 10px; padding: .7rem 1rem; margin-bottom: 1.5rem; font-size: .83rem; color: var(--amber-dark); line-height: 1.65; }
+    .dha-bar strong { color: var(--amber-dark); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Verify yield (2 servings) after import.
+  </div>
+
+  <!-- APOE4 CALLOUT -->
+  <div class="apoe4-callout">
+    <h3>🧠 APOE4 priority recipe</h3>
+    <p>This is the highest-DHA recipe in the library. <strong>Salmon is the single most important food for APOE4 carriers</strong> — DHA (docosahexaenoic acid) is the primary structural fatty acid of neuronal membranes, and APOE4 carriers have impaired endogenous DHA synthesis from ALA precursors. Pre-formed DHA from oily fish bypasses this conversion bottleneck entirely. The golden paste coating adds curcumin (amyloid-β aggregation inhibitor) and EVOO oleocanthal (neuroinflammation suppressor) to the same meal. Aim for 2–3 servings of oily fish per week as a minimum target.</p>
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🐟 ✨ 🍋</div>
+    <div class="recipe-hero-body">
+      <h1>Golden Paste Salmon — Turmeric, Black Pepper & EVOO</h1>
+      <p>Salmon coated in a turmeric-black pepper-EVOO-garlic paste and baked or pan-seared until the coating sets into a fragrant golden crust. The simplest recipe in the library and, for APOE4 carriers, arguably the most important. The fat in the EVOO carries the fat-soluble curcumin directly into the fish during cooking. Black pepper's piperine raises curcumin bioavailability ~2000%. The salmon itself delivers the highest pre-formed DHA of any common food — the fatty acid that APOE4 carriers cannot synthesise efficiently and cannot afford to be deficient in. Zero-oxalate throughout. Ready in 25 minutes.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 10 min</span>
+        <span>🔥 Cook: 12–15 min</span>
+        <span>⏳ Total: ~25 min</span>
+        <span>🍽 Yield: 2 servings</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Negligible GI — fish and paste only; depends entirely on the side chosen
+      </div>
+    </div>
+  </div>
+
+  <!-- DHA CONTEXT -->
+  <div class="dha-bar">
+    <strong>DHA per serving context:</strong> Atlantic salmon (farmed) ≈ 1,800–2,200mg DHA per 150g serving. Sockeye salmon (wild) ≈ 1,100–1,400mg. Sardines ≈ 750–900mg per tin. The recommended intake for APOE4 carriers in cognitive protection research is 1,000–2,000mg DHA per day from food sources. One serving of this recipe covers that range. Sardines + eggs in other recipes supplement on non-salmon days.
+  </div>
+
+  <!-- FOOD TEST LINK -->
+  <div class="test-bar">
+    <p>Salmon itself has zero GI. If you log a food test, the variable is the side dish — use this as an opportunity to test a new low-oxalate grain or vegetable pairing rather than the salmon itself.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 servings</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Salmon</li>
+          <li class="ing-item"><span class="ing-amount">2 fillets</span><span class="ing-name">Salmon, skin-on (150–180g each)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Golden paste</li>
+          <li class="ing-item"><span class="ing-amount">2 tbsp</span><span class="ing-name">EVOO</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span class="ing-name">Ground turmeric</span><span class="ing-note ox-mod">🟡 mod ox — EVOO fat covers</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span class="ing-name">Black pepper, freshly ground</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">3 cloves</span><span class="ing-name">Garlic, crushed (rest 5 min)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">zest of 1</span><span class="ing-name">Lemon</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span class="ing-name">Lemon juice</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Sea salt</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Ground cumin (optional)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Smoked paprika (optional)</span><span class="ing-note ox-low">🟢 low ox</span></li>
+
+          <li class="ing-section-label">To serve</li>
+          <li class="ing-item"><span class="ing-amount">to taste</span><span class="ing-name">Lemon wedges</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">handful</span><span class="ing-name">Fresh parsley or coriander</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 portion</span><span class="ing-name">Low-ox side (see side guide)</span><span class="ing-note ox-zero">⬜–🟢</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Lowest-oxalate recipe in the library.</strong> Salmon and EVOO are zero-ox. Turmeric is moderate-ox but the EVOO fat itself binds and carries the curcumin — and at 1 tsp per 2 servings (½ tsp per person) the total oxalate load from turmeric is minimal. Lemon juice adds urinary citrate for kidney stone prevention.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Activate the garlic</div>
+              Crush 3 garlic cloves and rest for <strong>5 minutes</strong> before combining with the other paste ingredients. Begin preheating the oven to 200°C / 400°F (or heat the pan) during this window.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Make the golden paste</div>
+              Stir EVOO, turmeric, black pepper, lemon zest, lemon juice, salt, and optional spices together in a small bowl. Add the rested garlic. The EVOO solubilises the curcumin into the fat phase immediately — the paste should be a deep golden-orange colour. This is the correct form for maximum bioavailability.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Dry and coat the salmon</div>
+              Pat fillets completely dry — surface moisture is the enemy of crust formation. Spread the golden paste over the flesh side evenly. Let rest 5 minutes while the oven finishes preheating.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4a</span>
+            <div>
+              <div class="step-name">Oven method (preferred)</div>
+              Bake paste-side up at 200°C / 400°F for <strong>12–15 minutes</strong> depending on thickness. The paste sets and becomes fragrant; the flesh flakes at the thickest point when done. No flipping needed. Best for batch cooking — cook 4 fillets at once and refrigerate the extras.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4b</span>
+            <div>
+              <div class="step-name">Pan method (alternative)</div>
+              Heat a splash of EVOO in a non-stick or cast-iron pan over medium heat. Skin-side down first — 4–5 minutes until the skin is crispy and colour has crept halfway up. Flip carefully onto paste side — 2–3 minutes to form a golden crust. The Maillard reaction on the turmeric produces visible browning without degrading curcumin at these temperatures.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Rest, plate, serve</div>
+              Rest 2 minutes. Ideal internal temperature: <strong>52–55°C / 125–130°F</strong> (medium) — retains maximum omega-3 content and moisture. Plate with a lemon wedge and fresh herbs. Add side dish alongside.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Layered mechanism summary:</strong> Salmon DHA → pre-formed omega-3 bypasses APOE4-impaired ALA→DHA conversion → neuronal membrane structural support, reduces Aβ aggregation · EVOO oleocanthal → NF-κB / COX inhibition (neuroinflammation, hepatic inflammation) · EVOO oleic acid → hepatocyte insulin signalling → fatty liver + DP · Curcumin in EVOO fat phase → max bioavailability, NF-κB suppression, hepatic lipid metabolism · Piperine from black pepper → CYP1A inhibition, slows curcumin clearance → ~2000% bioavailability increase · Garlic allicin (5-min pre-rest) → AMPK, phase II liver enzymes, glutathione (MTHFR) · Lemon juice → urinary citrate (kidney stone). Every component is doing specific work.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- SIDE DISH GUIDE -->
+  <div class="sides-panel">
+    <h3>🥗 Low-oxalate side dish guide — pair with any of these</h3>
+    <div class="sides-grid">
+      <div class="side-item"><strong>Roasted zucchini</strong>Slice, toss in EVOO + salt, roast alongside the salmon at 200°C for 12 min. Zero oxalate, zero GI.</div>
+      <div class="side-item"><strong>Steamed broccoli</strong>Low oxalate, high sulforaphane (liver phase II), vitamin K2. Steam 5 min — keep firm.</div>
+      <div class="side-item"><strong>Wilted kale</strong>High folate (MTHFR), low oxalate (unlike spinach). Wilt in EVOO with garlic for 3 min. Do not use spinach.</div>
+      <div class="side-item"><strong>Cucumber + lemon</strong>Zero oxalate, zero GI. Slice thick, dress with lemon juice and EVOO. Adds urinary citrate.</div>
+      <div class="side-item"><strong>Millet (½ cup cooked)</strong>Low-ox grain option if adding carbohydrate. Cook in bone broth. Adds to the meal GI — food-test if pairing for the first time.</div>
+      <div class="side-item"><strong>Bok choy</strong>Very low oxalate, calcium-rich relative to other greens. Halve, sear cut-side down in EVOO for 3 min per side.</div>
+      <div class="side-item"><strong>Roasted cauliflower</strong>Low oxalate, low GI, holds roasting flavours well. Toss with EVOO, cumin, paprika — matches the golden paste profile.</div>
+      <div class="side-item"><strong>Asparagus</strong>Low oxalate, B-vitamin profile (folate, B6) supports MTHFR methylation. Roast at 200°C for 10 min with EVOO.</div>
+    </div>
+    <p style="font-size:.76rem;color:var(--muted);margin-top:.75rem">⚠️ Avoid spinach (very high ox), Swiss chard (very high ox), and beet greens (very high ox) as sides with this recipe. These are incompatible with kidney stone management regardless of the main dish.</p>
+  </div>
+
+  <!-- VARIATIONS -->
+  <div class="variation-panel">
+    <h3>🔄 Variations</h3>
+    <div class="var-grid">
+      <div class="var-card">
+        <strong>🧀 Add feta at serving (kidney stone)</strong>
+        A small crumble of feta alongside adds calcium. Lemon juice in the paste already provides urinary citrate, but if the side dish has any moderate-ox content, feta covers it without disrupting the main flavour.
+      </div>
+      <div class="var-card">
+        <strong>🌿 Ginger paste upgrade</strong>
+        Add 1 tsp fresh grated ginger to the golden paste. Gingerols + curcumin are complementary anti-inflammatory pathways, both working in the EVOO fat phase. Adds brightness to the flavour profile alongside the lemon.
+      </div>
+      <div class="var-card">
+        <strong>🐟 Sardine substitute (budget / convenience)</strong>
+        When salmon isn't available, apply the golden paste to 2 tins of sardines (drained), spread on a baking tray, and warm in the oven for 5 minutes. DHA is lower (~750mg vs. 2000mg) but the therapeutic paste still delivers full curcumin + allicin benefit.
+      </div>
+      <div class="var-card">
+        <strong>❄️ Batch cook for the week</strong>
+        Double the recipe (4 fillets), bake all at once. Refrigerate extras for up to 3 days. Cold golden paste salmon over cucumber and kale makes a fast no-cook lunch — the paste flavour deepens overnight and the cold omega-3s remain fully intact.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why each component is here</h3>
+    <ul>
+      <li><strong>Why EVOO is in the paste and not used as a cooking spray:</strong> Curcumin is fat-soluble — it dissolves in lipids, not water. By combining turmeric directly with EVOO in the paste, the curcumin molecules are already dispersed in the fat before they contact heat. This means when the salmon cooks, the curcumin is carried through the flesh by the EVOO rather than sitting on the surface. Spraying cooking oil separately and adding dry turmeric on top creates a less efficient distribution of the active compound.</li>
+      <li><strong>Why freshly ground black pepper — not pre-ground:</strong> Piperine is volatile and oxidises relatively quickly after grinding. Pre-ground pepper has meaningfully lower piperine content than freshly ground. For the ~2000% curcumin bioavailability enhancement, freshly ground pepper is correct. A small pepper grinder next to the spice rack is the only tool required.</li>
+      <li><strong>Why skin-on salmon:</strong> The skin acts as a natural heat buffer — it protects the delicate omega-3 fatty acids in the flesh from direct high heat during pan-searing. DHA and EPA are polyunsaturated fats that oxidise readily when overheated. Skin-on also makes it easier to achieve a crispy exterior without overcooking the interior past the 52–55°C sweet spot. The skin itself is edible and contains collagen and additional omega-3s.</li>
+      <li><strong>Why 52–55°C internal temperature:</strong> FDA recommends 63°C for food safety, which is fine. However, at 63°C salmon is fully opaque and firm throughout — and the DHA-rich cell membranes in the flesh have been exposed to more heat for longer. Medium (52–55°C) means the flesh is still slightly translucent at the very centre and noticeably more moist. If food safety is a concern (pregnancy, immunocompromise), cook to 63°C — the DHA reduction is not dramatic, and it is still far superior to any non-fish alternative.</li>
+      <li><strong>Why EVOO oleocanthal matters for APOE4 specifically:</strong> APOE4 carriers have reduced efficiency in clearing amyloid-β (Aβ) plaques from the brain. Oleocanthal, a phenolic compound unique to EVOO, has been shown to upregulate the two primary Aβ clearance proteins (P-gp and LRP1) in the blood-brain barrier. This is a direct mechanistic target — not a general anti-inflammatory effect. The amount of oleocanthal in 2 tbsp of high-quality EVOO (the amount in this paste) is within the range used in research models. Quality matters: look for EVOO with a harvest date within the last 12 months and a peppery, slightly bitter finish (sign of high polyphenol content).</li>
+      <li><strong>Why this recipe works as a liver recipe too:</strong> Fatty liver impairs beta-oxidation — the process by which hepatocytes burn fat for fuel. The omega-3s EPA and DHA from salmon directly activate PPAR-alpha, the nuclear receptor that upregulates beta-oxidation gene expression. Simultaneously, curcumin suppresses SREBP-1c (the transcription factor that drives de novo lipogenesis — new fat production in the liver). These are complementary mechanisms: omega-3s increase fat burning, curcumin reduces fat synthesis. Together in the same meal they work synergistically on the same pathway imbalance that creates fatty liver.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
