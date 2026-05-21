@@ -313,6 +313,7 @@
     .badge-kidney { background: #fde8cc; color: #8a4200; }
     .badge-celiac { background: #fef0d0; color: #7a5000; }
     .badge-uti    { background: #fce4e4; color: #8a1a1a; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
     .af-desc {
       font-size: .83rem;
       color: var(--muted);
@@ -575,6 +576,10 @@
         <span style="font-size:.9rem">For both full meals, <strong>start walking ~30 minutes after your last bite</strong>. Fat and protein in a mixed meal slow gastric emptying — glucose doesn't start rising meaningfully until 30–45 min, so walking earlier mostly burns stored glycogen rather than intercepting the meal. Starting at 30 min puts you inside the rising curve before the 60–90 min peak, and the insulin-independent muscle uptake (GLUT4) directly pulls glucose down. The A2 milk in each meal extends the curve further, so you have a forgiving window — anywhere from 30–45 min works. A 10–15 min walk at this timing is enough to make a measurable difference. <strong>This is especially important after dinner</strong> — it's the single most effective thing you can do to lower next-morning fasting glucose.</span>
       </div>
       <div style="background:#f0faf2;border-radius:10px;padding:.7rem 1rem;border:1px solid #b7ddc4">
+        <strong style="display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:#40916c;margin-bottom:.3rem">🫀 Fatty Liver Protocol (daily)</strong>
+        <span style="font-size:.9rem">Fatty liver (hepatic steatosis) is treated as a <strong>core condition</strong> — hepatic insulin resistance is the likely root cause of your Dawn Phenomenon. Three daily levers: <strong>(1)</strong> 1–2 cups black coffee (strongest single dietary intervention for NAFLD — reduces liver fat, fibrosis risk, and liver enzyme levels; drink between meals not with them); <strong>(2)</strong> Eggs daily — choline/phosphatidylcholine directly enables the liver to package and export fat; without enough choline, fat accumulates regardless of diet quality; <strong>(3)</strong> EVOO at meals — oleocanthal reduces hepatic inflammation, and MUFAs improve hepatocyte insulin signalling. Your morning fasting glucose trend is the readout: a consistent downward drift over weeks = hepatic insulin sensitivity recovering.</span>
+      </div>
+      <div style="background:#f0faf2;border-radius:10px;padding:.7rem 1rem;border:1px solid #b7ddc4">
         <strong style="display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:#40916c;margin-bottom:.3rem">🍋 Morning (every day)</strong>
         <span style="font-size:.9rem">Half a lemon squeezed into water first thing. Citrate inhibits kidney stone crystal formation. Also helps alkalise urine gently.</span>
       </div>
@@ -726,10 +731,11 @@
               <div class="af-badges">
                 <span class="af-badge badge-mthfr">MTHFR</span>
                 <span class="af-badge badge-apoe4">APOE4</span>
+                <span class="af-badge badge-liver">Fatty Liver</span>
               </div>
             </div>
-            <div class="af-desc">Eggs are the richest dietary source of choline — a methyl donor that feeds into the same one-carbon metabolism cycle impaired by MTHFR C677T. When MTHFR is reduced-function, choline provides an alternative methylation pathway (via PEMT) that doesn't require the folate cycle to work perfectly. Egg yolk phosphatidylcholine is also a precursor to acetylcholine, the memory neurotransmitter most affected in APOE4-associated cognitive decline.</div>
-            <div class="af-mechanism">→ Alternative methylation pathway for MTHFR; acetylcholine precursor for APOE4 brain health.</div>
+            <div class="af-desc">Eggs are the richest dietary source of choline — a methyl donor that feeds the methylation cycle impaired by MTHFR C677T, providing an alternative pathway via PEMT that doesn't require the folate cycle. Egg yolk phosphatidylcholine is also a precursor to acetylcholine (APOE4 brain health). <strong>Critically for fatty liver:</strong> phosphatidylcholine is the molecule the liver uses to package triglycerides into VLDL particles for export. Without adequate dietary choline, the liver cannot export fat efficiently regardless of how clean the diet is — fat accumulates by default. Eggs are the most practical daily source; 2 eggs provides a meaningful choline dose (~250mg). This is why eggs appear in the plan nearly every day.</div>
+            <div class="af-mechanism">→ Choline/phosphatidylcholine enables hepatic fat export (fatty liver); alternative methylation pathway (MTHFR); acetylcholine precursor (APOE4).</div>
           </div>
 
           <div class="af-card">
@@ -827,10 +833,11 @@
               <div class="af-badges">
                 <span class="af-badge badge-apoe4">APOE4</span>
                 <span class="af-badge badge-mthfr">MTHFR</span>
+                <span class="af-badge badge-liver">Fatty Liver</span>
               </div>
             </div>
-            <div class="af-desc">EVOO contains oleocanthal (an ibuprofen-like anti-inflammatory compound) and hydroxytyrosol (a polyphenol). For APOE4, oleocanthal reduces amyloid-β aggregation — the protein that forms plaques associated with Alzheimer's. APOE4 impairs amyloid clearance, so reducing production and aggregation is directly protective. Hydroxytyrosol also reduces oxidative stress from the impaired methylation cycle in MTHFR.</div>
-            <div class="af-mechanism">→ Oleocanthal inhibits amyloid-β aggregation (APOE4 brain); polyphenol antioxidant (MTHFR oxidative load).</div>
+            <div class="af-desc">EVOO contains oleocanthal (an ibuprofen-like anti-inflammatory compound) and hydroxytyrosol (a polyphenol). For APOE4, oleocanthal reduces amyloid-β aggregation. Hydroxytyrosol reduces oxidative stress from impaired MTHFR methylation. <strong>For fatty liver:</strong> EVOO's monounsaturated fats (oleic acid) improve hepatocyte insulin signalling — the primary defect driving both hepatic steatosis and Dawn Phenomenon. Multiple NAFLD trials show EVOO consumption associated with reduced liver fat and improved liver enzyme levels. Use generously on cooked vegetables, as a dressing, and in the olive cheese bread.</div>
+            <div class="af-mechanism">→ Oleocanthal inhibits amyloid-β (APOE4); MUFAs improve hepatic insulin signalling and reduce liver fat (fatty liver); antioxidant (MTHFR).</div>
           </div>
 
           <div class="af-card">
@@ -981,6 +988,18 @@
             </div>
             <div class="af-desc">EGCG (epigallocatechin gallate) in green tea inhibits the same amyloid-β aggregation pathway as curcumin but via a different mechanism — it prevents misfolding of the amyloid precursor protein. Multiple APOE4-specific studies show regular green tea consumption associated with significantly lower dementia risk. For blood sugar, EGCG improves insulin sensitivity and reduces hepatic glucose output — directly blunting the Dawn Phenomenon liver dump. 2–3 cups per day captures the benefit; avoid with meals to not interfere with iron absorption.</div>
             <div class="af-mechanism">→ EGCG inhibits amyloid misfolding (APOE4); reduces hepatic glucose output (DP). Drink between meals, not with them.</div>
+          </div>
+
+          <div class="af-card">
+            <div class="af-card-top">
+              <span class="af-name">☕ Black Coffee</span>
+              <div class="af-badges">
+                <span class="af-badge badge-liver">Fatty Liver</span>
+                <span class="af-badge badge-dp">DP / Blood Sugar</span>
+              </div>
+            </div>
+            <div class="af-desc">Black coffee has the strongest and most consistent dietary evidence base for NAFLD of any single food — multiple large prospective studies show 2 cups/day associated with significantly reduced liver fat accumulation, lower ALT/AST levels, reduced fibrosis progression, and lower NAFLD incidence. The mechanism involves chlorogenic acids (which reduce hepatic lipogenesis and improve insulin signalling in hepatocytes) and cafestol/kahweol diterpenes (anti-inflammatory in liver tissue). For Dawn Phenomenon, caffeine blunts morning cortisol-driven glucose output when consumed after the DP window (not before 9–10 AM — drinking coffee during the cortisol peak amplifies it). <strong>Black only</strong> — milk or sugar blunts the polyphenol absorption and adds glucose load. Filtered or pour-over preferred over French press (which retains cafestol at higher levels that can raise LDL — relevant for APOE4). 1–2 cups between brunch and dinner is the optimal window.</div>
+            <div class="af-mechanism">→ Chlorogenic acids reduce hepatic lipogenesis and improve hepatocyte insulin signalling (fatty liver / DP). Drink black, filtered, after 9–10 AM. 1–2 cups between meals.</div>
           </div>
 
           <div class="af-card">
