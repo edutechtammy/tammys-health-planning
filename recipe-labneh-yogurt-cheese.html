@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sugar Shift Labneh (Strained Yogurt Cheese)</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Sugar Shift Labneh (Strained Yogurt Cheese)",
+    "description": "Sugar Shift probiotic yogurt strained through cheesecloth for 12–24 hours in the refrigerator until it reaches a soft, spreadable cream-cheese consistency. No cooking, no added ingredients for the base — just cold-draining. The live cultures (Lactobacillus acidophilus, Bifidobacterium, and the Sugar Shift proprietary strains) survive entirely in the curd solids and remain active in the finished labneh. Lower saturated fat than any commercial cream cheese, higher protein, zero additives, naturally gluten-free. Flavour options: savoury herb & garlic, savoury lemon & za'atar, sweet cinnamon & blueberry, sweet vanilla & walnut. Yield approximately 250–300g from a 500g tub. Saturday prep-day item — strain overnight Friday, ready Saturday morning.",
+    "recipeYield": "250–300g (from 500g yogurt)",
+    "prepTime": "PT5M",
+    "cookTime": "PT0M",
+    "totalTime": "PT720M",
+    "recipeCategory": "Condiment",
+    "recipeCuisine": "Middle Eastern",
+    "keywords": "labneh, strained yogurt, yogurt cheese, Sugar Shift, probiotic, cream cheese substitute, low saturated fat, APOE4, Celiac GF, kidney stone, low oxalate, DP blood sugar, spread",
+    "recipeIngredient": [
+      "500g Sugar Shift probiotic yogurt (full tub)",
+      "Pinch of fine sea salt — optional, stir in after straining",
+      "Cheesecloth (2 layers) or clean muslin cloth — for straining"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Set up the straining",
+        "text": "Line a sieve or colander with two layers of cheesecloth or a clean muslin cloth. Set the sieve over a bowl deep enough that the sieve sits above the collected whey without touching it. Pour the full 500g tub of Sugar Shift yogurt into the cloth. Fold or tie the cloth loosely over the top. Refrigerate."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Strain 12–24 hours",
+        "text": "Refrigerate undisturbed for 12–24 hours. At 12 hours the texture will be thick and spreadable — soft cream cheese consistency. At 24 hours it will be firmer and denser. For a spread, 12–16 hours is the target. Do not strain at room temperature — cold straining keeps the cultures active and prevents any spoilage risk."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Transfer and season",
+        "text": "Unwrap the cloth and transfer the labneh to an airtight container. Stir in a small pinch of sea salt if desired. The labneh is now ready to use plain or to add a flavour variation. Store in the refrigerator for up to 5–7 days. Do not freeze — freezing disrupts the culture activity and changes the texture."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Keep the whey",
+        "text": "Do not discard the collected whey. It contains water-soluble B vitamins (including B2 — MTHFR), some live cultures, and lactoferrin. Use it in place of water in the Ginger Bug feed, add to bone broth soups, or use as the liquid base for the Kefir Overnight Grain Porridge."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #2d6a4f; --green-mid: #40916c; --green-light: #d8f3dc;
+      --green-pale:  #f0faf2; --amber: #fff8e1; --amber-dark: #78350f;
+      --amber-border:#fde68a; --text: #1e2d24; --muted: #5a7263;
+      --border: #b7ddc4; --shadow: 0 2px 12px rgba(45,106,79,.12);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; margin-bottom: 1.5rem; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+    .flavour-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .flavour-grid { grid-template-columns: 1fr; } }
+    .flavour-card { border-radius: 14px; border: 1px solid var(--border); overflow: hidden; background: #fff; box-shadow: 0 1px 6px rgba(45,106,79,.07); }
+    .flavour-card-header { padding: .7rem 1.1rem; font-weight: 700; font-size: .92rem; display: flex; align-items: center; gap: .5rem; }
+    .fh-savoury { background: #e8f5e9; color: #1b5e20; }
+    .fh-sweet   { background: #fef3c7; color: #78350f; }
+    .flavour-card-body { padding: .9rem 1.1rem; font-size: .86rem; line-height: 1.65; }
+    .flavour-card-body .ing { font-size: .83rem; color: var(--muted); margin: .5rem 0 .7rem; padding-left: .8rem; border-left: 3px solid var(--border); }
+    .flavour-card-body .ing strong { display: block; color: var(--green-dark); font-size: .78rem; margin-bottom: .2rem; }
+    .flavour-card-body .serve { font-size: .8rem; background: var(--green-pale); border-radius: 8px; padding: .4rem .7rem; margin-top: .6rem; color: var(--muted); }
+    .flavour-card-body .serve strong { color: var(--green-dark); }
+    .badge-tag { display: inline-flex; align-items: center; gap: .25rem; border-radius: 10px; padding: .15rem .5rem; font-size: .7rem; font-weight: 700; margin: .1rem; }
+    .bt-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .bt-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .bt-dp     { background: #e3f2fd; color: #1565c0; }
+    .bt-liver  { background: #fef3c7; color: #78350f; }
+    .bt-kidney { background: #fce4ec; color: #880e4f; }
+    .callout-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .callout-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .75rem; font-weight: 700; }
+    .callout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: .65rem; }
+    .callout-card { border-radius: 10px; padding: .65rem .85rem; font-size: .82rem; line-height: 1.5; border: 1px solid var(--border); }
+    .callout-card strong { display: block; font-size: .8rem; margin-bottom: .2rem; }
+    .cc-a { background: #e8f5e9; } .cc-a strong { color: #1b5e20; }
+    .cc-b { background: #e3f2fd; } .cc-b strong { color: #0d47a1; }
+    .cc-c { background: #fff8e1; } .cc-c strong { color: #78350f; }
+    .cc-d { background: #f3e5f5; } .cc-d strong { color: #6a1b9a; }
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+    .timing-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; margin-bottom: 1.5rem; }
+    @media (max-width:500px) { .timing-strip { grid-template-columns: 1fr; } }
+    .timing-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .75rem 1rem; text-align: center; }
+    .timing-card .time { font-size: 1.4rem; font-weight: 800; color: var(--green-dark); }
+    .timing-card .label { font-size: .78rem; color: var(--muted); margin-top: .15rem; }
+    .whey-panel { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .whey-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: #0d47a1; margin-bottom: .6rem; font-weight: 700; }
+    .whey-panel ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .whey-panel li { font-size: .86rem; line-height: 1.55; padding-left: 1.2rem; position: relative; }
+    .whey-panel li::before { content: '→'; position: absolute; left: 0; color: #1565c0; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Log the base labneh as a serving (~80g). Each flavour variation can be logged as a separate recipe entry if desired. Active prep time is 5 minutes — the 12–24 hours is hands-off refrigerator time.
+  </div>
+
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🫙 🌿 🍋</div>
+    <div class="recipe-hero-body">
+      <h1>Sugar Shift Labneh (Strained Yogurt Cheese)</h1>
+      <p>Sugar Shift probiotic yogurt strained cold through cheesecloth for 12–24 hours until it reaches a soft, spreadable cream-cheese consistency. This is labneh — a staple of Middle Eastern cooking, not a workaround. The live cultures (including the Sugar Shift proprietary strains) survive entirely in the curd solids and remain fully active in the finished cheese. It has dramatically lower saturated fat than commercial cream cheese, higher protein, zero additives, and no wheat starch — just yogurt, time, and cold. The whey that drains off is a valuable byproduct: rich in B2 (riboflavin, MTHFR cofactor), lactoferrin, and some live culture carryover. Don't pour it down the drain. Flavour variations below: two savoury, two sweet — all condition-specific.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Active prep: 5 min</span>
+        <span>🧊 Strain: 12–24 hrs (fridge)</span>
+        <span>📦 Yield: ~250–300g from 500g tub</span>
+        <span>🫙 Stores: 5–7 days</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Low GI — yogurt protein and fat blunt glucose response; near-zero carbohydrate after straining
+      </div>
+    </div>
+  </div>
+
+  <!-- STRAINING TIME REFERENCE -->
+  <div class="timing-strip">
+    <div class="timing-card">
+      <div class="time">4–6 hrs</div>
+      <div class="label">Thick Greek-style<br/>still pourable</div>
+    </div>
+    <div class="timing-card">
+      <div class="time">12–16 hrs</div>
+      <div class="label">✅ Target — soft, spreadable<br/>cream cheese consistency</div>
+    </div>
+    <div class="timing-card">
+      <div class="time">36–48 hrs</div>
+      <div class="label">Firm, rollable into balls<br/>coat in herbs or spice</div>
+    </div>
+  </div>
+
+  <!-- BASE METHOD -->
+  <div class="panel">
+    <div class="panel-header">👩‍🍳 Base method — the strain</div>
+    <div class="panel-body">
+      <ol class="step-list">
+        <li class="step-item">
+          <span class="step-num">1</span>
+          <div>
+            <div class="step-name">Set up the straining rig</div>
+            Line a sieve or colander with two layers of cheesecloth, a clean muslin cloth, or a clean thin kitchen towel. Set the sieve over a bowl deep enough that the sieve sits above the whey without touching it — if the sieve sits in the whey it will stop draining. Pour the full 500g tub of Sugar Shift yogurt into the cloth. Fold the cloth loosely over the top.
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">2</span>
+          <div>
+            <div class="step-name">Refrigerate 12–16 hours — do not strain at room temperature</div>
+            Place the whole setup in the refrigerator. Cold straining keeps the cultures active and eliminates any spoilage risk from leaving dairy out. Strain overnight Friday → ready Saturday morning for the prep-day batch. Do not stir, press, or disturb — let gravity do the work.
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">3</span>
+          <div>
+            <div class="step-name">Transfer and season</div>
+            Unwrap the cloth and scoop the labneh into an airtight container. The texture should be soft and spreadable — holds its shape on a spoon but smears easily. Stir in a small pinch of sea salt if desired (optional — keeps sodium low for kidney stone management). The labneh is now the base for any flavour variation below, or use plain.
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">4</span>
+          <div>
+            <div class="step-name">Reserve the whey — do not discard</div>
+            Pour the collected whey into a clean jar and refrigerate. See the whey uses panel below. It keeps for 5–7 days.
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- WHEY USES -->
+  <div class="whey-panel">
+    <h3>💧 The whey — what's in it and what to do with it</h3>
+    <ul>
+      <li><strong>B2 (riboflavin) — MTHFR:</strong> Whey carries a significant portion of the milk's water-soluble B vitamins, including riboflavin. Riboflavin is the direct cofactor for the MTHFR enzyme — the enzyme that is impaired in MTHFR C677T. Don't pour it out.</li>
+      <li><strong>Use in the Ginger Bug feed</strong> in place of water — adds B vitamins and a small culture boost to the ferment without affecting the flavour noticeably.</li>
+      <li><strong>Use as the liquid in Kefir Overnight Grain Porridge</strong> — replaces water or extra kefir, adds protein and B vitamins to the soak.</li>
+      <li><strong>Add to bone broth soups</strong> — stir in at the end (off heat) to preserve the B vitamins. Adds a slight tang and additional protein.</li>
+      <li><strong>Use as the liquid base for shakshuka sauce</strong> — replaces some of the tomato liquid and adds a background richness.</li>
+    </ul>
+  </div>
+
+  <!-- FLAVOUR VARIATIONS -->
+  <h2 style="font-size:1rem;font-weight:700;color:var(--green-dark);margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em">🧄 Savoury variations</h2>
+
+  <div class="flavour-grid">
+
+    <!-- SAVOURY 1 -->
+    <div class="flavour-card">
+      <div class="flavour-card-header fh-savoury">🧄 Garlic, Herb & Lemon Labneh</div>
+      <div class="flavour-card-body">
+        <p>The most versatile savoury option. The activated garlic (5-minute crush rule) + lemon together provide allicin delivery and urinary citrate in the same spread. Parsley adds MTHFR folate. Goes on everything.</p>
+        <div class="ing">
+          <strong>Stir into 250g base labneh:</strong>
+          2 cloves garlic, crushed and rested 5 minutes (allicin) · 2 tbsp fresh flat-leaf parsley, finely chopped · 1 tbsp fresh chives, finely chopped · 1 tsp lemon zest + squeeze of lemon juice · 1 tbsp EVOO stirred through · Pinch sea salt · Freshly ground black pepper
+        </div>
+        <div style="margin:.4rem 0;display:flex;flex-wrap:wrap;gap:.2rem">
+          <span class="badge-tag bt-mthfr">MTHFR folate (parsley)</span>
+          <span class="badge-tag bt-kidney">Citrate (lemon)</span>
+          <span class="badge-tag bt-apoe4">EVOO MUFA</span>
+          <span class="badge-tag bt-liver">Allicin (garlic)</span>
+        </div>
+        <div class="serve">
+          <strong>Serve on:</strong> Olive & Feta Cheese Bread · alongside herb-crusted chicken · with cucumber and bell pepper sticks · as a base under roasted asparagus · on the Ginger-Garlic Millet Bowl instead of the egg
+        </div>
+      </div>
+    </div>
+
+    <!-- SAVOURY 2 -->
+    <div class="flavour-card">
+      <div class="flavour-card-header fh-savoury">🌿 Za'atar & EVOO Labneh</div>
+      <div class="flavour-card-body">
+        <p>Za'atar is a Middle Eastern spice blend typically containing dried thyme, sumac, sesame, and salt — all low oxalate, all APOE4-compatible. Sumac is particularly interesting: high in flavonoids, anti-inflammatory, and gives a lemony tartness without adding liquid. Drizzle EVOO over the top rather than stirring through — the pool of oil on the surface is traditional and prevents the surface from drying out in the fridge.</p>
+        <div class="ing">
+          <strong>To finish 250g base labneh:</strong>
+          1–1.5 tbsp za'atar spice blend (check ingredients — should be thyme, sumac, sesame, salt; no wheat) · 1.5 tbsp EVOO drizzled over the surface · Optional: pinch of dried chilli flakes · Pinch sea salt if the za'atar is unsalted
+        </div>
+        <div style="margin:.4rem 0;display:flex;flex-wrap:wrap;gap:.2rem">
+          <span class="badge-tag bt-apoe4">EVOO + sumac flavonoids</span>
+          <span class="badge-tag bt-liver">Thyme anti-inflammatory</span>
+          <span class="badge-tag bt-dp">Near-zero GI</span>
+        </div>
+        <div class="serve">
+          <strong>Serve on:</strong> Spread in a shallow bowl with the EVOO pool on top — tear the Olive & Feta bread and dip · with sliced cucumber and radish · alongside any chicken recipe · as a mezze component with guacamole
+        </div>
+        <div style="margin-top:.5rem;background:#fff8e1;border-radius:7px;padding:.4rem .65rem;font-size:.77rem;color:#78350f">
+          ⚠️ Check za'atar blend label for wheat — some commercial blends use wheat starch as a filler. Ingredients should only be herbs, sumac, sesame, salt.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 style="font-size:1rem;font-weight:700;color:var(--green-dark);margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em">🍫 Sweet variations</h2>
+
+  <div class="flavour-grid">
+
+    <!-- SWEET 1 -->
+    <div class="flavour-card">
+      <div class="flavour-card-header fh-sweet">🍋 Lemon & Ceylon Cinnamon Labneh</div>
+      <div class="flavour-card-body">
+        <p>No added sugar — the sweetness comes from the lemon zest brightness and the vanilla note of Ceylon cinnamon. Ceylon cinnamon (cinnamaldehyde) improves insulin sensitivity and slows gastric emptying, making this the most DP-specific sweet option. The lemon zest provides citrate for kidney stone prevention with zero GI impact. A very small amount of raw honey can be stirred in if sweetness is needed — this is the only context in the meal plan where a small honey quantity is acceptable (the protein and fat of the labneh fully blunts the glucose response).</p>
+        <div class="ing">
+          <strong>Stir into 250g base labneh:</strong>
+          1 tsp lemon zest (unwaxed lemon) · ½ tsp Ceylon cinnamon (not Cassia — coumarin hepatotoxicity) · ½ tsp vanilla extract (no added sugar — check label) · Optional: ½ tsp raw honey only if sweetness is needed · Pinch sea salt (amplifies perceived sweetness)
+        </div>
+        <div style="margin:.4rem 0;display:flex;flex-wrap:wrap;gap:.2rem">
+          <span class="badge-tag bt-dp">Cinnamaldehyde insulin</span>
+          <span class="badge-tag bt-kidney">Citrate (lemon zest)</span>
+          <span class="badge-tag bt-liver">Ceylon — zero coumarin</span>
+        </div>
+        <div class="serve">
+          <strong>Serve on:</strong> Olive & Feta Cheese Bread as a breakfast spread · alongside the Kefir Overnight Grain Porridge as a protein side · with fresh blueberries or sliced strawberries · as a dip for the trail mix (unexpected but it works)
+        </div>
+      </div>
+    </div>
+
+    <!-- SWEET 2 -->
+    <div class="flavour-card">
+      <div class="flavour-card-header fh-sweet">🫐 Blueberry & Walnut Labneh</div>
+      <div class="flavour-card-body">
+        <p>Anthocyanins from blueberries are the key APOE4 compound here — they cross the blood-brain barrier and reduce neuroinflammation directly. Walnuts add ALA omega-3 and a textural crunch element. No added sugar — the fresh blueberries provide all the sweetness needed. Mash half the blueberries in rather than leaving them all whole to get a ripple of colour and flavour through the labneh. The EVOO in the base keeps the fat profile APOE4-appropriate even with the walnuts added.</p>
+        <div class="ing">
+          <strong>Fold into 250g base labneh:</strong>
+          60g fresh blueberries — half mashed in, half folded in whole · 20g walnuts, roughly chopped · ½ tsp Ceylon cinnamon · ½ tsp vanilla extract · Optional pinch sea salt
+        </div>
+        <div style="margin:.4rem 0;display:flex;flex-wrap:wrap;gap:.2rem">
+          <span class="badge-tag bt-apoe4">Anthocyanins (blueberry)</span>
+          <span class="badge-tag bt-apoe4">ALA omega-3 (walnut)</span>
+          <span class="badge-tag bt-dp">Protein + fat blunts berry GI</span>
+          <span class="badge-tag bt-kidney">Low oxalate fruit</span>
+        </div>
+        <div class="serve">
+          <strong>Serve on:</strong> Olive & Feta Cheese Bread · layered with the Kefir Overnight Grain Porridge as a topping · as a standalone breakfast bowl with extra blueberries on top · with a small handful of trail mix crumbled over
+        </div>
+        <div style="margin-top:.5rem;background:#fce4ec;border-radius:7px;padding:.4rem .65rem;font-size:.77rem;color:#880e4f">
+          🫐 Walnuts are moderate oxalate (~14mg/28g). At 20g per full batch (2mg per 80g serve) the contribution is negligible. Retained for the APOE4 ALA benefit.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VS CREAM CHEESE COMPARISON -->
+  <div class="callout-panel">
+    <h3>📊 Labneh vs commercial cream cheese — why the swap is worth making</h3>
+    <div class="callout-grid">
+      <div class="callout-card cc-a">
+        <strong>✅ Saturated fat — APOE4 & Fatty Liver</strong>
+        Commercial full-fat cream cheese: ~20g sat fat per 100g. Sugar Shift labneh (full-fat yogurt base): approximately 4–6g sat fat per 100g after straining. The straining removes water, concentrating protein and fat, but the starting sat fat in the yogurt is far lower than cream cheese to begin with.
+      </div>
+      <div class="callout-card cc-b">
+        <strong>✅ Live cultures — DP Blood Sugar</strong>
+        Commercial cream cheese has no live cultures — it is heat-treated. Sugar Shift labneh retains the full live culture profile including the proprietary Sugar Shift strains associated with improved glucose metabolism and GLP-1 stimulation. Cold-straining only — cultures are not killed.
+      </div>
+      <div class="callout-card cc-c">
+        <strong>✅ Protein — all conditions</strong>
+        Straining concentrates the whey proteins into the curd. Labneh has approximately 8–10g protein per 100g. Commercial cream cheese has approximately 5–6g. The protein increase matters for satiety, for DP blood sugar stability, and for liver function (adequate dietary protein supports hepatic fat export).
+      </div>
+      <div class="callout-card cc-d">
+        <strong>✅ No additives — Celiac</strong>
+        Commercial cream cheese frequently contains stabilisers (locust bean gum, carob gum) and some contain wheat starch as a filler. Sugar Shift labneh is one ingredient: yogurt. Zero contamination risk, zero hidden gluten, zero additives.
+      </div>
+    </div>
+  </div>
+
+  <div class="test-bar">
+    <p>The base labneh is low GI — near-zero carbohydrate after straining. The sweet variations add a small blueberry GI contribution (very well blunted by the labneh protein and fat). Food-test the blueberry variation if uncertain about your glucose response to fresh blueberries in context.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <div class="notes-panel">
+    <h3>🔬 Why cold straining preserves the Sugar Shift cultures</h3>
+    <ul>
+      <li><strong>Culture survival temperature range:</strong> Most Lactobacillus and Bifidobacterium strains remain viable and active between 4°C and 45°C. Refrigerator temperature (~4°C) slows their metabolism significantly but does not kill them — they enter a dormant state and reactivate when consumed. Straining cold keeps every culture alive that was alive in the original tub.</li>
+      <li><strong>Why the cultures stay in the solids, not the whey:</strong> Live bacteria in yogurt are predominantly embedded in the protein matrix of the curd — the casein network that forms during fermentation traps them physically. The whey that drains off carries some bacteria, some B vitamins, lactose, and minerals, but the bulk of the live culture population remains in the strained solids. This is why labneh has probiotic activity that Greek yogurt (also strained) also retains.</li>
+      <li><strong>Garlic off-heat rule applies to savoury labneh:</strong> The garlic in the savoury herb variation is added to the cold finished labneh — it is never heated. This is the correct method for allicin delivery: crush → 5-minute rest → add cold or off-heat. Stirring activated garlic into cold labneh preserves 100% of the allicin formed during the rest period.</li>
+      <li><strong>Za'atar wheat check is not optional for Celiac:</strong> Za'atar is traditionally wheat-free, but commercial blends vary. Several mass-market blends include wheat starch as a flow agent or filler. Read the ingredients list. If in doubt, make your own: 2 parts dried thyme, 1 part sumac, 1 part sesame seeds, pinch salt.</li>
+      <li><strong>Honey in the sweet variations:</strong> Raw honey in a very small quantity (½ tsp across the full batch = ~0.5g per 80g serve) is acceptable in the context of labneh because the protein and fat completely blunt any glucose response. This is not a licence to increase the quantity — ½ tsp per batch is a flavour note, not a sweetener dose. If you are actively glucose-monitoring a session, log it and observe. Most people with DP will see no measurable response at this quantity when eaten with the labneh.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
