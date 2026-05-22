@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Afternoon MCT Coffee (Decaf Arabica, Ceylon Cinnamon, MCT Oil)</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Afternoon MCT Coffee (Decaf Arabica, Ceylon Cinnamon, MCT Oil)",
+    "description": "Decaf arabica brewed by paper-filtered drip or pour-over, emulsified with MCT oil and Ceylon cinnamon using a handheld milk frother. Served in the afternoon when muscle GLUT4 receptors are insulin-responsive, avoiding the fasting hepatic glucose compounding risk of morning coffee for Dawn Phenomenon. Paired with 30g kidney-safe trail mix. Decaf retains the chlorogenic acids responsible for liver fat and fibrosis benefits. MCT oil provides ketone precursors without hepatic fat storage risk. Ceylon cinnamon (not Cassia) stabilises post-coffee cortisol glucose response. APOE4: paper filter removes cafestol and kahweol, eliminating the LDL-raising risk of unfiltered coffee.",
+    "recipeYield": "1 cup",
+    "prepTime": "PT2M",
+    "cookTime": "PT5M",
+    "totalTime": "PT7M",
+    "recipeCategory": "Beverage",
+    "recipeCuisine": "Modern",
+    "keywords": "decaf coffee, MCT oil, Ceylon cinnamon, APOE4, fatty liver, Dawn Phenomenon, afternoon, blood sugar, paper filter",
+    "recipeIngredient": [
+      "1 cup (240ml) freshly brewed decaf arabica — paper-filtered drip or pour-over only",
+      "1/2 tsp MCT oil (build to 1 tsp over 1–2 weeks — start small to avoid GI distress)",
+      "1/4 tsp Ceylon cinnamon (not Cassia — Cassia contains hepatotoxic coumarin)",
+      "Optional: 30g kidney-safe trail mix (Recipe 14) as a pairing"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Brew by paper filter",
+        "text": "Brew decaf arabica using a drip machine with a paper filter, a pour-over with paper filter, or an AeroPress with a paper filter. Do not use a French press, plunger, or percolator — these do not remove cafestol and kahweol, the diterpenes that raise LDL cholesterol. Paper filtration removes over 90% of cafestol. This applies to both regular and decaf coffee equally."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add MCT oil and cinnamon",
+        "text": "Pour the brewed coffee into a cup or a tall heatproof glass. Add 1/2 tsp MCT oil and 1/4 tsp Ceylon cinnamon. Do not stir by hand — MCT oil does not emulsify with a spoon and will pool on the surface. Proceed immediately to frothing."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Emulsify with a handheld frother",
+        "text": "Submerge a handheld milk frother (battery-operated whisk style) into the cup and froth for 10–15 seconds. This breaks the MCT oil into a stable fine emulsion that stays blended throughout the drink rather than pooling on top as a visible oil slick. The cinnamon distributes evenly through the froth. Drink immediately while the emulsion is fresh."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Pair with trail mix",
+        "text": "Serve with 30g of the kidney-safe trail mix (pepitas, walnuts, sunflower seeds, coconut flakes, dark chocolate chips, optional dried blueberries and dehydrated ginger). The fat from the trail mix and MCT oil together slow any residual cortisol-glucose response from the coffee. The dark chocolate in the trail mix echoes the coffee bitterness. The dehydrated ginger adds warmth that pairs with the Ceylon cinnamon in the cup."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+      --coffee:      #3b1f0e;
+      --coffee-mid:  #7c4a1e;
+      --coffee-light:#f5ede5;
+      --coffee-pale: #fdf8f5;
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--coffee-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid #d6bfad; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--coffee-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--coffee); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--coffee-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #2e7d32; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #27ae60; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid #d6bfad; box-shadow: 0 1px 6px rgba(59,31,14,.07); overflow: hidden; margin-bottom: 1.5rem; }
+    .panel-header { background: var(--coffee); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; letter-spacing: .02em; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-section-label { font-size: .73rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--coffee-mid); padding-top: .4rem; border-top: 1px solid var(--coffee-light); margin-top: .3rem; }
+    .ing-section-label:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 110px 1fr; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--coffee-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--coffee); font-size: .84rem; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--coffee); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--coffee); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    /* TIMING PANEL */
+    .timing-panel { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .timing-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: #1565c0; margin-bottom: .8rem; font-weight: 700; }
+    .timing-grid { display: grid; grid-template-columns: auto 1fr; gap: .35rem .9rem; font-size: .85rem; align-items: baseline; }
+    .timing-time { font-weight: 700; color: #1565c0; white-space: nowrap; }
+    .timing-good { color: #15803d; font-weight: 600; }
+    .timing-caution { color: #b45309; font-weight: 600; }
+    .timing-bad { color: #b91c1c; font-weight: 600; }
+
+    /* FILTER COMPARISON */
+    .filter-table { width: 100%; border-collapse: collapse; font-size: .82rem; margin-top: .7rem; }
+    .filter-table th { background: var(--coffee); color: #fff; padding: .45rem .7rem; text-align: left; font-size: .77rem; font-weight: 700; }
+    .filter-table td { padding: .4rem .7rem; border-bottom: 1px solid var(--coffee-light); vertical-align: top; line-height: 1.5; }
+    .filter-table tr:last-child td { border-bottom: none; }
+    .filter-table .good { color: #15803d; font-weight: 700; }
+    .filter-table .caution { color: #b45309; font-weight: 600; }
+    .filter-table .bad { color: #b91c1c; font-weight: 700; }
+
+    /* MCT RAMP */
+    .ramp-bar { display: flex; gap: .5rem; margin-top: .7rem; flex-wrap: wrap; }
+    .ramp-step { flex: 1; min-width: 90px; background: var(--coffee-light); border: 1px solid #d6bfad; border-radius: 8px; padding: .5rem .65rem; text-align: center; font-size: .78rem; }
+    .ramp-step .ramp-week { font-weight: 700; color: var(--coffee); font-size: .72rem; text-transform: uppercase; margin-bottom: .15rem; }
+    .ramp-step .ramp-dose { font-size: 1rem; font-weight: 700; color: var(--coffee-mid); }
+    .ramp-step .ramp-note { font-size: .69rem; color: var(--muted); margin-top: .15rem; line-height: 1.3; }
+
+    /* PAIRING CALLOUT */
+    .pairing-panel { background: var(--green-pale); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .pairing-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; padding-left: 0; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .section-divider { background: var(--coffee); color: #fff; border-radius: 10px; padding: .6rem 1.1rem; font-weight: 700; font-size: .9rem; letter-spacing: .03em; margin-bottom: 1.2rem; margin-top: .5rem; }
+
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--coffee); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--border); }
+    .btn:hover { opacity: .82; }
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- MEALBOARD IMPORT -->
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Log as: 1 cup decaf coffee (negligible macros) + ½–1 tsp MCT oil (~20–40 cal, ~2–4g fat) + ¼ tsp Ceylon cinnamon (negligible). Log trail mix separately using the Recipe 14 entry. The liver-protective benefit of decaf comes from chlorogenic acids, which are not tracked in standard nutrition databases.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">☕🫙🌿</div>
+    <div class="recipe-hero-body">
+      <h1>Afternoon MCT Coffee — Decaf Arabica, Ceylon Cinnamon, MCT Oil</h1>
+      <p>Decaf arabica brewed through a paper filter, emulsified with MCT oil and Ceylon cinnamon using a handheld frother. Timed for the afternoon when muscle GLUT4 receptors are actively insulin-responsive — avoiding the risk of compounding the fasting hepatic glucose output that drives Dawn Phenomenon in the morning. Paired with 30g kidney-safe trail mix. Every element has a specific condition rationale rather than being generic wellness additions.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 5–7 min including brew</span>
+        <span>☕ 1 cup (240ml)</span>
+        <span>🕐 Afternoon only (see timing guide)</span>
+        <span>🫙 Paper filter — mandatory for APOE4</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span> Near-zero GI — no carbohydrate; MCT goes to ketone pathway, not glucose
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMING PANEL — most important context first -->
+  <div class="timing-panel">
+    <h3>🕐 Why timing matters — Dawn Phenomenon and the cortisol window</h3>
+    <div style="font-size:.86rem;color:#1e3a5f;line-height:1.65;margin-bottom:.9rem">
+      Coffee — including decaf — triggers a mild cortisol release via the smell and ritual cues, and via trace chlorogenic acid stimulation of the adrenal axis. Cortisol signals the liver to release stored glucose (hepatic glucose output). In the morning, the liver of a Dawn Phenomenon pattern is <em>already</em> releasing glucose due to the pre-dawn cortisol surge — adding coffee on top compounds the fasting glucose reading. By afternoon, the cortisol peak has passed, and critically, muscle GLUT4 receptors are fully insulin-responsive and actively clearing glucose from circulation. Any cortisol nudge from coffee in the afternoon is handled efficiently rather than accumulating. This is the rationale for the afternoon timing — not preference, but metabolic context.
+    </div>
+    <div class="timing-grid">
+      <span class="timing-time">6–9 am</span><span><span class="timing-bad">❌ Avoid</span> — cortisol peak + hepatic glucose output already elevated. Coffee here compounds fasting glucose.</span>
+      <span class="timing-time">9–11 am</span><span><span class="timing-caution">⚠️ Caution</span> — cortisol declining but still elevated. With food it's manageable; on an empty stomach, not ideal.</span>
+      <span class="timing-time">12–3 pm</span><span><span class="timing-good">✅ Good window</span> — post-lunch, muscles active, GLUT4 responsive, cortisol low. This is the target zone.</span>
+      <span class="timing-time">3–5 pm</span><span><span class="timing-good">✅ Also good</span> — same reasoning. Caffeine half-life of decaf is low, so sleep is not affected even at 5 pm.</span>
+      <span class="timing-time">After 6 pm</span><span><span class="timing-caution">⚠️ Caution</span> — even decaf contains trace caffeine (~2–15mg per cup vs ~95mg regular). Late evening may affect sleep onset for sensitive individuals.</span>
+    </div>
+  </div>
+
+  <!-- FILTER TABLE -->
+  <div class="section-divider">☕ Brew method — paper filter is not optional for APOE4</div>
+
+  <div class="panel">
+    <div class="panel-header">🫙 Brew method comparison — cafestol and LDL risk</div>
+    <div class="panel-body">
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem">Cafestol and kahweol are diterpenes in coffee oil that directly raise LDL cholesterol by reducing LDL receptor expression in the liver. Paper filtration physically traps these compounds in the filter. This applies to both regular and decaf — the diterpenes are in the bean oil, not the caffeine.</p>
+      <table class="filter-table">
+        <thead>
+          <tr><th>Brew method</th><th>Cafestol level</th><th>APOE4 verdict</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Paper drip / pour-over / AeroPress (paper)</strong></td>
+            <td>Trace (&lt;1mg/cup)</td>
+            <td class="good">✅ Use this</td>
+          </tr>
+          <tr>
+            <td><strong>Espresso / stovetop moka</strong></td>
+            <td>Low-moderate (~3–4mg/cup)</td>
+            <td class="caution">⚠️ Occasional only</td>
+          </tr>
+          <tr>
+            <td><strong>Capsule machine (Nespresso etc.)</strong></td>
+            <td>Low (~2–3mg/cup)</td>
+            <td class="caution">⚠️ Acceptable but not ideal</td>
+          </tr>
+          <tr>
+            <td><strong>French press / plunger / percolator / boiled</strong></td>
+            <td>High (~6–12mg/cup)</td>
+            <td class="bad">❌ Avoid — raises LDL directly</td>
+          </tr>
+          <tr>
+            <td><strong>Instant coffee</strong></td>
+            <td>Very low (spray-dried process removes most)</td>
+            <td class="good">✅ Low cafestol but lower chlorogenic acid benefit too</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RECIPE -->
+  <div class="section-divider">☕ The recipe — ingredients and method</div>
+
+  <div class="recipe-layout">
+
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — per cup</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">The cup</li>
+          <li class="ing-item"><span class="ing-amount">240ml</span><span>Decaf arabica — paper-filtered drip or pour-over</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span>MCT oil — start here, build up slowly (see ramp below)</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span>Ceylon cinnamon — not Cassia (label must say Ceylon or <em>C. verum</em>)</span></li>
+          <li class="ing-section-label">Equipment</li>
+          <li class="ing-item"><span class="ing-amount">1</span><span>Handheld milk frother (battery whisk) — required to emulsify MCT oil</span></li>
+          <li class="ing-section-label">Pairing (30g trail mix)</li>
+          <li class="ing-item"><span class="ing-amount">30g</span><span>Kidney-safe trail mix — <a href="recipe-trail-mix.html" style="color:var(--green-dark)">Recipe 14</a></span></li>
+        </ul>
+
+        <div style="margin-top:.9rem;background:#fff3e0;border:1px solid #ffd180;border-radius:8px;padding:.6rem .8rem;font-size:.77rem;color:#78350f;line-height:1.55">
+          <strong>⚠️ Ceylon vs Cassia — non-negotiable swap</strong><br>
+          Cassia cinnamon (the common supermarket variety) contains coumarin — a compound hepatotoxic at regular dietary doses. For Fatty Liver this is a direct contraindication. Ceylon cinnamon (<em>Cinnamomum verum</em>) contains negligible coumarin. Check the label or buy from a spice specialist. If the label just says "cinnamon" without specifying the species, it is almost certainly Cassia.
+        </div>
+
+        <!-- MCT RAMP -->
+        <div style="margin-top:.9rem">
+          <div style="font-size:.77rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--coffee-mid);margin-bottom:.5rem">📈 MCT oil dose ramp — start small</div>
+          <div class="ramp-bar">
+            <div class="ramp-step">
+              <div class="ramp-week">Week 1</div>
+              <div class="ramp-dose">½ tsp</div>
+              <div class="ramp-note">Observe GI response. Stop if urgency or cramping.</div>
+            </div>
+            <div class="ramp-step">
+              <div class="ramp-week">Week 2</div>
+              <div class="ramp-dose">¾ tsp</div>
+              <div class="ramp-note">Increase only if week 1 was comfortable.</div>
+            </div>
+            <div class="ramp-step">
+              <div class="ramp-week">Week 3+</div>
+              <div class="ramp-dose">1 tsp</div>
+              <div class="ramp-note">Target dose. Do not exceed 2 tsp per cup for fatty liver.</div>
+            </div>
+          </div>
+          <div style="font-size:.74rem;color:var(--muted);margin-top:.5rem;line-height:1.45">GI distress from MCT oil is nearly universal when starting — it is not intolerance, it is a dose-response to rapid SCFA production in the gut. Starting small and ramping over weeks avoids this almost completely.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Method — 5 minutes</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Brew through a paper filter</div>
+              Brew your decaf arabica using a drip machine with paper filter, a pour-over (Chemex, V60, or equivalent) with paper filter, or an AeroPress with a paper filter. Do not use a French press or plunger — paper filtration is what removes cafestol. The brew strength is personal preference — the recipe works at any strength.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Add MCT oil and Ceylon cinnamon</div>
+              Pour the brewed coffee into your cup. Add ½ tsp MCT oil (or your current ramp dose) and ¼ tsp Ceylon cinnamon directly into the hot coffee. Do not stir by hand — MCT oil is hydrophobic and will sit on the surface as a visible oil slick without mechanical emulsification. Proceed directly to frothing.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Froth 10–15 seconds</div>
+              Submerge a handheld battery frother into the cup and run it for <strong>10–15 seconds</strong>. The MCT oil will emulsify into a fine, stable dispersion — the surface will have a light froth and the oil will no longer be visible as a separate layer. The cinnamon distributes evenly through the froth. Drink immediately while the emulsion is fresh — it will begin to separate after 5–10 minutes if left to sit.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Serve with 30g trail mix</div>
+              Weigh out 30g of the kidney-safe trail mix (Recipe 14). The fat from the pepitas, walnuts, and sunflower seeds in the trail mix, combined with the MCT oil in the coffee, provides a fat buffer that slows any residual cortisol-glucose response from the coffee. The dark chocolate chips echo the coffee bitterness. The dehydrated ginger adds warmth that pairs with the Ceylon cinnamon in the cup.
+            </div>
+          </li>
+        </ol>
+
+        <div style="margin-top:1rem;background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:.75rem 1rem;font-size:.82rem;line-height:1.6;color:#0c4a6e">
+          <strong style="color:#0369a1">🫙 No frother yet?</strong><br>
+          A basic handheld battery frother costs a few dollars at most kitchen stores or online — the same tool works for labneh drinks and any emulsified sauce. In the interim: add the MCT oil and cinnamon, then cover the cup tightly and shake vigorously for 15 seconds, or use a small jar with a lid (pour back into the cup after). It won't emulsify as finely as a frother but it distributes the oil sufficiently.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAIRING PANEL -->
+  <div class="pairing-panel">
+    <h3>🍫 Trail mix pairing — why 30g works</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;font-size:.85rem;line-height:1.6;color:var(--text)">
+      <div>
+        <strong style="color:var(--green-dark)">Flavour pairing logic</strong><br>
+        The dark chocolate chips (70%+ cacao) and the coffee share bitter polyphenol compounds — roasted cacao and roasted arabica both come from the same Maillard browning chemistry. They enhance each other. The dehydrated ginger in the trail mix adds a warming back note that pairs with the Ceylon cinnamon in the cup. This is not accidental — it's the same spice warmth profile.
+      </div>
+      <div>
+        <strong style="color:var(--green-dark)">Blood sugar buffering logic</strong><br>
+        The fat from pepitas (~5g fat per 30g serve), walnuts (~6g), and sunflower seeds (~4g) combined with the MCT oil creates a substantial fat load that dramatically slows gastric emptying. Even a small cortisol nudge from the coffee hits a well-buffered metabolic environment rather than circulating glucose rising freely. 30g is the correct portion — enough fat buffering, not enough carbohydrate to create its own glucose response.
+      </div>
+      <div>
+        <strong style="color:var(--green-dark)">APOE4 — polyphenol stacking</strong>
+        The oleocanthal from EVOO (if you used the trail mix cinnamon EVOO coating), the theobromide and flavanols from dark chocolate, and the chlorogenic acids from the decaf coffee are all hitting AMPK and NF-κB pathways simultaneously. Polyphenol effects are additive, not redundant — the afternoon stack of coffee + trail mix is genuinely more than the sum of its parts.
+      </div>
+      <div>
+        <strong style="color:var(--green-dark)">Kidney Stone — citrate check</strong>
+        The coffee itself is low oxalate. The trail mix as built (recipe 14) is low-moderate — within the afternoon allowance. No lemon component in this pairing so no active citrate delivery, but the EVOO fat in the trail mix coating continues to bind trace oxalate in the gut passively. No adjustment needed at 30g.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why each ingredient is here</h3>
+    <ul>
+      <li><strong>Decaf arabica specifically:</strong> Arabica beans have lower chlorogenic acid degradation at roast than Robusta — the liver-protective compounds survive better. Decaf removes ~97% of caffeine while retaining chlorogenic acids at ~80–90% of regular coffee levels. The fatty liver evidence (ALT/AST reduction, fibrosis progression reduction) holds for decaf. Dunkin' Donuts decaf is an arabica-based product — the relevant compounds are present.</li>
+      <li><strong>Paper filter — not optional for APOE4:</strong> Cafestol raises LDL by reducing hepatic LDL receptor expression — the same pathway APOE4 carriers already process less efficiently. 5 cups of unfiltered coffee per day raises LDL by ~20–30 points over 4–6 weeks in controlled trials. Paper filtration removes &gt;90% of cafestol. This single brewing choice eliminates the primary cardiovascular risk of coffee for APOE4.</li>
+      <li><strong>MCT oil — ketone pathway, not glucose:</strong> Medium-chain triglycerides (C8 and C10) are absorbed directly into the portal vein and go straight to the liver for beta-oxidation into ketone bodies — they bypass the lymphatic system and chylomicron assembly that long-chain saturated fats use. For fatty liver, this means energy without hepatic fat deposition. For APOE4, ketones are an alternative brain fuel that doesn't require APOE-mediated cholesterol transport. The GI distress at high doses is from rapid SCFA fermentation in the colon — the ramp protocol avoids this.</li>
+      <li><strong>Ceylon cinnamon — cinnamaldehyde is heat-stable:</strong> Unlike allicin (which heat destroys immediately), cinnamaldehyde survives being stirred into hot liquid. Adding Ceylon cinnamon directly to hot coffee loses nothing therapeutically. The primary mechanism relevant here is GLUT4 upregulation — cinnamaldehyde increases the expression and membrane translocation of GLUT4 transporters in muscle cells, improving glucose clearance independently of insulin. This is a direct DP benefit in the afternoon active window.</li>
+      <li><strong>Afternoon timing — not just preference:</strong> The hepatic glucose output in Dawn Phenomenon is driven by the pre-dawn cortisol surge acting on a liver that is insulin-resistant. Adding coffee (even decaf) to that morning environment compounds the signal. By early afternoon, the cortisol peak has fully passed, and skeletal muscle is the dominant glucose sink. Shifting coffee to this window converts a potential liability into a neutral-to-positive metabolic event. This is self-experimentation worth tracking with a glucose meter if you want to confirm your personal pattern.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>🧪 If you have a glucose meter, checking at 30 and 60 minutes after this coffee + trail mix combination will confirm your personal cortisol-glucose response pattern in the afternoon window.</p>
+    <a class="btn btn-back" href="food-response-testing.html">📊 Log a Test</a>
+  </div>
+
+</div>
+</body>
+</html>
