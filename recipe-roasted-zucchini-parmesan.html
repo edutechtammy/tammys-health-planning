@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roasted Zucchini with Lemon-Garlic Parmesan Crust</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Roasted Zucchini with Lemon-Garlic Parmesan Crust",
+    "description": "Zucchini spears or rounds coated in EVOO, garlic powder, dried oregano, black pepper, and a parmesan crust — roasted at 190°C (375°F) for 25–32 minutes until golden and slightly caramelised at the edges. Enhanced with a cold fresh-garlic lemon-EVOO finish drizzle so allicin is fully preserved (same two-garlic approach as the broccoli cheese sauce), lemon zest in the coating for urinary citrate, pumpkin seeds scattered on top for the last 10 minutes for zinc and magnesium, and optional nutritional yeast blended into the parmesan for B vitamins and folate (MTHFR). Zucchini is very low oxalate (~2–4mg/100g), low GI, and an excellent source of folate, lutein, and potassium. All six conditions: APOE4, Celiac/GF, Dawn Phenomenon, Fatty Liver, MTHFR, Kidney Stone.",
+    "recipeYield": "2 serves (as a side) / 1 serve (as a main with protein)",
+    "prepTime": "PT10M",
+    "cookTime": "PT32M",
+    "totalTime": "PT42M",
+    "recipeCategory": "Side Dish / Vegetable",
+    "recipeCuisine": "Mediterranean",
+    "keywords": "roasted zucchini, parmesan, APOE4, gluten-free, low oxalate, kidney stone, lemon garlic, Mediterranean, easy vegetable",
+    "recipeIngredient": [
+      "2 medium zucchini (courgettes) — approx 200g each",
+      "2 tbsp EVOO (extra virgin olive oil)",
+      "1/2 tsp garlic powder — for roasting flavour",
+      "1 tsp lemon zest (from 1 lemon) — zest before juicing",
+      "1/2 tsp dried oregano or thyme",
+      "1/4 tsp fine sea salt",
+      "1/4 tsp black pepper",
+      "3 tbsp finely grated parmesan",
+      "1 tbsp nutritional yeast — optional, blend with parmesan",
+      "2 tbsp raw pumpkin seeds — scattered on top for last 10 minutes",
+      "For the finish drizzle: 1 clove garlic crushed and rested 5 min, 1 tbsp EVOO, 1 tbsp fresh lemon juice, pinch sea salt"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Preheat and prep",
+        "text": "Preheat oven to 190°C (375°F). Line a baking tray with baking paper. Cut zucchini into spears (halve lengthways, then halve again to get quarters) or rounds approximately 8–10mm thick. Thinner than 8mm will dry out rather than caramelise; thicker than 12mm will stay soft without browning. Spears give more surface area for crust — recommended if you have the tray space."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Make the coating",
+        "text": "In a large bowl, combine EVOO, garlic powder, lemon zest, dried oregano, salt, and black pepper. Toss the zucchini through the mixture until each piece is evenly coated. Spread in a single layer on the lined tray — pieces must not overlap or they will steam rather than roast."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add the parmesan crust",
+        "text": "Combine the grated parmesan and nutritional yeast if using. Sprinkle evenly over the top of each zucchini piece. At this stage the parmesan sits loosely on top — it will bond to the surface as it roasts and melts."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Roast, then add pumpkin seeds",
+        "text": "Roast at 190°C for 20–22 minutes until the parmesan crust is golden and the edges of the zucchini are beginning to caramelise. Scatter the raw pumpkin seeds over the tray. Return to the oven for a further 8–10 minutes until the seeds are toasted and lightly golden. Watch them after 6 minutes — pumpkin seeds go from toasted to burnt quickly. Total time: 28–32 minutes. Check at 25 minutes — the exact time depends on your oven and the thickness of your cut."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Make the cold-garlic finish drizzle",
+        "text": "While the zucchini is in its final 10 minutes, crush 1 garlic clove and set aside for 5 minutes — this rest period allows the enzyme reaction to complete and allicin to form fully. Combine the rested garlic with EVOO and fresh lemon juice in a small bowl. Do not heat this mixture. It is applied cold at the end, after the tray comes out of the oven."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish and serve",
+        "text": "Remove the tray from the oven. While still hot, drizzle the cold-garlic lemon-EVOO mixture over the zucchini. The heat of the vegetable will bloom the garlic aroma without cooking off the allicin. Serve immediately. A small scatter of fresh herbs (flat-leaf parsley, fresh thyme, or basil) works well on top if available."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #2d6a4f;
+      --green-mid:    #40916c;
+      --green-light:  #d8f3dc;
+      --green-pale:   #f0faf2;
+      --zucchini:     #4a7c59;
+      --zucchini-bg:  #f0faf2;
+      --lemon:        #ca8a04;
+      --lemon-light:  #fef9c3;
+      --amber-border: #fde68a;
+      --text:         #14231a;
+      --muted:        #3d5c48;
+      --border:       #b7e4c7;
+      --shadow:       0 2px 12px rgba(45,106,79,.1);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--zucchini-bg); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-pale); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #2e7d32; }
+    .gi-dot { width: 9px; height: 9px; border-radius: 50%; background: #27ae60; flex-shrink: 0; }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.07); overflow: hidden; margin-bottom: 1.5rem; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; letter-spacing: .02em; }
+    .panel-header-lemon { background: var(--lemon); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; letter-spacing: .02em; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.55fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-section-label { font-size: .73rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--green-mid); padding-top: .4rem; border-top: 1px solid var(--green-pale); margin-top: .3rem; }
+    .ing-section-label:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 80px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-zero { color: #95a5a6; }
+    .opt-tag { background: #f3f4f6; color: #6b7280; border-radius: 8px; padding: .1rem .4rem; font-size: .66rem; font-weight: 700; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .section-divider { background: var(--green-dark); color: #fff; border-radius: 10px; padding: .6rem 1.1rem; font-weight: 700; font-size: .9rem; letter-spacing: .03em; margin-bottom: 1.2rem; margin-top: .5rem; }
+    .section-divider-lemon { background: var(--lemon); color: #fff; border-radius: 10px; padding: .6rem 1.1rem; font-weight: 700; font-size: .9rem; letter-spacing: .03em; margin-bottom: 1.2rem; margin-top: .5rem; }
+
+    /* UPGRADES PANEL */
+    .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+    @media (max-width: 580px) { .upgrade-grid { grid-template-columns: 1fr; } }
+    .upgrade-card { background: var(--green-pale); border: 1px solid var(--green-light); border-radius: 11px; padding: .75rem .9rem; font-size: .84rem; line-height: 1.6; }
+    .upgrade-card.optional { background: var(--lemon-light); border-color: var(--amber-border); }
+    .upgrade-card h4 { color: var(--green-dark); font-size: .8rem; margin-bottom: .3rem; font-weight: 800; }
+    .upgrade-card.optional h4 { color: var(--lemon); }
+
+    /* OXALATE TABLE */
+    .ox-table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+    .ox-table th { background: var(--green-dark); color: #fff; padding: .45rem .75rem; text-align: left; font-size: .77rem; }
+    .ox-table td { padding: .4rem .75rem; border-bottom: 1px solid var(--green-light); }
+    .ox-table tr:last-child td { border-bottom: none; }
+    .ox-table tr:nth-child(even) td { background: var(--green-pale); }
+    .ox-table .highlight { font-weight: 700; background: #e8f5e9 !important; }
+    .ox-low-cell  { color: #27ae60; font-weight: 700; }
+    .ox-mod-cell  { color: #f39c12; font-weight: 700; }
+    .ox-high-cell { color: #e74c3c; font-weight: 700; }
+
+    /* TIMING VISUAL */
+    .timing-bar { display: flex; gap: 0; margin: .9rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); font-size: .76rem; }
+    .timing-seg { flex: 1; padding: .55rem .5rem; text-align: center; line-height: 1.35; }
+    .ts-roast    { background: #d8f3dc; color: #1b4332; }
+    .ts-seeds    { background: #b7e4c7; color: #1b4332; font-weight: 700; }
+    .ts-check    { background: #74c69d; color: #fff; font-weight: 800; }
+    .ts-finish   { background: #40916c; color: #fff; font-weight: 800; }
+
+    .notes-panel { background: var(--lemon-light); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: #78350f; margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; padding-left: 0; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: #b45309; font-weight: 700; }
+
+    .serve-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .85rem; margin-bottom: 1.5rem; }
+    @media (max-width: 500px) { .serve-grid { grid-template-columns: 1fr 1fr; } }
+    .serve-card { background: #fff; border: 1px solid var(--border); border-radius: 11px; padding: .7rem .85rem; text-align: center; font-size: .82rem; line-height: 1.5; }
+    .serve-card .se-emoji { font-size: 1.6rem; display: block; margin-bottom: .3rem; }
+    .serve-card strong { color: var(--green-dark); display: block; font-size: .8rem; margin-bottom: .2rem; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🥒🧀🍋🌿</div>
+    <div class="recipe-hero-body">
+      <h1>Roasted Zucchini with Lemon-Garlic Parmesan Crust</h1>
+      <p>Your original recipe — EVOO, garlic powder, salt, parmesan, 375°F — is already solid. This version keeps exactly that base and adds four targeted upgrades that work with the existing flavour rather than against it: lemon zest in the coating (urinary citrate, brightness), dried oregano (rosmarinic acid, anti-inflammatory), pumpkin seeds scattered on top for the last 10 minutes (zinc, magnesium, crunch), and a cold fresh-garlic lemon-EVOO drizzle at the finish so allicin is fully preserved. The garlic powder stays for roasting flavour. The fresh garlic is added cold at the end — same two-garlic approach used in the broccoli cheese sauce.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 10 min prep</span>
+        <span>🔥 28–32 min at 190°C / 375°F</span>
+        <span>🥒 2 zucchini / serves 2 as a side</span>
+        <span>🌡 Check at 25 min — varies by thickness</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot"></span> Very Low GI — zucchini is mostly water and fibre; EVOO and parmesan fat further dampen any glucose response
+      </div>
+    </div>
+  </div>
+
+  <!-- ZUCCHINI HEALTH PROFILE -->
+  <div class="section-divider">🥒 What zucchini is bringing to the table</div>
+
+  <div class="panel">
+    <div class="panel-header">🧬 Zucchini — underrated for all six conditions</div>
+    <div class="panel-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;font-size:.82rem;line-height:1.6">
+        <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:10px;padding:.65rem .8rem">
+          <strong style="color:var(--green-dark)">🟢 Very low oxalate</strong><br>
+          ~2–4mg/100g — one of the lowest-oxalate vegetables available. After transitioning off almonds and reducing other high-oxalate sources, zucchini is a vegetable you can eat freely without oxalate tracking.
+        </div>
+        <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:10px;padding:.65rem .8rem">
+          <strong style="color:var(--green-dark)">🫀 Potassium — kidney stone protective</strong><br>
+          Potassium increases urinary citrate excretion, which inhibits calcium oxalate crystal formation. Same mechanism as avocado in the rice paper rolls. Combined with the lemon juice in the finish drizzle, you're getting the citrate benefit from two sources.
+        </div>
+        <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:10px;padding:.65rem .8rem">
+          <strong style="color:var(--green-dark)">🧬 Folate — MTHFR relevant</strong><br>
+          Zucchini is a meaningful source of dietary folate. For MTHFR C677T, dietary folate supports the methylation cycle — each high-folate meal matters. Roasting preserves folate reasonably well compared to boiling (which leaches water-soluble B vitamins into the cooking water).
+        </div>
+        <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:10px;padding:.65rem .8rem">
+          <strong style="color:var(--green-dark)">👁 Lutein + zeaxanthin — APOE4</strong><br>
+          Zucchini skin is a source of lutein and zeaxanthin, carotenoids concentrated in the retina and in brain tissue. APOE4 carriers have elevated oxidative stress in the brain; lutein has direct antioxidant activity in neural tissue. Don't peel the zucchini — the compounds are highest in the skin.
+        </div>
+        <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:10px;padding:.65rem .8rem">
+          <strong style="color:var(--green-dark)">🩸 Very low GI — Dawn Phenomenon</strong><br>
+          Zucchini is predominantly water and fibre with very few digestible carbohydrates. Combined with the fat from EVOO and parmesan, this dish has a negligible glucose impact — making it a safe DP-friendly side at any meal including at dinner without affecting overnight insulin behaviour.
+        </div>
+        <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:10px;padding:.65rem .8rem">
+          <strong style="color:var(--green-dark)">🫁 Gut motility — Celiac</strong><br>
+          The fibre in zucchini (primarily pectin and hemicellulose) provides gentle prebiotic substrate. Combined with the oregano (antimicrobial properties that support a healthy gut microbiome balance) and the cold garlic in the finish (allicin's direct antimicrobial and prebiotic activity), this dish supports the gut lining that Celiac disease compromises.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPGRADES -->
+  <div class="section-divider-lemon">✨ What was added to your original recipe — and why each fits</div>
+
+  <div class="panel" style="margin-bottom:1.5rem">
+    <div class="panel-header-lemon">🔧 Four upgrades — all work with the existing flavour, not against it</div>
+    <div class="panel-body">
+      <div class="upgrade-grid">
+        <div class="upgrade-card">
+          <h4>🍋 Lemon zest in the coating + fresh lemon juice in the finish drizzle</h4>
+          Lemon zest mixed into the EVOO coating before roasting adds a bright, slightly caramelised citrus note that is a natural partner for parmesan (the same pairing you'd find in Italian cooking). The fresh lemon juice in the cold drizzle at the end provides the urinary citrate benefit — citric acid is absorbed and excreted as citrate in urine, directly inhibiting calcium oxalate crystal formation. Zest before you juice the lemon — it's much easier.
+        </div>
+        <div class="upgrade-card">
+          <h4>🌿 Dried oregano in the coating</h4>
+          Oregano + parmesan + olive oil is a classic Italian flavour combination — this is not a flavour stretch at all. Dried oregano contains rosmarinic acid (same anti-inflammatory compound as in rosemary — APOE4 relevant for neuroinflammation reduction) and carvacrol (antimicrobial compound supporting gut microbiome balance, relevant post-Celiac). Half a teaspoon is enough to register in the flavour without dominating. Dried thyme is an equally good substitute if you prefer a slightly more subtle herb note.
+        </div>
+        <div class="upgrade-card">
+          <h4>🌱 Pumpkin seeds — last 10 minutes only</h4>
+          Scattered over the top after the first 20 minutes of roasting so they toast rather than burn. Pumpkin seeds are one of the best dietary sources of zinc and magnesium — both critical for APOE4 (zinc is required for amyloid-β clearance; magnesium deficiency accelerates cognitive decline) and for general metabolic function in DP and MTHFR. At ~17mg oxalate/100g, a 15–20g garnish adds only 2–3mg oxalate — negligible. The toasted seeds add a satisfying crunch to what is otherwise a soft, yielding vegetable. They catch and hold the parmesan as it melts.
+        </div>
+        <div class="upgrade-card">
+          <h4>🧄 Cold fresh-garlic finish drizzle</h4>
+          The garlic powder stays — it provides roasting flavour and browns slightly in the oven, creating depth. The fresh garlic is additional. Crush one clove, rest 5 minutes (the allicin-forming enzyme reaction that completes in this window), then combine with EVOO and fresh lemon juice cold. Drizzle over the hot zucchini straight from the oven — the heat blooms the garlic aroma without destroying the allicin. This is the same two-garlic approach used in the broccoli cheese sauce (Recipe 19): one garlic for cooking flavour, one cold for allicin.
+        </div>
+        <div class="upgrade-card optional">
+          <h4>🟡 Optional: nutritional yeast blended with the parmesan</h4>
+          <span class="opt-tag">OPTIONAL</span> — flavour is mild when blended 50/50 with parmesan<br><br>
+          Nutritional yeast has a savoury, slightly nutty, umami flavour that is close enough to parmesan that when the two are combined you taste parmesan — not nutritional yeast. The reason to add it: it's a concentrated source of B vitamins including folate and B12 (MTHFR, fatty liver), and it adds an extra layer of umami without any additional sodium or fat. Start with 1 tbsp nutritional yeast to 2 tbsp parmesan. If you find the flavour neutral (as most people do at this ratio), you can increase the yeast over time.
+        </div>
+        <div class="upgrade-card" style="background:#fff3e0;border-color:#fed7aa">
+          <h4>🌶 Black pepper in the coating</h4>
+          Already a natural addition to anything savoury but worth noting: piperine, the active compound in black pepper, increases the bioavailability of a wide range of compounds — including curcumin (if you later eat anything turmeric-based), beta-carotene, and several B vitamins. A quarter teaspoon in the coating costs nothing flavour-wise and pays a small but real absorption dividend.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE -->
+  <div class="section-divider">🥒 Ingredients & Method</div>
+
+  <div class="recipe-layout">
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 serves</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Zucchini</li>
+          <li class="ing-item"><span class="ing-amount">2 medium</span><span>Zucchini (~200g each) — unpeeled</span><span class="ing-note ox-low">🟢 2–4mg</span></li>
+
+          <li class="ing-section-label">Coating</li>
+          <li class="ing-item"><span class="ing-amount">2 tbsp</span><span>EVOO</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span>Garlic powder</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span>Lemon zest — zest before juicing</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span>Dried oregano or thyme</span><span class="ing-note ox-low">🟢 low</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span>Fine sea salt</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span>Black pepper</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+
+          <li class="ing-section-label">Crust</li>
+          <li class="ing-item"><span class="ing-amount">3 tbsp</span><span>Parmesan, finely grated</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span>Nutritional yeast <span class="opt-tag">optional</span></span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Topping — add at 20 min</li>
+          <li class="ing-item"><span class="ing-amount">2 tbsp</span><span>Raw pumpkin seeds — ~20g</span><span class="ing-note ox-low">🟢 ~3mg</span></li>
+
+          <li class="ing-section-label">Finish drizzle — cold, applied after oven</li>
+          <li class="ing-item"><span class="ing-amount">1 clove</span><span>Fresh garlic — crush, rest 5 min, keep cold</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span>EVOO</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span>Fresh lemon juice (½ the lemon you zested)</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span>Fine sea salt</span><span class="ing-note ox-zero">⬜ zero</span></li>
+        </ul>
+
+        <div style="margin-top:.9rem;background:#e8f5e9;border:1px solid #a7f3d0;border-radius:8px;padding:.6rem .8rem;font-size:.76rem;color:#1b4332;line-height:1.55">
+          <strong>🥒 Don't peel the zucchini:</strong> The lutein and zeaxanthin are highest in the dark green skin. The skin also holds the shape of spears during roasting. Scrub under running water if needed — that's all the prep it needs.
+        </div>
+        <div style="margin-top:.7rem;background:var(--lemon-light);border:1px solid var(--amber-border);border-radius:8px;padding:.6rem .8rem;font-size:.76rem;color:#78350f;line-height:1.55">
+          <strong>🍋 Zest first, then juice:</strong> It is very difficult to zest a juiced lemon. Zest over the EVOO coating bowl first, then juice the same lemon for the finish drizzle. One lemon covers both.
+        </div>
+      </div>
+    </div>
+
+    <!-- METHOD -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Method</div>
+      <div class="panel-body">
+        <!-- TIMING BAR -->
+        <div style="font-size:.73rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em">Oven timeline at 190°C / 375°F</div>
+        <div class="timing-bar">
+          <div class="timing-seg ts-roast">0–20 min<br><span style="font-weight:700">Roast</span><br>parmesan crust forms</div>
+          <div class="timing-seg ts-seeds">20 min<br><span style="font-weight:700">Add seeds</span><br>scatter on top</div>
+          <div class="timing-seg ts-check">25 min<br><span style="font-weight:700">Check</span><br>golden + edges caramelising?</div>
+          <div class="timing-seg ts-finish">28–32 min<br><span style="font-weight:700">Out + drizzle</span><br>cold garlic finish</div>
+        </div>
+
+        <ol class="step-list" style="margin-top:.85rem">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Preheat + prep the zucchini</div>
+              Preheat your oven to <strong>190°C (375°F)</strong>. Line a baking tray with baking paper. Cut each zucchini into <strong>spears</strong>: halve lengthways, then halve each half again lengthways, giving you 4 long spears per zucchini — 8 spears total. Aim for pieces that are roughly 8–12mm thick at the widest point. Alternatively, slice into <strong>rounds approximately 10mm thick</strong> — rounds work but have less surface area for the parmesan crust. Do not peel.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Make the coating</div>
+              In a large bowl, combine 2 tbsp EVOO, garlic powder, <strong>lemon zest</strong>, dried oregano, salt, and black pepper. Mix well. Add the zucchini spears and toss until every surface is coated. Spread on the lined tray in a single layer, cut-side up — the flat cut faces up to receive the parmesan. <strong>No overlapping</strong>: if the pieces steam against each other they will go mushy rather than roast.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Add the parmesan crust</div>
+              Combine the grated parmesan and nutritional yeast (if using) in a small bowl. Sprinkle evenly over the top of each spear. It will sit loosely at this point and bond to the surface as it melts during roasting.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Roast for 20 minutes</div>
+              Place the tray in the preheated oven on a middle or upper rack. Roast for 20 minutes until the parmesan is golden and the cut surfaces of the zucchini are beginning to brown at the edges. The zucchini should still have some firmness at this point — not collapsing yet.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Add pumpkin seeds — back in for 8–12 more minutes</div>
+              Pull the tray out briefly. Scatter the raw pumpkin seeds evenly over the top of the zucchini spears — they'll nestle into the softened parmesan crust. Return to the oven for a further 8–12 minutes. <strong>Check at 25 minutes total:</strong> you want the seeds to be lightly golden and slightly puffed, the parmesan a deep golden, and the thin edges of the zucchini just caramelised. Every oven is different — at 25 minutes assess and decide whether another 3–5 minutes is needed. Watch closely after 25 minutes as they can go from perfect to overdone quickly at this stage.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Crush garlic while the oven does its work</div>
+              While the zucchini is in its final 10 minutes, crush the fresh garlic clove and set aside to rest for <strong>5 minutes</strong>. This window lets the alliin-alliinase enzyme reaction complete and allicin form fully. Combine the rested garlic with 1 tbsp EVOO and 1 tbsp fresh lemon juice in a small bowl. Do not add heat at any point — this drizzle stays cold throughout.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">7</span>
+            <div>
+              <div class="step-name">Remove from oven and finish cold</div>
+              Take the tray out of the oven. Immediately drizzle the cold garlic-lemon-EVOO mixture over all the pieces. The residual heat of the zucchini will bloom the garlic aroma without cooking off the allicin. Serve directly from the tray or transfer to a plate. Best eaten within a few minutes — the parmesan crust softens as it sits.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUTTING GUIDE -->
+  <div class="notes-panel">
+    <h3>🔪 Cut thickness matters more than you'd expect</h3>
+    <ul>
+      <li><strong>Spears (recommended for this recipe):</strong> Quarter each zucchini lengthways. More flat surface area means more contact with the parmesan crust and more caramelisation. The flat face sits up and holds the seeds. Best presentation too — you can see the green skin edge alongside the golden crust.</li>
+      <li><strong>Rounds (10mm):</strong> Work well, cook slightly faster, easier to eat as finger food. The parmesan doesn't form as continuous a crust. Good for serving alongside a dip (like labneh) where you want individual pieces to pick up.</li>
+      <li><strong>Thinner than 8mm:</strong> Will dry out and go papery rather than tender in the centre. The parmesan crust is done before the zucchini has cooked through, leading to burnt crust and hard texture.</li>
+      <li><strong>Thicker than 12mm:</strong> The inside stays soft and the outside may not caramelise enough. You end up with steamed texture rather than roasted. Fine if that's your preference, but allow 5–8 extra minutes and don't expect as much browning.</li>
+      <li><strong>Water content note:</strong> Zucchini is ~95% water. Some people salt it before cooking to draw out moisture (15–20 minutes, then pat dry). This does improve browning but adds a step. At 190°C with plenty of tray space and pieces not overlapping, you get good results without pre-salting.</li>
+    </ul>
+  </div>
+
+  <!-- SERVING SUGGESTIONS -->
+  <div class="section-divider">🍽 What to serve it with</div>
+
+  <div class="serve-grid">
+    <div class="serve-card">
+      <span class="se-emoji">🐟</span>
+      <strong>Baked or pan-seared salmon</strong>
+      Natural Mediterranean pairing. Serve the zucchini alongside the salmon — the lemon-garlic drizzle bridges both.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🥚</span>
+      <strong>Scrambled or poached eggs</strong>
+      Good breakfast or lunch plate. The parmesan crust on the zucchini echoes egg flavours. Keep eggs soft — don't overcook.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🧈</span>
+      <strong>With labneh as a dip</strong>
+      The tart labneh (sour cream style) cuts through the richness of the parmesan. Serve spears standing up with the labneh alongside.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🥗</span>
+      <strong>Over leafy greens</strong>
+      Serve the hot zucchini over rocket or spinach — the heat wilts the greens slightly and the lemon drizzle doubles as a dressing. Add cherry tomatoes.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🍗</span>
+      <strong>Alongside roast chicken</strong>
+      A classic roasting-tray pairing. The garlic-lemon-parmesan profile works with almost any roast protein.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🌯</span>
+      <strong>Inside rice paper rolls</strong>
+      Cool the roasted zucchini spears completely and use as a warm-flavoured filling in the rice paper rolls (Recipe 23). The parmesan crust adds an unexpected savoury layer.
+    </div>
+  </div>
+
+  <!-- OXALATE CONTEXT -->
+  <div class="panel" style="margin-bottom:1.5rem">
+    <div class="panel-header">🔬 Oxalate at a glance — this dish</div>
+    <div class="panel-body">
+      <table class="ox-table">
+        <thead>
+          <tr><th>Ingredient</th><th>Oxalate per 100g</th><th>In this recipe</th><th>Total per serve</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td>Zucchini (200g per serve)</td><td class="ox-low-cell">~2–4mg</td><td>200g</td><td class="ox-low-cell">~4–8mg</td></tr>
+          <tr><td>Pumpkin seeds (10g per serve)</td><td class="ox-mod-cell">~17mg</td><td>10g garnish</td><td class="ox-low-cell">~2mg</td></tr>
+          <tr><td>EVOO, garlic, lemon, parmesan</td><td class="ox-low-cell">trace</td><td>coating + drizzle</td><td class="ox-low-cell">&lt;1mg</td></tr>
+          <tr><td>Dried oregano</td><td class="ox-low-cell">low</td><td>½ tsp</td><td class="ox-low-cell">trace</td></tr>
+          <tr style="font-weight:700;background:#e8f5e9"><td><strong>Total per serve</strong></td><td>—</td><td>—</td><td class="ox-low-cell"><strong>~6–11mg</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.76rem;color:var(--muted);margin-top:.6rem">Daily oxalate target for kidney stone prevention: under 100mg/day. This dish uses ~6–11mg — leaving abundant room for other meals. Compare to one serving of spinach (~750mg) or one handful of almonds (~160mg).</p>
+    </div>
+  </div>
+
+  <div class="test-bar">
+    <p>🧪 First time making this — log a glucose test to confirm the zucchini + parmesan combination sits well for DP.</p>
+    <a class="btn btn-back" href="food-response-testing.html">📊 Log a Test</a>
+  </div>
+
+</div>
+</body>
+</html>
