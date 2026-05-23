@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labneh Berry Parfait with Honey & Walnuts</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Labneh Berry Parfait with Honey & Walnuts",
+    "description": "Layered dessert of thick labneh (strained yoghurt), fresh blueberries, a small drizzle of raw honey, and roughly crushed walnuts. Creamy and rich like a deconstructed cheesecake — genuinely feels like dessert. The protein and fat in labneh means essentially no glucose spike. Labneh is from Recipe 8 (plain, 24-hour strained) and retains its full live Lactobacillus culture when kept cold. Blueberries are APOE4's most targeted dessert ingredient — pterostilbene and anthocyanins that cross the blood-brain barrier with direct amyloid-beta inhibition evidence. Honey at a drizzle quantity (1 tsp across 1 serve) is negligible glycaemic load. Walnuts at garnish quantity provide ALA omega-3 and ellagitannins. Ready in 5 minutes. No cooking. All six conditions. Serves 2.",
+    "recipeYield": "2 serves",
+    "prepTime": "PT5M",
+    "cookTime": "PT0M",
+    "totalTime": "PT5M",
+    "recipeCategory": "Dessert",
+    "recipeCuisine": "Middle Eastern / Modern",
+    "keywords": "labneh parfait, blueberry, honey, walnuts, APOE4, dessert, gluten-free, low oxalate, probiotic, no cook, 5 minutes",
+    "recipeIngredient": [
+      "200g plain labneh (Recipe 8, or store-bought full-fat strained yoghurt)",
+      "150g fresh blueberries",
+      "2 tsp raw honey",
+      "20g walnuts — roughly crushed (garnish quantity across 2 serves)",
+      "Optional: a few fresh mint leaves to finish"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Prepare the labneh base",
+        "text": "Spoon 100g of cold labneh into each glass or bowl. Use a wide, shallow glass or a small bowl — a parfait style lets you see the layers. The labneh should be cold from the fridge, not at room temperature, so the layers hold."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add the blueberries",
+        "text": "Spoon the fresh blueberries over the labneh. You can keep them whole for a clean look, or crush a few with a fork first to release some juice which bleeds into the labneh creating a purple-cream marbled effect. Both are good — crushing gives more flavour contact, whole berries give better texture contrast."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Drizzle honey",
+        "text": "Drizzle approximately 1 tsp of raw honey over each serve. Drizzle from height if possible — it distributes more evenly. Raw honey retains trace amounts of polyphenols and enzymes that are destroyed by heating; it also has a more complex flavour than processed honey. At 1 tsp per serve the glycaemic impact is negligible, especially alongside the protein and fat in the labneh."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Crush and scatter walnuts",
+        "text": "Roughly crush 10g of walnuts per serve in your hand or with the flat of a knife. Scatter over the top. The walnuts add crunch, fat (which slows glucose absorption further), and their own polyphenol contribution. Keep them at this garnish quantity — about 10g per serve — for the oxalate reasons noted below."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish and serve immediately",
+        "text": "Add a few fresh mint leaves if using. Serve immediately — the cold labneh, room-temperature berries, and crunchy walnuts are at their best right away. If assembling ahead, add the walnuts and honey only at serving."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --berry-dark:   #4c1d95;
+      --berry-mid:    #7c3aed;
+      --berry-light:  #ede9fe;
+      --berry-pale:   #f5f3ff;
+      --cream:        #92400e;
+      --cream-light:  #fef3c7;
+      --cream-border: #fde68a;
+      --honey:        #b45309;
+      --text:         #1e1028;
+      --muted:        #4c2a8a;
+      --border:       #ddd6fe;
+      --shadow:       0 2px 12px rgba(76,29,149,.1);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--berry-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--berry-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--berry-light); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--berry-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--berry-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .dessert-badge { display: inline-flex; align-items: center; gap: .4rem; background: var(--berry-light); border: 1.5px solid var(--berry-mid); border-radius: 20px; padding: .25rem .85rem; font-size: .78rem; font-weight: 700; color: var(--berry-dark); margin-bottom: .75rem; }
+
+    .glucose-strip { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: .45rem .85rem; font-size: .8rem; color: #166534; display: flex; align-items: center; gap: .5rem; }
+    .gi-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--berry-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--berry-light); border-radius: 4px; }
+    .section-divider-honey { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--honey); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--cream-border); border-bottom: 1px solid var(--cream-border); background: var(--cream-light); border-radius: 4px; }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--berry-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--berry-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+
+    .spotlight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .9rem; }
+    .spot-card { border-radius: 10px; padding: .85rem 1rem; font-size: .82rem; color: var(--text); line-height: 1.6; }
+    .spot-card h4 { font-size: .84rem; margin-bottom: .4rem; }
+    .spot-labneh   { background: var(--cream-light); border-left: 4px solid var(--cream); }
+    .spot-berry    { background: var(--berry-light); border-left: 4px solid var(--berry-mid); }
+    .spot-honey    { background: #fefce8; border-left: 4px solid #ca8a04; }
+    .spot-walnut   { background: #f0fdf4; border-left: 4px solid #16a34a; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--berry-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .28rem 0; border-bottom: 1px solid #f3f0ff; font-size: .85rem; }
+    .ing-amount { font-weight: 700; color: var(--berry-dark); min-width: 3.5rem; flex-shrink: 0; }
+    .ing-note { margin-left: auto; font-size: .72rem; font-weight: 600; white-space: nowrap; padding: .1rem .4rem; border-radius: 6px; }
+    .ox-zero  { background: #f1f5f9; color: #475569; }
+    .ox-low   { background: #dcfce7; color: #166534; }
+    .ox-mod   { background: #fef9c3; color: #854d0e; }
+
+    .ox-table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: .4rem; }
+    .ox-table th { text-align: left; font-size: .72rem; color: var(--berry-dark); border-bottom: 2px solid var(--border); padding: .25rem .4rem; }
+    .ox-table td { padding: .22rem .4rem; border-bottom: 1px solid #f3f0ff; }
+    .ox-low-cell  { color: #166534; font-weight: 600; }
+    .ox-mod-cell  { color: #854d0e; font-weight: 600; }
+    .ox-zero-cell { color: #475569; font-weight: 600; }
+    .total-row td { border-top: 2px solid var(--border); border-bottom: none; padding-top: .35rem; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .85rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num { background: var(--berry-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--berry-dark); margin-bottom: .2rem; }
+
+    .flag-box { border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .75rem; }
+    .flag-ok   { background: #f0fdf4; border: 1px solid #86efac; }
+    .flag-ok h4 { color: #166534; margin-bottom: .35rem; font-size: .84rem; }
+    .flag-note { background: var(--cream-light); border: 1px solid var(--cream-border); }
+    .flag-note h4 { color: var(--honey); margin-bottom: .35rem; font-size: .84rem; }
+
+    /* Dessert "why it works" comparison strip */
+    .comparison-strip { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: .75rem; }
+    @media (max-width: 500px) { .comparison-strip { grid-template-columns: 1fr; } }
+    .comp-card { border-radius: 10px; padding: .75rem 1rem; font-size: .8rem; line-height: 1.55; }
+    .comp-bad  { background: #fef2f2; border: 1px solid #fecaca; }
+    .comp-bad h5  { color: #991b1b; font-size: .82rem; margin-bottom: .3rem; }
+    .comp-good { background: #f0fdf4; border: 1px solid #86efac; }
+    .comp-good h5 { color: #166534; font-size: .82rem; margin-bottom: .3rem; }
+
+    .notes-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.2rem; }
+    .notes-panel h3 { color: var(--berry-dark); font-size: .95rem; margin-bottom: .65rem; }
+    .notes-panel ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.7; color: var(--muted); display: flex; flex-direction: column; gap: .4rem; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--berry-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--berry-dark); border: 1.5px solid var(--berry-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🫐🥛🍯🌰</div>
+    <div class="recipe-hero-body">
+      <div class="dessert-badge">🍨 Dessert</div>
+      <h1>Labneh Berry Parfait with Honey & Walnuts</h1>
+      <p>A proper dessert that works for every condition in the collection. Cold labneh layered with fresh blueberries, a small drizzle of raw honey, and roughly crushed walnuts — the texture and richness of a deconstructed cheesecake, ready in 5 minutes with no cooking. The protein and fat in labneh buffer any glucose response from the honey almost entirely. Blueberries are the single most APOE4-targeted dessert ingredient available — pterostilbene and anthocyanins that cross the blood-brain barrier with direct amyloid-β inhibition evidence. The Lactobacillus culture in the labneh is fully preserved cold. This isn't "health food that tastes acceptable" — it tastes genuinely good, and it earns all six badges.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 5 min — no cooking</span>
+        <span>🍨 Serves 2</span>
+        <span>🌡 Serve cold, immediately after assembling</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot"></span> Very low GI dessert — labneh protein + fat buffers the honey completely; blueberries GI ~25; walnuts negligible
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY THIS WORKS AS A DESSERT -->
+  <div class="section-divider-honey">🍨 Why this actually works as a dessert — and why typical desserts don't</div>
+
+  <div class="panel">
+    <div class="panel-header">📊 What dessert usually does vs what this does</div>
+    <div class="panel-body">
+      <div style="font-size:.85rem;color:var(--muted);margin-bottom:.6rem">The glucose and inflammatory problem with most desserts is the combination of refined sugar + refined starch + minimal protein or fat — three variables that each independently spike blood glucose, and together produce a significant post-meal spike that disrupts the overnight Dawn Phenomenon pattern.</div>
+      <div class="comparison-strip">
+        <div class="comp-card comp-bad">
+          <h5>❌ Typical dessert pattern</h5>
+          Refined sugar (rapid glucose) + refined flour (rapid glucose) + minimal protein = large, fast glucose spike → insulin response → rebound drop → elevated fasting glucose next morning. For fatty liver: excess fructose from sugar loads the liver directly. For APOE4: chronic post-meal glucose elevation accelerates the vascular and neuroinflammatory processes the diet is working to mitigate.
+        </div>
+        <div class="comp-card comp-good">
+          <h5>✅ This parfait pattern</h5>
+          Protein + fat from labneh → slows gastric emptying → glucose absorbed slowly. Blueberry fructose is modest and comes packaged with fibre. Honey at 1 tsp per serve = ~5g sugar total, buffered by the labneh. No refined flour. No refined starch. Net glucose response: comparable to eating the labneh plain. Probiotic benefit from the culture. Pterostilbene and anthocyanins from the blueberries working while you eat dessert.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGREDIENT SPOTLIGHTS -->
+  <div class="section-divider">🌿 What each ingredient is doing</div>
+
+  <div class="panel">
+    <div class="panel-header">🧬 Every ingredient earns its place</div>
+    <div class="panel-body">
+      <div class="spotlight-grid">
+        <div class="spot-card spot-labneh">
+          <h4>🥛 Labneh — Lactobacillus, casein protein, calcium, satiety</h4>
+          Labneh from Recipe 8 is the same live-culture, 24-hour strained yoghurt used throughout the collection. Kept cold, the Lactobacillus culture is fully alive — this is one of the few desserts that actively improves gut microbiome diversity while being eaten. The high protein content (significantly more than unstrained yoghurt due to whey removal) means the labneh provides a substantial protein buffer against the honey and berry sugars. Casein in the labneh is a slow-digesting protein that extends the buffering effect over several hours. Calcium content is high — relevant for kidney stone prevention (dietary calcium binds gut oxalate before absorption). <strong>Cold is essential:</strong> heat above ~43°C kills Lactobacillus. This is a cold dessert by design, and that is a feature not a limitation.
+        </div>
+        <div class="spot-card spot-berry">
+          <h4>🫐 Blueberries — pterostilbene, anthocyanins, BBB crossing, amyloid-β inhibition</h4>
+          Blueberries appear in this collection in Recipe 26 (kale salad) and here — they are the most specifically APOE4-targeted fruit available. <strong>Pterostilbene</strong> (a methylated derivative of resveratrol with higher bioavailability) and multiple <strong>anthocyanins</strong> — including cyanidin-3-glucoside, the same compound in the purple sauerkraut (Recipe 20) and purple cabbage in the rice paper rolls (Recipe 23) — cross the blood-brain barrier. Studies specific to APOE4 show these compounds directly inhibit amyloid-β aggregation and reduce neuroinflammation. Low GI (~25), low oxalate (~17mg/100g at a 75g serving = ~13mg), and provide vitamin C which enhances folate bioavailability (MTHFR relevant). As a dessert, blueberries are doing more active therapeutic work than any other fruit option.
+        </div>
+        <div class="spot-card spot-honey">
+          <h4>🍯 Raw honey — 1 tsp per serve, polyphenols, negligible glycaemic impact in context</h4>
+          Raw honey retains trace polyphenols (quercetin, kaempferol, luteolin depending on floral source) and enzymes that are destroyed by pasteurisation and heat processing. At 1 tsp per serve (~5g, ~4g sugar) consumed alongside 100g of protein-rich labneh, the glycaemic impact is negligible — the protein and fat buffer completely dominate the response. This is the established principle from the collection: a small sweet component consumed with significant protein and fat has minimal net glucose effect. Honey is the appropriate choice here over maple syrup — the floral polyphenol content makes it the more functional option, and its thicker texture drizzles better visually. <strong>Use raw unheated honey</strong> — the polyphenol and enzyme content of processed honey is significantly diminished.
+        </div>
+        <div class="spot-card spot-walnut">
+          <h4>🌰 Walnuts — crunch, ALA, ellagitannins — keep at garnish quantity</h4>
+          Walnuts at 10g per serve add structural contrast (the crunch against the creamy labneh is important to the eating experience) and their own polyphenol contribution — ellagic acid and ellagitannins with SIRT1-activating activity. ALA (plant omega-3) provides complementary anti-inflammatory benefit even though APOE4 carriers have impaired ALA→DHA conversion. <strong>Oxalate note:</strong> walnuts are ~74mg/100g — kept at 10g per serve (~7.5mg oxalate) the contribution is manageable and the total parfait stays well under 25mg per serve. Do not scale up the walnut quantity without noting the oxalate increase.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLAGS -->
+  <div class="section-divider-honey">⚗️ Notes</div>
+
+  <div class="flag-ok">
+    <h4>✅ Naturally gluten-free — zero label checks required</h4>
+    Plain labneh (strained yoghurt), fresh blueberries, raw honey, and walnuts are all inherently gluten-free with no cross-contamination risk. There are no processed ingredients in this recipe that require any label verification. This is one of the simplest GF-safe desserts possible.
+  </div>
+
+  <div class="flag-note" style="margin-top:.7rem">
+    <h4>💡 Store-bought labneh vs homemade — what to look for</h4>
+    If using store-bought rather than Recipe 8 labneh: look for <strong>full-fat, plain, no added thickeners or stabilisers</strong> (guar gum, carrageenan, and modified starch are common additives that indicate lower-quality processing). The label should list only milk and bacterial cultures. Middle Eastern grocery stores typically carry labneh that is closer to the homemade recipe than mainstream supermarket versions. Greek yoghurt is an acceptable substitute in texture and flavour — it has slightly less protein (not strained as long) but is readily available. Full-fat only — low-fat versions remove the fat that is doing the glucose buffering work.
+  </div>
+
+  <div class="flag-ok" style="margin-top:.7rem">
+    <h4>✅ APOE4 and dairy — cold labneh in a dessert context</h4>
+    The established casein concern in this collection (no dairy in hot tea or coffee) is specifically about casein binding polyphenols <em>dissolved in a hot liquid</em>. In this cold dessert, the blueberry polyphenols are in solid fruit — they are not dissolved in the labneh. Casein does not meaningfully bind polyphenols from whole fruit in a cold solid dessert. The same principle established for the mozzarella in Recipe 26 applies here. The APOE4 dairy concern is about saturated fat load from large quantities — full-fat labneh at 100g per serve is moderate and well within an appropriate range.
+  </div>
+
+  <!-- RECIPE -->
+  <div class="section-divider">🫐 Ingredients & Method</div>
+
+  <div class="recipe-layout">
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 serves</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Parfait</li>
+          <li class="ing-item"><span class="ing-amount">200g</span><span>Plain labneh — cold (Recipe 8 or full-fat store-bought)</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">150g</span><span>Fresh blueberries</span><span class="ing-note ox-low">🟢 low</span></li>
+          <li class="ing-item"><span class="ing-amount">2 tsp</span><span>Raw honey — 1 tsp per serve</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">20g</span><span>Walnuts — roughly crushed (10g per serve)</span><span class="ing-note ox-mod">🟡 mod*</span></li>
+          <li class="ing-section-label">Optional</li>
+          <li class="ing-item"><span class="ing-amount">few</span><span>Fresh mint leaves — to finish</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+        </ul>
+
+        <div style="margin-top:.5rem;font-size:.74rem;color:#6d28d9">* 10g walnuts per serve ≈ 7.5mg oxalate — see walnut note above</div>
+
+        <div style="margin-top:.85rem">
+          <div style="font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--berry-dark);margin-bottom:.4rem">Oxalate per serve (½ of recipe)</div>
+          <table class="ox-table">
+            <thead><tr><th>Ingredient</th><th>Per serve</th></tr></thead>
+            <tbody>
+              <tr><td>Labneh (100g)</td><td class="ox-zero-cell">~1mg</td></tr>
+              <tr><td>Blueberries (75g)</td><td class="ox-low-cell">~13mg</td></tr>
+              <tr><td>Honey (1 tsp)</td><td class="ox-zero-cell">0mg</td></tr>
+              <tr><td>Walnuts (10g)</td><td class="ox-mod-cell">~7.5mg</td></tr>
+              <tr class="total-row"><td><strong>Total</strong></td><td class="ox-low-cell"><strong>~22mg</strong></td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem">Daily target &lt;100mg/day. This dessert uses ~22mg per serve.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METHOD -->
+    <div class="panel">
+      <div class="panel-header">🍨 Assembly</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Spoon cold labneh into glasses or bowls</div>
+              Use 100g of cold labneh per serve. Wide, shallow glasses or small bowls show the layers best — a tall narrow glass works too but makes it harder to get the right proportions in each spoonful. The labneh should come straight from the fridge — cold temperature helps the layers hold and keeps the Lactobacillus culture viable.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Add the blueberries</div>
+              Spoon 75g of fresh blueberries over each serve. <strong>Option A — whole:</strong> clean presentation, satisfying pop of texture when bitten. <strong>Option B — lightly crushed:</strong> press a few berries with a fork before spooning — the released juice bleeds into the labneh at the edges, creating a purple-cream marble effect and more direct flavour contact. Both work; crushed gives more flavour intensity.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Drizzle honey from height</div>
+              Drizzle 1 tsp of raw honey over each serve. Holding the spoon or honey dipper higher above the bowl distributes the honey in a thin thread that covers more surface area than a direct pour. The visual effect is also better — thin honey threads over the dark blueberries look more finished than a pooled blob.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Scatter the walnuts</div>
+              Roughly crush 10g of walnuts per serve in your hand or press briefly under the flat of a knife — you want irregular pieces, not a fine powder. Scatter over the top. The crunch contrast against the creamy labneh is a key part of what makes this feel like a proper dessert rather than a bowl of yoghurt.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Finish and serve immediately</div>
+              Add a few torn fresh mint leaves if using — the mint adds a clean, fresh top note that lifts the whole dish. Serve immediately. If assembling ahead for guests, keep the labneh and blueberries pre-portioned in the fridge and add honey and walnuts only at the moment of serving so the walnuts stay crunchy.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIATIONS -->
+  <div class="notes-panel">
+    <h3>🫙 Variations and serving ideas</h3>
+    <ul>
+      <li><strong>Mixed berries:</strong> Raspberries and strawberries can replace some or all of the blueberries. Raspberries are slightly higher oxalate (~12mg/100g) but still low at a 75g serving. Strawberries are low oxalate and add colour contrast. Blueberries remain the most APOE4-targeted choice, but any berry combination works.</li>
+      <li><strong>Layered version:</strong> For a more formal presentation, layer labneh → berries → labneh → berries in a tall glass and top with honey and walnuts. Use a piping bag or zip-lock bag with the corner cut to add the labneh layers neatly.</li>
+      <li><strong>Frozen blueberry version:</strong> Slightly frozen blueberries (30 minutes in the freezer) give a firmer texture and create a cold, almost ice-cream-adjacent experience when combined with the cold labneh. The contrast of very cold berries against the creamy labneh is excellent in warmer weather.</li>
+      <li><strong>Ceylon cinnamon addition:</strong> A pinch of Ceylon cinnamon (never Cassia — see collection notes) over the top adds warmth and a complementary flavour with the blueberries. Ceylon cinnamon also has blood sugar modulation evidence that stacks with the protein-fat buffering of the labneh.</li>
+      <li><strong>Scaling up:</strong> The recipe scales directly — 100g labneh + 75g berries + 1 tsp honey + 10g walnuts per person. For a dinner party dessert, pre-portion the labneh and berries in small glasses and add honey and walnuts at the table.</li>
+      <li><strong>As a breakfast:</strong> This combination works equally well as a high-protein, low-GI breakfast. The protein content is meaningful enough to contribute to Dawn Phenomenon management at the start of the day.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>🩸 Very low GI dessert — protein and fat in labneh buffer the honey response completely. No monitoring concern at normal serve size. Suitable as a regular dessert.</p>
+    <a class="btn btn-back" href="recipes.html">← Back to Recipes</a>
+  </div>
+
+</div>
+</body>
+</html>
