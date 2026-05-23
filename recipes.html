@@ -112,6 +112,19 @@
     /* INTRO CALLOUT */
     .intro-callout { background: var(--sky); border: 1px solid #b2ebf2; border-radius: 12px; padding: .85rem 1.2rem; margin-bottom: 1.4rem; font-size: .88rem; color: var(--sky-dark); line-height: 1.6; }
     .intro-callout strong { color: #006064; }
+
+    /* MEALBOARD TOGGLE */
+    .mb-toggle { display: inline-flex; align-items: center; gap: .35rem; border-radius: 8px; padding: .38rem .85rem; font-size: .8rem; font-weight: 700; cursor: pointer; border: 1.5px solid #b7ddc4; background: #fff; color: var(--muted); transition: all .18s; user-select: none; margin-top: .4rem; }
+    .mb-toggle:hover { border-color: var(--green-mid); color: var(--green-dark); }
+    .mb-toggle.imported { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+    .mb-toggle.imported:hover { background: #1b4332; border-color: #1b4332; }
+
+    /* MEALBOARD PROGRESS BAR */
+    .mb-progress-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .7rem 1.2rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; box-shadow: var(--shadow); }
+    .mb-progress-label { font-size: .82rem; color: var(--muted); white-space: nowrap; }
+    .mb-progress-label strong { color: var(--green-dark); }
+    .mb-progress-track { flex: 1; min-width: 120px; background: var(--green-light); border-radius: 20px; height: 10px; overflow: hidden; }
+    .mb-progress-fill { height: 100%; background: var(--green-dark); border-radius: 20px; transition: width .3s ease; }
   </style>
 </head>
 <body>
@@ -149,6 +162,13 @@
     <button class="filter-btn" onclick="filterRecipes('mthfr', this)">MTHFR</button>
     <button class="filter-btn" onclick="filterRecipes('kidney', this)">Kidney Stone</button>
     <button class="filter-btn" onclick="filterRecipes('low-ox', this)">Low Oxalate</button>
+    <button class="filter-btn" onclick="filterRecipes('imported', this)">📲 In MealBoard</button>
+  </div>
+
+  <!-- MEALBOARD PROGRESS -->
+  <div class="mb-progress-bar">
+    <span class="mb-progress-label"><strong id="mb-count">0</strong> of <strong id="mb-total">24</strong> recipes imported to MealBoard</span>
+    <div class="mb-progress-track"><div class="mb-progress-fill" id="mb-progress-fill" style="width:0%"></div></div>
   </div>
 
   <!-- RECIPE GRID -->
@@ -921,11 +941,69 @@ function filterRecipes(tag, btn) {
     if (tag === 'all') { card.style.display = ''; return; }
     if (tag === 'low-ox') {
       card.style.display = card.dataset.oxalate === 'low' ? '' : 'none';
+    } else if (tag === 'imported') {
+      card.style.display = card.dataset.mbImported === 'true' ? '' : 'none';
     } else {
       card.style.display = card.dataset.conditions.includes(tag) ? '' : 'none';
     }
   });
 }
+
+function getRecipeKey(card) {
+  const link = card.querySelector('.recipe-card-actions a') ||
+               card.querySelector('.recipe-card-footer a');
+  if (!link) return null;
+  return 'mb_' + link.getAttribute('href').replace(/[^a-z0-9]/gi, '_');
+}
+
+function updateProgress() {
+  const cards = document.querySelectorAll('.recipe-card');
+  const total = cards.length;
+  const imported = Array.from(cards).filter(c => c.dataset.mbImported === 'true').length;
+  document.getElementById('mb-count').textContent = imported;
+  document.getElementById('mb-total').textContent = total;
+  const pct = total ? Math.round(imported / total * 100) : 0;
+  document.getElementById('mb-progress-fill').style.width = pct + '%';
+}
+
+function initMealboardToggles() {
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    const key = getRecipeKey(card);
+    if (!key) return;
+
+    const isImported = localStorage.getItem(key) === 'true';
+    card.dataset.mbImported = isImported ? 'true' : 'false';
+
+    const container = card.querySelector('.recipe-card-actions') ||
+                      card.querySelector('.recipe-card-footer');
+    if (!container) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'mb-toggle' + (isImported ? ' imported' : '');
+    btn.innerHTML = isImported ? '&#x2705; In MealBoard' : '&#x1F4F2; Add to MealBoard';
+    btn.title = isImported
+      ? 'Imported — click to undo'
+      : 'Click when you have imported this recipe into MealBoard';
+
+    btn.addEventListener('click', () => {
+      const nowImported = card.dataset.mbImported !== 'true';
+      card.dataset.mbImported = nowImported ? 'true' : 'false';
+      localStorage.setItem(key, nowImported ? 'true' : 'false');
+      btn.className = 'mb-toggle' + (nowImported ? ' imported' : '');
+      btn.innerHTML = nowImported ? '&#x2705; In MealBoard' : '&#x1F4F2; Add to MealBoard';
+      btn.title = nowImported
+        ? 'Imported — click to undo'
+        : 'Click when you have imported this recipe into MealBoard';
+      updateProgress();
+    });
+
+    container.appendChild(btn);
+  });
+
+  updateProgress();
+}
+
+document.addEventListener('DOMContentLoaded', initMealboardToggles);
 </script>
 </body>
 </html>
