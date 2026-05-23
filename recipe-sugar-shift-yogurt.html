@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sugar Shift Probiotic Yogurt</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Sugar Shift Probiotic Yogurt",
+    "description": "A custom 8-strain probiotic yogurt fermented in the Luvele Ferment Pro at 100°F for 18 hours. Base: 6 cups ultrapasteurized whole milk + 2 cups cream. Starter: 2 scoops Sugar Shift (BioticOur) + 2 scoops Prebio Plus. The long 18-hour ferment at 100°F consumes most of the lactose, produces a thick, tangy yogurt with a significantly higher live culture count than store-bought. Ferment Pro auto-shifts to refrigeration mode at the end — no timing anxiety. All utensils sterilized before use. All six conditions. The 8 specific strains in Sugar Shift include Lactobacillus reuteri (gut repair), Bifidobacterium longum and bifidum (immune + gut), L. plantarum (breaks down glyphosate), and L. paracasei (immune) — a more targeted strain selection than standard yogurt cultures.",
+    "recipeYield": "approx. 8 cups",
+    "prepTime": "PT20M",
+    "cookTime": "PT18H",
+    "totalTime": "PT18H20M",
+    "recipeCategory": "Fermented / Probiotic",
+    "recipeCuisine": "American / Functional",
+    "keywords": "Sugar Shift yogurt, probiotic yogurt, fermented yogurt, Ferment Pro, BioticOur, L. reuteri, Bifidobacterium, APOE4, gluten-free, low oxalate, gut health, celiac recovery, MTHFR",
+    "recipeIngredient": [
+      "6 cups ultrapasteurized whole milk",
+      "2 cups heavy cream",
+      "2 scoops Sugar Shift probiotic powder (BioticOur)",
+      "2 scoops Prebio Plus prebiotic powder (Body Ecology)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Sterilize all equipment",
+        "text": "Sterilize all jars, lids, whisk, and any utensils that will contact the milk or yogurt. Run through the dishwasher on hot cycle, or rinse with boiling water and allow to air dry completely. Do not dry with a kitchen towel — tea towels carry bacteria that will compete with the Sugar Shift strains."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Combine milk and cream",
+        "text": "Pour 6 cups of ultrapasteurized whole milk and 2 cups of heavy cream into your sterilized jar or the Ferment Pro container. There is no need to heat ultrapasteurized milk first — it has already been treated at high heat and is a clean, bacteria-free medium ready for your starter strains."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add Sugar Shift and Prebio Plus",
+        "text": "Add 2 scoops of Sugar Shift probiotic powder and 2 scoops of Prebio Plus prebiotic powder. Whisk thoroughly until both powders are fully dissolved and evenly distributed throughout the milk and cream mixture. No clumps — the strains need even distribution to colonise the full batch consistently."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Set the Ferment Pro and start",
+        "text": "Set the Luvele Ferment Pro temperature to 100°F (38°C) and the timer to 18 hours. Place the jar in the unit and seal. The 100°F temperature is the optimal range for L. reuteri (PCR07) and the Bifidobacterium strains in the blend — warm enough to encourage active fermentation without stressing the cultures."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Ferment undisturbed — no intervention needed",
+        "text": "Leave undisturbed for the full 18 hours. Do not open, stir, or check during fermentation — introducing air or movement disrupts the culture matrix as it sets. The Ferment Pro will automatically shift to refrigeration mode when the 18-hour timer completes, so you do not need to be present at the finish time. If it finishes while you sleep, it is already chilling."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Retrieve and store",
+        "text": "When ready, remove the jar from the Ferment Pro. The yogurt is ready to eat immediately or can be stored in the refrigerator for up to 2 weeks. For a thicker texture, strain through a fine mesh cloth for 2–4 hours in the refrigerator (effectively making a Sugar Shift labneh). Do not stir vigorously — gentle folds preserve the whey distribution and texture."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ss-dark:   #831843;
+      --ss-mid:    #be185d;
+      --ss-light:  #fce7f3;
+      --ss-pale:   #fdf2f8;
+      --cream-dark:#78350f;
+      --cream-light:#fef3c7;
+      --cream-border:#fde68a;
+      --olive:     #166534;
+      --text:      #1e1028;
+      --muted:     #6b21a8;
+      --border:    #fbcfe8;
+      --shadow:    0 2px 12px rgba(131,24,67,.1);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--ss-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--ss-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--ss-light); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--ss-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: #4a1942; font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--ss-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--ss-dark); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .ferment-badge { display: inline-flex; align-items: center; gap: .4rem; background: var(--ss-light); border: 1.5px solid var(--ss-mid); border-radius: 20px; padding: .25rem .85rem; font-size: .78rem; font-weight: 700; color: var(--ss-dark); margin-bottom: .75rem; }
+
+    .glucose-strip { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: .45rem .85rem; font-size: .8rem; color: #166534; display: flex; align-items: center; gap: .5rem; }
+    .gi-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ss-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--ss-light); border-radius: 4px; }
+    .section-divider-cream { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--cream-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--cream-border); border-bottom: 1px solid var(--cream-border); background: var(--cream-light); border-radius: 4px; }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--ss-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--ss-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+
+    /* Strain table */
+    .strain-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+    .strain-table th { text-align: left; font-size: .73rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ss-dark); border-bottom: 2px solid var(--border); padding: .3rem .6rem; }
+    .strain-table td { padding: .38rem .6rem; border-bottom: 1px solid var(--ss-light); vertical-align: top; }
+    .strain-table tr:last-child td { border-bottom: none; }
+    .strain-name { font-style: italic; font-weight: 600; color: var(--ss-dark); }
+    .strain-id { font-size: .72rem; color: #9f1239; font-weight: 700; white-space: nowrap; }
+    .strain-role { color: #1e293b; }
+    .strain-why { font-size: .78rem; color: #475569; line-height: 1.5; }
+    .highlight-row td { background: #fdf2f8; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ss-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid var(--ss-light); font-size: .85rem; }
+    .ing-amount { font-weight: 700; color: var(--ss-dark); min-width: 4rem; flex-shrink: 0; }
+    .ing-note { margin-left: auto; font-size: .72rem; font-weight: 600; white-space: nowrap; padding: .1rem .4rem; border-radius: 6px; }
+    .ox-zero { background: #f1f5f9; color: #475569; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num { background: var(--ss-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--ss-dark); margin-bottom: .2rem; }
+
+    .critical-box { background: #fff1f2; border: 1.5px solid #fecdd3; border-radius: 12px; padding: .9rem 1.1rem; margin-bottom: .8rem; font-size: .84rem; line-height: 1.65; }
+    .critical-box h4 { color: #9f1239; font-size: .88rem; margin-bottom: .4rem; }
+    .flag-ok { background: #f0fdf4; border: 1px solid #86efac; border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .75rem; }
+    .flag-ok h4 { color: #166534; margin-bottom: .35rem; font-size: .84rem; }
+    .flag-note { background: var(--cream-light); border: 1px solid var(--cream-border); border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .75rem; }
+    .flag-note h4 { color: var(--cream-dark); margin-bottom: .35rem; font-size: .84rem; }
+
+    .notes-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.2rem; }
+    .notes-panel h3 { color: var(--ss-dark); font-size: .95rem; margin-bottom: .65rem; }
+    .notes-panel ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.7; color: #334155; display: flex; flex-direction: column; gap: .4rem; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: #4a1942; }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--ss-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--ss-dark); border: 1.5px solid var(--ss-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🦠🥛✨🫙</div>
+    <div class="recipe-hero-body">
+      <div class="ferment-badge">🧫 Fermented / Probiotic — 18 hrs</div>
+      <h1>Sugar Shift Probiotic Yogurt</h1>
+      <p>A custom probiotic yogurt built around the 8-strain Sugar Shift blend — fermented at 100°F for 18 hours in the Ferment Pro. The base is ultrapasteurized whole milk and cream, which provides a clean, bacteria-free medium that gives the Sugar Shift strains no competition. Prebio Plus feeds the strains during the long ferment. At 18 hours, most of the lactose has been consumed — the yogurt is tangy, thick, and carries a live culture count significantly higher than any store-bought option. The Ferment Pro auto-shifts to refrigeration when the timer ends, so a late-night start means cold yogurt waiting in the morning with nothing to manage. All six conditions. Essentially zero oxalate.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 20 min hands-on + 18 hr ferment (unattended)</span>
+        <span>🫙 Makes approx. 8 cups</span>
+        <span>🌡 Ferment Pro: 100°F / 18 hrs → auto-refrigerate</span>
+        <span>📅 Keeps 2 weeks refrigerated</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot"></span> Very low GI — 18-hour ferment consumes most lactose; high fat from cream buffers any residual. Safe at any time of day.
+      </div>
+    </div>
+  </div>
+
+  <!-- STRAIN TABLE -->
+  <div class="section-divider">🦠 The 8 Sugar Shift Strains — what each one is doing</div>
+
+  <div class="panel">
+    <div class="panel-header">🧬 Sugar Shift strain profile — why this blend is more targeted than standard yogurt cultures</div>
+    <div class="panel-body">
+      <p style="font-size:.83rem;color:#475569;margin-bottom:.85rem">Standard commercial yogurt uses 2 strains (<em>L. bulgaricus</em> and <em>S. thermophilus</em>) chosen for texture and mild acidity, not therapeutic function. Sugar Shift contains 8 strains with specific documented activities. The Prebio Plus feeds all of them during the 18-hour ferment, producing a higher viable count than capsule supplementation alone.</p>
+      <table class="strain-table">
+        <thead>
+          <tr><th style="width:32%">Strain</th><th style="width:12%">ID</th><th style="width:20%">Primary Role</th><th>Relevance to Your Protocol</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td><span class="strain-name">Lactobacillus reuteri</span></td>
+            <td><span class="strain-id">PCR07</span></td>
+            <td class="strain-role">Gut repair / wound healing</td>
+            <td class="strain-why">The most studied strain for intestinal lining repair. Produces reuterin (antimicrobial) and increases oxytocin. Directly relevant for Celiac gut lining recovery. Also shown to reduce systemic inflammation markers relevant to both APOE4 and fatty liver.</td>
+          </tr>
+          <tr>
+            <td><span class="strain-name">Bifidobacterium longum</span></td>
+            <td><span class="strain-id">—</span></td>
+            <td class="strain-role">Immune + gut axis</td>
+            <td class="strain-why">One of the dominant Bifidobacterium species in a healthy gut; typically depleted after antibiotic courses and in celiac disease. Produces short-chain fatty acids (SCFAs) that fuel colonocytes and maintain gut barrier integrity. Relevant to your post-fluoroquinolone microbiome recovery.</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><span class="strain-name">Bifidobacterium bifidum</span></td>
+            <td><span class="strain-id">—</span></td>
+            <td class="strain-role">Gut barrier / mucus layer</td>
+            <td class="strain-why">Maintains the intestinal mucus layer — the first physical barrier between gut contents and the bloodstream. Critical for gut lining repair. Also shown to reduce intestinal permeability ("leaky gut") — directly relevant to Celiac recovery and to the liver (reducing lipopolysaccharide translocation that drives NAFLD progression).</td>
+          </tr>
+          <tr>
+            <td><span class="strain-name">Lactobacillus plantarum</span></td>
+            <td><span class="strain-id">TBC LP-36</span></td>
+            <td class="strain-role">Glyphosate breakdown</td>
+            <td class="strain-why">L. plantarum has the metabolic machinery to degrade glyphosate residues in the gut. Given the ubiquity of glyphosate in the food supply, this is a meaningful benefit. Also a potent SCFA producer and anti-inflammatory via NF-κB suppression. Survives stomach acid well — one of the most resilient Lactobacillus strains.</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><span class="strain-name">Lactobacillus paracasei</span></td>
+            <td><span class="strain-id">—</span></td>
+            <td class="strain-role">Immune modulation</td>
+            <td class="strain-why">Modulates Th1/Th2 immune balance — relevant for autoimmune tendencies associated with Celiac disease. Shown to reduce allergic response and increase regulatory T-cells. Also contributes to gut-liver axis health by reducing inflammatory signalling to the liver.</td>
+          </tr>
+          <tr>
+            <td><span class="strain-name">Bacillus subtilis</span></td>
+            <td><span class="strain-id">DE111 (Deerland)</span></td>
+            <td class="strain-role">Gut / immune / metabolic support</td>
+            <td class="strain-why">A spore-forming strain — survives stomach acid and heat better than any Lactobacillus. DE111 specifically has clinical evidence for reducing fasting blood glucose and body fat percentage. Directly relevant to Dawn Phenomenon via a complementary pathway to Berberine and the other glucose-management interventions in your protocol. Also produces antimicrobial compounds (iturins, surfactins) that suppress pathogenic bacteria including Klebsiella.</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><span class="strain-name">Leuconostoc mesenteroides</span></td>
+            <td><span class="strain-id">TBC LM-37</span></td>
+            <td class="strain-role">Anti-inflammatory / anti-swelling</td>
+            <td class="strain-why">Produces mannitol and other metabolites that reduce systemic inflammation. Commonly used in traditional fermented vegetables (sauerkraut, kimchi). Adds fermentation diversity — a different metabolic profile from the Lactobacillus and Bifidobacterium strains, broadening the range of postbiotic compounds produced during the 18-hour ferment.</td>
+          </tr>
+          <tr>
+            <td><span class="strain-name">Pediococcus acidilactici</span></td>
+            <td><span class="strain-id">TBC PA-68</span></td>
+            <td class="strain-role">Antiviral / bacteriocin producer</td>
+            <td class="strain-why">Produces pediocin — a bacteriocin (antimicrobial peptide) effective against Listeria and other pathogens. Antiviral activity documented in vitro. Adds another layer of gut defence, complementing the reuterin from L. reuteri and the antimicrobial compounds from B. subtilis DE111.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- WHY THESE CHOICES -->
+  <div class="section-divider-cream">🥛 Why ultrapasteurized milk + cream + Prebio Plus</div>
+
+  <div class="flag-ok">
+    <h4>✅ Ultrapasteurized milk — the clean-slate advantage</h4>
+    Ultrapasteurized (UHT) milk has been heated to ~280°F — significantly higher than standard pasteurization (~160°F). This eliminates virtually all competing bacteria, including the hardy strains that survive standard pasteurization. For yogurt making this is an advantage: the Sugar Shift strains have no competition during the 18-hour ferment. You do not need to pre-heat UHT milk to 180°F and cool it before adding the starter — skip that step entirely. The milk is already a clean fermentation medium. This also means a more consistent and predictable outcome batch to batch.
+  </div>
+
+  <div class="flag-note" style="margin-top:.75rem">
+    <h4>💡 The cream addition — why this yogurt is thicker and richer than standard</h4>
+    Adding 2 cups of cream to 6 cups of milk raises the fat percentage significantly above standard whole milk (roughly 3.5% fat → approximately 10–12% fat in this blend). Higher fat content means: thicker texture without straining, slower glucose absorption from any residual lactose, richer mouthfeel that makes it a genuinely satisfying food rather than a medicinal one. The cream is full-fat and unmodified — no low-fat substitution. The fat is doing the work.
+  </div>
+
+  <div class="flag-ok" style="margin-top:.75rem">
+    <h4>✅ Prebio Plus — feeding the strains during fermentation</h4>
+    Prebio Plus provides prebiotic fibers (inulin-type fructans and related oligosaccharides) that selectively feed Bifidobacterium and Lactobacillus strains. Adding it to the ferment means the strains are feeding on a preferred food source during the full 18 hours — which increases the viable count in the finished yogurt compared to fermentation without prebiotics. This is a synbiotic approach: probiotic strains + their preferred prebiotic food in the same vessel at the same time.
+  </div>
+
+  <!-- STERILIZATION -->
+  <div class="section-divider">🧼 Sterilization — the most important step</div>
+
+  <div class="critical-box">
+    <h4>⚠️ Sterilize everything that touches the milk or yogurt</h4>
+    Jars, lids, whisk, spoons, ladles, measuring scoops — anything in contact with the milk before and during fermentation must be sterilized. A single non-sterile utensil introduces competing bacteria that can outcompete the Sugar Shift strains at 100°F, producing an off-flavour yogurt, a failed set, or occasionally a batch that smells wrong.
+    <ul style="margin-top:.6rem;padding-left:1.1rem;display:flex;flex-direction:column;gap:.3rem">
+      <li><strong>Dishwasher method:</strong> Run a full hot cycle with drying. Do not dry with a tea towel after — they carry bacteria. Retrieve directly from the dishwasher.</li>
+      <li><strong>Boiling water method:</strong> Pour boiling water into each jar and over each utensil. Tip out and allow to air dry on a clean rack. 60 seconds of contact with boiling water is sufficient.</li>
+      <li><strong>Do not use soap-rinsed equipment without fully rinsing:</strong> soap residue can inhibit culture activity. Rinse thoroughly after washing.</li>
+    </ul>
+  </div>
+
+  <!-- RECIPE -->
+  <div class="section-divider">🫙 Ingredients & Method</div>
+
+  <div class="recipe-layout">
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — approx. 8 cups finished yogurt</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Base</li>
+          <li class="ing-item"><span class="ing-amount">6 cups</span><span>Ultrapasteurized whole milk</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">2 cups</span><span>Heavy cream</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-section-label">Starter + Prebiotic</li>
+          <li class="ing-item"><span class="ing-amount">2 scoops</span><span>Sugar Shift probiotic powder (BioticOur)</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+          <li class="ing-item"><span class="ing-amount">2 scoops</span><span>Prebio Plus prebiotic powder (Body Ecology)</span><span class="ing-note ox-zero">⬜ ~zero</span></li>
+        </ul>
+
+        <div style="margin-top:1rem;background:var(--ss-light);border-radius:8px;padding:.65rem .85rem;font-size:.8rem;line-height:1.6;color:var(--ss-dark)">
+          <strong>🌡 Ferment Pro settings:</strong><br>
+          Temperature: <strong>100°F (38°C)</strong><br>
+          Timer: <strong>18 hours</strong><br>
+          Auto-shift to refrigeration: <strong>Yes</strong> — no need to be present at finish
+        </div>
+
+        <div style="margin-top:.85rem">
+          <div style="font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ss-dark);margin-bottom:.4rem">Oxalate per cup (approx.)</div>
+          <div style="font-size:.82rem;color:#166534;font-weight:600;background:#f0fdf4;border-radius:6px;padding:.45rem .7rem">
+            Essentially zero — whole milk, cream, and probiotic powder are all negligible oxalate sources. No dietary oxalate concern at any serving size.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METHOD -->
+    <div class="panel">
+      <div class="panel-header">🥛 Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Sterilize all equipment</div>
+              Jars, lids, whisk, measuring scoops, any utensils. Dishwasher hot cycle or boiling water rinse. Air dry — no tea towels.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Combine milk and cream — no heating needed</div>
+              Pour 6 cups ultrapasteurized whole milk and 2 cups heavy cream into the sterilized jar. No need to heat — UHT milk is already a clean medium.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Add Sugar Shift + Prebio Plus</div>
+              Add 2 scoops Sugar Shift and 2 scoops Prebio Plus. Whisk thoroughly until fully dissolved with no visible powder clumps. Even distribution = even colonisation of the batch.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Set Ferment Pro: 100°F / 18 hours</div>
+              Place the jar in the Ferment Pro. Set temperature to <strong>100°F</strong> and timer to <strong>18 hours</strong>. Seal and start. The unit will automatically shift to refrigeration mode when the timer completes.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Do not disturb — 18 hours</div>
+              Leave completely undisturbed for the full 18 hours. Do not open, stir, or move the jar. The culture matrix needs stillness to set properly.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Retrieve when ready — already chilled</div>
+              When you're ready, remove from the Ferment Pro. The yogurt is ready to eat or store. Refrigerator life: up to 2 weeks. For thicker texture, strain 2–4 hours (makes Sugar Shift labneh).
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVING AND VARIATIONS -->
+  <div class="notes-panel">
+    <h3>🍽️ How to use it — serving ideas</h3>
+    <ul>
+      <li><strong>Plain with a drizzle of raw honey:</strong> The tanginess of an 18-hour ferment pairs well with a small drizzle of raw honey — the same combination used in the Labneh Berry Parfait (Recipe 30). The honey is negligible glycaemic load alongside the fat and protein of this yogurt.</li>
+      <li><strong>With the Chop Chop Salad (Recipe 34):</strong> Use as the labneh component — spoon directly onto the salad in place of store-bought labneh or feta. The fresher, more complex flavour of the home-fermented yogurt elevates the salad.</li>
+      <li><strong>Strain it into Sugar Shift labneh:</strong> Line a fine mesh strainer with butter muslin or a clean kitchen cloth. Pour the finished yogurt in and refrigerate for 2–4 hours for a thick, spreadable labneh consistency. 8–12 hours produces a firm, cream-cheese-style labneh. All the same therapeutic value with more concentrated protein per gram.</li>
+      <li><strong>As a breakfast base:</strong> A cup of this yogurt with blueberries (75g) is a complete breakfast — probiotic delivery, APOE4-targeted pterostilbene, and a protein-fat base that buffers the Dawn Phenomenon glucose window effectively into late morning.</li>
+      <li><strong>Ceylon cinnamon addition:</strong> A pinch of Ceylon cinnamon stirred in at serving adds GLUT4 activation for blood sugar management — the bedtime dose strategy from the supplement table works equally well as a yogurt stir-in. The flavour pairing works.</li>
+      <li><strong>Starter for the next batch:</strong> Reserve 2–3 tablespoons of finished yogurt as a starter for the next batch in place of (or in addition to) the Sugar Shift powder. The strains multiply during the 18-hour ferment — re-using the yogurt as starter extends a batch economically. Re-powder with fresh Sugar Shift every 3–4 batches to keep the strain profile strong.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>🩸 No glucose monitoring needed — 18-hour ferment consumes most lactose; high fat content from cream buffers any residual. Suitable at any time of day including before bed with Ceylon cinnamon.</p>
+    <a class="btn btn-back" href="recipes.html">← Back to Recipes</a>
+  </div>
+
+</div>
+</body>
+</html>
