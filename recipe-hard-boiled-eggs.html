@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfect Hard Boiled Eggs</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Perfect Hard Boiled Eggs",
+    "description": "Hard boiled eggs with a fully set, bright yellow yolk and no grey-green ring — the grey ring is overcooked hydrogen sulphide reacting with the iron in the yolk and is easy to avoid. The method: cold start in cold water, bring to boil, 10 minutes at a low simmer (not rolling boil), then immediate ice bath to stop carry-over cooking. The ice bath also causes the egg to contract slightly away from the shell membrane, making peeling clean. Eggs are one of the most complete therapeutic foods in this collection: the highest dietary source of choline (APOE4 neuroprotection, fatty liver — NAFLD is directly driven by choline deficiency), a reliable source of folate and betaine (MTHFR methylation support), lutein and zeaxanthin in the yolk (APOE4 brain antioxidant), zero carbohydrates (DP blood sugar anchor), and zero oxalate (kidney stone safe). Frequency note for APOE4: 4–5 eggs per week rather than daily — APOE4 carriers have higher dietary cholesterol absorption efficiency.",
+    "recipeYield": "4 eggs",
+    "prepTime": "PT2M",
+    "cookTime": "PT12M",
+    "totalTime": "PT14M",
+    "recipeCategory": "Breakfast / Snack / Meal Component",
+    "recipeCuisine": "Universal",
+    "keywords": "hard boiled eggs, APOE4, choline, gluten-free, kidney stone, fatty liver, MTHFR, dawn phenomenon, zero GI, no grey ring",
+    "recipeIngredient": [
+      "4 large eggs — cold from the refrigerator",
+      "Cold water to cover by 3cm",
+      "Ice and cold water for the ice bath"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Cold start",
+        "text": "Place cold eggs directly from the refrigerator into a saucepan in a single layer. Cover with cold water by at least 3cm. Starting cold (rather than lowering eggs into boiling water) reduces cracking and allows more even heat penetration to the centre."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Bring to a gentle boil",
+        "text": "Place the pan over medium-high heat and bring to a full boil. As soon as you see a full rolling boil, reduce heat to a gentle simmer — small consistent bubbles, not a rolling boil. A hard rolling boil makes the eggs knock against each other and cracks them, and causes tougher whites."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Simmer 10 minutes",
+        "text": "Simmer gently for exactly 10 minutes for a fully set bright yellow yolk. 8 minutes gives a slightly jammy centre. 12 minutes is the maximum before the grey-green ring begins to form. Set a timer — the difference between 10 and 13 minutes is the difference between a good egg and an overcooked one."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Ice bath — stop the cooking immediately",
+        "text": "As soon as the timer goes off, transfer eggs immediately to a bowl of ice water (a large bowl with a full tray of ice and cold water). Leave for at least 5 minutes, or up to 15. The ice bath stops carry-over cooking instantly — without it, the residual heat in the egg continues cooking the yolk for several minutes, pushing it toward the grey ring zone. The cold also causes the egg to contract slightly away from the shell membrane, which is what makes peeling clean."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Peel",
+        "text": "Peel under cool running water or in the bowl of water. Tap the wide end (where the air pocket is) first — cracking here and peeling from this end gives you the cleanest start. Peel in one continuous motion, keeping your thumb between the membrane and the white. Fresh eggs are harder to peel than eggs that are 7–10 days old — the membrane adheres more tightly when fresh. If your eggs are very fresh, the ice bath becomes even more important."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --egg-yellow:   #ca8a04;
+      --egg-light:    #fefce8;
+      --egg-mid:      #fde047;
+      --egg-pale:     #fefce8;
+      --green-dark:   #2d6a4f;
+      --green-light:  #d8f3dc;
+      --green-pale:   #f0faf2;
+      --amber-border: #fde68a;
+      --text:         #1c1509;
+      --muted:        #6b5a1a;
+      --border:       #fde68a;
+      --shadow:       0 2px 12px rgba(202,138,4,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--egg-light); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--egg-pale); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--egg-yellow); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--egg-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #2e7d32; }
+    .gi-dot { width: 9px; height: 9px; border-radius: 50%; background: #27ae60; flex-shrink: 0; }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(202,138,4,.07); overflow: hidden; margin-bottom: 1.5rem; }
+    .panel-header { background: var(--egg-yellow); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; letter-spacing: .02em; }
+    .panel-header-green { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; letter-spacing: .02em; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .ing-item { font-size: .88rem; display: grid; grid-template-columns: 70px 1fr; gap: .5rem; align-items: baseline; border-bottom: 1px solid var(--egg-pale); padding-bottom: .45rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--egg-yellow); font-size: .85rem; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--egg-yellow); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--egg-yellow); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .section-divider { background: var(--egg-yellow); color: #fff; border-radius: 10px; padding: .6rem 1.1rem; font-weight: 700; font-size: .9rem; letter-spacing: .03em; margin-bottom: 1.2rem; margin-top: .5rem; }
+    .section-divider-green { background: var(--green-dark); color: #fff; border-radius: 10px; padding: .6rem 1.1rem; font-weight: 700; font-size: .9rem; letter-spacing: .03em; margin-bottom: 1.2rem; margin-top: .5rem; }
+
+    /* DONENESS VISUAL */
+    .doneness-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: .65rem; margin: .85rem 0; }
+    @media (max-width: 500px) { .doneness-row { grid-template-columns: 1fr 1fr; } }
+    .doneness-card { border-radius: 11px; border: 2px solid; padding: .6rem .7rem; text-align: center; }
+    .dc-jammy    { border-color: #fcd34d; background: #fffbeb; }
+    .dc-medium   { border-color: #fbbf24; background: #fef9c3; }
+    .dc-hard     { border-color: var(--egg-yellow); background: #fef3c7; }
+    .dc-over     { border-color: #6b7280; background: #f9fafb; }
+    .dc-time     { font-size: .8rem; font-weight: 800; color: var(--egg-yellow); }
+    .dc-over .dc-time { color: #6b7280; }
+    .dc-label    { font-size: .72rem; font-weight: 700; margin: .2rem 0; }
+    .dc-desc     { font-size: .65rem; color: var(--muted); line-height: 1.4; }
+    .dc-rec      { font-size: .63rem; font-weight: 700; background: var(--green-pale); color: var(--green-dark); border-radius: 6px; padding: .15rem .4rem; margin-top: .3rem; display: inline-block; }
+
+    /* CONDITION GRID */
+    .condition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+    @media (max-width: 560px) { .condition-grid { grid-template-columns: 1fr; } }
+    .cond-card { border-radius: 11px; border: 1px solid; padding: .7rem .85rem; font-size: .83rem; line-height: 1.6; }
+    .cond-apoe4  { background: #e8f5e9; border-color: #a7f3d0; }
+    .cond-celiac { background: #fff3e0; border-color: #fcd34d; }
+    .cond-dp     { background: #e3f2fd; border-color: #90caf9; }
+    .cond-liver  { background: #fef9c3; border-color: var(--amber-border); }
+    .cond-mthfr  { background: #f3e5f5; border-color: #d8b4fe; }
+    .cond-kidney { background: #fce4ec; border-color: #f9a8d4; }
+    .cond-card h4 { font-size: .8rem; font-weight: 800; margin-bottom: .3rem; }
+    .cond-apoe4 h4  { color: #2e7d32; }
+    .cond-celiac h4 { color: #e65100; }
+    .cond-dp h4     { color: #1565c0; }
+    .cond-liver h4  { color: #78350f; }
+    .cond-mthfr h4  { color: #6a1b9a; }
+    .cond-kidney h4 { color: #880e4f; }
+
+    /* SERVING GRID */
+    .serve-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-bottom: 1.5rem; }
+    @media (max-width: 520px) { .serve-grid { grid-template-columns: 1fr 1fr; } }
+    .serve-card { background: #fff; border: 1px solid var(--border); border-radius: 11px; padding: .65rem .8rem; font-size: .82rem; line-height: 1.5; }
+    .serve-card .se-emoji { font-size: 1.5rem; display: block; margin-bottom: .25rem; }
+    .serve-card strong { color: var(--egg-yellow); display: block; font-size: .79rem; margin-bottom: .15rem; }
+
+    /* FREQUENCY CALLOUT */
+    .freq-callout { background: #fff; border: 2px solid var(--egg-yellow); border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .freq-callout h3 { font-size: .84rem; text-transform: uppercase; letter-spacing: .05em; color: var(--egg-yellow); margin-bottom: .6rem; font-weight: 700; }
+    .freq-callout p { font-size: .87rem; color: var(--muted); line-height: 1.65; }
+
+    /* GREY RING EXPLAINER */
+    .science-box { background: #fef9c3; border: 1px solid var(--amber-border); border-radius: 12px; padding: .9rem 1.1rem; font-size: .85rem; line-height: 1.65; margin-bottom: 1.5rem; }
+    .science-box h4 { color: #78350f; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .45rem; font-weight: 700; }
+
+    .notes-panel { background: var(--egg-pale); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--egg-yellow); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; padding-left: 0; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--egg-yellow); font-weight: 700; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--egg-yellow); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🥚🍳🧊</div>
+    <div class="recipe-hero-body">
+      <h1>Perfect Hard Boiled Eggs — No Grey Ring</h1>
+      <p>The grey-green ring around the yolk is overcooked hydrogen sulphide bonding with iron in the yolk — it's a chemistry problem, and the fix is exact timing plus an ice bath. This method: cold eggs into cold water, bring to a gentle boil, 10 minutes at a low simmer, then immediate ice bath to stop carry-over cooking. The result is a bright yellow, fully set yolk with no rubbery white and no grey ring. The ice bath also contracts the egg slightly away from the shell membrane — making clean peeling dramatically easier.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 2 min prep</span>
+        <span>🔥 12 min total (boil + simmer)</span>
+        <span>🧊 5–15 min ice bath</span>
+        <span>🥚 4 eggs / scale freely</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot"></span> Zero GI — no carbohydrates, pure protein and fat. The ideal DP morning protein anchor.
+      </div>
+    </div>
+  </div>
+
+  <!-- FREQUENCY NOTE -->
+  <div class="freq-callout">
+    <h3>⚠️ APOE4 frequency note — 4 to 5 eggs per week, not daily</h3>
+    <p>APOE4 carriers have a genetic upregulation of dietary cholesterol absorption — they absorb a meaningfully higher proportion of dietary cholesterol than people without the allele. Eggs are the most concentrated source of dietary cholesterol in most diets (~186mg per egg). The standard APOE4-specific recommendation is <strong>4–5 eggs per week</strong> rather than daily, to keep the cholesterol load from eggs from exceeding what the liver can efficiently manage. This doesn't mean eggs are harmful — the choline and lutein in eggs are actively beneficial for APOE4 — it means the frequency matters. Hard boiling a batch of 4 eggs for 4 days of the week is the natural fit: easy to prep, keeps in the fridge for 5 days.</p>
+  </div>
+
+  <!-- WHY EGGS FOR ALL SIX CONDITIONS -->
+  <div class="section-divider">🧬 Why eggs qualify for all six conditions</div>
+
+  <div class="panel" style="margin-bottom:1.5rem">
+    <div class="panel-header">🥚 What the egg yolk is actually delivering</div>
+    <div class="panel-body">
+      <div class="condition-grid">
+        <div class="cond-card cond-apoe4">
+          <h4>🧠 APOE4 — choline + lutein + zeaxanthin</h4>
+          Choline is the dietary precursor to acetylcholine — the neurotransmitter most depleted in Alzheimer's disease. APOE4 carriers have accelerated cholinergic neuron loss; dietary choline supports acetylcholine synthesis and helps maintain the integrity of neuronal membranes (choline is a phospholipid precursor). One egg yolk provides ~147mg choline. Adequate is ~425mg/day for women. Two eggs covers ~70% of that target. Lutein and zeaxanthin in the yolk (the yellow pigment compounds) are concentrated in brain tissue and retina, and act as direct antioxidants at sites of APOE4-associated oxidative stress.
+        </div>
+        <div class="cond-card cond-liver">
+          <h4>🫁 Fatty Liver — choline deficiency is a direct NAFLD driver</h4>
+          Choline deficiency is one of the most well-established dietary causes of non-alcoholic fatty liver disease. The liver requires choline to assemble VLDL particles — the transport vehicle used to export triglycerides out of the liver. When choline is insufficient, triglycerides accumulate in hepatocytes (liver cells) rather than being exported. This is the hepatic steatosis mechanism. Eggs are the most concentrated whole-food source of choline available. This makes hard boiled eggs genuinely therapeutic for fatty liver, not merely neutral.
+        </div>
+        <div class="cond-card cond-mthfr">
+          <h4>🧬 MTHFR — folate + choline-to-betaine methylation pathway</h4>
+          Egg yolks contain dietary folate directly. More importantly for MTHFR, choline is converted in the body to betaine, which is a methyl group donor in the methylation cycle — operating via the BHMT pathway, which is a bypass route that doesn't require the MTHFR enzyme. This means that even when the MTHFR enzyme is impaired (C677T), betaine from dietary choline can still donate methyl groups to homocysteine conversion. Adequate choline intake is therefore a partial compensatory strategy for MTHFR.
+        </div>
+        <div class="cond-card cond-dp">
+          <h4>🩸 Dawn Phenomenon — zero carbohydrates, pure protein anchor</h4>
+          Hard boiled eggs contain zero carbohydrates — no glucose load whatsoever. As a morning protein source, they provide satiety and amino acids without any insulin trigger. For DP management, the priority at breakfast is protein and fat with no carbohydrate spike. A hard boiled egg alongside avocado (Recipe 7) or with labneh is one of the cleanest morning combinations available: high protein, high healthy fat, zero GI, zero oxalate.
+        </div>
+        <div class="cond-card cond-celiac">
+          <h4>🌾 Celiac / GF — completely safe, no contamination risk</h4>
+          Eggs are naturally gluten-free with zero contamination risk in their whole form. No label checking required — unlike processed egg products (liquid egg in cartons, some mayonnaises, egg-containing baked goods) where wheat additives can appear. A whole egg boiled in water is Celiac-safe without qualification.
+        </div>
+        <div class="cond-card cond-kidney">
+          <h4>🫘 Kidney Stone — zero oxalate, high quality protein</h4>
+          Eggs contain essentially zero oxalate — one of very few complete protein sources that is entirely safe for oxalate management. The protein in eggs provides all essential amino acids without the oxalate penalty of plant proteins (legumes, some nuts, some seeds). For kidney stone prevention, replacing a high-oxalate protein source (e.g. almonds as a snack) with eggs is a straightforward oxalate reduction strategy.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE -->
+  <div class="section-divider">🥚 Method — exact timing matters</div>
+
+  <div class="recipe-layout">
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item"><span class="ing-amount">4</span><span>Large eggs — cold from the fridge</span></li>
+          <li class="ing-item"><span class="ing-amount">enough</span><span>Cold water to cover eggs by 3cm</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tray</span><span>Ice + cold water for the ice bath</span></li>
+        </ul>
+
+        <!-- DONENESS GUIDE -->
+        <div style="font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:.9rem 0 .4rem">Simmer time → doneness</div>
+        <div class="doneness-row">
+          <div class="doneness-card dc-jammy">
+            <div class="dc-time">8 min</div>
+            <div class="dc-label">Jammy yolk</div>
+            <div class="dc-desc">Set edges, slightly soft centre. Good for salads or sliced on toast.</div>
+          </div>
+          <div class="doneness-card dc-medium">
+            <div class="dc-time">9 min</div>
+            <div class="dc-label">Medium-hard</div>
+            <div class="dc-desc">Fully set but still very moist and bright yellow throughout.</div>
+          </div>
+          <div class="doneness-card dc-hard">
+            <div class="dc-time">10 min</div>
+            <div class="dc-label">Hard boiled</div>
+            <div class="dc-desc">Fully set, bright yellow, no softness. Clean slice. Best for meal prep.</div>
+            <div class="dc-rec">✓ Recommended</div>
+          </div>
+          <div class="doneness-card dc-over">
+            <div class="dc-time">12+ min</div>
+            <div class="dc-label">Overcooked</div>
+            <div class="dc-desc">Grey-green ring begins. Rubbery white. Chalky yolk. Avoid.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:.9rem;background:#e8f5e9;border:1px solid #a7f3d0;border-radius:8px;padding:.6rem .8rem;font-size:.76rem;color:#1b4332;line-height:1.55">
+          <strong>🥚 Batch cooking tip:</strong> Hard boiled eggs keep in the fridge unpeeled for up to 5 days. Peel only what you need immediately — the shell helps retain moisture and extends shelf life. A batch of 4 on Sunday covers Monday through Thursday.
+        </div>
+        <div style="margin-top:.6rem;background:#fef9c3;border:1px solid var(--amber-border);border-radius:8px;padding:.6rem .8rem;font-size:.76rem;color:#78350f;line-height:1.55">
+          <strong>🫙 Easy peel tip:</strong> Eggs that are 7–10 days old peel more cleanly than very fresh eggs — the membrane is less adhesive. If you buy a carton and it won't be used immediately, set it aside for a week before boiling.
+        </div>
+      </div>
+    </div>
+
+    <!-- METHOD -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Prepare the ice bath first</div>
+              Before you start cooking, fill a large bowl with cold water and a full tray of ice. Have it ready next to the stove. You will need to transfer eggs immediately when the timer goes off — having to find ice while the eggs are sitting in hot water defeats the purpose of the ice bath entirely.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Cold eggs into cold water</div>
+              Place cold eggs (straight from the fridge — don't let them come to room temperature) in a single layer in a saucepan. Cover with <strong>cold water by at least 3cm</strong>. Starting cold prevents thermal shock cracking and allows the centre of the egg to heat more evenly relative to the white.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Bring to a boil — then reduce immediately</div>
+              Place over medium-high heat and bring to a <strong>full rolling boil</strong>. The moment you see a full boil, reduce heat to a <strong>gentle simmer</strong> — small steady bubbles rather than a rolling boil. A hard rolling boil tosses the eggs against each other (cracking), toughens the whites, and makes the timing less predictable.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Set a timer — 10 minutes from the first boil</div>
+              <strong>Start the timer the moment the water first reaches a full boil</strong> — not when you put the eggs in, not when you see the first few bubbles. Exactly 10 minutes from full boil gives a fully set, bright yellow yolk. Do not leave the kitchen while the timer runs — the gap between 10 and 12 minutes matters.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Ice bath — immediately when the timer goes off</div>
+              The moment the timer sounds, use a slotted spoon to transfer eggs directly into the ice bath. <strong>Do not run them under cold tap water instead</strong> — tap water is rarely cold enough to stop the carry-over cooking quickly. The ice bath drops the egg surface temperature fast enough to halt cooking within about 30 seconds. Leave in the ice bath for at least 5 minutes, or up to 15 if you're not in a hurry.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Peel</div>
+              Tap the <strong>wide end</strong> of the egg first (the rounded end where the air pocket sits) and begin peeling from there. Peel under cool running water or while the egg is still partially submerged — water gets between the membrane and the white and helps the shell release cleanly. If a patch of shell is sticking, work from an adjacent area that released cleanly rather than forcing it.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- GREY RING SCIENCE -->
+  <div class="science-box">
+    <h4>🔬 Why the grey ring forms — and why 10 minutes prevents it</h4>
+    The grey-green ring between the yolk and white is iron sulphide (FeS). When eggs are overcooked, hydrogen sulphide gas (H₂S) forms from sulphur-containing amino acids in the white and migrates toward the yolk. The yolk contains iron. At high temperature or prolonged exposure, the H₂S reacts with yolk iron to form iron sulphide — the grey-green ring. The ring is not harmful to eat but it means the egg has been overcooked, the texture of the yolk will be chalky and dry, and some of the fat-soluble nutrients (including lutein) are degraded by the extended heat exposure. The 10-minute rule keeps the egg below the temperature/time threshold where this reaction becomes visible. The ice bath stops the carry-over cooking that would push a correctly timed egg into the grey zone.
+  </div>
+
+  <!-- SERVING -->
+  <div class="section-divider-green">🍽 What to eat hard boiled eggs with</div>
+
+  <div class="serve-grid">
+    <div class="serve-card">
+      <span class="se-emoji">🥑</span>
+      <strong>Avocado + sea salt</strong>
+      The classic pairing. EVOO drizzle and black pepper optional. High protein + oleic acid breakfast — ideal DP morning plate.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🧈</span>
+      <strong>With tart labneh</strong>
+      Slice the egg and serve alongside a spoonful of savoury labneh. The protein from the egg + the probiotic cultures from the labneh in the same meal.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🥒</span>
+      <strong>On roasted zucchini</strong>
+      Halve a warm hard boiled egg over roasted zucchini (Recipe 24). The egg yolk acts as a sauce and the parmesan crust carries the flavour.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🥗</span>
+      <strong>In a leafy salad</strong>
+      Quartered over rocket or spinach with cherry tomatoes, cucumber, EVOO, and lemon. The egg provides the protein that makes a salad a meal rather than a side.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🌯</span>
+      <strong>Inside rice paper rolls</strong>
+      Halved or quartered hard boiled egg inside a rice paper roll (Recipe 23) instead of or alongside the salmon. Complements the tamari-ginger-lime sauce well.
+    </div>
+    <div class="serve-card">
+      <span class="se-emoji">🫙</span>
+      <strong>Packed lunch / meal prep</strong>
+      4 eggs boiled Sunday, stored unpeeled, one per day through Thursday. Peel at the table. Add a cassava cracker (Recipe 21) and a small pot of labneh — complete protein + probiotic + low-oxalate crunch.
+    </div>
+  </div>
+
+  <div class="notes-panel">
+    <h3>🥚 Practical notes</h3>
+    <ul>
+      <li><strong>Scaling:</strong> This method works for any number of eggs. Keep them in a single layer — don't stack. Add 1 minute to the simmer time if you are cooking more than 6 eggs in a smaller pot (more eggs cool the water more when added, slightly delaying the return to boil).</li>
+      <li><strong>Altitude:</strong> If you are above ~1500m elevation, water boils at a lower temperature (~95°C rather than 100°C). Add 1–2 minutes to the simmer time — the eggs cook at a lower boiling point and need longer.</li>
+      <li><strong>Storing hard boiled eggs:</strong> Unpeeled in the fridge — up to 5 days. Do not freeze. Peeled eggs dry out faster — store peeled in a container with a damp paper towel covering them, use within 3 days.</li>
+      <li><strong>Peeling very fresh eggs:</strong> If the eggs are extremely fresh (farm-fresh or bought that day), the inner membrane adheres tightly to the white. The ice bath helps but it won't fully solve this. Rolling the egg firmly on the bench to crack the shell all over before peeling can help break the membrane away from the white evenly.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>🩸 Zero GI — no testing needed. Eggs cause no measurable glucose response when eaten without carbohydrates.</p>
+    <a class="btn btn-back" href="recipes.html">← Back to Recipes</a>
+  </div>
+
+</div>
+</body>
+</html>
