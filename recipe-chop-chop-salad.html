@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mediterranean Chop Chop Salad</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Mediterranean Chop Chop Salad",
+    "description": "Every vegetable cut to a consistent half-centimetre dice so each forkful is complete — cucumber, tomato, red and yellow bell pepper, red onion, kalamata olives, flat-leaf parsley, fresh mint, optional chickpeas, topped with labneh or feta crumbles. Dressed with EVOO, fresh lemon juice and zest, crushed garlic (5-min rest before adding), dried oregano, and optional sumac. No cooking. Naturally gluten-free. All six conditions. The EVOO dressing is functional: fat-soluble carotenoids from tomatoes and peppers are absorbed 3–6× more efficiently in the presence of fat. Garlic in a cold dressing is actually the ideal allicin format — crush, rest 5 min, add cold — full allicin preserved with no heat degradation. Parsley at 30g total is a therapeutic folate dose (MTHFR). ~11mg oxalate per serve without chickpeas, ~16mg with. Serves 4 as a side, 2 as a main.",
+    "recipeYield": "4 side serves / 2 main serves",
+    "prepTime": "PT20M",
+    "cookTime": "PT0M",
+    "totalTime": "PT20M",
+    "recipeCategory": "Salad",
+    "recipeCuisine": "Mediterranean",
+    "keywords": "chop chop salad, Mediterranean salad, chopped salad, APOE4, gluten-free, low oxalate, no cook, MTHFR folate, EVOO carotenoids, labneh, feta",
+    "recipeIngredient": [
+      "1 large English cucumber (300g) — halved lengthwise, deseeded, ½cm dice",
+      "2 ripe roma tomatoes (200g) — halved, deseeded, ½cm dice",
+      "1 large red bell pepper (150g) — ½cm dice",
+      "1 medium yellow bell pepper (120g) — ½cm dice",
+      "½ red onion (80g) — fine dice, soaked in cold water 10 min",
+      "60g kalamata olives, pitted, roughly chopped",
+      "30g fresh flat-leaf parsley, roughly chopped",
+      "15g fresh mint leaves, roughly torn",
+      "80g labneh or feta crumbles",
+      "Optional: 200g canned chickpeas, rinsed well",
+      "3 tbsp EVOO",
+      "2 tbsp fresh lemon juice",
+      "Zest of 1 lemon",
+      "1 clove garlic, crushed — rest 5 minutes before adding to dressing",
+      "½ tsp dried oregano",
+      "Pinch sumac (optional)",
+      "Salt and freshly ground black pepper"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Soak the red onion",
+        "text": "Dice the red onion finely and place in a small bowl covered with cold water. Leave for 10 minutes. This draws out the harsh sulfur compounds that make raw red onion overpowering and replaces them with a milder, slightly sweet flavour. Drain and pat dry before using."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Make the dressing — garlic first",
+        "text": "Crush the garlic clove and set it aside for 5 full minutes. This is the allicin activation step: crushing triggers the alliinase enzyme that converts alliin to allicin, but the reaction needs time to complete. After 5 minutes, combine with EVOO, lemon juice, lemon zest, dried oregano, and sumac if using. Whisk briefly with a fork. Season with salt and pepper. The garlic goes in cold and stays cold — this preserves the allicin that heat would degrade."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Prep all vegetables to consistent ½cm dice",
+        "text": "The chop chop principle: every ingredient cut to roughly the same size so every forkful contains cucumber, tomato, pepper, onion, and olive simultaneously. Deseed the cucumber (halve lengthwise, run a teaspoon down the centre) and deseed the tomatoes (halve, squeeze gently, scoop seeds with a spoon) before dicing — removing the watery seed pulp is what keeps the salad from going soggy within 20 minutes. Dice all prepared vegetables to approximately ½cm. Roughly chop the olives to a similar size."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Combine and dress",
+        "text": "In a large bowl, combine cucumber, tomatoes, red and yellow peppers, drained red onion, olives, and chickpeas if using. Pour the dressing over and toss well to coat every piece."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add herbs last",
+        "text": "Add the flat-leaf parsley and torn mint leaves and toss gently. Herbs bruise and wilt quickly when mixed with acid — adding them at the end preserves their texture and keeps them bright green."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Top with labneh or feta and serve",
+        "text": "Spoon or crumble the labneh or feta over the top. Do not mix it in — it will break down and cloud the dressing. Serve immediately, or chill up to 1 hour with herbs and labneh added only at the moment of serving."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --med-dark:    #1e3a8a;
+      --med-mid:     #2563eb;
+      --med-light:   #bfdbfe;
+      --med-pale:    #eff6ff;
+      --olive-dark:  #3f6212;
+      --olive-mid:   #65a30d;
+      --olive-light: #d9f99d;
+      --lemon:       #ca8a04;
+      --lemon-pale:  #fefce8;
+      --lemon-border:#fde68a;
+      --text:        #1e293b;
+      --muted:       #1e40af;
+      --border:      #bfdbfe;
+      --shadow:      0 2px 12px rgba(30,58,138,.1);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--med-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--med-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--med-light); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--med-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--med-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .salad-badge { display: inline-flex; align-items: center; gap: .4rem; background: var(--med-light); border: 1.5px solid var(--med-mid); border-radius: 20px; padding: .25rem .85rem; font-size: .78rem; font-weight: 700; color: var(--med-dark); margin-bottom: .75rem; }
+
+    .glucose-strip { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: .45rem .85rem; font-size: .8rem; color: #166534; display: flex; align-items: center; gap: .5rem; }
+    .gi-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--med-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--med-light); border-radius: 4px; }
+    .section-divider-olive { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--olive-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--olive-light); border-bottom: 1px solid var(--olive-light); background: #f7fee7; border-radius: 4px; }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--med-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--med-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+
+    .spotlight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .9rem; }
+    .spot-card { border-radius: 10px; padding: .85rem 1rem; font-size: .82rem; color: var(--text); line-height: 1.6; }
+    .spot-card h4 { font-size: .84rem; margin-bottom: .4rem; }
+    .spot-garlic  { background: #fefce8; border-left: 4px solid #ca8a04; }
+    .spot-evoo    { background: #f7fee7; border-left: 4px solid var(--olive-mid); }
+    .spot-carot   { background: #fff7ed; border-left: 4px solid #ea580c; }
+    .spot-parsley { background: #f0fdf4; border-left: 4px solid #16a34a; }
+
+    .technique-box { background: var(--med-pale); border: 1.5px solid var(--med-light); border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-size: .85rem; line-height: 1.7; }
+    .technique-box h4 { color: var(--med-dark); font-size: .88rem; margin-bottom: .5rem; }
+    .technique-box ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: .35rem; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--med-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .28rem 0; border-bottom: 1px solid #eff6ff; font-size: .85rem; }
+    .ing-amount { font-weight: 700; color: var(--med-dark); min-width: 3.5rem; flex-shrink: 0; }
+    .ing-note { margin-left: auto; font-size: .72rem; font-weight: 600; white-space: nowrap; padding: .1rem .4rem; border-radius: 6px; }
+    .ox-zero  { background: #f1f5f9; color: #475569; }
+    .ox-low   { background: #dcfce7; color: #166534; }
+    .ox-mod   { background: #fef9c3; color: #854d0e; }
+    .ox-opt   { background: #f3e8ff; color: #6b21a8; }
+
+    .ox-table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: .4rem; }
+    .ox-table th { text-align: left; font-size: .72rem; color: var(--med-dark); border-bottom: 2px solid var(--border); padding: .25rem .4rem; }
+    .ox-table td { padding: .22rem .4rem; border-bottom: 1px solid #eff6ff; }
+    .ox-low-cell  { color: #166534; font-weight: 600; }
+    .ox-mod-cell  { color: #854d0e; font-weight: 600; }
+    .ox-zero-cell { color: #475569; font-weight: 600; }
+    .ox-opt-cell  { color: #6b21a8; font-weight: 600; }
+    .total-row td { border-top: 2px solid var(--border); border-bottom: none; padding-top: .35rem; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .85rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num { background: var(--med-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--med-dark); margin-bottom: .2rem; }
+
+    .flag-box { border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .75rem; }
+    .flag-ok   { background: #f0fdf4; border: 1px solid #86efac; }
+    .flag-ok h4 { color: #166534; margin-bottom: .35rem; font-size: .84rem; }
+    .flag-note { background: var(--lemon-pale); border: 1px solid var(--lemon-border); }
+    .flag-note h4 { color: var(--lemon); margin-bottom: .35rem; font-size: .84rem; }
+
+    .notes-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.2rem; }
+    .notes-panel h3 { color: var(--med-dark); font-size: .95rem; margin-bottom: .65rem; }
+    .notes-panel ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.7; color: #334155; display: flex; flex-direction: column; gap: .4rem; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--med-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--med-dark); border: 1.5px solid var(--med-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🥒🍅🫑🫒🌿</div>
+    <div class="recipe-hero-body">
+      <div class="salad-badge">🌊 Mediterranean Salad</div>
+      <h1>Mediterranean Chop Chop Salad</h1>
+      <p>A classic from the Mediterranean tradition — everything cut to the same consistent small dice so each forkful gets a complete bite of cucumber, tomato, pepper, onion, olive, and herb at once. No cooking at any stage. The EVOO dressing is doing real functional work: the fat-soluble carotenoids in the tomatoes and peppers — lycopene, beta-carotene, lutein — are absorbed 3–6× more efficiently alongside EVOO than without fat present. The garlic in the cold dressing is actually the optimal allicin format: crush, wait 5 minutes, add cold — maximum allicin preserved with zero heat degradation. Flat-leaf parsley at a full 30g is a meaningful folate dose for MTHFR. All six conditions. Ready in 20 minutes with no cooking. Naturally gluten-free with nothing to check.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 20 min — no cooking</span>
+        <span>🥗 Serves 4 as a side / 2 as a main</span>
+        <span>🌡 Serve immediately or chill up to 1 hour</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot"></span> Very low GI — raw vegetables + EVOO dressing. One of the lowest-glucose-impact dishes possible. No monitoring needed.
+      </div>
+    </div>
+  </div>
+
+  <!-- TECHNIQUE -->
+  <div class="section-divider">🔪 The Chop Chop Principle — why the dice size matters</div>
+
+  <div class="technique-box">
+    <h4>Every forkful should be a complete salad</h4>
+    The defining characteristic of a chop chop salad is uniformity: every ingredient cut to approximately the same size — roughly ½cm, about the size of a large corn kernel. This is not aesthetic fussiness. When the pieces are all the same size, every forkful contains cucumber, tomato, pepper, onion, olive, and herb together. The flavour balance that was designed when building the recipe is present in each bite rather than a mouthful of mostly cucumber followed by mostly tomato.
+    <ul style="margin-top:.5rem">
+      <li><strong>Deseed the cucumber and tomatoes</strong> — this is the most important technique step. Cucumber seed pulp and tomato gel are mostly water; left in, they dilute the dressing and turn the salad watery within 20 minutes. Half the cucumber lengthwise, run a teaspoon down the seed channel. Halve the tomatoes and squeeze gently over the sink, then scoop any remaining seeds. Takes 2 minutes and completely changes how the salad holds.</li>
+      <li><strong>Soak the red onion for 10 minutes in cold water</strong> — draws out the harsh sulfur compounds. The onion that comes out is mild, slightly sweet, and doesn't overpower the whole salad. Skip this step if you enjoy assertive raw onion; follow it if you don't.</li>
+      <li><strong>Garlic: crush → 5-minute rest → add cold</strong> — the cold dressing format is actually better for allicin preservation than adding garlic to a pan even with the rest time observed. No heat degradation at any point.</li>
+      <li><strong>Add herbs last, labneh or feta on top only</strong> — parsley and mint bruise fast under acid. Labneh breaks down and clouds the dressing if mixed through. Both go on at the very end.</li>
+    </ul>
+  </div>
+
+  <!-- SPOTLIGHTS -->
+  <div class="section-divider-olive">🌿 What each component is doing</div>
+
+  <div class="panel">
+    <div class="panel-header">🧬 Functional ingredients — each earns its place</div>
+    <div class="panel-body">
+      <div class="spotlight-grid">
+        <div class="spot-card spot-garlic">
+          <h4>🧄 Garlic in cold dressing — ideal allicin preservation</h4>
+          The allicin formation window is established throughout this collection: crush or chop, wait 5 minutes, then add. In this recipe, the garlic goes into the cold dressing and stays cold — which is actually the ideal scenario, better than adding to a hot pan even with the rest time observed. Heat above ~60°C begins degrading allicin; in a cold lemon-EVOO dressing, the allicin is fully preserved from the moment it forms until it is consumed. <strong>Allicin mechanisms:</strong> AMPK activation (reduces hepatic glucose output — Dawn Phenomenon relevant), glutathione S-transferase induction (liver detox support — MTHFR glutathione impairment compensated), inhibition of hepatic lipogenesis (fatty liver). The garlic in this dressing is doing the same therapeutic work as garlic added to a cooked dish — possibly more, because no heat is involved.
+        </div>
+        <div class="spot-card spot-evoo">
+          <h4>🫒 EVOO — carotenoid absorption multiplier + APOE4 direct action</h4>
+          This salad contains three significant fat-soluble carotenoids: <strong>lycopene</strong> (tomatoes — reduces LDL oxidation, directly relevant for APOE4 vascular risk), <strong>beta-carotene</strong> (red and yellow peppers — liver and immune support), and <strong>lutein</strong> (bell peppers and parsley — retinal and cerebral vessel protection). All three are fat-soluble: without dietary fat present at the same meal, absorption from raw vegetables is poor — typically 3–6% of available lycopene and less for beta-carotene. With EVOO at 3 tbsp, studies consistently show absorption increases 3–6×. The EVOO in this dressing is not a flavour vehicle — it is the delivery mechanism for the most therapeutically active compounds in the salad. <strong>Oleocanthal</strong> (EVOO phenolic): structurally similar to ibuprofen, inhibits COX-1 and COX-2 via the same mechanism — anti-inflammatory directly relevant to both APOE4 neuroinflammation and hepatic inflammation in fatty liver.
+        </div>
+        <div class="spot-card spot-carot">
+          <h4>🍅🫑 Tomatoes + bell peppers — lycopene, vitamin C, glucose zero</h4>
+          <strong>Tomatoes:</strong> lycopene content is meaningful even raw (cooking increases bioavailability further, but the EVOO in the cold dressing compensates significantly). Lycopene reduces LDL oxidation — the specific form of LDL damage that APOE4 elevates risk for. Moderate oxalate deseeded (~3mg per serve); the seed gel is where most of it concentrates, which is one more reason deseeding is the right move. <strong>Bell peppers (red and yellow):</strong> among the highest vitamin C foods by weight — red pepper at 190mg/100g, yellow at 183mg/100g. Vitamin C directly enhances folate bioavailability by protecting folate from oxidative degradation (MTHFR relevant — when the conversion step is impaired, protecting the active folate that does get through matters). Beta-carotene in both colours. GI essentially zero for both.
+        </div>
+        <div class="spot-card spot-parsley">
+          <h4>🌿 Flat-leaf parsley — therapeutic folate dose at 30g</h4>
+          Flat-leaf parsley is the highest-folate common herb: 30g (the quantity in this recipe) contains approximately 57mcg folate — 14% of the RDA, meaningful as a food source especially for MTHFR where dietary folate intake matters alongside supplementation. The folate in parsley is naturally occurring (food folate, not synthetic folic acid) — it does not require the conversion step that MTHFR C677T impairs. Also provides vitamin K at a relevant dose: 30g parsley delivers approximately 246mcg vitamin K1, which complements your K2 (MK-7) supplement (K1 handles the coagulation pathway; K2 handles the calcium-directing pathway — they are complementary, not redundant). High vitamin C content further supports the folate absorption noted above. <strong>30g is the whole herb measurement</strong> — use a generous hand. This is parsley as a functional ingredient, not a garnish.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLAGS -->
+  <div class="section-divider-olive">⚗️ Notes</div>
+
+  <div class="flag-ok">
+    <h4>✅ Naturally gluten-free — nothing to check</h4>
+    Fresh vegetables, EVOO, lemon, garlic, dried herbs, kalamata olives, and labneh or feta are all inherently gluten-free with no cross-contamination pathway. The only label to glance at is the kalamata olives — occasionally brined in facilities that process wheat. Look for olives in brine with no preservatives other than salt and citric acid; most standard kalamata options are fine.
+  </div>
+
+  <div class="flag-note" style="margin-top:.75rem">
+    <h4>💡 Chickpeas — optional but a good addition as a main course</h4>
+    Canned chickpeas (200g rinsed across 4 serves = 50g per serve) add ~5mg oxalate per serve, keeping the total at ~16mg — still solidly low. More importantly for a main course, they add meaningful plant protein and resistant starch that further flattens the glucose response. Rinse canned chickpeas very well — the aquafaba (bean liquid) can cause gas; rinsing removes most of it. As a side dish the chickpeas are optional. As a main, include them.
+  </div>
+
+  <div class="flag-ok" style="margin-top:.75rem">
+    <h4>✅ Labneh vs feta — both work, different roles</h4>
+    Feta crumbles: salty, firm, classically Mediterranean — distributes visually well and keeps the dish light. Labneh in spoonfuls: creamier, slightly tangy, adds probiotic benefit from the live Lactobacillus culture (kept cold throughout, culture remains viable). Both add calcium which is relevant for kidney stone prevention (dietary calcium binds gut oxalate before absorption). Choose based on whether you want a more traditional presentation (feta) or want the probiotic benefit from the labneh.
+  </div>
+
+  <!-- RECIPE -->
+  <div class="section-divider">🥗 Ingredients & Method</div>
+
+  <div class="recipe-layout">
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 4 side serves / 2 main serves</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Salad</li>
+          <li class="ing-item"><span class="ing-amount">300g</span><span>English cucumber — deseeded, ½cm dice</span><span class="ing-note ox-zero">⬜ ~1mg</span></li>
+          <li class="ing-item"><span class="ing-amount">200g</span><span>Roma tomatoes (2 medium) — deseeded, ½cm dice</span><span class="ing-note ox-low">🟢 ~3mg</span></li>
+          <li class="ing-item"><span class="ing-amount">150g</span><span>Red bell pepper — ½cm dice</span><span class="ing-note ox-zero">⬜ ~1mg</span></li>
+          <li class="ing-item"><span class="ing-amount">120g</span><span>Yellow bell pepper — ½cm dice</span><span class="ing-note ox-zero">⬜ ~1mg</span></li>
+          <li class="ing-item"><span class="ing-amount">80g</span><span>Red onion (½ medium) — fine dice, soaked 10 min</span><span class="ing-note ox-zero">⬜ ~1mg</span></li>
+          <li class="ing-item"><span class="ing-amount">60g</span><span>Kalamata olives, pitted — roughly chopped</span><span class="ing-note ox-zero">⬜ ~1mg</span></li>
+          <li class="ing-item"><span class="ing-amount">30g</span><span>Fresh flat-leaf parsley — roughly chopped</span><span class="ing-note ox-low">🟢 ~2mg</span></li>
+          <li class="ing-item"><span class="ing-amount">15g</span><span>Fresh mint leaves — roughly torn</span><span class="ing-note ox-zero">⬜ ~0.5mg</span></li>
+          <li class="ing-item"><span class="ing-amount">80g</span><span>Labneh (spoonfuls) or feta (crumbled)</span><span class="ing-note ox-zero">⬜ ~0.5mg</span></li>
+          <li class="ing-section-label">Optional</li>
+          <li class="ing-item"><span class="ing-amount">200g</span><span>Canned chickpeas — rinsed well</span><span class="ing-note ox-opt">🟣 +5mg</span></li>
+          <li class="ing-section-label">Dressing</li>
+          <li class="ing-item"><span class="ing-amount">3 tbsp</span><span>EVOO</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">2 tbsp</span><span>Fresh lemon juice</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1</span><span>Lemon — zest only</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 clove</span><span>Garlic — crushed, 5-min rest before adding</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span>Dried oregano</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span>Sumac (optional — tangy, traditional)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+        </ul>
+
+        <div style="margin-top:.85rem">
+          <div style="font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--med-dark);margin-bottom:.4rem">Oxalate per serve (¼ of recipe)</div>
+          <table class="ox-table">
+            <thead><tr><th>Ingredient</th><th>Per serve</th></tr></thead>
+            <tbody>
+              <tr><td>Cucumber, peppers, onion, olives</td><td class="ox-low-cell">~4mg</td></tr>
+              <tr><td>Tomatoes (deseeded)</td><td class="ox-low-cell">~3mg</td></tr>
+              <tr><td>Parsley + mint</td><td class="ox-low-cell">~2.5mg</td></tr>
+              <tr><td>Labneh or feta</td><td class="ox-zero-cell">~0.5mg</td></tr>
+              <tr><td>Dressing (EVOO, lemon, garlic)</td><td class="ox-zero-cell">~0mg</td></tr>
+              <tr class="total-row"><td><strong>Without chickpeas</strong></td><td class="ox-low-cell"><strong>~10mg</strong></td></tr>
+              <tr><td>+ Chickpeas (50g rinsed)</td><td class="ox-opt-cell">+5mg</td></tr>
+              <tr><td><strong>With chickpeas</strong></td><td class="ox-low-cell"><strong>~15mg</strong></td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem">Daily target &lt;100mg/day. This salad uses ~10–15mg per serve.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METHOD -->
+    <div class="panel">
+      <div class="panel-header">🔪 Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Soak the red onion</div>
+              Dice the red onion finely and place in a small bowl covered with cold water. Leave for 10 minutes while you prep everything else. Drain and pat dry before using. The harsh bite disappears; what remains is mild and slightly sweet.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Make the dressing — garlic first</div>
+              Crush the garlic and set it aside for <strong>5 full minutes</strong> — do not rush this. While it rests, combine the EVOO, lemon juice, lemon zest, oregano, and sumac if using in a small jar or bowl. After 5 minutes add the garlic. Season with salt and black pepper. Set aside.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Deseed and dice the cucumber</div>
+              Halve the cucumber lengthwise. Run a teaspoon down the seed channel to scoop out and discard the seed pulp. Cut each half into ½cm strips lengthwise, then across into ½cm dice. The deseeded cucumber holds its texture and does not water down the dressing.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Deseed and dice the tomatoes</div>
+              Halve the tomatoes. Gently squeeze over the sink to remove most of the seed gel, then scoop remaining seeds with a teaspoon. Dice the flesh to ½cm. Deseeding removes the watery gel — what remains is the firm, flavourful tomato flesh that holds its shape in the salad.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Dice the peppers and chop the olives</div>
+              Remove the core and seeds from both bell peppers and dice to ½cm. Roughly chop the kalamata olives to a similar size — halves or thirds depending on their original size. Consistent sizing is the whole point.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Combine and dress</div>
+              In a large bowl, combine cucumber, tomatoes, red pepper, yellow pepper, drained red onion, olives, and chickpeas if using. Pour the dressing over and toss well — get the EVOO coating every piece.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">7</span>
+            <div>
+              <div class="step-name">Add herbs, then top with labneh or feta</div>
+              Add the chopped flat-leaf parsley and torn mint and toss gently. Spoon labneh in small mounds on top, or crumble the feta over. Do not mix the labneh or feta through — leave them on top. Serve immediately.
+            </div>
+          </li>
+        </ol>
+        <div style="margin-top:.85rem;font-size:.78rem;color:var(--muted);background:var(--med-pale);border-radius:8px;padding:.6rem .8rem;line-height:1.6">
+          <strong>Making ahead:</strong> Prep and dress the diced vegetables (without herbs, labneh, or feta) up to 1 hour ahead and refrigerate. Add parsley, mint, and the topping only at the moment of serving. Do not dress more than 1 hour ahead — the cucumber will begin softening in the acid.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIATIONS -->
+  <div class="notes-panel">
+    <h3>🌊 Variations and serving ideas</h3>
+    <ul>
+      <li><strong>As a main course:</strong> Add the chickpeas (200g rinsed) and increase the labneh to 120g or add a soft-boiled egg. The chickpeas bring resistant starch and plant protein; the labneh brings casein protein. Together this is a complete and sustaining lunch with a very low glucose response.</li>
+      <li><strong>With grilled protein:</strong> The salad works well alongside grilled salmon, chicken, or a GF flatbread as part of a larger meal. The lemon-EVOO dressing complements most Mediterranean proteins without modification.</li>
+      <li><strong>Sumac — worth getting:</strong> Sumac is a ground red berry used throughout Middle Eastern cooking — intensely tangy, slightly fruity, no heat. A pinch in the dressing and a sprinkle on top transforms the flavour in a way that dried oregano alone doesn't. Available in any Middle Eastern grocery store. Low oxalate at pinch quantities.</li>
+      <li><strong>Avocado addition:</strong> Diced avocado (½ per serve) integrates well and adds additional monounsaturated fat, further increasing carotenoid absorption from the tomatoes and peppers. Add at the moment of serving — avocado discolours quickly in acid.</li>
+      <li><strong>Serve with GF sourdough:</strong> A slice of Recipe 1 GF sourdough with the full salad as a meal — the fibre from the bread combines with the EVOO to further blunt any starch glucose response. The ACV capsule taken when you start cooking is perfectly timed for this combination.</li>
+      <li><strong>Herb variations:</strong> If mint is unavailable, fresh basil or dill both work well. Dill in particular is a classic eastern Mediterranean pairing with cucumber and labneh. The flat-leaf parsley should stay — it is doing too much functional work to be optional.</li>
+      <li><strong>Pomegranate seeds:</strong> A tablespoon of pomegranate seeds scattered over the top adds visual colour, a bright tart flavour burst, and anthocyanins that complement the APOE4 anti-inflammatory work. Low oxalate at garnish quantity. Fully optional but excellent.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>🩸 No glucose monitoring needed — raw vegetables + EVOO dressing. One of the lowest-GI dishes in the collection. Suitable as a regular side or main at any meal.</p>
+    <a class="btn btn-back" href="recipes.html">← Back to Recipes</a>
+  </div>
+
+</div>
+</body>
+</html>
