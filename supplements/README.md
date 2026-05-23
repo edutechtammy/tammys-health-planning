@@ -29,8 +29,14 @@ Filename must match the slug used in `health-reference.html`. When a brand chang
 | Chanca Piedra | `chanca-piedra.jpg` |
 | Betaine (TMG) | `betaine.jpg` |
 
-## Image tips
-- Photo of the actual bottle/packet you use is ideal
+## What to photograph
+Photograph the **actual pill, capsule, tablet, or gummy** — not the bottle.
+
+Once the weekly organizer is filled and the bottles are put away, the pills inside each compartment lose their connection to which supplement they came from. If you drop one or need to identify something, a photo of the pill itself (its colour, shape, size, coating, whether it's a clear gel cap, a white tablet, a yellow softgel, etc.) is what tells you which bottle to pull out — not a label photo.
+
+**Shooting tips:**
+- Place the pill on a plain white surface (a sheet of paper works perfectly) and shoot from directly above
+- Good light matters more than a good camera — a windowsill in daylight is ideal
+- Include a coin or fingertip in one shot for scale reference if sizes are similar between supplements
 - Any size works — the tooltip caps display at 160×160px
 - JPG or PNG both fine — just keep the `.jpg` extension in the filename (or update the `src` in the HTML if using `.png`)
-- Shoot against a plain background or just use the product as-is — it only needs to be recognisable at small size
