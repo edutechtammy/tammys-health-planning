@@ -6,28 +6,28 @@ Filename must match the slug used in `health-reference.html`. When a brand chang
 
 ## Expected filenames
 
-| Supplement | Filename |
-|---|---|
-| Probiotics (multi-strain) | `probiotics.jpg` |
-| Methylfolate (5-MTHF) | `methylfolate.jpg` |
-| Methylcobalamin (B12) | `methylcobalamin.jpg` |
-| Riboflavin (B2) | `riboflavin.jpg` |
-| P5P (active B6) | `p5p.jpg` |
-| Vitamin D3 | `vitamin-d3.jpg` |
-| Vitamin K2 (MK-7) | `vitamin-k2.jpg` |
-| Lion's Mane | `lions-mane.jpg` |
-| Femositol (Myo-Inositol) | `femositol.jpg` |
-| Omega-3 (EPA+DHA) | `omega3.jpg` |
-| Vitamin C | `vitamin-c.jpg` |
-| Apple Cider Vinegar (capsule) | `acv-capsule.jpg` |
-| Berberine | `berberine.jpg` |
-| Zinc Picolinate | `zinc.jpg` |
-| Magnesium Citrate | `magnesium.jpg` |
-| L-Glutamine | `l-glutamine.jpg` |
-| D-Mannose Powder | `d-mannose.jpg` |
-| Oil of Oregano | `oil-of-oregano.jpg` |
-| Chanca Piedra | `chanca-piedra.jpg` |
-| Betaine (TMG) | `betaine.jpg` |
+| Supplement | Filename | Status |
+|---|---|---|
+| Probiotics (multi-strain) | `probiotics.jpeg` | ✅ in folder |
+| Methylfolate + Methylcobalamin | `methylfolate-methylcobalamin.jpeg` | — photo pending |
+| Riboflavin (B2) | `riboflavin.jpeg` | ⏳ supplement not yet arrived |
+| P5P (active B6) | `p5p.jpeg` | — photo pending |
+| Vitamin D3 | `vitamin-d3.jpeg` | ✅ in folder |
+| Vitamin K2 (MK-7) | `vitamin-k2.jpeg` | ✅ in folder |
+| Lion's Mane | `lions-mane.jpeg` | ✅ in folder |
+| Femositol (Myo-Inositol) | `femositol.jpeg` | — photo pending |
+| Omega-3 (EPA+DHA) | `omega3.jpeg` | — photo pending |
+| Vitamin C | `vitamin-c.jpeg` | — photo pending |
+| Apple Cider Vinegar (capsule) | `acv-capsule.jpeg` | ⏳ supplement not yet arrived |
+| Berberine | `berberine.jpeg` | — photo pending |
+| Zinc Picolinate | `zinc.jpeg` | — photo pending |
+| Magnesium Citrate | `magnesium.jpeg` | ✅ in folder |
+| L-Glutamine | `l-glutamine.jpeg` | ⏳ supplement not yet arrived |
+| D-Mannose Powder | `d-mannose.jpeg` | — photo pending |
+| Chanca Piedra | `chanca-piedra.jpeg` | — photo pending |
+| Betaine (TMG) | `betaine.jpeg` | ⏳ supplement not yet arrived |
+
+**Oil of Oregano** — liquid, not placed in the weekly organizer, no photo needed. Tooltip removed from the table.
 
 ## What to photograph
 Photograph the **actual pill, capsule, tablet, or gummy** — not the bottle.
