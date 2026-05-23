@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Therapeutic Teas — Rooibos, Chamomile, Peppermint, Ginger, Hibiscus</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Therapeutic Teas — Preparation Guide",
+    "description": "A preparation guide for five teas selected for their specific benefits across APOE4, Celiac/GF, Dawn Phenomenon/blood sugar, Fatty Liver, MTHFR, and Kidney Stone conditions. Each tea has a different active compound, a different optimal steeping method, and a different best-use timing. The preparation details matter: chamomile apigenin is volatile and escapes with open-cup steam; rooibos aspalathin extraction increases with steep time; hibiscus oxalate extraction is significantly reduced by cold brewing vs hot; ginger gingerols convert to shogaols with heat and the ratio changes the effect. This guide covers rooibos, chamomile, peppermint, ginger, and hibiscus (occasional/cold-brew only).",
+    "recipeYield": "1 cup",
+    "prepTime": "PT2M",
+    "cookTime": "PT7M",
+    "recipeCategory": "Beverage",
+    "keywords": "rooibos, chamomile, peppermint, ginger tea, therapeutic tea, APOE4, kidney stone, low oxalate, Dawn Phenomenon, fatty liver"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --tea-dark:    #3d2b1f;
+      --tea-mid:     #7c5c3e;
+      --tea-light:   #f5e6d3;
+      --tea-pale:    #fdf8f3;
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --amber-border:#fde68a;
+      --text:        #1c1009;
+      --muted:       #6b4f2a;
+      --border:      #e5cdb5;
+      --shadow:      0 2px 12px rgba(61,43,31,.12);
+
+      /* per-tea accent colours */
+      --rooibos:     #b91c1c;
+      --rooibos-bg:  #fef2f2;
+      --chamomile:   #92400e;
+      --chamomile-bg:#fffbeb;
+      --peppermint:  #065f46;
+      --peppermint-bg:#ecfdf5;
+      --ginger:      #b45309;
+      --ginger-bg:   #fff7ed;
+      --hibiscus:    #7e22ce;
+      --hibiscus-bg: #faf5ff;
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--tea-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 880px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--tea-light); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.65rem); color: var(--tea-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .6rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    /* TIMING QUICK-REF BAR */
+    .timing-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 560px) { .timing-bar { grid-template-columns: 1fr 1fr; } }
+    .timing-chip { border-radius: 12px; padding: .6rem .7rem; text-align: center; border: 1.5px solid transparent; }
+    .timing-chip .tc-emoji { font-size: 1.4rem; display: block; margin-bottom: .2rem; }
+    .timing-chip .tc-name  { font-size: .72rem; font-weight: 800; letter-spacing: .03em; display: block; }
+    .timing-chip .tc-time  { font-size: .68rem; color: var(--muted); display: block; margin-top: .1rem; }
+    .tc-rooibos    { background: var(--rooibos-bg);    border-color: #fca5a5; }
+    .tc-chamomile  { background: var(--chamomile-bg);  border-color: var(--amber-border); }
+    .tc-peppermint { background: var(--peppermint-bg); border-color: #6ee7b7; }
+    .tc-ginger     { background: var(--ginger-bg);     border-color: #fcd34d; }
+    .tc-hibiscus   { background: var(--hibiscus-bg);   border-color: #d8b4fe; }
+
+    /* TEA CARDS */
+    .tea-card { border-radius: 16px; border: 1.5px solid; overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 1px 8px rgba(0,0,0,.07); }
+    .tea-card-header { display: flex; align-items: center; gap: .9rem; padding: .9rem 1.2rem; }
+    .tea-card-header .t-emoji { font-size: 2.2rem; flex-shrink: 0; }
+    .tea-card-header h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: .1rem; }
+    .tea-card-header .t-sub { font-size: .78rem; opacity: .85; line-height: 1.4; }
+    .tea-card-body { background: #fff; padding: 1.1rem 1.2rem; }
+
+    .tc-rooibos-card    { border-color: #fca5a5; }
+    .tc-rooibos-card    .tea-card-header { background: var(--rooibos-bg); color: var(--rooibos); }
+    .tc-chamomile-card  { border-color: var(--amber-border); }
+    .tc-chamomile-card  .tea-card-header { background: var(--chamomile-bg); color: var(--chamomile); }
+    .tc-peppermint-card { border-color: #6ee7b7; }
+    .tc-peppermint-card .tea-card-header { background: var(--peppermint-bg); color: var(--peppermint); }
+    .tc-ginger-card     { border-color: #fcd34d; }
+    .tc-ginger-card     .tea-card-header { background: var(--ginger-bg); color: var(--ginger); }
+    .tc-hibiscus-card   { border-color: #d8b4fe; }
+    .tc-hibiscus-card   .tea-card-header { background: var(--hibiscus-bg); color: var(--hibiscus); }
+
+    /* BREW SPEC BOX */
+    .brew-spec { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin: .85rem 0; }
+    @media (max-width: 500px) { .brew-spec { grid-template-columns: 1fr 1fr; } }
+    .brew-cell { border-radius: 10px; padding: .5rem .6rem; text-align: center; background: var(--tea-pale); border: 1px solid var(--border); }
+    .brew-cell .bc-label { font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); display: block; }
+    .brew-cell .bc-val   { font-size: .88rem; font-weight: 800; color: var(--tea-dark); display: block; margin-top: .1rem; line-height: 1.3; }
+
+    .tea-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: .85rem; font-size: .84rem; line-height: 1.6; }
+    @media (max-width: 540px) { .tea-two-col { grid-template-columns: 1fr; } }
+    .tea-col-box { border-radius: 10px; padding: .65rem .85rem; }
+    .box-green  { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .box-amber  { background: #fffbeb; border: 1px solid var(--amber-border); }
+    .box-red    { background: #fef2f2; border: 1px solid #fecaca; }
+    .box-blue   { background: #eff6ff; border: 1px solid #bfdbfe; }
+    .box-purple { background: #faf5ff; border: 1px solid #e9d5ff; }
+    .box-title  { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .25rem; }
+
+    .ox-pill { display: inline-flex; align-items: center; gap: .3rem; border-radius: 20px; padding: .18rem .6rem; font-size: .72rem; font-weight: 700; margin-left: .4rem; }
+    .ox-low  { background: #dcfce7; color: #166534; }
+    .ox-mod  { background: #fef9c3; color: #78350f; }
+    .ox-high { background: #fee2e2; color: #991b1b; }
+
+    .timing-note { display: inline-flex; align-items: center; gap: .3rem; background: #e0f2fe; border-radius: 20px; padding: .2rem .65rem; font-size: .75rem; font-weight: 700; color: #0369a1; }
+
+    .section-divider { background: var(--tea-dark); color: #fff; border-radius: 10px; padding: .6rem 1.1rem; font-weight: 700; font-size: .9rem; letter-spacing: .03em; margin-bottom: 1.2rem; margin-top: .3rem; }
+
+    .avoid-panel { background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: .85rem 1.1rem; margin-top: .85rem; font-size: .83rem; line-height: 1.6; color: #7f1d1d; }
+    .avoid-panel strong { color: #991b1b; }
+
+    .quick-ref { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+    .quick-ref table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+    .quick-ref th { background: var(--tea-dark); color: #fff; padding: .45rem .75rem; text-align: left; font-size: .77rem; font-weight: 700; }
+    .quick-ref td { padding: .42rem .75rem; border-bottom: 1px solid var(--tea-light); vertical-align: middle; line-height: 1.45; }
+    .quick-ref tr:last-child td { border-bottom: none; }
+    .quick-ref tr:nth-child(even) { background: var(--tea-pale); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍵🌿🫖</div>
+    <div class="recipe-hero-body">
+      <h1>Therapeutic Teas — How to Prepare Each One to Get the Most Out of It</h1>
+      <p>Five teas selected for their specific benefits across the six conditions. Each has a different active compound and a different optimal steeping method that changes how much of that compound ends up in the cup. The details matter: chamomile apigenin is volatile and escapes with steam from an uncovered cup; rooibos aspalathin increases with steep time; hibiscus oxalate extraction drops significantly with cold brewing; ginger's compound ratios shift with temperature. Getting the method right is the difference between a functional beverage and flavoured hot water.</p>
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+      <p style="font-size:.8rem;color:var(--muted)">All five teas are caffeine-free and naturally gluten-free. None contain oxalate at a level of concern except hibiscus — addressed in the hibiscus section below.</p>
+    </div>
+  </div>
+
+  <!-- TIMING QUICK REF -->
+  <div class="timing-bar">
+    <div class="timing-chip tc-rooibos">
+      <span class="tc-emoji">🟥</span>
+      <span class="tc-name" style="color:var(--rooibos)">Rooibos</span>
+      <span class="tc-time">5–7 min · hot · uncovered</span>
+    </div>
+    <div class="timing-chip tc-chamomile">
+      <span class="tc-emoji">🌼</span>
+      <span class="tc-name" style="color:var(--chamomile)">Chamomile</span>
+      <span class="tc-time">5 min · hot · <strong>covered</strong></span>
+    </div>
+    <div class="timing-chip tc-peppermint">
+      <span class="tc-emoji">🌿</span>
+      <span class="tc-name" style="color:var(--peppermint)">Peppermint</span>
+      <span class="tc-time">4–5 min · hot · covered</span>
+    </div>
+    <div class="timing-chip tc-ginger">
+      <span class="tc-emoji">🫚</span>
+      <span class="tc-name" style="color:var(--ginger)">Ginger</span>
+      <span class="tc-time">10 min · simmered · fresh</span>
+    </div>
+    <div class="timing-chip tc-hibiscus">
+      <span class="tc-emoji">🌺</span>
+      <span class="tc-name" style="color:var(--hibiscus)">Hibiscus</span>
+      <span class="tc-time">Overnight · <strong>cold brew only</strong></span>
+    </div>
+  </div>
+
+  <!-- ─── ROOIBOS ─── -->
+  <div class="tea-card tc-rooibos-card">
+    <div class="tea-card-header">
+      <span class="t-emoji">🟥</span>
+      <div>
+        <h2>Rooibos (Red Bush Tea)</h2>
+        <div class="t-sub">Best for: Dawn Phenomenon · APOE4 · Fatty Liver &nbsp;|&nbsp; <span class="ox-pill ox-low">🟢 Very low oxalate</span> &nbsp;<span class="timing-note">☕ Any time — caffeine-free</span></div>
+      </div>
+    </div>
+    <div class="tea-card-body">
+      <div class="brew-spec">
+        <div class="brew-cell"><span class="bc-label">Water temp</span><span class="bc-val">100°C / just boiled</span></div>
+        <div class="brew-cell"><span class="bc-label">Steep time</span><span class="bc-val">5–7 min<br><small style="font-weight:400;font-size:.7rem">(longer = more aspalathin)</small></span></div>
+        <div class="brew-cell"><span class="bc-label">Cup covered?</span><span class="bc-val">Not required — no volatile compounds</span></div>
+        <div class="brew-cell"><span class="bc-label">Amount</span><span class="bc-val">1 heaped tsp loose or 1 bag</span></div>
+      </div>
+
+      <div class="tea-two-col">
+        <div class="tea-col-box box-green">
+          <div class="box-title" style="color:#065f46">Why it's on this list</div>
+          Aspalathin — found only in rooibos — directly upregulates GLUT4 transporters in muscle cells. This is the same mechanism targeted by exercise and metformin: getting glucose into muscle rather than leaving it circulating overnight. Relevant specifically for Dawn Phenomenon where fasting glucose rises before waking. Aspalathin also reduces cortisol secretion from the adrenal glands, which may blunt the cortisol-driven glucose release that drives DP.
+        </div>
+        <div class="tea-col-box box-amber">
+          <div class="box-title" style="color:var(--chamomile)">How steep time affects aspalathin</div>
+          Aspalathin extraction from rooibos increases progressively with steep time up to about 7–8 minutes before levelling off. A 2-minute steep captures roughly 40–50% of what a 7-minute steep captures. Unlike some teas that become bitter with over-steeping, rooibos does not — there's no tannin penalty for a longer steep. Always go the full 5–7 minutes.
+        </div>
+        <div class="tea-col-box box-blue">
+          <div class="box-title" style="color:#1e40af">APOE4 + Fatty Liver</div>
+          Rooibos contains quercetin, luteolin, and orientin — flavonoids with anti-inflammatory and hepatoprotective activity. The quercetin is relevant to APOE4 (same flavonoid as in the artichoke cynarin panel). The overall polyphenol density is meaningful without the oxalate concern that comes with hibiscus.
+        </div>
+        <div class="tea-col-box box-green">
+          <div class="box-title" style="color:#065f46">What to add (and avoid)</div>
+          Rooibos has a naturally sweet, slightly nutty flavour — most people find it doesn't need sweetener. A slice of fresh orange or a pinch of Ceylon cinnamon complements it. <strong>No milk</strong> — casein binds polyphenols (the same mechanism as in coffee), reducing bioavailability of the flavonoids. If you want body, a small piece of fresh ginger steeped with it works well.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CHAMOMILE ─── -->
+  <div class="tea-card tc-chamomile-card">
+    <div class="tea-card-header">
+      <span class="t-emoji">🌼</span>
+      <div>
+        <h2>Chamomile</h2>
+        <div class="t-sub">Best for: Sleep quality → DP · APOE4 anti-inflammatory &nbsp;|&nbsp; <span class="ox-pill ox-low">🟢 Trace oxalate</span> &nbsp;<span class="timing-note">🌙 Evening — promotes sleep</span></div>
+      </div>
+    </div>
+    <div class="tea-card-body">
+      <div class="brew-spec">
+        <div class="brew-cell"><span class="bc-label">Water temp</span><span class="bc-val">95°C / just off boil</span></div>
+        <div class="brew-cell"><span class="bc-label">Steep time</span><span class="bc-val">5 min exactly</span></div>
+        <div class="brew-cell"><span class="bc-label">Cup covered?</span><span class="bc-val"><strong>YES — essential</strong><br><small style="font-weight:400;font-size:.7rem">plate or lid on top</small></span></div>
+        <div class="brew-cell"><span class="bc-label">Amount</span><span class="bc-val">1 heaped tsp loose flowers or 1 bag</span></div>
+      </div>
+
+      <div class="tea-two-col">
+        <div class="tea-col-box box-amber">
+          <div class="box-title" style="color:var(--chamomile)">Why cover the cup — the apigenin detail</div>
+          Apigenin is the primary active flavonoid in chamomile. It binds GABA-A receptors in the brain — the same receptors targeted by benzodiazepines and alcohol, just with a much gentler affinity. The calming and sleep-onset effect comes almost entirely from apigenin. The problem: apigenin is volatile at steeping temperatures. An uncovered cup allows significant steam-driven escape — you're losing active compound into the air above the cup. A saucer or small plate placed on top for the full 5 minutes retains the steam, which then condenses back into the tea. This is a small but measurable improvement in apigenin content and is standard practice in herbal pharmacognosy.
+        </div>
+        <div class="tea-col-box box-green">
+          <div class="box-title" style="color:#065f46">Sleep quality → Dawn Phenomenon connection</div>
+          Poor sleep quality directly worsens Dawn Phenomenon: sleep deprivation increases cortisol output and reduces insulin sensitivity overnight, amplifying the liver glucose dump that causes the fasting glucose rise before waking. Better sleep → lower cortisol → less DP. Chamomile is not a sedative but it improves sleep onset and reduces nighttime waking in clinical studies, particularly in people with mild anxiety or difficulty switching off. The indirect DP benefit is real.
+        </div>
+        <div class="tea-col-box box-blue">
+          <div class="box-title" style="color:#1e40af">APOE4 — anti-inflammatory + neuroprotection</div>
+          Apigenin also inhibits neuroinflammation via NF-κB pathway suppression, which is relevant for APOE4 where chronic low-grade neuroinflammation is part of the disease mechanism. The anti-inflammatory effect is modest at a cup-per-day dose but meaningful as part of the overall dietary polyphenol strategy.
+        </div>
+        <div class="tea-col-box box-amber">
+          <div class="box-title" style="color:var(--chamomile)">Steep time matters too</div>
+          5 minutes is the target. Under 3 minutes = significantly less apigenin extracted. Over 8 minutes = may taste slightly bitter and grassy as other plant compounds over-extract — the apigenin itself doesn't suffer, but the flavour does. 5 minutes covered is the sweet spot.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PEPPERMINT ─── -->
+  <div class="tea-card tc-peppermint-card">
+    <div class="tea-card-header">
+      <span class="t-emoji">🌿</span>
+      <div>
+        <h2>Peppermint</h2>
+        <div class="t-sub">Best for: Digestive support · anti-inflammatory · Celiac gut &nbsp;|&nbsp; <span class="ox-pill ox-low">🟢 Very low oxalate</span> &nbsp;<span class="timing-note">🕐 Any time — particularly after meals</span></div>
+      </div>
+    </div>
+    <div class="tea-card-body">
+      <div class="brew-spec">
+        <div class="brew-cell"><span class="bc-label">Water temp</span><span class="bc-val">95°C / just off boil</span></div>
+        <div class="brew-cell"><span class="bc-label">Steep time</span><span class="bc-val">4–5 min</span></div>
+        <div class="brew-cell"><span class="bc-label">Cup covered?</span><span class="bc-val">Recommended — menthol is volatile</span></div>
+        <div class="brew-cell"><span class="bc-label">Amount</span><span class="bc-val">1 tbsp fresh leaves or 1 tsp dried / 1 bag</span></div>
+      </div>
+
+      <div class="tea-two-col">
+        <div class="tea-col-box box-green">
+          <div class="box-title" style="color:#065f46">Digestive + Celiac support</div>
+          Menthol (the primary active compound) relaxes smooth muscle in the GI tract — particularly useful post-meal for reducing bloating and cramping. For Celiac, where gut inflammation and motility issues are common even on a GF diet, peppermint tea after meals is a practical non-pharmaceutical support. Rosmarinic acid (also in peppermint) is an anti-inflammatory that helps with gut mucosal inflammation.
+        </div>
+        <div class="tea-col-box box-green">
+          <div class="box-title" style="color:#065f46">Fresh vs dried vs bags</div>
+          Fresh leaves steeped 4 minutes produce the most aromatic cup with the highest menthol content. Dried peppermint (loose or bag) is fully effective — the menthol is preserved during drying. Spearmint can be substituted (lower menthol, milder flavour, slightly different compound profile) but peppermint is more potent for the digestive effect. Growing a peppermint plant is the easiest fresh herb to maintain at home — it's almost unkillable.
+        </div>
+        <div class="tea-col-box box-blue">
+          <div class="box-title" style="color:#1e40af">Cover the cup — menthol is volatile</div>
+          Like apigenin in chamomile, menthol evaporates readily in steam. A covered cup during steeping retains more menthol. Unlike chamomile where the effect is significant, for peppermint the flavour difference is more noticeable than the therapeutic one — an uncovered cup just tastes milder. Worth covering if using dried/bagged peppermint where the starting menthol content is already lower than fresh.
+        </div>
+        <div class="tea-col-box box-amber">
+          <div class="box-title" style="color:var(--chamomile)">Note on reflux</div>
+          Peppermint relaxes the lower oesophageal sphincter. For most people this is fine. If you experience acid reflux or GORD, peppermint tea after meals may worsen it — the relaxed sphincter allows stomach acid to move upward more easily. If this is the case, chamomile or rooibos post-meal is the better choice.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── GINGER ─── -->
+  <div class="tea-card tc-ginger-card">
+    <div class="tea-card-header">
+      <span class="t-emoji">🫚</span>
+      <div>
+        <h2>Ginger Tea (Fresh Root)</h2>
+        <div class="t-sub">Best for: Anti-inflammatory · nausea · blood sugar · APOE4 &nbsp;|&nbsp; <span class="ox-pill ox-low">🟢 Low oxalate</span> &nbsp;<span class="timing-note">🕐 Morning or with meals</span></div>
+      </div>
+    </div>
+    <div class="tea-card-body">
+      <div class="brew-spec">
+        <div class="brew-cell"><span class="bc-label">Water temp</span><span class="bc-val">100°C / full boil</span></div>
+        <div class="brew-cell"><span class="bc-label">Method</span><span class="bc-val">Simmer 10 min (don't just steep)</span></div>
+        <div class="brew-cell"><span class="bc-label">Amount</span><span class="bc-val">3–4 thin slices fresh ginger root per cup</span></div>
+        <div class="brew-cell"><span class="bc-label">Finish</span><span class="bc-val">Squeeze of lemon + pinch Ceylon cinnamon optional</span></div>
+      </div>
+
+      <div class="tea-two-col">
+        <div class="tea-col-box box-amber">
+          <div class="box-title" style="color:var(--ginger)">Simmer, don't steep — why it matters</div>
+          Fresh ginger contains gingerols (the primary anti-inflammatory compounds when raw). When heated, gingerols convert to shogaols, which are more potent anti-inflammatories and have stronger NF-κB inhibition. Simmering for 10 minutes allows this conversion to proceed. A brief steep of fresh ginger in hot water produces primarily gingerol-dominant tea — milder and less therapeutically potent. For a bag of dried ginger (where shogaols are already formed during drying), a standard 5-minute steep is sufficient.
+        </div>
+        <div class="tea-col-box box-green">
+          <div class="box-title" style="color:#065f46">Blood sugar + APOE4</div>
+          Ginger improves insulin sensitivity through multiple mechanisms (AMPK activation, GLUT4 upregulation, reduced inflammatory cytokines that impair insulin signalling). Several RCTs show meaningful fasting glucose reduction with daily ginger consumption in type 2 diabetes. For Dawn Phenomenon and the pre-diabetic fasting glucose pattern, this is a direct tool. For APOE4, the shogaol-mediated NF-κB suppression is the same anti-neuroinflammatory pathway targeted by many of the polyphenols already in this recipe library.
+        </div>
+        <div class="tea-col-box box-blue">
+          <div class="box-title" style="color:#1e40af">Lemon + Ceylon cinnamon at the finish</div>
+          Squeeze of lemon after simmering (not during — the citric acid becomes bitter if simmered) adds urinary citrate benefit (kidney stone) and brightens the flavour. A pinch of Ceylon cinnamon (not Cassia) adds its own GLUT4 upregulation on top of ginger's. These two additions are optional but stack well — this is effectively a simplified version of the ginger-cinnamon component from the MCT coffee trail mix.
+        </div>
+        <div class="tea-col-box box-amber">
+          <div class="box-title" style="color:var(--ginger)">How much ginger is enough</div>
+          3–4 thin slices (~5–8g fresh root) per cup is a therapeutic dose. Less than this (1 slice) is flavour only. You can go higher (6–8 slices) if you enjoy the heat — the compounds scale with amount. Peel optional — the skin is not a problem but the flesh has more gingerol. Grate rather than slice for a stronger brew (more surface area).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── HIBISCUS ─── -->
+  <div class="tea-card tc-hibiscus-card">
+    <div class="tea-card-header">
+      <span class="t-emoji">🌺</span>
+      <div>
+        <h2>Hibiscus — Occasional Use, Cold Brew Only</h2>
+        <div class="t-sub">Good for: APOE4 anthocyanins · LDL · blood pressure &nbsp;|&nbsp; <span class="ox-pill ox-mod">⚠️ Moderate oxalate if hot-brewed — cold brew significantly reduces this</span></div>
+      </div>
+    </div>
+    <div class="tea-card-body">
+      <div class="brew-spec">
+        <div class="brew-cell"><span class="bc-label">Method</span><span class="bc-val"><strong>Cold brew only</strong></span></div>
+        <div class="brew-cell"><span class="bc-label">Steep time</span><span class="bc-val">6–12 hrs in fridge</span></div>
+        <div class="brew-cell"><span class="bc-label">How often</span><span class="bc-val">1–2 × per week max while rebuilding oxalate tolerance</span></div>
+        <div class="brew-cell"><span class="bc-label">Amount</span><span class="bc-val">1 tbsp dried hibiscus calyces per 300ml cold water</span></div>
+      </div>
+
+      <div class="tea-two-col">
+        <div class="tea-col-box box-purple">
+          <div class="box-title" style="color:var(--hibiscus)">Why cold brew specifically</div>
+          Hibiscus calyces are high oxalate at source (~300–500mg/100g dry). Hot water extracts oxalate efficiently — a 5-minute hot steep can yield 15–50mg oxalate per cup depending on steep time and amount used. Cold water extracts the same anthocyanins and ACE-inhibitor-like compounds (the two things that make hibiscus worth having) but extracts significantly less oxalate — estimated 5–10mg per cup cold-brewed overnight. The polyphenols are stable in cold water over several hours; the oxalate differential makes cold brew the appropriate method for kidney stone history.
+        </div>
+        <div class="tea-col-box box-purple">
+          <div class="box-title" style="color:var(--hibiscus)">What hibiscus offers — APOE4</div>
+          The anthocyanins in hibiscus (delphinidin, cyanidin — the same family as red cabbage and blueberries) have direct LDL-lowering evidence in RCTs, meaningful blood pressure reduction (ACE-inhibitor mechanism), and the same amyloid-β inhibition pathway relevant to APOE4 as the purple sauerkraut anthocyanins. It is genuinely a valuable APOE4 food. The goal is to get the benefit without re-establishing a daily oxalate load. Cold brew 1–2×/week achieves this.
+        </div>
+      </div>
+
+      <div class="avoid-panel" style="margin-top:.85rem">
+        <strong>⚠️ Avoid:</strong> Hot-steeped hibiscus daily. Bottled hibiscus drinks (highly concentrated, often with added sugar, oxalate content unknown/high). Hibiscus in smoothies or syrups. Until urinary oxalate normalises from the almond-flour years, keep hibiscus to cold-brew occasional use only. When drinking it, have it with or after a calcium-containing food (e.g., a cassava cracker with labneh) — dietary calcium binds oxalate in the gut before it can be absorbed.
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REFERENCE TABLE -->
+  <div class="section-divider">📋 Quick reference — all five teas at a glance</div>
+
+  <div class="quick-ref">
+    <table>
+      <thead>
+        <tr>
+          <th>Tea</th>
+          <th>Key compound</th>
+          <th>Temp</th>
+          <th>Time</th>
+          <th>Cover?</th>
+          <th>Best timing</th>
+          <th>Oxalate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Rooibos</strong></td>
+          <td>Aspalathin (GLUT4)</td>
+          <td>100°C</td>
+          <td>5–7 min</td>
+          <td>No</td>
+          <td>Evening / any time</td>
+          <td><span class="ox-pill ox-low">Very low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Chamomile</strong></td>
+          <td>Apigenin (GABA-A)</td>
+          <td>95°C</td>
+          <td>5 min</td>
+          <td><strong>Yes — essential</strong></td>
+          <td>Evening / pre-sleep</td>
+          <td><span class="ox-pill ox-low">Trace</span></td>
+        </tr>
+        <tr>
+          <td><strong>Peppermint</strong></td>
+          <td>Menthol + rosmarinic acid</td>
+          <td>95°C</td>
+          <td>4–5 min</td>
+          <td>Recommended</td>
+          <td>After meals</td>
+          <td><span class="ox-pill ox-low">Very low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ginger (fresh)</strong></td>
+          <td>Shogaols (from gingerols via heat)</td>
+          <td>100°C simmer</td>
+          <td>10 min simmer</td>
+          <td>No</td>
+          <td>Morning / with meals</td>
+          <td><span class="ox-pill ox-low">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hibiscus</strong></td>
+          <td>Anthocyanins (delphinidin, cyanidin)</td>
+          <td>Cold water</td>
+          <td>6–12 hrs fridge</td>
+          <td>Fridge cover</td>
+          <td>1–2×/week max, with food</td>
+          <td><span class="ox-pill ox-mod">Mod (cold brew reduces it)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GENERAL RULES -->
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:1.5rem;font-size:.85rem;line-height:1.7">
+    <div style="font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--tea-mid);margin-bottom:.7rem">General rules — all teas</div>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:.45rem;padding:0">
+      <li style="padding-left:1.2rem;position:relative"><span style="position:absolute;left:0;color:var(--tea-mid);font-weight:700">→</span><strong>No milk in any of these teas</strong> — casein binds polyphenols by hydrophobic interaction, reducing bioavailability. This is the same mechanism that makes milk-in-coffee problematic for chlorogenic acids. If you want to add creaminess, a small slice of fresh coconut (protein-free fat) doesn't have this effect. Most of these teas are better without any addition.</li>
+      <li style="padding-left:1.2rem;position:relative"><span style="position:absolute;left:0;color:var(--tea-mid);font-weight:700">→</span><strong>Filtered water makes a noticeable difference</strong> — particularly for chamomile and rooibos. Chlorine in tap water is mildly antimicrobial and reacts with some polyphenols, dulling both flavour and compound content. Filtered or boiled-and-cooled water is better.</li>
+      <li style="padding-left:1.2rem;position:relative"><span style="position:absolute;left:0;color:var(--tea-mid);font-weight:700">→</span><strong>No sweetener needed for rooibos or chamomile</strong> — both are naturally sweet. Peppermint and ginger have natural flavour that doesn't benefit from sugar. If sweetness is wanted: a small amount of raw honey added after steeping (not during) is low GI and doesn't interfere with the active compounds.</li>
+      <li style="padding-left:1.2rem;position:relative"><span style="position:absolute;left:0;color:var(--tea-mid);font-weight:700">→</span><strong>Lemon complements nearly all of them</strong> — a squeeze after steeping (not during, for ginger especially) adds urinary citrate, which is directly kidney-stone-protective. The flavour contribution to rooibos and ginger is genuinely good. Chamomile with lemon is a classic combination.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
