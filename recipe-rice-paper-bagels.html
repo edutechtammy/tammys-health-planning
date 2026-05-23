@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rice Paper Bagels</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Rice Paper Bagels",
+    "description": "Gluten-free bagels made by layering 4 soaked rice paper sheets, rolling tightly into a ring, and baking at 400°F until the outside is crispy and the inside is chewy from the compressed layers. The technique relies on multiple layers — single sheets crisp up like a chip; 4 layers give the characteristic bagel chew. Served with labneh, smoked salmon, cucumber, capers, and fresh dill — a therapeutic APOE4 breakfast combination. Topping: garlic flakes + onion flakes + dried herbs (sesame and poppy avoided for oxalate).",
+    "recipeYield": "4 bagels",
+    "prepTime": "PT15M",
+    "cookTime": "PT20M",
+    "totalTime": "PT35M",
+    "recipeCategory": "Breakfast / Snack",
+    "recipeCuisine": "American / Fusion / Gluten-Free",
+    "keywords": "rice paper bagels, gluten-free bagels, rice paper recipes, smoked salmon bagel, APOE4, celiac, low oxalate",
+    "recipeIngredient": [
+      "16 rice paper sheets (22cm round), 4 per bagel",
+      "Warm water for soaking",
+      "1 tsp garlic flakes",
+      "1 tsp dried onion flakes",
+      "1 tsp dried rosemary or dried thyme",
+      "Olive oil spray or light brush of EVOO",
+      "For serving: labneh, smoked salmon, cucumber slices, capers, fresh dill, lemon wedge"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Preheat oven",
+        "text": "Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Soak and layer 4 sheets",
+        "text": "Fill a large shallow dish or pan with warm water. Dip one rice paper sheet for about 15 seconds until just pliable — not fully soft. Lay flat on the parchment. Immediately soak a second sheet and layer directly on top of the first. Repeat for sheets 3 and 4. You now have a 4-layer stack. The layers will bond to each other as they sit."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Form the bagel ring",
+        "text": "Work quickly while the sheets are still pliable. Roll the layered stack tightly from one edge into a log, then join the two ends firmly to form a ring. Press the seam together — the tacky surface of wet rice paper is self-adhesive and will hold without any glue or egg wash. Place on the parchment-lined tray."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add toppings and bake",
+        "text": "Lightly spray or brush the outside of each ring with olive oil. Mix garlic flakes, onion flakes, and dried rosemary or thyme. Press a pinch of the topping mix onto the outside of each bagel ring. Bake at 400°F for 18–22 minutes until the outside is golden and blistered and the bagel holds its shape firmly when lifted."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Cool briefly and serve",
+        "text": "Allow to cool for 3–4 minutes on a rack — the outside crisps further as it cools. Slice horizontally. Spread generously with labneh, layer smoked salmon, cucumber slices, capers, and fresh dill. Finish with a squeeze of lemon."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --rp-dark:   #14532d;
+      --rp-mid:    #16a34a;
+      --rp-light:  #dcfce7;
+      --rp-pale:   #f0fdf4;
+      --bam-dark:  #78350f;
+      --bam-light: #fef3c7;
+      --bam-border:#fde68a;
+      --text:      #14202e;
+      --border:    #bbf7d0;
+      --shadow:    0 2px 12px rgba(20,83,45,.1);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--rp-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    nav { background: var(--rp-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--rp-light); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem,3vw,1.6rem); color: var(--rp-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: #166534; font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--rp-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--rp-dark); margin-bottom: .9rem; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .technique-banner { background: var(--bam-light); border: 1.5px solid var(--bam-border); border-radius: 10px; padding: .55rem 1rem; font-size: .8rem; font-weight: 700; color: var(--bam-dark); margin-bottom: .75rem; display: inline-flex; align-items: center; gap: .5rem; }
+
+    .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--rp-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--rp-light); border-radius: 4px; }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--rp-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--rp-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--rp-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid var(--rp-light); font-size: .85rem; }
+    .ing-amount { font-weight: 700; color: var(--rp-dark); min-width: 4rem; flex-shrink: 0; }
+    .ing-note { margin-left: auto; font-size: .72rem; font-weight: 600; white-space: nowrap; padding: .1rem .4rem; border-radius: 6px; }
+    .ox-low  { background: #f0fdf4; color: #166534; }
+    .ox-note { background: #fff7ed; color: #9a3412; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num { background: var(--rp-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--rp-dark); margin-bottom: .2rem; }
+
+    .tip-box { border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .8rem; }
+    .tip-green { background: #f0fdf4; border: 1px solid #86efac; }
+    .tip-green h4 { color: #166534; margin-bottom: .35rem; font-size: .84rem; }
+    .tip-amber { background: var(--bam-light); border: 1px solid var(--bam-border); }
+    .tip-amber h4 { color: var(--bam-dark); margin-bottom: .35rem; font-size: .84rem; }
+    .tip-red { background: #fff1f2; border: 1.5px solid #fecdd3; }
+    .tip-red h4 { color: #9f1239; margin-bottom: .35rem; font-size: .84rem; }
+
+    .layer-diagram { display: flex; flex-direction: column; gap: .35rem; margin: .75rem 0; }
+    .layer { border-radius: 6px; text-align: center; font-size: .78rem; font-weight: 700; padding: .3rem; }
+    .l1 { background: #bbf7d0; color: #14532d; }
+    .l2 { background: #86efac; color: #14532d; }
+    .l3 { background: #4ade80; color: #14532d; }
+    .l4 { background: #22c55e; color: #fff; }
+    .layer-label { font-size: .72rem; color: #64748b; text-align: center; margin-top: .2rem; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: #166534; }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--rp-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--rp-dark); border: 1.5px solid var(--rp-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html" class="active">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🫓🌿🐟🍋</div>
+    <div class="recipe-hero-body">
+      <div class="technique-banner">🔧 Technique: 4-layer stack → roll → bake</div>
+      <h1>Rice Paper Bagels</h1>
+      <p>Four soaked rice paper sheets stacked and rolled into a ring — baked at 400°F until the outside blisters and crisps while the compressed inner layers stay chewy. The chew is entirely a function of the layering: one sheet makes a chip, four sheets make a bagel. No flour, no yeast, no gluten. Topped with garlic, onion flakes, and herbs (sesame and poppy omitted for oxalate). Served with labneh, smoked salmon, cucumber, capers, and fresh dill — an APOE4-targeted breakfast built around omega-3, probiotic fat, and essentially zero starch once the topping is on.</p>
+      <div class="meta-strip">
+        <span>⏱ 15 min prep + 20 min bake</span>
+        <span>🫓 Makes 4 bagels</span>
+        <span>🌡 400°F oven</span>
+        <span>🌾 GF — naturally gluten-free</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE KEY TECHNIQUE -->
+  <div class="section-divider">🔧 The technique — why 4 layers and why it works</div>
+
+  <div class="panel">
+    <div class="panel-header">📐 Layer count is everything — this is not intuitive</div>
+    <div class="panel-body">
+      <p style="font-size:.84rem;line-height:1.7;margin-bottom:.85rem">Rice paper is almost entirely starch. When a single sheet dries out in the oven it has nothing to bond to — it crisps and puffs like a cracker. When you stack 4 sheets, the layers bond to each other under heat and compression. The inner layers cannot dry out at the same rate as the outer layers, so they stay pliable and chewy while the outside blisters. This is the same logic as phyllo pastry — the layering is the technique.</p>
+
+      <div class="layer-diagram">
+        <div class="layer l4">Layer 4 (outermost) — direct heat → crispy, blistered</div>
+        <div class="layer l3">Layer 3 — semi-crisp, slight chew</div>
+        <div class="layer l2">Layer 2 — chewy, dense</div>
+        <div class="layer l1">Layer 1 (innermost, rolled tightly) — chewy core</div>
+        <div class="layer-label">→ Result: crispy outside, chewy inside — bagel-like texture without flour, yeast, or gluten</div>
+      </div>
+
+      <div class="tip-amber" style="margin-top:.9rem">
+        <h4>⏱ Soaking time is the other variable</h4>
+        <strong>~15 seconds in warm water</strong> — just pliable, not fully soft. If you over-soak (30+ seconds), the sheet tears during rolling and won't hold its shape. If you under-soak (5 seconds), the layers don't bond. Aim for the sheet to be flexible but still have slight resistance when lifted. It will continue softening from residual moisture as you layer.
+      </div>
+
+      <div class="tip-green" style="margin-top:.75rem">
+        <h4>✅ The self-adhesive advantage</h4>
+        Wet rice paper is tacky — it sticks to itself and to the baking parchment. No egg wash, no water seal, no glue needed. Press the seam of the ring together firmly for 10 seconds and it will hold through the full bake. This is also why you layer directly — you don't need anything between sheets.
+      </div>
+    </div>
+  </div>
+
+  <!-- OX NOTE -->
+  <div class="tip-red" style="margin:0 0 1.2rem">
+    <h4>⚠️ Topping note — sesame seeds and poppy seeds are high oxalate</h4>
+    Traditional everything bagel seasoning contains both sesame seeds (~90mg oxalate per tablespoon) and poppy seeds (~25mg per tablespoon) — high enough to matter for kidney stone prevention. This recipe uses garlic flakes + onion flakes + dried rosemary/thyme instead. Same aromatic flavour profile, essentially zero oxalate. If you don't have kidney stone concerns, sesame seeds in small amounts are fine — note them as a topping-to-measure rather than to pour.
+  </div>
+
+  <!-- INGREDIENTS + STEPS -->
+  <div class="section-divider">🧾 Ingredients & Method</div>
+
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 4 bagels</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Bagel shells (16 sheets total, 4 per bagel)</li>
+          <li class="ing-item"><span class="ing-amount">16 sheets</span><span>Rice paper (22cm round)</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span>Garlic flakes</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span>Dried onion flakes</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span>Dried rosemary or thyme</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">light</span><span>Olive oil spray or EVOO brush</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-section-label">Classic serving (APOE4-targeted)</li>
+          <li class="ing-item"><span class="ing-amount">4 tbsp</span><span>Labneh (or strained Greek yogurt)</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">80g</span><span>Smoked salmon (wild-caught preferred)</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">½</span><span>Cucumber, thinly sliced</span><span class="ing-note ox-low">~2mg ox</span></li>
+          <li class="ing-item"><span class="ing-amount">2 tsp</span><span>Capers, rinsed</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">handful</span><span>Fresh dill fronds</span><span class="ing-note ox-low">~zero ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1</span><span>Lemon, wedged for serving</span><span class="ing-note ox-low">~zero ox</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">🫓 Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item"><span class="step-num">1</span>
+            <div><div class="step-name">Preheat oven to 400°F</div>Line a baking sheet with parchment. Prepare a large shallow dish of warm water.</div>
+          </li>
+          <li class="step-item"><span class="step-num">2</span>
+            <div><div class="step-name">Soak and stack 4 sheets</div>Dip one sheet ~15 seconds — just pliable. Lay flat on parchment. Repeat for 3 more sheets, layering directly on top. The stack will bond as it sits.</div>
+          </li>
+          <li class="step-item"><span class="step-num">3</span>
+            <div><div class="step-name">Roll and form the ring</div>Roll the 4-layer stack tightly from one edge into a log. Join both ends to form a ring. Press the seam firmly for 10 seconds — the tacky surface holds without anything else.</div>
+          </li>
+          <li class="step-item"><span class="step-num">4</span>
+            <div><div class="step-name">Oil, top, and bake</div>Brush or spray the outside lightly with olive oil. Press the garlic/onion/herb topping mix onto the outside. Bake 18–22 minutes until golden and blistered.</div>
+          </li>
+          <li class="step-item"><span class="step-num">5</span>
+            <div><div class="step-name">Cool 3–4 min on a rack</div>The outside crisps further off the heat. Slice horizontally.</div>
+          </li>
+          <li class="step-item"><span class="step-num">6</span>
+            <div><div class="step-name">Load and serve</div>Spread labneh on both cut faces. Layer smoked salmon, cucumber, capers, dill. Finish with a squeeze of lemon.</div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIATIONS -->
+  <div class="panel">
+    <div class="panel-header">🔄 Variations — same technique, different fills</div>
+    <div class="panel-body" style="font-size:.85rem;line-height:1.7">
+      <ul style="padding-left:1.1rem;display:flex;flex-direction:column;gap:.5rem">
+        <li><strong>Avocado + poached egg:</strong> The bagel holds a sliced avocado and egg beautifully. Avocado is APOE4-controversial in large amounts but half an avocado on a high-fat protein breakfast is within range — the monounsaturated fat and lutein are beneficial.</li>
+        <li><strong>Labneh + roasted cherry tomatoes + fresh basil:</strong> Lower protein, more Mediterranean. The acidity of the tomatoes against the labneh tang is very good. Roast the tomatoes separately at 400°F for 15 min while the bagels bake.</li>
+        <li><strong>Cream cheese substitute — any nut-based spread:</strong> Cashew cream (note: cashews are moderately high oxalate — ~49mg per 30g). Macadamia-based spreads are very low oxalate and work well.</li>
+        <li><strong>Air fryer version:</strong> 380°F for 12–15 minutes. The outside crisps faster. Watch at the 10-minute mark — air fryers vary significantly. Result is slightly more uniform than oven; oven gives better surface blistering.</li>
+        <li><strong>Make-ahead shells:</strong> Baked shells store well in an airtight container for 2 days at room temperature. Do not refrigerate — moisture from the fridge softens the crisp exterior. Reload with toppings just before eating.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="test-bar">
+    <p>🩸 GL per bagel shell ~5 (low). The high-fat labneh + protein from salmon slow glucose absorption substantially — safe for the DP window and as a general breakfast.</p>
+    <a class="btn btn-back" href="recipes.html">← Back to Recipes</a>
+  </div>
+
+</div>
+</body>
+</html>
