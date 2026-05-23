@@ -23,6 +23,7 @@ Filename must match the slug used in `health-reference.html`. When a brand chang
 | Zinc Picolinate | `zinc.jpeg` | — photo pending |
 | Magnesium Citrate | `magnesium.jpeg` | ✅ in folder |
 | L-Glutamine | `l-glutamine.jpeg` | ⏳ supplement not yet arrived |
+| Goodbye Stress Gummies | `goodbye-stress.jpeg` | — photo pending |
 | D-Mannose Powder | `d-mannose.jpeg` | — photo pending |
 | Chanca Piedra | `chanca-piedra.jpeg` | — photo pending |
 | Betaine (TMG) | `betaine.jpeg` | ⏳ supplement not yet arrived |
