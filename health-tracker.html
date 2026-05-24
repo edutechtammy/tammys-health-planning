@@ -405,6 +405,12 @@
       <div id="monthly-fasting" style="display:flex;flex-wrap:wrap;gap:.5rem"></div>
       <div style="font-size:.75rem;color:var(--muted);margin-top:.45rem">Months with fewer than 3 fasting readings show <em>n</em> count. Watch for the floor of these tiles to move downward over time — that is the set point shifting.</div>
     </div>
+
+    <!-- Milestone progress chart -->
+    <div style="margin-top:1.1rem">
+      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.6rem">🎯 Fasting Average — milestone targets</div>
+      <div id="milestone-chart" style="display:flex;flex-direction:column;gap:.35rem"></div>
+    </div>
   </div>
 </div>
 
@@ -931,6 +937,49 @@ function importCSV(input){
   input.value='';
 }
 
+function renderMilestones(currentAvg){
+  const el=document.getElementById('milestone-chart');
+  if(!el)return;
+  const milestones=[
+    {label:'🔲 Near-term',  avgTarget:130, floorTarget:120, desc:'Protocol is working',         avgCol:'#e65100', bg:'#fff8e1'},
+    {label:'🔲 Medium-term',avgTarget:120, floorTarget:110, desc:'Set point genuinely shifting', avgCol:'#f59e0b', bg:'#fffbeb'},
+    {label:'🔲 Meaningful', avgTarget:110, floorTarget:100, desc:'Pre-diabetic range cleared',   avgCol:'#16a34a', bg:'#f0fdf4'},
+    {label:'🎯 Goal',       avgTarget:95,  floorTarget:90,  desc:'Metabolically healthy range', avgCol:'#1d4ed8', bg:'#eff6ff'},
+  ];
+  // Scale: 140 = left edge (0%), 82 = right edge (100%)
+  const SCALE_MAX=140, SCALE_MIN=82, RANGE=SCALE_MAX-SCALE_MIN;
+  const pct=v=>Math.max(0,Math.min(100,Math.round((SCALE_MAX-v)/RANGE*100)));
+  const currentPct = currentAvg!=null ? pct(currentAvg) : null;
+
+  // Build the bar
+  const scaleLabels=[140,130,120,110,100,90,82];
+  const scaleHTML='<div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);padding:0 0 .2rem">'
+    +scaleLabels.map(v=>`<span>${v}</span>`).join('')+'</div>';
+
+  const trackHTML=`<div style="position:relative;height:28px;background:linear-gradient(to right,#fee2e2 0%,#fef3c7 30%,#fef9c3 50%,#dcfce7 72%,#dbeafe 100%);border-radius:8px;border:1px solid #e2e8f0">
+    ${milestones.map(m=>{
+      const x=pct(m.avgTarget);
+      return `<div title="${m.label}: avg ≤${m.avgTarget}" style="position:absolute;left:${x}%;top:0;bottom:0;width:2px;background:${m.avgCol};opacity:.7"></div>
+              <div style="position:absolute;left:${x}%;transform:translateX(-50%);top:30px;font-size:.62rem;color:${m.avgCol};font-weight:700;white-space:nowrap">${m.avgTarget}</div>`;
+    }).join('')}
+    ${currentPct!=null?`<div title="Current average: ${currentAvg}" style="position:absolute;left:${currentPct}%;top:-6px;bottom:-6px;width:3px;background:#1e293b;border-radius:2px;z-index:2"></div>
+      <div style="position:absolute;left:${currentPct}%;transform:translateX(-50%);top:-22px;background:#1e293b;color:#fff;font-size:.7rem;font-weight:700;padding:.1rem .35rem;border-radius:4px;white-space:nowrap">${currentAvg}</div>`:''}
+  </div>`;
+
+  const legendHTML='<div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:2rem">'
+    +milestones.map(m=>{
+      const reached=currentAvg!=null && currentAvg<=m.avgTarget;
+      return `<div style="background:${reached?m.bg:'#f8fafc'};border:1.5px solid ${reached?m.avgCol+'66':'#e2e8f0'};border-radius:8px;padding:.3rem .65rem;font-size:.75rem;display:flex;align-items:center;gap:.4rem">
+        <span style="font-size:.8rem">${reached?'✅':'🔲'}</span>
+        <span style="font-weight:700;color:${reached?m.avgCol:'var(--muted)'}">${m.label.replace(/^[^ ]+ /,'')}</span>
+        <span style="color:var(--muted)">avg ≤${m.avgTarget} / floor ≤${m.floorTarget}</span>
+        <span style="font-style:italic;color:${reached?m.avgCol:'var(--muted)'}">${m.desc}</span>
+      </div>`;
+    }).join('')+'</div>';
+
+  el.innerHTML=scaleHTML+trackHTML+legendHTML;
+}
+
 function renderFastingMonthly(entries){
   const el=document.getElementById('monthly-fasting');
   if(!el)return;
@@ -950,6 +999,7 @@ function renderFastingMonthly(entries){
     return;
   }
   const MONTH_NAMES=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const mostRecentAvg = show.length>0 ? Math.round(map[show[show.length-1]].reduce((a,b)=>a+b,0)/map[show[show.length-1]].length) : null;
   el.innerHTML=show.map(ym=>{
     const vals=map[ym];
     const avg=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
@@ -971,6 +1021,7 @@ function renderFastingMonthly(entries){
       ${sparse}
     </div>`;
   }).join('');
+  renderMilestones(mostRecentAvg);
 }
 
 function render(){
