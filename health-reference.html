@@ -987,6 +987,70 @@
     </div>
   </div>
 
+  <!-- ── MEAL TIMING RATIONALE ── -->
+  <div class="section band-sky" id="sec-meal-timing">
+    <div class="section-header" onclick="toggle('sec-meal-timing')">
+      <span class="icon">⏱️</span>
+      <h2>Meal Timing Rationale</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:1rem;color:var(--muted);font-size:.92rem">Each gap in your eating pattern serves a specific metabolic purpose. The thresholds below are calibrated for insulin resistance — a metabolically healthy person needs shorter gaps; you need slightly longer ones because insulin clearance is slower.</p>
+
+      <table style="width:100%;border-collapse:collapse;font-size:.9rem">
+        <thead>
+          <tr style="background:#e0f7fa;color:var(--sky-dark)">
+            <th style="padding:.5rem .75rem;text-align:left;font-weight:700;width:22%">Gap</th>
+            <th style="padding:.5rem .75rem;text-align:left;font-weight:700;width:18%">Minimum / Ideal</th>
+            <th style="padding:.5rem .75rem;text-align:left;font-weight:700">Purpose &amp; Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.6rem .75rem;font-weight:600">Wake → Brunch</td>
+            <td style="padding:.6rem .75rem;color:var(--sky-dark);font-weight:600">1–2 hrs</td>
+            <td style="padding:.6rem .75rem">The Dawn Phenomenon peaks in the first 1–2 hours after waking (cortisol + glucagon drive hepatic glucose release). Eating immediately stacks a meal insulin response on top of already-elevated glucose. Waiting 1–2 hours lets the DP peak pass first. Morning supplements taken with brunch naturally anchor this window. <strong>Do not wait 4+ hours</strong> — that lets the DP run unchecked with nothing to blunt it.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f9f9f9">
+            <td style="padding:.6rem .75rem;font-weight:600">Brunch → Coffee Break</td>
+            <td style="padding:.6rem .75rem;color:var(--sky-dark);font-weight:600">Any — coffee is metabolically transparent</td>
+            <td style="padding:.6rem .75rem">Black coffee does not meaningfully spike insulin and does not reset the inter-meal clock. If adding cream or milk, it is a minor blip — not a meal. Coffee does not break the fast in any metabolically meaningful sense at normal quantities. It does <em>not</em> count as a meal for supplement timing purposes.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.6rem .75rem;font-weight:600">Brunch → Dinner</td>
+            <td style="padding:.6rem .75rem;color:var(--sky-dark);font-weight:600">Min 4 hrs · Ideal 5–6 hrs</td>
+            <td style="padding:.6rem .75rem">The goal is full insulin clearance between meals. With insulin resistance, postprandial insulin elevation persists longer than in a metabolically healthy person — closer to 4–5 hours vs. 2–3 hours. A 5–6 hour gap allows the liver to shift out of storage mode into fat-release mode before the next meal's insulin spike. Shorter than 4 hours = insulin on top of insulin = compounding glucose response.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f9f9f9">
+            <td style="padding:.6rem .75rem;font-weight:600">Dinner → Bedtime Snack</td>
+            <td style="padding:.6rem .75rem;color:var(--sky-dark);font-weight:600">Min 2 hrs · Ideal 2.5–3 hrs</td>
+            <td style="padding:.6rem .75rem">The bedtime yogurt + Ceylon cinnamon is a <em>targeted glucose intervention</em>, not casual eating — it exists to blunt the Dawn Phenomenon by giving the liver slow protein + cinnamon/Femositol signalling before overnight hepatic glucose production ramps up. The 2–3 hour gap ensures dinner is largely digested so these agents act on <em>overnight liver glucose output</em>, not on active dinner digestion. Taking it too soon after dinner means the cinnamon and Femositol are competing with active digestion rather than addressing the overnight DP window.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.6rem .75rem;font-weight:600">Dinner → Wake (Overnight Fast)</td>
+            <td style="padding:.6rem .75rem;color:var(--sky-dark);font-weight:600">12 hrs minimum · 13–14 hrs ideal</td>
+            <td style="padding:.6rem .75rem">This is your primary metabolic reset window. At 12 hours: liver glycogen begins depleting, fat oxidation increases, insulin sensitivity starts recovering. At 14–16 hours: meaningful insulin sensitivity improvement, early autophagy (cellular cleanup). The bedtime snack shortens this window slightly (from last food to wake), but the glucose-blunting benefit to the Dawn Phenomenon outweighs the minor reduction in overnight fast length at this stage of your glucose recovery.</td>
+          </tr>
+          <tr style="background:#f9f9f9">
+            <td style="padding:.6rem .75rem;font-weight:600">Illustrative Day</td>
+            <td style="padding:.6rem .75rem;color:var(--sky-dark);font-weight:600">All gaps in range</td>
+            <td style="padding:.6rem .75rem">
+              <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+                <tr><td style="padding:.25rem .5rem;color:var(--muted);width:30%">~7:00 am</td><td style="padding:.25rem .5rem">Wake</td></tr>
+                <tr style="background:#fff"><td style="padding:.25rem .5rem;color:var(--muted)">~8:00–9:00 am</td><td style="padding:.25rem .5rem"><strong>Brunch</strong> + morning supplements &nbsp;(1–2 hrs post-wake ✅)</td></tr>
+                <tr><td style="padding:.25rem .5rem;color:var(--muted)">~1:00–2:00 pm</td><td style="padding:.25rem .5rem">☕ Coffee break &nbsp;(~5 hrs post-brunch — insulin cleared ✅)</td></tr>
+                <tr style="background:#fff"><td style="padding:.25rem .5rem;color:var(--muted)">~6:00–7:00 pm</td><td style="padding:.25rem .5rem"><strong>Dinner</strong> + evening supplements &nbsp;(5–6 hrs post-brunch ✅)</td></tr>
+                <tr><td style="padding:.25rem .5rem;color:var(--muted)">~9:00–9:30 pm</td><td style="padding:.25rem .5rem"><strong>Bedtime snack</strong> — yogurt + Ceylon cinnamon &nbsp;(2–3 hrs post-dinner ✅)</td></tr>
+                <tr style="background:#fff"><td style="padding:.25rem .5rem;color:var(--muted)">~10:00–11:00 pm</td><td style="padding:.25rem .5rem">Sleep</td></tr>
+                <tr><td style="padding:.25rem .5rem;color:var(--muted)">~7:00 am</td><td style="padding:.25rem .5rem">Wake — ~10 hrs post-snack / ~13–14 hrs post-dinner ✅</td></tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- ── LOW OXALATE FOOD GUIDE ── -->
   <div class="section band-green" id="sec-oxalate">
     <div class="section-header" onclick="toggle('sec-oxalate')">
