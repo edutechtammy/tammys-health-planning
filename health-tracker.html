@@ -217,9 +217,9 @@
   </div>
   <div class="form-section-label">🩸 Glucose (mg/dL)</div>
   <div class="form-grid">
-    <div class="field"><label>Fasting (morning)</label><input type="number" id="f-g-fast" step="1" min="0" placeholder="e.g. 95" /></div>
-    <div class="field"><label>Midday</label><input type="number" id="f-g-mid" step="1" min="0" placeholder="e.g. 110" /></div>
-    <div class="field"><label>Evening (pre-bed)</label><input type="number" id="f-g-eve" step="1" min="0" placeholder="e.g. 100" /></div>
+    <div class="field"><label>Fasting BG — on waking</label><input type="number" id="f-g-fast" step="1" min="0" placeholder="e.g. 95" /></div>
+    <div class="field"><label>1-hr post-brunch (post-meal peak)</label><input type="number" id="f-g-mid" step="1" min="0" placeholder="e.g. 110" /></div>
+    <div class="field"><label>2-hr post-dinner / pre-snack</label><input type="number" id="f-g-eve" step="1" min="0" placeholder="e.g. 100" /></div>
   </div>
   <div class="form-section-label">💧 Hydration</div>
   <div class="form-grid">
@@ -723,9 +723,9 @@ function buildCharts(entries){
   chartGlucose=new Chart(document.getElementById('chart-glucose'),{
     type:'line',
     data:{labels,datasets:[
-      {label:'Fasting', data:entries.map(e=>e.gFast), borderColor:'#4a90c4',backgroundColor:'rgba(74,144,196,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#4a90c4',tension:.35,spanGaps:true},
-      {label:'Midday',  data:entries.map(e=>e.gMid),  borderColor:'#e9a84c',backgroundColor:'rgba(233,168,76,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#e9a84c',tension:.35,spanGaps:true},
-      {label:'Evening', data:entries.map(e=>e.gEve),  borderColor:'#8b6abf',backgroundColor:'rgba(139,106,191,.1)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#8b6abf',tension:.35,spanGaps:true}
+      {label:'Fasting BG', data:entries.map(e=>e.gFast), borderColor:'#4a90c4',backgroundColor:'rgba(74,144,196,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#4a90c4',tension:.35,spanGaps:true},
+      {label:'1-hr Post-Brunch', data:entries.map(e=>e.gMid),  borderColor:'#e9a84c',backgroundColor:'rgba(233,168,76,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#e9a84c',tension:.35,spanGaps:true},
+      {label:'2-hr Post-Dinner', data:entries.map(e=>e.gEve),  borderColor:'#8b6abf',backgroundColor:'rgba(139,106,191,.1)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#8b6abf',tension:.35,spanGaps:true}
     ]},
     options:{...baseOpts}
   });
