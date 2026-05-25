@@ -137,6 +137,21 @@
     .spot-egg     { background: #fefce8; border-left: 4px solid #ca8a04; }
     .spot-onion   { background: #f0f9ff; border-left: 4px solid #0284c7; }
 
+    /* Nutrient bars */
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:var(--turkey-light); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--turkey-dark); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted); }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:.5rem; padding:1rem 1.2rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:var(--text); }
+    .nutr-why  { font-size:.7rem; color:var(--muted); font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:var(--turkey-dark); white-space:nowrap; }
+    .nutr-track { background:#f5f0e8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill  { height:100%; border-radius:20px; transition:width .4s ease; }
+    .nutr-pct   { font-size:.69rem; color:var(--muted); margin-top:.05rem; }
+    .nutr-note  { font-size:.72rem; color:var(--muted); padding:.5rem 1.2rem .9rem; border-top:1px solid var(--border); line-height:1.5; }
+
     /* Glaze breakdown visual */
     .glaze-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .6rem; margin-top: .7rem; }
     .glaze-card { border-radius: 8px; padding: .6rem .8rem; font-size: .79rem; line-height: 1.45; }
@@ -262,6 +277,68 @@
 
   <!-- THE GLAZE BREAKDOWN -->
   <div class="section-divider-smoke">🔥 The BBQ swap — what each glaze ingredient is doing</div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 of 6) <span>estimates · based on 150g ground turkey 93% lean + ½ egg + aromatics</span></div>
+    <div class="nutr-grid">
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~185 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:44%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">44% of 425 mg daily target</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— glucose stability · satiety</span></span>
+          <span class="nutr-amount">~29 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:36%;background:#16a34a"></div></div>
+        <div class="nutr-pct">36% of 80 g daily target</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Vitamin B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~1.1 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:46%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">46% of 2.4 µg daily target</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~22 µg DFE</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:6%;background:#db2777"></div></div>
+        <div class="nutr-pct">6% of 400 µg daily target — turkey is not a folate source; pair with leafy greens</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Zinc <span class="nutr-why">— immune · metabolic · wound repair</span></span>
+          <span class="nutr-amount">~3.2 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:40%;background:#0284c7"></div></div>
+        <div class="nutr-pct">40% of 8 mg daily target</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Selenium <span class="nutr-why">— thyroid · antioxidant</span></span>
+          <span class="nutr-amount">~28 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:51%;background:#0891b2"></div></div>
+        <div class="nutr-pct">51% of 55 µg daily target</div>
+      </div>
+
+    </div>
+    <div class="nutr-note">⚠️ Values are estimates from USDA data for 93% lean ground turkey and are not lab-verified. Choline is the priority nutrient here — this is one of the highest-choline meals in the collection. The folate bar is intentionally short; this dish relies on side vegetables (broccoli today ✅) to fill that gap. Supplement stack covers B12 and folate via methylated forms regardless.</div>
+  </div>
 
   <div class="panel">
     <div class="panel-header">🧪 Replicating all four BBQ sauce flavour elements without the sugar or gluten</div>
