@@ -134,6 +134,21 @@
     .ox-pill-low { background: #dcfce7; color: #166534; border-radius: 8px; padding: .1rem .5rem; font-size: .73rem; font-weight: 700; white-space: nowrap; }
     .ox-pill-mod { background: #fef3c7; color: #92400e; border-radius: 8px; padding: .1rem .5rem; font-size: .73rem; font-weight: 700; white-space: nowrap; }
     .ox-pill-high { background: #fee2e2; color: #991b1b; border-radius: 8px; padding: .1rem .5rem; font-size: .73rem; font-weight: 700; white-space: nowrap; }
+
+    /* Nutrient bars */
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:var(--nutr-head-bg,#f8f8f8); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--nutr-head-color,#333); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted,#666); }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:.5rem; padding:1rem 1.2rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:var(--text,#222); }
+    .nutr-why  { font-size:.7rem; color:var(--muted,#666); font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:var(--nutr-amount-color,#555); white-space:nowrap; }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill  { height:100%; border-radius:20px; }
+    .nutr-pct   { font-size:.69rem; color:var(--muted,#666); margin-top:.05rem; }
+    .nutr-note  { font-size:.72rem; color:var(--muted,#666); padding:.5rem 1.2rem .9rem; border-top:1px solid var(--border); line-height:1.5; }
   </style>
 </head>
 <body>
