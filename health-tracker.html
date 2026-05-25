@@ -212,6 +212,7 @@
   <div class="form-grid">
     <div class="field"><label>Date</label><input type="date" id="f-date" /></div>
     <div class="field"><label>Weight (lbs)</label><input type="number" id="f-weight" step="0.1" min="0" placeholder="e.g. 148.5" /></div>
+    <div class="field"><label>Waist (cm) <span style="font-size:.7rem;font-weight:400;text-transform:none">natural waist, morning, after exhale</span></label><input type="number" id="f-waist" step="0.1" min="0" placeholder="e.g. 82.5" /></div>
     <div class="field"><label>Bedtime (last night)</label><input type="time" id="f-bedtime" /></div>
     <div class="field"><label>Sleep Hours (last night)</label><input type="number" id="f-sleep-hrs" step="0.5" min="0" max="14" placeholder="e.g. 7.5" /></div>
   </div>
@@ -447,7 +448,7 @@
     <table>
       <thead>
         <tr>
-          <th>Date</th><th>Weight</th><th>Fasting</th><th>Midday</th><th>Evening</th>
+          <th>Date</th><th>Weight</th><th>Waist</th><th>Fasting</th><th>Midday</th><th>Evening</th>
           <th>DP Δ</th><th>Sleep hrs</th><th>Sleep Q</th><th>Stress</th><th>Mood</th><th>💧 Gen</th><th>🥛 Milk</th><th>🏃 Move</th><th>💊</th><th>GI</th><th>⚡</th><th>🌿 Habits</th><th>Notes</th><th>Del</th>
         </tr>
       </thead>
@@ -573,7 +574,7 @@ updateStressColor(5);
 function clearForm(){
   document.getElementById('f-date').value='';
   document.getElementById('f-date').value=todayISO();
-  ['f-weight','f-bedtime','f-sleep-hrs','f-g-fast','f-g-mid','f-g-eve','f-notes','f-move-min'].forEach(id=>document.getElementById(id).value='');
+  ['f-weight','f-waist','f-bedtime','f-sleep-hrs','f-g-fast','f-g-mid','f-g-eve','f-notes','f-move-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-sleep-q').value='3'; document.getElementById('sq-val').textContent='3';
   document.getElementById('f-stress').value='5';  document.getElementById('stress-val').textContent='5';
   document.getElementById('f-mood').value='3';    document.getElementById('mood-val').textContent='3';
@@ -590,6 +591,7 @@ function loadEntryIntoForm(date){
   const e = entries.find(en=>en.date===date);
   if(!e) return;
   if(e.weight)   document.getElementById('f-weight').value=e.weight;
+  if(e.waist)    document.getElementById('f-waist').value=e.waist;
   if(e.bedtime)  document.getElementById('f-bedtime').value=e.bedtime;
   if(e.sleepHrs) document.getElementById('f-sleep-hrs').value=e.sleepHrs;
   if(e.gFast)    document.getElementById('f-g-fast').value=e.gFast;
@@ -614,6 +616,7 @@ function loadEntryIntoForm(date){
 function saveEntry(){
   const date    = document.getElementById('f-date').value;
   const weight  = parseFloat(document.getElementById('f-weight').value)||null;
+  const waist   = parseFloat(document.getElementById('f-waist').value)||null;
   const bedtime = document.getElementById('f-bedtime').value||null;
   const sleepHrs= parseFloat(document.getElementById('f-sleep-hrs').value)||null;
   const gFast   = parseFloat(document.getElementById('f-g-fast').value)||null;
@@ -632,7 +635,7 @@ function saveEntry(){
   if(weight===null&&gFast===null&&gMid===null&&gEve===null){ alert('Enter at least one reading before saving.'); return; }
   const entries=loadEntries();
   const idx=entries.findIndex(e=>e.date===date);
-  const entry={date,weight,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,hydraGen,hydraMilk,moveMin,lunchWalk,dinnerWalk,prebedWalk,suppTaken,gi,energy,habits,notes};
+  const entry={date,weight,waist,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,hydraGen,hydraMilk,moveMin,lunchWalk,dinnerWalk,prebedWalk,suppTaken,gi,energy,habits,notes};
   if(idx>=0) entries[idx]=entry; else entries.push(entry);
   entries.sort((a,b)=>a.date.localeCompare(b.date));
   saveEntries(entries);
@@ -770,6 +773,7 @@ function buildStats(entries){
   const bar=document.getElementById('stats-bar');
   if(!entries.length){bar.innerHTML='';return;}
   const weights =entries.map(e=>e.weight).filter(Boolean);
+  const waists  =entries.map(e=>e.waist).filter(Boolean);
   const fasts   =entries.map(e=>e.gFast).filter(Boolean);
   const stresses=entries.map(e=>e.stress).filter(Boolean);
   const sleeps  =entries.map(e=>e.sleepHrs).filter(Boolean);
@@ -783,6 +787,7 @@ function buildStats(entries){
   const stats=[
     {val:weights.length?fmt(weights[weights.length-1])+' lbs':'—',label:'Latest Weight',color:'#40916c',trend:''},
     {val:weightDelta!==null?(weightDelta>0?'+':'')+fmt(weightDelta)+' lbs':'—',label:'Weight Change',color:weightDelta===null?'#aaa':weightDelta<=0?'#27ae60':'#e74c3c',trend:''},
+    {val:waists.length?fmt(waists[waists.length-1])+' cm':'—',label:'Latest Waist',color:waists.length?(waists[waists.length-1]<80?'#27ae60':waists[waists.length-1]<88?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(waists)},
     {val:fasts.length?fmt(avg(fasts),0):'—',label:'Avg Fasting',color:fasts.length?(avg(fasts)<100?'#27ae60':avg(fasts)<126?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(fasts)},
     {val:avgDP!==null?(avgDP>=0?'+':'')+fmt(avgDP,0)+' mg/dL':'—',label:'Avg DP Delta',color:avgDP===null?'#aaa':avgDP<=10?'#27ae60':avgDP<=20?'#52b788':avgDP<=35?'#e67e22':'#e74c3c',trend:trendArrow(deltas)},
     {val:recentDP!==null?(recentDP>=0?'+':'')+fmt(recentDP,0):'—',label:'DP Delta 7d',color:recentDP===null?'#aaa':recentDP<=10?'#27ae60':recentDP<=20?'#52b788':recentDP<=35?'#e67e22':'#e74c3c',trend:''},
@@ -805,6 +810,7 @@ function buildTable(entries){
     <tr>
       <td style="white-space:nowrap;font-size:.8rem">${formatDateShort(e.date)}</td>
       <td>${e.weight?fmt(e.weight)+' lbs':'—'}</td>
+      <td style="${e.waist&&e.waist<80?'color:#27ae60':e.waist&&e.waist<88?'color:#e67e22':e.waist?'color:#e74c3c':''};font-size:.83rem">${e.waist?fmt(e.waist)+' cm':'—'}</td>
       <td style="${glucoseColor(e.gFast)}">${fmt(e.gFast,0)}</td>
       <td style="${glucoseColor(e.gMid)}">${fmt(e.gMid,0)}</td>
       <td style="${glucoseColor(e.gEve)}">${fmt(e.gEve,0)}</td>
@@ -828,10 +834,11 @@ function buildTable(entries){
 function exportCSV(){
   const entries=loadEntries();
   if(!entries.length){ alert('No entries to export yet.'); return; }
-  const headers=['Date','Weight (lbs)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Hydration Bottles (0-8)','Milk Glasses (0-6)','Treadmill Minutes','Lunch Walk','Dinner Walk','Pre-Bed Walk','Supplements','GI Status (1-5)','Energy (1-5)','Outdoors','Screen-Free','Unrushed Morning','Rest/Nap','Notes'];
+  const headers=['Date','Weight (lbs)','Waist (cm)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Hydration Bottles (0-8)','Milk Glasses (0-6)','Treadmill Minutes','Lunch Walk','Dinner Walk','Pre-Bed Walk','Supplements','GI Status (1-5)','Energy (1-5)','Outdoors','Screen-Free','Unrushed Morning','Rest/Nap','Notes'];
   const rows=entries.map(e=>[
     e.date,
     e.weight??'',
+    e.waist??'',
     e.bedtime??'',
     e.sleepHrs??'',
     e.gFast??'',
