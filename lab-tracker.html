@@ -199,6 +199,7 @@
             <li>APOE genotyping (if not already done — confirms e3/e4 vs e4/e4)</li>
             <li>Baseline cognitive screening (MoCA) — establishes baseline now at 62</li>
             <li>⭐ pTau217 / β-Amyloid 1-42 Plasma Ratio (Lumipulse G) — <strong>research study, blood draw May 19</strong> — detects amyloid plaque accumulation via blood draw (~95% concordant with PET scan); critical early marker for APOE4 carriers</li>
+            <li>⭐ pTau blood test (pg/mL) — <strong>result logged May 26, 2026: 0.10 pg/mL ✅ reassuring</strong> — measures phosphorylated tau protein (tau tangle formation marker); independent of amyloid; low result alongside negative amyloid ratio is doubly reassuring for APOE4; retest every 2–3 years for longitudinal baseline</li>
           </ul>
         </div>
       </div>
@@ -350,6 +351,9 @@ const TESTS = [
   { id:'ptau217-abeta',   name:'pTau217 / β-Amyloid 1-42 Ratio (Lumipulse G)', cat:'APOE4 / Cognitive', unit:'ratio',
     target:'Enter result as: negative · gray-zone · positive — Negative = no significant amyloid accumulation detected (reassuring, especially with APOE4). Gray-zone = intermediate, repeat testing recommended. Positive = amyloid accumulation consistent with pre-clinical AD pathology. Important: "Positive" does NOT mean Alzheimer\'s — it means the biological process that precedes it is detectable, often 10–20 years before symptoms. With APOE4, you may accumulate amyloid earlier than non-carriers, so a negative result at 62 is genuinely meaningful. Research study result — ~95% concordant with PET scan. Enter the qualitative result (negative/gray-zone/positive) and any ratio value provided in notes.',
     status: v => v.toLowerCase().includes('negative') ? 'green' : v.toLowerCase().includes('gray') ? 'yellow' : v.toLowerCase().includes('positive') ? 'red' : 'neutral' },
+  { id:'ptau-blood',       name:'pTau (blood, pg/mL)',  cat:'APOE4 / Cognitive', unit:'pg/mL',
+    target:'Interpretation depends on which assay your lab uses — check your report header. · pTau181 (Quanterix SiMoA): <1.5 pg/mL reassuring · 1.5–2.2 borderline · >2.2 elevated. · pTau217 (ALZpath, C2N PrecivityAD2, or similar): <0.20 pg/mL reassuring · 0.20–0.40 borderline · >0.40 elevated. · pTau231 (UCL assay): <0.35 pg/mL reassuring · >0.35 elevated. What pTau measures: phosphorylated tau protein in blood — a marker of tau tangle formation in the brain, one of the two hallmark Alzheimer pathological processes alongside amyloid. Low pTau means tau tangles are not currently detectable. Important: pTau rises independently of amyloid — a low pTau alongside a negative amyloid ratio is doubly reassuring for APOE4 carriers. Retest every 2–3 years as a longitudinal baseline. Your result May 26, 2026: 0.10 pg/mL (reassuring — well within normal range for all common assays at this value).',
+    status: v => { const n = parseFloat(v); if (isNaN(n)) return 'neutral'; return n < 0.40 ? 'green' : n <= 0.80 ? 'yellow' : 'red'; } },
 
   // Fatty Liver / Hepatic Health
   { id:'alt',             name:'ALT (Alanine Aminotransferase)', cat:'Fatty Liver / Hepatic Health', unit:'U/L',
