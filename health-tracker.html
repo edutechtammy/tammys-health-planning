@@ -390,7 +390,7 @@
 <div class="charts-grid-2">
   <div class="card">
     <h2>⚖️ Weight Over Time</h2>
-    <div class="chart-scroll"><div class="chart-wrap" id="wrap-weight"><canvas id="chart-weight"></canvas></div></div>
+    <div class="chart-scroll"><div class="chart-wrap" id="wrap-weight" style="height:360px"><canvas id="chart-weight"></canvas></div></div>
   </div>
   <div class="card">
     <h2>🩸 Glucose Over Time</h2>
@@ -716,10 +716,77 @@ function buildCharts(entries){
   };
 
   if(chartWeight)chartWeight.destroy();
+  // ── Weight goal & BMI milestone reference lines ───────────────────────
+  // Height 5′8.5″ = 1.7399 m → h² = 3.027 m²
+  const H2   = 3.027;
+  const LB   = 2.20462;
+  const wtTarget   = 143;   // BMI 21.5 · sweet-spot goal
+  const wtFirstWin = 166;   // BMI 24.9 · healthy range entry
+  // Compute whole-BMI milestone lines between first logged weight and 166 lbs
+  const wtVals   = entries.map(e=>e.weight).filter(Boolean);
+  const startWt  = wtVals.length ? wtVals[0] : null;
+  const startBMI = startWt ? startWt / (H2 * LB) : null;
+  const bmiMiles = [];
+  if(startBMI){
+    for(let b=Math.floor(startBMI); b>=25; b--){
+      const wt=Math.round(b*H2*LB);
+      if(wt>wtFirstWin) bmiMiles.push({bmi:b,wt});
+    }
+  }
+  const flat = v => labels.map(()=>v);
+  const refDatasets = [
+    // ── Intermediate BMI milestone lines (rendered first so they sit behind)
+    ...bmiMiles.map(m=>({
+      label:`BMI ${m.bmi} · ${m.wt} lbs`,
+      data:flat(m.wt),
+      borderColor:'rgba(150,150,150,.35)',
+      borderWidth:1,
+      borderDash:[3,5],
+      pointRadius:0,
+      fill:false,
+      tension:0,
+      order:12
+    })),
+    // ── Healthy-range entry — first celebration win
+    {label:'🎉 First win — healthy range (BMI 24.9 · 166 lbs)',data:flat(wtFirstWin),
+      borderColor:'#d97706',borderWidth:2,borderDash:[8,5],
+      pointRadius:0,fill:false,tension:0,order:11},
+    // ── Sweet-spot target
+    {label:'🎯 Goal — sweet spot (BMI 21.5 · 143 lbs)',data:flat(wtTarget),
+      borderColor:'#059669',borderWidth:2.5,borderDash:[10,4],
+      pointRadius:0,fill:false,tension:0,order:10}
+  ];
   chartWeight=new Chart(document.getElementById('chart-weight'),{
     type:'line',
-    data:{labels,datasets:[{label:'Weight (lbs)',data:entries.map(e=>e.weight),borderColor:'#40916c',backgroundColor:'rgba(64,145,108,.12)',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#40916c',tension:.35,spanGaps:true}]},
-    options:{...baseOpts}
+    data:{labels,datasets:[
+      {label:'Weight (lbs)',data:entries.map(e=>e.weight),
+        borderColor:'#40916c',backgroundColor:'rgba(64,145,108,.12)',
+        borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#40916c',
+        tension:.35,spanGaps:true,order:1},
+      ...refDatasets
+    ]},
+    options:{
+      ...baseOpts,
+      plugins:{
+        ...baseOpts.plugins,
+        legend:{
+          labels:{
+            font:{size:10},boxWidth:22,
+            // hide intermediate BMI lines from legend — they show on hover only
+            filter: item => !item.text.startsWith('BMI ')
+          }
+        },
+        tooltip:{
+          callbacks:{
+            label: ctx => {
+              const v=ctx.raw; if(v==null) return null;
+              const bmi=(v/(H2*LB)).toFixed(1);
+              return `${ctx.dataset.label}: ${v} lbs  (BMI ${bmi})`;
+            }
+          }
+        }
+      }
+    }
   });
 
   if(chartGlucose)chartGlucose.destroy();
