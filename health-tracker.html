@@ -221,6 +221,7 @@
     <div class="field"><label>Fasting BG — on waking</label><input type="number" id="f-g-fast" step="1" min="0" placeholder="e.g. 95" /></div>
     <div class="field"><label>1-hr post-brunch (post-meal peak)</label><input type="number" id="f-g-mid" step="1" min="0" placeholder="e.g. 110" /></div>
     <div class="field"><label>2-hr post-dinner / pre-snack</label><input type="number" id="f-g-eve" step="1" min="0" placeholder="e.g. 100" /></div>
+    <div class="field"><label>Daily Average — CGM or meter (optional)</label><input type="number" id="f-g-avg" step="1" min="0" placeholder="e.g. 87" title="24-hr average from CGM app, or daily average from your finger-stick meter. Optional — log whenever available." /></div>
   </div>
   <div class="form-section-label">💧 Hydration</div>
   <div class="form-grid">
@@ -574,7 +575,7 @@ updateStressColor(5);
 function clearForm(){
   document.getElementById('f-date').value='';
   document.getElementById('f-date').value=todayISO();
-  ['f-weight','f-waist','f-bedtime','f-sleep-hrs','f-g-fast','f-g-mid','f-g-eve','f-notes','f-move-min'].forEach(id=>document.getElementById(id).value='');
+  ['f-weight','f-waist','f-bedtime','f-sleep-hrs','f-g-fast','f-g-mid','f-g-eve','f-g-avg','f-notes','f-move-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-sleep-q').value='3'; document.getElementById('sq-val').textContent='3';
   document.getElementById('f-stress').value='5';  document.getElementById('stress-val').textContent='5';
   document.getElementById('f-mood').value='3';    document.getElementById('mood-val').textContent='3';
@@ -597,6 +598,7 @@ function loadEntryIntoForm(date){
   if(e.gFast)    document.getElementById('f-g-fast').value=e.gFast;
   if(e.gMid)     document.getElementById('f-g-mid').value=e.gMid;
   if(e.gEve)     document.getElementById('f-g-eve').value=e.gEve;
+  if(e.gAvg)     document.getElementById('f-g-avg').value=e.gAvg;
   if(e.sleepQ){  document.getElementById('f-sleep-q').value=e.sleepQ; document.getElementById('sq-val').textContent=e.sleepQ; }
   if(e.stress){  document.getElementById('f-stress').value=e.stress;  document.getElementById('stress-val').textContent=e.stress; updateStressColor(e.stress); }
   if(e.mood){    document.getElementById('f-mood').value=e.mood;       document.getElementById('mood-val').textContent=e.mood; }
@@ -622,6 +624,7 @@ function saveEntry(){
   const gFast   = parseFloat(document.getElementById('f-g-fast').value)||null;
   const gMid    = parseFloat(document.getElementById('f-g-mid').value)||null;
   const gEve    = parseFloat(document.getElementById('f-g-eve').value)||null;
+  const gAvg    = parseFloat(document.getElementById('f-g-avg').value)||null;
   const sleepQ  = parseInt(document.getElementById('f-sleep-q').value)||null;
   const stress  = parseInt(document.getElementById('f-stress').value)||null;
   const mood    = parseInt(document.getElementById('f-mood').value)||null;
@@ -632,10 +635,10 @@ function saveEntry(){
   const energy   = parseInt(document.getElementById('f-energy').value)||null;
   const habits   = {...recovHabits};
   if(!date){ alert('Please pick a date.'); return; }
-  if(weight===null&&gFast===null&&gMid===null&&gEve===null){ alert('Enter at least one reading before saving.'); return; }
+  if(weight===null&&gFast===null&&gMid===null&&gEve===null&&gAvg===null){ alert('Enter at least one reading before saving.'); return; }
   const entries=loadEntries();
   const idx=entries.findIndex(e=>e.date===date);
-  const entry={date,weight,waist,bedtime,sleepHrs,gFast,gMid,gEve,sleepQ,stress,mood,hydraGen,hydraMilk,moveMin,lunchWalk,dinnerWalk,prebedWalk,suppTaken,gi,energy,habits,notes};
+  const entry={date,weight,waist,bedtime,sleepHrs,gFast,gMid,gEve,gAvg,sleepQ,stress,mood,hydraGen,hydraMilk,moveMin,lunchWalk,dinnerWalk,prebedWalk,suppTaken,gi,energy,habits,notes};
   if(idx>=0) entries[idx]=entry; else entries.push(entry);
   entries.sort((a,b)=>a.date.localeCompare(b.date));
   saveEntries(entries);
@@ -794,7 +797,8 @@ function buildCharts(entries){
     data:{labels,datasets:[
       {label:'Fasting BG', data:entries.map(e=>e.gFast), borderColor:'#4a90c4',backgroundColor:'rgba(74,144,196,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#4a90c4',tension:.35,spanGaps:true},
       {label:'1-hr Post-Brunch', data:entries.map(e=>e.gMid),  borderColor:'#e9a84c',backgroundColor:'rgba(233,168,76,.1)', borderWidth:2,pointRadius:4,pointBackgroundColor:'#e9a84c',tension:.35,spanGaps:true},
-      {label:'2-hr Post-Dinner', data:entries.map(e=>e.gEve),  borderColor:'#8b6abf',backgroundColor:'rgba(139,106,191,.1)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#8b6abf',tension:.35,spanGaps:true}
+      {label:'2-hr Post-Dinner', data:entries.map(e=>e.gEve),  borderColor:'#8b6abf',backgroundColor:'rgba(139,106,191,.1)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#8b6abf',tension:.35,spanGaps:true},
+      {label:'Daily Average',   data:entries.map(e=>e.gAvg),  borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.1)', borderWidth:2,pointRadius:5,pointBackgroundColor:'#10b981',tension:.35,spanGaps:true,borderDash:[5,3]}
     ]},
     options:{...baseOpts}
   });
@@ -841,6 +845,7 @@ function buildStats(entries){
   const weights =entries.map(e=>e.weight).filter(Boolean);
   const waists  =entries.map(e=>e.waist).filter(Boolean);
   const fasts   =entries.map(e=>e.gFast).filter(Boolean);
+  const gavgs   =entries.map(e=>e.gAvg).filter(Boolean);
   const stresses=entries.map(e=>e.stress).filter(Boolean);
   const sleeps  =entries.map(e=>e.sleepHrs).filter(Boolean);
   const deltas  =computeDPDeltas(entries).filter(v=>v!==null);
@@ -854,7 +859,8 @@ function buildStats(entries){
     {val:weights.length?fmt(weights[weights.length-1])+' lbs':'—',label:'Latest Weight',color:'#40916c',trend:''},
     {val:weightDelta!==null?(weightDelta>0?'+':'')+fmt(weightDelta)+' lbs':'—',label:'Weight Change',color:weightDelta===null?'#aaa':weightDelta<=0?'#27ae60':'#e74c3c',trend:''},
     {val:waists.length?fmt(waists[waists.length-1])+' cm':'—',label:'Latest Waist',color:waists.length?(waists[waists.length-1]<80?'#27ae60':waists[waists.length-1]<88?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(waists)},
-    {val:fasts.length?fmt(avg(fasts),0):'—',label:'Avg Fasting',color:fasts.length?(avg(fasts)<100?'#27ae60':avg(fasts)<126?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(fasts)},
+    {val:fasts.length?fmt(avg(fasts),0):'—',label:'Avg Fasting BG',color:fasts.length?(avg(fasts)<100?'#27ae60':avg(fasts)<126?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(fasts)},
+    {val:gavgs.length?fmt(avg(gavgs),0)+' mg/dL':'—',label:'Avg Daily BG',color:gavgs.length?(avg(gavgs)<100?'#27ae60':avg(gavgs)<105?'#52b788':avg(gavgs)<115?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(gavgs)},
     {val:avgDP!==null?(avgDP>=0?'+':'')+fmt(avgDP,0)+' mg/dL':'—',label:'Avg DP Delta',color:avgDP===null?'#aaa':avgDP<=10?'#27ae60':avgDP<=20?'#52b788':avgDP<=35?'#e67e22':'#e74c3c',trend:trendArrow(deltas)},
     {val:recentDP!==null?(recentDP>=0?'+':'')+fmt(recentDP,0):'—',label:'DP Delta 7d',color:recentDP===null?'#aaa':recentDP<=10?'#27ae60':recentDP<=20?'#52b788':recentDP<=35?'#e67e22':'#e74c3c',trend:''},
     {val:stresses.length?fmt(avg(stresses),1):'—',label:'Avg Stress',color:stressColor(avg(stresses)),trend:trendArrow(stresses)},
