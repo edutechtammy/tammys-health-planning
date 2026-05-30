@@ -212,7 +212,7 @@
   <div class="form-grid">
     <div class="field"><label>Date</label><input type="date" id="f-date" /></div>
     <div class="field"><label>Weight (lbs)</label><input type="number" id="f-weight" step="0.1" min="0" placeholder="e.g. 148.5" /></div>
-    <div class="field"><label>Waist (cm) <span style="font-size:.7rem;font-weight:400;text-transform:none">natural waist, morning, after exhale</span></label><input type="number" id="f-waist" step="0.1" min="0" placeholder="e.g. 82.5" /></div>
+    <div class="field"><label>Waist (in) <span style="font-size:.7rem;font-weight:400;text-transform:none">natural waist, morning, after exhale</span></label><input type="number" id="f-waist" step="0.1" min="0" placeholder="e.g. 32.5" /></div>
     <div class="field"><label>Bedtime (last night)</label><input type="time" id="f-bedtime" /></div>
     <div class="field"><label>Sleep Hours (last night)</label><input type="number" id="f-sleep-hrs" step="0.5" min="0" max="14" placeholder="e.g. 7.5" /></div>
   </div>
@@ -858,7 +858,7 @@ function buildStats(entries){
   const stats=[
     {val:weights.length?fmt(weights[weights.length-1])+' lbs':'—',label:'Latest Weight',color:'#40916c',trend:''},
     {val:weightDelta!==null?(weightDelta>0?'+':'')+fmt(weightDelta)+' lbs':'—',label:'Weight Change',color:weightDelta===null?'#aaa':weightDelta<=0?'#27ae60':'#e74c3c',trend:''},
-    {val:waists.length?fmt(waists[waists.length-1])+' cm':'—',label:'Latest Waist',color:waists.length?(waists[waists.length-1]<80?'#27ae60':waists[waists.length-1]<88?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(waists)},
+    {val:waists.length?fmt(waists[waists.length-1])+'"':'—',label:'Latest Waist',color:waists.length?(waists[waists.length-1]<31.5?'#27ae60':waists[waists.length-1]<34.5?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(waists)},
     {val:fasts.length?fmt(avg(fasts),0):'—',label:'Avg Fasting BG',color:fasts.length?(avg(fasts)<100?'#27ae60':avg(fasts)<126?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(fasts)},
     {val:gavgs.length?fmt(avg(gavgs),0)+' mg/dL':'—',label:'Avg Daily BG',color:gavgs.length?(avg(gavgs)<100?'#27ae60':avg(gavgs)<105?'#52b788':avg(gavgs)<115?'#e67e22':'#e74c3c'):'#aaa',trend:trendArrow(gavgs)},
     {val:avgDP!==null?(avgDP>=0?'+':'')+fmt(avgDP,0)+' mg/dL':'—',label:'Avg DP Delta',color:avgDP===null?'#aaa':avgDP<=10?'#27ae60':avgDP<=20?'#52b788':avgDP<=35?'#e67e22':'#e74c3c',trend:trendArrow(deltas)},
@@ -906,7 +906,7 @@ function buildTable(entries){
 function exportCSV(){
   const entries=loadEntries();
   if(!entries.length){ alert('No entries to export yet.'); return; }
-  const headers=['Date','Weight (lbs)','Waist (cm)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Hydration Bottles (0-8)','Milk Glasses (0-6)','Treadmill Minutes','Lunch Walk','Dinner Walk','Pre-Bed Walk','Supplements','GI Status (1-5)','Energy (1-5)','Outdoors','Screen-Free','Unrushed Morning','Rest/Nap','Notes'];
+  const headers=['Date','Weight (lbs)','Waist (in)','Bedtime','Sleep Hours','Fasting Glucose','Midday Glucose','Evening Glucose','Sleep Quality (1-5)','Stress (1-10)','Mood (1-5)','Hydration Bottles (0-8)','Milk Glasses (0-6)','Treadmill Minutes','Lunch Walk','Dinner Walk','Pre-Bed Walk','Supplements','GI Status (1-5)','Energy (1-5)','Outdoors','Screen-Free','Unrushed Morning','Rest/Nap','Notes'];
   const rows=entries.map(e=>[
     e.date,
     e.weight??'',
