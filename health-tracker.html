@@ -882,7 +882,7 @@ function buildTable(entries){
     <tr>
       <td style="white-space:nowrap;font-size:.8rem">${formatDateShort(e.date)}</td>
       <td>${e.weight?fmt(e.weight)+' lbs':'—'}</td>
-      <td style="${e.waist&&e.waist<80?'color:#27ae60':e.waist&&e.waist<88?'color:#e67e22':e.waist?'color:#e74c3c':''};font-size:.83rem">${e.waist?fmt(e.waist)+' cm':'—'}</td>
+      <td style="${e.waist&&e.waist<31.5?'color:#27ae60':e.waist&&e.waist<34.5?'color:#e67e22':e.waist?'color:#e74c3c':''};font-size:.83rem">${e.waist?fmt(e.waist)+'"':'—'}</td>
       <td style="${glucoseColor(e.gFast)}">${fmt(e.gFast,0)}</td>
       <td style="${glucoseColor(e.gMid)}">${fmt(e.gMid,0)}</td>
       <td style="${glucoseColor(e.gEve)}">${fmt(e.gEve,0)}</td>
