@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise Protocol · Metabolic Recovery</title>
+<style>
+  :root {
+    --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;--green-pale:#d8f3dc;
+    --amber:#e9c46a;--amber-dark:#f4a261;--sky:#90e0ef;--sky-dark:#0077b6;
+    --purple:#c77dff;--purple-dark:#7b2d8b;--red:#e63946;--red-pale:#fde8ea;
+    --slate:#f8f9fa;--border:#d1e8d5;--text:#1a1a2e;--muted:#6c757d;
+    --orange-dark:#c2410c;--orange-pale:#fff7ed;--orange-border:#fed7aa;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);font-size:17px;line-height:1.6}
+  nav{background:var(--green-dark);padding:.75rem 1.5rem;display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+  nav a{color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;opacity:.85;transition:opacity .2s}
+  nav a:hover,nav a.active{opacity:1;text-decoration:underline}
+  header{background:linear-gradient(135deg,var(--green-dark),#0f766e);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center}
+  header h1{font-size:2rem;margin-bottom:.4rem}
+  header p{font-size:1rem;opacity:.85;max-width:720px;margin:0 auto}
+  main{max-width:960px;margin:0 auto;padding:2rem 1.2rem 4rem}
+
+  /* SECTIONS */
+  .section{background:#fff;border-radius:12px;border:1px solid var(--border);margin-bottom:2rem;overflow:hidden}
+  .section-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.4rem;cursor:pointer;user-select:none}
+  .section-header h2{font-size:1.15rem;flex:1}
+  .section-header .icon{font-size:1.5rem;width:2rem;text-align:center}
+  .section-header .toggle{font-size:1.1rem;color:var(--muted);transition:transform .25s}
+  .section-body{padding:1rem 1.4rem 1.4rem;border-top:1px solid var(--border)}
+  .section.collapsed .section-body{display:none}
+  .section.collapsed .toggle{transform:rotate(-90deg)}
+  .band-green .section-header{background:var(--green-pale)}
+  .band-amber .section-header{background:#fff8e1}
+  .band-sky   .section-header{background:#e0f7fa}
+  .band-purple .section-header{background:#f3e5ff}
+  .band-orange .section-header{background:var(--orange-pale)}
+  .band-red   .section-header{background:var(--red-pale)}
+
+  /* CALLOUT BOXES */
+  .callout{border-radius:10px;padding:.9rem 1.1rem;margin:.75rem 0;font-size:.92rem;line-height:1.65}
+  .callout strong{display:block;margin-bottom:.3rem;font-size:.95rem}
+  .callout-green{background:var(--green-pale);border-left:4px solid var(--green-mid)}
+  .callout-green strong{color:var(--green-dark)}
+  .callout-amber{background:#fff8e1;border-left:4px solid var(--amber-dark)}
+  .callout-amber strong{color:#7a5c00}
+  .callout-sky{background:#e0f7fa;border-left:4px solid var(--sky-dark)}
+  .callout-sky strong{color:var(--sky-dark)}
+  .callout-orange{background:var(--orange-pale);border-left:4px solid var(--orange-dark)}
+  .callout-orange strong{color:var(--orange-dark)}
+  .callout-red{background:var(--red-pale);border-left:4px solid var(--red)}
+  .callout-red strong{color:var(--red)}
+  .callout-purple{background:#f3e5ff;border-left:4px solid var(--purple-dark)}
+  .callout-purple strong{color:var(--purple-dark)}
+
+  /* TWO COLUMN */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr}}
+
+  /* LISTS */
+  ul.ref{padding-left:1.3rem;margin:.5rem 0}
+  ul.ref li{margin:.35rem 0;font-size:.97rem}
+  ul.ref li::marker{color:var(--green-mid)}
+
+  /* MECHANISM CHAIN */
+  .mech-chain{display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0}
+  .mech-step{display:flex;gap:.85rem;align-items:flex-start;background:#f8fdf9;border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;line-height:1.6}
+  .mech-num{background:var(--green-dark);color:#fff;border-radius:50%;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;margin-top:.1rem}
+  .mech-step strong{color:var(--green-dark);display:block;margin-bottom:.2rem;font-size:.93rem}
+  .mech-arrow{text-align:center;font-size:1.1rem;color:var(--green-mid);margin:-.15rem 0}
+
+  /* SPEED TABLE */
+  .speed-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:.75rem 0}
+  .speed-table th{background:var(--green-dark);color:#fff;padding:.5rem .8rem;text-align:left}
+  .speed-table td{padding:.45rem .8rem;border-bottom:1px solid var(--border);vertical-align:top}
+  .speed-table tr:nth-child(even) td{background:#f7fbf8}
+  .speed-table .highlight td{background:#d8f3dc;font-weight:600}
+  .speed-table .zone2{color:var(--green-dark);font-weight:700}
+
+  /* EXERCISE TABLE */
+  .ex-table{width:100%;border-collapse:collapse;font-size:.87rem;margin:.75rem 0}
+  .ex-table th{background:var(--green-dark);color:#fff;padding:.45rem .75rem;text-align:left;font-size:.82rem}
+  .ex-table td{padding:.42rem .75rem;border-bottom:1px solid var(--border);vertical-align:top}
+  .ex-table tr:nth-child(even) td{background:#f7fbf8}
+  .ex-table .muscle{color:var(--sky-dark);font-size:.78rem;font-weight:600}
+  .ex-table .prog{color:var(--muted);font-size:.78rem;font-style:italic}
+
+  /* WEEK GRID */
+  .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;margin:.75rem 0}
+  @media(max-width:700px){.week-grid{grid-template-columns:repeat(4,1fr)}}
+  .day-card{border-radius:8px;padding:.55rem .4rem;font-size:.76rem;text-align:center;line-height:1.4}
+  .day-label{font-weight:700;font-size:.72rem;text-transform:uppercase;margin-bottom:.3rem;opacity:.7}
+  .day-cardio{background:#d8f3dc;border:1px solid var(--green-light)}
+  .day-resist{background:#e0f7fa;border:1px solid var(--sky)}
+  .day-both{background:#fff8e1;border:1px solid var(--amber)}
+  .day-rest{background:#f8f9fa;border:1px solid #dee2e6;color:var(--muted)}
+
+  /* PROGRESS TABLE */
+  .prog-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:.75rem 0}
+  .prog-table th{background:var(--green-dark);color:#fff;padding:.45rem .8rem;text-align:left;font-size:.82rem}
+  .prog-table td{padding:.42rem .8rem;border-bottom:1px solid var(--border);vertical-align:top}
+  .prog-table tr:nth-child(even) td{background:#f7fbf8}
+  .prog-table .timeline{font-weight:700;color:var(--green-dark);white-space:nowrap}
+
+  /* PILL */
+  .pill{display:inline-block;padding:.18rem .65rem;border-radius:999px;font-size:.8rem;font-weight:600;margin:.15rem}
+  .pill-green{background:var(--green-pale);color:var(--green-dark)}
+  .pill-amber{background:#fff3cd;color:#7a5c00}
+  .pill-sky{background:#e0f7fa;color:var(--sky-dark)}
+  .pill-orange{background:var(--orange-pale);color:var(--orange-dark)}
+  .pill-red{background:var(--red-pale);color:var(--red)}
+
+  /* ZONE GAUGE */
+  .zone-bar{display:flex;border-radius:8px;overflow:hidden;height:2rem;margin:.75rem 0;font-size:.76rem;font-weight:700}
+  .zone-1{background:#bbf7d0;color:#166534;flex:1;display:flex;align-items:center;justify-content:center}
+  .zone-2{background:#4ade80;color:#14532d;flex:2;display:flex;align-items:center;justify-content:center;border:3px solid #16a34a}
+  .zone-3{background:#fde68a;color:#78350f;flex:1.5;display:flex;align-items:center;justify-content:center}
+  .zone-4{background:#fca5a5;color:#7f1d1d;flex:1;display:flex;align-items:center;justify-content:center}
+
+  /* BAND OPTION */
+  .band-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;font-size:.87rem;line-height:1.6;margin:.5rem 0}
+  .band-card strong{color:var(--green-dark)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="recipes.html">🥗 Recipes</a>
+  <a href="health-tracker.html">📊 Tracker</a>
+  <a href="lab-tracker.html">🔬 Labs</a>
+  <a href="food-response-testing.html">🧪 Food Testing</a>
+  <a href="health-reference.html">📖 Reference</a>
+  <a href="exercise-protocol.html" class="active">🏃 Exercise</a>
+</nav>
+
+<header>
+  <h1>🏃 Exercise as Metabolic Medicine</h1>
+  <p>A 12-week protocol for fatty liver reversal, triglyceride reduction, and insulin resistance recovery — built around the mechanisms that make exercise irreplaceable for these specific conditions.</p>
+</header>
+
+<main>
+
+  <!-- WHY EXERCISE IS DIFFERENT -->
+  <div class="section band-green" id="sec-why">
+    <div class="section-header" onclick="toggle('sec-why')">
+      <span class="icon">🔬</span>
+      <h2>Why Exercise Is Irreplaceable — What Supplements Alone Cannot Do</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:.9rem">Every supplement and food in the protocol targets the liver and the insulin signalling cascade from the outside. Exercise is the only intervention that <strong>physically enlarges the metabolic sink</strong> — the muscle tissue that should be accepting and burning the fat and glucose the liver is releasing. At a triglyceride:HDL ratio of 6.5, the liver is exporting fats faster than the body can accept them. The fix is not just to slow the liver down; it is to make the muscles capable of absorbing what the liver is trying to hand off.</p>
+
+      <div class="two-col">
+        <div>
+          <div class="callout callout-green">
+            <strong>The core problem — a mismatch of supply and acceptance</strong>
+            The liver packages triglycerides into VLDL and ships them into the bloodstream. In a metabolically healthy person, skeletal muscle accepts and burns this fat efficiently. In insulin resistance, the muscle's "receiving door" is stuck — the fat circulates, builds up in the liver, and the triglyceride number climbs. Exercise physically forces that door open, independent of insulin.
+          </div>
+        </div>
+        <div>
+          <div class="callout callout-amber">
+            <strong>The 12-week window — why now matters</strong>
+            The metabolic adaptations from consistent exercise are cumulative: mitochondrial growth, GLUT4 upregulation, insulin sensitivity restoration. Studies consistently show measurable improvements in liver fat and triglycerides at 8–12 weeks of consistent moderate exercise. Three months off work is a genuinely rare opportunity to build the foundation that makes all other interventions more effective.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE MECHANISM -->
+  <div class="section band-sky" id="sec-mech">
+    <div class="section-header" onclick="toggle('sec-mech')">
+      <span class="icon">⚙️</span>
+      <h2>The Mechanism — How Exercise Corrects the Liver, Glucose, and Fat Loop</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:.9rem;font-size:.95rem">These mechanisms work together. Understanding them helps you choose the right type and intensity of exercise rather than just "doing more walking."</p>
+
+      <div class="mech-chain">
+        <div class="mech-step">
+          <span class="mech-num">1</span>
+          <div>
+            <strong>GLUT4 translocation — the insulin bypass</strong>
+            Normally, insulin acts as the key that opens glucose transporters (GLUT4) in muscle cells. In insulin resistance, the lock is broken — insulin is present but the door won't open. When a muscle <em>contracts</em>, it activates a completely separate mechanism (AMPK-mediated GLUT4 translocation) that forces the glucose door open without needing insulin at all. This is why exercise lowers blood glucose and triglycerides even in people with severe insulin resistance: the broken lock is bypassed entirely by physical contraction.
+          </div>
+        </div>
+        <div class="mech-arrow">↓</div>
+        <div class="mech-step">
+          <span class="mech-num">2</span>
+          <div>
+            <strong>Glycogen depletion — the glucose vacuum</strong>
+            Muscle stores glucose as glycogen. During exercise, glycogen is partially depleted. For 24–48 hours after the session, the muscle prioritises refilling glycogen before storing anything else. Every gram of glucose from the next several meals goes to muscle glycogen first, rather than to the liver where it would be converted into more triglycerides via de novo lipogenesis. This directly reduces the raw material feeding the fatty liver cycle.
+          </div>
+        </div>
+        <div class="mech-arrow">↓</div>
+        <div class="mech-step">
+          <span class="mech-num">3</span>
+          <div>
+            <strong>AMPK activation — the same pathway as berberine, triggered by movement</strong>
+            AMPK (AMP-activated protein kinase) is the master metabolic switch that berberine, ginger, and garlic activate chemically. Exercise activates it mechanically — and more powerfully. In the liver, AMPK activation directly suppresses hepatic lipogenesis (fat production) and promotes hepatic fat oxidation (fat burning). In muscle, AMPK promotes fatty acid uptake and oxidation. Berberine in your evening supplement and exercise during the day are hitting the same switch from two different directions simultaneously — genuinely additive.
+          </div>
+        </div>
+        <div class="mech-arrow">↓</div>
+        <div class="mech-step">
+          <span class="mech-num">4</span>
+          <div>
+            <strong>IL-6 myokine — muscle sends a "burn fat" signal directly to the liver</strong>
+            During exercise, contracting muscle releases a signalling molecule called IL-6 (acting here as a myokine — a muscle hormone, not the inflammatory cytokine). This IL-6 travels to the liver and directly stimulates hepatic fat oxidation and suppresses hepatic glucose production. The liver literally receives a real-time chemical instruction from the exercising muscle to stop making glucose and start burning fat. This is a signalling pathway that no supplement replicates — it requires actual muscle contraction.
+          </div>
+        </div>
+        <div class="mech-arrow">↓</div>
+        <div class="mech-step">
+          <span class="mech-num">5</span>
+          <div>
+            <strong>Mitochondrial biogenesis — structural fat-burning capacity over weeks</strong>
+            Zone 2 aerobic exercise is the most potent known stimulus for mitochondrial biogenesis — the growth of new mitochondria inside muscle cells (via PGC-1α activation). Each mitochondrion performs beta-oxidation: the direct burning of fatty acids into energy. More mitochondria = a larger, permanent increase in the rate at which muscle can burn circulating fat. This adaptation takes 6–8 weeks to become measurable and is the main reason the 12-week window matters. It is structural — the benefit is retained for weeks after exercise stops.
+          </div>
+        </div>
+        <div class="mech-arrow">↓</div>
+        <div class="mech-step">
+          <span class="mech-num">6</span>
+          <div>
+            <strong>HOMA-IR restoration — insulin sensitivity improves systemically</strong>
+            HOMA-IR is the measure of insulin resistance that directly drives fatty liver and Dawn Phenomenon. Consistent Zone 2 + resistance training is one of the most powerful interventions known for reducing HOMA-IR — more effective than most pharmacological agents in non-diabetic individuals. As insulin sensitivity recovers, the liver stops receiving the chronic "keep releasing glucose" signal that drives overnight fasting glucose elevation. Dawn Phenomenon improves as a direct downstream result.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-purple" style="margin-top:1rem">
+        <strong>Why resistance training specifically matters for triglycerides</strong>
+        Resistance training builds skeletal muscle mass — and skeletal muscle is approximately 40% of body weight, making it the single largest glucose and fatty acid disposal site in the body. More muscle mass = a permanently larger sink. Each kilogram of muscle gained can absorb and oxidise substantially more circulating triglyceride-derived fatty acids per day, 24 hours a day, even at rest. This is why resistance training has independent triglyceride-lowering effects separate from and additive to aerobic exercise.
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 2 TREADMILL PROTOCOL -->
+  <div class="section band-green" id="sec-zone2">
+    <div class="section-header" onclick="toggle('sec-zone2')">
+      <span class="icon">🚶</span>
+      <h2>Zone 2 Cardio — Your Treadmill Protocol</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+
+      <div class="callout callout-amber">
+        <strong>Why 1.7 mph is not giving you Zone 2</strong>
+        At 1.7 mph, your heart rate is likely 75–90 bpm — slightly above true resting but not enough to activate the metabolic mechanisms that reduce liver fat. There is no meaningful AMPK activation, no significant glycogen depletion, and no mitochondrial signal. It is a gentle movement and has value for joint mobility and gentle circulation, but it is not the metabolic intervention needed for the triglyceride and fatty liver goals.
+      </div>
+
+      <h3 style="margin:1.2rem 0 .6rem;font-size:1rem;color:var(--green-dark)">🎯 What Zone 2 Feels Like — The Talk Test</h3>
+      <div class="zone-bar">
+        <div class="zone-1">Easy<br><span style="font-size:.7rem">too slow</span></div>
+        <div class="zone-2">✅ ZONE 2<br><span style="font-size:.7rem">TARGET</span></div>
+        <div class="zone-3">Zone 3<br><span style="font-size:.7rem">too hard for daily</span></div>
+        <div class="zone-4">Zone 4–5<br><span style="font-size:.7rem">HIIT / sprint</span></div>
+      </div>
+      <ul class="ref" style="margin-bottom:1rem">
+        <li>✅ <strong>You can speak a full sentence</strong> — but you would not want to sing</li>
+        <li>✅ <strong>Your breathing is noticeably faster</strong> — you are aware of it but not gasping</li>
+        <li>✅ <strong>You feel warm and slightly sweaty</strong> within the first 10 minutes</li>
+        <li>❌ <strong>Too easy:</strong> You could hold a full conversation without any breath awareness at all — increase speed or add incline</li>
+        <li>❌ <strong>Too hard:</strong> You cannot complete a sentence without pausing for breath — slow down or reduce incline</li>
+      </ul>
+
+      <h3 style="margin:1.2rem 0 .6rem;font-size:1rem;color:var(--green-dark)">📐 Incline is Your Friend</h3>
+      <p style="font-size:.92rem;margin-bottom:.75rem">Adding treadmill incline achieves Zone 2 at a slower absolute speed — which is more comfortable on joints and engages the glutes and hamstrings (the largest, most mitochondria-dense muscles in the body). Start flat if needed; adding even 2–3% incline is recommended once you are comfortable with the base speed.</p>
+
+      <h3 style="margin:1.2rem 0 .6rem;font-size:1rem;color:var(--green-dark)">🔢 Speed &amp; Incline Calibration — First Session</h3>
+      <div class="callout callout-sky" style="margin-bottom:.9rem">
+        <strong>How to find YOUR Zone 2 speed on Day 1</strong>
+        Start at 2.5 mph, flat. After 3 minutes, speak a sentence aloud. If it is very comfortable, add 0.2 mph and wait 2 minutes. Repeat until speaking a sentence requires a little effort but is still completely possible. Note that speed. That is your Zone 2 anchor point. Add 2% incline if you are already comfortable at 3.0–3.5 mph.
+      </div>
+
+      <table class="speed-table">
+        <thead>
+          <tr><th>Week</th><th>Speed (flat)</th><th>Speed (2–3% incline)</th><th>Why this step</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Week 1</strong></td><td>2.5 mph</td><td>2.0–2.2 mph at 2%</td><td>Find your Zone 2 anchor. Use the talk test. Some people hit Zone 2 at 2.5 mph flat; others need 3.0 mph. Find your number.</td></tr>
+          <tr class="highlight"><td><strong>Week 2</strong></td><td class="zone2">3.0 mph</td><td class="zone2">2.3–2.5 mph at 3%</td><td>Zone 2 should feel natural now. Breathing is elevated but sustained comfortably for 20+ min.</td></tr>
+          <tr class="highlight"><td><strong>Week 3–4</strong></td><td class="zone2">3.0–3.5 mph</td><td class="zone2">2.5–2.8 mph at 3–4%</td><td>As fitness improves, you will need slightly more speed or incline to stay in Zone 2 — your baseline has risen.</td></tr>
+          <tr><td><strong>Month 2–3</strong></td><td>3.5–4.0 mph</td><td>3.0 mph at 4–5%</td><td>Maintain Zone 2 by adjusting — the talk test governs, not the number. If it feels easy, add incline first.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:1.2rem 0 .6rem;font-size:1rem;color:var(--green-dark)">⏱ Session Length — Why Two Shorter Sessions Beats One Long One</h3>
+
+      <div class="two-col">
+        <div>
+          <div class="callout callout-green">
+            <strong>The AMPK elevation window</strong>
+            Each Zone 2 session elevates AMPK in muscle for approximately 4–6 hours after the session ends. A single 40-minute session = AMPK elevated for ~5 hours. Two 20-minute sessions spaced through the day = AMPK elevated for ~10+ hours. More total time with elevated AMPK means more total time with the glucose and fat disposal mechanisms turned on. For someone with high triglycerides and insulin resistance, the extended daily signal accumulates meaningfully over weeks.
+          </div>
+        </div>
+        <div>
+          <div class="callout callout-amber">
+            <strong>The after-dinner walk — specific role in Dawn Phenomenon</strong>
+            A 10–15 minute walk after dinner — even at a relaxed pace — activates post-prandial GLUT4 translocation: the muscles begin accepting glucose from the meal during the exact window when blood glucose is peaking. This directly lowers the glucose load that would otherwise be stored as liver glycogen and later released overnight. Even a stroll outdoors counts. This is the most targeted single habit for Dawn Phenomenon in addition to Zone 2 cardio.
+          </div>
+        </div>
+      </div>
+
+      <table class="speed-table" style="margin-top:.75rem">
+        <thead>
+          <tr><th>Week</th><th>Morning session</th><th>Evening / after dinner</th><th>Total daily</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Week 1</strong></td><td>1 × 15–20 min Zone 2</td><td>10 min easy walk after dinner</td><td>~25–30 min</td></tr>
+          <tr><td><strong>Week 2</strong></td><td>1 × 20–25 min Zone 2</td><td>10–15 min walk after dinner</td><td>~35 min</td></tr>
+          <tr><td><strong>Week 3</strong></td><td>1 × 25–30 min Zone 2</td><td>15 min Zone 2 or walk</td><td>~45 min</td></tr>
+          <tr><td><strong>Week 4+</strong></td><td>1 × 30 min Zone 2</td><td>15–20 min Zone 2 or walk</td><td>~50 min</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-sky" style="margin-top:.75rem">
+        <strong>Zone 2 cardio days: 4–5 days per week</strong>
+        4–5 days gives enough consistency for the mitochondrial adaptation signal without overloading joints and connective tissue in the early weeks. On resistance training days, you can shorten the Zone 2 to 15–20 minutes or replace the morning session with a post-dinner walk only. Rest days (1–2 per week) are important — the mitochondrial biogenesis actually occurs during recovery, not during the exercise itself.
+      </div>
+    </div>
+  </div>
+
+  <!-- RESISTANCE TRAINING -->
+  <div class="section band-amber" id="sec-resist">
+    <div class="section-header" onclick="toggle('sec-resist')">
+      <span class="icon">💪</span>
+      <h2>Resistance Training — Building the Metabolic Sink</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+
+      <div class="callout callout-amber">
+        <strong>The principle: muscle mass is fat storage capacity in reverse</strong>
+        Each pound of skeletal muscle burns approximately 6 calories per day at rest — compared to about 2 calories per pound of fat. More importantly, muscle tissue has essentially unlimited capacity to store and burn fatty acids as glycolipid and during active beta-oxidation. Building even modest muscle over 12 weeks creates a permanently larger daily metabolic throughput — this is the structural fix, not just an acute exercise effect.
+      </div>
+
+      <h3 style="margin:1.2rem 0 .6rem;font-size:1rem;color:#78350f">📋 Frequency and structure</h3>
+      <ul class="ref" style="margin-bottom:1rem">
+        <li><strong>2–3 days per week</strong> — not consecutive days. Muscle protein synthesis peaks 24–48 hours post-session; rest days between sessions are when the adaptation occurs.</li>
+        <li><strong>Focus on large muscle groups</strong> — legs (quads, glutes, hamstrings) are ~60% of total muscle mass and have the highest mitochondrial density. They should dominate the session.</li>
+        <li><strong>Reps: 10–15 per set</strong> at a weight/resistance that makes the last 2–3 reps effortful but doable with good form.</li>
+        <li><strong>Rest between sets: 60–90 seconds</strong> — keeping rest short maintains elevated heart rate and AMPK activation throughout the session.</li>
+        <li><strong>3 sets per exercise</strong> — enough volume for adaptation without excessive soreness in the early weeks.</li>
+      </ul>
+
+      <h3 style="margin:1.2rem 0 .75rem;font-size:1rem;color:#78350f">🪑 Option A — Bodyweight Protocol (No Equipment Required)</h3>
+      <p style="font-size:.9rem;margin-bottom:.75rem">All of the exercises below use body weight as resistance. The key is progressive difficulty — as exercises become easy, the listed progression increases the challenge without needing equipment. A set of inexpensive resistance bands (~$20) unlocks rowing movements for the back muscles, which are the only group that is genuinely difficult to target without any equipment.</p>
+
+      <table class="ex-table">
+        <thead>
+          <tr><th>Exercise</th><th>Muscle group</th><th>Starting version</th><th>Sets × Reps</th><th>Progression</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Chair Squat</strong></td>
+            <td><span class="muscle">Quads · Glutes · Hamstrings</span></td>
+            <td>Stand in front of a chair, sit down slowly, stand back up without using your hands. Keep knees tracking over toes.</td>
+            <td>3 × 12–15</td>
+            <td class="prog">→ Pause squat (3 sec at bottom) → Full squat without chair → Single-leg squat to chair</td>
+          </tr>
+          <tr>
+            <td><strong>Glute Bridge</strong></td>
+            <td><span class="muscle">Glutes · Hamstrings · Core</span></td>
+            <td>Lie on back, knees bent, feet flat on floor. Drive hips up until body is straight from shoulder to knee. Hold 2 sec, lower slowly.</td>
+            <td>3 × 15–20</td>
+            <td class="prog">→ Hold at top for 5 sec → Single-leg bridge → Elevate feet on chair</td>
+          </tr>
+          <tr>
+            <td><strong>Step-Up</strong></td>
+            <td><span class="muscle">Quads · Glutes · Balance</span></td>
+            <td>Use the bottom stair. Step up with one foot, bring the other foot up, step down. Alternate leading leg.</td>
+            <td>3 × 10 each side</td>
+            <td class="prog">→ Slow the lowering phase (3 sec down) → Use a higher step → Add light backpack</td>
+          </tr>
+          <tr>
+            <td><strong>Wall Push-Up</strong></td>
+            <td><span class="muscle">Chest · Shoulders · Triceps</span></td>
+            <td>Stand arm's length from wall, hands at shoulder height. Lower chest toward wall, push back. Keep body straight.</td>
+            <td>3 × 10–12</td>
+            <td class="prog">→ Incline push-up (hands on countertop) → Floor push-up on knees → Full floor push-up</td>
+          </tr>
+          <tr>
+            <td><strong>Hip Hinge</strong></td>
+            <td><span class="muscle">Hamstrings · Glutes · Lower back</span></td>
+            <td>Stand with feet hip-width, soft knees. Push hips back (as if closing a car door with your glutes), hinge forward until you feel hamstring tension, stand back up. Keep spine neutral — not rounded.</td>
+            <td>3 × 12</td>
+            <td class="prog">→ Hold a filled water bottle → Add resistance band anchored under feet → Learn Romanian deadlift with weights</td>
+          </tr>
+          <tr>
+            <td><strong>Calf Raise</strong></td>
+            <td><span class="muscle">Calves · Ankle stability</span></td>
+            <td>Stand with feet hip-width, hold wall for balance. Rise onto toes, hold 1 sec, lower slowly. Do both feet together to start.</td>
+            <td>3 × 20</td>
+            <td class="prog">→ Single-leg calf raise → Do on a step edge for full range of motion</td>
+          </tr>
+          <tr>
+            <td><strong>Resistance Band Row</strong><br><span style="font-size:.75rem;color:var(--muted)">⭐ Highly recommended add</span></td>
+            <td><span class="muscle">Back (lats, rhomboids) · Biceps</span></td>
+            <td>Anchor band to door handle or post at waist height. Hold both ends, step back, pull hands to sides of ribs, squeeze shoulder blades. Slow release.</td>
+            <td>3 × 12–15</td>
+            <td class="prog">→ Heavier band → Single-arm row → Incline row (anchor lower, lean back more)</td>
+          </tr>
+          <tr>
+            <td><strong>Dead Bug</strong></td>
+            <td><span class="muscle">Core (deep stabilisers)</span></td>
+            <td>Lie on back, arms pointing to ceiling, knees bent at 90° lifted. Slowly lower opposite arm and leg toward floor (without touching), return. Alternate sides.</td>
+            <td>3 × 8 each side</td>
+            <td class="prog">→ Slower tempo → Extend leg further from body → Hold light weight in extended arm</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-sky" style="margin-top:.75rem">
+        <strong>💡 Resistance bands — the $20–25 upgrade that changes everything</strong>
+        A set of looped or handled resistance bands fits in a drawer, costs $20–25, and unlocks the one movement category that bodyweight cannot adequately cover: horizontal pulling (rows). The back muscles — latissimus dorsi, rhomboids, rear deltoids — are the second largest muscle group after the legs and have enormous metabolic relevance for triglyceride burning. Without any form of rowing motion, you are leaving the second biggest fat-burning sink underdeveloped. A resistance band row is simple, safe, and immediately effective. This is the single most cost-effective equipment addition before a full weight system.
+      </div>
+
+      <h3 style="margin:1.2rem 0 .75rem;font-size:1rem;color:#78350f">🏋️ Option B — With a Weight Training System</h3>
+      <p style="font-size:.9rem;margin-bottom:.75rem">If your mother's weight system becomes available, use compound movements — exercises that work multiple large muscle groups simultaneously. These give the most metabolic benefit per session by triggering the most total muscle fibre recruitment and the highest post-exercise AMPK activation.</p>
+
+      <table class="ex-table">
+        <thead>
+          <tr><th>Exercise</th><th>Primary muscles</th><th>Notes</th><th>Sets × Reps</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Goblet Squat or Leg Press</strong></td>
+            <td><span class="muscle">Quads · Glutes · Hamstrings</span></td>
+            <td>Start with a light dumbbell held at chest. Full squat or leg press machine. These are the most important exercises in the session for the fatty liver / triglyceride goal.</td>
+            <td>3 × 10–12</td>
+          </tr>
+          <tr>
+            <td><strong>Romanian Deadlift</strong></td>
+            <td><span class="muscle">Hamstrings · Glutes · Lower back</span></td>
+            <td>Hold dumbbells or barbell in front, hinge at hips pushing them backward, lower weight along legs until strong hamstring tension, drive hips forward to stand. The hip hinge pattern you practised in Option A is the same movement.</td>
+            <td>3 × 10–12</td>
+          </tr>
+          <tr>
+            <td><strong>Dumbbell Row</strong></td>
+            <td><span class="muscle">Back · Biceps · Rear shoulder</span></td>
+            <td>One knee and hand on bench, hold dumbbell in free hand, pull it to hip. The back exercises directly upregulate fat oxidation in the upper body's large muscle mass.</td>
+            <td>3 × 10 each side</td>
+          </tr>
+          <tr>
+            <td><strong>Dumbbell Chest Press</strong></td>
+            <td><span class="muscle">Chest · Shoulders · Triceps</span></td>
+            <td>Lie on a bench or the floor. Drive dumbbells from chest level to arms extended. The floor variation is completely effective and safer for home use.</td>
+            <td>3 × 10–12</td>
+          </tr>
+          <tr>
+            <td><strong>Dumbbell Lunge</strong></td>
+            <td><span class="muscle">Quads · Glutes · Hip stabilisers</span></td>
+            <td>Hold a dumbbell in each hand. Step forward, lower back knee toward floor, push through front heel to stand. Alternating legs. The unilateral loading also challenges balance.</td>
+            <td>3 × 10 each leg</td>
+          </tr>
+          <tr>
+            <td><strong>Overhead Press</strong></td>
+            <td><span class="muscle">Shoulders · Triceps · Core</span></td>
+            <td>Seated or standing. Press dumbbells from shoulder height to overhead, lower slowly. Keep core braced throughout.</td>
+            <td>3 × 10–12</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-amber" style="margin-top:.75rem">
+        <strong>Weight progression — the two-rep rule</strong>
+        When you can complete all 3 sets at the top of the rep range (e.g., all 3 × 12) with good form and the last 2 reps still feel manageable, increase the weight by the smallest available increment. This is the progressive overload that drives continued muscle development. If you cannot complete all the reps with good form, reduce weight. If the last reps do not feel effortful at all, increase weight. Form always governs — a lighter weight done correctly builds more muscle than a heavier weight done poorly.
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEKLY SCHEDULE -->
+  <div class="section band-purple" id="sec-schedule">
+    <div class="section-header" onclick="toggle('sec-schedule')">
+      <span class="icon">📅</span>
+      <h2>Weekly Schedule Template</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:.85rem;font-size:.93rem">This template combines Zone 2 cardio 4–5 days/week with resistance training 3 days/week. Resistance and Zone 2 can be done in the same session (cardio first, resistance after) or split morning/evening. The after-dinner walk is in addition to the main sessions and can be as simple as a 10-minute neighbourhood walk.</p>
+
+      <div class="week-grid">
+        <div class="day-card day-both">
+          <div class="day-label">Mon</div>
+          <strong>Zone 2</strong><br>25–30 min<br>+<br><strong>Resistance</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:#78350f">After dinner: 10 min walk</div>
+        </div>
+        <div class="day-card day-cardio">
+          <div class="day-label">Tue</div>
+          <strong>Zone 2</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:var(--green-dark)">After dinner: 10–15 min walk</div>
+        </div>
+        <div class="day-card day-both">
+          <div class="day-label">Wed</div>
+          <strong>Zone 2</strong><br>25–30 min<br>+<br><strong>Resistance</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:#78350f">After dinner: 10 min walk</div>
+        </div>
+        <div class="day-card day-rest">
+          <div class="day-label">Thu</div>
+          <strong>Rest</strong><br>or gentle<br>walk only
+        </div>
+        <div class="day-card day-both">
+          <div class="day-label">Fri</div>
+          <strong>Zone 2</strong><br>25–30 min<br>+<br><strong>Resistance</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:#78350f">After dinner: 10 min walk</div>
+        </div>
+        <div class="day-card day-cardio">
+          <div class="day-label">Sat</div>
+          <strong>Zone 2</strong><br>30–40 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:var(--green-dark)">After dinner: 15 min walk</div>
+        </div>
+        <div class="day-card day-rest">
+          <div class="day-label">Sun</div>
+          <strong>Rest</strong><br>or gentle<br>walk only
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:1rem">
+        <div class="callout callout-green">
+          <strong>Week 1–2 — lower volume version</strong>
+          Zone 2: 15–20 min only.<br>
+          Resistance: 2 days only (Mon + Fri).<br>
+          After-dinner walk: every day.<br>
+          Priority: establishing the habit and finding your Zone 2 speed. Do not push duration until form and breathing feel natural.
+        </div>
+        <div class="callout callout-amber">
+          <strong>When the weight system is not yet available</strong>
+          Run the full bodyweight protocol on the 3 resistance days. Add the resistance band row as a priority — it covers the back muscles that bodyweight cannot reach. Once the weight system arrives, slot in the dumbbell exercises using the same day structure.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS MARKERS -->
+  <div class="section band-orange" id="sec-progress">
+    <div class="section-header" onclick="toggle('sec-progress')">
+      <span class="icon">📈</span>
+      <h2>What to Expect — Progress Markers by Week</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:.75rem;font-size:.93rem">Metabolic adaptations are not immediately visible. Knowing what to watch for — and when — prevents the "this isn't working" discouragement that typically hits at week 3–4 before the structural adaptations have had time to develop.</p>
+
+      <table class="prog-table">
+        <thead>
+          <tr><th>Timeframe</th><th>What is changing internally</th><th>What you may notice</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="timeline">Days 1–7</td>
+            <td>GLUT4 translocation improving acutely after each session. Temporary glycogen depletion creating the glucose vacuum.</td>
+            <td>Morning fasting glucose may dip slightly on the mornings after exercise. Muscle soreness (DOMS) — expected and normal. Better sleep quality as core temperature cycle normalises.</td>
+          </tr>
+          <tr>
+            <td class="timeline">Weeks 2–3</td>
+            <td>AMPK sensitivity increasing. Mitochondrial biogenesis beginning (not measurable yet). Early insulin receptor upregulation in muscle.</td>
+            <td>Zone 2 sessions feel slightly easier at the same speed — this means fitness is building (adjust speed/incline upward to stay in Zone 2). Energy levels noticeably higher after morning sessions. Muscle soreness reducing.</td>
+          </tr>
+          <tr>
+            <td class="timeline">Weeks 4–6</td>
+            <td>Measurable HOMA-IR improvement. GLUT4 density increasing structurally. Hepatic fat oxidation rate rising. Early triglyceride clearance improving.</td>
+            <td>Dawn Phenomenon gap (fasting glucose minus bedtime glucose) likely narrowing. Post-dinner walk feels noticeably easier than week 1. Resistance exercises feel more controlled and less effortful.</td>
+          </tr>
+          <tr>
+            <td class="timeline">Weeks 6–8</td>
+            <td>Mitochondrial biogenesis measurable. Resting heart rate beginning to drop. VO2max improving. Fat oxidation as preferred fuel during Zone 2 sessions increasing.</td>
+            <td>Resting heart rate 3–7 bpm lower than baseline. Zone 2 sessions feel genuinely comfortable at speeds that were difficult in week 1. Reduced afternoon energy slump. Improved mood stability (mitochondrial energy production affects neurotransmitter synthesis).</td>
+          </tr>
+          <tr>
+            <td class="timeline">Weeks 8–12</td>
+            <td>Structural insulin sensitivity restoration. Hepatic VLDL production rate declining. Triglyceride clearance rate rising. Muscle mass measurably increased.</td>
+            <td>Triglyceride:HDL ratio should show clear improvement at next blood panel. Fasting glucose consistently 5–15% lower than baseline. Morning stiffness minimal. Clothes fitting differently (muscle replacing visceral fat). Sustained energy throughout the day.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-orange" style="margin-top:.75rem">
+        <strong>The number to retest at 12 weeks</strong>
+        Request a fasting lipid panel at the 12-week mark. The triglyceride:HDL ratio is the most sensitive indicator of progress — it reflects both the liver's reduced output and the muscle's improved clearance simultaneously. Studies on NAFLD patients with consistent Zone 2 + resistance training show average triglyceride reductions of 30–50% at 12 weeks. HDL typically rises 5–10% over the same period, moving the ratio from both directions at once.
+      </div>
+    </div>
+  </div>
+
+  <!-- SAFETY + PRACTICAL NOTES -->
+  <div class="section band-red" id="sec-safety">
+    <div class="section-header" onclick="toggle('sec-safety')">
+      <span class="icon">⚠️</span>
+      <h2>Safety, Timing, and Practical Notes</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <ul class="ref">
+            <li><strong>Do not exercise on an empty stomach if blood sugar runs low</strong> — have the bedtime yogurt (which puts a small glucose floor overnight) and ensure morning blood sugar is above 4.5 mmol/L before starting. A small snack (10–15g carb) before if glucose is marginal.</li>
+            <li><strong>Hydration:</strong> Zone 2 increases sweat losses that affect kidney stone risk. Increase water intake on exercise days by at least 500ml. The D-Mannose protocol already supports urinary health — maintain it.</li>
+            <li><strong>Berberine timing:</strong> Take berberine with dinner as usual, not before exercise — berberine's glucose-lowering effect combined with the glucose-lowering effect of exercise could push blood sugar too low if stacked. Evening berberine + morning exercise is the correct separation.</li>
+            <li><strong>Magnesium:</strong> Exercise increases magnesium demand (lost in sweat, used in ATP synthesis). Your bedtime magnesium citrate is perfectly timed — it replenishes what exercise used during the day.</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="ref">
+            <li><strong>Start the resistance programme with lighter load than feels necessary</strong> — the neural adaptation (learning the movement pattern) precedes the strength gain. Week 1 should feel almost too easy on the muscles; this protects connective tissue while the movement patterns are established.</li>
+            <li><strong>DOMS (delayed onset muscle soreness):</strong> Expected at days 2–3 of starting resistance training. A gentle Zone 2 walk is the best treatment — light movement accelerates clearance of the inflammatory metabolites causing the soreness. Do not rest completely through DOMS.</li>
+            <li><strong>If the weight system becomes available mid-programme:</strong> Transition by replacing the bodyweight exercises with the corresponding dumbbell versions on the same schedule. Do not double the volume — replace, do not add, in the first transition week.</li>
+            <li><strong>Do not exercise when acutely unwell</strong> — any active infection, fever, or significant fatigue warrants rest. The immune and metabolic systems share resources; competing for them during illness delays recovery on both fronts.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-green" style="margin-top:.9rem">
+        <strong>✅ Exercise and the supplement stack — the synergy</strong>
+        Exercise activates AMPK mechanically. Berberine, ginger, and garlic activate it chemically. MCT oil promotes hepatic fat oxidation via ketone conversion. Zone 2 cardio promotes it via mitochondrial beta-oxidation. Omega-3 reduces hepatic triglyceride production while exercise increases peripheral uptake. These are not overlapping interventions — each hits a different entry point in the same metabolic pathway. The full protocol (food + supplements + exercise) is substantially more effective than any element in isolation, which is why the 12-week window with all elements running simultaneously is the highest-value period in the recovery arc.
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function toggle(id){
+  const s=document.getElementById(id);
+  s.classList.toggle('collapsed');
+}
+</script>
+</body>
+</html>
