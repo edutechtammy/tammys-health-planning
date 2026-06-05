@@ -442,6 +442,21 @@
   </div>
 </div>
 
+<!-- Waist chart -->
+<div class="card" style="margin-bottom:1.6rem">
+  <h2>📏 Waist Circumference Over Time <span style="font-size:.75rem;font-weight:400;color:var(--muted)">(inches · measured morning, after exhale)</span></h2>
+  <p style="font-size:.8rem;line-height:1.6;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.6rem .85rem;margin-bottom:.75rem">
+    <strong style="color:var(--text)">Why waist matters for fatty liver and triglycerides:</strong> Visceral fat — the fat stored around and inside abdominal organs including the liver — is metabolically active and is the primary fat that drives hepatic triglyceride production. Waist circumference is the most accessible proxy for visceral fat load: it decreases as the liver and surrounding fat depots shrink, often before body weight changes significantly. The reference lines show cardiovascular risk thresholds for women (28" optimal · ≤31.5" low risk · ≤35" moderate risk · &gt;35" elevated risk).
+  </p>
+  <div class="chart-scroll"><div class="chart-wrap" id="wrap-waist" style="height:320px"><canvas id="chart-waist"></canvas></div></div>
+  <div class="ref-legend">
+    <span><span class="ref-dot" style="background:#27ae60"></span> ≤28" Optimal</span>
+    <span><span class="ref-dot" style="background:#52b788"></span> ≤31.5" Low risk</span>
+    <span><span class="ref-dot" style="background:#f39c12"></span> ≤35" Moderate risk</span>
+    <span><span class="ref-dot" style="background:#e74c3c"></span> &gt;35" Elevated risk</span>
+  </div>
+</div>
+
 <!-- Log Table -->
 <div class="card">
   <h2>📅 Entry Log</h2>
@@ -699,13 +714,13 @@ function computeDPDeltas(entries){
   });
 }
 
-let chartWeight=null,chartGlucose=null,chartDP=null,chartStress=null;
+let chartWeight=null,chartGlucose=null,chartDP=null,chartStress=null,chartWaist=null;
 
 function buildCharts(entries){
   const labels=entries.map(e=>formatDate(e.date));
   const PX_PER_POINT = 44;
   const minW = Math.max(entries.length * PX_PER_POINT, 400);
-  ['wrap-weight','wrap-glucose','wrap-dp','wrap-stress'].forEach(id=>{
+  ['wrap-weight','wrap-glucose','wrap-dp','wrap-stress','wrap-waist'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.style.width=minW+'px';
   });
@@ -834,6 +849,38 @@ function buildCharts(entries){
         x:{ticks:{font:{size:10},maxRotation:45},grid:{color:'#eaf4ec'}},
         y: {type:'linear',position:'left', min:1,max:10,ticks:{font:{size:10},stepSize:2},grid:{color:'#eaf4ec'},title:{display:true,text:'Stress',font:{size:10},color:'#e07a5f'}},
         y2:{type:'linear',position:'right',min:1,max:5, ticks:{font:{size:10},stepSize:1},grid:{drawOnChartArea:false},title:{display:true,text:'Sleep Q / Mood',font:{size:10},color:'#4a90c4'}}
+      }
+    }
+  });
+
+  if(chartWaist)chartWaist.destroy();
+  chartWaist=new Chart(document.getElementById('chart-waist'),{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Waist (in)',data:entries.map(e=>e.waist),
+        borderColor:'#d97706',backgroundColor:'rgba(217,119,6,.12)',
+        borderWidth:2.5,pointRadius:5,pointBackgroundColor:entries.map(e=>
+          e.waist==null?'transparent':e.waist<=28?'#27ae60':e.waist<=31.5?'#52b788':e.waist<=35?'#f39c12':'#e74c3c'
+        ),
+        tension:.35,spanGaps:true,order:1},
+      {label:'Optimal (28")',  data:labels.map(()=>28),   borderColor:'rgba(39,174,96,.55)', borderWidth:1.5,borderDash:[8,5],pointRadius:0,fill:false,tension:0,order:5},
+      {label:'Low risk (31.5")', data:labels.map(()=>31.5),borderColor:'rgba(82,183,136,.55)',borderWidth:1.5,borderDash:[8,5],pointRadius:0,fill:false,tension:0,order:6},
+      {label:'Mod risk (35")', data:labels.map(()=>35),   borderColor:'rgba(230,126,34,.55)',borderWidth:1.5,borderDash:[8,5],pointRadius:0,fill:false,tension:0,order:7}
+    ]},
+    options:{
+      ...baseOpts,
+      plugins:{
+        ...baseOpts.plugins,
+        tooltip:{callbacks:{label:ctx=>{
+          const v=ctx.raw; if(v==null) return null;
+          const zone=v<=28?'Optimal':v<=31.5?'Low risk':v<=35?'Moderate risk':'Elevated risk';
+          return `${ctx.dataset.label}: ${v}" — ${zone}`;
+        }}}
+      },
+      scales:{
+        x:{ticks:{font:{size:10},maxRotation:45},grid:{color:'#eaf4ec'}},
+        y:{ticks:{font:{size:10}},grid:{color:'#eaf4ec'},
+           title:{display:true,text:'Waist circumference (inches)',font:{size:10},color:'#d97706'}}
       }
     }
   });
