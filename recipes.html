@@ -80,6 +80,30 @@
     .recipe-card-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; }
     .recipe-card-ingredients { font-size: .75rem; color: var(--muted); line-height: 1.4; margin: .3rem 0 .15rem; }
     .recipe-card-footer { padding: .85rem 1.2rem; border-top: 1px solid var(--green-light); display: flex; gap: .6rem; flex-wrap: wrap; }
+
+    /* PANTRY FILTER PANEL */
+    .pantry-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
+    .pantry-header { padding: .7rem 1.2rem; background: var(--green-dark); color: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+    .pantry-title { font-weight: 700; font-size: .9rem; display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; }
+    .pantry-count { font-size: .8rem; font-weight: 400; opacity: .85; }
+    .pantry-icon { font-size: .75rem; transition: transform .2s; }
+    .pantry-body { padding: .9rem 1.2rem 1rem; }
+    .pantry-intro { font-size: .81rem; color: var(--muted); margin-bottom: .7rem; line-height: 1.55; }
+    .pantry-actions { display: flex; gap: .45rem; margin-bottom: .85rem; flex-wrap: wrap; }
+    .pantry-btn { padding: .28rem .8rem; border-radius: 7px; font-size: .77rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--green-mid); background: #fff; color: var(--green-dark); transition: all .15s; }
+    .pantry-btn:hover { background: var(--green-dark); color: #fff; }
+    .pantry-groups { display: flex; flex-direction: column; gap: .9rem; }
+    .pantry-group { border: 1px solid var(--green-light); border-radius: 10px; overflow: hidden; }
+    .pantry-group-header { background: var(--green-pale); padding: .45rem .85rem; font-size: .81rem; font-weight: 700; color: var(--green-dark); display: flex; align-items: center; gap: .5rem; }
+    .pantry-group-header span { flex: 1; }
+    .pantry-group-btn { padding: .15rem .5rem; border-radius: 5px; font-size: .71rem; font-weight: 600; cursor: pointer; border: 1px solid var(--green-mid); background: #fff; color: var(--green-dark); }
+    .pantry-group-btn:hover { background: var(--green-dark); color: #fff; }
+    .pantry-checkboxes { padding: .6rem .85rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: .22rem .45rem; }
+    .pantry-item { display: flex; align-items: flex-start; gap: .32rem; cursor: pointer; padding: .1rem 0; }
+    .pantry-item input[type="checkbox"] { margin-top: 2px; accent-color: var(--green-dark); flex-shrink: 0; cursor: pointer; }
+    .pantry-item-label { font-size: .78rem; color: var(--text); line-height: 1.3; }
+    .pantry-item-note { font-size: .67rem; color: var(--muted); display: block; }
+    @media (max-width: 600px) { .pantry-checkboxes { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); } }
     .btn-recipe { padding: .42rem 1rem; border-radius: 8px; font-size: .83rem; font-weight: 600; cursor: pointer; border: none; transition: opacity .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; }
     .btn-recipe:hover { opacity: .82; }
     .btn-view   { background: var(--green-dark); color: #fff; }
@@ -172,6 +196,39 @@
     <div class="mb-progress-track"><div class="mb-progress-fill" id="mb-progress-fill" style="width:0%"></div></div>
   </div>
 
+  <!-- PANTRY FILTER -->
+  <div class="pantry-panel" id="pantry-panel">
+    <div class="pantry-header" onclick="togglePantryPanel()">
+      <span class="pantry-title">🛒 Pantry Filter <span class="pantry-count" id="pantry-count">loading…</span></span>
+      <span class="pantry-icon" id="pantry-icon">▲</span>
+    </div>
+    <div class="pantry-body" id="pantry-body">
+      <p class="pantry-intro">Uncheck anything you're out of — the recipe grid filters instantly to show only what you can make right now. Your pantry is saved between visits.</p>
+      <div class="pantry-actions">
+        <button class="pantry-btn" onclick="setAllPantry(true)">✓ Check All</button>
+        <button class="pantry-btn" onclick="setAllPantry(false)">✗ Uncheck All</button>
+      </div>
+      <div class="pantry-groups">
+        <div class="pantry-group">
+          <div class="pantry-group-header">
+            <span>🧊 Fridge &amp; Freezer</span>
+            <button class="pantry-group-btn" onclick="setPantryGroup('fridge',true)">All</button>
+            <button class="pantry-group-btn" onclick="setPantryGroup('fridge',false)">None</button>
+          </div>
+          <div class="pantry-checkboxes" id="pantry-fridge"></div>
+        </div>
+        <div class="pantry-group">
+          <div class="pantry-group-header">
+            <span>🫙 Pantry, Shelf &amp; Produce</span>
+            <button class="pantry-group-btn" onclick="setPantryGroup('pantry',true)">All</button>
+            <button class="pantry-group-btn" onclick="setPantryGroup('pantry',false)">None</button>
+          </div>
+          <div class="pantry-checkboxes" id="pantry-pantry"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- RECIPE GRID -->
   <div class="recipe-grid" id="recipe-grid">
 
@@ -195,7 +252,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">ground beef ⋅ kale ⋅ feta ⋅ lemon ⋅ yellow onion ⋅ garlic ⋅ EVOO ⋅ oregano</p>
+        <p class="recipe-card-ingredients">ground beef ⋅ kale ⋅ feta ⋅ lemon ⋅ onion ⋅ garlic ⋅ EVOO ⋅ oregano</p>
         <p class="recipe-card-desc">Ground beef browned with activated garlic and onion, tossed with wilted kale, finished off-heat with lemon juice and zest, topped with crumbled feta. Uses kale rather than spinach — nearly identical taste and texture once wilted but ~200× lower in oxalate (2–4mg vs 600–900mg per 100g raw). Lemon's citrate is one of the best-studied kidney stone dietary interventions. Feta's calcium binds dietary oxalate in the gut. ~3–5mg oxalate per serving. All six conditions.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-greek-beef-kale.html">🥬 View Recipe</a>
@@ -223,7 +280,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">ground beef ⋅ red bell peppers ⋅ cauliflower rice ⋅ tomato sauce ⋅ onion ⋅ garlic ⋅ feta ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">ground beef ⋅ bell pepper ⋅ cauliflower ⋅ tomatoes ⋅ onion ⋅ garlic ⋅ feta ⋅ EVOO</p>
         <p class="recipe-card-desc">Classic stuffed bell peppers rebuilt for the blood sugar protocol: cauliflower rice replaces grain rice, removing ~40g carbs per serving (from ~60–70g to ~15–20g total). Red bell pepper is one of the highest Vitamin C foods by weight — protects methylfolate and boosts iron absorption. Lycopene from tomato sauce is absorbed via EVOO. Raw cauliflower rice goes directly into the filling and steams inside the pepper during baking — do not pre-cook. ~5–8mg oxalate per stuffed pepper. All six conditions.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-stuffed-peppers.html">🫑 View Recipe</a>
@@ -251,7 +308,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">ground beef ⋅ yellow onion ⋅ flat-leaf parsley ⋅ allspice ⋅ cinnamon ⋅ garlic ⋅ labneh ⋅ lemon</p>
+        <p class="recipe-card-ingredients">ground beef ⋅ onion ⋅ parsley ⋅ allspice ⋅ Ceylon cinnamon ⋅ garlic ⋅ labneh ⋅ lemon</p>
         <p class="recipe-card-desc">Ground beef patties with grated onion (squeezed dry — essential), fresh parsley, allspice, cinnamon, and black pepper. Parsley is the highest folate food by weight — directly benefits MTHFR. Cinnamon activates GLUT4 receptors (same mechanism as Berberine). Allspice eugenol inhibits COX-2 inflammation. Zero carbohydrates; ~2–4mg oxalate per serving. Garlic must be activated before adding. Served with labneh, cucumber, cherry tomatoes, and lemon. Ideal post-exercise protein meal. All six conditions.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-kafta.html">🌿 View Recipe</a>
@@ -279,7 +336,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
-        <p class="recipe-card-ingredients">mixed olives ⋅ pimento ⋅ cauliflower ⋅ carrot ⋅ celery ⋅ red bell pepper ⋅ capers ⋅ garlic ⋅ EVOO ⋅ red wine vinegar</p>
+        <p class="recipe-card-ingredients">olives ⋅ pimento ⋅ cauliflower ⋅ carrot ⋅ celery ⋅ bell pepper ⋅ capers ⋅ garlic ⋅ EVOO ⋅ red wine vinegar</p>
         <p class="recipe-card-desc">The Italian antipasto olive salad rebuilt with EVOO instead of seed oil — olives (whole and chopped), pimento, cauliflower, carrots, celery, red bell pepper, capers, garlic, red wine vinegar, and spices all cut to a fine 5mm dice and preserved in cold-pressed extra-virgin olive oil. Every spoonful delivers EVOO polyphenols, caper quercetin (the highest food source by weight), acetic acid from the vinegar (same mechanism as the ACV capsule), and activated allicin from garlic. ~2–3mg oxalate per serve. Ready in 30 minutes; keeps 3–4 weeks. Replaces every commercial jar with seed oil in the fridge.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-olive-salad.html">🫒 View Recipe</a>
@@ -307,7 +364,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
-        <p class="recipe-card-ingredients">chicken livers ⋅ yellow onion ⋅ garlic ⋅ fresh herbs ⋅ EVOO ⋅ lemon</p>
+        <p class="recipe-card-ingredients">chicken livers ⋅ onion ⋅ garlic ⋅ herbs ⋅ EVOO ⋅ lemon</p>
         <p class="recipe-card-desc">The most nutrient-dense weekly anchor in the library. Per serve: ~75% daily iron (heme, 25–30% absorbed), &gt;100% B12, &gt;100% natural folate (bypasses MTHFR conversion entirely — arrives as 5-MTHF), &gt;100% choline (direct VLDL fat-export mechanism for fatty liver), &gt;100% B2 riboflavin (MTHFR enzyme cofactor), and 32% B1 thiamine. Soaked in lemon water first to mellow the flavour, then pan-seared with caramelised onions and finished with activated garlic. Once weekly — Vitamin A cap. Zero oxalate.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-chicken-livers.html">🫀 View Recipe</a>
@@ -335,7 +392,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
-        <p class="recipe-card-ingredients">smoked oysters ⋅ millet ⋅ avocado ⋅ cucumber ⋅ garlic ⋅ lemon</p>
+        <p class="recipe-card-ingredients">smoked oysters ⋅ millet / millet flour ⋅ avocado ⋅ cucumber ⋅ garlic ⋅ lemon</p>
         <p class="recipe-card-desc">Canned smoked oysters over warm millet with avocado, cucumber, activated garlic, and lemon. Ready in 20 minutes from pantry staples — no fresh seafood sourcing, no Vibrio risk (fully cooked). Per tin: &gt;100% zinc (cofactor for insulin synthesis and receptor signalling — the two primary failure points in pre-diabetes), ~31% heme iron, &gt;100% B12, &gt;100% selenium, and preformed DHA (bypasses the impaired ALA→DHA conversion in APOE4). Pairs in alternating weeks with Recipe 42 (chicken livers) for complementary full-spectrum coverage. Zero oxalate.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-smoked-oyster-bowl.html">🦪 View Recipe</a>
@@ -363,7 +420,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">Farm Fresh Milk ⋅ kefir ⋅ liquid rennet ⋅ salt ⋅ low-sodium brine</p>
+        <p class="recipe-card-ingredients">Farm Fresh Milk ⋅ kefir ⋅ liquid rennet ⋅ salt</p>
         <p class="recipe-card-desc">Traditional brined feta from Farm Fresh Milk, using your homemade kefir as the mesophilic starter — no commercial culture packet needed. Two days of light active work, then 2–4 weeks brining in the fridge. Sodium is fully controllable (5% brine = ~35% less sodium than commercial feta) while delivering identical calcium. Calcium at the same meal binds dietary oxalate in the gut — the functional reason feta appears in Shakshuka, Olive &amp; Feta Cheese Bread, and Chop Chop Salad. Whey byproduct = B2 riboflavin (MTHFR enzyme cofactor).</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-homemade-feta.html">🧀 View Recipe</a>
@@ -531,7 +588,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">cucumber ⋅ tomato ⋅ bell pepper ⋅ red onion ⋅ kalamata olives ⋅ parsley ⋅ mint ⋅ labneh ⋅ lemon ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">cucumber ⋅ tomatoes ⋅ bell pepper ⋅ onion ⋅ olives ⋅ parsley ⋅ mint ⋅ labneh ⋅ lemon ⋅ EVOO</p>
         <p class="recipe-card-desc">Everything cut to the same ½cm dice — cucumber, tomato, red and yellow bell pepper, red onion, kalamata olives, flat-leaf parsley, fresh mint, labneh or feta. Cold lemon-EVOO-garlic dressing. Garlic: crush → 5-min rest → add cold (ideal allicin format — no heat degradation). EVOO multiplies carotenoid absorption from tomatoes and peppers 3–6×. Flat-leaf parsley at 30g is a therapeutic folate dose (MTHFR). Optional chickpeas for a main. ~10mg oxalate/serve without chickpeas, ~15mg with. No cooking, nothing to check for GF.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-chop-chop-salad.html">🥗 View Recipe</a>
@@ -559,7 +616,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">labneh ⋅ eggs ⋅ blueberries ⋅ lemon ⋅ sorghum flour ⋅ millet flour ⋅ EVOO ⋅ honey ⋅ coconut sugar</p>
+        <p class="recipe-card-ingredients">labneh ⋅ eggs ⋅ blueberries ⋅ lemon ⋅ sorghum flour ⋅ millet / millet flour ⋅ EVOO ⋅ honey ⋅ coconut sugar</p>
         <p class="recipe-card-desc">Baked cheesecake with labneh as the cream cheese base — same tang, same richness, cleaner set with eggs because labneh has no stabilisers. Sorghum-millet-EVOO-honey crust pre-baked to a golden crumb. Filling: labneh, eggs, coconut sugar, lemon zest and juice, tapioca starch. Topping: partial blueberry compote — some berries burst for glossy sauce, rest whole for texture. Blueberries are APOE4's most targeted dessert fruit (pterostilbene, anthocyanins, BBB crossing). Lowest carb of the three celebration desserts — no flour in the filling. ~7mg oxalate per slice.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-lemon-blueberry-cheesecake.html">🍋 View Recipe</a>
@@ -587,7 +644,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">carrot ⋅ sorghum flour ⋅ millet flour ⋅ eggs ⋅ coconut sugar ⋅ Ceylon cinnamon ⋅ ginger ⋅ labneh ⋅ honey</p>
+        <p class="recipe-card-ingredients">carrot ⋅ sorghum flour ⋅ millet / millet flour ⋅ eggs ⋅ coconut sugar ⋅ Ceylon cinnamon ⋅ ginger ⋅ labneh ⋅ honey</p>
         <p class="recipe-card-desc">The spring birthday cake — rebuilt for every condition. Grated fresh carrot (beta-carotene + falcarinol — a neuroprotective and liver-protective polyacetylene not present in pumpkin), same sorghum + millet + tapioca flour blend as Recipe 31, psyllium husk binder, coconut sugar + maple syrup. Key technique difference: grated carrot is a wet ingredient — the batter is looser, the 5-minute rest is essential, and the result stays moist for days. Labneh honey frosting — the natural cream cheese frosting analogue. ~10mg oxalate per slice. Better the day after baking.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-carrot-celebration-cake.html">🥕 View Recipe</a>
@@ -615,7 +672,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">pumpkin ⋅ sorghum flour ⋅ millet flour ⋅ eggs ⋅ coconut sugar ⋅ Ceylon cinnamon ⋅ ginger ⋅ labneh ⋅ honey</p>
+        <p class="recipe-card-ingredients">pumpkin ⋅ sorghum flour ⋅ millet / millet flour ⋅ eggs ⋅ coconut sugar ⋅ Ceylon cinnamon ⋅ ginger ⋅ labneh ⋅ honey</p>
         <p class="recipe-card-desc">The family fall and winter birthday cake — rebuilt for every condition. Sorghum + millet + tapioca flour with psyllium husk binder. Coconut sugar (GI ~35, caramel depth that is genuinely better with pumpkin spice) + maple syrup replaces white sugar. Seven warming spices: Ceylon cinnamon, fresh ginger, nutmeg, cloves, cardamom, allspice. Frosted with labneh honey frosting — tangy, rich, probiotic — which is the correct substitute for cream cheese frosting. ~7mg oxalate per slice. Better the day after baking.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-pumpkin-celebration-cake.html">🎂 View Recipe</a>
@@ -643,7 +700,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">labneh ⋅ blueberries ⋅ raw honey ⋅ walnuts</p>
+        <p class="recipe-card-ingredients">labneh ⋅ blueberries ⋅ honey ⋅ walnuts</p>
         <p class="recipe-card-desc">Cold labneh (Recipe 8 — live Lactobacillus fully preserved cold) layered with fresh blueberries (pterostilbene + anthocyanins cross the blood-brain barrier — APOE4's most targeted dessert ingredient), raw honey at 1 tsp per serve, and roughly crushed walnuts for crunch. Deconstructed cheesecake texture. Ready in 5 minutes. No cooking. Protein and fat in the labneh buffer the honey response completely — very low GI. All six conditions. ~22mg oxalate per serve.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-labneh-berry-parfait.html">🫐 View Recipe</a>
@@ -671,7 +728,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">carrot ⋅ fresh ginger ⋅ sweet pepper ⋅ Fuji apple ⋅ lemon ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">carrot ⋅ ginger ⋅ bell pepper ⋅ Fuji apple ⋅ lemon ⋅ EVOO</p>
         <p class="recipe-card-desc">Raw slaw of grated carrot (beta-carotene, falcarinol, prebiotic fibre — raw GI ~16 vs cooked ~47), very finely grated fresh ginger (gingerols — NF-κB suppression, same anti-inflammatory pathway as quercetin and rosmarinic acid), red/orange sweet pepper (more vitamin C per gram than oranges — directly enhances folate bioavailability for MTHFR), Fuji apple skin-on (quercetin, pectin), and fresh lemon juice (citrate for kidney stone prevention). No cooking, no sugar, no grain. Optional EVOO drizzle at serving significantly increases beta-carotene absorption. ~6mg oxalate per serve.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-ginger-carrot-slaw.html">🥕 View Recipe</a>
@@ -699,7 +756,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">ground turkey ⋅ onion ⋅ garlic ⋅ sage ⋅ rosemary ⋅ thyme ⋅ parsley ⋅ eggs ⋅ tomato paste ⋅ smoked paprika</p>
+        <p class="recipe-card-ingredients">ground turkey ⋅ onion ⋅ garlic ⋅ sage ⋅ rosemary ⋅ thyme ⋅ parsley ⋅ eggs ⋅ tomatoes ⋅ smoked paprika</p>
         <p class="recipe-card-desc">Ground turkey with sautéed onion, cold-rested garlic, and a four-herb blend (sage, rosemary, thyme, parsley — all containing rosmarinic acid for Nrf2 activation and APOE4 amyloid-β inhibition), bound with eggs alone — fully grain-free, no breadcrumbs, no oats. Topped with a two-stage smoky-sweet tomato glaze that delivers all four BBQ sauce flavour elements — smoky (smoked paprika), sweet (2 tsp honey across the whole loaf), tangy (lemon), umami depth (tomato paste + Dijon) — without the sugar spike, corn syrup, or hidden gluten of commercial BBQ sauce. ~11mg oxalate per serve. Low GI. The family recipe, rebuilt for every condition.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-turkey-meatloaf.html">🦃 View Recipe</a>
@@ -727,7 +784,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">pork shoulder ⋅ Fuji apple ⋅ fennel ⋅ garlic ⋅ fresh thyme ⋅ Dijon mustard ⋅ lemon</p>
+        <p class="recipe-card-ingredients">pork shoulder ⋅ Fuji apple ⋅ fennel ⋅ garlic ⋅ thyme ⋅ Dijon mustard ⋅ lemon</p>
         <p class="recipe-card-desc">Bone-in pork shoulder slow-braised with Fuji apple (skin-on for quercetin), fennel (anethole anti-inflammatory), cold-rested garlic (allicin preserved), and fresh thyme (rosmarinic acid, Nrf2 activation). The apple dissolves into the braising liquid, giving the sauce natural body with no thickener — finished off-heat with Dijon mustard and lemon. Pork is the most B-vitamin-dense protein in the collection: B1 thiamine, B6, B12, and choline — the most MTHFR-targeted main course. Lean braised shoulder is high-protein, negligible carbohydrate. ~10mg oxalate per serve.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-slow-braised-pork-apple.html">🍖 View Recipe</a>
@@ -755,7 +812,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">kale ⋅ Fuji apple ⋅ blueberries ⋅ fresh mozzarella ⋅ walnuts ⋅ lemon ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">kale ⋅ Fuji apple ⋅ blueberries ⋅ mozzarella ⋅ walnuts ⋅ lemon ⋅ EVOO</p>
         <p class="recipe-card-desc">Massaged kale with Fuji apple, blueberries, torn fresh mozzarella, walnuts, and a lemon-EVOO dressing. Kale is chopped and rested 5 minutes before massaging (myrosinase activation for sulforaphane — same principle as broccoli). Blueberries contain pterostilbene and anthocyanins that cross the blood-brain barrier with direct amyloid-β inhibition evidence for APOE4. Apple provides quercetin (anti-inflammatory) and pectin prebiotic fibre. Fresh mozzarella is zero oxalate and adds protein — casein doesn't bind polyphenols in a cold solid salad. Walnuts at garnish quantity (7.5g/serve ≈ 5.5mg oxalate). Total ~26mg oxalate per serve. Low GI. Add a hard boiled egg or flaked salmon to make it a full meal.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-kale-fruit-salad.html">🥬 View Recipe</a>
@@ -783,7 +840,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">eggs ⋅ water ⋅ ice bath</p>
+        <p class="recipe-card-ingredients">eggs</p>
         <p class="recipe-card-desc">Cold eggs into cold water, bring to boil, 10 minutes at a low simmer, immediate ice bath. The grey-green ring is iron sulphide from overcooked H₂S — the 10-minute rule and ice bath prevent it entirely. The egg yolk is one of the most concentrated dietary sources of choline: directly neuroprotective for APOE4, and choline deficiency is a direct driver of NAFLD for fatty liver. Choline also converts to betaine which supports the methylation cycle via the BHMT bypass — relevant for MTHFR when the primary enzyme is impaired. Zero GI, zero oxalate. APOE4 frequency note: 4–5 eggs/week not daily.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-hard-boiled-eggs.html">🥚 View Recipe</a>
@@ -839,7 +896,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">rice paper ⋅ wild salmon ⋅ avocado ⋅ carrot ⋅ purple cabbage ⋅ tamari ⋅ ginger ⋅ labneh</p>
+        <p class="recipe-card-ingredients">rice paper ⋅ salmon ⋅ avocado ⋅ carrot ⋅ cabbage ⋅ tamari ⋅ ginger ⋅ labneh</p>
         <p class="recipe-card-desc">Fresh rice paper rolls with wild-caught salmon, thin-sliced avocado, julienned carrot, and shredded purple cabbage — the same cyanidin-3-glucoside anthocyanins as the purple sauerkraut, crossing the blood-brain barrier. EPA and DHA from the salmon are the most directly neuroprotective fats for APOE4 carriers and the most reliable dietary source. Rice paper is naturally gluten-free. Two dipping sauces — Tamari-Ginger-Lime (cold-activated garlic, allicin fully preserved, GF tamari not regular soy sauce) and Tart Labneh-Lime-Dill (when the sour-cream style labneh is available). No peanut sauce (peanuts ~187mg oxalate/100g). Includes rolling technique and how much to soak the rice paper.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipe-salmon-rice-paper-rolls.html">🌯 View Recipe</a>
@@ -895,7 +952,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">cassava flour ⋅ EVOO ⋅ fresh rosemary ⋅ lemon zest ⋅ salt</p>
+        <p class="recipe-card-ingredients">cassava flour ⋅ EVOO ⋅ rosemary ⋅ lemon ⋅ salt</p>
         <div class="glucose-strip" style="margin:.4rem 0 .5rem">
           <span class="gi-dot-mod"></span> Moderate GI base — buffered by EVOO fat; pair with labneh or mozzarella topping
         </div>
@@ -927,7 +984,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">red cabbage ⋅ sea salt</p>
+        <p class="recipe-card-ingredients">cabbage ⋅ salt</p>
         <div class="glucose-strip" style="margin:.4rem 0 .5rem">
           <span class="gi-dot-low"></span> Near-zero GI — fermentation consumes cabbage sugars; serves as an acid condiment that slows gastric emptying
         </div>
@@ -990,7 +1047,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">decaf arabica ⋅ MCT oil ⋅ Ceylon cinnamon ⋅ kidney-safe trail mix</p>
+        <p class="recipe-card-ingredients">decaf coffee ⋅ MCT oil ⋅ Ceylon cinnamon ⋅ trail mix</p>
         <div class="glucose-strip" style="margin:.4rem 0 .5rem">
           <span class="gi-dot-low"></span> Near-zero GI — no carbohydrate; MCT goes to ketone pathway
         </div>
@@ -1022,7 +1079,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">whole globe artichoke ⋅ EVOO ⋅ garlic ⋅ lemon</p>
+        <p class="recipe-card-ingredients">artichoke ⋅ EVOO ⋅ garlic ⋅ lemon</p>
         <div class="glucose-strip" style="margin:.4rem 0 .5rem">
           <span class="gi-dot-low"></span> Low GI — inulin fibre slows gastric emptying; near-zero digestible starch
         </div>
@@ -1150,7 +1207,7 @@
           <span class="badge badge-liver">Fatty Liver</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">chicken breast ⋅ millet breadcrumbs ⋅ parsley ⋅ thyme ⋅ lemon ⋅ garlic ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">chicken ⋅ millet / millet flour ⋅ parsley ⋅ thyme ⋅ lemon ⋅ garlic ⋅ EVOO</p>
         <div class="glucose-strip" style="margin:.4rem 0 .5rem">
           <span class="gi-dot-low"></span> Low GI — millet crumb or almond meal crust
         </div>
@@ -1182,7 +1239,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">chicken ⋅ ginger ⋅ garlic ⋅ cabbage ⋅ mushrooms ⋅ GF tamari ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">chicken ⋅ ginger ⋅ garlic ⋅ cabbage ⋅ mushrooms ⋅ tamari ⋅ EVOO</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Low GI</span>
@@ -1216,7 +1273,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">chicken breast ⋅ kefir ⋅ garlic ⋅ lemon</p>
+        <p class="recipe-card-ingredients">chicken ⋅ kefir ⋅ garlic ⋅ lemon</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Negligible GI</span>
@@ -1250,7 +1307,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
-        <p class="recipe-card-ingredients">chicken thighs ⋅ turmeric ⋅ black pepper ⋅ EVOO ⋅ garlic ⋅ lemon</p>
+        <p class="recipe-card-ingredients">chicken ⋅ turmeric ⋅ black pepper ⋅ EVOO ⋅ garlic ⋅ lemon</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Negligible GI</span>
@@ -1284,7 +1341,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
-        <p class="recipe-card-ingredients">chicken breast ⋅ EVOO ⋅ garlic ⋅ lemon ⋅ bone broth</p>
+        <p class="recipe-card-ingredients">chicken ⋅ EVOO ⋅ garlic ⋅ lemon ⋅ bone broth</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Negligible GI</span>
@@ -1352,7 +1409,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">millet flour ⋅ sorghum flour ⋅ EVOO ⋅ kalamata olives ⋅ feta ⋅ garlic ⋅ kefir</p>
+        <p class="recipe-card-ingredients">millet / millet flour ⋅ sorghum flour ⋅ EVOO ⋅ olives ⋅ feta ⋅ garlic ⋅ kefir</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Low GI</span>
@@ -1386,7 +1443,7 @@
           <span class="badge badge-celiac">Celiac / GF</span>
           <span class="badge badge-mthfr">MTHFR</span>
         </div>
-        <p class="recipe-card-ingredients">avocado ⋅ lemon ⋅ garlic ⋅ coriander ⋅ sea salt</p>
+        <p class="recipe-card-ingredients">avocado ⋅ lemon ⋅ garlic ⋅ coriander ⋅ salt</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Low GI</span>
@@ -1420,7 +1477,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
-        <p class="recipe-card-ingredients">wild salmon ⋅ turmeric ⋅ black pepper ⋅ EVOO ⋅ garlic ⋅ lemon</p>
+        <p class="recipe-card-ingredients">salmon ⋅ turmeric ⋅ black pepper ⋅ EVOO ⋅ garlic ⋅ lemon</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Negligible GI</span>
@@ -1454,7 +1511,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-apoe4">APOE4</span>
         </div>
-        <p class="recipe-card-ingredients">millet or sorghum ⋅ kefir ⋅ Ceylon cinnamon ⋅ blueberries ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">millet / millet flour ⋅ kefir ⋅ Ceylon cinnamon ⋅ blueberries ⋅ EVOO</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Low GI</span>
@@ -1488,7 +1545,7 @@
           <span class="badge badge-kidney">Kidney Stone</span>
           <span class="badge badge-apoe4">APOE4</span>
         </div>
-        <p class="recipe-card-ingredients">chicken or beef bones ⋅ garlic ⋅ ginger ⋅ ACV ⋅ water</p>
+        <p class="recipe-card-ingredients">bones ⋅ garlic ⋅ ginger ⋅ ACV</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Negligible GI</span>
@@ -1556,7 +1613,7 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">millet ⋅ bone broth ⋅ ginger ⋅ garlic ⋅ turmeric ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">millet / millet flour ⋅ bone broth ⋅ ginger ⋅ garlic ⋅ turmeric ⋅ EVOO</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-mod"></span>
           <span class="gi-mod">Moderate GI</span>
@@ -1575,20 +1632,209 @@
   <p style="color:var(--muted);font-size:.82rem;margin-top:1.5rem;text-align:center">More recipes added as they are developed and tested. Each one is built specifically around your condition stack.</p></div><!-- /main-wrap -->
 
 <script>
-function filterRecipes(tag, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.recipe-card').forEach(card => {
-    if (tag === 'all') { card.style.display = ''; return; }
-    if (tag === 'low-ox') {
-      card.style.display = card.dataset.oxalate === 'low' ? '' : 'none';
-    } else if (tag === 'imported') {
-      card.style.display = card.dataset.mbImported === 'true' ? '' : 'none';
-    } else {
-      card.style.display = card.dataset.conditions.includes(tag) ? '' : 'none';
-    }
+// ═══════════════════════════════════════════════════════════════════════════
+//  PANTRY FILTER — Exclusion model · localStorage-persisted
+// ═══════════════════════════════════════════════════════════════════════════
+
+const PANTRY_GROUPS = {
+  fridge: {
+    label: '🧊 Fridge & Freezer',
+    items: [
+      'A2 Brand Milk','bone broth','bones','chicken','chicken livers',
+      'eggs','Farm Fresh Milk','feta','ground beef','ground turkey',
+      'heavy cream','kefir','labneh','liquid rennet','mozzarella',
+      'pork shoulder','salmon','shrimp','smoked salmon','Sugar Shift yogurt'
+    ]
+  },
+  pantry: {
+    label: '🫙 Pantry, Shelf & Produce',
+    items: [
+      'ACV','allspice','arrowroot starch','artichoke','asparagus',
+      'avocado','bell pepper','black pepper','blueberries','broccoli',
+      'cabbage','capers','carrot','cassava flour','cauliflower',
+      'celery','Ceylon cinnamon','chamomile','citric acid','coconut aminos',
+      'coconut flakes','coconut sugar','coriander','cucumber','cumin',
+      'dark chocolate chips','decaf coffee','dill','Dijon mustard','EVOO',
+      'fennel','Fuji apple','garlic','ginger','herbs','hibiscus','honey',
+      'kale','lemon','MCT oil','millet / millet flour','mint','mushrooms',
+      'olives','onion','oregano','parmesan','parsley','peppermint',
+      'pepitas','pimento','Prebio Plus','pumpkin','pumpkin seeds',
+      'red wine vinegar','rice paper','rooibos','rosemary','sage',
+      'salt','smoked oysters','smoked paprika','sorghum flour',
+      'Sugar Shift probiotic','sunflower seeds','tamari','thyme',
+      'tomatoes','trail mix','turmeric','walnuts','za\u2019atar','zucchini'
+    ]
+  }
+};
+
+// Safety aliases: raw card strings that didn't get normalised in HTML
+const PANTRY_NORM = {
+  'napa cabbage':        'cabbage',
+  'red bell peppers':    'bell pepper',
+  'red bell pepper':     'bell pepper',
+  'sweet pepper':        'bell pepper',
+  'kalamata olives':     'olives',
+  'mixed olives':        'olives',
+  'yellow onion':        'onion',
+  'red onion':           'onion',
+  'wild salmon':         'salmon',
+  'chicken breast':      'chicken',
+  'chicken thighs':      'chicken',
+  'tomato':              'tomatoes',
+  'tomato sauce':        'tomatoes',
+  'tomato paste':        'tomatoes',
+  'sea salt':            'salt',
+  'low-sodium brine':    'salt',
+  'fresh herbs':         'herbs',
+  'flat-leaf parsley':   'parsley',
+  'fresh ginger':        'ginger',
+  'raw honey':           'honey',
+  'cinnamon':            'ceylon cinnamon',
+  'millet':              'millet / millet flour',
+  'millet flour':        'millet / millet flour',
+  'millet breadcrumbs':  'millet / millet flour',
+  'sorghum':             'sorghum flour',
+  'decaf arabica':       'decaf coffee',
+  'kidney-safe trail mix': 'trail mix',
+  'whole globe artichoke': 'artichoke',
+  'purple cabbage':      'cabbage',
+  'red cabbage':         'cabbage',
+  "za'atar":             'za\u2019atar'
+};
+
+const PANTRY_LS_KEY = 'pantry_v1';
+let pantryChecked = new Set();
+let activeConditionTag = 'all';
+
+function normIng(raw) {
+  const lc = raw.trim().toLowerCase();
+  return PANTRY_NORM[lc] || lc;
+}
+
+function allPantryKeys() {
+  const s = new Set();
+  Object.values(PANTRY_GROUPS).forEach(g => g.items.forEach(it => s.add(it.toLowerCase())));
+  return s;
+}
+
+// ── LocalStorage ────────────────────────────────────────────────────────────
+function savePantry() {
+  localStorage.setItem(PANTRY_LS_KEY, JSON.stringify([...pantryChecked]));
+}
+
+function loadPantry() {
+  const saved = localStorage.getItem(PANTRY_LS_KEY);
+  if (saved) {
+    try { pantryChecked = new Set(JSON.parse(saved)); return; } catch(e) {}
+  }
+  pantryChecked = allPantryKeys();
+  savePantry();
+}
+
+// ── Build checkbox panel ────────────────────────────────────────────────────
+function buildPantryPanel() {
+  Object.entries(PANTRY_GROUPS).forEach(([groupKey, group]) => {
+    const container = document.getElementById('pantry-' + groupKey);
+    if (!container) return;
+    const sorted = [...group.items].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+    sorted.forEach((item, i) => {
+      const key = item.toLowerCase();
+      const id  = 'pi_' + groupKey + '_' + i;
+      const lbl = document.createElement('label');
+      lbl.className = 'pantry-item';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.id   = id;
+      cb.dataset.pkey = key;
+      cb.checked = pantryChecked.has(key);
+      const span = document.createElement('span');
+      span.className = 'pantry-item-label';
+      span.textContent = item;
+      if (item === 'millet / millet flour') {
+        const note = document.createElement('span');
+        note.className = 'pantry-item-note';
+        note.textContent = '(mill whole berry if needed)';
+        span.appendChild(note);
+      }
+      lbl.appendChild(cb);
+      lbl.appendChild(span);
+      container.appendChild(lbl);
+      cb.addEventListener('change', () => {
+        if (cb.checked) pantryChecked.add(key); else pantryChecked.delete(key);
+        savePantry();
+        applyAllFilters();
+      });
+    });
   });
 }
+
+// ── Group-level controls ────────────────────────────────────────────────────
+function setPantryGroup(groupKey, val) {
+  const container = document.getElementById('pantry-' + groupKey);
+  if (!container) return;
+  container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.checked = val;
+    if (val) pantryChecked.add(cb.dataset.pkey); else pantryChecked.delete(cb.dataset.pkey);
+  });
+  savePantry();
+  applyAllFilters();
+}
+
+function setAllPantry(val) {
+  Object.keys(PANTRY_GROUPS).forEach(k => setPantryGroup(k, val));
+}
+
+// ── Panel collapse / expand ─────────────────────────────────────────────────
+function togglePantryPanel() {
+  const body = document.getElementById('pantry-body');
+  const icon = document.getElementById('pantry-icon');
+  if (!body) return;
+  const opening = body.style.display === 'none';
+  body.style.display = opening ? '' : 'none';
+  if (icon) icon.textContent = opening ? '▲' : '▼';
+}
+
+// ── Filter logic ────────────────────────────────────────────────────────────
+function getConditionMatch(card) {
+  if (activeConditionTag === 'all') return true;
+  if (activeConditionTag === 'low-ox') return card.dataset.oxalate === 'low';
+  if (activeConditionTag === 'imported') return card.dataset.mbImported === 'true';
+  return card.dataset.conditions.includes(activeConditionTag);
+}
+
+function getPantryMatch(card) {
+  const ingEl = card.querySelector('.recipe-card-ingredients');
+  if (!ingEl) return true;
+  const tokens = ingEl.textContent.split('\u22c5').map(s => normIng(s));
+  return tokens.every(t => t === '' || pantryChecked.has(t));
+}
+
+function applyAllFilters() {
+  let visible = 0, total = 0;
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    total++;
+    const show = getConditionMatch(card) && getPantryMatch(card);
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const el = document.getElementById('pantry-count');
+  if (el) el.textContent = visible + ' of ' + total + ' recipes available';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  CONDITION FILTER
+// ═══════════════════════════════════════════════════════════════════════════
+
+function filterRecipes(tag, btn) {
+  activeConditionTag = tag;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyAllFilters();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  MEALBOARD
+// ═══════════════════════════════════════════════════════════════════════════
 
 function getRecipeKey(card) {
   const link = card.querySelector('.recipe-card-actions a') ||
@@ -1611,21 +1857,17 @@ function initMealboardToggles() {
   document.querySelectorAll('.recipe-card').forEach(card => {
     const key = getRecipeKey(card);
     if (!key) return;
-
     const isImported = localStorage.getItem(key) === 'true';
     card.dataset.mbImported = isImported ? 'true' : 'false';
-
     const container = card.querySelector('.recipe-card-actions') ||
                       card.querySelector('.recipe-card-footer');
     if (!container) return;
-
     const btn = document.createElement('button');
     btn.className = 'mb-toggle' + (isImported ? ' imported' : '');
     btn.innerHTML = isImported ? '&#x2705; In MealBoard' : '&#x1F4F2; Add to MealBoard';
     btn.title = isImported
       ? 'Imported — click to undo'
       : 'Click when you have imported this recipe into MealBoard';
-
     btn.addEventListener('click', () => {
       const nowImported = card.dataset.mbImported !== 'true';
       card.dataset.mbImported = nowImported ? 'true' : 'false';
@@ -1637,14 +1879,17 @@ function initMealboardToggles() {
         : 'Click when you have imported this recipe into MealBoard';
       updateProgress();
     });
-
     container.appendChild(btn);
   });
-
   updateProgress();
 }
 
-document.addEventListener('DOMContentLoaded', initMealboardToggles);
+document.addEventListener('DOMContentLoaded', () => {
+  initMealboardToggles();
+  loadPantry();
+  buildPantryPanel();
+  applyAllFilters();
+});
 </script>
 </body>
 </html>
