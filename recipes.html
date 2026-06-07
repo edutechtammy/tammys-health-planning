@@ -429,6 +429,40 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE 47 — MARINATED FETA IN CHILI & HERB EVOO
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+      <div class="recipe-card-img">🧀🌶️🫒</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Marinated Feta in Chili &amp; Herb EVOO</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 10 min prep · no cook</span>
+          <span>⏳ Ready in 30 min–overnight</span>
+          <span>🍽 ~4 servings (mezze)</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">feta ⋅ EVOO ⋅ jalapeño ⋅ dried chili ⋅ oregano ⋅ parsley ⋅ lemon</p>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-low"></span>
+          <span class="gi-low">Very Low GI</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— essentially zero carb; capsaicin improves insulin sensitivity</span>
+        </div>
+        <p class="recipe-card-desc">Creamy feta marinated in raw cold-pressed EVOO with fresh jalapeño, dried chilies, oregano, parsley, and lemon zest. No cooking — raw EVOO preserves oleocanthal at full potency. Ten minutes of assembly, ready in 30 minutes, improves overnight. Keeps refrigerated 2 weeks. The infused chili oil doubles as a salad drizzle.</p>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipe-marinated-feta.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE 39 — CULTURED BUTTER (MASON JAR SHAKE)
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
@@ -1643,7 +1677,7 @@ const PANTRY_GROUPS = {
       'A2 Brand Milk','asparagus','bell pepper','bone broth','bones','broccoli',
       'cabbage','capers','cauliflower','celery','chicken','chicken livers',
       'cucumber','eggs','Farm Fresh Milk','feta','ground beef','ground turkey',
-      'heavy cream','kefir','kale','labneh','liquid rennet','mozzarella',
+      'heavy cream','jalapeño','kefir','kale','labneh','liquid rennet','mozzarella',
       'mushrooms','parmesan','pimento','pork shoulder','salmon','shrimp',
       'smoked salmon','Sugar Shift yogurt','tamari','zucchini'
     ]
@@ -1656,7 +1690,7 @@ const PANTRY_GROUPS = {
       'carrot','cassava flour',
       'Ceylon cinnamon','chamomile','citric acid','coconut aminos',
       'coconut flakes','coconut sugar','coriander','cumin',
-      'dark chocolate chips','decaf coffee','dill','Dijon mustard','EVOO',
+      'dark chocolate chips','decaf coffee','dill','Dijon mustard','dried chili','EVOO',
       'fennel','Fuji apple','garlic','ginger','herbs','hibiscus','honey',
       'lemon','MCT oil','millet / millet flour','mint',
       'olives','onion','oregano','parsley','peppermint',
@@ -1664,7 +1698,7 @@ const PANTRY_GROUPS = {
       'red wine vinegar','rice paper','rooibos','rosemary','sage',
       'salt','smoked oysters','smoked paprika','sorghum flour',
       'Sugar Shift probiotic','sunflower seeds','thyme',
-      'tomatoes','trail mix','turmeric','walnuts',
+      'tomatoes','trail mix','turmeric','walnuts','za\u2019atar',
     ]
   }
 };
@@ -1701,7 +1735,12 @@ const PANTRY_NORM = {
   'whole globe artichoke': 'artichoke',
   'purple cabbage':      'cabbage',
   'red cabbage':         'cabbage',
-  "za'atar":             'za\u2019atar'
+  "za'atar":             'za\u2019atar',
+  'jalapeno':            'jalap\u00e9\u00f1o',
+  'jalape\u00f1os':      'jalap\u00e9\u00f1o',
+  'dry chilies':         'dried chili',
+  'dried chilies':       'dried chili',
+  'dry chili':           'dried chili'
 };
 
 const PANTRY_LS_KEY = 'pantry_v1';

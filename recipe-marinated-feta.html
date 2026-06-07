@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marinated Feta in Chili &amp; Herb EVOO (GF)</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCHEMA.ORG RECIPE MARKUP — for Mealboard "Add from Web" import
+  ════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Marinated Feta in Chili & Herb EVOO",
+    "description": "Creamy brine feta marinated in raw cold-pressed extra-virgin olive oil with fresh jalapeño, dried whole chilies, dried oregano, fresh parsley, and lemon zest. No cooking — raw EVOO preserves oleocanthal at full potency. Ten minutes of assembly, ready in 30 minutes, improves overnight. Keeps refrigerated for two weeks. A Mediterranean mezze staple that delivers calcium, capsaicin, folate, and EVOO polyphenols in one small dish.",
+    "recipeYield": "4 servings (as mezze)",
+    "prepTime": "PT10M",
+    "cookTime": "PT0M",
+    "totalTime": "PT10M",
+    "recipeCategory": "Mezze / Side / Snack",
+    "recipeCuisine": "Mediterranean",
+    "keywords": "gluten-free, marinated feta, EVOO, Mediterranean, APOE4, fatty liver, low glycaemic, no-cook, mezze",
+    "recipeIngredient": [
+      "8 oz (225g) creamy feta in brine",
+      "Extra virgin olive oil (EVOO) — enough to mostly submerge feta",
+      "1 jalapeño, thinly sliced",
+      "3 to 4 dried whole chilies",
+      "1 to 2 tsp dried oregano",
+      "2 to 3 tbsp fresh parsley, roughly chopped",
+      "Zest of 1 lemon"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Drain and portion the feta",
+        "text": "Remove feta from its brine and blot gently with a clean cloth or paper towel. Tear or cut into rustic chunks roughly 2–3 cm each. Crumblier feta will break into smaller pieces — both textures work."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Layer the jar",
+        "text": "In a clean 500 mL glass jar, layer feta chunks with jalapeño slices, dried chilies, and dried oregano. Scatter lemon zest through the layers as you go — don't leave it all for the top."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Pour the EVOO — do not heat it",
+        "text": "Pour cold-pressed extra-virgin olive oil over the layered feta until mostly submerged. Do not heat the oil. Raw EVOO preserves oleocanthal at full concentration — this is the hepatoprotective and anti-inflammatory compound you want."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish with fresh parsley and marinate",
+        "text": "Scatter chopped fresh parsley over the top. Seal the jar. Leave at room temperature for at least 30 minutes before serving. For deeper flavour, refrigerate overnight — the oil will solidify when cold, which is normal. Pull from the fridge 30 minutes before serving so the oil returns to liquid."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Serve",
+        "text": "Serve directly from the jar or spoon onto a plate. Excellent with GF crackers, cucumber slices, olives, carrot sticks, or GF sourdough. The infused chili oil is just as useful as the feta — drizzle over salads, eggs, or roasted vegetables."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --amber:       #fff8e1;
+      --amber-dark:  #78350f;
+      --amber-border:#fde68a;
+      --red-pale:    #fff5f5;
+      --red-border:  #fca5a5;
+      --red-dark:    #991b1b;
+      --teal-pale:   #e0f7fa;
+      --teal-border: #80deea;
+      --teal-dark:   #004d40;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --border:      #b7ddc4;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4   { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-liver   { background: #fef3c7; color: #78350f; }
+    .badge-mthfr   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low  { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 90px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low  { color: #27ae60; }
+    .ox-mod  { color: #f39c12; }
+    .ox-zero { color: #95a5a6; }
+    .ox-ca   { color: #1565c0; font-weight: 700; }
+
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-list { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; counter-increment: step; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+
+    .callout-green { background: var(--green-pale); border: 1px solid var(--border); border-radius: 12px; padding: .85rem 1.1rem; font-size: .85rem; color: var(--green-dark); line-height: 1.65; margin-bottom: 1.5rem; }
+    .callout-green strong { color: var(--green-dark); }
+
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+
+    .variation-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .variation-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+    .var-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .83rem; line-height: 1.5; }
+    .var-card strong { display: block; color: var(--green-dark); margin-bottom: .2rem; font-size: .8rem; }
+
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+
+    .storage-panel { background: var(--teal-pale); border: 1px solid var(--teal-border); border-radius: 12px; padding: .85rem 1.1rem; font-size: .85rem; color: #006064; line-height: 1.65; margin-bottom: 1.5rem; }
+    .storage-panel strong { color: var(--teal-dark); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Title, ingredients, and instructions import automatically via schema.org/Recipe markup. Verify yield (4 servings) after import.
+  </div>
+
+  <!-- NO-COOK CALLOUT -->
+  <div class="callout-green">
+    <strong>🌿 No heat — raw EVOO is a feature, not a shortcut.</strong> Oleocanthal, the key anti-inflammatory polyphenol in quality extra-virgin olive oil, begins degrading above 40 °C. A raw preparation like this preserves oleocanthal at full concentration — something that roasting or sautéing in EVOO cannot do. The flavour is also more vivid than any cooked application. Use the best cold-pressed EVOO you have.
+  </div>
+
+  <!-- HERO -->
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🧀 🌶️ 🫒</div>
+    <div class="recipe-hero-body">
+      <h1>Marinated Feta in Chili &amp; Herb EVOO</h1>
+      <p>Creamy brine feta layered with fresh jalapeño, whole dried chilies, dried oregano, fresh parsley, and lemon zest — then submerged in cold-pressed extra-virgin olive oil. No cooking, no heat. Ten minutes of assembly, 30 minutes of patience, and it's ready. A genuine Mediterranean mezze that works as a calcium source, a capsaicin delivery vehicle, a folate hit from raw parsley, and the best possible use of good EVOO. Keeps refrigerated for two weeks, and the infused oil is its own reward as a finishing drizzle over salads or eggs.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 10 min</span>
+        <span>🔥 Cook: none</span>
+        <span>⏳ Marinate: 30 min minimum (overnight is better)</span>
+        <span>🍽 Yield: ~4 servings as mezze</span>
+        <span>🗓 Keeps: 2 weeks refrigerated</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Very low GI — essentially zero carbohydrate; capsaicin improves insulin sensitivity
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="test-bar">
+    <p>First time with jalapeño or dried chili? If you have active Celiac gut sensitivity, log how capsaicin lands — some people find it irritating during a reactive phase. On a calm day, the dose here is unlikely to be an issue.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+      <a class="btn" style="background:#ff0000;color:#fff;" href="https://www.youtube.com/shorts/eDmCyiMXH0M" target="_blank" rel="noopener noreferrer">▶ Watch it being made</a>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="recipe-layout">
+
+    <!-- INGREDIENTS -->
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — ~4 servings (mezze)</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Feta</li>
+          <li class="ing-item"><span class="ing-amount">8 oz (225g)</span><span class="ing-name">Creamy feta in brine</span><span class="ing-note ox-ca">Ca²⁺ binder</span></li>
+
+          <li class="ing-section-label">The oil</li>
+          <li class="ing-item"><span class="ing-amount">to cover</span><span class="ing-name">Extra-virgin olive oil (EVOO)</span><span class="ing-note ox-zero">⬜ zero · raw oleocanthal</span></li>
+
+          <li class="ing-section-label">Heat</li>
+          <li class="ing-item"><span class="ing-amount">1</span><span class="ing-name">Jalapeño, thinly sliced</span><span class="ing-note ox-low">🟢 low-mod ox</span></li>
+          <li class="ing-item"><span class="ing-amount">3–4</span><span class="ing-name">Dried whole chilies</span><span class="ing-note ox-low">🟢 small amount</span></li>
+
+          <li class="ing-section-label">Herbs &amp; zest</li>
+          <li class="ing-item"><span class="ing-amount">1–2 tsp</span><span class="ing-name">Dried oregano</span><span class="ing-note ox-zero">⬜ trace at dose</span></li>
+          <li class="ing-item"><span class="ing-amount">2–3 tbsp</span><span class="ing-name">Fresh parsley, chopped</span><span class="ing-note ox-low">🟢 low · folate source</span></li>
+          <li class="ing-item"><span class="ing-amount">zest of 1</span><span class="ing-name">Lemon</span><span class="ing-note ox-zero">⬜ trace · limonene</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:var(--green-pale);border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:var(--muted);line-height:1.55">
+          <strong style="color:var(--green-dark)">Oxalate note:</strong> Feta's calcium is present at every serving alongside the jalapeño and chili, passively binding any oxalate as an insoluble complex in the gut. No separate pairing management needed — it's built into the recipe composition.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Drain and portion the feta</div>
+              Remove feta from its brine and blot gently with a clean cloth or paper towel. Tear or cut into rustic chunks, roughly 2–3 cm each. Crumbly feta will break into smaller pieces — both textures work.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Layer the jar</div>
+              In a clean 500 mL glass jar, layer feta chunks with jalapeño slices, dried chilies, and a pinch of dried oregano between each layer. Scatter lemon zest through the layers as you build — don't leave it all sitting on top.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Pour the EVOO — do not heat it</div>
+              Pour cold-pressed extra-virgin olive oil over the layered feta until it is mostly submerged. <strong>Do not heat the oil</strong> — oleocanthal degrades with heat. Raw EVOO poured cold is both pharmacologically superior and more flavourful.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Finish with fresh parsley</div>
+              Scatter the chopped fresh parsley over the top. It sits above the oil line, stays bright green and folate-intact until you serve. Seal the jar.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Marinate, then serve</div>
+              Leave at room temperature for <strong>30 minutes minimum</strong> — the oil needs time to carry the heat and herb compounds into the feta. For best flavour, refrigerate overnight. The oil solidifies when cold — this is normal. Pull from the fridge <strong>30 minutes before serving</strong> so the oil returns to liquid.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>What's working here:</strong> Raw EVOO → oleocanthal at full potency (COX-1/COX-2 inhibition, hepatoprotection, APOE4 neuroprotection — all degrade with heat) · Capsaicin via jalapeño + dried chili → improves insulin sensitivity, slows gastric emptying, activates PPAR-α and TRPV1 in the liver to reduce hepatic fat accumulation · Feta calcium → passively binds chili oxalate in the gut at each serving · Fresh raw parsley → retains higher folate content than cooked parsley (directly supports MTHFR methylation) · Lemon zest → limonene (hepatoprotective monoterpene, anti-inflammatory). Nothing in this jar is decorative.
+    </div>
+
+  </div><!-- /recipe-layout -->
+
+  <!-- STORAGE -->
+  <div class="storage-panel">
+    <strong>🗓 Storage:</strong> Seal tightly and refrigerate. Keeps up to <strong>2 weeks</strong>. The EVOO solidifies when cold — pull from the fridge 30 minutes before serving. Do not store at room temperature after the initial marination period (treat like any fresh dairy jar). The infused oil is useful on its own: drizzle over salads, eggs, roasted vegetables, or GF bread as a finishing oil. If the oil level drops, top up with fresh EVOO rather than discarding the remaining feta.
+  </div>
+
+  <!-- SERVING IDEAS -->
+  <div class="variation-panel">
+    <h3>🍽 How to use it</h3>
+    <div class="var-grid">
+      <div class="var-card">
+        <strong>🥒 Classic mezze plate</strong>
+        Serve with cucumber slices, olives, carrot sticks, and GF crackers or millet bread. Spoon some of the chili oil over the plate as well — it is the best part.
+      </div>
+      <div class="var-card">
+        <strong>🥗 Salad finisher</strong>
+        Crumble a few pieces over any leafy salad and drizzle a spoonful of the infused oil over the top instead of dressing. Replaces both the cheese and the dressing in one move.
+      </div>
+      <div class="var-card">
+        <strong>🍳 Egg pairing</strong>
+        Spoon over fried or poached eggs — the chili oil bastes the whites as you eat. Excellent with za'atar on top. Works equally well as a Shakshuka finish in place of plain crumbled feta.
+      </div>
+      <div class="var-card">
+        <strong>🌿 Mild version (active GI sensitivity)</strong>
+        Skip the jalapeño, reduce to 1 dried chili, and double the oregano to 2 tsp. Add a few sprigs of fresh thyme instead. All the flavour compounds from the oil still work — just without the capsaicin load on a reactive day.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONDITION NOTES -->
+  <div class="notes-panel">
+    <h3>🔬 Why each component is here</h3>
+    <ul>
+      <li><strong>Raw EVOO — the whole point:</strong> Oleocanthal is the peppery phenolic at the back of the throat in quality cold-pressed EVOO. It inhibits COX-1 and COX-2 — the same mechanism as ibuprofen — and is the most studied EVOO compound for APOE4 neuroprotection and hepatic fat reduction. Heat above 40 °C accelerates its degradation. A raw marination like this is pharmacologically preferable to cooking with EVOO, not just a flavour choice. Use a real cold-pressed, single-origin EVOO here if you have one.</li>
+      <li><strong>Capsaicin (jalapeño + dried chili):</strong> Capsaicin slows gastric emptying slightly — a small but real contribution to post-meal glucose curve flattening. More relevantly for fatty liver, capsaicin activates PPAR-α and TRPV1, both of which reduce hepatic fat accumulation through distinct mechanisms. The quantity in this recipe (1 jalapeño + 3–4 small dried chilies) is a meaningful dose, not decorative heat. If your gut is reactive on a given day, reduce to the mild version above — the oil benefits remain, just without capsaicin.</li>
+      <li><strong>Fresh parsley — raw specifically:</strong> Cooking destroys 50–60% of folate. Parsley is one of the better herb sources of folate per gram, and keeping it raw (scattered on top, uncooked) means you retain most of that. For MTHFR, where even small dietary folate contributions matter across the day, this is worth noting. 2–3 tbsp of chopped parsley delivers approximately 15–20 mcg folate — not a therapeutic dose on its own, but it accumulates across meals.</li>
+      <li><strong>Feta calcium — passive oxalate management:</strong> The jalapeño and dried chilies carry a low-moderate oxalate load. The feta is present at every serving, and calcium binds a fraction of dietary oxalate as insoluble calcium oxalate in the gut — reducing urinary absorption. This requires no active management. The pairing is already built into the recipe the way the original creator put it together.</li>
+      <li><strong>Lemon zest, not lemon juice:</strong> The zest carries limonene (a monoterpene with hepatoprotective and anti-inflammatory properties in cell and animal studies) plus flavonoids. Lemon juice would add urinary citrate (kidney stone protection) but acidifies the oil rapidly and begins to curdle the feta over days of storage. If you want the citrate benefit, squeeze a lemon wedge over each serving rather than marinating with juice.</li>
+      <li><strong>Celiac / GF:</strong> All ingredients are naturally gluten-free. Check your EVOO label (pure olive oil is always GF) and any packaged dried chili label — some flavoured or prepared chili products use flour as an anti-caking agent. Plain whole dried chilies from a spice shop are safe.</li>
+    </ul>
+  </div>
+
+</div><!-- /main-wrap -->
+
+</body>
+</html>
