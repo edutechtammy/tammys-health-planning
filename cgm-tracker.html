@@ -152,6 +152,38 @@
     /* CHART */
     .chart-wrap { position: relative; height: 280px; }
 
+    /* FINGERSTICK GUIDE */
+    details.fs-panel { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 1.6rem; overflow: hidden; }
+    details.fs-panel summary { background: #1a5276; color: #fff; padding: .85rem 1.4rem; cursor: pointer; font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: .6rem; list-style: none; user-select: none; }
+    details.fs-panel summary::-webkit-details-marker { display: none; }
+    details.fs-panel summary::after { content: ' ▾'; margin-left: auto; font-size: .85rem; }
+    details.fs-panel:not([open]) summary::after { content: ' ▸'; }
+    .fs-body { padding: 1.2rem 1.4rem; }
+    .fs-intro { font-size: .9rem; color: var(--muted); margin-bottom: 1.1rem; line-height: 1.65; }
+    .fs-zone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 1.2rem; }
+    .fs-zone { border-radius: 12px; padding: 1rem 1.1rem; border: 1px solid #ddd; }
+    .fs-zone-red    { background: #fce4e4; border-color: #f5c0b0; }
+    .fs-zone-amber  { background: var(--amber-pale); border-color: #f0c060; }
+    .fs-zone-green  { background: var(--green-light); border-color: var(--green-mid); }
+    .fs-zone h3 { font-size: .88rem; font-weight: 700; margin-bottom: .5rem; display: flex; align-items: center; gap: .4rem; }
+    .fs-zone-red  h3 { color: var(--red); }
+    .fs-zone-amber h3 { color: #7a5c00; }
+    .fs-zone-green h3 { color: var(--green-dark); }
+    .fs-zone p  { font-size: .84rem; color: var(--text); line-height: 1.6; margin-bottom: .35rem; }
+    .fs-zone p:last-child { margin-bottom: 0; }
+    .fs-zone strong { color: inherit; }
+    .fs-food-table { width: 100%; border-collapse: collapse; font-size: .82rem; margin-bottom: 1rem; }
+    .fs-food-table th { background: var(--sky-pale); padding: .42rem .75rem; text-align: left; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #1a5276; border-bottom: 2px solid #aed6f1; white-space: nowrap; }
+    .fs-food-table td { padding: .42rem .75rem; border-bottom: 1px solid #f0f5f1; vertical-align: middle; line-height: 1.5; }
+    .fs-food-table tr:last-child td { border-bottom: none; }
+    .fs-food-table tr:hover td { background: #f8fcf9; }
+    .fs-morning-note { background: #fff8e1; border-left: 4px solid var(--amber); border-radius: 8px; padding: .75rem 1rem; font-size: .88rem; line-height: 1.65; margin-bottom: 1rem; }
+    .fs-morning-note strong { color: #7a5c00; display: block; margin-bottom: .2rem; }
+    .fs-seq-steps { counter-reset: seq; list-style: none; padding: 0; margin: .5rem 0 0; }
+    .fs-seq-steps li { counter-increment: seq; display: flex; align-items: flex-start; gap: .6rem; font-size: .86rem; color: var(--text); margin-bottom: .4rem; line-height: 1.55; }
+    .fs-seq-steps li::before { content: counter(seq); background: #1a5276; color: #fff; border-radius: 50%; width: 1.3rem; height: 1.3rem; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .fs-update-note { font-size: .78rem; color: var(--muted); font-style: italic; margin-top: .8rem; }
+
     /* EMPTY STATE */
     .empty-state { text-align: center; color: var(--muted); padding: 3.5rem 1rem; }
     .empty-state .ei { font-size: 3rem; margin-bottom: .8rem; }
@@ -259,6 +291,128 @@
 
   <!-- ── COMPARISON ── -->
   <div id="comparison-section"></div>
+
+  <!-- ── FINGERSTICK DECISION GUIDE ── -->
+  <details class="fs-panel">
+    <summary>💉 Fingerstick Pre-Meal Decision Guide — Between CGM Cycles</summary>
+    <div class="fs-body">
+
+      <p class="fs-intro">
+        You confirmed in Cycle 1 that you cannot feel hypoglycemia <em>or</em> hyperglycemia. This guide translates
+        your CGM data into fingerstick decision thresholds so you can make the same informed call — eat now vs. wait vs.
+        choose something different — even when the sensor isn't on. All thresholds are derived from Cycle 1 data and
+        will refine as future cycles add more food response measurements.
+      </p>
+
+      <!-- UNIVERSAL FLOOR -->
+      <p class="section-label" style="margin-top:0">🔴 Universal Floor — Applies to Every Reading, Every Time of Day</p>
+      <div class="fs-zone-grid">
+        <div class="fs-zone fs-zone-red">
+          <h3>🚨 Below 85 mg/dL — Eat Now</h3>
+          <p>Do not factor in what you planned to eat. Choose any protein + fat snack immediately (yogurt, cheese, eggs, meat).</p>
+          <p>Do not wait for hunger. Do not choose by preference. Cycle 1 showed lows can start from readings that feel completely normal.</p>
+        </div>
+        <div class="fs-zone fs-zone-green">
+          <h3>✓ 85–95 mg/dL — All Clear</h3>
+          <p>Full green light for any food including higher-carb items. No restrictions, no modifications needed.</p>
+          <p>This is your ideal pre-meal window — glucose is stable, insulin sensitivity is at a good baseline.</p>
+        </div>
+      </div>
+
+      <!-- MORNING MODIFIER -->
+      <div class="fs-morning-note">
+        <strong>⏰ Morning Modifier (before 10 AM) — Be 10 Points Stricter on All Thresholds</strong>
+        Your cortisol awakening response (CAR) pushes glucose upward from the moment you decide to get up — before any food.
+        A 95 mg/dL reading at 8 AM will be ~105 by the time you take the first bite.
+        Cycle 1 measured your pure CAR ceiling at <strong>123 mg/dL</strong> (Jun 4, no food at all).
+        Subtract 10 from every green-light ceiling below if the time is before 10 AM.
+      </div>
+
+      <!-- FOOD TABLE -->
+      <p class="section-label">🍽️ Food-Specific Thresholds — Pre-Meal Fingerstick Targets</p>
+      <p style="font-size:.83rem;color:var(--muted);margin-bottom:.8rem">Based on observed glucose rises in Cycle 1. Morning modifier already applied in the AM column.</p>
+
+      <div class="table-wrap">
+        <table class="fs-food-table">
+          <thead>
+            <tr>
+              <th>Food / Category</th>
+              <th>Examples from your data</th>
+              <th>Expected rise</th>
+              <th>✅ Green (any time)</th>
+              <th>✅ AM Green (before 10am)</th>
+              <th>🟡 Yellow — modify</th>
+              <th>🔴 Red — choose different</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>High spike</strong></td>
+              <td>Sourdough bread (any), cassava pita (untested)</td>
+              <td>45–55 mg/dL</td>
+              <td>≤ 90</td>
+              <td>≤ 80</td>
+              <td>91–105 · protein first + smaller portion</td>
+              <td><strong>&gt; 105</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Moderate</strong></td>
+              <td>Shakshuka, rice paper rolls, fruit, sweetened yogurt</td>
+              <td>25–35 mg/dL</td>
+              <td>≤ 105</td>
+              <td>≤ 95</td>
+              <td>106–115 · reduce portion or add ACV</td>
+              <td><strong>&gt; 115</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Low impact</strong></td>
+              <td>Eggs, cheese, meat, plain yogurt, kefir, salads with ACV dressing</td>
+              <td>10–20 mg/dL</td>
+              <td>≤ 120</td>
+              <td>≤ 110</td>
+              <td>121–130 · fine, just monitor</td>
+              <td><strong>&gt; 130</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Protein/fat only</strong></td>
+              <td>Cheese stick, hard-boiled eggs, meat, nuts, butter</td>
+              <td>&lt; 10 mg/dL</td>
+              <td>≤ 130</td>
+              <td>≤ 120</td>
+              <td colspan="2" style="color:var(--muted)">Rarely an issue at any reading</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- YELLOW ZONE PROTOCOL -->
+      <p class="section-label">🟡 Yellow Zone Protocol — When You Want the Higher-Carb Food Anyway</p>
+      <div class="fs-zone fs-zone-amber" style="max-width:560px">
+        <h3>Food sequencing changes the absorption curve — no retest needed</h3>
+        <ol class="fs-seq-steps">
+          <li>Eat 3–4 bites of a protein or fat item first (eggs, cheese, meat, yogurt)</li>
+          <li>Wait 5–10 minutes before starting the carb portion</li>
+          <li>Use ACV dressing on the meal if it's available</li>
+          <li>Proceed — the sequencing has already blunted the absorption rate</li>
+        </ol>
+        <p style="margin-top:.6rem;font-size:.82rem;color:#7a5c00">This protocol is based on Cycle 1's Jun 6 result: same breakfast as Jun 1 but with Chop Chop Salad (ACV dressing) → peak 148 for 20 min vs. 166 for 60 min.</p>
+      </div>
+
+      <!-- OVERNIGHT / BEDTIME -->
+      <p class="section-label">🌙 Bedtime — Non-Optional Rule</p>
+      <div class="fs-zone fs-zone-green">
+        <h3>✓ Always eat bedtime yogurt or kefir — not optional on exercise nights</h3>
+        <p>Cycle 1 directly tested skipping it (May 28): result was a 185-minute low from 23:44 through early AM, nadir 60 mg/dL during sleep.</p>
+        <p>On Zone 2 exercise nights (target HR reached): increase add-ins — add walnuts or increase portion. The Jun 4→5 delayed hypos (55 mg/dL overnight, then 59 PM next day) followed the first two target-HR sessions.</p>
+        <p><strong>Bedtime reading &lt; 100:</strong> Full yogurt/kefir portion + walnuts or protein add-in.<br>
+           <strong>Bedtime reading 100–120:</strong> Standard yogurt/kefir portion.<br>
+           <strong>Bedtime reading &gt; 120:</strong> Plain kefir only (lower carb) or a small cheese portion.</p>
+      </div>
+
+      <p class="fs-update-note">These thresholds are derived from Cycle 1 (May 27 – Jun 7, 2026) with no ACV and ~1.5–2.3 MPH treadmill walking. They will be updated as Cycle 2 and beyond refine the expected rise values for each food category and confirm the ACV effect size.</p>
+
+    </div>
+  </details>
 
   <!-- ── EMPTY STATE ── -->
   <div id="empty-state" style="display:none">
