@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mediterranean &amp; Classic EVOO Dressings — Week 1 Tasting Set</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Greek Red Wine Vinaigrette",
+    "description": "Classic Greek vinaigrette: EVOO, red wine vinegar, dried oregano, and Dijon mustard as emulsifier. 3:1 oil-to-acid ratio. Makes 12 oz — 12 × 1-oz servings for silicone squeeze bottles. Standard 2–3 week shelf life.",
+    "recipeYield": "12 servings (1 oz each)",
+    "prepTime": "PT3M",
+    "cookTime": "PT0M",
+    "totalTime": "PT3M",
+    "recipeCategory": "Dressing / Condiment",
+    "recipeCuisine": "Greek / Mediterranean",
+    "keywords": "gluten-free, salad dressing, EVOO, vinaigrette, no seed oil, Mediterranean, APOE4",
+    "recipeIngredient": [
+      "1 cup + 2 tbsp (18 tbsp) extra-virgin olive oil",
+      "6 tbsp red wine vinegar",
+      "1 tsp Dijon mustard",
+      "1 tsp dried oregano",
+      "1/2 tsp garlic powder",
+      "1/2 tsp fine sea salt",
+      "1/4 tsp black pepper"
+    ],
+    "recipeInstructions": [
+      { "@type": "HowToStep", "name": "Combine", "text": "Add all ingredients to a clean glass jar with a tight-fitting lid." },
+      { "@type": "HowToStep", "name": "Emulsify", "text": "Seal and shake vigorously 30 seconds until the Dijon emulsifies the oil and vinegar. Re-shake before each use." },
+      { "@type": "HowToStep", "name": "Fill bottles", "text": "Pour into 12 × 1-oz silicone squeeze bottles. Add a standard green label. Refrigerate. Shake each bottle before squeezing." }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:#2d6a4f; --green-mid:#40916c; --green-light:#d8f3dc; --green-pale:#f0faf2;
+      --amber:#fff8e1; --amber-dark:#78350f; --amber-border:#fde68a;
+      --text:#1e2d24; --muted:#5a7263; --border:#b7ddc4; --shadow:0 2px 12px rgba(45,106,79,.12);
+    }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--green-pale); color:var(--text); line-height:1.6; padding-bottom:4rem; }
+    nav { background:var(--green-dark); padding:.75rem 1.5rem; display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; font-size:.95rem; opacity:.85; transition:opacity .2s; }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+    .main-wrap { max-width:860px; margin:0 auto; padding:1.5rem 1rem 0; }
+
+    /* HERO */
+    .set-hero { background:#fff; border-radius:16px; border:1px solid var(--border); box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.4rem; }
+    .hero-band { height:88px; display:flex; align-items:center; justify-content:center; font-size:3rem; letter-spacing:.4rem; background:var(--green-light); }
+    .hero-body { padding:1.1rem 1.5rem 1rem; }
+    .hero-body h1 { font-size:clamp(1.1rem,3vw,1.5rem); color:var(--green-dark); margin-bottom:.35rem; }
+    .week-badge { display:inline-flex; align-items:center; gap:.35rem; background:var(--green-dark); color:#fff; border-radius:20px; padding:.2rem .75rem; font-size:.75rem; font-weight:700; margin-bottom:.5rem; }
+    .hero-desc { font-size:.88rem; color:var(--muted); line-height:1.65; margin-bottom:.7rem; }
+    .scale-box { background:#e8f5e9; border:1px solid var(--green-light); border-radius:9px; padding:.5rem .85rem; font-size:.8rem; color:var(--green-dark); line-height:1.55; }
+
+    /* GUIDE */
+    .shelf-guide { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.65rem 1.1rem; margin-bottom:1.4rem; }
+    .shelf-guide-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:.4rem; }
+    .shelf-items { display:flex; gap:1.5rem; flex-wrap:wrap; }
+    .shelf-item { display:flex; align-items:center; gap:.4rem; font-size:.82rem; }
+    .sdot-std { width:11px; height:11px; border-radius:50%; background:#22c55e; flex-shrink:0; }
+    .sdot-short { width:11px; height:11px; border-radius:50%; background:#f59e0b; flex-shrink:0; }
+    .sdot-danger { width:11px; height:11px; border-radius:50%; background:#ef4444; flex-shrink:0; }
+
+    /* ACTION BAR */
+    .action-bar { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.7rem 1.1rem; display:flex; align-items:center; justify-content:space-between; gap:.8rem; flex-wrap:wrap; margin-bottom:1.4rem; }
+    .action-bar p { font-size:.83rem; color:var(--muted); }
+    .btn { padding:.42rem 1.05rem; border-radius:8px; font-size:.83rem; font-weight:600; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:.3rem; }
+    .btn-back { background:#fff; color:var(--green-dark); border:1.5px solid var(--green-mid); }
+    .btn:hover { opacity:.82; }
+
+    /* RECIPE BOX */
+    .recipe-box { background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); margin-bottom:1.8rem; }
+    .rb-head { padding:.7rem 1.1rem; display:flex; align-items:center; gap:.65rem; flex-wrap:wrap; justify-content:space-between; }
+    .rb-head.std { background:var(--green-dark); color:#fff; }
+    .rb-title-wrap { display:flex; align-items:center; gap:.55rem; }
+    .rb-num { background:rgba(255,255,255,.18); border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; font-size:.77rem; font-weight:700; flex-shrink:0; }
+    .rb-name { font-weight:700; font-size:.93rem; }
+    .rb-shelf-std { background:#dcfce7; color:#15803d; border-radius:20px; padding:.18rem .65rem; font-size:.71rem; font-weight:700; white-space:nowrap; }
+    .rb-body { display:grid; grid-template-columns:1fr 1.45fr; }
+    @media(max-width:620px){ .rb-body { grid-template-columns:1fr; } }
+    .rb-ing { padding:1rem 1.1rem; border-right:1px solid var(--green-light); }
+    .rb-method { padding:1rem 1.1rem; }
+    @media(max-width:620px){ .rb-ing { border-right:none; border-bottom:1px solid var(--green-light); } }
+    .rb-foot { border-top:1px solid var(--green-light); background:var(--green-pale); padding:.65rem 1.1rem; font-size:.79rem; color:var(--muted); line-height:1.6; }
+    .rb-foot strong { color:var(--green-dark); }
+
+    /* INGREDIENTS */
+    .panel-hd { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--green-mid); margin-bottom:.5rem; }
+    .ing-list { list-style:none; display:flex; flex-direction:column; gap:.3rem; }
+    .ing-row { font-size:.84rem; display:grid; grid-template-columns:88px 1fr; gap:.35rem; align-items:baseline; line-height:1.4; padding-bottom:.28rem; border-bottom:1px solid var(--green-pale); }
+    .ing-row:last-child { border-bottom:none; padding-bottom:0; }
+    .ing-amt { font-weight:700; color:var(--green-dark); font-size:.81rem; }
+    .ing-sec { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--green-mid); margin:.5rem 0 .2rem; grid-column:1/-1; }
+    .scale-tag { background:#e8f5e9; border-radius:8px; padding:.33rem .7rem; font-size:.75rem; color:var(--green-dark); margin-top:.65rem; line-height:1.5; }
+
+    /* STEPS */
+    .step-list { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .step-row { display:flex; gap:.65rem; align-items:flex-start; font-size:.85rem; line-height:1.6; }
+    .step-n { width:24px; height:24px; border-radius:50%; background:var(--green-dark); color:#fff; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; flex-shrink:0; margin-top:.15rem; }
+    .step-lbl { font-weight:700; color:var(--green-dark); font-size:.77rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.08rem; }
+
+    /* BADGES */
+    .badge-row { display:flex; flex-wrap:wrap; gap:.3rem; }
+    .badge { border-radius:12px; padding:.18rem .6rem; font-size:.71rem; font-weight:700; }
+    .b-apoe4  { background:#e8f5e9; color:#2e7d32; }
+    .b-celiac { background:#fff3e0; color:#e65100; }
+    .b-dp     { background:#e3f2fd; color:#1565c0; }
+    .b-liver  { background:#fef3c7; color:#78350f; }
+    .b-mthfr  { background:#f3e5f5; color:#6a1b9a; }
+    .b-kidney { background:#fce4ec; color:#880e4f; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <!-- HERO -->
+  <div class="set-hero">
+    <div class="hero-band">🫒 🥗 🌿</div>
+    <div class="hero-body">
+      <div class="week-badge">📅 Week 1 Tasting Set</div>
+      <h1>Mediterranean &amp; Classic EVOO Dressings</h1>
+      <p class="hero-desc">Four familiar, crowd-friendly vinaigrettes built entirely on EVOO — no seed oils. These are the most versatile of the five sets: they work on any salad, as marinades, and as dipping oil. All use dried herbs only, so every bottle keeps 2–3 weeks in the refrigerator. Use a standard green label on the bottle tops.</p>
+      <div class="scale-box">
+        <strong>📏 12 oz batch = 12 × 1-oz squeeze bottles.</strong> Divides evenly: half batch = 6 oz · third = 4 oz · quarter = 3 oz. All four recipes follow the same 3:1 EVOO-to-acid ratio — 18 tbsp oil + 6 tbsp acid = 24 tbsp = 12 fl oz.
+      </div>
+    </div>
+  </div>
+
+  <!-- GUIDE -->
+  <div class="shelf-guide">
+    <div class="shelf-guide-title">Bottle label guide — this set</div>
+    <div class="shelf-items">
+      <div class="shelf-item"><span class="sdot-std"></span><strong>🟢 Standard label</strong> — all 4 recipes · 2–3 weeks refrigerated</div>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar">
+    <p>All four dressings are very low GI at a 1-oz serving. No food-response testing needed for the dressing alone — only log if you're testing a new salad combination you haven't eaten before.</p>
+    <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+  </div>
+
+  <!-- ═══ RECIPE 1 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head std">
+      <div class="rb-title-wrap">
+        <span class="rb-num">1</span>
+        <span class="rb-name">Greek Red Wine Vinaigrette</span>
+      </div>
+      <span class="rb-shelf-std">✓ 2–3 weeks refrigerated</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd">Ingredients — 12 oz batch</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">18 tbsp</span><span>Extra-virgin olive oil (= 1 cup + 2 tbsp)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">6 tbsp</span><span>Red wine vinegar</span></li>
+          <div class="ing-sec">Emulsifier &amp; seasoning</div>
+          <li class="ing-row"><span class="ing-amt">1 tsp</span><span>Dijon mustard</span></li>
+          <li class="ing-row"><span class="ing-amt">1 tsp</span><span>Dried oregano</span></li>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Garlic powder</span></li>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Black pepper</span></li>
+        </ul>
+        <div class="scale-tag">18 + 6 = 24 tbsp = 12 fl oz ✓ · half batch: 9 tbsp EVOO + 3 tbsp vinegar</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n">1</span><div><div class="step-lbl">Combine in jar</div>Add all ingredients to a clean glass jar with a tight-fitting lid.</div></li>
+          <li class="step-row"><span class="step-n">2</span><div><div class="step-lbl">Shake to emulsify</div>Seal and shake vigorously for 30 seconds. The Dijon binds the oil and vinegar into a cohesive dressing. It will re-separate on standing — shake again before each use or before filling bottles.</div></li>
+          <li class="step-row"><span class="step-n">3</span><div><div class="step-lbl">Fill &amp; label bottles</div>Pour into 12 × 1-oz silicone squeeze bottles using a small funnel or a squeeze bottle with a larger opening. Apply green standard label to tops. Refrigerate. EVOO will thicken and cloud when cold — this is normal. Rest at room temperature 5 minutes or squeeze under warm water 20 seconds before use.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot"><strong>What's working:</strong> Raw EVOO at full dose per serving — oleocanthal (COX-1/COX-2 inhibition, APOE4 neuroprotection) fully intact. Red wine vinegar contributes resveratrol and anthocyanin residues. Dried oregano provides rosmarinic acid (anti-inflammatory, antimicrobial). Garlic powder contributes sulfur compounds even in dried form. <strong>Oxalate:</strong> negligible at 1-oz serving.</div>
+  </div>
+
+  <!-- ═══ RECIPE 2 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head std">
+      <div class="rb-title-wrap">
+        <span class="rb-num">2</span>
+        <span class="rb-name">Lemon-Oregano Dressing</span>
+      </div>
+      <span class="rb-shelf-std">✓ 2–3 weeks refrigerated</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd">Ingredients — 12 oz batch</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">18 tbsp</span><span>Extra-virgin olive oil (= 1 cup + 2 tbsp)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">5 tbsp</span><span>Fresh-squeezed lemon juice (about 2 lemons)</span></li>
+          <li class="ing-row"><span class="ing-amt">1 tbsp</span><span>Water</span></li>
+          <div class="ing-sec">Seasoning</div>
+          <li class="ing-row"><span class="ing-amt">1½ tsp</span><span>Dried oregano</span></li>
+          <li class="ing-row"><span class="ing-amt">¾ tsp</span><span>Garlic powder</span></li>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Black pepper</span></li>
+        </ul>
+        <div class="scale-tag">18 + 5 + 1 = 24 tbsp = 12 fl oz ✓ · Squeeze fresh lemons on batch day; lemon juice keeps fine in the fridge 2–3 weeks</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n">1</span><div><div class="step-lbl">Juice lemons</div>Squeeze lemons and measure 5 tbsp juice. Strain seeds. (Lemon juice is the acid here — no emulsifier needed since the ratio is slightly less acidic than pure vinegar and garlic powder provides light suspension.)</div></li>
+          <li class="step-row"><span class="step-n">2</span><div><div class="step-lbl">Combine &amp; shake</div>Add all ingredients to jar. Seal and shake 30 seconds. This one separates faster than Recipe 1 (no Dijon), so give each bottle a firm shake before squeezing.</div></li>
+          <li class="step-row"><span class="step-n">3</span><div><div class="step-lbl">Fill &amp; label</div>Fill 12 × 1-oz silicone bottles. Green standard label. Refrigerate.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot"><strong>What's working:</strong> Lemon juice provides limonene (anti-inflammatory, APOE4 relevant) and urinary citrate (inhibits calcium oxalate crystal formation — kidney stone protection). Dried oregano at 1½ tsp per batch delivers rosmarinic acid and thymol. EVOO raw dose preserved fully. <strong>Best on:</strong> arugula, spinach, Greek salads, over grilled fish. <strong>Oxalate:</strong> negligible.</div>
+  </div>
+
+  <!-- ═══ RECIPE 3 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head std">
+      <div class="rb-title-wrap">
+        <span class="rb-num">3</span>
+        <span class="rb-name">Italian Herb Dressing</span>
+      </div>
+      <span class="rb-shelf-std">✓ 2–3 weeks refrigerated</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd">Ingredients — 12 oz batch</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">16 tbsp</span><span>Extra-virgin olive oil (= 1 cup)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">6 tbsp</span><span>Apple cider vinegar (ACV) — raw, with mother</span></li>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Water</span></li>
+          <div class="ing-sec">Herbs &amp; seasoning</div>
+          <li class="ing-row"><span class="ing-amt">1 tsp</span><span>Dried basil</span></li>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Dried oregano</span></li>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Dried thyme</span></li>
+          <li class="ing-row"><span class="ing-amt">¾ tsp</span><span>Garlic powder</span></li>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Onion powder</span></li>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Black pepper</span></li>
+        </ul>
+        <div class="scale-tag">16 + 6 + 2 = 24 tbsp = 12 fl oz ✓ · ACV makes this the mildest-tasting of the four — use raw ACV with mother for acetic acid benefit</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n">1</span><div><div class="step-lbl">Combine</div>Add all ingredients to jar. The water tempers the ACV sharpness and improves pourability from the silicone bottle.</div></li>
+          <li class="step-row"><span class="step-n">2</span><div><div class="step-lbl">Shake &amp; taste</div>Shake vigorously 30 seconds. Taste from a spoon — adjust salt or add another ¼ tsp ACV if you prefer more bite.</div></li>
+          <li class="step-row"><span class="step-n">3</span><div><div class="step-lbl">Fill &amp; label</div>Fill 12 × 1-oz silicone bottles. Green standard label. Refrigerate. Shake before use.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot"><strong>What's working:</strong> ACV doubles as a pre-diabetes intervention — acetic acid inhibits alpha-amylase and alpha-glucosidase, slowing glucose absorption from any starch in the salad. The herb blend (basil, oregano, thyme) collectively provides rosmarinic acid, thymol, and ursolic acid — all with anti-inflammatory activity. This is the most familiar "Italian dressing" flavor of the set. <strong>Best on:</strong> romaine, chopped salads, as a light chicken marinade. <strong>Oxalate:</strong> trace from herbs, negligible per serving.</div>
+  </div>
+
+  <!-- ═══ RECIPE 4 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head std">
+      <div class="rb-title-wrap">
+        <span class="rb-num">4</span>
+        <span class="rb-name">Balsamic-Dijon-Thyme Dressing</span>
+      </div>
+      <span class="rb-shelf-std">✓ 2–3 weeks refrigerated</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd">Ingredients — 12 oz batch</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">18 tbsp</span><span>Extra-virgin olive oil (= 1 cup + 2 tbsp)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">4 tbsp</span><span>Balsamic vinegar</span></li>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Water</span></li>
+          <div class="ing-sec">Emulsifier &amp; seasoning</div>
+          <li class="ing-row"><span class="ing-amt">1½ tsp</span><span>Dijon mustard</span></li>
+          <li class="ing-row"><span class="ing-amt">1 tsp</span><span>Dried thyme</span></li>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Black pepper</span></li>
+        </ul>
+        <div class="scale-tag">18 + 4 + 2 = 24 tbsp = 12 fl oz ✓ · Balsamic used at lower volume (it is thicker and sweeter than wine vinegar); water balances consistency for squeeze bottle use</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n">1</span><div><div class="step-lbl">Combine</div>Add all ingredients to jar. Balsamic is denser than wine vinegar — it settles to the bottom of the jar; the Dijon helps bind it into suspension once shaken.</div></li>
+          <li class="step-row"><span class="step-n">2</span><div><div class="step-lbl">Shake well</div>Shake vigorously 45 seconds — longer than the others because balsamic needs more agitation to stay in suspension. Shake each bottle firmly before use.</div></li>
+          <li class="step-row"><span class="step-n">3</span><div><div class="step-lbl">Fill &amp; label</div>Fill 12 × 1-oz silicone bottles. Green standard label. Refrigerate.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot"><strong>What's working:</strong> Balsamic vinegar contributes polyphenols (quercetin, resveratrol) and acetic acid. At 4 tbsp in a 24-tbsp batch, each 1-oz serving contains about ⅓ tbsp balsamic — roughly 1g residual sugar. Not a blood sugar concern at this dose. Dried thyme delivers thymol and carvacrol, both with anti-inflammatory and hepatoprotective activity. Dijon holds the emulsion longer than the other three — this dressing separates most slowly. <strong>Best on:</strong> spinach + strawberry, arugula + pear, bitter greens. Rich flavor works well on heartier salads. <strong>Oxalate:</strong> trace, negligible per serving.</div>
+  </div>
+
+  <!-- CONDITION BADGES -->
+  <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:.75rem 1.1rem;margin-bottom:1.5rem;">
+    <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.45rem;">All four dressings are appropriate for</div>
+    <div class="badge-row">
+      <span class="badge b-apoe4">APOE4</span>
+      <span class="badge b-celiac">Celiac / GF</span>
+      <span class="badge b-dp">DP / Blood Sugar</span>
+      <span class="badge b-liver">Fatty Liver</span>
+      <span class="badge b-mthfr">MTHFR</span>
+      <span class="badge b-kidney">Kidney Stone</span>
+    </div>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:.5rem;line-height:1.55;">All ingredients are naturally gluten-free. All are very low oxalate at a 1-oz serving. Dried herbs at culinary doses contribute meaningful polyphenols without any significant oxalate load. EVOO raw delivery (no cooking) preserves oleocanthal fully.</p>
+  </div>
+
+</div><!-- /main-wrap -->
+</body>
+</html>

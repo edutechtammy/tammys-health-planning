@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fresh Herb EVOO Dressings — Week 3 Tasting Set</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Fresh Dill &amp; Lemon Dressing",
+    "description": "EVOO vinaigrette with fresh lemon juice, fresh dill, and Dijon mustard. Short shelf life: 3–5 days refrigerated. Make in 6 oz batches (6 × 1-oz bottles) to match the safe window for 2 people eating daily salads. Use an orange/yellow label on bottle tops to distinguish from standard-life dressings.",
+    "recipeYield": "6 servings (1 oz each)",
+    "prepTime": "PT5M",
+    "cookTime": "PT0M",
+    "totalTime": "PT5M",
+    "recipeCategory": "Dressing / Condiment",
+    "recipeCuisine": "Mediterranean",
+    "keywords": "gluten-free, salad dressing, EVOO, fresh herbs, short shelf life, APOE4, Mediterranean",
+    "recipeIngredient": [
+      "9 tbsp extra-virgin olive oil",
+      "2 tbsp fresh-squeezed lemon juice",
+      "1 tbsp water",
+      "2 tbsp fresh dill, finely chopped",
+      "1 tsp Dijon mustard",
+      "1/4 tsp fine sea salt",
+      "pinch black pepper"
+    ],
+    "recipeInstructions": [
+      { "@type": "HowToStep", "name": "Chop herbs", "text": "Finely chop the fresh dill. Fresh herbs should be as small as possible so they distribute evenly through the bottles without clogging the tip." },
+      { "@type": "HowToStep", "name": "Combine and shake", "text": "Add all ingredients to a jar. Seal and shake vigorously 30 seconds." },
+      { "@type": "HowToStep", "name": "Fill bottles", "text": "Fill 6 × 1-oz silicone bottles. Apply orange/yellow short-life label. Refrigerate. Use within 3–5 days." }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:#2d6a4f; --green-mid:#40916c; --green-light:#d8f3dc; --green-pale:#f0faf2;
+      --amber:#fff8e1; --amber-dark:#78350f; --amber-border:#fde68a;
+      --short-bg:#92400e; --short-pale:#fff7ed; --short-border:#fed7aa;
+      --danger-bg:#7f1d1d; --danger-pale:#fee2e2; --danger-border:#fca5a5;
+      --text:#1e2d24; --muted:#5a7263; --border:#b7ddc4; --shadow:0 2px 12px rgba(45,106,79,.12);
+    }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--green-pale); color:var(--text); line-height:1.6; padding-bottom:4rem; }
+    nav { background:var(--green-dark); padding:.75rem 1.5rem; display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; font-size:.95rem; opacity:.85; transition:opacity .2s; }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+    .main-wrap { max-width:860px; margin:0 auto; padding:1.5rem 1rem 0; }
+    .set-hero { background:#fff; border-radius:16px; border:1px solid var(--border); box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.4rem; }
+    .hero-band { height:88px; display:flex; align-items:center; justify-content:center; font-size:3rem; letter-spacing:.4rem; background:#f0fdf4; }
+    .hero-body { padding:1.1rem 1.5rem 1rem; }
+    .hero-body h1 { font-size:clamp(1.1rem,3vw,1.5rem); color:var(--green-dark); margin-bottom:.35rem; }
+    .week-badge { display:inline-flex; align-items:center; gap:.35rem; background:var(--green-dark); color:#fff; border-radius:20px; padding:.2rem .75rem; font-size:.75rem; font-weight:700; margin-bottom:.5rem; }
+    .hero-desc { font-size:.88rem; color:var(--muted); line-height:1.65; margin-bottom:.7rem; }
+    .scale-box { background:#fef3c7; border:1px solid var(--amber-border); border-radius:9px; padding:.5rem .85rem; font-size:.8rem; color:var(--amber-dark); line-height:1.55; }
+    .warn-box { background:var(--danger-pale); border:1px solid var(--danger-border); border-radius:11px; padding:.7rem 1rem; font-size:.84rem; color:#991b1b; line-height:1.6; margin-bottom:1.4rem; }
+    .warn-box strong { color:#7f1d1d; }
+    .shelf-guide { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.65rem 1.1rem; margin-bottom:1.4rem; }
+    .shelf-guide-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:.4rem; }
+    .shelf-items { display:flex; gap:1.5rem; flex-wrap:wrap; }
+    .shelf-item { display:flex; align-items:center; gap:.4rem; font-size:.82rem; }
+    .sdot-short  { width:11px; height:11px; border-radius:50%; background:#f59e0b; flex-shrink:0; }
+    .sdot-danger { width:11px; height:11px; border-radius:50%; background:#ef4444; flex-shrink:0; }
+    .action-bar { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.7rem 1.1rem; display:flex; align-items:center; justify-content:space-between; gap:.8rem; flex-wrap:wrap; margin-bottom:1.4rem; }
+    .action-bar p { font-size:.83rem; color:var(--muted); }
+    .btn { padding:.42rem 1.05rem; border-radius:8px; font-size:.83rem; font-weight:600; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:.3rem; }
+    .btn-back { background:#fff; color:var(--green-dark); border:1.5px solid var(--green-mid); }
+    .btn:hover { opacity:.82; }
+    .recipe-box { background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); margin-bottom:1.8rem; }
+    .rb-head { padding:.7rem 1.1rem; display:flex; align-items:center; gap:.65rem; flex-wrap:wrap; justify-content:space-between; }
+    .rb-head.short   { background:var(--short-bg); color:#fff; }
+    .rb-head.danger  { background:var(--danger-bg); color:#fff; }
+    .rb-title-wrap { display:flex; align-items:center; gap:.55rem; }
+    .rb-num { background:rgba(255,255,255,.18); border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; font-size:.77rem; font-weight:700; flex-shrink:0; }
+    .rb-name { font-weight:700; font-size:.93rem; }
+    .rb-shelf-short  { background:#fef3c7; color:#92400e; border-radius:20px; padding:.18rem .65rem; font-size:.71rem; font-weight:700; white-space:nowrap; }
+    .rb-shelf-danger { background:var(--danger-pale); color:#991b1b; border-radius:20px; padding:.18rem .65rem; font-size:.71rem; font-weight:700; white-space:nowrap; }
+    .rb-body { display:grid; grid-template-columns:1fr 1.45fr; }
+    @media(max-width:620px){ .rb-body { grid-template-columns:1fr; } }
+    .rb-ing { padding:1rem 1.1rem; border-right:1px solid var(--green-light); }
+    .rb-method { padding:1rem 1.1rem; }
+    @media(max-width:620px){ .rb-ing { border-right:none; border-bottom:1px solid var(--green-light); } }
+    .rb-foot-short  { border-top:1px solid var(--short-border); background:var(--short-pale); padding:.65rem 1.1rem; font-size:.79rem; color:#7c2d12; line-height:1.6; }
+    .rb-foot-short strong { color:#7f1d1d; }
+    .rb-foot-danger { border-top:1px solid var(--danger-border); background:var(--danger-pale); padding:.65rem 1.1rem; font-size:.79rem; color:#991b1b; line-height:1.6; }
+    .rb-foot-danger strong { color:#7f1d1d; }
+    .inner-warn { background:var(--danger-pale); border:1px solid var(--danger-border); border-radius:8px; padding:.5rem .75rem; font-size:.8rem; color:#991b1b; line-height:1.55; margin-bottom:.65rem; }
+    .inner-warn strong { color:#7f1d1d; }
+    .panel-hd { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; margin-bottom:.5rem; }
+    .panel-hd.std-hd { color:var(--green-mid); }
+    .panel-hd.short-hd { color:var(--short-bg); }
+    .panel-hd.danger-hd { color:var(--danger-bg); }
+    .ing-list { list-style:none; display:flex; flex-direction:column; gap:.3rem; }
+    .ing-row { font-size:.84rem; display:grid; grid-template-columns:88px 1fr; gap:.35rem; align-items:baseline; line-height:1.4; padding-bottom:.28rem; border-bottom:1px solid var(--green-pale); }
+    .ing-row:last-child { border-bottom:none; padding-bottom:0; }
+    .ing-amt { font-weight:700; color:var(--green-dark); font-size:.81rem; }
+    .ing-sec { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--green-mid); margin:.5rem 0 .2rem; grid-column:1/-1; }
+    .scale-tag-short { background:var(--short-pale); border:1px solid var(--short-border); border-radius:8px; padding:.33rem .7rem; font-size:.75rem; color:var(--short-bg); margin-top:.65rem; line-height:1.5; }
+    .scale-tag-danger { background:var(--danger-pale); border:1px solid var(--danger-border); border-radius:8px; padding:.33rem .7rem; font-size:.75rem; color:#991b1b; margin-top:.65rem; line-height:1.5; }
+    .step-list { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .step-row { display:flex; gap:.65rem; align-items:flex-start; font-size:.85rem; line-height:1.6; }
+    .step-n-short  { width:24px; height:24px; border-radius:50%; background:var(--short-bg);  color:#fff; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; flex-shrink:0; margin-top:.15rem; }
+    .step-n-danger { width:24px; height:24px; border-radius:50%; background:var(--danger-bg); color:#fff; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; flex-shrink:0; margin-top:.15rem; }
+    .step-lbl-short  { font-weight:700; color:var(--short-bg);  font-size:.77rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.08rem; }
+    .step-lbl-danger { font-weight:700; color:var(--danger-bg); font-size:.77rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.08rem; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:.3rem; }
+    .badge { border-radius:12px; padding:.18rem .6rem; font-size:.71rem; font-weight:700; }
+    .b-apoe4 { background:#e8f5e9; color:#2e7d32; } .b-celiac { background:#fff3e0; color:#e65100; }
+    .b-dp    { background:#e3f2fd; color:#1565c0; } .b-liver  { background:#fef3c7; color:#78350f; }
+    .b-mthfr { background:#f3e5f5; color:#6a1b9a; } .b-kidney { background:#fce4ec; color:#880e4f; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="set-hero">
+    <div class="hero-band">🌿 🫒 🍋</div>
+    <div class="hero-body">
+      <div class="week-badge">📅 Week 3 Tasting Set</div>
+      <h1>Fresh Herb EVOO Dressings</h1>
+      <p class="hero-desc">Four dressings using fresh herbs — the most vibrant of the five sets but the most time-sensitive. Fresh herbs deliver higher folate and more volatile flavour compounds than their dried equivalents, but they also introduce perishability. All four are short shelf life. <strong>Use orange or yellow labels on these bottles</strong> to distinguish them immediately from the green-label standard-life bottles in the same drawer.</p>
+      <div class="scale-box">
+        <strong>⚠️ Make 6 oz batches only — not 12 oz.</strong> 6 oz = 6 × 1-oz bottles = 3 days' supply for 2 people eating daily salads. This matches the safe window. Formula: 9 tbsp EVOO + 3 tbsp acid = 12 tbsp = 6 fl oz. Divides to: 3 oz (3 bottles · 1.5-day supply) if needed.
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ Two shelf life windows in this set — know which is which:</strong><br>
+    <strong>Recipes 8 &amp; 9 (no raw garlic):</strong> 3–5 days refrigerated — use an orange/yellow label.<br>
+    <strong>Recipes 10 &amp; 11 (contain fresh crushed garlic):</strong> <strong>3 days maximum — hard limit.</strong> Fresh garlic submerged in oil creates anaerobic conditions that allow <em>Clostridium botulinum</em> spores to activate and produce botulinum toxin without any visible spoilage. You cannot smell or see the hazard — the 3-day rule is enforced by the clock, not your nose. Use a red label on these two bottles and write the batch date on the label. Discard on day 4 even if they smell and look fine.
+  </div>
+
+  <div class="shelf-guide">
+    <div class="shelf-guide-title">Bottle label guide — this set</div>
+    <div class="shelf-items">
+      <div class="shelf-item"><span class="sdot-short"></span><strong>🟡 Orange label</strong> — Recipes 8 &amp; 9 · 3–5 days refrigerated (no raw garlic)</div>
+      <div class="shelf-item"><span class="sdot-danger"></span><strong>🔴 Red label</strong> — Recipes 10 &amp; 11 · 3-day hard limit (fresh garlic in oil) · write batch date on label</div>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <p>All four dressings are very low GI at a 1-oz serving. No food-response testing needed for the dressing alone.</p>
+    <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+  </div>
+
+  <!-- ═══ RECIPE 8 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head short">
+      <div class="rb-title-wrap">
+        <span class="rb-num">8</span>
+        <span class="rb-name">Fresh Dill &amp; Lemon Dressing</span>
+      </div>
+      <span class="rb-shelf-short">🟡 3–5 days · orange label · 6 oz batch</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd short-hd">Ingredients — 6 oz batch</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">9 tbsp</span><span>Extra-virgin olive oil (= ½ cup + 1 tbsp)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Fresh-squeezed lemon juice</span></li>
+          <li class="ing-row"><span class="ing-amt">1 tbsp</span><span>Water</span></li>
+          <div class="ing-sec">Fresh herb</div>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Fresh dill, finely chopped</span></li>
+          <div class="ing-sec">Emulsifier &amp; seasoning</div>
+          <li class="ing-row"><span class="ing-amt">1 tsp</span><span>Dijon mustard</span></li>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">pinch</span><span>Black pepper</span></li>
+        </ul>
+        <div class="scale-tag-short">9 + 2 + 1 = 12 tbsp = 6 fl oz ✓ · Makes 6 bottles · 3-day supply for 2 people</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd short-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n-short">1</span><div><div class="step-lbl-short">Chop dill finely</div>The dill needs to be fine enough to pass through the silicone bottle tip without clogging. Finely chop with a sharp knife — small flecks, not long strands.</div></li>
+          <li class="step-row"><span class="step-n-short">2</span><div><div class="step-lbl-short">Combine &amp; shake</div>Add all ingredients to jar. Seal and shake 30 seconds.</div></li>
+          <li class="step-row"><span class="step-n-short">3</span><div><div class="step-lbl-short">Fill &amp; label</div>Fill 6 × 1-oz silicone bottles. Orange/yellow label. Write batch date on label. Refrigerate. Use within 3–5 days.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot-short"><strong>What's working:</strong> Fresh dill preserves folate that dried dill loses in the drying process — directly relevant for MTHFR. Lemon juice delivers limonene and urinary citrate (kidney stone protection). Dijon emulsifies for a more stable suspension than the dried-herb dressings. The flavor is tzatziki-adjacent — cool, bright, herbal. <strong>Best on:</strong> cucumber-tomato salads, cold poached fish, alongside grilled salmon, with the feta-and-olive salads from the Mediterranean recipe cluster. <strong>Oxalate:</strong> low.</div>
+  </div>
+
+  <!-- ═══ RECIPE 9 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head short">
+      <div class="rb-title-wrap">
+        <span class="rb-num">9</span>
+        <span class="rb-name">Parsley &amp; Red Wine Vinegar Dressing</span>
+      </div>
+      <span class="rb-shelf-short">🟡 3–5 days · orange label · 6 oz batch</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd short-hd">Ingredients — 6 oz batch</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">9 tbsp</span><span>Extra-virgin olive oil (= ½ cup + 1 tbsp)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Red wine vinegar</span></li>
+          <li class="ing-row"><span class="ing-amt">1 tbsp</span><span>Fresh-squeezed lemon juice</span></li>
+          <div class="ing-sec">Fresh herb</div>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Fresh flat-leaf parsley, very finely chopped</span></li>
+          <div class="ing-sec">Seasoning</div>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">pinch</span><span>Black pepper</span></li>
+          <li class="ing-row"><span class="ing-amt">optional</span><span>½ tsp garlic powder</span></li>
+        </ul>
+        <div class="scale-tag-short">9 + 2 + 1 = 12 tbsp = 6 fl oz ✓ · Use flat-leaf (Italian) parsley for stronger flavour; curly parsley works but is milder</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd short-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n-short">1</span><div><div class="step-lbl-short">Chop parsley very fine</div>Flat-leaf parsley chopped finely enough to pass through the bottle tip without clogging. Remove thick stems — use only the leaf and thin stem portions.</div></li>
+          <li class="step-row"><span class="step-n-short">2</span><div><div class="step-lbl-short">Combine &amp; shake</div>Add all ingredients to jar. No emulsifier in this recipe — it separates quickly. Shake 20 seconds to combine. Shake each bottle firmly before squeezing every time.</div></li>
+          <li class="step-row"><span class="step-n-short">3</span><div><div class="step-lbl-short">Fill &amp; label</div>Fill 6 × 1-oz silicone bottles. Orange/yellow label. Write batch date. Refrigerate. Use within 3–5 days.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot-short"><strong>What's working:</strong> Fresh flat-leaf parsley is a meaningful source of raw folate (MTHFR relevant), vitamin K, and apigenin (anti-inflammatory flavonoid). Red wine vinegar adds resveratrol and anthocyanin residues. The flavor is clean, light, and slightly grassy — the least assertive of the fresh herb set, which makes it the most versatile. <strong>Best on:</strong> delicate mixed greens, avocado salads, tomato-mozzarella (or tomato-feta), as a light drizzle over roasted vegetables. <strong>Oxalate:</strong> parsley is moderate-oxalate; at 2 tbsp per 6-oz batch, each 1-oz serving contains a small but noted amount — consume alongside calcium food if eating multiple servings.</div>
+  </div>
+
+  <!-- ═══ RECIPE 10 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head danger">
+      <div class="rb-title-wrap">
+        <span class="rb-num">10</span>
+        <span class="rb-name">Basil-Lemon-Garlic Dressing</span>
+      </div>
+      <span class="rb-shelf-danger">🔴 3-day hard limit · red label · write batch date</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd danger-hd">Ingredients — 6 oz batch</div>
+        <div class="inner-warn"><strong>⚠️ Contains fresh garlic in oil.</strong> 3-day maximum regardless of smell or appearance. Write batch date on the red label. Discard on day 4.</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">9 tbsp</span><span>Extra-virgin olive oil (= ½ cup + 1 tbsp)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Fresh-squeezed lemon juice</span></li>
+          <li class="ing-row"><span class="ing-amt">1 tbsp</span><span>Red wine vinegar</span></li>
+          <div class="ing-sec">Aromatics — activate garlic first</div>
+          <li class="ing-row"><span class="ing-amt">1 clove</span><span>Garlic, crushed — rest 5 min before adding</span></li>
+          <li class="ing-row"><span class="ing-amt">2 tbsp</span><span>Fresh basil, very finely chopped</span></li>
+          <div class="ing-sec">Seasoning</div>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">pinch</span><span>Black pepper</span></li>
+        </ul>
+        <div class="scale-tag-danger">9 + 2 + 1 = 12 tbsp = 6 fl oz ✓ · ⚠️ Clock starts when garlic goes into the oil — label with today's date</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd danger-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n-danger">1</span><div><div class="step-lbl-danger">Activate garlic first</div>Crush the garlic clove and set aside for 5 minutes. The 5-minute rest completes the alliinase-to-allicin conversion before oil coats the surface. This is the only window — once garlic is submerged in oil, the enzyme is blocked.</div></li>
+          <li class="step-row"><span class="step-n-danger">2</span><div><div class="step-lbl-danger">Chop basil</div>Finely chop fresh basil leaves — fine enough to pass through the bottle tip.</div></li>
+          <li class="step-row"><span class="step-n-danger">3</span><div><div class="step-lbl-danger">Combine &amp; shake</div>Add all ingredients to jar. Seal and shake 30 seconds.</div></li>
+          <li class="step-row"><span class="step-n-danger">4</span><div><div class="step-lbl-danger">Fill, label with date &amp; refrigerate</div>Fill 6 × 1-oz silicone bottles. Red label — write today's date visibly. Refrigerate. Discard after 3 days, no exceptions.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot-danger"><strong>What's working:</strong> Fresh basil — linalool, eugenol, and rosmarinic acid (anti-inflammatory; highest in fresh, not dried). The 5-min garlic activation delivers allicin in the finished dressing — a raw application, so the full dose is intact. Lemon limonene and citrate. The flavour is a pesto-dressing hybrid — more complex than the others. <strong>Best on:</strong> caprese-style salads (tomato + feta), pasta salads (GF pasta), roasted red pepper salads, alongside ladenia. <strong>Oxalate:</strong> low — basil at 2 tbsp per batch is a minor contributor per 1-oz serving.</div>
+  </div>
+
+  <!-- ═══ RECIPE 11 ═══ -->
+  <div class="recipe-box">
+    <div class="rb-head danger">
+      <div class="rb-title-wrap">
+        <span class="rb-num">11</span>
+        <span class="rb-name">Greek Taverna Dressing</span>
+      </div>
+      <span class="rb-shelf-danger">🔴 3-day hard limit · red label · write batch date</span>
+    </div>
+    <div class="rb-body">
+      <div class="rb-ing">
+        <div class="panel-hd danger-hd">Ingredients — 6 oz batch</div>
+        <div class="inner-warn"><strong>⚠️ Contains fresh garlic in oil.</strong> 3-day maximum regardless of smell or appearance. Write batch date on the red label.</div>
+        <ul class="ing-list">
+          <div class="ing-sec">Oil</div>
+          <li class="ing-row"><span class="ing-amt">9 tbsp</span><span>Extra-virgin olive oil (= ½ cup + 1 tbsp)</span></li>
+          <div class="ing-sec">Acid</div>
+          <li class="ing-row"><span class="ing-amt">3 tbsp</span><span>Red wine vinegar</span></li>
+          <div class="ing-sec">Aromatics — activate garlic first</div>
+          <li class="ing-row"><span class="ing-amt">1 clove</span><span>Garlic, crushed — rest 5 min before adding</span></li>
+          <li class="ing-row"><span class="ing-amt">1 tbsp</span><span>Fresh oregano leaves, finely chopped (or 1 tsp dried if fresh unavailable)</span></li>
+          <div class="ing-sec">Emulsifier &amp; seasoning</div>
+          <li class="ing-row"><span class="ing-amt">½ tsp</span><span>Dijon mustard</span></li>
+          <li class="ing-row"><span class="ing-amt">¼ tsp</span><span>Fine sea salt</span></li>
+          <li class="ing-row"><span class="ing-amt">pinch</span><span>Black pepper</span></li>
+        </ul>
+        <div class="scale-tag-danger">9 + 3 = 12 tbsp = 6 fl oz ✓ · This is the boldest, most assertive dressing in the whole set of 16 — a little goes a long way. ⚠️ Label with today's date.</div>
+      </div>
+      <div class="rb-method">
+        <div class="panel-hd danger-hd">Method</div>
+        <ol class="step-list">
+          <li class="step-row"><span class="step-n-danger">1</span><div><div class="step-lbl-danger">Activate garlic</div>Crush garlic, set aside exactly 5 minutes. Start prepping the oregano while waiting.</div></li>
+          <li class="step-row"><span class="step-n-danger">2</span><div><div class="step-lbl-danger">Chop oregano</div>Finely chop fresh oregano leaves. Fresh oregano is significantly more potent than dried — 1 tbsp fresh is roughly equivalent to 1 tsp dried. If fresh is unavailable, substitute 1 tsp dried oregano (no shelf-life concern with the dried version, but then this becomes a 3–5 day dressing rather than a 3-day one — still label with date either way since the garlic governs).</div></li>
+          <li class="step-row"><span class="step-n-danger">3</span><div><div class="step-lbl-danger">Combine &amp; shake</div>Add all ingredients including the rested crushed garlic to jar. Seal and shake vigorously 30 seconds.</div></li>
+          <li class="step-row"><span class="step-n-danger">4</span><div><div class="step-lbl-danger">Fill, date label &amp; refrigerate</div>Fill 6 × 1-oz bottles. Red label with today's date visible. Refrigerate. Discard after 3 days.</div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rb-foot-danger"><strong>What's working:</strong> This is the closest to a traditional Greek taverna dressing — raw activated garlic delivering maximum allicin (AMPK activation, hepatoprotective, glutathione induction for MTHFR), fresh oregano delivering rosmarinic acid at its highest concentration, red wine vinegar with resveratrol, raw EVOO with oleocanthal fully preserved. The Dijon adds just enough body without changing the profile. <strong>Best on:</strong> classic Greek salad (cucumber, tomato, olives, feta), any hearty romaine or mixed greens, alongside ladenia and tzatziki as a full mezze. This is the one that will taste most like "actual Greek restaurant dressing." <strong>Oxalate:</strong> very low.</div>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:.75rem 1.1rem;margin-bottom:1.5rem;">
+    <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.45rem;">All four dressings are appropriate for</div>
+    <div class="badge-row">
+      <span class="badge b-apoe4">APOE4</span>
+      <span class="badge b-celiac">Celiac / GF</span>
+      <span class="badge b-dp">DP / Blood Sugar</span>
+      <span class="badge b-liver">Fatty Liver</span>
+      <span class="badge b-mthfr">MTHFR</span>
+      <span class="badge b-kidney">Kidney Stone</span>
+    </div>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:.5rem;line-height:1.55;">All naturally gluten-free. Fresh herbs deliver higher folate than dried (MTHFR relevant). The trade-off is shorter shelf life and the need for batch discipline. If the fresh herb dressings prove to be winners, the weekly batch routine becomes the system: make Sunday, eat through Wednesday, repeat.</p>
+  </div>
+
+</div>
+</body>
+</html>
