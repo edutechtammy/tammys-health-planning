@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CGM Tracker — Glucose Patterns by Weight Milestone</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --green-pale:  #f0faf2;
+      --border:      #b7ddc4;
+      --text:        #1e2d24;
+      --muted:       #5a7263;
+      --shadow:      0 2px 12px rgba(45,106,79,.12);
+      --amber:       #e9a84c;
+      --amber-pale:  #fff8e1;
+      --sky:         #4a90c4;
+      --sky-pale:    #e8f4fb;
+      --red:         #c0392b;
+      --red-pale:    #fce4e4;
+      --purple:      #7b2d8b;
+      --purple-pale: #f3e5ff;
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 5rem; }
+
+    /* NAV */
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .88rem; opacity: .82; transition: opacity .2s; white-space: nowrap; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    /* HEADER */
+    header { text-align: center; padding: 2rem 1rem 1.5rem; }
+    header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--green-dark); }
+    header p { color: var(--muted); font-size: .95rem; margin-top: .4rem; max-width: 680px; margin-inline: auto; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+    /* CARD */
+    .card { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 1.6rem; overflow: hidden; }
+    .card-header { background: var(--green-dark); color: #fff; padding: .85rem 1.4rem; display: flex; align-items: center; gap: .6rem; font-weight: 700; font-size: 1rem; flex-wrap: wrap; }
+    .card-header.sky   { background: #1a5276; }
+    .card-header.amber { background: #7a5c00; }
+    .card-header .ch-sub { font-weight: 400; font-size: .83rem; opacity: .88; }
+    .card-body { padding: 1.2rem 1.4rem; }
+
+    /* IMPORT DETAILS */
+    details.import-panel { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 1.6rem; overflow: hidden; }
+    details.import-panel summary { background: var(--green-dark); color: #fff; padding: .85rem 1.4rem; cursor: pointer; font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: .6rem; list-style: none; user-select: none; }
+    details.import-panel summary::-webkit-details-marker { display: none; }
+    details.import-panel summary::after { content: ' ▾'; margin-left: auto; font-size: .85rem; }
+    details.import-panel:not([open]) summary::after { content: ' ▸'; }
+    .import-body { padding: 1.2rem 1.4rem; }
+
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: .8rem 1rem; margin-bottom: 1rem; }
+    .field { display: flex; flex-direction: column; gap: .25rem; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: .73rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .field input, .field select, .field textarea {
+      border: 1px solid var(--border); border-radius: 8px; padding: .45rem .7rem;
+      font-size: .93rem; color: var(--text); background: var(--green-pale); font-family: inherit; transition: border-color .2s;
+    }
+    .field textarea { resize: vertical; font-family: 'Courier New', monospace; font-size: .8rem; }
+    .field textarea.notes-ta { font-family: inherit; font-size: .9rem; min-height: 72px; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--green-mid); background: #fff; outline: none; }
+    .hint { font-size: .78rem; color: var(--muted); margin-top: .2rem; }
+
+    /* BTNS */
+    .btn { padding: .48rem 1.15rem; border: none; border-radius: 8px; font-size: .88rem; font-weight: 600; cursor: pointer; transition: opacity .15s; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn:hover { opacity: .82; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-outline  { background: #fff; border: 1.5px solid var(--green-mid); color: var(--green-dark); }
+    .btn-sky      { background: #1a5276; color: #fff; }
+    .btn-danger   { background: var(--red-pale); color: var(--red); border: 1px solid #f5c0b0; }
+    .btn-export   { background: var(--sky-pale); color: #1a5276; border: 1px solid #aed6f1; }
+    .btn-row { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; margin-top: .9rem; }
+
+    /* STATUS MSG */
+    .status-msg { font-size: .85rem; font-weight: 600; padding: .35rem .85rem; border-radius: 8px; }
+    .status-ok  { background: var(--green-light); color: var(--green-dark); }
+    .status-err { background: var(--red-pale); color: var(--red); }
+
+    /* CYCLE SELECTOR BAR */
+    #cycle-selector-bar { display: flex; align-items: center; gap: .8rem; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: .8rem 1.2rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
+    #cycle-selector-bar label { font-size: .73rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+    #cycle-select { border: 1px solid var(--border); border-radius: 8px; padding: .45rem .7rem; font-size: .9rem; color: var(--text); background: var(--green-pale); min-width: 260px; cursor: pointer; flex: 1; }
+
+    /* STATS STRIP */
+    .stats-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: .8rem; margin-bottom: 1.2rem; }
+    .stat-box { background: var(--green-pale); border: 1px solid var(--border); border-radius: 12px; padding: .85rem .9rem; text-align: center; }
+    .stat-val { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: .66rem; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; margin-top: .3rem; }
+    .col-green  { color: var(--green-dark); }
+    .col-amber  { color: #7a5c00; }
+    .col-red    { color: var(--red); }
+    .col-sky    { color: #1a5276; }
+    .col-muted  { color: var(--muted); }
+
+    /* BADGES */
+    .badge { display: inline-block; padding: .2rem .65rem; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+    .badge-green  { background: var(--green-light); color: var(--green-dark); }
+    .badge-amber  { background: var(--amber-pale); color: #7a5c00; }
+    .badge-red    { background: var(--red-pale); color: var(--red); }
+    .badge-sky    { background: var(--sky-pale); color: #1a5276; }
+    .badge-purple { background: var(--purple-pale); color: var(--purple); }
+
+    /* CALLOUT */
+    .callout { border-radius: 8px; padding: .75rem 1rem; margin: .7rem 0; font-size: .9rem; line-height: 1.6; }
+    .callout-green { background: var(--green-light); border-left: 4px solid var(--green-mid); }
+    .callout-amber { background: var(--amber-pale); border-left: 4px solid var(--amber); }
+    .callout-red   { background: var(--red-pale);   border-left: 4px solid var(--red); }
+    .callout strong { display: block; margin-bottom: .2rem; }
+
+    /* META ROW */
+    .meta-row { display: flex; flex-wrap: wrap; gap: .4rem .9rem; font-size: .84rem; color: var(--muted); margin-bottom: 1rem; align-items: center; }
+    .meta-row strong { color: var(--text); }
+
+    /* SECTION LABEL */
+    .section-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); border-bottom: 2px solid var(--green-light); padding-bottom: .32rem; margin: 1.3rem 0 .8rem; }
+    .section-label:first-child { margin-top: 0; }
+
+    /* TABLES */
+    .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+    thead th { background: var(--green-pale); padding: .42rem .75rem; text-align: left; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    tbody td { padding: .42rem .75rem; border-bottom: 1px solid #f0f5f1; vertical-align: middle; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f8fcf9; }
+
+    /* COMPARISON TREND */
+    .trend-better { color: var(--green-dark); font-weight: 700; }
+    .trend-worse  { color: var(--red); font-weight: 700; }
+    .trend-same   { color: var(--muted); }
+
+    /* NOTES */
+    .notes-display { font-size: .9rem; color: var(--text); line-height: 1.75; background: var(--amber-pale); border-left: 4px solid var(--amber); border-radius: 8px; padding: .8rem 1rem; white-space: pre-wrap; }
+
+    /* CONTEXT LOG */
+    .ctx-cell { cursor: pointer; min-width: 150px; max-width: 260px; vertical-align: top; }
+    .ctx-cell:hover { background: #edf7f1 !important; }
+    .ctx-ph { color: #bbd5c4; font-style: italic; font-size: .77rem; user-select: none; }
+    .ctx-text { font-size: .82rem; color: var(--text); white-space: pre-wrap; line-height: 1.55; }
+    .ctx-ta { width: 100%; border: 1.5px solid var(--green-mid); border-radius: 6px; padding: .32rem .5rem; font-size: .82rem; font-family: inherit; resize: vertical; min-height: 54px; background: #fff; color: var(--text); outline: none; }
+    .ctx-save-bar { display: flex; gap: .35rem; margin-top: .28rem; }
+    .ctx-legend { font-size: .76rem; color: var(--muted); margin-top: .55rem; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
+    .ctx-legend span { display: flex; align-items: center; gap: .25rem; }
+
+    /* CHART */
+    .chart-wrap { position: relative; height: 280px; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; color: var(--muted); padding: 3.5rem 1rem; }
+    .empty-state .ei { font-size: 3rem; margin-bottom: .8rem; }
+    .empty-state p { font-size: .95rem; margin-bottom: .4rem; }
+
+    /* TOAST */
+    #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--green-dark); color: #fff; padding: .6rem 1.3rem; border-radius: 8px; font-size: .88rem; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 9999; }
+    #toast.show { opacity: 1; }
+
+    footer { text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted); margin-top: 2rem; }
+    footer a { color: var(--green-mid); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .stats-strip { grid-template-columns: repeat(3, 1fr); }
+      .chart-wrap { height: 220px; }
+      #cycle-select { min-width: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html">👩‍🍳 Recipes</a>
+  <a href="exercise-protocol.html">🏃 Exercise</a>
+  <a href="cgm-tracker.html" class="active">📡 CGM</a>
+</nav>
+
+<header>
+  <h1>📡 CGM Cycle Tracker</h1>
+  <p>~2-week Lingo sensor cycles · Time-in-range · Spikes &amp; hypo events · Cross-cycle trends tied to each 10% weight-loss milestone</p>
+</header>
+
+<div class="wrap">
+
+  <!-- ── IMPORT PANEL ── -->
+  <details class="import-panel" id="import-panel">
+    <summary>📥 Import a New CGM Cycle</summary>
+    <div class="import-body">
+      <p class="hint" style="margin-bottom:1rem">
+        Paste your exported CGM CSV data (header + readings). The file at
+        <code>manual-backups/lingo-cgm-*.csv</code> is the right format.
+        Tab-separated paste from Lingo's Messages share is also accepted.
+        All computation runs in your browser — nothing leaves this page.
+      </p>
+      <div class="form-grid">
+        <div class="field">
+          <label>Cycle Label</label>
+          <input type="text" id="f-label" placeholder="e.g. Cycle 2 — First Milestone" />
+        </div>
+        <div class="field">
+          <label>Milestone #</label>
+          <select id="f-milestone">
+            <option value="0">0 — Baseline (starting weight)</option>
+            <option value="1">1 — First 10% lost</option>
+            <option value="2">2 — Second 10% lost</option>
+            <option value="3">3 — Third 10% lost</option>
+            <option value="4">4 — Fourth 10% lost</option>
+            <option value="5">5 — Fifth 10% lost</option>
+            <option value="6">6 — Sixth 10% lost</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Start Weight (lbs)</label>
+          <input type="number" id="f-weight-start" placeholder="e.g. 185" step="0.1" />
+        </div>
+        <div class="field">
+          <label>End Weight (lbs)</label>
+          <input type="number" id="f-weight-end" placeholder="optional" step="0.1" />
+        </div>
+        <div class="field full">
+          <label>Observations / Notes</label>
+          <textarea id="f-notes" class="notes-ta" placeholder="Patterns noticed, protocol changes, food correlations, medication changes, etc."></textarea>
+        </div>
+        <div class="field full">
+          <label>Paste CGM CSV Data</label>
+          <textarea id="f-csv" style="min-height:130px" placeholder="Time of Glucose Reading,Measurement(mg/dL)&#10;2026-05-27T20:04:00-05:00,91&#10;2026-05-27T20:09:00-05:00,90&#10;..."></textarea>
+          <p class="hint">First column = ISO 8601 timestamp with UTC offset &nbsp;·&nbsp; Second column = glucose (mg/dL) &nbsp;·&nbsp; Header row optional</p>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="importCycle()">⚡ Parse &amp; Save Cycle</button>
+        <button class="btn btn-outline" onclick="clearImportForm()">✕ Clear</button>
+        <span id="import-status"></span>
+      </div>
+    </div>
+  </details>
+
+  <!-- ── CYCLE SELECTOR BAR ── -->
+  <div id="cycle-selector-bar" style="display:none">
+    <label for="cycle-select">Cycle:</label>
+    <select id="cycle-select" onchange="selectCycle(this.value)"></select>
+    <button class="btn btn-export" onclick="exportCycleJSON()">⬇ Export JSON</button>
+    <button class="btn btn-danger" onclick="deleteCycle()">🗑️ Delete</button>
+  </div>
+
+  <!-- ── CYCLE DETAIL ── -->
+  <div id="cycle-detail"></div>
+
+  <!-- ── COMPARISON ── -->
+  <div id="comparison-section"></div>
+
+  <!-- ── EMPTY STATE ── -->
+  <div id="empty-state" style="display:none">
+    <div class="card card-body empty-state">
+      <div class="ei">📡</div>
+      <p><strong>No CGM cycles saved yet.</strong></p>
+      <p>Use the Import panel above to add your first cycle.</p>
+      <p style="font-size:.85rem;margin-top:.5rem">Your first Lingo wear period (May 27 – Jun 7, 2026) is ready to load from<br><code>manual-backups/lingo-cgm-2026-05-27-to-2026-06-07.csv</code></p>
+    </div>
+  </div>
+
+</div><!-- /.wrap -->
+
+<div id="toast"></div>
+
+<footer>
+  All CGM data is stored locally in your browser only — nothing is sent anywhere.<br>
+  <a href="index.html">Home</a> · <a href="health-tracker.html">Health Tracker</a> · <a href="lab-tracker.html">Lab Results</a> · <a href="food-response-testing.html">Food Testing</a> · <a href="exercise-protocol.html">Exercise</a>
+</footer>
+
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════
+
+const STORAGE_KEY = 'cgm_cycles_v1';
+
+// Pre-seeded Cycle 1 data — loaded on first visit so the page is immediately useful.
+// All stats were computed by Python analysis of the May 27–Jun 7, 2026 Lingo dataset.
+const PRESET_CYCLE = {
+  id: 'preset-cycle-1',
+  label: 'Cycle 1 — Baseline',
+  milestone: 0,
+  weightStart: null,
+  weightEnd: null,
+  notes: 'First Lingo CGM wear (sensor 1). May 28–29 had the worst hypo cluster of the period — nadir 55 mg/dL for 100 minutes on May 29 midday, and sustained low from May 28 23:44 through May 29 early AM. All morning spikes were post-breakfast (7–10am window), with Jun 1 being the highest single reading at 166. May 30 was a perfect 100% TIR day — that day\'s meals are the baseline template. No dawn phenomenon detected: overnight glucose naturally declines through 3–6am on most nights. Jun 4 overnight nadir of 55 occurred during sleep.\n\nNO ACV used at any meal during this entire cycle. All spike and hypo data reflects a pure baseline diet with no ACV intervention. This makes Cycle 1 the definitive ACV-absent control that all future cycles with ACV can be compared against.\n\nLOGGING CONVENTION: All meal timestamps in the daily log represent first bite time, matching the CGM onset lag window (typically 30–45 min after first bite for carbohydrate-driven spikes).',
+  stats: {
+    dateStart: '2026-05-27', dateEnd: '2026-06-07', durationDays: 11,
+    n: 3206,
+    mean: 91.0, min: 55, max: 166,
+    tir70_140: 93.4, tir70_180: 95.3,
+    pctBelow70: 4.7, pctAbove140: 1.9, pctAbove180: 0.0,
+    gmi: 5.49,
+    dawnPositive: false,
+    spikes: [
+      { onset:'2026-05-28 09:54', peakTime:'2026-05-28 10:09', peakVal:150, duration:25 },
+      { onset:'2026-05-29 09:24', peakTime:'2026-05-29 09:44', peakVal:163, duration:60 },
+      { onset:'2026-06-01 08:54', peakTime:'2026-06-01 09:24', peakVal:166, duration:60 },
+      { onset:'2026-06-02 07:59', peakTime:'2026-06-02 08:14', peakVal:160, duration:65 },
+      { onset:'2026-06-06 07:44', peakTime:'2026-06-06 07:49', peakVal:148, duration:20 },
+      { onset:'2026-06-07 14:29', peakTime:'2026-06-07 14:44', peakVal:147, duration:45 }
+    ],
+    hypos: [
+      { onset:'2026-05-28 03:09', nadirTime:'2026-05-28 03:29', nadirVal:62, duration:40 },
+      { onset:'2026-05-28 05:54', nadirTime:'2026-05-28 06:09', nadirVal:62, duration:55 },
+      { onset:'2026-05-28 21:14', nadirTime:'2026-05-28 21:19', nadirVal:65, duration:20 },
+      { onset:'2026-05-28 23:44', nadirTime:'2026-05-29 00:24', nadirVal:60, duration:185 },
+      { onset:'2026-05-29 04:39', nadirTime:'2026-05-29 04:59', nadirVal:61, duration:50 },
+      { onset:'2026-05-29 11:44', nadirTime:'2026-05-29 12:14', nadirVal:55, duration:100 },
+      { onset:'2026-06-04 04:39', nadirTime:'2026-06-04 04:54', nadirVal:55, duration:35 },
+      { onset:'2026-06-05 16:14', nadirTime:'2026-06-05 16:19', nadirVal:67, duration:30 },
+      { onset:'2026-06-05 20:54', nadirTime:'2026-06-05 20:59', nadirVal:59, duration:55 }
+    ],
+    daily: [
+      { date:'2026-05-27', n:48,  mean:94.1, min:81,  max:122, tir:100.0, pctLow:0.0,  pctHigh:0.0 },
+      { date:'2026-05-28', n:288, mean:85.5, min:60,  max:150, tir:87.5,  pctLow:10.4, pctHigh:2.1 },
+      { date:'2026-05-29', n:288, mean:86.2, min:55,  max:163, tir:70.5,  pctLow:25.0, pctHigh:4.5 },
+      { date:'2026-05-30', n:288, mean:97.1, min:79,  max:130, tir:100.0, pctLow:0.0,  pctHigh:0.0 },
+      { date:'2026-05-31', n:288, mean:91.8, min:67,  max:124, tir:99.7,  pctLow:0.3,  pctHigh:0.0 },
+      { date:'2026-06-01', n:288, mean:100.5,min:71,  max:166, tir:95.5,  pctLow:0.0,  pctHigh:4.5 },
+      { date:'2026-06-02', n:288, mean:92.9, min:71,  max:160, tir:95.1,  pctLow:0.0,  pctHigh:4.9 },
+      { date:'2026-06-03', n:288, mean:85.7, min:67,  max:136, tir:93.4,  pctLow:6.6,  pctHigh:0.0 },
+      { date:'2026-06-04', n:288, mean:87.8, min:55,  max:123, tir:96.5,  pctLow:3.5,  pctHigh:0.0 },
+      { date:'2026-06-05', n:288, mean:84.6, min:59,  max:126, tir:93.4,  pctLow:6.6,  pctHigh:0.0 },
+      { date:'2026-06-06', n:288, mean:91.1, min:70,  max:148, tir:98.3,  pctLow:0.0,  pctHigh:1.7 },
+      { date:'2026-06-07', n:278, mean:97.1, min:75,  max:147, tir:96.4,  pctLow:0.0,  pctHigh:3.6 }
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+
+let cycles = [];
+let currentCycleId = null;
+let _compChart = null;
+
+// ═══════════════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════════════
+
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function saveToStorage() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cycles));
+}
+
+// ═══════════════════════════════════════════════
+// CSV PARSING
+// ═══════════════════════════════════════════════
+
+/**
+ * Parse the local date/time from an ISO 8601 string without timezone conversion.
+ * "2026-05-28T10:09:00-05:00" → { date:"2026-05-28", hour:10, minute:9 }
+ * This preserves CDT display time regardless of the browser's local timezone.
+ */
+function parseLocalDT(isoStr) {
+  const m = isoStr.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})/);
+  if (!m) return null;
+  return { date: m[1], hour: parseInt(m[2], 10), minute: parseInt(m[3], 10) };
+}
+
+function parseCSVData(text) {
+  if (!text || !text.trim()) return [];
+  const lines = text.trim().split(/\r?\n/);
+  const delim = (lines[0] || '').includes('\t') ? '\t' : ',';
+  const rows = [];
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const parts = line.split(delim);
+    if (parts.length < 2) continue;
+    const tsRaw = parts[0].trim().replace(/^"|"$/g, '');
+    const valRaw = parts[1].trim().replace(/^"|"$/g, '');
+    const val = parseInt(valRaw, 10);
+    if (isNaN(val)) continue;       // skip header or non-numeric
+    const dt = parseLocalDT(tsRaw);
+    if (!dt) continue;
+    rows.push({ ts: tsRaw, ...dt, val });
+  }
+  // Sort chronologically by ISO string (valid because offset is constant -05:00)
+  rows.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
+  return rows;
+}
+
+// ═══════════════════════════════════════════════
+// EVENT DETECTION
+// ═══════════════════════════════════════════════
+
+function findEvents(rows, threshold, above) {
+  const events = [];
+  let inEvt = false, startIdx = -1, extrIdx = -1;
+
+  for (let i = 0; i < rows.length; i++) {
+    const triggered = above ? rows[i].val > threshold : rows[i].val < threshold;
+    if (triggered && !inEvt) {
+      inEvt = true; startIdx = i; extrIdx = i;
+    } else if (triggered && inEvt) {
+      if (above && rows[i].val > rows[extrIdx].val) extrIdx = i;
+      if (!above && rows[i].val < rows[extrIdx].val) extrIdx = i;
+    } else if (!triggered && inEvt) {
+      pushEvent(rows, startIdx, i - 1, extrIdx, above, events);
+      inEvt = false;
+    }
+  }
+  if (inEvt) pushEvent(rows, startIdx, rows.length - 1, extrIdx, above, events);
+  return events;
+}
+
+function pushEvent(rows, startIdx, endIdx, extrIdx, above, events) {
+  const startDate = new Date(rows[startIdx].ts);
+  const endDate   = new Date(rows[endIdx].ts);
+  const duration  = Math.round((endDate - startDate) / 60000);
+  const onset     = fmt(rows[startIdx].ts);
+  const extrTs    = fmt(rows[extrIdx].ts);
+  const extrVal   = rows[extrIdx].val;
+  if (above) events.push({ onset, peakTime: extrTs, peakVal: extrVal, duration });
+  else       events.push({ onset, nadirTime: extrTs, nadirVal: extrVal, duration });
+}
+
+/** Trim ISO string to "YYYY-MM-DD HH:MM" display format */
+function fmt(isoStr) {
+  return isoStr.slice(0, 16).replace('T', ' ');
+}
+
+// ═══════════════════════════════════════════════
+// STATS COMPUTATION
+// ═══════════════════════════════════════════════
+
+function computeStats(rows) {
+  if (!rows.length) return null;
+  const n = rows.length;
+  const vals = rows.map(r => r.val);
+  const sum = vals.reduce((s, v) => s + v, 0);
+  const mean = sum / n;
+
+  const tir70_140  = +(vals.filter(v => v >= 70 && v <= 140).length / n * 100).toFixed(1);
+  const tir70_180  = +(vals.filter(v => v >= 70 && v <= 180).length / n * 100).toFixed(1);
+  const pctBelow70  = +(vals.filter(v => v < 70).length / n * 100).toFixed(1);
+  const pctAbove140 = +(vals.filter(v => v > 140).length / n * 100).toFixed(1);
+  const pctAbove180 = +(vals.filter(v => v > 180).length / n * 100).toFixed(1);
+  const gmi = +(3.31 + 0.02392 * mean).toFixed(2);
+
+  const dateStart = rows[0].date;
+  const dateEnd   = rows[rows.length - 1].date;
+  const durationDays = Math.round((new Date(dateEnd) - new Date(dateStart)) / 86400000) + 1;
+
+  // Daily breakdown
+  const byDay = {};
+  for (const r of rows) {
+    (byDay[r.date] = byDay[r.date] || []).push(r.val);
+  }
+  const daily = Object.keys(byDay).sort().map(date => {
+    const dv = byDay[date], dn = dv.length;
+    return {
+      date, n: dn,
+      mean: +(dv.reduce((s, v) => s + v, 0) / dn).toFixed(1),
+      min: Math.min(...dv), max: Math.max(...dv),
+      tir:     +(dv.filter(v => v >= 70 && v <= 140).length / dn * 100).toFixed(1),
+      pctLow:  +(dv.filter(v => v < 70).length / dn * 100).toFixed(1),
+      pctHigh: +(dv.filter(v => v > 140).length / dn * 100).toFixed(1)
+    };
+  });
+
+  // Dawn phenomenon: avg 00:00–02:59 vs 03:00–05:59 per day
+  const byDH = {};
+  for (const r of rows) {
+    byDH[r.date] = byDH[r.date] || { night: [], dawn: [] };
+    if (r.hour < 3) byDH[r.date].night.push(r.val);
+    else if (r.hour < 6) byDH[r.date].dawn.push(r.val);
+  }
+  let dawnDays = 0;
+  for (const v of Object.values(byDH)) {
+    if (v.night.length && v.dawn.length) {
+      const na = v.night.reduce((s, x) => s + x, 0) / v.night.length;
+      const da = v.dawn.reduce((s, x) => s + x, 0) / v.dawn.length;
+      if (da - na >= 10) dawnDays++;
+    }
+  }
+
+  const spikes = findEvents(rows, 140, true);
+  const hypos  = findEvents(rows, 70, false);
+
+  return {
+    dateStart, dateEnd, durationDays, n,
+    mean: +mean.toFixed(1), min: Math.min(...vals), max: Math.max(...vals),
+    tir70_140, tir70_180, pctBelow70, pctAbove140, pctAbove180, gmi,
+    dawnPositive: dawnDays >= 3,
+    spikes, hypos, daily
+  };
+}
+
+// ═══════════════════════════════════════════════
+// IMPORT HANDLER
+// ═══════════════════════════════════════════════
+
+function importCycle() {
+  const label     = (document.getElementById('f-label').value.trim()) || 'Unnamed Cycle';
+  const milestone = parseInt(document.getElementById('f-milestone').value, 10);
+  const wStart    = parseFloat(document.getElementById('f-weight-start').value) || null;
+  const wEnd      = parseFloat(document.getElementById('f-weight-end').value)   || null;
+  const notes     = document.getElementById('f-notes').value.trim();
+  const csvText   = document.getElementById('f-csv').value;
+  const statusEl  = document.getElementById('import-status');
+
+  statusEl.className = '';
+  statusEl.textContent = '';
+
+  if (!csvText.trim()) {
+    setStatus('err', '✕ Please paste CSV data first.'); return;
+  }
+  const rows = parseCSVData(csvText);
+  if (rows.length < 10) {
+    setStatus('err', `✕ Only ${rows.length} valid readings found — check the data format.`); return;
+  }
+  const stats = computeStats(rows);
+  if (!stats) {
+    setStatus('err', '✕ Could not compute stats — check the timestamp format.'); return;
+  }
+
+  const cycle = {
+    id: 'cycle-' + Date.now(),
+    label, milestone, weightStart: wStart, weightEnd: wEnd, notes, stats
+  };
+  cycles.push(cycle);
+  saveToStorage();
+  currentCycleId = cycle.id;
+
+  setStatus('ok', `✓ Saved — ${stats.n} readings across ${stats.durationDays} days`);
+  document.getElementById('import-panel').removeAttribute('open');
+  renderAll();
+  showToast(`✓ "${label}" saved`);
+
+  function setStatus(type, msg) {
+    statusEl.className = `status-msg status-${type}`;
+    statusEl.textContent = msg;
+  }
+}
+
+function clearImportForm() {
+  ['f-label', 'f-notes', 'f-csv'].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('f-weight-start').value = '';
+  document.getElementById('f-weight-end').value = '';
+  document.getElementById('import-status').textContent = '';
+  document.getElementById('import-status').className = '';
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+
+function renderAll() {
+  const hasCycles = cycles.length > 0;
+  document.getElementById('empty-state').style.display = hasCycles ? 'none' : 'block';
+
+  renderCycleSelector();
+
+  if (!hasCycles) {
+    document.getElementById('cycle-detail').innerHTML = '';
+    document.getElementById('comparison-section').innerHTML = '';
+    return;
+  }
+
+  if (!currentCycleId || !cycles.find(c => c.id === currentCycleId)) {
+    currentCycleId = cycles[cycles.length - 1].id;
+  }
+  const cycle = cycles.find(c => c.id === currentCycleId);
+  if (cycle) renderCycleDetail(cycle);
+
+  if (cycles.length >= 2) renderComparison();
+  else document.getElementById('comparison-section').innerHTML = '';
+}
+
+function renderCycleSelector() {
+  const bar = document.getElementById('cycle-selector-bar');
+  const sel = document.getElementById('cycle-select');
+  if (!cycles.length) { bar.style.display = 'none'; return; }
+  bar.style.display = 'flex';
+  sel.innerHTML = cycles.map(c =>
+    `<option value="${c.id}" ${c.id === currentCycleId ? 'selected' : ''}>
+      Milestone ${c.milestone} — ${c.label} (${c.stats.dateStart})
+    </option>`
+  ).join('');
+}
+
+function selectCycle(id) {
+  currentCycleId = id;
+  const cycle = cycles.find(c => c.id === id);
+  if (cycle) renderCycleDetail(cycle);
+}
+
+// ─── Colour helpers ───
+function tirCol(v)  { return v >= 90 ? 'col-green' : v >= 70 ? 'col-amber' : 'col-red'; }
+function lowCol(v)  { return v < 1   ? 'col-green' : v < 4   ? 'col-amber' : 'col-red'; }
+function highCol(v) { return v < 5   ? 'col-green' : v < 10  ? 'col-amber' : 'col-red'; }
+function meanCol(v) { return v <= 120 ? 'col-green' : v <= 140 ? 'col-amber' : 'col-red'; }
+
+function renderCycleDetail(cycle) {
+  const s = cycle.stats;
+  const el = document.getElementById('cycle-detail');
+
+  // Meta
+  const milestoneLabel = cycle.milestone === 0
+    ? 'Baseline (pre-weight-loss)'
+    : `#${cycle.milestone} — ${cycle.milestone * 10}%+ total weight lost`;
+  const wtStr = cycle.weightStart
+    ? `${cycle.weightStart} lbs${cycle.weightEnd ? ' → ' + cycle.weightEnd + ' lbs' : ''}`
+    : '—';
+
+  // Dawn badge
+  const dawnBadge = s.dawnPositive
+    ? `<span class="badge badge-amber">⚠️ Dawn phenomenon present</span>`
+    : `<span class="badge badge-green">✓ No dawn phenomenon</span>`;
+
+  // Callouts
+  let callouts = '';
+  if (s.pctBelow70 >= 4) {
+    callouts += `<div class="callout callout-red"><strong>⚠️ Hypoglycemia flag: ${s.pctBelow70}% time below 70 mg/dL</strong>Target is &lt;1%. Review the hypo events below for time-of-day patterns — overnight lows, post-exercise drops, or reactive hypoglycemia after meals.</div>`;
+  } else if (s.pctBelow70 >= 1) {
+    callouts += `<div class="callout callout-amber"><strong>🟡 Mild hypo burden: ${s.pctBelow70}% time below 70 mg/dL</strong>Target is &lt;1%. Improving but worth tracking the specific events below.</div>`;
+  } else {
+    callouts += `<div class="callout callout-green"><strong>✓ Hypo time is excellent: ${s.pctBelow70}%</strong>Well within the &lt;1% target.</div>`;
+  }
+  if (s.tir70_140 >= 90) {
+    callouts += `<div class="callout callout-green"><strong>✓ Time-in-range ${s.tir70_140}% — excellent</strong>Above the non-diabetic benchmark of 90% TIR (70–140 mg/dL).</div>`;
+  } else if (s.tir70_140 >= 70) {
+    callouts += `<div class="callout callout-amber"><strong>🟡 Time-in-range ${s.tir70_140}%</strong>Room to improve — target is &gt;90%.</div>`;
+  }
+
+  // Spikes table
+  const spikeRows = s.spikes.length
+    ? s.spikes.map(e => {
+        const bc = e.peakVal >= 180 ? 'badge-red' : e.peakVal >= 160 ? 'badge-amber' : 'badge-sky';
+        return `<tr>
+          <td>${e.onset}</td>
+          <td>${e.peakTime}</td>
+          <td><span class="badge ${bc}">${e.peakVal}</span></td>
+          <td>${e.duration > 0 ? e.duration + ' min' : '&lt;5 min'}</td>
+        </tr>`;
+      }).join('')
+    : `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1.2rem">🎉 No spikes above 140 mg/dL this cycle</td></tr>`;
+
+  // Hypos table
+  const hypoRows = s.hypos.length
+    ? s.hypos.map(e => {
+        const bc = e.nadirVal <= 54 ? 'badge-red' : e.nadirVal <= 62 ? 'badge-amber' : '';
+        const cell = bc ? `<span class="badge ${bc}">${e.nadirVal}</span>` : e.nadirVal;
+        return `<tr>
+          <td>${e.onset}</td>
+          <td>${e.nadirTime}</td>
+          <td>${cell}</td>
+          <td>${e.duration > 0 ? e.duration + ' min' : '&lt;5 min'}</td>
+        </tr>`;
+      }).join('')
+    : `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1.2rem">🎉 No readings below 70 mg/dL this cycle</td></tr>`;
+
+  // Daily table
+  const dailyRows = s.daily.map(d => {
+    const tc = tirCol(d.tir);
+    const lc = d.pctLow > 5 ? 'col-red' : d.pctLow > 0 ? 'col-amber' : 'col-green';
+    const perfect = d.tir === 100 && d.pctLow === 0 ? ' style="background:#f0faf2"' : '';
+    return `<tr${perfect}>
+      <td><strong>${d.date}</strong>${d.tir === 100 && d.pctLow === 0 ? ' <span class="badge badge-green" style="font-size:.68rem;padding:.1rem .4rem">perfect</span>' : ''}</td>
+      <td>${d.n}</td>
+      <td>${d.mean}</td>
+      <td>${d.min}</td>
+      <td>${d.max}</td>
+      <td class="${tc}">${d.tir}%</td>
+      <td class="${lc}">${d.pctLow}%</td>
+      <td>${d.pctHigh}%</td>
+    </tr>`;
+  }).join('');
+
+  // Notes section
+  const notesSection = `
+    <p class="section-label">📝 Notes</p>
+    <div class="notes-display" id="notes-display-text">${escHtml(cycle.notes || '(no notes for this cycle)')}</div>
+    <div style="margin-top:.7rem">
+      <div class="field" style="margin-bottom:.5rem">
+        <label>Edit Notes</label>
+        <textarea class="notes-ta" id="edit-notes" style="min-height:72px">${escHtml(cycle.notes || '')}</textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-outline" style="font-size:.82rem" onclick="saveNotes()">💾 Save Notes</button>
+        <span id="notes-saved-msg" style="font-size:.82rem;color:var(--green-dark);font-weight:600;opacity:0;transition:opacity .4s"></span>
+      </div>
+    </div>`;
+
+  el.innerHTML = `
+  <div class="card">
+    <div class="card-header">
+      📊 ${escHtml(cycle.label)}
+      <span class="ch-sub">${s.dateStart} – ${s.dateEnd} · ${s.durationDays} days · ${s.n.toLocaleString()} readings</span>
+    </div>
+    <div class="card-body">
+
+      <div class="meta-row">
+        <span>Milestone: <strong>${milestoneLabel}</strong></span>
+        <span>Weight: <strong>${wtStr}</strong></span>
+        <span>GMI: <strong>${s.gmi}</strong> (~A1c equiv.)</span>
+        ${dawnBadge}
+      </div>
+
+      <div class="stats-strip">
+        <div class="stat-box">
+          <div class="stat-val ${meanCol(s.mean)}">${s.mean}</div>
+          <div class="stat-label">Mean mg/dL</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val ${tirCol(s.tir70_140)}">${s.tir70_140}%</div>
+          <div class="stat-label">TIR 70–140</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val ${lowCol(s.pctBelow70)}">${s.pctBelow70}%</div>
+          <div class="stat-label">Time &lt;70</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val ${highCol(s.pctAbove140)}">${s.pctAbove140}%</div>
+          <div class="stat-label">Time &gt;140</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val col-muted">${s.min}</div>
+          <div class="stat-label">Lowest</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val col-muted">${s.max}</div>
+          <div class="stat-label">Highest</div>
+        </div>
+      </div>
+
+      ${callouts}
+
+      <p class="section-label">🔴 Spike Events &gt; 140 mg/dL &nbsp;<span style="font-weight:400;color:var(--muted)">(${s.spikes.length} event${s.spikes.length !== 1 ? 's' : ''})</span></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Onset (CDT)</th><th>Peak Time</th><th>Peak (mg/dL)</th><th>Duration Above 140</th></tr></thead>
+          <tbody>${spikeRows}</tbody>
+        </table>
+      </div>
+
+      <p class="section-label">🔵 Hypoglycemia Events &lt; 70 mg/dL &nbsp;<span style="font-weight:400;color:var(--muted)">(${s.hypos.length} episode${s.hypos.length !== 1 ? 's' : ''})</span></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Onset (CDT)</th><th>Nadir Time</th><th>Nadir (mg/dL)</th><th>Duration Below 70</th></tr></thead>
+          <tbody>${hypoRows}</tbody>
+        </table>
+      </div>
+
+      <p class="section-label">📅 Daily Summary</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Rdgs</th><th>Mean</th><th>Min</th><th>Max</th><th>TIR 70–140</th><th>% &lt;70</th><th>% &gt;140</th></tr></thead>
+          <tbody>${dailyRows}</tbody>
+        </table>
+      </div>
+
+      <p class="section-label">🍽️ Daily Meal &amp; Activity Log &nbsp;<span style="font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">click any cell to edit · saves to browser</span></p>
+      ${buildContextTable(cycle)}
+
+      ${notesSection}
+
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════
+// DAILY CONTEXT LOG
+// ═══════════════════════════════════════════════
+
+function buildContextTable(cycle) {
+  const rows = cycle.stats.daily.map(d => {
+    const cid = cycle.id;
+    const date = d.date;
+    // Look up spike/hypo on this date for the "flag" column
+    const hasSpike = cycle.stats.spikes.some(e => e.onset.startsWith(date));
+    const hasHypo  = cycle.stats.hypos.some(e  => e.onset.startsWith(date));
+    const flags = [
+      hasSpike ? '<span class="badge badge-amber" style="font-size:.65rem;padding:.08rem .38rem">🔴 spike</span>' : '',
+      hasHypo  ? '<span class="badge badge-red"   style="font-size:.65rem;padding:.08rem .38rem">🔵 low</span>'   : ''
+    ].filter(Boolean).join(' ');
+
+    const mealVal = d.meals       || '';
+    const exerVal = d.exercise    || '';
+    const noteVal = d.contextNotes|| '';
+
+    function ctxCell(field, val, ph) {
+      const display = val
+        ? `<span class="ctx-text">${escHtml(val)}</span>`
+        : `<span class="ctx-ph">${ph}</span>`;
+      // Use data attributes to avoid quoting issues in onclick
+      return `<td class="ctx-cell" data-cid="${escHtml(cid)}" data-date="${date}" data-field="${field}" onclick="editCtx(this)">${display}</td>`;
+    }
+
+    const perfect = d.tir === 100 && d.pctLow === 0 ? ' style="background:#f5fdf7"' : '';
+    return `<tr${perfect}>
+      <td style="white-space:nowrap"><strong>${date}</strong>${flags ? '<br>' + flags : ''}</td>
+      ${ctxCell('meals',        mealVal, '+ meals / ACV?')}
+      ${ctxCell('exercise',     exerVal, '+ exercise')}
+      ${ctxCell('contextNotes', noteVal, '+ notes')}
+    </tr>`;
+  }).join('');
+
+  return `
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th style="min-width:110px">Date</th>
+        <th>🍽️ Meals &amp; ACV</th>
+        <th>🏃 Exercise</th>
+        <th>📝 Notes (sleep, stress, supplements)</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>
+  <p class="ctx-legend">
+    <span>Click any cell to add or edit</span>
+    <span>🔴 spike = readings &gt;140 that day</span>
+    <span>🔵 low = readings &lt;70 that day</span>
+  </p>`;
+}
+
+function editCtx(cell) {
+  if (cell.querySelector('textarea')) return; // already open
+  const cid   = cell.dataset.cid;
+  const date  = cell.dataset.date;
+  const field = cell.dataset.field;
+  const cycle = cycles.find(c => c.id === cid);
+  if (!cycle) return;
+  const day  = cycle.stats.daily.find(d => d.date === date);
+  const cur  = (day && day[field]) || '';
+  const ph   = field === 'meals' ? 'Meals eaten today, noted ACV use, carb-heavy items...' :
+               field === 'exercise' ? 'Exercise type, duration, intensity...' :
+               'Sleep quality, stress level, supplement changes, observations...';
+  cell.innerHTML = `
+    <textarea class="ctx-ta" placeholder="${ph}">${escHtml(cur)}</textarea>
+    <div class="ctx-save-bar">
+      <button class="btn btn-primary" style="font-size:.75rem;padding:.22rem .65rem"
+        data-cid="${escHtml(cid)}" data-date="${date}" data-field="${field}" onclick="saveCtx(this)">Save</button>
+      <button class="btn btn-outline" style="font-size:.75rem;padding:.22rem .55rem"
+        onclick="cancelCtx(this)">✕</button>
+    </div>`;
+  const ta = cell.querySelector('textarea');
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+function saveCtx(btn) {
+  const cid   = btn.dataset.cid;
+  const date  = btn.dataset.date;
+  const field = btn.dataset.field;
+  const cell  = btn.closest('td');
+  const val   = cell.querySelector('textarea').value.trim();
+
+  const cycle = cycles.find(c => c.id === cid);
+  if (cycle) {
+    const day = cycle.stats.daily.find(d => d.date === date);
+    if (day) {
+      day[field] = val;
+      saveToStorage();
+      showToast('Saved');
+    }
+  }
+
+  // Re-render just this cell without full page redraw
+  cell.dataset.cid   = cid;
+  cell.dataset.date  = date;
+  cell.dataset.field = field;
+  cell.onclick = function() { editCtx(this); };
+  cell.innerHTML = val
+    ? `<span class="ctx-text">${escHtml(val)}</span>`
+    : `<span class="ctx-ph">${field === 'meals' ? '+ meals / ACV?' : field === 'exercise' ? '+ exercise' : '+ notes'}</span>`;
+}
+
+function cancelCtx(btn) {
+  const cell  = btn.closest('td');
+  const cid   = cell.dataset.cid;
+  const date  = cell.dataset.date;
+  const field = cell.dataset.field;
+  const cycle = cycles.find(c => c.id === cid);
+  const day   = cycle?.stats.daily.find(d => d.date === date);
+  const val   = (day && day[field]) || '';
+  cell.innerHTML = val
+    ? `<span class="ctx-text">${escHtml(val)}</span>`
+    : `<span class="ctx-ph">${field === 'meals' ? '+ meals / ACV?' : field === 'exercise' ? '+ exercise' : '+ notes'}</span>`;
+}
+
+// ═══════════════════════════════════════════════
+// COMPARISON
+// ═══════════════════════════════════════════════
+
+function renderComparison() {
+  const el = document.getElementById('comparison-section');
+
+  const tableRows = cycles.map((c, i) => {
+    const s = c.stats;
+    const prev = i > 0 ? cycles[i - 1].stats : null;
+
+    function td(curr, prevVal, lowerBetter) {
+      if (!prev) return `<td>${curr}</td>`;
+      const delta = +(curr - prevVal).toFixed(1);
+      if (Math.abs(delta) < 0.1) return `<td>${curr} <span class="trend-same">→</span></td>`;
+      const arrow = delta > 0 ? '↑' : '↓';
+      const improving = lowerBetter ? delta < 0 : delta > 0;
+      const cls = improving ? 'trend-better' : 'trend-worse';
+      return `<td>${curr} <span class="${cls}">${arrow}${Math.abs(delta)}</span></td>`;
+    }
+
+    const wt = c.weightStart
+      ? `${c.weightStart}${c.weightEnd ? ' → ' + c.weightEnd : ''} lbs`
+      : '—';
+
+    return `<tr>
+      <td><strong>${escHtml(c.label)}</strong><br><span style="font-size:.75rem;color:var(--muted)">${s.dateStart} · ${s.durationDays} days</span></td>
+      ${td(s.mean,         prev?.mean,         false)}
+      ${td(s.tir70_140,    prev?.tir70_140,    false)}
+      ${td(s.pctBelow70,   prev?.pctBelow70,   true)}
+      ${td(s.pctAbove140,  prev?.pctAbove140,  true)}
+      ${td(s.gmi,          prev?.gmi,          true)}
+      <td>${wt}</td>
+      <td>${s.spikes.length}</td>
+      <td>${s.hypos.length}</td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML = `
+  <div class="card">
+    <div class="card-header sky">
+      📈 Cross-Cycle Comparison
+      <span class="ch-sub">${cycles.length} cycle${cycles.length !== 1 ? 's' : ''} · each tied to a 10% weight-loss milestone</span>
+    </div>
+    <div class="card-body">
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Cycle</th>
+            <th>Mean</th>
+            <th>TIR 70–140</th>
+            <th>% &lt;70</th>
+            <th>% &gt;140</th>
+            <th>GMI</th>
+            <th>Weight</th>
+            <th>Spikes</th>
+            <th>Hypos</th>
+          </tr></thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+      </div>
+      <p style="font-size:.76rem;color:var(--muted);margin-top:.5rem">
+        <span class="trend-better">↑/↓ green</span> = improving &nbsp;
+        <span class="trend-worse">↑/↓ red</span> = worsening &nbsp;
+        <span class="trend-same">→</span> = stable (&lt;0.1 change)
+      </p>
+
+      <p class="section-label" style="margin-top:1.4rem">Trend Chart — Key Metrics Over Cycles</p>
+      <div class="chart-wrap"><canvas id="comp-chart"></canvas></div>
+      <div style="font-size:.76rem;color:var(--muted);margin-top:.5rem;display:flex;flex-wrap:wrap;gap:.3rem .9rem">
+        <span style="color:var(--green-dark)">── Mean glucose (left axis, mg/dL)</span>
+        <span style="color:var(--sky)">── TIR 70–140% (right axis)</span>
+        <span style="color:var(--red)">╌╌ Time &lt;70% (right axis)</span>
+        <span style="color:var(--amber)">╌╌ Time &gt;140% (right axis)</span>
+      </div>
+
+    </div>
+  </div>`;
+
+  // Chart.js — render after DOM paint
+  setTimeout(buildComparisonChart, 60);
+}
+
+function buildComparisonChart() {
+  const ctx = document.getElementById('comp-chart');
+  if (!ctx) return;
+  if (_compChart) { _compChart.destroy(); _compChart = null; }
+
+  const labels = cycles.map((c, i) => `M${c.milestone}`);
+
+  _compChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Mean glucose (mg/dL)',
+          data: cycles.map(c => c.stats.mean),
+          borderColor: '#2d6a4f', backgroundColor: 'rgba(45,106,79,.08)',
+          tension: .35, pointRadius: 5, pointHoverRadius: 7,
+          yAxisID: 'yLeft'
+        },
+        {
+          label: 'TIR 70–140 (%)',
+          data: cycles.map(c => c.stats.tir70_140),
+          borderColor: '#4a90c4', backgroundColor: 'rgba(74,144,196,.08)',
+          tension: .35, pointRadius: 5, pointHoverRadius: 7,
+          yAxisID: 'yRight'
+        },
+        {
+          label: '% time <70',
+          data: cycles.map(c => c.stats.pctBelow70),
+          borderColor: '#c0392b', backgroundColor: 'rgba(192,57,43,.06)',
+          borderDash: [6, 3], tension: .35, pointRadius: 4,
+          yAxisID: 'yRight'
+        },
+        {
+          label: '% time >140',
+          data: cycles.map(c => c.stats.pctAbove140),
+          borderColor: '#e9a84c', backgroundColor: 'rgba(233,168,76,.06)',
+          borderDash: [6, 3], tension: .35, pointRadius: 4,
+          yAxisID: 'yRight'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 20 } },
+        tooltip: {
+          callbacks: {
+            title: (items) => {
+              const idx = items[0].dataIndex;
+              return cycles[idx] ? cycles[idx].label : items[0].label;
+            }
+          }
+        }
+      },
+      scales: {
+        yLeft: {
+          type: 'linear', position: 'left',
+          title: { display: true, text: 'mg/dL', font: { size: 11 } },
+          min: 60, max: 160,
+          grid: { color: 'rgba(0,0,0,.06)' }
+        },
+        yRight: {
+          type: 'linear', position: 'right',
+          title: { display: true, text: '%', font: { size: 11 } },
+          min: 0, max: 100,
+          grid: { drawOnChartArea: false }
+        }
+      }
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════
+
+function selectCycle(id) {
+  currentCycleId = id;
+  const cycle = cycles.find(c => c.id === id);
+  if (cycle) renderCycleDetail(cycle);
+  // Re-build selector to sync the <select> chosen state
+  renderCycleSelector();
+}
+
+function saveNotes() {
+  const cycle = cycles.find(c => c.id === currentCycleId);
+  if (!cycle) return;
+  const ta = document.getElementById('edit-notes');
+  if (!ta) return;
+  cycle.notes = ta.value.trim();
+  saveToStorage();
+  const display = document.getElementById('notes-display-text');
+  if (display) display.textContent = cycle.notes || '(no notes)';
+  const msg = document.getElementById('notes-saved-msg');
+  if (msg) { msg.style.opacity = '1'; msg.textContent = '✓ Saved'; setTimeout(() => { msg.style.opacity = '0'; }, 2000); }
+  showToast('Notes saved');
+}
+
+function deleteCycle() {
+  const cycle = cycles.find(c => c.id === currentCycleId);
+  if (!cycle) return;
+  if (!confirm(`Delete cycle "${cycle.label}"? This cannot be undone.`)) return;
+  cycles = cycles.filter(c => c.id !== currentCycleId);
+  currentCycleId = cycles.length ? cycles[cycles.length - 1].id : null;
+  saveToStorage();
+  renderAll();
+  showToast('Cycle deleted');
+}
+
+function exportCycleJSON() {
+  const cycle = cycles.find(c => c.id === currentCycleId);
+  if (!cycle) return;
+  const json = JSON.stringify(cycle, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `cgm-${cycle.stats.dateStart}-to-${cycle.stats.dateEnd}.json`;
+  a.click();
+}
+
+// ═══════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = loadFromStorage();
+  if (saved && saved.length) {
+    cycles = saved;
+  } else {
+    // Pre-seed with Cycle 1 (baseline) data so the page is useful immediately
+    cycles = [PRESET_CYCLE];
+    saveToStorage();
+    showToast('Cycle 1 baseline data pre-loaded');
+  }
+  currentCycleId = cycles[cycles.length - 1].id;
+  renderAll();
+});
+</script>
+</body>
+</html>
