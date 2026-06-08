@@ -2050,7 +2050,15 @@ function savePantry() {
 function loadPantry() {
   const saved = localStorage.getItem(PANTRY_LS_KEY);
   if (saved) {
-    try { pantryChecked = new Set(JSON.parse(saved)); return; } catch(e) {}
+    try {
+      pantryChecked = new Set(JSON.parse(saved));
+      // Auto-add any new pantry items that weren't in the saved list
+      // (new ingredients added to PANTRY_GROUPS will always default to checked)
+      let added = false;
+      allPantryKeys().forEach(k => { if (!pantryChecked.has(k)) { pantryChecked.add(k); added = true; } });
+      if (added) savePantry();
+      return;
+    } catch(e) {}
   }
   pantryChecked = allPantryKeys();
   savePantry();
