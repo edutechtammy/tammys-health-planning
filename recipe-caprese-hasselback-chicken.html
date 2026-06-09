@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caprese Hasselback Chicken</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Caprese Hasselback Chicken",
+    "description": "Chicken breasts sliced accordion-style and stuffed with fresh homemade mozzarella, fresh tomatoes, and basil, then baked and finished with EVOO and a splash of plain balsamic vinegar. The Hasselback technique exposes maximum surface area for crust development while keeping the cheese pockets insulated — the mozzarella melts into the cuts without losing into the pan. Balsamic glaze (reduced, concentrated sugar) is replaced with a small drizzle of unreduced balsamic vinegar, which preserves acetic acid, delivers a clean vinegary finish, and carries negligible glucose impact. Chicken breast provides ~250–350mg carnosine per serving, directly supporting the methylglyoxal-scavenging protocol. The tomato + mozzarella calcium pairing is fully compatible — fresh tomatoes are among the lowest-oxalate vegetables, making calcium co-presence irrelevant to stone risk here.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT12M",
+    "cookTime": "PT25M",
+    "totalTime": "PT37M",
+    "recipeCategory": "Main",
+    "recipeCuisine": "Italian / Mediterranean",
+    "keywords": "caprese chicken, hasselback chicken, gluten-free, low oxalate, APOE4, MTHFR, dawn phenomenon, fresh mozzarella, carnosine, balsamic",
+    "recipeIngredient": [
+      "2 chicken breasts (~180–200g each)",
+      "100g fresh homemade mozzarella, sliced ~5mm thick",
+      "1 medium vine tomato, sliced ~5mm thick",
+      "8–10 fresh basil leaves (plus extra to serve)",
+      "2 cloves garlic, crushed and rested 5 minutes (allicin activation)",
+      "2 tbsp extra virgin olive oil",
+      "½ tsp dried Italian seasoning (GF)",
+      "¼ tsp sea salt + black pepper",
+      "1–2 tsp plain balsamic vinegar — NOT balsamic glaze (for finish only)",
+      "Optional: pinch of chilli flakes"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate garlic first",
+        "text": "Crush both garlic cloves and set aside for 5 minutes. This produces allicin. Don't skip the wait or add directly to heat."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Hasselback the chicken",
+        "text": "Place each chicken breast smooth-side up on a cutting board. Using a sharp knife, make deep cuts across the breast at ~2cm intervals — cutting about two-thirds of the way through but NOT all the way through the bottom. You should have 5–7 pockets per breast. Pat dry and season all over with Italian seasoning, salt, and pepper."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Stuff the pockets",
+        "text": "Into each pocket, alternate a slice of mozzarella, a slice of tomato, and a basil leaf. The pocket order: mozzarella → tomato → basil → mozzarella → tomato → basil, repeating to fill. Press down gently so everything sits snugly in the cut. The tomato and basil will compress; the mozzarella will hold the pocket open during baking."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Sear the base",
+        "text": "Heat 1 tbsp EVOO in an oven-safe stainless or cast iron pan over medium-high. Sear the chicken breast-side down for 2–3 minutes until golden — this sets the base crust and seals the bottom before baking. Flip carefully."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add garlic and bake",
+        "text": "Scatter the 5-minute activated garlic around the chicken in the pan. Drizzle 1 tbsp EVOO over the stuffed tops. Transfer to a preheated oven at 200°C (180°C fan) and bake 20–22 minutes until the chicken is cooked through (74°C internal at the thickest point between cuts) and the mozzarella is visibly melted and lightly golden at the edges."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish and serve",
+        "text": "Remove from oven. Rest 3 minutes. Drizzle ½–1 tsp plain balsamic vinegar (not glaze) over each breast — the heat of the chicken will warm it just enough to bloom the aroma without cooking off the acetic acid. Scatter fresh basil leaves and chilli flakes if using. Serve immediately — the mozzarella sets quickly as it cools."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #2d6a4f; --green-mid: #40916c; --green-light: #d8f3dc;
+      --green-pale:  #f0faf2; --amber: #fff8e1; --amber-dark: #78350f;
+      --amber-border:#fde68a; --text: #1e2d24; --muted: #5a7263;
+      --border: #b7ddc4; --shadow: 0 2px 12px rgba(45,106,79,.12);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-photo { width: 100%; max-height: none; object-fit: contain; display: block; background: var(--green-light); }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 80px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low { color: #27ae60; } .ox-zero { color: #95a5a6; }
+    .ing-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--green-mid); margin: .7rem 0 .3rem; border-top: 1px solid var(--green-light); padding-top: .5rem; }
+    .ing-section-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+    .callout-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .callout-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .75rem; font-weight: 700; }
+    .callout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: .65rem; }
+    .callout-card { border-radius: 10px; padding: .65rem .85rem; font-size: .82rem; line-height: 1.5; border: 1px solid var(--border); }
+    .callout-card strong { display: block; font-size: .8rem; margin-bottom: .2rem; }
+    .cc-a { background: #e8f5e9; } .cc-a strong { color: #1b5e20; }
+    .cc-b { background: #e3f2fd; } .cc-b strong { color: #0d47a1; }
+    .cc-c { background: #fff8e1; } .cc-c strong { color: #78350f; }
+    .cc-d { background: #f3e5f5; } .cc-d strong { color: #6a1b9a; }
+    .cc-e { background: #fce4ec; } .cc-e strong { color: #880e4f; }
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+    .pairing-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .pairing-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
+    .pairing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .65rem; }
+    .pairing-card { background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .6rem .85rem; font-size: .82rem; line-height: 1.5; }
+    .pairing-card strong { display: block; color: var(--green-dark); font-size: .79rem; margin-bottom: .15rem; }
+    .mealboard-callout { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 12px; padding: .9rem 1.2rem; font-size: .85rem; color: #1565c0; line-height: 1.6; margin-bottom: 1.5rem; }
+    .mealboard-callout strong { color: #0d47a1; }
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+    .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .mechanism-strip strong { color: var(--green-dark); }
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:var(--nutr-head-bg,#f8f8f8); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--nutr-head-color,#333); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted,#666); }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:.5rem; padding:1rem 1.2rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:var(--text,#222); }
+    .nutr-why  { font-size:.7rem; color:var(--muted,#666); font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:var(--nutr-amount-color,#555); white-space:nowrap; }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill  { height:100%; border-radius:20px; }
+    .nutr-pct   { font-size:.69rem; color:var(--muted,#666); margin-top:.05rem; }
+    .nutr-note  { font-size:.72rem; color:var(--muted,#666); padding:.5rem 1.2rem .9rem; border-top:1px solid var(--border); line-height:1.5; }
+    .swap-banner { background: #e8f5e9; border: 1.5px solid #a5d6a7; border-radius: 12px; padding: .8rem 1.2rem; font-size: .85rem; color: #1b5e20; line-height: 1.65; margin-bottom: 1.2rem; }
+    .swap-banner strong { color: #1b5e20; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="exercise-protocol.html">🏃 Exercise</a>
+  <a href="cgm-tracker.html">📡 CGM</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="mealboard-callout">
+    <strong>📲 Mealboard import:</strong> In Mealboard, use <em>Add Recipe → From Website</em> and paste this page's URL. Yield = 2 servings. One pan — sear on stovetop, finish in oven. Active time ~12 min prep + 25 min oven.
+  </div>
+
+  <div class="swap-banner">
+    ✅ <strong>One protocol swap from the classic:</strong> Balsamic <em>glaze</em> (reduced = concentrated sugar, significant GI spike) is replaced with a small drizzle of plain <em>unreduced</em> balsamic vinegar at serving. Acetic acid intact, vinegary finish preserved, glucose impact negligible. All other classic Caprese ingredients are fully protocol-compatible. Fresh tomatoes are among the lowest-oxalate vegetables — the mozzarella calcium co-presence is irrelevant to stone risk here.
+  </div>
+
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍗 🍅 🧀</div>
+    <div class="recipe-hero-body">
+      <h1>Caprese Hasselback Chicken</h1>
+      <p>Chicken breasts sliced accordion-style and stuffed with fresh homemade mozzarella, vine tomato, and basil — seared on the stovetop then finished in the oven so the mozzarella melts into the pockets while the surface crisps. Finished with a splash of plain balsamic vinegar and fresh basil. The Hasselback technique exposes maximum surface area for flavour development while keeping the cheese insulated from direct heat, so it melts cleanly without running out. Every ingredient is already in the protocol — this is a presentation technique as much as a recipe. Chicken breast delivers ~250–350mg carnosine per serving, directly supporting the AGE supplement stack.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep: 12 min</span>
+        <span>🔥 Sear: 3 min · Bake: 22 min</span>
+        <span>⏳ Total: ~37 min</span>
+        <span>🍽 Yield: 2 servings</span>
+        <span>🫕 One oven-safe pan</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Negligible GI — protein + fat; trace balsamic vinegar only
+      </div>
+    </div>
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 of 2) <span>estimates · chicken breast + homemade mozzarella + tomato</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— glucose stability · satiety</span></span>
+          <span class="nutr-amount">~48 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:60%;background:#16a34a"></div></div>
+        <div class="nutr-pct">60% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Carnosine <span class="nutr-why">— AGE inhibition · MTHFR glyoxalase bypass</span></span>
+          <span class="nutr-amount">~250–350 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:35%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">~35% of supplement-equivalent dose from food — chicken breast is the primary dietary carnosine source</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~100 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:23%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">23% of daily target — pair with 2 eggs at brunch to hit daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Calcium <span class="nutr-why">— kidney stone · gut oxalate binding</span></span>
+          <span class="nutr-amount">~220 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:22%;background:#0284c7"></div></div>
+        <div class="nutr-pct">22% of daily target — from homemade mozzarella</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">C15:0 (odd-chain fatty acid) <span class="nutr-why">— Fatty Liver · Pre-diabetes</span></span>
+          <span class="nutr-amount">meaningful</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:30%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">From homemade A2 mozzarella — C15:0 is concentrated in the fat fraction, metabolically distinct from C16:0</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Selenium <span class="nutr-why">— antioxidant · thyroid</span></span>
+          <span class="nutr-amount">~40 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:73%;background:#0891b2"></div></div>
+        <div class="nutr-pct">73% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Lycopene <span class="nutr-why">— hepatoprotective · antioxidant</span></span>
+          <span class="nutr-amount">~3–5 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:40%;background:#dc2626"></div></div>
+        <div class="nutr-pct">From vine tomatoes — absorption increased by the EVOO fat present in the same dish</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚗️ <strong>Carnosine note:</strong> Chicken breast (~180–200g per serving) delivers ~250–350mg carnosine, bypassing the impaired glyoxalase pathway (MTHFR → low glutathione → hobbled glyoxalase) independently of glutathione status. The oven-bake finish is gentler than high-heat grilling and preserves more carnosine. <strong>Lycopene note:</strong> tomato lycopene is fat-soluble and absorbed significantly better when consumed with dietary fat — the EVOO in this dish directly enhances lycopene uptake from the tomato slices.</div>
+  </div>
+
+  <!-- MECHANISM CALLOUTS -->
+  <div class="callout-panel">
+    <h3>🔬 Why each ingredient earns its place</h3>
+    <div class="callout-grid">
+      <div class="callout-card cc-a">
+        <strong>Homemade mozzarella — not store-bought</strong>
+        Your homemade A2 Farm Fresh mozzarella provides C15:0, sphingomyelin/MFGM phospholipids, casein phosphopeptides (gut oxalate binding), and K2 (fermentation-generated). Commercial store mozzarella is typically A1 milk, lower C15:0, and often lower K2. The distinction matters most for the APOE4 and fatty liver conditions. Fresh mozzarella also has zero lactose and near-zero glycemic impact.
+      </div>
+      <div class="callout-card cc-b">
+        <strong>Fresh tomatoes — low oxalate, not a concern</strong>
+        Fresh vine tomatoes contain ~5mg oxalate per medium tomato — among the lowest of any vegetable. Sun-dried tomatoes concentrate oxalate; fresh tomatoes do not. The tomato + mozzarella calcium pairing has zero kidney stone implication here. Lycopene from cooked or heated tomatoes is more bioavailable than raw, but the slight oven warmth from the bake window provides enough heating to enhance absorption without "cooking" the tomato to mush.
+      </div>
+      <div class="callout-card cc-c">
+        <strong>Plain balsamic vinegar — not glaze</strong>
+        Balsamic glaze is reduced balsamic — the water evaporates and the sugar concentrates dramatically (a typical glaze is ~50% sugar by weight). A full drizzle could add 10–15g sugar per serving, producing a meaningful spike. Plain unreduced balsamic vinegar at ½–1 tsp per serving delivers the characteristic dark vinegar flavour and acetic acid (same mechanism as ACV) at negligible glucose cost. The drizzle is applied post-oven so the acetic acid is not cooked off.
+      </div>
+      <div class="callout-card cc-d">
+        <strong>Activated garlic — 5-min crush before heat</strong>
+        Allicin forms when alliinase enzyme contacts air after crushing. Adding garlic directly to a hot pan destroys alliinase before allicin can form. The sear step adds the activated garlic to the pan around the chicken (not directly onto high heat) — the pan comes off full sear temperature at that point and the garlic goes into a hot-but-not-blazing environment. The oven finish continues at a lower temperature, completing allicin delivery.
+      </div>
+      <div class="callout-card cc-e">
+        <strong>Hasselback technique — why it matters culinarily</strong>
+        The accordion cuts serve two purposes: they increase surface area for seasoning and crust development, and they create insulated pockets that hold the mozzarella without a foil tent or cover. Mozzarella melts at ~55°C — the pocket geometry keeps the cheese in contact with the chicken while the outer surface reaches full browning temperature. Without the pockets, the cheese would melt onto the pan before the interior reaches temperature.
+      </div>
+      <div class="callout-card cc-a">
+        <strong>EVOO + tomato — lycopene bioavailability</strong>
+        Lycopene is a fat-soluble carotenoid. Consuming tomato without dietary fat leaves ~5–10% of lycopene absorbed. In the presence of EVOO, absorption rises to ~40–60%. The EVOO in this dish is present both in the pan and drizzled over the tops before baking — the tomato slices are cooking in a fat-rich environment throughout, maximising the hepatoprotective lycopene delivery.
+      </div>
+    </div>
+  </div>
+
+  <div class="test-bar">
+    <p>This dish is protein + fat with trace carbohydrate (tomato + a few drops of balsamic). GI impact is negligible standalone. If serving over millet or with GF bread, test the full plate combination.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <div class="recipe-layout">
+
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 2 servings</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Chicken</li>
+          <li class="ing-item"><span class="ing-amount">2</span><span class="ing-name">Chicken breasts (~180–200g each)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">½ tsp</span><span class="ing-name">Italian seasoning (GF)</span><span class="ing-note ox-low">🟢 low</span></li>
+          <li class="ing-item"><span class="ing-amount">¼ tsp</span><span class="ing-name">Sea salt + black pepper</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">2 tbsp</span><span class="ing-name">EVOO (1 for sear, 1 for tops)</span><span class="ing-note ox-zero">⬜ zero</span></li>
+
+          <li class="ing-section-label">Stuffing</li>
+          <li class="ing-item"><span class="ing-amount">100g</span><span class="ing-name">Fresh homemade mozzarella, sliced ~5mm</span><span class="ing-note ox-zero">⬜ zero</span></li>
+          <li class="ing-item"><span class="ing-amount">1 medium</span><span class="ing-name">Vine tomato, sliced ~5mm</span><span class="ing-note ox-low">🟢 low</span></li>
+          <li class="ing-item"><span class="ing-amount">8–10</span><span class="ing-name">Fresh basil leaves</span><span class="ing-note ox-low">🟢 low</span></li>
+          <li class="ing-item"><span class="ing-amount">2 cloves</span><span class="ing-name">Garlic, crushed (5-min rest — allicin)</span><span class="ing-note ox-low">🟢 low</span></li>
+
+          <li class="ing-section-label">Finish</li>
+          <li class="ing-item"><span class="ing-amount">1–2 tsp</span><span class="ing-name">Plain balsamic vinegar — NOT glaze</span><span class="ing-note ox-zero">⬜ trace</span></li>
+          <li class="ing-item"><span class="ing-amount">handful</span><span class="ing-name">Fresh basil (to serve)</span><span class="ing-note ox-low">🟢 low</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span class="ing-name">Chilli flakes (optional)</span><span class="ing-note ox-zero">⬜ trace</span></li>
+        </ul>
+        <div style="margin-top:.9rem;background:#fce4ec;border-radius:8px;padding:.55rem .8rem;font-size:.76rem;color:#880e4f;line-height:1.55">
+          <strong>⚠️ Balsamic glaze ≠ balsamic vinegar.</strong> Glaze is reduced and ~50% sugar by weight. Use only plain unreduced balsamic vinegar, applied after the oven, not before or during cooking. ½–1 tsp per breast is sufficient — you want flavour accent, not a sauce.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Activate garlic first — start the 5-min clock</div>
+              Crush both garlic cloves. Set aside for <strong>5 minutes</strong> before they go near heat. Start the clock before doing anything else. Preheat oven to <strong>200°C (180°C fan)</strong> now.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Hasselback the chicken</div>
+              Place each breast smooth-side up. Make deep cuts across the breast every <strong>2cm</strong> — cutting ~⅔ of the way through, <em>not</em> all the way. 5–7 cuts per breast. Season all over (including into the cuts) with Italian seasoning, salt, and pepper.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Stuff the pockets</div>
+              Into each cut: <strong>mozzarella slice → tomato slice → basil leaf</strong>, repeating to fill. Press down gently. The mozzarella should be slightly proud of the cut — it will settle as it melts. Don't overstuff or the pockets won't close during searing.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Sear the base</div>
+              Heat 1 tbsp EVOO in an oven-safe stainless or cast iron pan over medium-high. Place chicken <strong>stuffed-side up</strong> — don't flip yet. Sear the bottom for <strong>2–3 minutes</strong> until golden. The stuffed top faces up throughout — you're building the base crust only.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Add garlic and bake</div>
+              Scatter the activated garlic around the chicken (not directly on top). Drizzle 1 tbsp EVOO over the stuffed tops. Transfer the pan directly to the oven. Bake <strong>20–22 minutes</strong> until internal temp reads <strong>74°C</strong> at the thickest point between cuts, and the mozzarella is visibly melted and lightly golden at the edges.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Rest, finish, serve</div>
+              Rest 3 minutes out of the oven. Drizzle <strong>½–1 tsp plain balsamic vinegar</strong> over each breast — the residual heat blooms the aroma without cooking off the acetic acid. Scatter fresh basil and chilli flakes. Serve immediately — mozzarella sets as it cools.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mechanism-strip">
+      <strong>Mechanism summary:</strong> EVOO sear (MUFA → APOE4 LDL oxidation protection) · activated garlic (allicin → AMPK, glutathione S-transferase, hepatic lipogenesis inhibition) · homemade A2 mozzarella (C15:0, K2, casein CPP, sphingomyelin/MFGM) · <strong>chicken breast → ~250–350mg carnosine/serving = primary dietary AGE inhibitor, glyoxalase-independent</strong> · tomato lycopene + EVOO = ~40–60% lycopene absorption vs ~5–10% fat-free · plain balsamic vinegar acetic acid (ACV-adjacent, applied post-oven) · oven-bake finish = lower AGE formation than dry high-heat methods
+    </div>
+
+  </div>
+
+  <div class="pairing-panel">
+    <h3>🍽 Meal plan pairings</h3>
+    <div class="pairing-grid">
+      <div class="pairing-card">
+        <strong>🥗 With Mediterranean Chop Chop Salad</strong>
+        The ACV dressing on the salad complements the balsamic vinegar finish on the chicken — both acetic acid sources, different profiles. The salad's cucumbers and bell peppers add crunch contrast to the soft mozzarella pockets.
+      </div>
+      <div class="pairing-card">
+        <strong>🥒 With roasted zucchini</strong>
+        Zero oxalate, negligible GI — roast at 220°C while the chicken bakes. EVOO + garlic on the zucchini mirrors the flavour profile. Both dishes finish in the same oven window.
+      </div>
+      <div class="pairing-card">
+        <strong>🌾 Over millet or quinoa</strong>
+        The pan juices (EVOO + melted mozzarella + tomato) make a natural sauce to spoon over millet. Test the combined plate on CGM if uncertain — the grains are the GI variable here, not the chicken.
+      </div>
+      <div class="pairing-card">
+        <strong>🫙 With tzatziki as a side dip</strong>
+        The yogurt-cucumber-garlic profile of tzatziki pairs cleanly with the Caprese flavours and adds another hit of fermented dairy protein alongside the mozzarella. Serve cold alongside the hot chicken.
+      </div>
+      <div class="pairing-card">
+        <strong>🥬 With sautéed lacinato kale</strong>
+        The same low-oxalate kale from the Tuscan Chicken recipe works here — sauté in EVOO + garlic while the chicken bakes. Vitamin K from the kale complements the K2 from the mozzarella.
+      </div>
+      <div class="pairing-card">
+        <strong>🍳 Next-day cold — sliced on greens</strong>
+        Cold Caprese Hasselback chicken sliced across the cuts makes a visually striking cold plate. The mozzarella pockets hold their shape when cold. Drizzle with fresh EVOO and a squeeze of lemon for a quick next-day lunch.
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-panel">
+    <h3>🔬 Protocol notes</h3>
+    <ul>
+      <li><strong>Why the cuts go ⅔ through, not all the way:</strong> A full cut creates individual medallion-style slices that fall apart when you stuff and move them. The uncut bottom third acts as a hinge that holds the breast together as one piece through searing, baking, plating, and slicing at the table. If you accidentally cut through, the breast still tastes identical — it just won't present as neatly.</li>
+      <li><strong>Mozzarella — fresh vs low-moisture:</strong> Low-moisture (block) mozzarella holds its shape longer in the oven but produces a rubbery texture in the pockets. Fresh homemade mozzarella melts more quickly (and more beautifully) — this is the desirable outcome. The mozzarella should be fully melted and creamy in the pockets by the time the chicken is done. If yours is running out of the pockets, the slices are too thick — aim for 4–5mm, not thicker.</li>
+      <li><strong>Oven-safe pan requirement:</strong> This recipe requires a pan that can go from stovetop to oven — stainless steel, cast iron, or carbon steel. Non-stick pans with plastic handles cannot go in a 200°C oven. If you only have non-stick, complete the sear and then transfer the chicken to a parchment-lined baking tray for the oven step (the pan juices won't transfer, but the result is comparable).</li>
+      <li><strong>Balsamic vinegar sourcing:</strong> Any plain balsamic vinegar (not labelled "glaze", "cream", or "reduction") is correct. Modena DOP is the traditional Italian variety with a clean sweet-acid balance. Avoid anything thick enough to coat a spoon at room temperature — that is a reduction regardless of label. Applied at ½–1 tsp per serving, the glucose contribution is under 1g.</li>
+      <li><strong>Tomato variety:</strong> Vine-ripened tomatoes have the best flavour and highest lycopene for this recipe. Roma tomatoes also work — their denser flesh holds shape better in the pockets and doesn't release as much water during baking, which reduces steaming inside the cuts. Cherry tomatoes can be halved and used but the pocket geometry is harder to fill evenly.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
