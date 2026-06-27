@@ -223,7 +223,70 @@
   <p>~2-week Lingo sensor cycles · Time-in-range · Spikes &amp; hypo events · Cross-cycle trends tied to each 10% weight-loss milestone</p>
 </header>
 
+
+
 <div class="wrap">
+
+<math xmlns="http://w3.org" display="block">
+  <mi mathvariant="normal">&#x394;</mi>
+  <mi>G</mi>
+  <mo>=</mo>
+  <mo stretchy="false">(</mo>
+  <mi>C</mi>
+  <mo>&#x22C5;</mo>
+  <mi>C</mi>
+  <mi>F</mi>
+  <mo stretchy="false">)</mo>
+  <mo>&#xD7;</mo>
+  <msub>
+    <mi>M</mi>
+    <mrow>
+      <mtext>order</mtext>
+    </mrow>
+  </msub>
+  <mo>&#xD7;</mo>
+  <msub>
+    <mi>M</mi>
+    <mrow>
+      <mtext>time</mtext>
+    </mrow>
+  </msub>
+  <mo>&#xD7;</mo>
+  <msub>
+    <mi>M</mi>
+    <mrow>
+      <mtext>recipe</mtext>
+    </mrow>
+  </msub>
+  <mo>&#xD7;</mo>
+  <msub>
+    <mi>M</mi>
+    <mrow>
+      <mtext>bio</mtext>
+    </mrow>
+  </msub>
+  <mo>&#xD7;</mo>
+  <msub>
+    <mi>M</mi>
+    <mrow>
+      <mtext>activity</mtext>
+    </mrow>
+  </msub>
+</math>
+
+<p>∆G (Target Value): The predicted peak blood sugar rise (change from baseline) in mg/dL</p>
+<p>C (Carbs): Total net carbohydrates in the meal (grams).</p>
+<p>CF (Carb Factor): Your personalized baseline mg/dL rise per gram of carbohydrate under perfect conditions. To calculate this, you need a single ingredient food with precise grams and the carbohydrate count without fiber.</p>
+<p>M<sub>order</sub> (Food Order Multiplier): A fractional discount based on sequencing.</p>
+<p>M<sub>time</sub> (Time of Day / Dawn Phenomenon Multiplier): Adjusts for your diurnal insulin sensitivity.</p>
+<p>M<sub>recipe</sub> (Recipe Structure Multiplier): Adjusts for the state of foods in the meal (liquid, highly processed, raw, etc.).</p>
+<p>M<sub>bio</sub> (Biological Multiplier): Adjusts for lifestyle factors (1 is a perfect day while a higher number is a high stress low sleep day).</p>
+<p>M<sub>activity</sub> (Activity Multiplier): Adjusts for physical activity levels where a 1 is a sedentary day and lower numbers are active days such as 0.8 for a casual 15-minute walk immediately after eating.</p>
+<br/>
+<p>The equation predicts the magnitude of the highest peak, not the exact minute the peak occurs.</p>
+<p>The prediction will be more accurate with fasting blood sugar because the amount of circulating insulin is more stable.</p>
+<br/>
+
 
   <!-- ── IMPORT PANEL ── -->
   <details class="import-panel" id="import-panel">
