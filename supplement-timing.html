@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supplement Timing · Tammy</title>
+<style>
+  :root {
+    --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;--green-pale:#d8f3dc;
+    --amber:#e9c46a;--amber-dark:#f4a261;--sky:#90e0ef;--sky-dark:#0077b6;
+    --purple:#c77dff;--purple-dark:#7b2d8b;--red:#e63946;--red-pale:#fde8ea;
+    --slate:#f8f9fa;--border:#d1e8d5;--text:#1a1a2e;--muted:#6c757d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);font-size:17px;line-height:1.6}
+  /* NAV */
+  nav{background:var(--green-dark);padding:.75rem 1.5rem;display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+  nav a{color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;opacity:.85;transition:opacity .2s}
+  nav a:hover,nav a.active{opacity:1;text-decoration:underline}
+  /* HEADER */
+  header{background:linear-gradient(135deg,var(--green-dark),var(--sky-dark));color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center}
+  header h1{font-size:2rem;margin-bottom:.4rem}
+  header p{font-size:1rem;opacity:.85}
+  /* LAYOUT */
+  main{max-width:1100px;margin:0 auto;padding:2rem 1.2rem 4rem}
+  /* SUPPLEMENT TABLE */
+  .supp-table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:.5rem;table-layout:fixed;background:#fff;border-radius:12px;overflow:hidden}
+  .supp-table th{background:var(--green-dark);color:#fff;padding:.5rem .75rem;text-align:left}
+  .supp-table td{padding:.45rem .75rem;border-bottom:1px solid #e8f0eb;vertical-align:top;word-wrap:break-word;overflow-wrap:break-word}
+  .supp-table tr:nth-child(even) td{background:#f7fbf8}
+  .supp-table .timing{color:var(--sky-dark);font-weight:600;white-space:normal}
+  .supp-table .warn{color:var(--red);font-size:.82rem}
+  .supp-row { cursor: pointer; transition: background .15s; }
+  .supp-row:hover { background: #f9fbe7; }
+  .supp-row.supp-done { background: #e8f5e9; }
+  .supp-row.supp-done td { opacity: .55; text-decoration: line-through; }
+  .supp-row.supp-done .supp-check { opacity: 1; text-decoration: none; font-size: 1.1rem; color: #388e3c; }
+  .supp-check { text-align: center; font-size: 1.1rem; user-select: none; }
+  /* ── Condition target tags ── */
+  .cond-tag{display:inline-block;padding:.1rem .45rem;border-radius:999px;font-size:.72rem;font-weight:700;margin:.1rem .15rem .3rem 0;white-space:nowrap;line-height:1.4}
+  .ct-mthfr{background:#f3e5ff;color:#6b21a8 !important}
+  .ct-apoe4{background:#e0f7fa;color:#0369a1 !important}
+  .ct-nafld{background:#fff3cd;color:#92400e !important}
+  .ct-dp{background:#ffedd5;color:#c2410c !important}
+  .ct-gut{background:#d1fae5;color:#065f46 !important}
+  .ct-stone{background:#dbeafe;color:#1e40af !important}
+  .ct-uti{background:#fee2e2;color:#991b1b !important}
+  /* ── Supplement image tooltip ── */
+  .supp-name-tip{position:relative;border-bottom:1px dashed #6a9a74;cursor:help;white-space:normal}
+  .supp-name-tip .supp-tip-box{
+    display:none;position:fixed;z-index:9999;
+    background:#fff;border:1px solid #c8dfc8;border-radius:8px;
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    padding:6px;text-align:center;pointer-events:none;
+    min-width:480px;max-width:660px
+  }
+  .supp-name-tip .supp-tip-box img{
+    display:block;width:640px;height:640px;object-fit:contain;border-radius:5px
+  }
+  .supp-name-tip .supp-tip-box .supp-tip-label{
+    font-size:.75rem;color:#555;margin-top:4px;line-height:1.3
+  }
+  .supp-name-tip:hover .supp-tip-box{display:block}
+  /* INTRO BOX */
+  .intro-box{background:#fff;border-radius:12px;border:1px solid var(--border);padding:1.2rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(45,106,79,.08)}
+  .intro-box p{margin-bottom:.75rem;color:var(--muted);font-size:.92rem}
+  .controls{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+  .controls p{margin:0;font-size:.93rem;color:#555;flex:1}
+  .btn-clear{background:#ef5350;color:#fff;border:none;border-radius:6px;padding:.4rem 1.1rem;font-size:.9rem;font-weight:700;cursor:pointer;white-space:nowrap}
+  .btn-clear:hover{background:#e53935}
+  .btn-back{background:#fff;color:var(--green-dark);border:2px solid var(--green-mid);border-radius:6px;padding:.4rem 1.1rem;font-size:.9rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;margin-top:1.5rem}
+  .btn-back:hover{background:var(--green-pale)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html">👩‍🍳 Recipes</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="supplement-timing.html" class="active">💊 Supplements</a>
+  <a href="exercise-protocol.html">🏃 Exercise</a>
+  <a href="cgm-tracker.html">📡 CGM</a>
+</nav>
+
+<header>
+  <h1>💊 Supplement Timing Master Table</h1>
+  <p>Daily protocol organized by timing · Check off as you fill your organizer</p>
+</header>
+
+<main>
+
+  <div class="intro-box">
+    <p><strong>⚕️ Medical disclaimer:</strong> This is a suggested schedule — not medical advice. Review with your doctor or pharmacist, especially if adding berberine (glucose effects) or changing anything near surgery for your kidney stone.</p>
+    <div class="controls">
+      <p>✅ Check off each supplement as you add it to your organizer. Hit <strong>Clear All</strong> when done to reset for next week.</p>
+      <button class="btn-clear" onclick="clearSupplChecks()">↺ Clear All — New Week</button>
+    </div>
+  </div>
+
+  <table class="supp-table">
+    <thead>
+      <tr><th style="width:2.2rem;text-align:center">✓</th><th style="width:14%">Supplement</th><th style="width:9%">Dose</th><th style="width:14%">Timing</th><th style="width:14%">With/Without Food</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <!-- ── MORNING ── -->
+      <tr>
+        <td colspan="6" style="background:var(--green-pale);font-weight:700;color:var(--green-dark);padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">☀️ Morning</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td><span class="supp-name-tip">Probiotics (multi-strain)<span class="supp-tip-box"><img src="supplements/probiotics.jpeg" alt="Probiotics"><span class="supp-tip-label">Probiotics (multi-strain)</span></span></span></td>
+        <td>per label</td>
+        <td class="timing">Empty stomach</td>
+        <td>30 min before breakfast</td>
+        <td><span class="cond-tag ct-gut">Celiac · Gut</span> <span class="cond-tag ct-mthfr">MTHFR</span><br>Include L. rhamnosus GG, L. plantarum, S. boulardii</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td><span class="supp-name-tip">Methylfolate + Methylcobalamin (5-MTHF / B12)<span class="supp-tip-box"><img src="supplements/methylfolate-methylcobalamin.jpeg" alt="Methylfolate + Methylcobalamin"><span class="supp-tip-label">Methylfolate + Methylcobalamin (5-MTHF / B12)</span></span></span></td>
+        <td>per label</td>
+        <td class="timing">Morning</td>
+        <td>Sublingual — no food needed</td>
+        <td><span class="cond-tag ct-mthfr">MTHFR</span> <span class="cond-tag ct-apoe4">APOE4</span><br>Combined capsule. Start low on methylfolate; increase if tolerated. Sublingual bypasses gut absorption issues.</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Riboflavin (B2)<span class="supp-tip-box"><img src="supplements/riboflavin.jpg" alt="Riboflavin B2"><span class="supp-tip-label">Riboflavin (B2)</span></span></span></td><td>200–400 mg</td>
+        <td class="timing">Morning</td>
+        <td>With food</td>
+        <td><span class="cond-tag ct-mthfr">MTHFR</span><br>MTHFR enzyme cofactor; urine turns bright yellow — normal</td>
+      </tr>
+
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">P5P (active B6)<span class="supp-tip-box"><img src="supplements/p5p.jpeg" alt="P5P active B6"><span class="supp-tip-label">P5P (active B6)</span></span></span></td>
+        <td>25–50 mg</td>
+        <td class="timing">Morning</td>
+        <td>With food</td>
+        <td><span class="cond-tag ct-stone">Kidney Stones</span> <span class="cond-tag ct-mthfr">MTHFR</span> <span class="cond-tag ct-dp">Pre-diabetes</span><br>Reduces liver oxalate production. <strong>Also a direct AGE inhibitor:</strong> the pyridoxamine form (P5P) occupies lysine residues on proteins before glucose can glycate them, and traps reactive carbonyl intermediates (methylglyoxal, glyoxal) before they form AGEs — making this one of the most targeted anti-glycation supplements available. Particularly relevant given MTHFR-impaired glutathione clearance of methylglyoxal. P5P was already in the protocol for oxalate and MTHFR reasons; the anti-AGE effect is a meaningful additional benefit at the same dose.</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Vitamin D3<span class="supp-tip-box"><img src="supplements/vitamin-d3.jpeg" alt="Vitamin D3"><span class="supp-tip-label">Vitamin D3</span></span></span></td><td>2000–5000 IU</td>
+        <td class="timing">Morning</td>
+        <td>With fat (breakfast)</td><td><span class="cond-tag ct-apoe4">APOE4</span> <span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-gut">Celiac · Gut</span><br>Test levels; target 50–70 ng/mL</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Vitamin K2 (MK-7)<span class="supp-tip-box"><img src="supplements/vitamin-k2.jpeg" alt="Vitamin K2 MK-7"><span class="supp-tip-label">Vitamin K2 (MK-7)</span></span></span></td><td>100–200 mcg</td>
+        <td class="timing">Morning</td>
+        <td>With fat (breakfast)</td>
+        <td><span class="cond-tag ct-apoe4">APOE4</span><br>Take with D3; directs calcium to bones not arteries</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Lion's Mane<span class="supp-tip-box"><img src="supplements/lions-mane.jpeg" alt="Lion's Mane"><span class="supp-tip-label">Lion's Mane</span></span></span></td>
+        <td>500–1000 mg</td>
+        <td class="timing">Morning</td>
+        <td>With food</td>
+        <td><span class="cond-tag ct-apoe4">APOE4</span><br>BDNF support; APOE4 protocol</td>
+      </tr>
+      <!-- ── FOOD AS SUPPLEMENT ── -->
+      <tr>
+        <td colspan="6" style="background:#fef3c7;font-weight:700;color:#78350f;padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">☕ Food-as-Supplement — Therapeutic Doses of Specific Foods</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td>Black Coffee (decaf)</td>
+        <td>1–2 cups</td><td class="timing">Between brunch &amp; dinner (after 9–10 AM)</td>
+        <td>Black only — no milk or sugar</td>
+        <td><span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-dp">Pre-diabetes</span><br><strong>Target:</strong> 100% Arabica medium roast decaf, filtered (drip or pour-over — not French press). Recommended brands: Starbucks Decaf Pike Place, Newman's Own Organic Decaf, or Folgers Simply Smooth Decaf. <strong>Why Arabica:</strong> significantly higher chlorogenic acid content than Robusta blends. <strong>Why medium roast:</strong> dark roast degrades polyphenols — medium preserves the therapeutic compounds. <strong>Why filtered:</strong> French press retains cafestol, a diterpene that raises LDL cholesterol — relevant for APOE4 where LDL oxidation is an elevated risk. <strong>Why decaf to start:</strong> the liver benefit is polyphenol-driven, not caffeine-driven — decaf delivers it fully. Caffeine also amplifies cortisol during the morning peak, which worsens DP. <strong>Mechanism:</strong> chlorogenic acids reduce hepatic lipogenesis (fat production in the liver) and improve hepatocyte insulin signalling — directly addressing both fatty liver accumulation and Dawn Phenomenon root cause. Multiple large prospective studies show 2 cups/day associated with reduced liver fat, lower ALT/AST, and reduced NAFLD fibrosis progression. <strong>Black only</strong> — milk blunts polyphenol absorption. A pinch of Ceylon cinnamon stirred in is an acceptable addition (adds GLUT4 benefit). <span class="warn">⚠️ Start with half a cup and assess tolerance before moving to a full cup.</span></td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td>MCT Oil</td>
+        <td>1–2 tsp → 1 tbsp</td>
+        <td class="timing">Stirred into coffee (between brunch &amp; dinner)</td>
+        <td>In coffee — do not take on empty stomach alone</td>
+        <td><span class="cond-tag ct-apoe4">APOE4</span> <span class="cond-tag ct-dp">Pre-diabetes</span><br>Stir into your decaf coffee between meals. MCTs bypass normal fat digestion and go straight to the liver, which converts them to ketones within minutes. Those ketones cross the blood-brain barrier immediately and fuel the brain directly. For APOE4 specifically, this addresses a structural deficit: APOE4 impairs the brain's glucose uptake in certain regions, leaving neurons underfueled. Ketones bypass that impaired glucose pathway entirely and feed those same neurons through a different route. Adding MCT oil to coffee also slows caffeine absorption (if you later transition to regular decaf with some caffeine) and blunts any cortisol response. <strong>Start with 1 tsp</strong> and increase over 2 weeks to avoid GI upset — too much too fast causes cramping and loose stools. Build to 1 tbsp over 2–3 weeks. The "whooshing" or warm mental clarity sensation some people notice is the ketone conversion happening.</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td>Ginger (fresh / ginger bug liquid)</td>
+        <td>1–2 tsp fresh grated or 2–4 tbsp bug liquid in cooking</td>
+        <td class="timing">In cooking at any meal; bug liquid as cooking splash</td>
+        <td>In food — not a separate supplement</td>
+        <td><span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-dp">Pre-diabetes</span><br>Gingerols activate AMPK — the same cellular energy pathway targeted by berberine — suppressing hepatic glucose output and promoting fat oxidation inside hepatocytes. This makes ginger directly relevant to both fatty liver and Dawn Phenomenon via a complementary (not redundant) pathway to berberine. Anti-inflammatory: gingerols and shogaols inhibit TNF-α, IL-6, and NF-κB — the same inflammatory signals that worsen insulin receptor signalling in the liver. Prokinetic: ginger regulates gastric emptying, smoothing the glucose absorption curve and reducing post-meal spikes. <strong>Fresh vs fermented (ginger bug):</strong> fermentation converts some gingerols to shogaols (more potent anti-inflammatory) and adds live Lactobacillus (microbiome/GLP-1 signalling) — the fermented form is slightly more beneficial overall. <strong>Ginger bug used as cooking liquid</strong> (splashed into grain cooking water, stirred into marinades, added to soups) delivers the therapeutic benefit without residual sugar concern. <strong>Ginger beer/ale from the bug:</strong> run a food response test before drinking regularly — fermentation time determines how much residual sugar remains. <span class="warn">⚠️ At culinary doses (not supplement doses) no significant drug interactions. At high supplement doses (&gt;4g/day) may mildly potentiate blood thinners — not relevant at cooking amounts.</span></td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td>Turmeric + Black Pepper</td>
+        <td>¼–1 tsp turmeric + pinch black pepper</td>
+        <td class="timing">In cooking at any meal — must be with a calcium source</td>
+        <td>With calcium-containing food (dairy, tofu)</td>
+        <td><span class="cond-tag ct-apoe4">APOE4</span> <span class="cond-tag ct-nafld">Fatty Liver</span><br>Curcumin inhibits amyloid-β aggregation and tau phosphorylation (APOE4 neuroprotection) and suppresses neuroinflammation via NF-κB. For fatty liver: multiple RCTs show curcumin reduces ALT/AST, hepatic fat, and inhibits hepatic stellate cell activation (the fibrosis pathway). <strong>Black pepper is mandatory:</strong> piperine raises curcumin bioavailability by ~2000% by blocking first-pass liver metabolism. Without it, most curcumin is excreted unused. Fat (EVOO, avocado) also improves absorption — golden paste (turmeric + pepper + EVOO) is the ideal base. <span class="warn">⚠️ Moderate-high oxalate (~10–15 mg/tsp): ALWAYS consume with a calcium-containing food at the same meal — calcium binds oxalate in the gut before absorption. Do not take as a standalone capsule away from food.</span></td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td>Ceylon Cinnamon</td>
+        <td>½–1 tsp</td>
+        <td class="timing">Bedtime (in yogurt or A2 milk) and/or with meals</td>
+        <td>In food — not separate</td>
+        <td><span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-nafld">Fatty Liver</span><br>GLUT4 transporter activation improves insulin sensitivity via a completely different pathway from ginger (AMPK) and berberine (AMPK) — making it genuinely additive. Multiple RCTs show fasting glucose reductions of 10–29% with consistent use. For fatty liver: cinnamon reduces hepatic triglyceride accumulation and improves hepatocyte insulin signalling. <strong>The bedtime dose is the highest-value timing for DP</strong> — ½–1 tsp stirred into yogurt before bed blunts the overnight hepatic glucose release during the exact DP window. <span class="warn">⚠️ MUST be Ceylon cinnamon (Sri Lanka label). Cassia cinnamon (generic grocery store "cinnamon") contains high coumarin which is directly liver-toxic at daily doses. Do not substitute.</span></td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td>Garlic (fresh, crushed)</td>
+        <td>2–3 cloves</td>
+        <td class="timing">In cooking at any meal — crush/chop 5 min before heating</td>
+        <td>In food — low oxalate, use freely</td><td><span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-mthfr">MTHFR</span><br>Allicin (formed when garlic is crushed/chopped) activates AMPK via a distinct molecular entry point from ginger and berberine — the three are complementary at a systems level. Sulfur compounds (diallyl disulfide) induce phase II liver detoxification enzymes, particularly glutathione S-transferase, boosting glutathione synthesis. For MTHFR where glutathione recycling is already impaired, this is a meaningful compensatory gain. For fatty liver: allicin inhibits hepatic lipogenesis in human NAFLD trials. For DP: AMPK activation reduces fasting glucose. <span class="warn">⚠️ Preparation is critical: crush or chop first, wait 5 minutes, THEN add to pan. Immediate heat deactivates alliinase (the enzyme that makes allicin). Whole roasted garlic has a different — milder — compound profile.</span></td></tr>
+      <!-- ── MEAL-ASSOCIATED ── -->
+      <tr>
+        <td colspan="6" style="background:#fff8e1;font-weight:700;color:#7a5c00;padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">🍽️ Meal-Associated</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Femositol — Myo-Inositol + D-Chiro-Inositol (Tier Therapeutics)<span class="supp-tip-box"><img src="supplements/femositol.jpeg" alt="Femositol"><span class="supp-tip-label">Femositol (Tier Therapeutics)</span></span></span></td>
+        <td>per label (typically 2–4g myo / 40:1 ratio)</td>
+        <td class="timing">Split: morning + evening/bedtime</td>
+        <td>With food</td>
+        <td><span class="cond-tag ct-dp">Pre-diabetes</span><br>Insulin second messenger support — restores intracellular insulin signaling so cells respond to insulin that's already present rather than needing more. Directly addresses Dawn Phenomenon by improving the liver's response to insulin's overnight "stop releasing glucose" signal. Works via a completely different pathway than Berberine (AMPK) — genuinely complementary, not redundant. The bedtime dose is the most relevant for DP. 40:1 myo:D-chiro ratio mirrors physiological tissue ratio.</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Omega-3 (EPA+DHA)<span class="supp-tip-box"><img src="supplements/omega3.jpeg" alt="Omega-3 EPA+DHA"><span class="supp-tip-label">Omega-3 (EPA+DHA)</span></span></span></td><td>2–3 g</td>
+        <td class="timing">With largest meal</td>
+        <td>With food</td>
+        <td><span class="cond-tag ct-apoe4">APOE4</span> <span class="cond-tag ct-nafld">Fatty Liver</span><br>Reduces fishy burps; critical for APOE4</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">Vitamin C<span class="supp-tip-box"><img src="supplements/vitamin-c.jpeg" alt="Vitamin C"><span class="supp-tip-label">Vitamin C</span></span></span></td><td>≤500 mg</td><td class="timing">With any meal</td><td>With food</td><td><span class="cond-tag ct-stone">Kidney Stones</span><br><span class="warn">⚠️ Do NOT exceed 500 mg — metabolises to oxalate</span></td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">Milk Thistle — Silymarin 240 mg (Oxyenergy)<span class="supp-tip-box"><img src="supplements/milk-thistle.jpeg" alt="Milk Thistle Silymarin"><span class="supp-tip-label">Milk Thistle — Silymarin 240 mg (Oxyenergy)</span></span></span></td><td>1 capsule (240 mg silymarin)</td><td class="timing">Breakfast + main meal — 2 capsules daily</td><td>With food containing fat — egg yolk at breakfast, Omega-3 capsule at main meal (silymarin is fat-soluble; absorption increases substantially with dietary fat)</td><td><span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-mthfr">MTHFR</span><br>Primary hepatoprotective. Silymarin actively regenerates liver cells, reduces hepatic inflammation, inhibits fibrosis progression, and upregulates glutathione production (Phase II detox master antioxidant). Directly relevant to fatty liver recovery. <strong>MTHFR synergy:</strong> supports Phase II liver detox conjugation which is methylation-dependent — addresses the same methylation-liver pathway as Methylfolate/Methylcobalamin from a different angle. <strong>Bonus ingredients in this formula:</strong> Inositol (adds to Femositol's insulin signalling support — safe overlap, water-soluble); Vitamin C (Phase II detox cofactor + glutathione regeneration — note total Vitamin C will be higher on days both C supplements are taken); Pueraria (kudzu root — additional hepatoprotective and mild blood sugar support via phytoestrogenic isoflavones). <strong>CYP450 note:</strong> silymarin mildly inhibits CYP3A4 and CYP2C9 — inform prescribing doctor if ever prescribed statins, certain antibiotics, or blood thinners. <strong>Gluten:</strong> vegetarian capsules — confirm label "Other Ingredients" for GF status on any new lot. 90 capsules = 45-day supply at 2/day.</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">Apple Cider Vinegar (capsule)<span class="supp-tip-box"><img src="supplements/acv-capsule.jpg" alt="ACV capsule"><span class="supp-tip-label">ACV Capsule</span></span></span></td><td>1 capsule (2,010mg / 20% acetic acid)</td><td class="timing">15–20 min before dinner — take when you start cooking</td><td>Capsule form — no tooth enamel risk</td><td><span class="cond-tag ct-dp">Pre-diabetes</span><br>Acetic acid inhibits alpha-amylase and alpha-glucosidase (starch-to-glucose enzymes), slowing glucose absorption from dinner and lowering next-morning fasting glucose. <strong>Capsule timing:</strong> take 15–20 min before eating to allow the capsule to dissolve and acetic acid to be present in the stomach before food arrives — taking it when you start cooking naturally lands in this window. <strong>Why capsule over liquid:</strong> at 62, enamel protection outweighs any marginal benefit of liquid form — the acetic acid dose is standardized and third-party tested, making capsule form more reliable anyway. <strong>Product:</strong> Toniiq ACV Capsules — 2,010mg, 20% acetic acid standardized, third-party lab tested. The cayenne addition is a bonus (capsaicin independently improves insulin sensitivity and slows gastric emptying via a separate mechanism). <span class="warn">⚠️ If GI sensitivity to cayenne occurs, take at the start of the meal rather than before it.</span></td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">Berberine<span class="supp-tip-box"><img src="supplements/berberine.jpeg" alt="Berberine"><span class="supp-tip-label">Berberine</span></span></span></td><td>500 mg</td><td class="timing">With dinner</td><td>With meal</td><td><span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-nafld">Fatty Liver</span><br><span class="warn">⚠️ Do not combine with metformin. Check with doctor.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling recommended:</strong> 8–12 weeks on, 2–4 weeks off. Part of berberine's effect is mediated through gut cell GLP-1 secretion — the same pathway as GLP-1 agonist drugs. Gut cell adaptation can gradually blunt this component over continuous use. <strong>Current plan:</strong> run continuously through the 12-week exercise window (Jun 5–Aug 27), then take a 2–4 week break in September before resuming.</span></td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">NAC — N-Acetyl Cysteine 600 mg (Pure Encapsulations)<span class="supp-tip-box"><img src="supplements/nac.jpeg" alt="NAC N-Acetyl Cysteine"><span class="supp-tip-label">NAC — N-Acetyl Cysteine 600 mg (Pure Encapsulations)</span></span></span></td><td>600 mg (1 capsule)</td><td class="timing">With breakfast — or with main meal if GI-sensitive on empty stomach</td><td>With food; small amount of fat fine — glutathione synthesis is not fat-dependent but food reduces nausea risk. <strong>⚠️ Keep 2+ hrs away from Zinc Picolinate (row below)</strong> — NAC chelates zinc and reduces absorption if taken together. Breakfast timing naturally separates it from Zinc at dinner.</td><td><span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-mthfr">MTHFR</span> <span class="cond-tag ct-gut">Celiac · Gut</span><br>Primary role: cysteine donor for glutathione (GSH) synthesis — cysteine is the rate-limiting amino acid in the tripeptide γ-Glu-<strong>Cys</strong>-Gly. <strong>Fatty liver:</strong> hepatic glutathione depletion is a core driver of NAFLD progression; NAC directly replenishes the liver's primary antioxidant defence. <strong>Milk Thistle synergy:</strong> silymarin prevents glutathione depletion + regenerates it; NAC provides raw cysteine to synthesise it — two different mechanisms, additive effect on liver glutathione status. <strong>L-Glutamine synergy:</strong> Glutamine provides the glutamate precursor (the "G" in GSH); NAC provides cysteine (the rate-limiting "C") — both feed directly into the same glutathione molecule. <strong>MTHFR / transsulfuration:</strong> excess homocysteine exits via the transsulfuration pathway (homocysteine → cystathionine → cysteine → GSH) using B6 as cofactor; NAC augments cysteine availability in this same pathway, reducing homocysteine load from a complementary angle to Methylfolate + Methylcobalamin. <strong>Nervous system:</strong> modulates glutamate/glutathione balance in the CNS; studied for anxiety, OCD, and neuroinflammation — supports the 3-month nervous system recalibration goal. <strong>Insulin resistance:</strong> reduces oxidative stress-driven impairment of insulin receptor signalling; modest additive to Berberine + ACV + Femositol stack. <strong>Brand notes:</strong> Pure Encapsulations is hypoallergenic, certified GF, no unnecessary fillers, third-party tested. Freeform (not bound) NAC has higher bioavailability than some lower-grade products. <strong>Hydration note:</strong> NAC metabolises partly to cystine; stay well hydrated to prevent urinary concentration (D-Mannose protocol already supports urinary tract health). <strong>Flag for prescribing doctor</strong> if ever prescribed blood thinners or nitroglycerin-class vasodilators — mild antiplatelet and vasodilatory potentiation.</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">Zinc Picolinate<span class="supp-tip-box"><img src="supplements/zinc.jpeg" alt="Zinc Picolinate"><span class="supp-tip-label">Zinc Picolinate</span></span></span></td><td>15–25 mg</td><td class="timing">With dinner</td><td>With food (reduces nausea)</td><td><span class="cond-tag ct-gut">Celiac · Gut</span> <span class="cond-tag ct-dp">Pre-diabetes</span><br>Take with dinner — <strong>2+ hrs before Magnesium at bedtime</strong>. They compete for the same transporter (DMT1); zinc wins and blocks Mg absorption if taken together.</td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">Betaine (TMG)<span class="supp-tip-box"><img src="supplements/betaine.jpeg" alt="Betaine TMG"><span class="supp-tip-label">Betaine (TMG)</span></span></span></td><td>500 mg start</td><td class="timing">With dinner or main meal</td><td>With food</td><td><span class="cond-tag ct-mthfr">MTHFR</span><br><span class="warn">⚠️ Backup methyl donor for homocysteine reduction. Excess methylation can trigger mood disruption (anxiety, irritability, or depressive rebound) in ~10–20% of people — risk is higher with a history of stress-related depression. Start at 500 mg and monitor mood closely. Taking with dinner spaces it from morning methylfolate + methylcobalamin to avoid methyl stacking.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling recommended:</strong> 8–12 weeks on, 2–4 weeks off. Monitor mood via the Health Tracker slider — drop to 2 or below on consecutive days, <em>or</em> new/worsening anxiety or irritability = pause immediately.</span></td></tr>
+      <!-- ── EVENING ── -->
+      <tr>
+        <td colspan="6" style="background:#e0f7fa;font-weight:700;color:var(--sky-dark);padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">🌙 Evening</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td><span class="supp-name-tip">Benfotiamine + Thiamine B1 (Life Extension)<span class="supp-tip-box"><span class="supp-tip-label">Benfotiamine with Thiamin — Life Extension</span></span></span></td>
+        <td>1 capsule (80 mg benfotiamine + 25 mg thiamine HCl)</td><td class="timing">Evening — with dinner or evening snack</td>
+        <td>With Sugar Shift yogurt — the fat in full-fat A2 yogurt is sufficient for benfotiamine absorption</td>
+        <td><span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-apoe4">APOE4</span><br>This product delivers both forms in one capsule: <strong>benfotiamine</strong> (fat-soluble prodrug — superior tissue and nerve penetration, directly crosses cell membranes; strongest evidence for AGE reduction and diabetic neuropathy prevention) + <strong>thiamine HCl</strong> (water-soluble form for systemic repletion). Together they cover both the intracellular and plasma pools. PDH (pyruvate dehydrogenase) cofactor — converts pyruvate → acetyl-CoA, the rate-limiting step of glucose entering the Krebs cycle. Pre-diabetes increases B1 demand because chronically elevated glucose keeps PDH in constant use; studies in T2D populations find circulating B1 75–76% lower than matched controls despite similar dietary intake. <strong>AGE relevance:</strong> benfotiamine specifically blocks the three major biochemical pathways that generate Advanced Glycation End-products from excess glucose — more relevant than plain thiamine HCl for the insulin resistance / pre-diabetes context. <strong>Why evening:</strong> morning coffee and tea tannins inhibit thiamine intestinal absorption; evening with a fat-containing meal avoids competition and optimises benfotiamine uptake. B1 is not stimulating — evening timing is fully established. <strong>No interactions</strong> with any supplement in this protocol. Benfotiamine is not excreted as rapidly as thiamine HCl — tissue levels build over weeks.</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td>Carnosine (β-alanyl-L-histidine)</td><td>500 mg–1 g</td>
+        <td class="timing">Evening — with dinner or main meal</td><td>With food</td>
+        <td><span class="cond-tag ct-apoe4">APOE4</span> <span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-nafld">Fatty Liver</span><br>Carbonyl scavenger: reacts with methylglyoxal and other reactive carbonyls <em>in solution</em> before they reach proteins — acts independently of the glyoxalase pathway, which is directly relevant given MTHFR-impaired glutathione reduces glyoxalase activity. <strong>Complements P5P</strong> (which blocks glycation at the protein end) via upstream interception — not redundant, different point in the same pathway. Can also perform <em>trans-glycation</em>: pulling glucose off already-glycated proteins (early-stage AGE reversal). APOE4 carriers show lower brain carnosine in research; brain levels decline with age. Chicken/turkey (regular in your diet) are high natural sources — supplement adds coverage on top. <strong>Dose note:</strong> use 1 g/day to account for carnosinase (CNDP1) plasma degradation before tissue delivery. <span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Pairs with evening benfotiamine:</strong> benfotiamine blocks the three biochemical glucose-to-AGE pathways; carnosine intercepts reactive carbonyl intermediates in solution — synergistic anti-AGE coverage from two different angles.</span></td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td>Ceylon Cinnamon</td>
+        <td>½–1 tsp or 500–1000 mg capsule</td><td class="timing">Before bed</td><td>Stir into yogurt or take with small snack</td>
+        <td><span class="cond-tag ct-dp">Pre-diabetes</span><br>Improves insulin sensitivity via GLUT4 transporter activation — blunts overnight hepatic glucose release (Dawn Phenomenon). <strong>Must be Ceylon</strong>, not Cassia: Cassia contains high coumarin (liver-toxic at daily doses); Ceylon has negligible coumarin. Yogurt + Ceylon cinnamon = protein snack + glucose control in one. Pairs with Femositol bedtime dose for synergistic DP coverage.</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td><span class="supp-name-tip">Magnesium Citrate<span class="supp-tip-box"><img src="supplements/magnesium.jpeg" alt="Magnesium Citrate"><span class="supp-tip-label">Magnesium Citrate</span></span></span></td><td>200–400 mg</td><td class="timing">Bedtime</td><td>With or without food</td><td><span class="cond-tag ct-stone">Kidney Stones</span> <span class="cond-tag ct-dp">Pre-diabetes</span><br>Stone prevention + sleep quality + glucose. Take at bedtime — <strong>2+ hrs after Zinc at dinner</strong></td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">L-Glutamine<span class="supp-tip-box"><img src="supplements/l-glutamine.jpg" alt="L-Glutamine"><span class="supp-tip-label">L-Glutamine</span></span></span></td>
+        <td>5 g</td>
+        <td class="timing">Evening</td>
+        <td>20 min away from food</td><td><span class="cond-tag ct-gut">Celiac · Gut</span><br>Gut lining repair; celiac recovery</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Goodbye Stress Gummies<span class="supp-tip-box"><img src="supplements/goodbye-stress.jpeg" alt="Goodbye Stress Gummies"><span class="supp-tip-label">Goodbye Stress Gummies</span></span></span></td>
+        <td>per label</td>
+        <td class="timing">Evening / before bed</td>
+        <td>With or without food</td>
+        <td><span class="cond-tag ct-dp">Pre-diabetes</span><br>Contains: <strong>L-Theanine</strong> (promotes calm alertness; raises GABA and serotonin without sedation), <strong>GABA</strong> (inhibitory neurotransmitter; reduces nervous system overactivation), <strong>Lemon Balm</strong> (mild anxiolytic; supports sleep onset). Together: calming triad for evening wind-down. L-Theanine + GABA is a well-documented combination for reducing pre-sleep cortisol without morning grogginess. Relevant for DP: lowering evening cortisol reduces the cortisol-driven glucose surge in the early morning window.</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <td><span class="supp-name-tip">Glycine<span class="supp-tip-box"><img src="supplements/glycine.jpeg" alt="Glycines"><span class="supp-tip-label">Glycine</span></span></span></td>
+        <td>3 g</td>
+        <td class="timing">Evening</td>
+        <td>With or without food</td>
+        <td><span class="cond-tag ct-mthfr">MTHFR</span><br> Homocysteine sits at a crossroads. It can either be recycled back into methyl groups, or it can be pushed down the transsulfuration pathway to create cysteine, which your body uses as the primary building block to manufacture glutathione (your master antioxidant). If your primary methylation cycle is sluggish or blocked, your body struggles to feed this secondary pathway, crashing your glutathione production and slowing down cellular detox.<br> When your body has more methyl groups than it can handle (often caused by over-supplementing with heavy methyl donors), it triggers symptoms like acute anxiety, panic, insomnia, or rapid heart rate. To stop this nervous system overload, your body relies on a "methyl buffer system" to act like a sponge and mop up the excess.</td>
+      </tr>
+      <!-- ── CONDITIONAL ── -->
+      <tr>
+        <td colspan="6" style="background:#f3f0ff;font-weight:700;color:#5b21b6;padding:.45rem .75rem;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase">⚠️ Conditional / Situational — Not Daily</td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td><td><span class="supp-name-tip">D-Mannose Powder<span class="supp-tip-box"><img src="supplements/d-mannose.jpeg" alt="D-Mannose Powder"><span class="supp-tip-label">D-Mannose Powder</span></span></span></td><td>2 g</td>
+        <td class="timing">Only if E. coli UTI</td><td>In water, between meals</td>
+        <td><span class="cond-tag ct-uti">UTI</span><br><span class="warn">⚠️ Does NOT work for Klebsiella (your Dec 2025 strain). Use only for E. coli UTI. Prevention: 2g/day. Acute: 2g every 3 hrs for 3 days then 2g/day for 4 weeks. Zero oxalate — safe for kidney stones.</span></td>
+      </tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td>Oil of Oregano</td><td>per label</td><td class="timing">Only if Klebsiella flare suspected/confirmed</td><td>With food (reduces GI irritation)</td><td><span class="cond-tag ct-uti">UTI</span><br><span class="warn">⚠️ Broad-spectrum antimicrobial — kills beneficial bacteria too. Do NOT use daily or alongside active probiotic rebuilding. Use only for suspected/confirmed Klebsiella flare while waiting for culture, or as adjunct to medical treatment. 7–14 days max then stop. Active compounds: carvacrol + thymol — effective against Klebsiella pneumoniae.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling is mandatory, not optional:</strong> carvacrol and thymol continuously suppress beneficial gut flora alongside pathogens. Even outside of active flares, if ever used for general antimicrobial support: 2–4 weeks on, 2–4 weeks off minimum. Microbiome recovery requires the break — the beneficial effect diminishes and the disruption accumulates without it.</span></td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td><span class="supp-name-tip">Chanca Piedra<span class="supp-tip-box"><img src="supplements/chanca-piedra.jpeg" alt="Chanca Piedra"><span class="supp-tip-label">Chanca Piedra</span></span></span></td><td>per product</td><td class="timing">Active stone episode or pre-procedure</td><td>Away from food, between meals</td><td><span class="cond-tag ct-stone">Kidney Stones</span><br><span class="warn">⚠️ Short-term use only — not a daily supplement. Use during an active kidney stone episode, or in a targeted short course before a planned stone procedure. Supports stone dissolution and urinary oxalate/calcium excretion. Discontinue after 4–6 weeks and reassess with your urologist.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Course-based by design:</strong> 4–6 week course, then off until the next episode or pre-procedure window. This is not a supplement that builds a long-term effect with continuous use — it is an acute intervention. There is no benefit to taking it between stone episodes; break periods are the default state.</span></td></tr>
+      <tr class="supp-row" onclick="toggleSupp(this)"><td class="supp-check">☐</td><td>Alpha GPC (Choline)</td><td>150 mg</td><td class="timing">Morning</td><td>With food (fat-containing meal)</td><td><span class="cond-tag ct-apoe4">APOE4</span> <span class="cond-tag ct-mthfr">MTHFR</span> <span class="cond-tag ct-nafld">Fatty Liver</span><br><strong>🥚 Conditional: only take on days when eggs have been absent from your diet for 2+ consecutive days</strong> — safety net for egg shortfalls before grocery day. This supplement is not for daily use; eggs are the preferred choline source. Use only when you've run out of eggs prematurely or are in a stretch before the next grocery day. <strong>Why it helps:</strong> Choline is required for phosphatidylcholine synthesis and VLDL assembly — the liver's mechanism for packaging and exporting stored fat. Without adequate choline, fat accumulates in hepatocytes rather than being exported, directly worsening fatty liver. APOE4 carriers have impaired phosphatidylcholine metabolism and likely higher choline requirements than the general population. MTHFR reduces PEMT (phosphatidylethanolamine N-methyltransferase) pathway activity — the route by which the body synthesises choline endogenously — meaning dietary choline cannot always be compensated internally when methylation is impaired. Alpha GPC is the most bioavailable choline form and crosses the blood-brain barrier, where it supports acetylcholine signalling — directly relevant to APOE4's elevated cognitive risk profile. <strong>Why 150 mg and not more:</strong> <span class="warn">⚠️ High choline intake is converted by gut bacteria to TMA (trimethylamine), which the liver oxidises to TMAO (trimethylamine N-oxide) — a pro-atherogenic compound that promotes vascular plaque formation and arterial inflammation. APOE4 carriers already carry elevated cardiovascular risk, making high TMAO specifically more dangerous for this genotype than for the general population. Supplemental choline raises TMAO more than food-source choline at equivalent doses. 150 mg is a conservative safety-net dose that provides meaningful choline support without triggering the TMAO risk seen at higher supplemental doses (300–600 mg, such as in standard Alpha GPC products). Do not take on days when 2 or more eggs are already in the meal plan.</span></td></tr>
+    </tbody>
+  </table>
+
+  <a class="btn-back" href="health-reference.html">← Back to Health Reference</a>
+
+</main>
+
+<script>
+function toggleSupp(row) {
+  row.classList.toggle('supp-done');
+  row.querySelector('.supp-check').textContent = row.classList.contains('supp-done') ? '☑' : '☐';
+}
+function clearSupplChecks() {
+  document.querySelectorAll('.supp-row').forEach(row => {
+    row.classList.remove('supp-done');
+    row.querySelector('.supp-check').textContent = '☐';
+  });
+}
+</script>
+</body>
+</html>
