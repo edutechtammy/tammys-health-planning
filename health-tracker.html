@@ -137,23 +137,32 @@
     .pip { width:7px; height:7px; border-radius:50%; background:#ddd; }
     .pip.on { background:var(--sky); }
     .stress-pill { display:inline-block; padding:.05rem .4rem; border-radius:10px; font-size:.78rem; font-weight:600; }
+
+     /* NAV */
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .88rem; opacity: .82; transition: opacity .2s; white-space: nowrap; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    
   </style>
 </head>
 <body>
 <div class="page">
 
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html">👩‍🍳 Recipes</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="health-reference.html" class="active">📋 Reference</a>
+  <a href="exercise-protocol.html">🏃 Exercise</a>
+  <a href="cgm-tracker.html">📡 CGM</a>
+</nav>
+
 <header>
   <h1>🩺 Health Tracker</h1>
-  <p>Weight · Glucose · Dawn Phenomenon · Sleep · Stress Recovery</p>
-  <a class="nav-link" href="index.html">🏠 Home</a>
-  <a class="nav-link" href="weekly-meal-plan.html">← Weekly Meal Plan</a>
-  <a class="nav-link" href="lab-tracker.html">🧪 Lab Results</a>
-  <a class="nav-link" href="recipes.html">👩‍🍳 Recipes</a>
-  <a class="nav-link" href="food-response-testing.html">🍽️ Food Testing</a>
-  <a class="nav-link" href="exercise-protocol.html">🏃 Exercise</a>
-  <a class="nav-link" href="health-reference.html">📋 Reference</a>
-  <a class="nav-link" href="cgm-tracker.html">📡 CGM</a>
-</header>
+  </header>
 
 <!-- Dawn Phenomenon Info Card -->
 <div class="card dp-info-card">
