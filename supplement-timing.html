@@ -39,6 +39,8 @@
   /* ── Condition target tags ── */
   .cond-tag{display:inline-block;padding:.1rem .45rem;border-radius:999px;font-size:.72rem;font-weight:700;margin:.1rem .15rem .3rem 0;white-space:nowrap;line-height:1.4}
   .ct-mthfr{background:#f3e5ff;color:#6b21a8 !important}
+  .ct-mthfr-low{background:#dbeafe;color:#1e40af !important}
+  .ct-mthfr-high{background:#fef3c7;color:#92400e !important}
   .ct-apoe4{background:#e0f7fa;color:#0369a1 !important}
   .ct-nafld{background:#fff3cd;color:#92400e !important}
   .ct-dp{background:#ffedd5;color:#c2410c !important}
@@ -96,6 +98,13 @@
 
   <div class="intro-box">
     <p><strong>⚕️ Medical disclaimer:</strong> This is a suggested schedule — not medical advice. Review with your doctor or pharmacist, especially if adding berberine (glucose effects) or changing anything near surgery for your kidney stone.</p>
+    
+    <p><strong>🧬 Methylation Status Guide:</strong></p>
+    <ul style="margin-left:1.5rem;color:#555;font-size:.92rem;line-height:1.8;margin-bottom:.75rem">
+      <li><strong style="color:#1e40af">Undermethylated (MTHFR - methylation +):</strong> Low energy, brain fog, depression, high histamine, cold extremities → <em>Take methyl donors</em></li>
+      <li><strong style="color:#92400e">Overmethylated (MTHFR - methylation -):</strong> Anxiety, racing thoughts, insomnia, irritability, rapid heart rate → <em>Take methyl buffers, pause methyl donors</em></li>
+    </ul>
+    
     <div class="controls">
       <p>✅ Check off each supplement as you add it to your organizer. Hit <strong>Clear All</strong> when done to reset for next week.</p>
       <button class="btn-clear" onclick="clearSupplChecks()">↺ Clear All — New Week</button>
@@ -140,8 +149,8 @@
         <td class="timing">Morning</td>
         <td>Sublingual — no food needed</td>
         <!-- Notes -->
-        <td><span class="cond-tag ct-mthfr">MTHFR</span> <span class="cond-tag ct-apoe4">APOE4</span>
-          <br>Combined capsule. Start low on methylfolate; increase if tolerated. Sublingual bypasses gut absorption issues.</td></tr>
+        <td><span class="cond-tag ct-mthfr-low">MTHFR - methylation +</span> <span class="cond-tag ct-apoe4">APOE4</span>
+          <br><strong>PRIMARY METHYL DONOR</strong> — addresses undermethylation. Combined capsule. Start low on methylfolate; increase if tolerated. Sublingual bypasses gut absorption issues. <span class="warn">⚠️ PAUSE if overmethylation symptoms appear: anxiety, racing thoughts, insomnia, irritability. Switch to methyl buffers (Glycine, NAC) instead.</span></td></tr>
       
 
       <!-- ======================================================================= -->
@@ -467,8 +476,8 @@
         <td class="timing">With breakfast — or with main meal if GI-sensitive on empty stomach</td>
         <td>With food; small amount of fat fine — glutathione synthesis is not fat-dependent but food reduces nausea risk. <strong>⚠️ Keep 2+ hrs away from Zinc Picolinate (row below)</strong> — NAC chelates zinc and reduces absorption if taken together. Breakfast timing naturally separates it from Zinc at dinner.</td>
         <!-- Notes -->
-        <td><span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-mthfr">MTHFR</span> <span class="cond-tag ct-gut">Celiac · Gut</span>
-          <br>Primary role: cysteine donor for glutathione (GSH) synthesis — cysteine is the rate-limiting amino acid in the tripeptide γ-Glu-<strong>Cys</strong>-Gly. <strong>Fatty liver:</strong> hepatic glutathione depletion is a core driver of NAFLD progression; NAC directly replenishes the liver's primary antioxidant defence. <strong>Milk Thistle synergy:</strong> silymarin prevents glutathione depletion + regenerates it; NAC provides raw cysteine to synthesise it — two different mechanisms, additive effect on liver glutathione status. <strong>L-Glutamine synergy:</strong> Glutamine provides the glutamate precursor (the "G" in GSH); NAC provides cysteine (the rate-limiting "C") — both feed directly into the same glutathione molecule. <strong>MTHFR / transsulfuration:</strong> excess homocysteine exits via the transsulfuration pathway (homocysteine → cystathionine → cysteine → GSH) using B6 as cofactor; NAC augments cysteine availability in this same pathway, reducing homocysteine load from a complementary angle to Methylfolate + Methylcobalamin. <strong>Nervous system:</strong> modulates glutamate/glutathione balance in the CNS; studied for anxiety, OCD, and neuroinflammation — supports the 3-month nervous system recalibration goal. <strong>Insulin resistance:</strong> reduces oxidative stress-driven impairment of insulin receptor signalling; modest additive to Berberine + ACV + Femositol stack. <strong>Brand notes:</strong> Pure Encapsulations is hypoallergenic, certified GF, no unnecessary fillers, third-party tested. Freeform (not bound) NAC has higher bioavailability than some lower-grade products. <strong>Hydration note:</strong> NAC metabolises partly to cystine; stay well hydrated to prevent urinary concentration (D-Mannose protocol already supports urinary tract health). <strong>Flag for prescribing doctor</strong> if ever prescribed blood thinners or nitroglycerin-class vasodilators — mild antiplatelet and vasodilatory potentiation.</td></tr>
+        <td><span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-mthfr-high">MTHFR - methylation -</span> <span class="cond-tag ct-gut">Celiac · Gut</span>
+          <br><strong>METHYL BUFFER</strong> — helps clear excess methyl groups when overmethylated. Primary role: cysteine donor for glutathione (GSH) synthesis — cysteine is the rate-limiting amino acid in the tripeptide γ-Glu-<strong>Cys</strong>-Gly. <strong>Fatty liver:</strong> hepatic glutathione depletion is a core driver of NAFLD progression; NAC directly replenishes the liver's primary antioxidant defence. <strong>Milk Thistle synergy:</strong> silymarin prevents glutathione depletion + regenerates it; NAC provides raw cysteine to synthesise it — two different mechanisms, additive effect on liver glutathione status. <strong>L-Glutamine synergy:</strong> Glutamine provides the glutamate precursor (the "G" in GSH); NAC provides cysteine (the rate-limiting "C") — both feed directly into the same glutathione molecule. <strong>MTHFR / transsulfuration:</strong> excess homocysteine exits via the transsulfuration pathway (homocysteine → cystathionine → cysteine → GSH) using B6 as cofactor; NAC augments cysteine availability in this same pathway, reducing homocysteine load from a complementary angle to Methylfolate + Methylcobalamin. <strong>When overmethylated:</strong> NAC's sulfur groups help buffer and clear excess methyl groups — increase dose or frequency temporarily during overmethylation episodes. <strong>Nervous system:</strong> modulates glutamate/glutathione balance in the CNS; studied for anxiety, OCD, and neuroinflammation — supports the 3-month nervous system recalibration goal. <strong>Insulin resistance:</strong> reduces oxidative stress-driven impairment of insulin receptor signalling; modest additive to Berberine + ACV + Femositol stack. <strong>Brand notes:</strong> Pure Encapsulations is hypoallergenic, certified GF, no unnecessary fillers, third-party tested. Freeform (not bound) NAC has higher bioavailability than some lower-grade products. <strong>Hydration note:</strong> NAC metabolises partly to cystine; stay well hydrated to prevent urinary concentration (D-Mannose protocol already supports urinary tract health). <strong>Flag for prescribing doctor</strong> if ever prescribed blood thinners or nitroglycerin-class vasodilators — mild antiplatelet and vasodilatory potentiation.</td></tr>
 
 
       <!-- ======================================================================= -->
@@ -501,8 +510,8 @@
         <td class="timing">With dinner or main meal</td>
         <td>With food</td>
         <!-- Notes -->
-        <td><span class="cond-tag ct-mthfr">MTHFR</span>
-          <br><span class="warn">⚠️ Backup methyl donor for homocysteine reduction. Excess methylation can trigger mood disruption (anxiety, irritability, or depressive rebound) in ~10–20% of people — risk is higher with a history of stress-related depression. Start at 500 mg and monitor mood closely. Taking with dinner spaces it from morning methylfolate + methylcobalamin to avoid methyl stacking.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling recommended:</strong> 8–12 weeks on, 2–4 weeks off. Monitor mood via the Health Tracker slider — drop to 2 or below on consecutive days, <em>or</em> new/worsening anxiety or irritability = pause immediately.</span></td></tr>
+        <td><span class="cond-tag ct-mthfr-low">MTHFR - methylation +</span>
+          <br><strong>BACKUP METHYL DONOR</strong> — addresses undermethylation via alternative pathway. <span class="warn">⚠️ Excess methylation can trigger mood disruption (anxiety, irritability, or depressive rebound) in ~10–20% of people — risk is higher with a history of stress-related depression. Start at 500 mg and monitor mood closely. Taking with dinner spaces it from morning methylfolate + methylcobalamin to avoid methyl stacking. IF OVERMETHYLATION SYMPTOMS APPEAR (anxiety, racing thoughts, insomnia, irritability) — STOP IMMEDIATELY and switch to methyl buffers (Glycine, NAC).</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling recommended:</strong> 8–12 weeks on, 2–4 weeks off. Monitor mood via the Health Tracker slider — drop to 2 or below on consecutive days, <em>or</em> new/worsening anxiety or irritability = pause immediately.</span></td></tr>
 
 
       <!-- ======================================================================= -->
@@ -633,8 +642,8 @@
         <td class="timing">Evening</td>
         <td>With or without food</td>
         <!-- Notes -->
-        <td><span class="cond-tag ct-mthfr">MTHFR</span>
-          <br> Homocysteine sits at a crossroads. It can either be recycled back into methyl groups, or it can be pushed down the transsulfuration pathway to create cysteine, which your body uses as the primary building block to manufacture glutathione (your master antioxidant). If your primary methylation cycle is sluggish or blocked, your body struggles to feed this secondary pathway, crashing your glutathione production and slowing down cellular detox.<br> When your body has more methyl groups than it can handle (often caused by over-supplementing with heavy methyl donors), it triggers symptoms like acute anxiety, panic, insomnia, or rapid heart rate. To stop this nervous system overload, your body relies on a "methyl buffer system" to act like a sponge and mop up the excess.</td>
+        <td><span class="cond-tag ct-mthfr-high">MTHFR - methylation -</span>
+          <br><strong>PRIMARY METHYL BUFFER</strong> — actively clears excess methyl groups when overmethylated. Homocysteine sits at a crossroads. It can either be recycled back into methyl groups, or it can be pushed down the transsulfuration pathway to create cysteine, which your body uses as the primary building block to manufacture glutathione (your master antioxidant). If your primary methylation cycle is sluggish or blocked, your body struggles to feed this secondary pathway, crashing your glutathione production and slowing down cellular detox.<br><br>When your body has more methyl groups than it can handle (often caused by over-supplementing with heavy methyl donors), it triggers symptoms like acute anxiety, panic, insomnia, or rapid heart rate. To stop this nervous system overload, your body relies on a "methyl buffer system" to act like a sponge and mop up the excess. Glycine is the primary amino acid used in this buffering pathway — it conjugates with excess methyl groups and safely carries them out via urine. <strong>During overmethylation episodes:</strong> increase dose to 5–6 g split morning + evening until symptoms resolve. Pairs with NAC (another methyl buffer) for synergistic clearing.</td>
       </tr>
 
 
