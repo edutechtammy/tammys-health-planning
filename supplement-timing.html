@@ -739,16 +739,54 @@
 </main>
 
 <script>
+// Generate a unique ID for each supplement row based on its content
+function getRowId(row) {
+  const suppName = row.querySelector('td:nth-child(2)').textContent.trim().substring(0, 50);
+  return 'supp_' + suppName.replace(/[^a-zA-Z0-9]/g, '_');
+}
+
+// Load saved state from localStorage
+function loadSuppState() {
+  const saved = localStorage.getItem('supplement-checks');
+  if (!saved) return;
+  
+  const checkedSupps = JSON.parse(saved);
+  document.querySelectorAll('.supp-row').forEach(row => {
+    const rowId = getRowId(row);
+    if (checkedSupps.includes(rowId)) {
+      row.classList.add('supp-done');
+      row.querySelector('.supp-check').textContent = '☑';
+    }
+  });
+}
+
+// Save current state to localStorage
+function saveSuppState() {
+  const checkedSupps = [];
+  document.querySelectorAll('.supp-row').forEach(row => {
+    if (row.classList.contains('supp-done')) {
+      checkedSupps.push(getRowId(row));
+    }
+  });
+  localStorage.setItem('supplement-checks', JSON.stringify(checkedSupps));
+}
+
 function toggleSupp(row) {
   row.classList.toggle('supp-done');
   row.querySelector('.supp-check').textContent = row.classList.contains('supp-done') ? '☑' : '☐';
+  saveSuppState();
 }
+
 function clearSupplChecks() {
   document.querySelectorAll('.supp-row').forEach(row => {
     row.classList.remove('supp-done');
     row.querySelector('.supp-check').textContent = '☐';
   });
+  localStorage.removeItem('supplement-checks');
 }
+
+// Load saved state when page loads
+document.addEventListener('DOMContentLoaded', loadSuppState);
 </script>
 </body>
 </html>
