@@ -4312,9 +4312,11 @@ function renderHeatmap(cycle) {
     <h3>📊 Glucose Heatmap — Hour-by-Hour Patterns</h3>
     <svg id="heatmap-svg"></svg>
     <div class="heatmap-legend">
-      <span>Low (55)</span>
+      <span>🔴 Hypo (55)</span>
       <div class="heatmap-legend-gradient" id="legend-gradient"></div>
-      <span>High (180)</span>
+      <span>Target (70-140)</span>
+      <div class="heatmap-legend-gradient" id="legend-gradient2"></div>
+      <span>🟠 High (180)</span>
     </div>
     <div class="heatmap-tooltip" id="heatmap-tooltip"></div>
   `;
@@ -4375,13 +4377,29 @@ function renderHeatmap(cycle) {
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Color scale
+  // Color scale: divergent with green in the middle (optimal range)
+  // 55-70 = red (hypo), 70-140 = green (target), 140-160 = yellow (elevated), 160-180 = orange (high)
   const colorScale = d3.scaleSequential()
     .domain([55, 180])
     .interpolator(t => {
-      if (t < 0.15) return d3.interpolateRgb('#ef4444', '#f97316')(t / 0.15); // red to orange
-      if (t < 0.5) return d3.interpolateRgb('#f97316', '#22c55e')(((t - 0.15) / 0.35)); // orange to green
-      return d3.interpolateRgb('#22c55e', '#eab308')(((t - 0.5) / 0.5)); // green to yellow
+      const value = 55 + (180 - 55) * t;
+      if (value < 70) {
+        // 55-70: deep red to lighter red
+        const localT = (value - 55) / (70 - 55);
+        return d3.interpolateRgb('#dc2626', '#ef4444')(localT);
+      } else if (value < 140) {
+        // 70-140: light green to vibrant green (optimal range)
+        const localT = (value - 70) / (140 - 70);
+        return d3.interpolateRgb('#86efac', '#22c55e')(localT);
+      } else if (value < 160) {
+        // 140-160: green to yellow (elevated)
+        const localT = (value - 140) / (160 - 140);
+        return d3.interpolateRgb('#22c55e', '#fbbf24')(localT);
+      } else {
+        // 160-180: yellow to orange (high warning)
+        const localT = (value - 160) / (180 - 160);
+        return d3.interpolateRgb('#fbbf24', '#f97316')(localT);
+      }
     });
 
   // X axis (hours)
@@ -4448,15 +4466,36 @@ function renderHeatmap(cycle) {
       tooltip.classed('visible', false);
     });
 
-  // Legend gradient
+  // TODO (BEFORE CYCLE 2): Add context data indicators
+  // - Read daily context log (meals, exercise, supplements) with timestamps
+  // - Parse hour from timestamps to match heatmap cells
+  // - Overlay small SVG circles/icons on cells that have logged data:
+  //   🍽️ meal logged, 💊 supplement logged, 🏃 exercise logged
+  // - Add click handler to open detail panel showing all context for that hour
+  // See HEATMAP-NOTES.md for full implementation plan
+
+  // Legend gradients - show the full scale
   const legendGradient = document.getElementById('legend-gradient');
-  if (legendGradient) {
-    const gradStops = [];
-    for (let i = 0; i <= 100; i += 5) {
-      const val = 55 + (180 - 55) * (i / 100);
-      gradStops.push(`${colorScale(val)} ${i}%`);
+  const legendGradient2 = document.getElementById('legend-gradient2');
+  
+  if (legendGradient && legendGradient2) {
+    // First gradient: 55 (hypo/red) to 70 (entering green)
+    const gradStops1 = [];
+    for (let i = 0; i <= 100; i += 10) {
+      const val = 55 + (70 - 55) * (i / 100);
+      gradStops1.push(`${colorScale(val)} ${i}%`);
     }
-    legendGradient.style.background = `linear-gradient(to right, ${gradStops.join(', ')})`;
+    legendGradient.style.background = `linear-gradient(to right, ${gradStops1.join(', ')})`;
+    legendGradient.style.width = '80px';
+    
+    // Second gradient: 70 (green) through 140 (green) to 180 (orange)
+    const gradStops2 = [];
+    for (let i = 0; i <= 100; i += 5) {
+      const val = 70 + (180 - 70) * (i / 100);
+      gradStops2.push(`${colorScale(val)} ${i}%`);
+    }
+    legendGradient2.style.background = `linear-gradient(to right, ${gradStops2.join(', ')})`;
+    legendGradient2.style.width = '200px';
   }
 }
 

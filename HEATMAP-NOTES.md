@@ -62,6 +62,39 @@ A **D3.js-powered daily glucose heatmap** has been integrated into the CGM Track
 
 ## Next Steps (Potential Enhancements)
 
+### PRIORITY: Before Next CGM Cycle (Cycle 2)
+
+#### 1. **Context Data Indicators on Heatmap Cells** 🎯 HIGH PRIORITY
+- **Feature**: Add visual indicators (dots/icons) in heatmap cells when context data is logged
+- **Indicators**:
+  - 🍽️ Small dot/icon when meal data is logged for that hour
+  - 💊 Icon when supplements are logged
+  - 🏃 Icon when exercise is logged
+  - Combined indicator when multiple types exist
+- **Benefit**: Instantly see which glucose patterns have detailed context vs. which are unexplained
+- **Implementation**: 
+  - Read from daily context log table (meals, exercise, contextNotes fields)
+  - Parse timestamps to match hour slots
+  - Overlay small SVG circles or text icons on heatmap cells
+  - Click cell to jump to/highlight that entry in the context log below
+
+#### 2. **Enhanced Context Log - Timestamp Precision**
+- **Current**: Context log is by date only
+- **Needed**: Add time-of-day fields for meals, supplements, exercise
+- **Benefit**: Enables accurate hour-matching with heatmap cells
+- **Format**: "08:15 Breakfast + ACV", "13:30 Walk 15min", "19:45 Magnesium"
+
+#### 3. **Heatmap Cell Click → Context Panel**
+- **Feature**: Click any heatmap cell to open a detail panel showing:
+  - All glucose readings in that hour (raw values)
+  - Logged meals at/near that time
+  - Supplements taken
+  - Exercise activity
+  - Any notes from that day
+- **Benefit**: Deep-dive into specific patterns without scrolling
+
+### Future Enhancements (Post-Cycle 2)
+
 ### 1. Zoomable Timeline with Meal Annotations
 - Pan/zoom glucose curve with `d3.zoom()`
 - Overlay meal/exercise markers from daily context log
