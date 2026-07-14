@@ -4429,10 +4429,25 @@ function renderHeatmap(cycle) {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     
     // Close modal on overlay click or close button
-    document.getElementById('heatmap-modal-overlay').addEventListener('click', (e) => {
-      if (e.target.id === 'heatmap-modal-overlay' || e.target.id === 'heatmap-modal-close') {
-        document.getElementById('heatmap-modal-overlay').classList.remove('visible');
+    const modalOverlay = document.getElementById('heatmap-modal-overlay');
+    const modalContent = modalOverlay.querySelector('.heatmap-modal');
+    const modalClose = document.getElementById('heatmap-modal-close');
+    
+    // Prevent clicks on modal content from bubbling to overlay
+    modalContent.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    
+    modalOverlay.addEventListener('click', (e) => {
+      // Only close if clicking directly on the overlay background
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('visible');
       }
+    });
+    
+    modalClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      modalOverlay.classList.remove('visible');
     });
   }
 
@@ -4701,6 +4716,7 @@ function renderHeatmap(cycle) {
     .on('click', function(event, d) {
       if (d.value === null) return;
       
+      event.stopPropagation();
       console.log('Cell clicked:', d.date, d.hour, 'Has context:', !!contextByDateHour[d.date]?.[d.hour]);
       
       // Show modal with detailed context
