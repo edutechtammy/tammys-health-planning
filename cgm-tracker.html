@@ -4411,6 +4411,7 @@ function renderHeatmap(cycle) {
       <span style="color:#3b82f6;margin-left:12px">● Exercise</span>
       <span style="color:#a855f7;margin-left:12px">● Supplement</span>
     </div>
+    <div id="heatmap-stats" style="margin-top:12px;padding-top:12px;border-top:1px solid #e5e7eb;display:flex;justify-content:center;gap:24px;font-size:13px;font-weight:600"></div>
     <div class="heatmap-tooltip" id="heatmap-tooltip"></div>
   `;
 
@@ -4483,14 +4484,28 @@ function renderHeatmap(cycle) {
 
   // Calculate mean for each cell and flag elevated readings
   const data = [];
+  let totalReadings = 0;
+  let readingsBelow70 = 0;
+  let readingsAbove140 = 0;
+  
   for (const date of dates) {
     for (let hour = 0; hour < 24; hour++) {
       const vals = matrix[date][hour] || [];
       const mean = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
       const hasElevated = vals.some(v => v > 140); // Flag if ANY reading exceeds 140
+      
+      // Count readings for statistics
+      totalReadings += vals.length;
+      readingsBelow70 += vals.filter(v => v < 70).length;
+      readingsAbove140 += vals.filter(v => v > 140).length;
+      
       data.push({ date, hour, value: mean, count: vals.length, hasElevated, readings: vals });
     }
   }
+  
+  // Calculate percentages
+  const pctBelow70 = totalReadings > 0 ? ((readingsBelow70 / totalReadings) * 100).toFixed(1) : '0.0';
+  const pctAbove140 = totalReadings > 0 ? ((readingsAbove140 / totalReadings) * 100).toFixed(1) : '0.0';
 
   // Parse context data from daily logs (meals, exercise, supplements)
   const contextByDateHour = {}; // {date: {hour: {meal, exercise, supplement}}}
@@ -4786,6 +4801,15 @@ function renderHeatmap(cycle) {
     }
     legendGradient.style.background = `linear-gradient(to right, ${gradStops.join(', ')})`;
     legendGradient.style.width = '200px';
+  }
+  
+  // Display statistics
+  const statsDiv = document.getElementById('heatmap-stats');
+  if (statsDiv) {
+    statsDiv.innerHTML = `
+      <span style="color:#333">🔵 Hypo: ${pctBelow70}% of readings &lt;70 mg/dL</span>
+      <span style="color:#333">🔴 Elevated: ${pctAbove140}% of readings &gt;140 mg/dL</span>
+    `;
   }
 }
 
