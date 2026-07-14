@@ -4596,9 +4596,11 @@ function renderHeatmap(cycle) {
   }
   console.log(`Total context entries found: ${contextCount}`);
 
-  // D3 visualization
+  // D3 visualization - calculate cellSize dynamically to fill container width
   const margin = { top: 60, right: 20, bottom: 40, left: 80 };
-  const cellSize = 30;
+  const containerWidth = container.clientWidth || 1200; // fallback if not rendered yet
+  const availableWidth = containerWidth - margin.left - margin.right - 40; // subtract padding
+  const cellSize = Math.floor(availableWidth / 24); // 24 hours
   const width = 24 * cellSize + margin.left + margin.right;
   const height = dates.length * cellSize + margin.top + margin.bottom;
 
