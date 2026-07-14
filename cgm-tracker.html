@@ -4401,11 +4401,10 @@ function renderHeatmap(cycle) {
     <h3>📊 Glucose Heatmap — Hour-by-Hour Patterns</h3>
     <svg id="heatmap-svg"></svg>
     <div class="heatmap-legend">
-      <span>🔴 Hypo (55)</span>
+      <span>🔵 Hypo (&lt;70)</span>
       <div class="heatmap-legend-gradient" id="legend-gradient"></div>
-      <span>Target (70-140)</span>
-      <div class="heatmap-legend-gradient" id="legend-gradient2"></div>
-      <span>🟠 High (180)</span>
+      <span>✅ Target (70-140)</span>
+      <span style="margin-left:12px">🔴 Elevated (&gt;140)</span>
     </div>
     <div class="heatmap-legend" style="margin-top:8px;font-size:11px;justify-content:center">
       <span style="color:#22c55e">● Meal</span>
@@ -4482,13 +4481,14 @@ function renderHeatmap(cycle) {
     matrix[dt.date][dt.hour].push(row.val);
   }
 
-  // Calculate mean for each cell
+  // Calculate mean for each cell and flag elevated readings
   const data = [];
   for (const date of dates) {
     for (let hour = 0; hour < 24; hour++) {
       const vals = matrix[date][hour] || [];
       const mean = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
-      data.push({ date, hour, value: mean, count: vals.length });
+      const hasElevated = vals.some(v => v > 140); // Flag if ANY reading exceeds 140
+      data.push({ date, hour, value: mean, count: vals.length, hasElevated, readings: vals });
     }
   }
 
@@ -4613,30 +4613,30 @@ function renderHeatmap(cycle) {
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Color scale: divergent with green in the middle (optimal range)
-  // 55-70 = red (hypo), 70-140 = green (target), 140-160 = yellow (elevated), 160-180 = orange (high)
+  // Color scale: blue for hypo, green for target, RED for ANY elevated reading
+  // 55-70 = blue (hypo), 70-140 = green (target), >140 = RED (elevated - overrides average)
   const colorScale = d3.scaleSequential()
-    .domain([55, 180])
+    .domain([55, 140])
     .interpolator(t => {
-      const value = 55 + (180 - 55) * t;
+      const value = 55 + (140 - 55) * t;
       if (value < 70) {
-        // 55-70: deep red to lighter red
+        // 55-70: deep blue to lighter blue
         const localT = (value - 55) / (70 - 55);
-        return d3.interpolateRgb('#dc2626', '#ef4444')(localT);
-      } else if (value < 140) {
+        return d3.interpolateRgb('#1e40af', '#3b82f6')(localT);
+      } else {
         // 70-140: light green to vibrant green (optimal range)
         const localT = (value - 70) / (140 - 70);
         return d3.interpolateRgb('#86efac', '#22c55e')(localT);
-      } else if (value < 160) {
-        // 140-160: green to yellow (elevated)
-        const localT = (value - 140) / (160 - 140);
-        return d3.interpolateRgb('#22c55e', '#fbbf24')(localT);
-      } else {
-        // 160-180: yellow to orange (high warning)
-        const localT = (value - 160) / (180 - 160);
-        return d3.interpolateRgb('#fbbf24', '#f97316')(localT);
       }
     });
+  
+  // Red color function for elevated readings
+  const getElevatedColor = (maxReading) => {
+    // Scale red intensity based on how high the reading is
+    if (maxReading >= 180) return '#b91c1c'; // dark red for very high
+    if (maxReading >= 160) return '#dc2626'; // medium-dark red
+    return '#ef4444'; // lighter red for 140-160
+  };
 
   // X axis (hours)
   const xScale = d3.scaleBand()
@@ -4685,7 +4685,15 @@ function renderHeatmap(cycle) {
     .attr('width', cellSize - 2)
     .attr('height', cellSize - 2)
     .attr('rx', 4)
-    .attr('fill', d => d.value === null ? '#f0f0f0' : colorScale(d.value))
+    .attr('fill', d => {
+      if (d.value === null) return '#f0f0f0';
+      if (d.hasElevated) {
+        // If ANY reading exceeds 140, use red based on max reading
+        const maxReading = Math.max(...d.readings);
+        return getElevatedColor(maxReading);
+      }
+      return colorScale(d.value);
+    })
     .on('mouseover', function(event, d) {
       if (d.value === null) return;
       
@@ -4768,26 +4776,16 @@ function renderHeatmap(cycle) {
 
   // Legend gradients - show the full scale
   const legendGradient = document.getElementById('legend-gradient');
-  const legendGradient2 = document.getElementById('legend-gradient2');
   
-  if (legendGradient && legendGradient2) {
-    // First gradient: 55 (hypo/red) to 70 (entering green)
-    const gradStops1 = [];
-    for (let i = 0; i <= 100; i += 10) {
-      const val = 55 + (70 - 55) * (i / 100);
-      gradStops1.push(`${colorScale(val)} ${i}%`);
-    }
-    legendGradient.style.background = `linear-gradient(to right, ${gradStops1.join(', ')})`;
-    legendGradient.style.width = '80px';
-    
-    // Second gradient: 70 (green) through 140 (green) to 180 (orange)
-    const gradStops2 = [];
+  if (legendGradient) {
+    // Gradient: 55 (hypo/blue) through 70 to 140 (target/green)
+    const gradStops = [];
     for (let i = 0; i <= 100; i += 5) {
-      const val = 70 + (180 - 70) * (i / 100);
-      gradStops2.push(`${colorScale(val)} ${i}%`);
+      const val = 55 + (140 - 55) * (i / 100);
+      gradStops.push(`${colorScale(val)} ${i}%`);
     }
-    legendGradient2.style.background = `linear-gradient(to right, ${gradStops2.join(', ')})`;
-    legendGradient2.style.width = '200px';
+    legendGradient.style.background = `linear-gradient(to right, ${gradStops.join(', ')})`;
+    legendGradient.style.width = '200px';
   }
 }
 
