@@ -235,6 +235,9 @@
       stroke: #333;
       stroke-width: 3;
     }
+    .context-indicator {
+      pointer-events: none !important;
+    }
     .heatmap-legend {
       display: flex;
       align-items: center;
@@ -265,6 +268,89 @@
     }
     .heatmap-tooltip.visible {
       opacity: 1;
+    }
+    
+    /* ── HEATMAP MODAL ── */
+    .heatmap-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .heatmap-modal-overlay.visible {
+      display: flex;
+    }
+    .heatmap-modal {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+    }
+    .heatmap-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+      line-height: 1;
+      padding: 4px 8px;
+    }
+    .heatmap-modal-close:hover {
+      color: #333;
+    }
+    .heatmap-modal h3 {
+      margin: 0 0 16px 0;
+      color: #333;
+      font-size: 1.3rem;
+    }
+    .heatmap-modal-section {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .heatmap-modal-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .heatmap-modal-section h4 {
+      margin: 0 0 8px 0;
+      color: #555;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .heatmap-modal-section p {
+      margin: 4px 0;
+      color: #666;
+      line-height: 1.6;
+    }
+    .heatmap-modal-readings {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .heatmap-modal-reading {
+      background: #f0f0f0;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #333;
     }
   </style>
 </head>
@@ -4329,6 +4415,27 @@ function renderHeatmap(cycle) {
     <div class="heatmap-tooltip" id="heatmap-tooltip"></div>
   `;
 
+  // Add modal overlay to body if it doesn't exist
+  if (!document.getElementById('heatmap-modal-overlay')) {
+    const modalHTML = `
+      <div class="heatmap-modal-overlay" id="heatmap-modal-overlay">
+        <div class="heatmap-modal">
+          <button class="heatmap-modal-close" id="heatmap-modal-close">&times;</button>
+          <h3 id="heatmap-modal-title">Loading...</h3>
+          <div id="heatmap-modal-content"></div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Close modal on overlay click or close button
+    document.getElementById('heatmap-modal-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'heatmap-modal-overlay' || e.target.id === 'heatmap-modal-close') {
+        document.getElementById('heatmap-modal-overlay').classList.remove('visible');
+      }
+    });
+  }
+
   // Parse CSV data to build hour-by-hour matrix
   const csvText = cycle.csvData;
   if (!csvText) {
@@ -4397,7 +4504,10 @@ function renderHeatmap(cycle) {
           if (ampm === 'AM' && hour === 12) hour = 0;
           
           if (!contextByDateHour[date][hour]) contextByDateHour[date][hour] = {};
-          contextByDateHour[date][hour].meal = true;
+          // Store the full meal text for this day
+          if (!contextByDateHour[date][hour].meal) {
+            contextByDateHour[date][hour].meal = day.meals;
+          }
           console.log(`Found meal: ${date} ${hour}:00 from "${match[0]}"`);
         }
         console.log(`Total meal matches for ${date}: ${matchCount}`);
@@ -4413,7 +4523,10 @@ function renderHeatmap(cycle) {
           if (ampm === 'AM' && hour === 12) hour = 0;
           
           if (!contextByDateHour[date][hour]) contextByDateHour[date][hour] = {};
-          contextByDateHour[date][hour].exercise = true;
+          // Store the full exercise text for this day
+          if (!contextByDateHour[date][hour].exercise) {
+            contextByDateHour[date][hour].exercise = day.exercise;
+          }
           console.log(`Found exercise: ${date} ${hour}:00`);
         }
       }
@@ -4433,7 +4546,26 @@ function renderHeatmap(cycle) {
             if (ampm === 'AM' && hour === 12) hour = 0;
             
             if (!contextByDateHour[date][hour]) contextByDateHour[date][hour] = {};
-            contextByDateHour[date][hour].supplement = true;
+            // Store the full contextNotes or meals text
+            if (!contextByDateHour[date][hour].supplement) {
+              contextByDateHour[date][hour].supplement = day.contextNotes || day.meals || 'Supplement logged';
+            }
+          }
+        }
+      }
+      
+      // Also store contextNotes if available
+      if (day.contextNotes) {
+        const noteMatches = day.contextNotes.matchAll(/(\d{1,2}):(\d{2})\s*(AM|PM)/gi);
+        for (const match of noteMatches) {
+          let hour = parseInt(match[1]);
+          const ampm = match[3].toUpperCase();
+          if (ampm === 'PM' && hour !== 12) hour += 12;
+          if (ampm === 'AM' && hour === 12) hour = 0;
+          
+          if (!contextByDateHour[date][hour]) contextByDateHour[date][hour] = {};
+          if (!contextByDateHour[date][hour].notes) {
+            contextByDateHour[date][hour].notes = day.contextNotes;
           }
         }
       }
@@ -4565,7 +4697,17 @@ function renderHeatmap(cycle) {
     })
     .on('mouseout', function() {
       tooltip.classed('visible', false);
-    });
+    })
+    .on('click', function(event, d) {
+      if (d.value === null) return;
+      
+      console.log('Cell clicked:', d.date, d.hour, 'Has context:', !!contextByDateHour[d.date]?.[d.hour]);
+      
+      // Show modal with detailed context
+      showHeatmapModal(d, contextByDateHour[d.date]?.[d.hour], matrix[d.date][d.hour]);
+    })
+    .style('cursor', 'pointer')
+    .raise(); // Ensure cells are on top
 
   // Add context indicators (small dots) on cells with logged data
   const contextData = [];
@@ -4588,8 +4730,13 @@ function renderHeatmap(cycle) {
     }
   }
 
-  // Render context indicator dots
-  g.selectAll('.context-indicator')
+  // Create a separate group for context indicators on top
+  const indicatorGroup = g.append('g')
+    .attr('class', 'indicator-layer')
+    .style('pointer-events', 'none');
+
+  // Render context indicator dots in the separate layer
+  indicatorGroup.selectAll('.context-indicator')
     .data(contextData)
     .enter()
     .append('circle')
@@ -4599,8 +4746,7 @@ function renderHeatmap(cycle) {
     .attr('r', 3)
     .attr('fill', d => d.indicator.color)
     .attr('stroke', '#fff')
-    .attr('stroke-width', 1)
-    .style('pointer-events', 'none');
+    .attr('stroke-width', 1);
 
   // Legend gradients - show the full scale
   const legendGradient = document.getElementById('legend-gradient');
@@ -4625,6 +4771,98 @@ function renderHeatmap(cycle) {
     legendGradient2.style.background = `linear-gradient(to right, ${gradStops2.join(', ')})`;
     legendGradient2.style.width = '200px';
   }
+}
+
+// ═══════════════════════════════════════════════
+// HEATMAP MODAL
+// ═══════════════════════════════════════════════
+
+function showHeatmapModal(cellData, contextData, readings) {
+  const modal = document.getElementById('heatmap-modal-overlay');
+  const title = document.getElementById('heatmap-modal-title');
+  const content = document.getElementById('heatmap-modal-content');
+  
+  // Format hour display
+  const hourStr = cellData.hour.toString().padStart(2, '0');
+  const hourEnd = (cellData.hour + 1).toString().padStart(2, '0');
+  title.textContent = `${cellData.date} — ${hourStr}:00-${hourEnd}:00`;
+  
+  // Build content sections
+  let html = '';
+  
+  // Glucose readings section
+  html += `
+    <div class="heatmap-modal-section">
+      <h4>📊 Glucose Readings</h4>
+      <p><strong>Average:</strong> ${Math.round(cellData.value)} mg/dL</p>
+      <p><strong>Count:</strong> ${cellData.count} reading${cellData.count > 1 ? 's' : ''}</p>
+      ${readings && readings.length ? `
+        <div class="heatmap-modal-readings">
+          ${readings.map(r => `<span class="heatmap-modal-reading">${r} mg/dL</span>`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+  
+  // Helper to safely format context data
+  const formatContext = (data) => {
+    if (!data) return '';
+    if (typeof data === 'string') return data.replace(/\n/g, '<br>');
+    if (Array.isArray(data)) return data.join('<br>');
+    if (typeof data === 'object') return JSON.stringify(data, null, 2).replace(/\n/g, '<br>');
+    return String(data);
+  };
+  
+  // Context data sections
+  if (contextData) {
+    if (contextData.meal) {
+      html += `
+        <div class="heatmap-modal-section">
+          <h4><span style="color:#22c55e">●</span> Meals</h4>
+          <p>${formatContext(contextData.meal)}</p>
+        </div>
+      `;
+    }
+    
+    if (contextData.exercise) {
+      html += `
+        <div class="heatmap-modal-section">
+          <h4><span style="color:#3b82f6">●</span> Exercise</h4>
+          <p>${formatContext(contextData.exercise)}</p>
+        </div>
+      `;
+    }
+    
+    if (contextData.supplement) {
+      html += `
+        <div class="heatmap-modal-section">
+          <h4><span style="color:#a855f7">●</span> Supplements</h4>
+          <p>${formatContext(contextData.supplement)}</p>
+        </div>
+      `;
+    }
+    
+    if (contextData.notes) {
+      html += `
+        <div class="heatmap-modal-section">
+          <h4>📝 Notes</h4>
+          <p>${formatContext(contextData.notes)}</p>
+        </div>
+      `;
+    }
+  }
+  
+  // If no context data
+  if (!contextData || (!contextData.meal && !contextData.exercise && !contextData.supplement && !contextData.notes)) {
+    html += `
+      <div class="heatmap-modal-section">
+        <p style="color:#999;text-align:center">No meal, exercise, or supplement data logged for this hour.</p>
+      </div>
+    `;
+  }
+  
+  content.innerHTML = html;
+  modal.classList.add('visible');
 }
 
 // ═══════════════════════════════════════════════
