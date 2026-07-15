@@ -4407,9 +4407,9 @@ function renderHeatmap(cycle) {
       <span style="margin-left:12px">🔴 Elevated (&gt;140)</span>
     </div>
     <div class="heatmap-legend" style="margin-top:8px;font-size:11px;justify-content:center">
-      <span style="color:#22c55e">● Meal</span>
-      <span style="color:#3b82f6;margin-left:12px">● Exercise</span>
-      <span style="color:#a855f7;margin-left:12px">● Supplement</span>
+      <span style="color:#22c55e">● Meal (upper-left)</span>
+      <span style="color:#3b82f6;margin-left:12px">● Exercise (upper-right)</span>
+      <span style="color:#a855f7;margin-left:12px">● Supplement (lower-left)</span>
     </div>
     <div id="heatmap-stats" style="margin-top:12px;padding-top:12px;border-top:1px solid #e5e7eb;display:flex;justify-content:center;gap:24px;font-size:13px;font-weight:600"></div>
     <div class="heatmap-tooltip" id="heatmap-tooltip"></div>
@@ -4757,15 +4757,12 @@ function renderHeatmap(cycle) {
       const context = contextByDateHour[date]?.[hour];
       if (context) {
         const indicators = [];
-        if (context.meal) indicators.push({type: 'meal', icon: '🍽️', color: '#22c55e'});
-        if (context.exercise) indicators.push({type: 'exercise', icon: '🏃', color: '#3b82f6'});
-        if (context.supplement) indicators.push({type: 'supplement', icon: '💊', color: '#a855f7'});
+        if (context.meal) indicators.push({type: 'meal', icon: '🍽️', color: '#22c55e', position: 'tl'});
+        if (context.exercise) indicators.push({type: 'exercise', icon: '🏃', color: '#3b82f6', position: 'tr'});
+        if (context.supplement) indicators.push({type: 'supplement', icon: '💊', color: '#a855f7', position: 'bl'});
         
-        indicators.forEach((indicator, idx) => {
-          contextData.push({
-            date, hour, indicator, 
-            offsetX: idx * 6 - (indicators.length - 1) * 3 // Center multiple indicators
-          });
+        indicators.forEach((indicator) => {
+          contextData.push({ date, hour, indicator });
         });
       }
     }
@@ -4782,9 +4779,19 @@ function renderHeatmap(cycle) {
     .enter()
     .append('circle')
     .attr('class', 'context-indicator')
-    .attr('cx', d => xScale(d.hour) + (cellSize - 2) / 2 + d.offsetX)
-    .attr('cy', d => yScale(d.date) + (cellSize - 2) / 2)
-    .attr('r', 3)
+    .attr('cx', d => {
+      const baseX = xScale(d.hour);
+      const offset = cellSize * 0.25; // 25% in from edge
+      // tl/bl = left, tr/br = right
+      return d.indicator.position.endsWith('l') ? baseX + offset : baseX + (cellSize - 2) - offset;
+    })
+    .attr('cy', d => {
+      const baseY = yScale(d.date);
+      const offset = cellSize * 0.25; // 25% down from top
+      // tl/tr = top, bl/br = bottom
+      return d.indicator.position.startsWith('t') ? baseY + offset : baseY + (cellSize - 2) - offset;
+    })
+    .attr('r', 5)
     .attr('fill', d => d.indicator.color)
     .attr('stroke', '#fff')
     .attr('stroke-width', 1);
