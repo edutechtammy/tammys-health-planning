@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bulk Brownie Base Mix — Recipe</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Bulk Brownie Base Mix for Gluten-Free Flour Testing",
+    "description": "A bulk dry brownie mix that can be portioned out for testing different gluten-free flour combinations. Dutched cocoa provides deep chocolate flavor with a neutral pH. The mix stores indefinitely and allows for consistent testing of cassava, millet, sorghum, and other GF flour combinations. Batch size is based on 1 egg as the non-scalable anchor ingredient — 73.4g of base mix per egg allows for precise small-batch testing.",
+    "recipeYield": "1116g base mix (enough for 15 single-egg test batches)",
+    "prepTime": "PT10M",
+    "totalTime": "PT10M",
+    "recipeCategory": "Baking Mix / Dessert Base",
+    "recipeCuisine": "American",
+    "keywords": "brownie mix, gluten-free baking, bulk mix, dutched cocoa, celiac, flour testing, single-egg batch",
+    "recipeIngredient": [
+      "856g granulated sugar",
+      "160g Hershey's Special Dark Dutched Cocoa",
+      "82g dry milk powder",
+      "14g salt",
+      "4g double-acting baking powder"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Combine all dry ingredients",
+        "text": "In a large bowl, combine 856g sugar, 160g dutched cocoa, 82g milk powder, 14g salt, and 4g baking powder. Whisk thoroughly to break up any cocoa lumps and ensure even distribution."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Store in airtight container",
+        "text": "Transfer to an airtight container. Store at room temperature. The mix is shelf-stable and will keep for several months. Label with the date and the base recipe."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Use for brownie testing",
+        "text": "To make a single-egg test batch, measure out 73.4g of base mix and add 1 egg, 1/4 cup (60ml) neutral oil, 1/2 tsp vanilla extract, your chosen GF flour (30-40g), and chocolate chips to taste. The single-egg batch size makes scaling precise — eggs can't be easily divided, so this becomes the natural testing unit."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --chocolate-dark:   #6f4e37;
+      --chocolate-mid:    #8b4513;
+      --chocolate-light:  #d2b48c;
+      --chocolate-pale:   #fdf6e3;
+      --chocolate-border: #d2a679;
+      
+      --accent-1:       #ca8a04;
+      --accent-1-pale:  #fefce8;
+      --accent-2:       #166534;
+      --accent-2-pale:  #f0fdf4;
+      
+      --text:       #3e2723;
+      --muted:      #6d4c41;
+      --border:     #d7ccc8;
+      --shadow:     0 2px 12px rgba(111,78,55,.12);
+    }
+    
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--chocolate-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    
+    nav { background: var(--chocolate-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: linear-gradient(135deg, var(--chocolate-light) 40%, var(--accent-1-pale) 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--chocolate-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.68; margin-bottom: .9rem; }
+    
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--chocolate-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--chocolate-dark); margin-bottom: .9rem; }
+    
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--chocolate-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--chocolate-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+    
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--chocolate-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .28rem 0; border-bottom: 1px solid #f5f5f5; font-size: .85rem; }
+    .ing-amount { font-weight: 700; color: var(--chocolate-dark); min-width: 3.5rem; flex-shrink: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .85rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num { background: var(--chocolate-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--chocolate-dark); margin-bottom: .2rem; }
+
+    .callout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .9rem; margin-bottom: 1.2rem; }
+    .c-card { border-radius: 12px; padding: .85rem 1rem; font-size: .8rem; line-height: 1.6; }
+    .c-card h4 { font-size: .82rem; margin-bottom: .35rem; }
+    .c-brown  { background: #fdf6e3; border: 1px solid #d7ccc8; }
+    .c-brown h4 { color: #6f4e37; }
+    .c-yellow { background: #fefce8; border: 1px solid #fde68a; }
+    .c-yellow h4 { color: #ca8a04; }
+    .c-blue   { background: #eff6ff; border: 1px solid #bfdbfe; }
+    .c-blue h4 { color: #1e40af; }
+
+    .flag-ok   { background: #f0fdf4; border: 1px solid #86efac; border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .75rem; }
+    .flag-ok h4 { color: #166534; font-size: .82rem; margin-bottom: .4rem; font-weight: 700; }
+
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--chocolate-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--chocolate-dark); border: 1.5px solid var(--chocolate-dark); }
+    .btn:hover { opacity: .82; }
+
+    .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--chocolate-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--chocolate-light); border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../recipes.html" class="active">🥗 Recipes</a>
+  <a href="../health-tracker.html">📊 Tracker</a>
+  <a href="../lab-tracker.html">🔬 Labs</a>
+  <a href="../food-response-testing.html">🧪 Food Testing</a>
+  <a href="../health-reference.html">📖 Reference</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍫📦</div>
+    <div class="recipe-hero-body">
+      <h1>Bulk Brownie Base Mix for Gluten-Free Flour Testing</h1>
+      <p>A large-batch dry mix that removes the need to measure cocoa, sugar, milk powder, salt, and leavening every time you want to test a new gluten-free flour combination. Dutched cocoa (Hershey's Special Dark) provides deep chocolate flavor with a neutral pH that won't react with baking powder. The mix is shelf-stable and portions out at exactly 73.4g per single-egg batch — since eggs can't be easily scaled except in whole units, the single-egg batch becomes the natural testing unit for systematic flour experimentation. Standardized fudgy brownie technique ensures consistent results across all flour tests.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 10 min prep + 10 min rest + 2 hr chill</span>
+        <span>📦 Makes 1116g base mix</span>
+        <span>🍫 Yields ~15 single-egg test batches</span>
+        <span>🔥 32–36 min bake at 325°F</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-celiac">Celiac / GF Base</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">🥄 Base Mix Ingredients</div>
+
+  <div class="recipe-layout">
+    
+    <div class="panel">
+      <div class="panel-header">Dry Ingredients (Total: 1116g)</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item">
+            <span class="ing-amount">856g</span>
+            <span>Granulated sugar</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">160g</span>
+            <span>Hershey's Special Dark Dutched Cocoa</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">82g</span>
+            <span>Dry milk powder</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">14g</span>
+            <span>Salt</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">4g</span>
+            <span>Double-acting baking powder</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Combine &amp; Whisk</div>
+              Measure all ingredients into a large bowl. Whisk thoroughly to break up cocoa lumps and ensure even distribution of the baking powder and salt throughout the mix.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Store</div>
+              Transfer to an airtight container. Label with the date and ingredient list. Store at room temperature. Shelf-stable for several months.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Portion for Testing</div>
+              For a single-egg test batch, measure out exactly 73.4g of base mix. This ratio is designed around 1 egg as the anchor ingredient — eggs can't be easily scaled except by whole units, making this the natural testing portion size. Record which flour blend you use for each test.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-divider">🧪 Ingredient Notes</div>
+
+  <div class="callout-grid">
+    
+    <div class="c-card c-brown">
+      <h4>Dutched Cocoa</h4>
+      Hershey's Special Dark is alkalized (dutched), giving it a neutral pH that won't react with baking powder during storage. Natural cocoa is acidic and would activate the baking powder over time.
+    </div>
+
+    <div class="c-card c-yellow">
+      <h4>Dry Milk Powder</h4>
+      Adds richness and helps with browning. If dairy-sensitive, you can substitute coconut milk powder at the same weight. This will slightly alter the flavor but maintains the texture.
+    </div>
+
+    <div class="c-card c-blue">
+      <h4>Single-Egg Batch Logic</h4>
+      The 73.4g portion size is calculated around 1 egg as the anchor ingredient. Eggs can't be fractionally scaled like liquids or powders, so single-egg batches become the most practical testing unit for small-scale flour experimentation.
+    </div>
+
+    <div class="c-card c-brown">
+      <h4>Why Tapioca Starch?</h4>
+      60g of tapioca starch is standardized across all test batches because it creates a tender, fudgy crumb without masking the characteristics of the test flour. Tapioca's neutrality allows cassava, millet, or sorghum to express their unique textures.
+    </div>
+
+    <div class="c-card c-yellow">
+      <h4>The Chill Makes It Fudgy</h4>
+      The 2-hour+ refrigeration isn't optional — it's what transforms the texture from cakey to fudgy. Chilled fats set up differently when baked, and full starch hydration before baking maximizes moisture retention.
+    </div>
+
+    <div class="c-card c-blue">
+      <h4>5×7 Glass Dish Standard</h4>
+      All tests use the same 5×7 inch glass casserole dish. Glass bakes more evenly at low temperatures than metal, and the standardized size keeps thickness consistent across all flour tests for fair comparison.
+    </div>
+
+  </div>
+
+  <div class="flag-ok">
+    <h4>🌾 Gluten-Free Flour Testing Strategy</h4>
+    <p>This base mix allows you to isolate the variable you're testing — the flour. By keeping the cocoa, sugar, leavening, milk powder, <strong>and tapioca starch (60g)</strong> constant across all tests, you can directly compare how different GF flours perform: cassava for chewiness, millet for nuttiness, sorghum for structure, or custom blends. The single-egg batch size (73.4g base mix) makes testing economical — you're not committing to a large batch until you've verified the flour blend works. The standardized fudgy brownie method (sugar-egg meringue, 10-minute flour rest, 2-hour+ chill, 325°F bake) ensures that texture differences come from the flour being tested, not from inconsistent technique. Measure all flours by weight (not volume) for consistency. Start with 30–40g of test flour per batch.</p>
+  </div>
+
+  <div class="section-divider">📝 Usage Notes</div>
+
+  <div class="panel">
+    <div class="panel-header">Single-Egg Test Batch — Standardized Fudgy Brownie Protocol</div>
+    <div class="panel-body">
+      <p style="font-size:.88rem;line-height:1.65;margin-bottom:.8rem;">For each single-egg test batch using <strong>73.4g</strong> of this base mix, add:</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.85rem;line-height:1.6;">
+        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>73.4g brownie base mix</strong> (measured from this bulk batch)</li>
+        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>1 large egg</strong> — the anchor ingredient (cannot be easily scaled)</li>
+        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>60.0g tapioca starch/flour</strong> — standardized across all tests to maximize fudginess</li>
+        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>Test flour(s)</strong> — type and amount listed in the testing log below (cassava, millet, sorghum, oat, almond, chickpea, rice flours, or blends)</li>
+        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>1/4 cup (60ml) neutral oil</strong> — avocado, light olive, or melted coconut oil</li>
+        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>1/2 tsp vanilla extract</strong></li>
+        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>Chocolate chips to taste</strong> (optional; use GF-certified chips if needed)</li>
+      </ul>
+      
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+        <p style="font-size:.82rem;font-weight:700;color:var(--chocolate-dark);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.04em;">🎯 Fudgy Brownie Assembly Method</p>
+        
+        <ol style="list-style:decimal;padding-left:1.3rem;display:flex;flex-direction:column;gap:.6rem;font-size:.85rem;line-height:1.6;">
+          <li><strong>Create sugar-egg meringue base:</strong> In a bowl, whisk together the 73.4g brownie base mix and 1 egg vigorously until you create a light, fluffy meringue-like texture. This incorporates air and dissolves the sugar into the egg.</li>
+          
+          <li><strong>Add vanilla and flour, then rest:</strong> Add the vanilla extract, 60g tapioca starch, and your test flour (see testing log for specific flour and amount). Stir to combine. <strong>Let the mixture sit for 10 minutes</strong> — this allows the flours to absorb the liquid before the oil coats them, maximizing moisture retention.</li>
+          
+          <li><strong>Add oil and chocolate chips:</strong> After the 10-minute rest, add the 1/4 cup oil and stir until just combined. Fold in chocolate chips if using. The batter will be thick.</li>
+          
+          <li><strong>Pour and chill:</strong> Pour batter into a greased 5×7 inch glass casserole dish (standardized across all tests). Cover and <strong>refrigerate for 2 hours to overnight</strong>. This chilling step maximizes starch hydration, chills the fats to swing texture from cakey to fudgy, and allows sugars to migrate to the surface for a shiny, crackled top.</li>
+          
+          <li><strong>Bake low and slow:</strong> Preheat oven to <strong>325°F (163°C)</strong>. Bake chilled batter for <strong>32–36 minutes</strong>. The low temperature coaxes gentle leavening and even baking in glass, maximizing fudginess. Test doneness with a butter knife — it may not come out completely clean due to the fudgy texture, but should not have wet batter clinging.</li>
+          
+          <li><strong>Cool completely:</strong> Allow brownies to cool completely in the pan before cutting. This allows the fudgy center to fully set. Cooling takes 1–2 hours at room temperature.</li>
+        </ol>
+      </div>
+      
+      <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border);"><strong>Testing note:</strong> Record the test flour type, amount, actual bake time, texture notes, and how the crackled surface developed. The tapioca starch (60g) and chilling step are constants across all tests — only the test flour changes.</p>
+    </div>
+  </div>
+
+  <div class="section-divider">📊 Flour Testing Log</div>
+
+  <div class="panel">
+    <div class="panel-header">Test Results — Record Flavor, Texture, and Recipe Adjustments</div>
+    <div class="panel-body">
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:.9rem;">Use this table to record the results of each flour test. All tests use the standardized fudgy brownie protocol: 73.4g base mix + 60g tapioca starch + test flour + 1 egg + 1/4 cup oil + 1/2 tsp vanilla, chilled 2+ hours, baked at 325°F for 32–36 min in a 5×7 glass dish.</p>
+      
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+          <thead>
+            <tr style="background:var(--chocolate-light);border-bottom:2px solid var(--chocolate-dark);">
+              <th style="padding:.6rem .8rem;text-align:left;font-weight:700;color:var(--chocolate-dark);border-right:1px solid var(--border);">Test Flour(s)</th>
+              <th style="padding:.6rem .8rem;text-align:left;font-weight:700;color:var(--chocolate-dark);border-right:1px solid var(--border);">Mass</th>
+              <th style="padding:.6rem .8rem;text-align:left;font-weight:700;color:var(--chocolate-dark);border-right:1px solid var(--border);">Flavor Notes</th>
+              <th style="padding:.6rem .8rem;text-align:left;font-weight:700;color:var(--chocolate-dark);border-right:1px solid var(--border);">Texture Notes</th>
+              <th style="padding:.6rem .8rem;text-align:left;font-weight:700;color:var(--chocolate-dark);">Suggested Adjustments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Sorghum</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">46g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:#fafafa;">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Oat</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">54g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Millet</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">45g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:#fafafa;">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Almond</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">41g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Chickpea</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">44g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:#fafafa;">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Sticky Rice</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">48g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Rice</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">[TBD]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:#fafafa;">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Forbidden Rice</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">52g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Cassava</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">35g</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:#fafafa;">
+              <td style="padding:.65rem .8rem;font-weight:600;color:var(--chocolate-dark);border-right:1px solid var(--border);">Oat + Almond Blend</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);">27g oat + 20g almond</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record flavor profile]</td>
+              <td style="padding:.65rem .8rem;border-right:1px solid var(--border);color:var(--muted);font-style:italic;">[Record texture]</td>
+              <td style="padding:.65rem .8rem;color:var(--muted);font-style:italic;">[Any adjustments needed?]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <p style="font-size:.8rem;color:var(--muted);line-height:1.6;margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border);"><strong>Testing tips:</strong> Take notes immediately after tasting while the brownie is still warm, then again after it has fully cooled — fudgy brownies often taste and feel different at room temperature. Note whether the shiny crackled surface developed as expected. Record actual bake time (may vary by a few minutes). If a flour needs adjustment, test the modification in the next batch before considering it final.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap;">
+    <a class="btn btn-back" href="../recipes.html">⬅️ Back to Recipe Library</a>
+  </div>
+
+</div>
+
+</body>
+</html>
