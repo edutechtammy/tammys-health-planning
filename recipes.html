@@ -1612,7 +1612,7 @@
           <span class="badge badge-celiac">Celiac / GF Base</span>
         </div>
         <p class="recipe-card-ingredients">sugar ⋅ dutched cocoa ⋅ milk powder ⋅ salt ⋅ baking powder</p>
-        <div class="recipe-card-desc">A bulk dry brownie mix designed for systematic gluten-free flour testing. Combines sugar, Hershey's Special Dark dutched cocoa, milk powder, salt, and baking powder into a shelf-stable base. Portions out at 73.4g per single-egg test batch — since eggs can't be easily scaled, the single-egg batch becomes the natural testing unit. Each batch uses 73.4g base mix + 1 egg + 1/4 cup oil + 1/2 tsp vanilla + your chosen GF flour (30–40g) + chocolate chips to taste. Keeps flour experimentation economical and low-commitment.</div>
+        <div class="recipe-card-desc">A bulk dry brownie mix designed for systematic gluten-free flour testing with a standardized fudgy brownie protocol. Combines sugar, Hershey's Special Dark dutched cocoa, milk powder, salt, and baking powder into a shelf-stable base. Portions out at 73.4g per single-egg test batch (natural testing unit since eggs can't be scaled). Each batch uses 73.4g base mix + 20g tapioca starch (constant) + test flour (35–54g depending on type) + 1 egg + 1/4 cup oil + 1/2 tsp vanilla. Features sugar-egg meringue method, 10-min flour rest, 2-hr+ chill, and 325°F bake in standardized 5×7 glass dish. Includes testing log for 10 flour types.</div>
       </div>
       <div class="recipe-card-footer">
         <a class="btn-recipe btn-view" href="recipes/recipe-brownie-base-mix.html" target="_blank">📄 Full Recipe / Import Page</a>
@@ -2087,19 +2087,19 @@ const PANTRY_GROUPS = {
     label: '🫙 Pantry, Shelf & Produce',
     items: [
       'ACV','aleppo pepper','allspice','arrowroot starch','artichoke',
-      'avocado','balsamic vinegar','basil','black pepper','blueberries',
+      'avocado','baking powder','balsamic vinegar','basil','black pepper','blueberries',
       'carrot','cassava flour',
-      'Ceylon cinnamon','chamomile','citric acid','coconut aminos',
+      'Ceylon cinnamon','chamomile','citric acid','cocoa','coconut aminos',
       'coconut flakes','coconut sugar','coriander','cumin',
-      'dark chocolate chips','decaf coffee','dill','Dijon mustard','dried chili','EVOO',
+      'dark chocolate chips','decaf coffee','dill','Dijon mustard','dried chili','dry milk powder','EVOO',
       'fennel','Fuji apple','garlic','ginger','herbs','hibiscus','honey',
       'lemon','lime','MCT oil','millet / millet flour','mint',
       'olives','onion','oregano','parsley','peppermint',
       'pepitas','pomegranate juice','Prebio Plus','pumpkin','pumpkin seeds',
       'red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
-      'salt','smoked oysters','smoked paprika','sorghum flour','sumac',
-      'Sugar Shift probiotic','sunflower seeds','thyme',
-      'tomatoes','trail mix','turmeric','walnuts',
+      'salt','smoked oysters','smoked paprika','sorghum flour','sugar','sumac',
+      'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme',
+      'tomatoes','trail mix','turmeric','vanilla extract','walnuts',
     ]
   }
 };
@@ -2163,7 +2163,13 @@ const PANTRY_NORM = {
   'plain yogurt':        'sugar shift yogurt',
   'plain whole milk yogurt': 'sugar shift yogurt',
   'balsamic':            'balsamic vinegar',
-  'pomegranate molasses': 'pomegranate juice'
+  'pomegranate molasses': 'pomegranate juice',
+  // brownie mix variants
+  'dutched cocoa':       'cocoa',
+  'milk powder':         'dry milk powder',
+  'double-acting baking powder': 'baking powder',
+  'tapioca starch/flour': 'tapioca starch',
+  'tapioca flour':       'tapioca starch'
 };
 
 const PANTRY_LS_KEY = 'pantry_v1';
