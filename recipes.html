@@ -242,6 +242,40 @@
   <div class="recipe-grid" id="recipe-grid">
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE SET 56-60 — SOUS VIDE OVERNIGHT MEAL PREP COLLECTION
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
+      <div class="recipe-card-img">🫙 ⏰ 💤</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Sous Vide Overnight Meal Prep Collection — 5 Recipes</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 5-10 min prep · 8 hours sous vide overnight</span>
+          <span>🫙 12 oz mason jar batch</span>
+          <span>📅 Set and forget · ready at breakfast</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">red lentils ⋅ black beans ⋅ pinto beans ⋅ green split peas ⋅ steel-cut oats ⋅ bone broth ⋅ spices ⋅ EVOO</p>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-low"></span>
+          <span class="gi-low">Low GI</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— legumes provide resistant starch &amp; fiber for blood sugar stability</span>
+        </div>
+        <p class="recipe-card-desc">Five overnight sous vide recipes cooked in 12 oz mason jars at precise 180°F (82.2°C) for 8 hours. Load the multi-cooker water bath before bed, wake up to ready-to-eat meal prep components. <strong>Red Lentils</strong> mash into a smooth paste for wraps or bowls. <strong>Chili-Base Black Beans</strong> with cumin and chili powder ready for tacos. <strong>Mediterranean Pinto Beans</strong> with oregano and EVOO become creamy refried beans. <strong>Green Split Peas in Bone Broth</strong> create a thick, savory paste with heme iron cofactors. <strong>Steel-Cut Oats</strong> with Ceylon cinnamon for glucose-conscious breakfast reheating. All legumes deliver resistant starch — the prebiotic fiber that feeds butyrate-producing gut bacteria and blunts post-meal glucose spikes. Gentle cooking preserves nutrients while breaking down anti-nutrients. Zero active morning work.</p>
+        <div class="recipe-card-actions">
+          <a class="btn btn-primary" href="recipes/recipe-sous-vide-lentils.html">🫘 Recipe 56: Red Lentils</a>
+          <a class="btn btn-primary" href="recipes/recipe-sous-vide-black-beans.html">🫘 Recipe 57: Black Beans</a>
+          <a class="btn btn-primary" href="recipes/recipe-sous-vide-pinto-beans.html">🫘 Recipe 58: Pinto Beans</a>
+          <a class="btn btn-primary" href="recipes/recipe-sous-vide-steel-cut-oats.html">🥣 Recipe 59: Steel-Cut Oats</a>
+          <a class="btn btn-primary" href="recipes/recipe-sous-vide-split-peas.html">🫛 Recipe 60: Split Peas</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE 46 — GREEK-STYLE BEEF WITH KALE & FETA
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
@@ -2087,19 +2121,19 @@ const PANTRY_GROUPS = {
     label: '🫙 Pantry, Shelf & Produce',
     items: [
       'ACV','aleppo pepper','allspice','arrowroot starch','artichoke',
-      'avocado','baking powder','balsamic vinegar','basil','black pepper','blueberries',
+      'avocado','baking powder','balsamic vinegar','basil','bay leaf','black beans','black pepper','blueberries',
       'carrot','cassava flour',
-      'Ceylon cinnamon','chamomile','citric acid','cocoa','coconut aminos',
+      'Ceylon cinnamon','chamomile','chili powder','citric acid','cocoa','coconut aminos',
       'coconut flakes','coconut sugar','coriander','cumin',
       'dark chocolate chips','decaf coffee','dill','Dijon mustard','dried chili','dry milk powder','EVOO',
-      'fennel','Fuji apple','garlic','ginger','herbs','hibiscus','honey',
+      'fennel','Fuji apple','garlic','ginger','green split peas','herbs','hibiscus','honey',
       'lemon','lime','MCT oil','millet / millet flour','mint',
       'olives','onion','oregano','parsley','peppermint',
-      'pepitas','pomegranate juice','Prebio Plus','pumpkin','pumpkin seeds',
-      'red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
-      'salt','smoked oysters','smoked paprika','sorghum flour','sugar','sumac',
+      'pepitas','pinto beans','pomegranate juice','Prebio Plus','pumpkin','pumpkin seeds',
+      'red lentils','red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
+      'salt','smoked oysters','smoked paprika','sorghum flour','steel-cut oats','sugar','sumac',
       'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme',
-      'tomatoes','trail mix','turmeric','vanilla extract','walnuts',
+      'tomatoes','trail mix','turmeric','vanilla extract','vegetable broth','walnuts',
     ]
   }
 };
@@ -2164,6 +2198,15 @@ const PANTRY_NORM = {
   'plain whole milk yogurt': 'sugar shift yogurt',
   'balsamic':            'balsamic vinegar',
   'pomegranate molasses': 'pomegranate juice',
+  // sous vide legume variants
+  'dry red lentils':     'red lentils',
+  'dry black beans':     'black beans',
+  'dry pinto beans':     'pinto beans',
+  'dry green split peas': 'green split peas',
+  'bay leaves':          'bay leaf',
+  'chicken broth':       'bone broth',
+  'gluten-free chicken or vegetable bone broth': 'bone broth',
+  'gluten-free steel-cut oats': 'steel-cut oats',
   // brownie mix variants
   'dutched cocoa':       'cocoa',
   'milk powder':         'dry milk powder',
