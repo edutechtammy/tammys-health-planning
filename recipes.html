@@ -2104,6 +2104,29 @@
 //  PANTRY FILTER — Exclusion model · localStorage-persisted
 // ═══════════════════════════════════════════════════════════════════════════
 
+// ❗ IMPORTANT — NEW RECIPES NOT SHOWING UP? READ THIS ❗
+// 
+// When you add new recipe cards to the HTML but they don't appear on the page,
+// the cause is MISSING INGREDIENTS in the PANTRY_GROUPS arrays below.
+//
+// How the filter works:
+// 1. applyAllFilters() loops through all .recipe-card elements
+// 2. getPantryMatch() extracts ingredients from .recipe-card-ingredients text
+// 3. Splits by the · character, normalizes each ingredient
+// 4. Returns true ONLY if EVERY ingredient exists in the pantryChecked Set
+// 5. If ANY ingredient is missing → recipe gets display:none
+//
+// The fix (do this EVERY TIME you add new recipes):
+// 1. Look at the ingredients in your new recipe cards
+// 2. Add any NEW ingredients to PANTRY_GROUPS.pantry.items array below
+// 3. Add common variants to PANTRY_NORM object (e.g., "dry black beans" → "black beans")
+// 4. Refresh the page — new recipes will appear immediately
+//
+// Why: loadPantry() auto-adds new PANTRY_GROUPS items to pantryChecked (checked by default)
+// so existing users don't need to manually check new ingredients.
+//
+// ═══════════════════════════════════════════════════════════════════════════
+
 const PANTRY_GROUPS = {
   fridge: {
     label: '🧊 Fridge & Freezer',
