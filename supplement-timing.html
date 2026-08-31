@@ -47,6 +47,8 @@
   .ct-gut{background:#d1fae5;color:#065f46 !important}
   .ct-stone{background:#dbeafe;color:#1e40af !important}
   .ct-uti{background:#fee2e2;color:#991b1b !important}
+  .ct-gckr{background:#fff4e6;color:#b45309 !important}
+  .ct-hpa{background:#fce7f3;color:#831843 !important}
   /* ── Supplement image tooltip ── */
   .supp-name-tip{position:relative;border-bottom:1px dashed #6a9a74;cursor:help;white-space:normal}
   .supp-name-tip .supp-tip-box{
@@ -104,6 +106,12 @@
       <li><strong style="color:#1e40af">Under-methylated (MTHFR - methylation +):</strong> Low energy, brain fog, depression, high histamine, cold extremities → <em>Take methyl donors</em></li>
       <li><strong style="color:#92400e">Over-methylated (MTHFR - methylation -):</strong> Anxiety, racing thoughts, insomnia, irritability, rapid heart rate → <em>Take methyl buffers, pause methyl donors</em></li>
     </ul>
+    
+    <div style="background:#fce7f3;border-left:4px solid #be185d;padding:1rem 1.3rem;margin-bottom:.75rem;border-radius:8px">
+      <p style="margin:0;font-weight:700;margin-bottom:.5rem;color:#831843">🎯 PRIMARY FOCUS: HPA-Axis & Cortisol Regulation</p>
+      <p style="margin:0;line-height:1.8;font-size:.92rem;color:#555">Chronic elevated cortisol drives morning glucose dumps (Dawn Phenomenon), physically triggers liver fat storage (worsening fatty liver and de novo lipogenesis from your GCKR variant), impairs methylation efficiency, suppresses gut healing, and degrades sleep quality. <strong>No supplement can outrun a nervous system still under chronic stress load.</strong></p>
+      <p style="margin:.6rem 0 0 0;line-height:1.8;font-size:.92rem;color:#555"><strong style="color:#831843">Key HPA-supporting supplements in this protocol:</strong> L-Theanine 200mg total daily (100mg morning to blunt cortisol awakening response during Dawn Phenomenon window + 100mg evening in Goodbye Stress to prevent overnight cortisol setup), Goodbye Stress (evening — GABA + Lemon Balm lower evening cortisol), Magnesium Citrate (bedtime — calms nervous system), Glycine (evening methyl buffer also supports sleep and nervous system reset), Ashwagandha (optional morning adaptogen for daytime HPA resilience). Pair these supplements with the 3-month screen-free recovery window for measurable HPA-axis down-regulation.</p>
+    </div>
     
     <div class="controls">
       <p>✅ Check off each supplement as you add it to your organizer. Hit <strong>Clear All</strong> when done to reset for next week.</p>
@@ -238,6 +246,23 @@
         <td><span class="cond-tag ct-apoe4">APOE4</span>
           <br>BDNF support; APOE4 protocol. This is one of the critical supplements for the brain bioenergetics side of APOE4. It is an important fuel shield and it is also provides insulation from inflammation in the brain that is so often associated with APOE4 (due to leaky blood brain barrier). Consider it a lifetime maintenance supplement.</td>
       </tr>
+
+      <!-- ======================================================================= -->
+      <!--                              L-THEANINE                                 -->
+      <!-- ======================================================================= -->
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <!-- Supplement -->
+        <td>L-Theanine</td>
+        <!-- Dose -->
+        <td>100 mg</td>
+        <!-- Timing and Food -->
+        <td class="timing">Morning with breakfast (8–9am)</td>
+        <td>With or without food</td>
+        <!-- Notes -->
+        <td><span class="cond-tag ct-hpa">HPA-Axis / Cortisol</span> <span class="cond-tag ct-gckr">De Novo Lipogenesis (GCKR)</span> <span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-mthfr">MTHFR</span>
+          <br><strong>Morning cortisol control — targets Dawn Phenomenon window.</strong> This adds to the 100mg you're already getting from evening Goodbye Stress for a 200mg total daily dose (research-supported for cortisol reduction). <strong>Why morning timing matters for YOU:</strong> Cortisol naturally peaks around 8am (cortisol awakening response / CAR). In chronic stress, this peak is amplified and drives hepatic glucose output during your 3–8am Dawn Phenomenon window and into mid-morning. Your GCKR variant means that cortisol-driven glucose then gets aggressively converted to liver fat via the SREBP-1c pathway. Morning L-theanine blunts the cortisol peak that's activating this cascade. <strong>Different from bedtime dose:</strong> evening Goodbye Stress (100mg L-theanine at ~10–11pm) prevents the overnight cortisol setup, but its 4–6 hour active window is worn off by the time your liver dumps glucose in the 3–8am window. Morning dose (8–9am with breakfast) actively targets the cortisol awakening response and extends cortisol reduction through mid-morning when your liver is still releasing glucose. <strong>Mechanism:</strong> increases alpha brain waves, modulates GABA, serotonin, and dopamine signaling → calm alertness without sedation. <strong>MTHFR benefit:</strong> like the evening dose, helps manage glutamate buildup (MTHFR's sluggish methylation leads to glutamate accumulation; L-theanine blocks glutamate receptors). <strong>Safety:</strong> very well-tolerated, no significant interactions with your protocol. Can increase to 200mg morning if 100mg isn't sufficient after 2 weeks, but start at 100mg to assess. Standalone L-theanine capsules widely available (e.g., NOW Foods, Jarrow, Thorne).</td>
+      </tr>
       <!-- ======================================================================= -->
       <!--  MARK:                     FOOD AS SUPPLEMENT                           -->
       <!-- ======================================================================= -->
@@ -254,11 +279,11 @@
         <!-- Dose -->
         <td>1 to 2 tsp → 1 tbsp</td>
         <!-- Timing and Food -->
-        <td class="timing">Between brunch &amp; dinner</td>
-        <td>In food or drink — do not take on empty stomach alone</td>
+        <td class="timing">Afternoon (around 3pm ideal) or with any meal</td>
+        <td>In food or drink — do NOT take on empty stomach alone</td>
         <!-- Notes -->
         <td><span class="cond-tag ct-apoe4">APOE4</span> <span class="cond-tag ct-dp">Pre-diabetes</span>
-          <br>It can be added to yogurt or kefir in the afternoon close to 3pm when a normal drop in energy tends to occur. It will fend off the sleepiness that happens at that time of the day. Do NOT take it straight on its own or you will get gastrointestinal issues. MCTs bypass normal fat digestion and go straight to the liver, which converts them to ketones within minutes. Those ketones cross the blood-brain barrier immediately and fuel the brain directly. For APOE4 specifically, this addresses a structural deficit: APOE4 impairs the brain's glucose uptake in certain regions (posterior cingulate Cortext & precuneaus - 1st region impacted due to its high glucose demand, medial temporal lobes which holds the hippocampus and amygdala - consolidates short term memories into long-term memories while the amygdala processes emotional responses, posteriotemporal cortex which holds the lateral temporal and parietal lobes - which deals with sensory integration, language comprehension, spatial awareness, and complex cognitive processing), leaving neurons underfueled. Ketones bypass that impaired glucose pathway entirely and feed those same neurons through a different route. <strong>Start with 1 tsp</strong> and increase over 2 weeks to avoid GI upset — too much too fast causes cramping and loose stools. Build to 1 tbsp over 2 to 3 weeks. The "whooshing" or warm mental clarity sensation some people notice is the ketone conversion happening.</td>
+          <br><strong>Critical for APOE4 brain fuel — prioritize getting back on this.</strong> MCTs bypass normal fat digestion and go straight to the liver, which converts them to ketones within minutes. Those ketones cross the blood-brain barrier immediately and fuel the brain directly. For APOE4 specifically, this addresses a structural deficit: APOE4 impairs the brain's glucose uptake in certain regions (posterior cingulate cortex & precuneus, medial temporal lobes, posteriotemporal cortex), leaving neurons underfueled. Ketones bypass that impaired glucose pathway entirely and feed those same neurons through a different route. <strong>Best vehicles (NEVER take straight):</strong> <strong>Summer/heat options (current):</strong> 1) <strong>Cold chocolate milk</strong> (A2 milk + cacao powder + MCT oil, shake/blend well); 2) <strong>Homemade ice cream</strong> (blend MCT oil into base before freezing — you control ingredients, perfect vehicle); 3) <strong>Yogurt or kefir</strong> (room temp or chilled, afternoon around 3pm when energy naturally drops); 4) <strong>Smoothies</strong> (if you make them); 5) <strong>Salad dressing</strong> (blended with EVOO). <strong>Fall/winter options (when cooler):</strong> <strong>Hot cacao/chocolate</strong> made with A2 milk, cacao powder, MCT oil stirred in (the fat in milk helps, plus you love chocolate). <strong>Do NOT take straight</strong> on its own or you will get gastrointestinal issues (cramping, loose stools). <strong>Start with 1 tsp</strong> and increase over 2 weeks to avoid GI upset — too much too fast causes cramping and diarrhea. Build to 1 tbsp over 2 to 3 weeks. The "whooshing" or warm mental clarity sensation some people notice is the ketone conversion happening — it's a good sign your brain is using the fuel. <strong>Note:</strong> Small serving of store-bought ice cream with MCT oil during heat wave is fine as occasional indulgence (birthday party leftovers) — prioritize homemade for regular use to control sugar/ingredients.</td>
       </tr>
 
 <!--  Removed Ginger --> 
@@ -394,7 +419,21 @@
         <td><span class="cond-tag ct-dp">Pre-diabetes</span>
           <br>Acetic acid inhibits alpha-amylase and alpha-glucosidase (starch-to-glucose enzymes), slowing glucose absorption from dinner and lowering next-morning fasting glucose. <strong>Capsule timing:</strong> take 15–20 min before eating to allow the capsule to dissolve and acetic acid to be present in the stomach before food arrives — taking it when you start cooking naturally lands in this window. <strong>Why capsule over liquid:</strong> at 62, enamel protection outweighs any marginal benefit of liquid form — the acetic acid dose is standardized and third-party tested, making capsule form more reliable anyway. <strong>Product:</strong> Toniiq ACV Capsules — 2,010mg, 20% acetic acid standardized, third-party lab tested. The cayenne addition is a bonus (capsaicin independently improves insulin sensitivity and slows gastric emptying via a separate mechanism). <span class="warn">⚠️ If GI sensitivity to cayenne occurs, take at the start of the meal rather than before it.</span></td></tr>
 
-<!-- REMOVED BERBERINE -->
+      <!-- ======================================================================= -->
+      <!--                               BERBERINE                                 -->
+      <!-- ======================================================================= -->
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <!-- Supplement -->
+        <td><span class="supp-name-tip">Berberine<span class="supp-tip-box"><img src="supplements/berberine.jpeg" alt="Berberine"><span class="supp-tip-label">Berberine</span></span></span></td>
+        <!-- Dose -->
+        <td>500 mg</td>
+        <!-- Timing and Food -->
+        <td class="timing">With dinner</td>
+        <td>With meal</td>
+        <!-- Notes -->
+        <td><span class="cond-tag ct-gckr">De Novo Lipogenesis (GCKR)</span> <span class="cond-tag ct-nafld">Fatty Liver</span>
+          <br><strong>ELEVATED TO CORE SUPPLEMENT for GCKR genetic variant:</strong> Both you and your husband carry a GCKR variant that causes aggressive glucose-to-fat conversion in the liver (de novo lipogenesis). Your husband's recent labs show liver scarring, and your incidental CT finding showed hepatomegaly. Berberine directly inhibits SREBP-1c, the master transcription factor that signals the liver to create new fat from glucose. This is mechanistically targeted for your specific genetic variant. While black coffee and ginger promote fat burning, berberine prevents fat deposition at the source — complementary pathways, not redundant. Also activates AMPK independently, forcing the liver to burn existing fat stores. Multiple RCTs show significant reduction in hepatic fat content and normalized liver enzymes (ALT/AST). Also upregulates insulin receptors and shifts gut microbiome away from inflammatory species. <span class="warn">⚠️ Do not combine with metformin. Check with doctor if on any other glucose-lowering medications.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling recommended:</strong> 8–12 weeks on, 2–4 weeks off to prevent gut cell adaptation that can blunt GLP-1 secretion effects over time.</span></td></tr>
       
 
 
@@ -529,8 +568,8 @@
         <td class="timing">Evening / before bed</td>
         <td>With or without food</td>
         <!-- Notes -->
-        <td><span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-mthfr">MTHFR</span>
-          <br>Contains: <strong>L-Theanine</strong> (promotes calm alertness; raises GABA and serotonin without sedation). this is important with MTHFR because this also blocks the glutamate receptors which tie up the glutamate even more. <strong>GABA</strong> (inhibitory neurotransmitter; reduces nervous system overactivation). MTHFR's sluggish methylation frequently leads to a build up of glutamate which it has a hard time converting to GABA. By providing GABA, the brain will not have a shortage which otherwise would have led to over-methylation anxiety and racing thoughts.</span><strong>Lemon Balm</strong> (mild anxiolytic; supports sleep onset). Together: calming triad for evening wind-down. L-Theanine + GABA is a well-documented combination for reducing pre-sleep cortisol without morning grogginess. Relevant for DP: lowering evening cortisol reduces the cortisol-driven glucose surge in the early morning window. This is available as a pill or a gummy.</td>
+        <td><span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-mthfr">MTHFR</span> <span class="cond-tag ct-hpa">HPA-Axis / Cortisol</span>
+          <br>Contains: <strong>L-Theanine</strong>, 100 mg,(promotes calm alertness; raises GABA and serotonin without sedation). this is important with MTHFR because this also blocks the glutamate receptors which tie up the glutamate even more. <strong>GABA</strong> (inhibitory neurotransmitter; reduces nervous system overactivation). MTHFR's sluggish methylation frequently leads to a build up of glutamate which it has a hard time converting to GABA. By providing GABA, the brain will not have a shortage which otherwise would have led to over-methylation anxiety and racing thoughts.</span><strong>Lemon Balm</strong> (mild anxiolytic; supports sleep onset). Together: calming triad for evening wind-down. L-Theanine + GABA is a well-documented combination for reducing pre-sleep cortisol without morning grogginess. <strong>HPA-axis support:</strong> Lowering evening cortisol directly reduces the cortisol-driven glucose surge in the early morning window (Dawn Phenomenon) and prevents cortisol from physically driving liver fat storage. This is available as a pill or a gummy.</td>
       </tr>
 
 
@@ -547,8 +586,8 @@
         <td class="timing">Evening</td>
         <td>With or without food</td>
         <!-- Notes -->
-        <td><span class="cond-tag ct-mthfr-high">MTHFR - methylation -</span>
-          <br><strong>PRIMARY METHYL BUFFER</strong> — actively clears excess methyl groups when over-methylated. Homocysteine sits at a crossroads. It can either be recycled back into methyl groups, or it can be pushed down the transsulfuration pathway to create cysteine, which your body uses as the primary building block to manufacture glutathione (your master antioxidant). If your primary methylation cycle is sluggish or blocked, your body struggles to feed this secondary pathway, crashing your glutathione production and slowing down cellular detox.<br><br>When your body has more methyl groups than it can handle (often caused by over-supplementing with heavy methyl donors), it triggers symptoms like acute anxiety, panic, insomnia, or rapid heart rate. To stop this nervous system overload, your body relies on a "methyl buffer system" to act like a sponge and mop up the excess. Glycine is the primary amino acid used in this buffering pathway — it conjugates with excess methyl groups and safely carries them out via urine. <strong>During ove-methylation episodes:</strong> increase dose to 5–6 g split morning + evening until symptoms resolve. Pairs with NAC (another methyl buffer) for synergistic clearing.</td>
+        <td><span class="cond-tag ct-mthfr-high">MTHFR - methylation -</span> <span class="cond-tag ct-hpa">HPA-Axis / Cortisol</span>
+          <br><strong>PRIMARY METHYL BUFFER</strong> — actively clears excess methyl groups when over-methylated. Homocysteine sits at a crossroads. It can either be recycled back into methyl groups, or it can be pushed down the transsulfuration pathway to create cysteine, which your body uses as the primary building block to manufacture glutathione (your master antioxidant). If your primary methylation cycle is sluggish or blocked, your body struggles to feed this secondary pathway, crashing your glutathione production and slowing down cellular detox.<br><br>When your body has more methyl groups than it can handle (often caused by over-supplementing with heavy methyl donors), it triggers symptoms like acute anxiety, panic, insomnia, or rapid heart rate. To stop this nervous system overload, your body relies on a "methyl buffer system" to act like a sponge and mop up the excess. Glycine is the primary amino acid used in this buffering pathway — it conjugates with excess methyl groups and safely carries them out via urine. <strong>HPA-axis support:</strong> Glycine also directly calms the nervous system by acting as an inhibitory neurotransmitter in the brainstem and spinal cord, supporting sleep quality and nervous system reset during the 3-month recovery window. <strong>During ove-methylation episodes:</strong> increase dose to 5–6 g split morning + evening until symptoms resolve. Pairs with NAC (another methyl buffer) for synergistic clearing.</td>
       </tr>
 
 
@@ -560,23 +599,7 @@
       </tr>
 
 
-      <!-- ======================================================================= -->
-      <!--                               BERBERINE                                 -->
-      <!-- ======================================================================= -->
-      <tr class="supp-row" onclick="toggleSupp(this)">
-        <td class="supp-check">☐</td>
-        <!-- Supplement -->
-        <td><span class="supp-name-tip">Berberine<span class="supp-tip-box"><img src="supplements/berberine.jpeg" alt="Berberine"><span class="supp-tip-label">Berberine</span></span></span></td>
-        <!-- Dose -->
-        <td>500 mg</td>
-        <!-- Timing and Food -->
-        <td class="timing">With dinner</td>
-        <td>With meal</td>
-        <!-- Notes -->
-        <td><span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-nafld">Fatty Liver</span>
-          <br>
-          UPDATED: Pre-diabetes was likely an illusion caused from very densely packed hemoglobin in red blood cells combined with longevity of those cells due to sluggish red blood cell production in the bone marrow due to MTHFR. So, this supplement has been moved to conditional to hang on to it in case I am wrong. END OF UPDATE. While you already use Black Coffee and Ginger to promote fat burning in liver cells, Berberine targets the structural root of fat deposition from a completely different molecular angle: The Mechanism: Berberine directly inhibits a protein transcription factor called SREBP-1c. This protein is the master regulator that tells your liver to create new fat molecules from circulating sugars (lipogenesis). By shutting down this signal, berberine prevents your liver from packing away new fat, while its independent activation of AMPK forces the liver to burn its existing fat stores for energy. Multiple clinical trials demonstrate that berberine significantly drops hepatic fat content and normalizes liver enzymes (ALT/AST).It also up-regulates insulin receptors throughout the body. It also has an impact on the gut biome by shifting the micro-organisms away from inflammatory species.  
-          <span class="warn">⚠️ Do not combine with metformin. Check with doctor.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling recommended:</strong> 8–12 weeks on, 2–4 weeks off. Part of berberine's effect is mediated through gut cell GLP-1 secretion — the same pathway as GLP-1 agonist drugs. Gut cell adaptation can gradually blunt this component over continuous use. <strong>Current plan:</strong> run continuously through the 12-week exercise window (Jun 5–Aug 27), then take a 2–4 week break in September before resuming.</span></td></tr>
+
 
 
       <!-- ======================================================================= -->
@@ -643,8 +666,8 @@
         <td class="timing">Bedtime</td>
         <td>With or without food</td>
         <!-- Notes -->
-        <td><span class="cond-tag ct-stone">Kidney Stones</span> <span class="cond-tag ct-dp">Pre-diabetes</span>
-          <br>UPDATE: The kidney stone and pre-diabetes are downgraded in concern, so it has been moved to the Conditional section. END OF UPDATE. Stone prevention + sleep quality + glucose. Take at bedtime — <strong>2+ hrs after Zinc at dinner</strong></td>
+        <td><span class="cond-tag ct-stone">Kidney Stones</span> <span class="cond-tag ct-dp">Pre-diabetes</span> <span class="cond-tag ct-hpa">HPA-Axis / Cortisol</span>
+          <br>UPDATE: The kidney stone and pre-diabetes are downgraded in concern, so it has been moved to the Conditional section. END OF UPDATE. Stone prevention + sleep quality + glucose. <strong>HPA-axis support:</strong> Magnesium is essential for HPA-axis regulation — deficiency worsens cortisol response to stress and impairs sleep quality. Adequate magnesium helps down-regulate the stress response and supports deeper, more restorative sleep during the nervous system recovery period. Take at bedtime — <strong>2+ hrs after Zinc at dinner</strong></td>
       </tr>
 
 
@@ -731,6 +754,22 @@
         <!-- Notes -->
         <td><span class="cond-tag ct-mthfr-low">MTHFR - methylation +</span>
           <br><strong>🔄 Conditional: only take during confirmed under-methylation periods</strong> — when experiencing low energy, brain fog, depression, high histamine, or cold extremities. This is a <strong>BACKUP METHYL DONOR</strong> that addresses under-methylation via an alternative pathway to methylfolate. <span class="warn">⚠️ Not for continuous daily use. Excess methylation can trigger mood disruption (anxiety, irritability, or depressive rebound) in ~10 to 20% of people — risk is higher with a history of stress-related depression. Start at 500 mg and monitor mood closely via Health Tracker. Taking with dinner spaces it from morning methylfolate + methylcobalamin to avoid methyl stacking. IF OVER-METHYLATION SYMPTOMS APPEAR (anxiety, racing thoughts, insomnia, irritability) — STOP IMMEDIATELY and switch to methyl buffers (Glycine, NAC) instead.</span><br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling is mandatory:</strong> 8–12 weeks on maximum, then 2–4 weeks off. Monitor mood via the Health Tracker slider — drop to 2 or below on consecutive days, <em>or</em> new/worsening anxiety or irritability = pause immediately. This is not a long-term daily supplement — it's a short-term intervention for under-methylation episodes.</span></td></tr>
+
+      <!-- ======================================================================= -->
+      <!--                             ASHWAGANDHA                                 -->
+      <!-- ======================================================================= -->
+      <tr class="supp-row" onclick="toggleSupp(this)">
+        <td class="supp-check">☐</td>
+        <!-- Supplement -->
+        <td>Ashwagandha (KSM-66 or Sensoril)</td>
+        <!-- Dose -->
+        <td>Start 300 mg KSM-66 or 125 mg Sensoril → increase to 600 mg or 250 mg after 2 weeks if tolerated</td>
+        <!-- Timing and Food -->
+        <td class="timing">Morning (8–10am)</td>
+        <td>With food</td>
+        <!-- Notes -->
+        <td><span class="cond-tag ct-hpa">HPA-Axis / Cortisol</span> <span class="cond-tag ct-nafld">Fatty Liver</span> <span class="cond-tag ct-gckr">De Novo Lipogenesis (GCKR)</span>
+          <br><strong>🔄 Trial basis — monitor thyroid and gut symptoms closely.</strong> Ashwagandha is an adaptogen that modulates HPA-axis signaling and reduces cortisol by 14–27% in clinical trials (2019–2025 RCTs). <strong>Why relevant for you:</strong> Chronic cortisol directly activates the SREBP-1c pathway that your GCKR variant already overactivates — cortisol + GCKR = compounded liver fat accumulation. Ashwagandha addresses daytime HPA-axis resilience (vs. Goodbye Stress which works on evening cortisol). Also shows modest improvements in fasting glucose and liver enzymes in some studies. <strong>Morning timing:</strong> adaptogenic effects work best when aligned with cortisol's natural circadian rhythm (highest in morning). <span class="warn">⚠️ THYROID STIMULATION RISK: Ashwagandha can increase T3 and T4 thyroid hormones. STOP IMMEDIATELY if you experience heart palpitations, heat intolerance, anxiety spike, or tremors. Check thyroid labs (TSH, Free T3, Free T4) before starting if you haven't had recent results. Do not use if you're on thyroid medication without doctor approval.</span> <span class="warn">⚠️ NIGHTSHADE FAMILY: Ashwagandha is a nightshade (like tomatoes, peppers). If you have nightshade sensitivity or react badly to those foods, skip this supplement. Monitor gut symptoms — stop if any celiac-like GI distress appears.</span> <span class="warn">⚠️ QUALITY CRITICAL: Use only third-party tested standardized extracts — KSM-66 (5% withanolides, root only, most studied) or Sensoril (10% withanolides, root + leaf, more potent). Raw powder has contamination risk (heavy metals documented in low-quality products). Brands: Jarrow KSM-66, Life Extension Optimized Ashwagandha (Sensoril, GF certified).</span> <strong>Monitor:</strong> thyroid symptoms (stop immediately if any appear), liver enzymes at 4–6 weeks (ALT/AST in lab tracker), fasting glucose trend, morning energy (should improve, not cause grogginess), gut symptoms. <strong>Interaction note:</strong> Works via different mechanism than Goodbye Stress (modulates GABA-A receptors vs. providing GABA directly) — morning ashwagandha + evening Goodbye Stress is appropriate spacing. Do not take ashwagandha at night (can interfere with sleep onset for some people).<br><span style="color:#2d6a4f;font-size:.88rem">♻️ <strong>Cycling recommended:</strong> 8–12 weeks on, 2–4 weeks off. Long-term continuous use can lead to thyroid overstimulation or tolerance to adaptogenic effects. Re-assess benefit vs. risk after first 8-week cycle.</span></td></tr>
     </tbody>
   </table>
 
