@@ -112,9 +112,9 @@
 
     /* CHART */
     .chart-scroll { overflow-x:auto; }
-    .chart-wrap   { min-width:400px; height:420px; }
+    .chart-wrap   { min-width:400px; height:560px; }
     @media (max-width: 680px) {
-      .chart-wrap { height:380px; }
+      .chart-wrap { height:500px; }
     }
     .legend-hover-tip {
       position: fixed;
@@ -781,6 +781,14 @@ function render(){
     backgroundColor:'transparent',
     borderWidth:2, pointRadius:4, tension:.3, spanGaps:true
   }));
+  const chartWrap=document.querySelector('#chart-card .chart-wrap');
+  if(chartWrap){
+    const isSmallScreen=window.matchMedia('(max-width: 680px)').matches;
+    const baseHeight=isSmallScreen?500:560;
+    const extraPerItem=isSmallScreen?20:22;
+    const dynamicHeight=baseHeight+Math.max(0,datasets.length-8)*extraPerItem;
+    chartWrap.style.height=Math.min(dynamicHeight,1100)+'px';
+  }
   const isSmallScreen = window.matchMedia('(max-width: 680px)').matches;
   const legendFontSize = isSmallScreen ? 14 : 16;
 
