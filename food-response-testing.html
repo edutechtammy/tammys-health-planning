@@ -113,6 +113,28 @@
     /* CHART */
     .chart-scroll { overflow-x:auto; }
     .chart-wrap   { min-width:400px; height:260px; }
+    .legend-hover-tip {
+      position: fixed;
+      z-index: 9999;
+      max-width: min(560px, 92vw);
+      padding: .45rem .65rem;
+      border-radius: 8px;
+      border: 1px solid #d6e6dc;
+      background: #ffffff;
+      color: #1e2d24;
+      font-size: .92rem;
+      font-weight: 600;
+      line-height: 1.35;
+      box-shadow: 0 4px 16px rgba(26, 66, 44, .2);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity .12s ease, transform .12s ease;
+    }
+    .legend-hover-tip.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* SUMMARY TABLE */
     .sum-table { width:100%; border-collapse:collapse; font-size:.85rem; }
@@ -613,6 +635,47 @@ function confirmClearAll(){
 }
 
 let curveChart=null;
+let legendHoverTip=null;
+
+function ensureLegendHoverTip(){
+  if(legendHoverTip) return legendHoverTip;
+  const el=document.createElement('div');
+  el.className='legend-hover-tip';
+  document.body.appendChild(el);
+  legendHoverTip=el;
+  return legendHoverTip;
+}
+
+function showLegendHoverTip(evt,text){
+  if(!text) return;
+  const tip=ensureLegendHoverTip();
+  tip.textContent=text;
+
+  const nativeEvt=evt&&evt.native?evt.native:null;
+  let x=nativeEvt&&typeof nativeEvt.clientX==='number'?nativeEvt.clientX:0;
+  let y=nativeEvt&&typeof nativeEvt.clientY==='number'?nativeEvt.clientY:0;
+  if(!x&&!y&&evt&&typeof evt.x==='number'&&typeof evt.y==='number'){
+    const rect=curveChart?.canvas?.getBoundingClientRect();
+    if(rect){ x=rect.left+evt.x; y=rect.top+evt.y; }
+  }
+
+  const gap=14;
+  const tipW=tip.offsetWidth||260;
+  const tipH=tip.offsetHeight||40;
+  const maxX=window.innerWidth-tipW-8;
+  const maxY=window.innerHeight-tipH-8;
+  const left=Math.max(8,Math.min(x+gap,maxX));
+  const top=Math.max(8,Math.min(y+gap,maxY));
+
+  tip.style.left=left+'px';
+  tip.style.top=top+'px';
+  tip.classList.add('show');
+}
+
+function hideLegendHoverTip(){
+  if(!legendHoverTip) return;
+  legendHoverTip.classList.remove('show');
+}
 
 function render(){
   const all=loadTests();
@@ -703,7 +766,8 @@ function render(){
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
   const datasets=chartTests.map((t,i)=>({
-    label:t.food.length>30?t.food.slice(0,28)+'…':t.food,
+    label:t.food,
+    fullLabel:t.food,
     data:[
       0,  // Baseline normalized to 0
       t.t30!=null ? t.t30-t.t0 : null,   // Change from baseline at +30
@@ -723,7 +787,27 @@ function render(){
     data:{labels:['Baseline (T=0)','+30 min','+60 min','+120 min'],datasets},
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{labels:{font:{size:legendFontSize,weight:'600'},boxWidth:18,padding:14}}},
+      plugins:{legend:{
+        onHover:(evt,legendItem,legend)=>{
+          const ds=legend.chart.data.datasets[legendItem.datasetIndex]||{};
+          showLegendHoverTip(evt,ds.fullLabel||ds.label||legendItem.text);
+        },
+        onLeave:()=>hideLegendHoverTip(),
+        labels:{
+          generateLabels:(chart)=>{
+            const defaults=Chart.defaults.plugins.legend.labels.generateLabels(chart);
+            return defaults.map((item)=>{
+              const ds=chart.data.datasets[item.datasetIndex]||{};
+              const full=ds.fullLabel||ds.label||item.text||'';
+              const short=full.length>34?full.slice(0,34)+'…':full;
+              return {...item,text:short};
+            });
+          },
+          font:{size:legendFontSize,weight:'600'},
+          boxWidth:18,
+          padding:14
+        }
+      }},
       scales:{
         x:{ticks:{font:{size:11}},grid:{color:'#eaf4ec'}},
         y:{ticks:{font:{size:10}},grid:{color:'#eaf4ec'},title:{display:true,text:'Change from Baseline (mg/dL)',font:{size:10}}}
