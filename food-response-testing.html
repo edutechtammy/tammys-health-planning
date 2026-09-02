@@ -112,7 +112,10 @@
 
     /* CHART */
     .chart-scroll { overflow-x:auto; }
-    .chart-wrap   { min-width:400px; height:260px; }
+    .chart-wrap   { min-width:400px; height:420px; }
+    @media (max-width: 680px) {
+      .chart-wrap { height:380px; }
+    }
     .legend-hover-tip {
       position: fixed;
       z-index: 9999;
@@ -468,7 +471,7 @@
   <!-- CHARTS -->
   <div class="card" id="chart-card" style="display:none">
     <h2>📈 Response Curves — All Tests</h2>
-    <div class="chart-scroll"><div class="chart-wrap" style="height:300px"><canvas id="chart-curves"></canvas></div></div>
+    <div class="chart-scroll"><div class="chart-wrap"><canvas id="chart-curves"></canvas></div></div>
     <p style="font-size:.78rem;color:var(--muted);margin-top:.5rem">Each line = one test <strong>normalized to its own baseline</strong>. All curves start at 0 (baseline) for easy comparison of peak height and timing. Actual baseline readings vary per test but are shown in individual test cards above. Hover for food name and relative glucose changes.</p>
   </div>
 
