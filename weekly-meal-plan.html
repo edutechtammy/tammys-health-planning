@@ -31,6 +31,26 @@
       padding: 2rem 1rem 4rem;
     }
 
+    nav {
+      background: var(--green-dark);
+      padding: .75rem 1.5rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: -2rem -1rem 2rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      opacity: .85;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
     /* ── Header ── */
     header {
       text-align: center;
@@ -328,6 +348,19 @@
   </style>
 </head>
 <body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html" class="active">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html">👩‍🍳 Recipes</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="supplement-timing.html">💊 Supplements</a>
+  <a href="exercise-protocol.html">🏃 Exercise</a>
+  <a href="cgm-tracker.html">📡 CGM</a>
+</nav>
 
   <header>
     <span class="header-leaf">🌿</span>
