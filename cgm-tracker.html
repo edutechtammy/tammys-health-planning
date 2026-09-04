@@ -85,6 +85,91 @@
     .status-ok  { background: var(--green-light); color: var(--green-dark); }
     .status-err { background: var(--red-pale); color: var(--red); }
 
+    /* GRAPHICS SLIDESHOW */
+    .slideshow-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+      align-items: end;
+      margin-bottom: .85rem;
+    }
+    .slideshow-toolbar .field {
+      min-width: 230px;
+      flex: 1;
+    }
+    .slide-count {
+      font-size: .8rem;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-bottom: .35rem;
+    }
+    .slideshow-stage {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f7fbf8;
+      overflow: hidden;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slideshow-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 72vh;
+      object-fit: contain;
+      background: #fff;
+    }
+    .slideshow-empty {
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+      padding: 1.4rem;
+    }
+    .slide-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      border: 1px solid #c8d8ce;
+      background: rgba(255, 255, 255, .92);
+      color: #204b38;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .slide-nav:hover { background: #fff; }
+    .slide-nav:disabled { opacity: .45; cursor: not-allowed; }
+    .slide-nav.prev { left: .65rem; }
+    .slide-nav.next { right: .65rem; }
+    .slideshow-meta {
+      display: flex;
+      gap: .8rem;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: .7rem;
+    }
+    .slide-caption {
+      font-size: .82rem;
+      color: var(--muted);
+      flex: 1;
+      min-width: 220px;
+    }
+    .slide-actions {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
     /* CYCLE SELECTOR BAR */
     #cycle-selector-bar { display: flex; align-items: center; gap: .8rem; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: .8rem 1.2rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
     #cycle-selector-bar label { font-size: .73rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
@@ -448,6 +533,38 @@
 <!-- ======================================================================= -->
 <!-- MARK:                     IMPORT PANEL                                     -->
 <!-- ======================================================================= -->
+
+  <div class="card" id="graphics-slideshow-card">
+    <div class="card-header sky">
+      🖼️ Detailed Daily Graphics
+      <span class="ch-sub">Review full-resolution day-level charts from exported image sets</span>
+    </div>
+    <div class="card-body">
+      <p class="hint" style="margin-bottom:.75rem">Use this slideshow to browse CGM graphics from the <code>cgm-graphics</code> folders. Additional folders can be added as new cycle images are generated.</p>
+
+      <div class="slideshow-toolbar">
+        <div class="field">
+          <label for="graphics-folder-select">Image Folder</label>
+          <select id="graphics-folder-select" onchange="onGraphicsFolderChange(this.value)"></select>
+        </div>
+        <div class="slide-count" id="graphics-slide-count"></div>
+      </div>
+
+      <div class="slideshow-stage">
+        <button class="slide-nav prev" id="slide-prev" type="button" onclick="moveGraphicsSlide(-1)">‹</button>
+        <img id="graphics-slide-image" class="slideshow-img" alt="CGM graphic" />
+        <div id="graphics-slide-empty" class="slideshow-empty" style="display:none">No images available in this folder yet.</div>
+        <button class="slide-nav next" id="slide-next" type="button" onclick="moveGraphicsSlide(1)">›</button>
+      </div>
+
+      <div class="slideshow-meta">
+        <div class="slide-caption" id="graphics-slide-caption">Loading images...</div>
+        <div class="slide-actions">
+          <button class="btn btn-outline" id="graphics-autoplay-btn" type="button" onclick="toggleGraphicsAutoplay()">▶ Auto Play</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <details class="import-panel" id="import-panel">
     <summary>📥 Import a New CGM Cycle</summary>
@@ -3946,6 +4063,47 @@ const PRESET_CYCLE = {
 let cycles = [];
 let currentCycleId = null;
 let _compChart = null;
+let _graphicsAutoplayTimer = null;
+let _graphicsFolder = '2026-cycle-1';
+let _graphicsIndex = 0;
+
+const GRAPHICS_FOLDERS = {
+  '2026-cycle-1': [
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-05-27-1.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-05-27.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-05-28.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-05-29.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-05-30.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-05-31.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-06-01.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-06-02.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-06-03.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-06-04.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-06-05.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-06-06.png',
+    'cgm-graphics/2026-cycle-1/cgm_report_2026-06-07.png',
+    'cgm-graphics/2026-cycle-1/daily_cgm_time_series.png',
+    'cgm-graphics/2026-cycle-1/daily_mean_sorted.png',
+    'cgm-graphics/2026-cycle-1/daily_tir_breakdown.png',
+    'cgm-graphics/2026-cycle-1/daily_trends.png',
+    'cgm-graphics/2026-cycle-1/event_durations_sorted.png',
+    'cgm-graphics/2026-cycle-1/hba1c_gauge.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-05-27.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-05-28.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-05-29.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-05-30.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-05-31.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-01.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-02.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-03.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-04.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-05-1.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-05.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-06.png',
+    'cgm-graphics/2026-cycle-1/standalone_cgm_day_2026-06-07.png'
+  ],
+  '2026-cycle-2': []
+};
 
 // ═══════════════════════════════════════════════
 // STORAGE
@@ -3960,6 +4118,112 @@ function loadFromStorage() {
 
 function saveToStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(cycles));
+}
+
+function getActiveGraphicsSlides() {
+  return GRAPHICS_FOLDERS[_graphicsFolder] || [];
+}
+
+function toSlideTitle(path) {
+  const file = path.split('/').pop() || path;
+  return file
+    .replace(/\.[^.]+$/, '')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function renderGraphicsSlide() {
+  const slides = getActiveGraphicsSlides();
+  const img = document.getElementById('graphics-slide-image');
+  const empty = document.getElementById('graphics-slide-empty');
+  const prev = document.getElementById('slide-prev');
+  const next = document.getElementById('slide-next');
+  const caption = document.getElementById('graphics-slide-caption');
+  const count = document.getElementById('graphics-slide-count');
+
+  if (!slides.length) {
+    img.style.display = 'none';
+    empty.style.display = 'block';
+    prev.disabled = true;
+    next.disabled = true;
+    caption.textContent = `${_graphicsFolder} has no images yet.`;
+    count.textContent = '0 images';
+    return;
+  }
+
+  if (_graphicsIndex >= slides.length) _graphicsIndex = 0;
+  if (_graphicsIndex < 0) _graphicsIndex = slides.length - 1;
+
+  const current = slides[_graphicsIndex];
+  img.style.display = 'block';
+  empty.style.display = 'none';
+  img.src = current;
+  img.alt = toSlideTitle(current);
+  prev.disabled = slides.length < 2;
+  next.disabled = slides.length < 2;
+  caption.textContent = `${_graphicsFolder} · ${_graphicsIndex + 1}/${slides.length} · ${toSlideTitle(current)}`;
+  count.textContent = `${slides.length} image${slides.length === 1 ? '' : 's'}`;
+}
+
+function moveGraphicsSlide(step) {
+  const slides = getActiveGraphicsSlides();
+  if (!slides.length) return;
+  _graphicsIndex = (_graphicsIndex + step + slides.length) % slides.length;
+  renderGraphicsSlide();
+}
+
+function onGraphicsFolderChange(folder) {
+  _graphicsFolder = folder;
+  _graphicsIndex = 0;
+  renderGraphicsSlide();
+}
+
+function stopGraphicsAutoplay() {
+  if (_graphicsAutoplayTimer) {
+    clearInterval(_graphicsAutoplayTimer);
+    _graphicsAutoplayTimer = null;
+  }
+  const btn = document.getElementById('graphics-autoplay-btn');
+  if (btn) btn.textContent = '▶ Auto Play';
+}
+
+function toggleGraphicsAutoplay() {
+  if (_graphicsAutoplayTimer) {
+    stopGraphicsAutoplay();
+    return;
+  }
+
+  const slides = getActiveGraphicsSlides();
+  if (slides.length < 2) {
+    showToast('Need at least 2 images for autoplay.');
+    return;
+  }
+
+  _graphicsAutoplayTimer = setInterval(() => moveGraphicsSlide(1), 2800);
+  const btn = document.getElementById('graphics-autoplay-btn');
+  if (btn) btn.textContent = '⏸ Pause';
+}
+
+function initGraphicsSlideshow() {
+  const sel = document.getElementById('graphics-folder-select');
+  if (!sel) return;
+
+  const folderNames = Object.keys(GRAPHICS_FOLDERS);
+  sel.innerHTML = folderNames
+    .map(name => {
+      const count = (GRAPHICS_FOLDERS[name] || []).length;
+      return `<option value="${name}">${name} (${count})</option>`;
+    })
+    .join('');
+
+  const firstWithImages = folderNames.find(name => (GRAPHICS_FOLDERS[name] || []).length > 0);
+  _graphicsFolder = firstWithImages || folderNames[0] || '';
+  _graphicsIndex = 0;
+  if (_graphicsFolder) {
+    sel.value = _graphicsFolder;
+  }
+  renderGraphicsSlide();
 }
 
 // ═══════════════════════════════════════════════
@@ -5367,6 +5631,7 @@ function showToast(msg) {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Page loaded, initializing...');
+  initGraphicsSlideshow();
   
   // Check if data version has changed - if so, reload PRESET_CYCLE
   const storedVersion = parseInt(localStorage.getItem(VERSION_KEY) || '0');
