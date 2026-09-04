@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Weight Tracker</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #2d6a4f;
+      --green-mid: #40916c;
+      --green-light: #d8f3dc;
+      --green-pale: #f0faf2;
+      --border: #b7ddc4;
+      --text: #1e2d24;
+      --muted: #5a7263;
+      --shadow: 0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--green-pale);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 4rem;
+    }
+
+    nav {
+      background: var(--green-dark);
+      padding: .75rem 1.5rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .88rem;
+      opacity: .82;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+
+    nav a:hover,
+    nav a.active {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1.4rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      color: var(--green-dark);
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: .35rem;
+      font-size: .95rem;
+    }
+
+    .main-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 1.2rem 1.3rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card h2 {
+      color: var(--green-dark);
+      font-size: 1.02rem;
+      margin-bottom: .85rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: .8rem;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: .28rem;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: .76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .5rem .7rem;
+      font-size: .92rem;
+      color: var(--text);
+      background: #f8fcf9;
+      font-family: inherit;
+    }
+
+    .field textarea {
+      min-height: 72px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      outline: 2px solid var(--green-mid);
+      background: #fff;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: .7rem;
+      flex-wrap: wrap;
+      margin-top: .95rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: .52rem 1.1rem;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+
+    .btn:hover { opacity: .85; }
+
+    .btn-primary {
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--green-dark);
+      border: 1.5px solid var(--green-mid);
+    }
+
+    .btn-save-file {
+      background: #e8f4fb;
+      color: #1a5276;
+      border: 1px solid #b8d8ea;
+    }
+
+    .btn-import-file {
+      background: #f3ecfb;
+      color: #5b2c6f;
+      border: 1px solid #d7bde2;
+    }
+
+    .helper {
+      margin-top: .6rem;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .86rem;
+    }
+
+    thead tr {
+      background: var(--green-light);
+    }
+
+    th, td {
+      text-align: left;
+      white-space: nowrap;
+      padding: .5rem .65rem;
+      border-bottom: 1px solid #eaf4ec;
+    }
+
+    th {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--green-dark);
+    }
+
+    tbody tr:hover {
+      background: #f4fbf6;
+    }
+
+    .notes-cell {
+      white-space: normal;
+      min-width: 240px;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: var(--muted);
+      padding: 1.2rem;
+      font-size: .9rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: var(--green-dark);
+      color: #fff;
+      border-radius: 8px;
+      font-size: .84rem;
+      padding: .55rem 1rem;
+      opacity: 0;
+      transition: opacity .25s;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html">👩‍🍳 Recipes</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="supplement-timing.html">💊 Supplements</a>
+  <a href="exercise-protocol.html">🏃 Exercise</a>
+  <a href="cgm-tracker.html">📡 CGM</a>
+  <a href="daily-weight-tracker.html" class="active">⚖️ Weight</a>
+</nav>
+
+<header>
+  <h1>⚖️ Daily Weight Tracker</h1>
+  <p>Log one daily morning measurement and keep a simple file backup whenever you want.</p>
+</header>
+
+<div class="main-wrap">
+  <section class="card">
+    <h2>Log Daily Weight</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label for="w-date">Date</label>
+        <input type="date" id="w-date" />
+      </div>
+      <div class="field">
+        <label for="w-weight">Weight (lbs)</label>
+        <input type="number" id="w-weight" step="0.1" min="0" placeholder="e.g. 148.4" />
+      </div>
+      <div class="field">
+        <label for="w-waist">Waist (in, optional)</label>
+        <input type="number" id="w-waist" step="0.1" min="0" placeholder="e.g. 32.5" />
+      </div>
+      <div class="field full">
+        <label for="w-notes">Notes (optional)</label>
+        <textarea id="w-notes" placeholder="Sleep quality, cycle day, sodium-heavy meal, travel, stress, etc."></textarea>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="add-entry">Add Entry</button>
+      <button class="btn btn-outline" id="clear-form">Clear Form</button>
+      <button class="btn btn-save-file" id="save-file">Save Data to File</button>
+      <button class="btn btn-import-file" id="import-file">Import Data File</button>
+      <input type="file" id="import-file-input" accept="application/json,.json" hidden />
+    </div>
+    <p class="helper">Entries are kept in this browser for convenience, and Save Data to File downloads a JSON backup you can keep anywhere.</p>
+  </section>
+
+  <section class="card">
+    <h2>Saved Entries</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Weight (lbs)</th>
+            <th>Waist (in)</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="entries-body"></tbody>
+      </table>
+    </div>
+    <div class="empty-msg" id="empty-msg">No entries yet.</div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'dailyWeightEntries_v1';
+  let entries = [];
+
+  const dateInput = document.getElementById('w-date');
+  const weightInput = document.getElementById('w-weight');
+  const waistInput = document.getElementById('w-waist');
+  const notesInput = document.getElementById('w-notes');
+  const entriesBody = document.getElementById('entries-body');
+  const emptyMsg = document.getElementById('empty-msg');
+  const toast = document.getElementById('toast');
+  const importFileInput = document.getElementById('import-file-input');
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1600);
+  }
+
+  function setDefaultDate() {
+    const today = new Date();
+    const tzOffsetMs = today.getTimezoneOffset() * 60000;
+    const localISODate = new Date(today.getTime() - tzOffsetMs).toISOString().slice(0, 10);
+    dateInput.value = localISODate;
+  }
+
+  function saveToLocalStorage() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
+
+  function loadFromLocalStorage() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      entries = [];
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(raw);
+      entries = Array.isArray(parsed) ? parsed : [];
+    } catch {
+      entries = [];
+    }
+  }
+
+  function sortEntriesNewestFirst() {
+    entries.sort((a, b) => b.date.localeCompare(a.date));
+  }
+
+  function renderEntries() {
+    sortEntriesNewestFirst();
+    entriesBody.innerHTML = '';
+
+    if (!entries.length) {
+      emptyMsg.style.display = 'block';
+      return;
+    }
+
+    emptyMsg.style.display = 'none';
+
+    for (const item of entries) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = [
+        '<td>' + escapeHtml(item.date || '') + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.weight, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.waist, 1)) + '</td>',
+        '<td class="notes-cell">' + escapeHtml(item.notes || '') + '</td>'
+      ].join('');
+      entriesBody.appendChild(tr);
+    }
+  }
+
+  function formatMaybeNumber(value, digits) {
+    if (value === null || value === undefined || value === '') {
+      return '';
+    }
+    const n = Number(value);
+    if (Number.isNaN(n)) {
+      return String(value);
+    }
+    return n.toFixed(digits);
+  }
+
+  function escapeHtml(text) {
+    return String(text)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+
+  function clearForm() {
+    weightInput.value = '';
+    waistInput.value = '';
+    notesInput.value = '';
+    weightInput.focus();
+  }
+
+  function addEntry() {
+    const date = dateInput.value;
+    const weight = weightInput.value.trim();
+    const waist = waistInput.value.trim();
+    const notes = notesInput.value.trim();
+
+    if (!date) {
+      showToast('Please choose a date.');
+      return;
+    }
+
+    if (!weight) {
+      showToast('Please enter weight.');
+      return;
+    }
+
+    const weightNum = Number(weight);
+    if (Number.isNaN(weightNum) || weightNum <= 0) {
+      showToast('Weight must be a positive number.');
+      return;
+    }
+
+    let waistNum = '';
+    if (waist) {
+      const n = Number(waist);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Waist must be a positive number.');
+        return;
+      }
+      waistNum = n;
+    }
+
+    const existingIndex = entries.findIndex(e => e.date === date);
+    const record = {
+      date,
+      weight: weightNum,
+      waist: waistNum,
+      notes,
+      updatedAt: new Date().toISOString()
+    };
+
+    if (existingIndex >= 0) {
+      entries[existingIndex] = record;
+      showToast('Entry updated.');
+    } else {
+      entries.push(record);
+      showToast('Entry added.');
+    }
+
+    saveToLocalStorage();
+    renderEntries();
+    clearForm();
+  }
+
+  function saveDataToFile() {
+    if (!entries.length) {
+      showToast('No data to save yet.');
+      return;
+    }
+
+    sortEntriesNewestFirst();
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      app: 'Daily Weight Tracker',
+      entryCount: entries.length,
+      entries
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    const today = new Date().toISOString().slice(0, 10);
+
+    link.href = URL.createObjectURL(blob);
+    link.download = 'daily-weight-data-' + today + '.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(link.href);
+
+    showToast('Data file saved.');
+  }
+
+  function normalizeImportedEntries(payload) {
+    const source = Array.isArray(payload)
+      ? payload
+      : (payload && Array.isArray(payload.entries) ? payload.entries : null);
+
+    if (!source) {
+      return [];
+    }
+
+    const cleaned = [];
+    for (const item of source) {
+      if (!item || typeof item !== 'object') {
+        continue;
+      }
+
+      const date = String(item.date || '').trim();
+      const weightNum = Number(item.weight);
+      const waistNum = item.waist === '' || item.waist === null || item.waist === undefined
+        ? ''
+        : Number(item.waist);
+
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        continue;
+      }
+      if (Number.isNaN(weightNum) || weightNum <= 0) {
+        continue;
+      }
+      if (waistNum !== '' && (Number.isNaN(waistNum) || waistNum <= 0)) {
+        continue;
+      }
+
+      cleaned.push({
+        date,
+        weight: weightNum,
+        waist: waistNum,
+        notes: String(item.notes || '').trim(),
+        updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
+      });
+    }
+
+    return cleaned;
+  }
+
+  function mergeEntriesByDate(importedEntries) {
+    const byDate = new Map(entries.map(entry => [entry.date, entry]));
+    for (const record of importedEntries) {
+      byDate.set(record.date, record);
+    }
+    entries = Array.from(byDate.values());
+  }
+
+  function importDataFromFile(file) {
+    const reader = new FileReader();
+
+    reader.onload = function onLoad(event) {
+      try {
+        const text = String(event.target?.result || '');
+        const parsed = JSON.parse(text);
+        const importedEntries = normalizeImportedEntries(parsed);
+
+        if (!importedEntries.length) {
+          showToast('No valid entries found in file.');
+          return;
+        }
+
+        mergeEntriesByDate(importedEntries);
+        saveToLocalStorage();
+        renderEntries();
+        showToast('Imported ' + importedEntries.length + ' entries.');
+      } catch {
+        showToast('Could not read that JSON file.');
+      }
+    };
+
+    reader.onerror = function onError() {
+      showToast('Unable to read file.');
+    };
+
+    reader.readAsText(file);
+  }
+
+  document.getElementById('add-entry').addEventListener('click', addEntry);
+  document.getElementById('clear-form').addEventListener('click', clearForm);
+  document.getElementById('save-file').addEventListener('click', saveDataToFile);
+  document.getElementById('import-file').addEventListener('click', () => importFileInput.click());
+  importFileInput.addEventListener('change', () => {
+    const file = importFileInput.files && importFileInput.files[0];
+    if (file) {
+      importDataFromFile(file);
+    }
+    importFileInput.value = '';
+  });
+
+  loadFromLocalStorage();
+  setDefaultDate();
+  renderEntries();
+</script>
+</body>
+</html>
