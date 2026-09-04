@@ -456,6 +456,7 @@
         Paste your exported CGM CSV data (header + readings). The file at
         <code>manual-backups/lingo-cgm-*.csv</code> is the right format.
         Tab-separated paste from Lingo's Messages share is also accepted.
+        You can also import a full cycle JSON file exported from this tracker.
         All computation runs in your browser — nothing leaves this page.
       </p>
       <div class="form-grid">
@@ -495,7 +496,9 @@
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="importCycle()">⚡ Parse &amp; Save Cycle</button>
+        <button class="btn btn-sky" onclick="triggerJSONImport()">📂 Import Cycle JSON</button>
         <button class="btn btn-outline" onclick="clearImportForm()">✕ Clear</button>
+        <input type="file" id="f-json-file" accept="application/json,.json" style="display:none" />
         <span id="import-status"></span>
       </div>
     </div>
@@ -4114,21 +4117,23 @@ function importCycle() {
   const wEnd      = parseFloat(document.getElementById('f-weight-end').value)   || null;
   const notes     = document.getElementById('f-notes').value.trim();
   const csvText   = document.getElementById('f-csv').value;
-  const statusEl  = document.getElementById('import-status');
-
-  statusEl.className = '';
-  statusEl.textContent = '';
+  clearImportStatus();
 
   if (!csvText.trim()) {
-    setStatus('err', '✕ Please paste CSV data first.'); return;
+    setImportStatus('err', '✕ Please paste CSV data first, or use Import Cycle JSON.'); return;
   }
   const rows = parseCSVData(csvText);
   if (rows.length < 10) {
-    setStatus('err', `✕ Only ${rows.length} valid readings found — check the data format.`); return;
+    setImportStatus('err', `✕ Only ${rows.length} valid readings found — check the data format.`); return;
   }
   const stats = computeStats(rows);
   if (!stats) {
-    setStatus('err', '✕ Could not compute stats — check the timestamp format.'); return;
+    setImportStatus('err', '✕ Could not compute stats — check the timestamp format.'); return;
+  }
+
+  if (hasDuplicateCycleRange(stats)) {
+    setImportStatus('err', `✕ A cycle for ${stats.dateStart} to ${stats.dateEnd} already exists.`);
+    return;
   }
 
   const cycle = {
@@ -4140,23 +4145,119 @@ function importCycle() {
   saveToStorage();
   currentCycleId = cycle.id;
 
-  setStatus('ok', `✓ Saved — ${stats.n} readings across ${stats.durationDays} days`);
+  setImportStatus('ok', `✓ Saved — ${stats.n} readings across ${stats.durationDays} days`);
   document.getElementById('import-panel').removeAttribute('open');
   renderAll();
   showToast(`✓ "${label}" saved`);
+}
 
-  function setStatus(type, msg) {
-    statusEl.className = `status-msg status-${type}`;
-    statusEl.textContent = msg;
+function clearImportStatus() {
+  const statusEl = document.getElementById('import-status');
+  statusEl.textContent = '';
+  statusEl.className = '';
+}
+
+function setImportStatus(type, msg) {
+  const statusEl = document.getElementById('import-status');
+  statusEl.className = `status-msg status-${type}`;
+  statusEl.textContent = msg;
+}
+
+function hasDuplicateCycleRange(stats) {
+  return cycles.some(c => c?.stats?.dateStart === stats.dateStart && c?.stats?.dateEnd === stats.dateEnd);
+}
+
+function toNullableNumber(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function buildCycleFromJsonPayload(payload) {
+  if (!payload || typeof payload !== 'object') {
+    throw new Error('JSON root must be an object.');
   }
+
+  if (typeof payload.csvData !== 'string' || !payload.csvData.trim()) {
+    throw new Error('JSON must include csvData. Use Export JSON from this tracker.');
+  }
+
+  const rows = parseCSVData(payload.csvData);
+  if (rows.length < 10) {
+    throw new Error(`JSON csvData has only ${rows.length} valid readings.`);
+  }
+
+  const stats = computeStats(rows);
+  if (!stats) {
+    throw new Error('Could not compute stats from JSON csvData.');
+  }
+
+  if (hasDuplicateCycleRange(stats)) {
+    throw new Error(`A cycle for ${stats.dateStart} to ${stats.dateEnd} already exists.`);
+  }
+
+  const fallbackLabel = `Imported ${stats.dateStart} to ${stats.dateEnd}`;
+  const milestoneNum = Number(payload.milestone);
+
+  return {
+    id: 'cycle-' + Date.now(),
+    label: String(payload.label || fallbackLabel),
+    milestone: Number.isFinite(milestoneNum) ? milestoneNum : 0,
+    weightStart: toNullableNumber(payload.weightStart),
+    weightEnd: toNullableNumber(payload.weightEnd),
+    notes: String(payload.notes || ''),
+    stats,
+    csvData: payload.csvData
+  };
+}
+
+function importCycleFromJsonText(jsonText) {
+  let payload;
+  try {
+    payload = JSON.parse(jsonText);
+  } catch {
+    throw new Error('Invalid JSON file.');
+  }
+
+  const cycle = buildCycleFromJsonPayload(payload);
+  cycles.push(cycle);
+  saveToStorage();
+  currentCycleId = cycle.id;
+  document.getElementById('import-panel').removeAttribute('open');
+  renderAll();
+  setImportStatus('ok', `✓ JSON imported — ${cycle.stats.n} readings across ${cycle.stats.durationDays} days`);
+  showToast(`✓ "${cycle.label}" imported`);
+}
+
+function triggerJSONImport() {
+  clearImportStatus();
+  const picker = document.getElementById('f-json-file');
+  picker.value = '';
+  picker.click();
+}
+
+function handleJSONFileImport(ev) {
+  const file = ev.target.files && ev.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      importCycleFromJsonText(String(reader.result || ''));
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unable to import JSON.';
+      setImportStatus('err', `✕ ${msg}`);
+    }
+  };
+  reader.onerror = () => setImportStatus('err', '✕ Could not read JSON file.');
+  reader.readAsText(file);
 }
 
 function clearImportForm() {
   ['f-label', 'f-notes', 'f-csv'].forEach(id => { document.getElementById(id).value = ''; });
   document.getElementById('f-weight-start').value = '';
   document.getElementById('f-weight-end').value = '';
-  document.getElementById('import-status').textContent = '';
-  document.getElementById('import-status').className = '';
+  clearImportStatus();
 }
 
 // ═══════════════════════════════════════════════
@@ -5287,6 +5388,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Pre-seeded with PRESET_CYCLE');
   }
   currentCycleId = cycles[cycles.length - 1].id;
+  document.getElementById('f-json-file').addEventListener('change', handleJSONFileImport);
   console.log('Current cycle ID:', currentCycleId);
   console.log('Calling renderAll()...');
   renderAll();
