@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Weight Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -183,6 +184,17 @@
       color: var(--muted);
     }
 
+    .chart-wrap {
+      position: relative;
+      height: 340px;
+    }
+
+    .chart-helper {
+      margin-top: .6rem;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
     .table-wrap {
       overflow-x: auto;
     }
@@ -271,6 +283,14 @@
 
 <div class="main-wrap">
   <section class="card">
+    <h2>Weight Trend Over Time</h2>
+    <div class="chart-wrap">
+      <canvas id="weight-chart"></canvas>
+    </div>
+    <p class="chart-helper">Target line is fixed at 160 lbs. A 7-day average smooths daily noise, and the y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
+  </section>
+
+  <section class="card">
     <h2>Log Daily Weight</h2>
     <div class="form-grid">
       <div class="field">
@@ -324,7 +344,10 @@
 
 <script>
   const STORAGE_KEY = 'dailyWeightEntries_v1';
+  const TARGET_WEIGHT = 160;
+  const START_WEIGHT_CAP = 230;
   let entries = [];
+  let weightChart = null;
 
   const dateInput = document.getElementById('w-date');
   const weightInput = document.getElementById('w-weight');
@@ -334,6 +357,7 @@
   const emptyMsg = document.getElementById('empty-msg');
   const toast = document.getElementById('toast');
   const importFileInput = document.getElementById('import-file-input');
+  const weightChartCanvas = document.getElementById('weight-chart');
 
   function showToast(message) {
     toast.textContent = message;
@@ -371,7 +395,177 @@
     entries.sort((a, b) => b.date.localeCompare(a.date));
   }
 
+  function sortEntriesOldestFirst(list) {
+    return [...list].sort((a, b) => a.date.localeCompare(b.date));
+  }
+
+  function dateToStamp(dateStr) {
+    const parts = dateStr.split('-').map(Number);
+    return Date.UTC(parts[0], parts[1] - 1, parts[2]);
+  }
+
+  function stampToDateLabel(stamp) {
+    return new Date(stamp).toLocaleDateString(undefined, {
+      year: '2-digit',
+      month: 'short',
+      day: 'numeric'
+    });
+  }
+
+  function buildMovingAveragePoints(points, windowSize) {
+    const movingPoints = [];
+    let rollingSum = 0;
+
+    for (let i = 0; i < points.length; i += 1) {
+      rollingSum += points[i].y;
+
+      if (i >= windowSize) {
+        rollingSum -= points[i - windowSize].y;
+      }
+
+      if (i < windowSize - 1) {
+        movingPoints.push({ x: points[i].x, y: null });
+      } else {
+        movingPoints.push({ x: points[i].x, y: rollingSum / windowSize });
+      }
+    }
+
+    return movingPoints;
+  }
+
+  function renderWeightChart() {
+    const chrono = sortEntriesOldestFirst(entries).filter(item => Number.isFinite(Number(item.weight)));
+
+    if (weightChart) {
+      weightChart.destroy();
+      weightChart = null;
+    }
+
+    if (!chrono.length) {
+      return;
+    }
+
+    const weightPoints = chrono.map(item => ({
+      x: dateToStamp(item.date),
+      y: Number(item.weight)
+    }));
+
+    const allWeights = weightPoints.map(point => point.y);
+    const minWeight = Math.min(...allWeights);
+    const maxWeight = Math.max(...allWeights);
+    const minX = weightPoints[0].x;
+    const maxX = weightPoints[weightPoints.length - 1].x;
+    const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
+    const pointRadius = weightPoints.length > 240 ? 0 : 2.2;
+    const movingAveragePoints = buildMovingAveragePoints(weightPoints, 7);
+
+    weightChart = new Chart(weightChartCanvas, {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'Daily Weight',
+            data: weightPoints,
+            borderColor: '#2d6a4f',
+            backgroundColor: 'rgba(45,106,79,.15)',
+            borderWidth: 2,
+            tension: 0.18,
+            parsing: false,
+            pointRadius,
+            pointHoverRadius: 4,
+            pointHitRadius: 12,
+            fill: false
+          },
+          {
+            label: '7-day Average',
+            data: movingAveragePoints,
+            borderColor: '#1a5276',
+            backgroundColor: 'rgba(26,82,118,.14)',
+            borderWidth: 2,
+            tension: 0.2,
+            parsing: false,
+            pointRadius: 0,
+            pointHoverRadius: 3,
+            pointHitRadius: 10,
+            spanGaps: false,
+            fill: false
+          },
+          {
+            label: 'Target 160 lbs',
+            data: [
+              { x: minX, y: TARGET_WEIGHT },
+              { x: targetEndX, y: TARGET_WEIGHT }
+            ],
+            borderColor: '#c0392b',
+            borderWidth: 2,
+            borderDash: [7, 6],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        normalized: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { boxWidth: 18 }
+          },
+          tooltip: {
+            callbacks: {
+              title(context) {
+                if (!context.length) {
+                  return '';
+                }
+                return stampToDateLabel(context[0].parsed.x);
+              },
+              label(context) {
+                if (context.parsed.y === null) {
+                  return context.dataset.label + ': not enough data yet';
+                }
+                const value = Number(context.parsed.y).toFixed(1);
+                return context.dataset.label + ': ' + value + ' lbs';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 12,
+              callback(value) {
+                return stampToDateLabel(value);
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.45)' }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Weight (lbs)'
+            },
+            min: Math.min(TARGET_WEIGHT - 15, Math.floor(minWeight - 5)),
+            max: Math.max(START_WEIGHT_CAP, Math.ceil(maxWeight + 5)),
+            ticks: {
+              callback(value) {
+                return value + ' lbs';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.5)' }
+          }
+        }
+      }
+    });
+  }
+
   function renderEntries() {
+    renderWeightChart();
     sortEntriesNewestFirst();
     entriesBody.innerHTML = '';
 
