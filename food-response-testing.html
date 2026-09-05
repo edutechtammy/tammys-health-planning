@@ -140,6 +140,92 @@
       transform: translateY(0);
     }
 
+    /* COMPARISON SLIDESHOW */
+    .comparison-slideshow {
+      margin-top: .95rem;
+      padding-top: .95rem;
+      border-top: 1px solid var(--border);
+    }
+    .comparison-top {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:.7rem;
+      flex-wrap:wrap;
+      margin-bottom:.55rem;
+    }
+    .comparison-top h3 {
+      margin:0;
+      font-size:.9rem;
+      color:var(--green-dark);
+    }
+    .comparison-count {
+      font-size:.76rem;
+      font-weight:700;
+      color:var(--muted);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .comparison-stage {
+      position:relative;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#f7fbf8;
+      padding:.55rem;
+      min-height:220px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .comparison-stage img {
+      width:100%;
+      height:auto;
+      max-height:480px;
+      object-fit:contain;
+      border-radius:8px;
+      background:#fff;
+    }
+    .comparison-empty {
+      font-size:.85rem;
+      color:var(--muted);
+      text-align:center;
+      padding:1.2rem;
+    }
+    .comparison-controls {
+      margin-top:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      flex-wrap:wrap;
+    }
+    .comparison-btn {
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--green-dark);
+      border-radius:8px;
+      font-size:.8rem;
+      font-weight:700;
+      padding:.28rem .72rem;
+      cursor:pointer;
+    }
+    .comparison-btn:hover { background:#eff8f1; }
+    .comparison-filename {
+      flex:1;
+      min-width:220px;
+      border:1px solid var(--border);
+      border-radius:8px;
+      background:#fff;
+      color:#334155;
+      font-size:.76rem;
+      line-height:1.35;
+      padding:.38rem .55rem;
+      white-space:normal;
+      overflow-wrap:anywhere;
+      word-break:break-word;
+      text-overflow:clip;
+    }
+
     /* SUMMARY TABLE */
     .sum-table { width:100%; border-collapse:collapse; font-size:.85rem; }
     .sum-table th { background:var(--green-dark); color:#fff; padding:.45rem .75rem; text-align:left; font-size:.78rem; }
@@ -477,6 +563,18 @@
     <h2>📈 Response Curves — All Tests</h2>
     <div class="chart-scroll"><div class="chart-wrap"><canvas id="chart-curves"></canvas></div></div>
     <p style="font-size:.78rem;color:var(--muted);margin-top:.5rem">Each line = one test <strong>normalized to its own baseline</strong>. All curves start at 0 (baseline) for easy comparison of peak height and timing. Actual baseline readings vary per test but are shown in individual test cards above. Hover for food name and relative glucose changes.</p>
+    <div class="comparison-slideshow" id="comparison-slideshow">
+      <div class="comparison-top">
+        <h3>Saved Comparison Screenshots</h3>
+        <div class="comparison-count" id="comparison-count"></div>
+      </div>
+      <div class="comparison-stage" id="comparison-stage"></div>
+      <div class="comparison-controls">
+        <button class="comparison-btn" type="button" onclick="showComparisonPrev()">◀ Previous</button>
+        <button class="comparison-btn" type="button" onclick="showComparisonNext()">Next ▶</button>
+        <div class="comparison-filename" id="comparison-filename"></div>
+      </div>
+    </div>
   </div>
 
   <!-- SUMMARY TABLE -->
@@ -505,7 +603,30 @@
 
 <script>
 const STORE_KEY = 'tammys_food_response';
-function loadTests(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||[]; }catch{ return []; } }
+function makeGeneratedTestId(){
+  return `ft-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
+}
+
+function loadTests(){
+  try{
+    const parsed = JSON.parse(localStorage.getItem(STORE_KEY));
+    if(!Array.isArray(parsed)) return [];
+    let changed = false;
+    const normalized = parsed
+      .filter(item => item && typeof item === 'object')
+      .map(item => {
+        const normalizedId = item.id == null || String(item.id).trim() === ''
+          ? makeGeneratedTestId()
+          : String(item.id);
+        if(item.id !== normalizedId) changed = true;
+        return { ...item, id: normalizedId };
+      });
+    if(changed){ localStorage.setItem(STORE_KEY, JSON.stringify(normalized)); }
+    return normalized;
+  }catch{
+    return [];
+  }
+}
 function saveTests(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr)); }
 
 function csvEscape(value){
@@ -848,7 +969,7 @@ function saveTest(){
   if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
   let tests=loadTests();
   if(editingId){
-    tests=tests.map(x=>x.id===editingId?{...x,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes}:x);
+    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes}:x);
   } else {
     const id=Date.now().toString();
     tests.push({id,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes});
@@ -864,7 +985,7 @@ function saveTest(){
 function deleteTest(id){
   if(!confirm('Delete this test entry?')) return;
   delete curveVisibilityOverrides[id];
-  saveTests(loadTests().filter(t=>t.id!==id));
+  saveTests(loadTests().filter(t=>String(t.id)!==String(id)));
   render();
 }
 
@@ -877,6 +998,53 @@ function confirmClearAll(){
 let curveChart=null;
 let legendHoverTip=null;
 const curveVisibilityOverrides=Object.create(null);
+const COMPARISON_IMAGES=[
+  'Bread - Tapioca Starch vs Almond Flour.png',
+  'Exercise - Walking vs sitting.png',
+  'Milk - A2 Milk vs Farm Fresh vs Standard.png'
+];
+let comparisonIndex=0;
+
+function renderComparisonSlide(){
+  const stage=document.getElementById('comparison-stage');
+  const nameEl=document.getElementById('comparison-filename');
+  const countEl=document.getElementById('comparison-count');
+  if(!stage||!nameEl||!countEl) return;
+
+  if(!COMPARISON_IMAGES.length){
+    stage.innerHTML='<div class="comparison-empty">No comparison images found in food-test-comparisons.</div>';
+    nameEl.textContent='';
+    countEl.textContent='0/0';
+    return;
+  }
+
+  if(comparisonIndex<0) comparisonIndex=COMPARISON_IMAGES.length-1;
+  if(comparisonIndex>=COMPARISON_IMAGES.length) comparisonIndex=0;
+
+  const filename=COMPARISON_IMAGES[comparisonIndex];
+  const imagePath='food-test-comparisons/'+filename;
+  stage.innerHTML='';
+  const img=document.createElement('img');
+  img.alt=filename;
+  img.src=encodeURI(imagePath);
+  img.onerror=function(){
+    stage.innerHTML='<div class="comparison-empty">Image could not be loaded: '+filename+'</div>';
+  };
+  stage.appendChild(img);
+
+  nameEl.textContent=filename;
+  countEl.textContent=(comparisonIndex+1)+'/'+COMPARISON_IMAGES.length;
+}
+
+function showComparisonNext(){
+  comparisonIndex+=1;
+  renderComparisonSlide();
+}
+
+function showComparisonPrev(){
+  comparisonIndex-=1;
+  renderComparisonSlide();
+}
 
 function ensureLegendHoverTip(){
   if(legendHoverTip) return legendHoverTip;
@@ -1080,6 +1248,7 @@ function render(){
 
 // Init
 document.getElementById('f-date').value=todayISO();
+renderComparisonSlide();
 render();
 </script>
 </body>
