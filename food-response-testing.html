@@ -863,17 +863,20 @@ function saveTest(){
 
 function deleteTest(id){
   if(!confirm('Delete this test entry?')) return;
+  delete curveVisibilityOverrides[id];
   saveTests(loadTests().filter(t=>t.id!==id));
   render();
 }
 
 function confirmClearAll(){
   if(!confirm('Delete ALL food response tests? This cannot be undone.')) return;
+  Object.keys(curveVisibilityOverrides).forEach(k=>delete curveVisibilityOverrides[k]);
   localStorage.removeItem(STORE_KEY); render();
 }
 
 let curveChart=null;
 let legendHoverTip=null;
+const curveVisibilityOverrides=Object.create(null);
 
 function ensureLegendHoverTip(){
   if(legendHoverTip) return legendHoverTip;
@@ -974,7 +977,7 @@ function render(){
     }).join('');
   }
 
-  // Summary table & charts use all tests (not filtered) sorted by spike
+  // Summary table uses all tests (not filtered) sorted by spike
   const chartCard=document.getElementById('chart-card');
   const sumCard=document.getElementById('summary-card');
   if(!all.length){ chartCard.style.display='none'; sumCard.style.display='none'; return; }
@@ -997,13 +1000,17 @@ function render(){
     </tr>`;
   }).join('');
 
-  // Curves chart — normalized to baseline (all curves start at 0)
+  // Curves chart — category-aware + legend override, normalized to baseline
   const colors=['#4a90c4','#e9a84c','#8b6abf','#27ae60','#e07a5f','#00838f','#c0392b','#f39c12','#1abc9c','#9b59b6'];
   const chartTests = all
-    .filter(t => t.t0)
+    .filter(t => t.t0 && (activeFilter==='all' || t.cat===activeFilter))
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
-  const datasets=chartTests.map((t,i)=>({
+  const datasets=chartTests.map((t,i)=>{
+    const testId=t.id||`row-${t.date||'na'}-${i}`;
+    const visible=curveVisibilityOverrides[testId]!==false;
+    return {
+    testId,
     label:t.food,
     fullLabel:t.food,
     data:[
@@ -1014,8 +1021,10 @@ function render(){
     ],
     borderColor:colors[i%colors.length],
     backgroundColor:'transparent',
-    borderWidth:2, pointRadius:4, tension:.3, spanGaps:true
-  }));
+    borderWidth:2, pointRadius:4, tension:.3, spanGaps:true,
+    hidden:!visible
+  };
+  });
   const chartWrap=document.querySelector('#chart-card .chart-wrap');
   if(chartWrap){
     const isSmallScreen=window.matchMedia('(max-width: 680px)').matches;
@@ -1034,6 +1043,13 @@ function render(){
     options:{
       responsive:true, maintainAspectRatio:false,
       plugins:{legend:{
+        onClick:(evt,legendItem,legend)=>{
+          const ds=legend.chart.data.datasets[legendItem.datasetIndex]||{};
+          const nextVisible=!legend.chart.isDatasetVisible(legendItem.datasetIndex);
+          legend.chart.setDatasetVisibility(legendItem.datasetIndex,nextVisible);
+          if(ds.testId){ curveVisibilityOverrides[ds.testId]=nextVisible; }
+          legend.chart.update();
+        },
         onHover:(evt,legendItem,legend)=>{
           const ds=legend.chart.data.datasets[legendItem.datasetIndex]||{};
           showLegendHoverTip(evt,ds.fullLabel||ds.label||legendItem.text);
