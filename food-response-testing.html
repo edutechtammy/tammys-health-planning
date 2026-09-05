@@ -563,6 +563,7 @@
     <h2>📈 Response Curves — All Tests</h2>
     <div class="chart-scroll"><div class="chart-wrap"><canvas id="chart-curves"></canvas></div></div>
     <p style="font-size:.78rem;color:var(--muted);margin-top:.5rem">Each line = one test <strong>normalized to its own baseline</strong>. All curves start at 0 (baseline) for easy comparison of peak height and timing. Actual baseline readings vary per test but are shown in individual test cards above. Hover for food name and relative glucose changes.</p>
+    <p style="font-size:.76rem;color:var(--muted);margin-top:.35rem">Dashed curves indicate at least one mitigation was logged before the test: Berberine, ACV, or a pre-test walk.</p>
     <div class="comparison-slideshow" id="comparison-slideshow">
       <div class="comparison-top">
         <h3>Saved Comparison Screenshots</h3>
@@ -1227,6 +1228,7 @@ function render(){
   const datasets=chartTests.map((t,i)=>{
     const testId=t.id||`row-${t.date||'na'}-${i}`;
     const visible=curveVisibilityOverrides[testId]!==false;
+    const hasMitigation=t.berberine==='yes'||t.acv==='yes'||t.walk==='yes';
     return {
     testId,
     label:t.food,
@@ -1240,6 +1242,7 @@ function render(){
     borderColor:colors[i%colors.length],
     backgroundColor:'transparent',
     borderWidth:2, pointRadius:4, tension:.3, spanGaps:true,
+    borderDash:hasMitigation?[8,6]:[],
     hidden:!visible
   };
   });
