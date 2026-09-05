@@ -69,6 +69,7 @@
     .btn-primary { background:var(--green-mid); color:#fff; }
     .btn-outline  { background:transparent; border:1px solid var(--border); color:var(--muted); }
     .btn-export   { background:#eef6fb; color:#1a5276; border:1px solid #aed6f1; }
+    .btn-import-wrap { background:#f1faf6; color:var(--green-dark); border:1px solid var(--border); }
     .btn-danger   { background:var(--red-pale); color:var(--red); border:1px solid #f5c0b0; }
     #save-msg { font-size:.82rem; color:var(--green-mid); font-weight:600; opacity:0; transition:opacity .4s; }
     #save-msg.show { opacity:1; }
@@ -421,6 +422,8 @@
       <span id="save-msg">✓ Saved!</span>
       <div style="margin-left:auto;display:flex;gap:.7rem;flex-wrap:wrap;">
         <button class="btn btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="btn btn-import-wrap" onclick="document.getElementById('food-csv-import').click()">⬆ Import CSV</button>
+        <input type="file" id="food-csv-import" accept=".csv,text/csv" style="display:none" onchange="importCSV(this)" />
         <button class="btn btn-danger" onclick="confirmClearAll()">Clear All Data</button>
       </div>
     </div>
@@ -504,6 +507,237 @@
 const STORE_KEY = 'tammys_food_response';
 function loadTests(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||[]; }catch{ return []; } }
 function saveTests(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr)); }
+
+function csvEscape(value){
+  return '"' + String(value ?? '').replace(/"/g, '""') + '"';
+}
+
+function downloadCSV(csv, filename){
+  const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportCSV(){
+  const tests = loadTests();
+  if(!tests.length){ alert('No tests to export yet.'); return; }
+  const headers = [
+    'Date', 'Food / Combination Tested', 'Category', 'Portion / Quantity',
+    'Baseline (T=0)', '+30 min', '+60 min', '+120 min', 'Berberine', 'ACV', 'Walk', 'Notes'
+  ];
+  const rows = tests
+    .slice()
+    .sort((a,b)=>a.date.localeCompare(b.date) || (a.food||'').localeCompare(b.food||''))
+    .map(t => [
+      t.date || '',
+      t.food || '',
+      t.cat || '',
+      t.portion || '',
+      t.t0 ?? '',
+      t.t30 ?? '',
+      t.t60 ?? '',
+      t.t120 ?? '',
+      t.berberine || '',
+      t.acv || '',
+      t.walk || '',
+      t.notes || ''
+    ].map(csvEscape).join(','));
+  const csv = [headers.map(csvEscape).join(','), ...rows].join('\n');
+  downloadCSV(csv, `food-response-tests-${new Date().toLocaleDateString('en-CA')}.csv`);
+}
+
+function parseCSV(text){
+  const rows = [];
+  let row = [];
+  let value = '';
+  let inQuotes = false;
+  const source = String(text || '').replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  for(let i = 0; i < source.length; i += 1){
+    const ch = source[i];
+    const next = source[i + 1];
+    if(ch === '"'){
+      if(inQuotes && next === '"'){
+        value += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if(ch === ',' && !inQuotes){
+      row.push(value);
+      value = '';
+    } else if(ch === '\n' && !inQuotes){
+      row.push(value);
+      rows.push(row);
+      row = [];
+      value = '';
+    } else {
+      value += ch;
+    }
+  }
+
+  row.push(value);
+  if(row.length > 1 || String(row[0] || '').trim() || !rows.length){
+    rows.push(row);
+  }
+
+  return rows.filter(r => r.some(cell => String(cell || '').trim() !== ''));
+}
+
+function normalizeCSVHeader(value){
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+
+function parseNumberish(value){
+  const trimmed = String(value ?? '').trim();
+  if(!trimmed) return null;
+  const number = parseFloat(trimmed);
+  return Number.isFinite(number) ? number : null;
+}
+
+function parseYesNo(value){
+  const normalized = String(value ?? '').trim().toLowerCase();
+  if(!normalized) return null;
+  if(['yes', 'y', '1', 'true', 't'].includes(normalized)) return 'yes';
+  if(['no', 'n', '0', 'false', 'f'].includes(normalized)) return 'no';
+  return null;
+}
+
+function parseImportedTestRow(row, headerMap, fallbackMode){
+  const read = (aliases, fallbackIndex) => {
+    for(const alias of aliases){
+      if(headerMap.has(alias)) return row[headerMap.get(alias)];
+    }
+    return fallbackMode ? row[fallbackIndex] : '';
+  };
+
+  const date = String(read(['date'], 0) || '').trim();
+  const food = String(read(['food', 'foodcombinationtested', 'foodcombination', 'combinationtested', 'combination', 'foodname'], 1) || '').trim();
+  const catRaw = String(read(['category', 'cat'], 2) || '').trim();
+  const portion = String(read(['portion', 'quantity'], 3) || '').trim();
+  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], 4));
+  const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], 5));
+  const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], 6));
+  const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], 7));
+  const berberine = parseYesNo(read(['berberine', 'wasberberinetaken'], 8));
+  const acv = parseYesNo(read(['acv', 'wasacvtaken'], 9));
+  const walk = parseYesNo(read(['walk', 'walkbeforetest', 'walkbeforetesting'], 10));
+  const notes = String(read(['notes', 'observations', 'notesobservations'], 11) || '').trim();
+  const id = String(read(['id', 'entryid'], -1) || '').trim();
+
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date) || !food || t0 == null){
+    return null;
+  }
+
+  const cat = ['grain','dairy','fruit','protein','fat-carb','supplement','other'].includes(catRaw)
+    ? catRaw
+    : ({
+        'grain/starch':'grain',
+        'dairy/fermented':'dairy',
+        'fat + carb combo':'fat-carb',
+        'supplement effect':'supplement'
+      })[catRaw.toLowerCase()] || 'grain';
+
+  return { id, date, food, cat, portion, t0, t30, t60, t120, berberine, acv, walk, notes };
+}
+
+function makeTestFingerprint(test){
+  return [
+    test.date || '', test.food || '', test.cat || '', test.portion || '',
+    test.t0 ?? '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '',
+    test.berberine || '', test.acv || '', test.walk || '', test.notes || ''
+  ].join('\u0001');
+}
+
+function mergeImportedTests(importedTests){
+  const merged = loadTests().map(test => ({ ...test }));
+  const byId = new Map();
+  const byFingerprint = new Map();
+
+  merged.forEach((test, index) => {
+    if(test.id) byId.set(test.id, index);
+    byFingerprint.set(makeTestFingerprint(test), index);
+  });
+
+  let added = 0;
+  let updated = 0;
+
+  importedTests.forEach(incoming => {
+    const fingerprint = makeTestFingerprint(incoming);
+    const matchIndex = incoming.id && byId.has(incoming.id)
+      ? byId.get(incoming.id)
+      : byFingerprint.has(fingerprint)
+        ? byFingerprint.get(fingerprint)
+        : -1;
+
+    const normalized = {
+      ...incoming,
+      id: incoming.id || (matchIndex >= 0 ? merged[matchIndex].id : `ft-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`)
+    };
+
+    if(matchIndex >= 0){
+      merged[matchIndex] = { ...merged[matchIndex], ...normalized };
+      updated += 1;
+    } else {
+      merged.push(normalized);
+      byId.set(normalized.id, merged.length - 1);
+      byFingerprint.set(fingerprint, merged.length - 1);
+      added += 1;
+    }
+  });
+
+  merged.sort((a,b)=>b.date.localeCompare(a.date) || (a.food||'').localeCompare(b.food||''));
+  saveTests(merged);
+  return { added, updated };
+}
+
+function importCSV(input){
+  const file = input.files && input.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event){
+    try {
+      const rows = parseCSV(String(event.target?.result || ''));
+      if(rows.length < 2){ alert('CSV appears empty or invalid.'); return; }
+
+      const firstRow = rows[0].map(normalizeCSVHeader);
+      const headerLike = firstRow.some(h => ['date', 'food', 'foodcombinationtested', 'category', 'baseline', 'baselinefasting', 't0'].includes(h));
+      const headerMap = new Map();
+      let dataRows = rows;
+
+      if(headerLike){
+        firstRow.forEach((header, index) => headerMap.set(header, index));
+        dataRows = rows.slice(1);
+      }
+
+      const imported = dataRows
+        .map(row => parseImportedTestRow(row, headerMap, !headerLike))
+        .filter(Boolean);
+
+      if(!imported.length){ alert('No valid food tests found in CSV.'); return; }
+
+      const result = mergeImportedTests(imported);
+      render();
+      alert(`Import complete: ${result.added} new test(s) added, ${result.updated} updated.`);
+    } catch {
+      alert('Could not read that CSV file.');
+    } finally {
+      input.value = '';
+    }
+  };
+
+  reader.onerror = function(){
+    alert('Unable to read file.');
+    input.value = '';
+  };
+
+  reader.readAsText(file);
+}
 
 const CAT_LABELS = {
   grain:'🌾 Grain', dairy:'🥛 Dairy', fruit:'🍓 Fruit',
