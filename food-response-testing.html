@@ -998,12 +998,62 @@ function confirmClearAll(){
 let curveChart=null;
 let legendHoverTip=null;
 const curveVisibilityOverrides=Object.create(null);
-const COMPARISON_IMAGES=[
-  'Bread - Tapioca Starch vs Almond Flour.png',
-  'Exercise - Walking vs sitting.png',
-  'Milk - A2 Milk vs Farm Fresh vs Standard.png'
-];
+const COMPARISON_FOLDER='food-test-comparisons/';
+const COMPARISON_MANIFEST='food-test-comparisons/index.json';
+let comparisonImages=[];
 let comparisonIndex=0;
+const comparisonAssetVersion=Date.now();
+
+function isSupportedComparisonImage(fileName){
+  return /\.(png|jpe?g|webp|gif|svg)$/i.test(fileName);
+}
+
+async function loadComparisonImages(){
+  let loadedFromManifest=false;
+
+  try {
+    const manifestResponse = await fetch(`${COMPARISON_MANIFEST}?scan=${Date.now()}`, { cache:'no-store' });
+    if(manifestResponse.ok){
+      const manifest = await manifestResponse.json();
+      const files = Array.isArray(manifest)
+        ? manifest
+        : Array.isArray(manifest?.images)
+          ? manifest.images
+          : [];
+      const names = files
+        .map(name => String(name || '').trim())
+        .filter(Boolean)
+        .filter(isSupportedComparisonImage);
+
+      comparisonImages = Array.from(new Set(names)).sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:'base' }));
+      loadedFromManifest = comparisonImages.length > 0;
+    }
+  } catch {
+    loadedFromManifest = false;
+  }
+
+  if(!loadedFromManifest){
+  try {
+    const response = await fetch(`${COMPARISON_FOLDER}?scan=${Date.now()}`, { cache:'no-store' });
+    if(!response.ok){ throw new Error('Could not read comparison folder.'); }
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const names = Array.from(doc.querySelectorAll('a[href]'))
+      .map(link => String(link.getAttribute('href') || '').split('#')[0].split('?')[0])
+      .map(path => decodeURIComponent(path).replace(/\/$/, ''))
+      .map(path => path.split('/').pop() || '')
+      .filter(Boolean)
+      .filter(isSupportedComparisonImage);
+
+    comparisonImages = Array.from(new Set(names)).sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:'base' }));
+  } catch {
+    comparisonImages = [];
+  }
+  }
+
+  comparisonIndex = 0;
+  renderComparisonSlide();
+}
 
 function renderComparisonSlide(){
   const stage=document.getElementById('comparison-stage');
@@ -1011,29 +1061,29 @@ function renderComparisonSlide(){
   const countEl=document.getElementById('comparison-count');
   if(!stage||!nameEl||!countEl) return;
 
-  if(!COMPARISON_IMAGES.length){
+  if(!comparisonImages.length){
     stage.innerHTML='<div class="comparison-empty">No comparison images found in food-test-comparisons.</div>';
     nameEl.textContent='';
     countEl.textContent='0/0';
     return;
   }
 
-  if(comparisonIndex<0) comparisonIndex=COMPARISON_IMAGES.length-1;
-  if(comparisonIndex>=COMPARISON_IMAGES.length) comparisonIndex=0;
+  if(comparisonIndex<0) comparisonIndex=comparisonImages.length-1;
+  if(comparisonIndex>=comparisonImages.length) comparisonIndex=0;
 
-  const filename=COMPARISON_IMAGES[comparisonIndex];
-  const imagePath='food-test-comparisons/'+filename;
+  const filename=comparisonImages[comparisonIndex];
+  const imagePath=COMPARISON_FOLDER+filename;
   stage.innerHTML='';
   const img=document.createElement('img');
   img.alt=filename;
-  img.src=encodeURI(imagePath);
+  img.src=encodeURI(imagePath)+'?v='+comparisonAssetVersion;
   img.onerror=function(){
     stage.innerHTML='<div class="comparison-empty">Image could not be loaded: '+filename+'</div>';
   };
   stage.appendChild(img);
 
   nameEl.textContent=filename;
-  countEl.textContent=(comparisonIndex+1)+'/'+COMPARISON_IMAGES.length;
+  countEl.textContent=(comparisonIndex+1)+'/'+comparisonImages.length;
 }
 
 function showComparisonNext(){
@@ -1248,7 +1298,7 @@ function render(){
 
 // Init
 document.getElementById('f-date').value=todayISO();
-renderComparisonSlide();
+loadComparisonImages();
 render();
 </script>
 </body>
