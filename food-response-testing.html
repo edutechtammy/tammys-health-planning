@@ -140,6 +140,80 @@
       transform: translateY(0);
     }
 
+    .curve-legend-list {
+      margin:.35rem 0 .75rem;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:#f8fcf9;
+      padding:.45rem;
+      max-height:240px;
+      overflow:auto;
+    }
+    .curve-legend-list.compact {
+      max-height:none;
+      overflow:visible;
+    }
+    .curve-legend-toolbar {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:.7rem;
+      flex-wrap:wrap;
+      margin-top:.15rem;
+    }
+    .curve-legend-toggle {
+      display:flex;
+      align-items:center;
+      gap:.45rem;
+      font-size:.82rem;
+      color:var(--muted);
+      font-weight:600;
+      cursor:pointer;
+      user-select:none;
+    }
+    .curve-legend-toggle input { cursor:pointer; }
+    .curve-legend-count {
+      font-size:.76rem;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .curve-legend-item {
+      width:100%;
+      border:1px solid transparent;
+      border-radius:8px;
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+      text-align:left;
+      padding:.4rem .55rem;
+      margin:0 0 .35rem;
+    }
+    .curve-legend-item:last-child { margin-bottom:0; }
+    .curve-legend-item:hover { border-color:var(--border); background:#f5fbf7; }
+    .curve-legend-item.off { opacity:.48; }
+    .curve-legend-swatch {
+      width:22px;
+      height:0;
+      border-top-width:3px;
+      border-top-style:solid;
+      flex-shrink:0;
+    }
+    .curve-legend-swatch.dashed { border-top-style:dashed; }
+    .curve-legend-text {
+      font-size:.88rem;
+      font-weight:600;
+      line-height:1.35;
+      white-space:normal;
+      overflow-wrap:anywhere;
+      word-break:break-word;
+      text-overflow:clip;
+    }
+
     /* COMPARISON SLIDESHOW */
     .comparison-slideshow {
       margin-top: .95rem;
@@ -350,32 +424,37 @@
       Fast spike + fast return → decent insulin response &nbsp;·&nbsp; Slow climb + slow return → insulin resistance pattern &nbsp;·&nbsp; High peak → food is problematic regardless of health reputation &nbsp;·&nbsp; Flat line → safe food for you
     </div>
     <div style="margin-top:.8rem;background:#e8f4fd;border:1px solid #aed6f1;border-radius:10px;padding:.9rem 1.1rem">
-      <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#1a5276;margin-bottom:.7rem">📅 CGM Window Test Queue — 14-Day Prioritised Plan</div>
-      <div style="font-size:.8rem;color:#1a5276;margin-bottom:.8rem">CGM gives you curve <em>shape</em> and duration above threshold — not just the peak. Prioritise tests where shape matters most, and combinations that point-testing can't resolve. ✅ = already tested.</div>
+      <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#1a5276;margin-bottom:.7rem">📅 Current CGM Window Test Queue — 14-Day Prioritized Plan</div>
+      <div style="font-size:.8rem;color:#1a5276;margin-bottom:.8rem">CGM gives you curve <em>shape</em> and duration above threshold — not just the peak. Prioritize tests where shape matters most, and combinations that point-testing can't resolve. ✅ = already tested.</div>
 
-      <div style="font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">🔴 Night 1 — Do Immediately (no food needed)</div>
+      <div style="font-size:.99rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">CGM 2 - Week 1</div>
       <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.75rem">
-        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Overnight DP curve — passive observation.</strong> No food, just wear the sensor and watch. See exactly when the glucose rise starts overnight, how high it peaks, and when it turns. The most valuable CGM-only data point — you can't get this from finger sticks.</span></label>
+        <p><strong>Bread 2 Recipe Test</strong> Bread 1 used tapioca starch which I was told was required for gluten free bread structure. I really disliked that because that is pure carb with no nutritive value. Recipe 2, removed the tapioca starch and shifted it to almond flour. Note that I have two variations of this recipe. One is plain and the other has olives/olive salad and cheese/no Cheese added.</p>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☑ Test Name: Bread 2 - Olive Salad and Cheese</strong> FOCUS: This is a test where the focus is a comparison between the tapioca flour based recipe and this new one using almond flour instead.</span></label>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☑ Test Name: Bread 2 - Swap Olive Salad with Canola Oil out for chopped black olives and olive oil</strong> FOCUS: This is a test for the tapioca replacement with almond flour with the spin of not using the store-bought olive salad which has canola oil. This version is just chopped black olives and extra virgin olive oil.</span></label>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☐ Test Name: Bread 2 - Berberine Mitigation testing</strong> FOCUS: This is a test for the tapioca replacement with almond flour with the spin of not using the store-bought olive salad which has canola oil bread tested against Berberine use before eating the slice. This version is just chopped black olives and extra virgin olive oil.</span></label>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☐ Test Name: Bread 2 - Exercise Before Mitigation testing</strong> FOCUS: This is a test for the tapioca replacement with almond flour with the spin of not using the store-bought olive salad which has canola oil bread tested against Exercise 15-minutes (treadmill at 2.5 mph) before eating the slice. This version is just chopped black olives and extra virgin olive oil.</span></label>
       </div>
 
-      <div style="font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">🟠 Tier 1 — Days 1–5 (highest diagnostic value)</div>
+      <div style="font-size:.99rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">CGM 2 -  Week 2</div>
       <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.75rem">
-        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>A2 whole milk</strong> (1 cup, alone, fasted). Lactose response — CGM shows whether the curve is fast or slow, which a point test misses. Daily ingredient so this is high-value baseline data.</span></label>
-        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Lemon water + Rosemary EVOO Cassava Crackers</strong> (big drink bottle of lemon water as always made; crackers standard portion — as packed for an outing). This is the real-world pairing: savory crackers naturally pair with something to drink, and lemon water is your constant companion. Testing them together captures the actual scenario rather than two artificial isolations. Citric acid in lemon water typically blunts glucose slightly; crackers are cassava-based so some starch load expected — combined curve will show whether the pairing is stable. ☑️ <em>Planned: Farmer's Market morning, May 26.</em></span></label>
-        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Trail mix</strong> (your standard coffee-pairing portion). Nuts + seeds = fat + protein + some carb. CGM will show whether the daily coffee snack is doing anything meaningful. High priority because it's a daily constant — any response here compounds over time.</span></label>
-        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Rice paper — plain sheets</strong> (2 sheets, hydrated, no filling). The GI question you've discussed. CGM will show the actual curve vs. published GI estimates for your metabolism specifically.</span></label>
-        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Salmon Rice Paper Rolls</strong> — Avocado, Carrot, Purple Cabbage (your recipe, realistic serving). High protein + healthy fat + raw vegetables + rice paper. Expected to profile well; confirming it gives you a confident go-to for the 2–3×/week salmon target. Compare curve to plain rice paper above — the filling should visibly blunt the rice paper curve.</span></label>
-        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Turkey Meatloaf with Smoky-Sweet Tomato Glaze</strong> (realistic brunch serving, as made). Family-regular dish — high protein + ground turkey + glaze means a small sweet component worth watching. Perfect morning test because you're making it anyway and brunch timing gives a clean fasting baseline. Expected to be a strong performer; glaze contribution is the only question mark. Compare curve to Tier 2 GF sourdough combos to see whether this is a superior brunch carb-profile. <span style="display:inline-block;margin-top:.3rem;background:#dcfce7;border:1px solid #86efac;border-radius:6px;padding:.15rem .5rem;font-size:.78rem;color:#166534;font-weight:700">✅ Tested May 25 — 1-hr post-brunch: 103 mg/dL · broccoli + lemon water + ~20 min walk · strong result</span></span></label>
+        <p><strong>Milk Tests</strong> Standard Fat Free vs fresh farm bought Guernsey vs A2</p>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☑ A2 whole milk - All Guernsey, grass fed</strong> (1 cup, alone, fasted). Lactose response — CGM shows whether the curve is fast or slow, which a point test misses. Daily ingredient so this is high-value baseline data.</span></label>
+        
+        
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☐ Standard Whole Milk - homogenized, Jersey mixed A1/A2, unknown if grass or grain fed</strong> (2 sheets, hydrated, no filling). The GI question you've discussed. CGM will show the actual curve vs. published GI estimates for your metabolism specifically.</span></label>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☐ Kefir</strong> — Details yet to come, but I plan to order plain kefir so I can control the flavor/sweetener.</span></label>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☐ Name</strong> Details</span></span></label>
       </div>
 
-      <div style="font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">🟡 Tier 2 — Days 6–10</div>
+      <div style="font-size:.99rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">CGM 3 -  Week 1</div>
       <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.75rem">
         <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>GF sourdough + eggs + EVOO</strong> (your actual brunch). Does the fat + protein blunt the sourdough curve? CGM shows the full shape vs. the sourdough-alone baseline you already have. ✅ Sourdough alone already tested — this is the combination variant.</span></label>
         <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>GF sourdough + Ceylon cinnamon</strong> (cinnamon stirred into a side of yogurt or taken just before eating). Does cinnamon visibly flatten the curve vs. your existing sourdough result? CGM will show this clearly as a curve-shape comparison.</span></label>
         <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Sweet potato</strong> (baked, plain, realistic portion). Useful starch benchmark for future meal planning — often assumed to be safe but response varies significantly by individual.</span></label>
       </div>
 
-      <div style="font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">🟢 Tier 3 — Days 11–14 (retests + extras)</div>
+      <div style="font-size:.99rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">CGM 3 -  Week 2</div>
       <div style="display:flex;flex-direction:column;gap:.35rem">
         <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Retest any Tier 1/2 food that gave a surprising result</strong> — one retest confirms it wasn't a bad-baseline day.</span></label>
         <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>Blueberries</strong> (1 cup, alone). Antioxidant staple — confirm the curve is as flat as expected.</span></label>
@@ -561,6 +640,14 @@
   <!-- CHARTS -->
   <div class="card" id="chart-card" style="display:none">
     <h2>📈 Response Curves — All Tests</h2>
+    <div class="curve-legend-toolbar">
+      <label class="curve-legend-toggle">
+        <input type="checkbox" id="curve-legend-show-all" checked onchange="setCurveLegendShowAll(this.checked)" />
+        Show all tests in legend
+      </label>
+      <div class="curve-legend-count" id="curve-legend-count"></div>
+    </div>
+    <div class="curve-legend-list" id="curve-legend-list"></div>
     <div class="chart-scroll"><div class="chart-wrap"><canvas id="chart-curves"></canvas></div></div>
     <p style="font-size:.78rem;color:var(--muted);margin-top:.5rem">Each line = one test <strong>normalized to its own baseline</strong>. All curves start at 0 (baseline) for easy comparison of peak height and timing. Actual baseline readings vary per test but are shown in individual test cards above. Hover for food name and relative glucose changes.</p>
     <p style="font-size:.76rem;color:var(--muted);margin-top:.35rem">Dashed curves indicate at least one mitigation was logged before the test: Berberine, ACV, or a pre-test walk.</p>
@@ -999,6 +1086,7 @@ function confirmClearAll(){
 let curveChart=null;
 let legendHoverTip=null;
 const curveVisibilityOverrides=Object.create(null);
+let curveLegendShowAll=true;
 const COMPARISON_FOLDER='food-test-comparisons/';
 const COMPARISON_MANIFEST='food-test-comparisons/index.json';
 let comparisonImages=[];
@@ -1137,6 +1225,71 @@ function hideLegendHoverTip(){
   legendHoverTip.classList.remove('show');
 }
 
+function escapeHTML(value){
+  return String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function renderCurveLegendList(){
+  const legendEl=document.getElementById('curve-legend-list');
+  const countEl=document.getElementById('curve-legend-count');
+  if(!legendEl) return;
+  if(!curveChart||!curveChart.data||!Array.isArray(curveChart.data.datasets)||!curveChart.data.datasets.length){
+    legendEl.innerHTML='';
+    if(countEl) countEl.textContent='0 visible';
+    return;
+  }
+
+  const entries=curveChart.data.datasets.map((ds,index)=>({
+    ds,
+    index,
+    isVisible:curveChart.isDatasetVisible(index)
+  }));
+  const visibleCount=entries.filter(entry=>entry.isVisible).length;
+  const shownEntries=curveLegendShowAll?entries:entries.filter(entry=>entry.isVisible);
+  legendEl.classList.toggle('compact',!curveLegendShowAll);
+  if(countEl){
+    countEl.textContent=curveLegendShowAll
+      ? `${visibleCount} of ${entries.length} visible`
+      : `${visibleCount} shown`;
+  }
+
+  if(!shownEntries.length){
+    legendEl.innerHTML='<div class="comparison-empty" style="padding:.7rem .8rem">No visible curves. Turn on Show all tests in legend to reselect hidden items.</div>';
+    return;
+  }
+
+  legendEl.innerHTML=shownEntries.map(({ds,index,isVisible})=>{
+    const isDashed=Array.isArray(ds.borderDash)&&ds.borderDash.length>0;
+    const swatchClass=isDashed?'curve-legend-swatch dashed':'curve-legend-swatch';
+    const fullLabel=escapeHTML(ds.fullLabel||ds.label||`Test ${index+1}`);
+    const color=escapeHTML(ds.borderColor||'#4a90c4');
+    return `<button type="button" class="curve-legend-item ${isVisible?'':'off'}" data-index="${index}" aria-pressed="${isVisible?'true':'false'}"><span class="${swatchClass}" style="border-top-color:${color}"></span><span class="curve-legend-text">${fullLabel}</span></button>`;
+  }).join('');
+
+  legendEl.querySelectorAll('.curve-legend-item').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const index=Number(btn.dataset.index);
+      if(Number.isNaN(index)||!curveChart) return;
+      const ds=curveChart.data.datasets[index]||{};
+      const nextVisible=!curveChart.isDatasetVisible(index);
+      curveChart.setDatasetVisibility(index,nextVisible);
+      if(ds.testId){ curveVisibilityOverrides[ds.testId]=nextVisible; }
+      curveChart.update();
+      renderCurveLegendList();
+    });
+  });
+}
+
+function setCurveLegendShowAll(nextValue){
+  curveLegendShowAll=!!nextValue;
+  renderCurveLegendList();
+}
+
 function render(){
   const all=loadTests();
   const search=(document.getElementById('search-box').value||'').toLowerCase();
@@ -1263,40 +1416,14 @@ function render(){
     data:{labels:['Baseline (T=0)','+30 min','+60 min','+120 min'],datasets},
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{
-        onClick:(evt,legendItem,legend)=>{
-          const ds=legend.chart.data.datasets[legendItem.datasetIndex]||{};
-          const nextVisible=!legend.chart.isDatasetVisible(legendItem.datasetIndex);
-          legend.chart.setDatasetVisibility(legendItem.datasetIndex,nextVisible);
-          if(ds.testId){ curveVisibilityOverrides[ds.testId]=nextVisible; }
-          legend.chart.update();
-        },
-        onHover:(evt,legendItem,legend)=>{
-          const ds=legend.chart.data.datasets[legendItem.datasetIndex]||{};
-          showLegendHoverTip(evt,ds.fullLabel||ds.label||legendItem.text);
-        },
-        onLeave:()=>hideLegendHoverTip(),
-        labels:{
-          generateLabels:(chart)=>{
-            const defaults=Chart.defaults.plugins.legend.labels.generateLabels(chart);
-            return defaults.map((item)=>{
-              const ds=chart.data.datasets[item.datasetIndex]||{};
-              const full=ds.fullLabel||ds.label||item.text||'';
-              const short=full.length>34?full.slice(0,34)+'…':full;
-              return {...item,text:short};
-            });
-          },
-          font:{size:legendFontSize,weight:'600'},
-          boxWidth:18,
-          padding:14
-        }
-      }},
+      plugins:{legend:{display:false}},
       scales:{
         x:{ticks:{font:{size:11}},grid:{color:'#eaf4ec'}},
         y:{ticks:{font:{size:10}},grid:{color:'#eaf4ec'},title:{display:true,text:'Change from Baseline (mg/dL)',font:{size:10}}}
       }
     }
   });
+  renderCurveLegendList();
 }
 
 // Init
