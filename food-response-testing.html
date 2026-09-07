@@ -692,6 +692,7 @@
             <th>Peak</th>
             <th>Spike ↑</th>
             <th>120-min Δ from baseline</th>
+            <th>Activity</th>
             <th>Rating</th>
           </tr>
         </thead>
@@ -1385,6 +1386,12 @@ function render(){
   document.getElementById('sum-body').innerHTML=withSpike.map((t,i)=>{
     const worst=i===0&&withSpike.length>1;
     const best=i===withSpike.length-1&&withSpike.length>1;
+    const activityLabel = {
+      nap: 'Nap',
+      computer: 'Computer',
+      general: 'General'
+    };
+    const activityText = t.activity ? (activityLabel[t.activity] || 'Logged') : '—';
     return `<tr>
       <td class="${worst?'warn':best?'best':''}">${t.food}${t.portion?` <span style="color:var(--muted);font-size:.78rem">(${t.portion})</span>`:''}</td>
       <td style="white-space:nowrap;font-size:.8rem">${formatDate(t.date)}</td>
@@ -1393,6 +1400,7 @@ function render(){
       <td style="font-weight:700">${t.a.peak}</td>
       <td class="${worst?'warn':best?'best':''}" style="font-weight:700">+${t.a.spikeAbs}</td>
       <td style="color:${t.a.ret120!=null&&Math.abs(t.a.ret120)<=20?'#27ae60':'#e67e22'}">${t.a.ret120!=null?(t.a.ret120>=0?'+':'')+t.a.ret120+' mg/dL':'—'}</td>
+      <td style="font-size:.8rem;white-space:nowrap">${activityText}</td>
       <td><span class="spike-badge ${t.a.cls}">${t.a.rating}</span></td>
     </tr>`;
   }).join('');
