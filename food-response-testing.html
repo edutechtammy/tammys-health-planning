@@ -579,6 +579,15 @@
           <option value="no">No</option>
         </select>
       </div>
+      <div class="field">
+        <label>Activity during 2-hour test window</label>
+        <select id="f-activity">
+          <option value="">— not logged —</option>
+          <option value="nap">Nap</option>
+          <option value="computer">Computer</option>
+          <option value="general">General</option>
+        </select>
+      </div>
       <div class="field full">
         <label>Notes / Observations</label>
         <textarea id="f-notes" placeholder="How did you feel? Any unusual symptoms? Patterns you noticed? Variations from previous test of same food?"></textarea>
@@ -740,7 +749,7 @@ function exportCSV(){
   if(!tests.length){ alert('No tests to export yet.'); return; }
   const headers = [
     'Date', 'Food / Combination Tested', 'Category', 'Portion / Quantity',
-    'Baseline (T=0)', '+30 min', '+60 min', '+120 min', 'Berberine', 'ACV', 'Walk', 'Notes'
+    'Baseline (T=0)', '+30 min', '+60 min', '+120 min', 'Berberine', 'ACV', 'Walk', 'Activity', 'Notes'
   ];
   const rows = tests
     .slice()
@@ -757,6 +766,7 @@ function exportCSV(){
       t.berberine || '',
       t.acv || '',
       t.walk || '',
+      t.activity || '',
       t.notes || ''
     ].map(csvEscape).join(','));
   const csv = [headers.map(csvEscape).join(','), ...rows].join('\n');
@@ -839,7 +849,9 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const berberine = parseYesNo(read(['berberine', 'wasberberinetaken'], 8));
   const acv = parseYesNo(read(['acv', 'wasacvtaken'], 9));
   const walk = parseYesNo(read(['walk', 'walkbeforetest', 'walkbeforetesting'], 10));
-  const notes = String(read(['notes', 'observations', 'notesobservations'], 11) || '').trim();
+  const activityRaw = String(read(['activity', 'activityduring2hourtestwindow', 'activitylevel'], 11) || '').trim().toLowerCase();
+  const activity = ['nap', 'computer', 'general'].includes(activityRaw) ? activityRaw : '';
+  const notes = String(read(['notes', 'observations', 'notesobservations'], 12) || '').trim();
   const id = String(read(['id', 'entryid'], -1) || '').trim();
 
   if(!/^\d{4}-\d{2}-\d{2}$/.test(date) || !food || t0 == null){
@@ -855,14 +867,14 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
         'supplement effect':'supplement'
       })[catRaw.toLowerCase()] || 'grain';
 
-  return { id, date, food, cat, portion, t0, t30, t60, t120, berberine, acv, walk, notes };
+  return { id, date, food, cat, portion, t0, t30, t60, t120, berberine, acv, walk, activity, notes };
 }
 
 function makeTestFingerprint(test){
   return [
     test.date || '', test.food || '', test.cat || '', test.portion || '',
     test.t0 ?? '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '',
-    test.berberine || '', test.acv || '', test.walk || '', test.notes || ''
+    test.berberine || '', test.acv || '', test.walk || '', test.activity || '', test.notes || ''
   ].join('\u0001');
 }
 
@@ -1017,6 +1029,7 @@ function clearForm(){
   document.getElementById('f-berberine').value='';
   document.getElementById('f-acv').value='';
   document.getElementById('f-walk').value='';
+  document.getElementById('f-activity').value='';
   document.getElementById('save-btn').textContent='Save Test';
   document.getElementById('form-heading').textContent='➕ Log a Test';
   updatePreview();
@@ -1037,6 +1050,7 @@ function editTest(id){
   document.getElementById('f-berberine').value=t.berberine||'';
   document.getElementById('f-acv').value=t.acv||'';
   document.getElementById('f-walk').value=t.walk||'';
+  document.getElementById('f-activity').value=t.activity||'';
   document.getElementById('f-notes').value=t.notes||'';
   document.getElementById('save-btn').textContent='Update Test';
   document.getElementById('form-heading').textContent='✏️ Edit Test — add readings as they come in';
@@ -1056,15 +1070,16 @@ function saveTest(){
   const berberine=document.getElementById('f-berberine').value||null;
   const acv    = document.getElementById('f-acv').value||null;
   const walk   = document.getElementById('f-walk').value||null;
+  const activity = document.getElementById('f-activity').value||null;
   const notes  = document.getElementById('f-notes').value.trim();
   if(!date||!food){ alert('Please enter a date and food name.'); return; }
   if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
   let tests=loadTests();
   if(editingId){
-    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes}:x);
+    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,activity,notes}:x);
   } else {
     const id=Date.now().toString();
-    tests.push({id,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,notes});
+    tests.push({id,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,activity,notes});
   }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
   saveTests(tests);
@@ -1316,10 +1331,16 @@ function render(){
       const catStyle=CAT_COLORS[t.cat]||'';
       const catLabel=CAT_LABELS[t.cat]||t.cat;
       const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
+      const activityLabel = {
+        nap: '😴 Nap',
+        computer: '💻 Computer',
+        general: '🚶 General'
+      };
       const contextBits=[
         t.berberine==='yes'?'💊 Berberine':'',
         t.acv==='yes'?'🍎 ACV':'',
         t.walk==='yes'?'🚶 Walk':'',
+        t.activity ? activityLabel[t.activity] || '🧭 Activity' : ''
       ].filter(Boolean).join(' · ');
       return `
       <div class="test-card">
