@@ -1458,7 +1458,13 @@ function render(){
     data:{labels:['Baseline (T=0)','+30 min','+60 min','+120 min'],datasets},
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          titleFont:{size:14},
+          bodyFont:{size:13}
+        }
+      },
       scales:{
         x:{ticks:{font:{size:11}},grid:{color:'#eaf4ec'}},
         y:{ticks:{font:{size:10}},grid:{color:'#eaf4ec'},title:{display:true,text:'Change from Baseline (mg/dL)',font:{size:10}}}
