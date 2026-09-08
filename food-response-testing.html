@@ -1322,11 +1322,17 @@ function setCurveLegendShowAll(nextValue){
 function render(){
   const all=loadTests();
   const search=(document.getElementById('search-box').value||'').toLowerCase();
-  const filtered=all.filter(t=>{
-    const catOk=activeFilter==='all'||t.cat===activeFilter;
-    const searchOk=!search||t.food.toLowerCase().includes(search);
-    return catOk&&searchOk;
-  });
+  const filtered=all
+    .filter(t=>{
+      const catOk=activeFilter==='all'||t.cat===activeFilter;
+      const searchOk=!search||t.food.toLowerCase().includes(search);
+      return catOk&&searchOk;
+    })
+    .sort((a,b)=>{
+      const byFood=(a.food||'').localeCompare(b.food||'', undefined, { sensitivity:'base' });
+      if(byFood!==0) return byFood;
+      return (b.date||'').localeCompare(a.date||'');
+    });
 
   const grid=document.getElementById('results-grid');
   const empty=document.getElementById('empty-msg');
