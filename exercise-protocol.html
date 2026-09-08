@@ -134,6 +134,17 @@
   .log-summary .summary-box{background:#f8fdf9;border:1px solid var(--border);border-radius:10px;padding:.65rem .8rem;font-size:.84rem;line-height:1.45}
   .log-summary .summary-box strong{display:block;color:var(--green-dark);margin-bottom:.15rem}
   @media(max-width:700px){.log-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .btn-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+  .btn{border:none;border-radius:8px;padding:.52rem .9rem;font:inherit;font-weight:600;cursor:pointer;transition:opacity .15s,transform .15s}
+  .btn:hover{opacity:.88;transform:translateY(-1px)}
+  .btn-primary{background:var(--green-mid);color:#fff}
+  .btn-outline{background:#fff;border:1px solid var(--border);color:var(--muted)}
+  .btn-export{background:#eef6fb;color:#1a5276;border:1px solid #aed6f1}
+  .btn-import-wrap{background:#f1faf6;color:var(--green-dark);border:1px solid var(--border)}
+  #save-msg{font-size:.82rem;color:var(--green-mid);font-weight:600;opacity:0;transition:opacity .25s}
+  #save-msg.show{opacity:1}
+  .action-link{background:none;border:none;color:var(--green-dark);font:inherit;font-weight:600;cursor:pointer;padding:0 .15rem}
+  .action-link:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -157,6 +168,8 @@
   <p>A 12-week protocol for fatty liver reversal, triglyceride reduction, and insulin resistance recovery — built around the mechanisms that make exercise irreplaceable for these specific conditions.</p>
 </header>
 
+<main>
+
   <div class="section band-sky" id="sec-log">
     <div class="section-header" onclick="toggle('sec-log')">
       <span class="icon">📝</span>
@@ -164,133 +177,109 @@
       <span class="toggle">▾</span>
     </div>
     <div class="section-body">
-      <p style="margin-bottom:.8rem;font-size:.93rem">Use this as a simple reporting record. One row per workout keeps the focus on consistency, while still capturing enough detail to see what you actually did and how it felt.</p>
+      <p style="margin-bottom:.8rem;font-size:.93rem">Use this as a simple reporting record. Entries are saved in your browser, and you can export or import the log as JSON anytime.</p>
 
-      <div class="log-summary">
-        <div class="summary-box"><strong>Weekly goal</strong>3 cardio sessions + 2–3 resistance sessions</div>
-        <div class="summary-box"><strong>Cardio target</strong>Zone 2 heart rate and steady duration</div>
-        <div class="summary-box"><strong>Resistance target</strong>Large muscle groups, 3 sets, progressive load</div>
-        <div class="summary-box"><strong>Accountability rule</strong>Log the session the same day you do it</div>
+      <div class="log-summary" id="log-summary">
+        <div class="summary-box"><strong>Stored entries</strong><span id="log-count">0</span></div>
+        <div class="summary-box"><strong>Most recent</strong><span id="log-recent">None yet</span></div>
+        <div class="summary-box"><strong>Cardio sessions</strong><span id="log-cardio-count">0</span></div>
+        <div class="summary-box"><strong>Resistance sessions</strong><span id="log-resistance-count">0</span></div>
       </div>
+
+      <form id="log-form" class="band-card" style="margin-top:0;background:#f8fdf9">
+        <input type="hidden" id="entry-id" />
+        <div class="two-col">
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Date</label>
+            <input id="entry-date" type="date" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Session type</label>
+            <select id="entry-type" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff">
+              <option value="cardio">Zone 2 cardio</option>
+              <option value="resistance">Resistance training</option>
+              <option value="walk">Recovery / walk</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Planned</label>
+            <input id="entry-planned" type="text" placeholder="e.g. 20 min Zone 2" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Completed</label>
+            <select id="entry-completed" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff">
+              <option value="yes">Yes</option>
+              <option value="partial">Partial</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Duration</label>
+            <input id="entry-duration" type="text" placeholder="e.g. 25 min" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Intensity / HR</label>
+            <input id="entry-intensity" type="text" placeholder="e.g. 98–105 bpm" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div class="field full" style="grid-column:1/-1">
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Main work done</label>
+            <input id="entry-work" type="text" placeholder="e.g. Treadmill 25 min at 2.6 mph, 4% incline" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div class="field full" style="grid-column:1/-1">
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Notes</label>
+            <textarea id="entry-notes" rows="3" placeholder="Energy, soreness, progression, form notes" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff;resize:vertical"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:.9rem">
+          <button class="btn btn-primary" type="submit" id="save-entry-btn">Save Entry</button>
+          <button class="btn btn-outline" type="button" id="clear-entry-btn">Clear</button>
+          <button class="btn btn-export" type="button" id="export-entry-btn">Export JSON</button>
+          <button class="btn btn-export" type="button" id="export-csv-btn">Export CSV</button>
+          <button class="btn btn-import-wrap" type="button" id="import-entry-btn">Import JSON / CSV</button>
+          <input id="import-entry-file" type="file" accept=".json,.csv,application/json,text/csv" hidden />
+          <span id="save-msg">Saved</span>
+        </div>
+      </form>
 
       <div class="callout callout-sky" style="margin-top:0">
         <strong>Suggested reporting format</strong>
         Date · Session type · Planned vs completed · Duration · Intensity or heart rate · Main work done · Notes
       </div>
 
-      <table class="log-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Session type</th>
-            <th>Planned</th>
-            <th>Completed</th>
-            <th>Duration</th>
-            <th>Intensity / HR</th>
-            <th>Main work done</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>____-__-__</td>
-            <td class="session-type">Zone 2 cardio</td>
-            <td class="todo">20 min</td>
-            <td class="todo">Yes / No</td>
-            <td class="todo">__ min</td>
-            <td class="todo">__ bpm / easy / moderate</td>
-            <td class="todo">Treadmill speed, incline, walk</td>
-            <td class="todo">Energy, soreness, anything unusual</td>
-          </tr>
-          <tr>
-            <td>____-__-__</td>
-            <td class="session-type">Resistance training</td>
-            <td class="todo">3 exercises</td>
-            <td class="todo">Yes / No</td>
-            <td class="todo">__ min</td>
-            <td class="todo">RPE / effort level</td>
-            <td class="todo">Squat, hinge, row, press</td>
-            <td class="todo">Sets, reps, weight, form notes</td>
-          </tr>
-          <tr>
-            <td>____-__-__</td>
-            <td class="session-type">Recovery / walk</td>
-            <td class="todo">10–15 min</td>
-            <td class="todo">Yes / No</td>
-            <td class="todo">__ min</td>
-            <td class="todo">Easy</td>
-            <td class="todo">After-dinner walk or gentle movement</td>
-            <td class="todo">Mood, sleep, recovery, soreness</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="callout callout-amber" style="margin-top:.8rem">
-        <strong>Best use</strong>
-        If you want accountability, fill in one line after each session. If you want pattern tracking, keep the same columns every time so the log becomes comparable week to week.
+      <div style="overflow-x:auto">
+        <table class="log-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Session type</th>
+              <th>Planned</th>
+              <th>Completed</th>
+              <th>Duration</th>
+              <th>Intensity / HR</th>
+              <th>Main work done</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="log-body"></tbody>
+        </table>
       </div>
 
-      <table class="log-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Exercise</th>
-            <th>Sets × reps</th>
-            <th>Weight / band</th>
-            <th>Effort</th>
-            <th>Progression note</th>
-            <th>Any soreness?</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>____-__-__</td>
-            <td class="session-type">Squat / leg press</td>
-            <td class="todo">3 × 10–12</td>
-            <td class="todo">__ lbs / level</td>
-            <td class="todo">RPE __</td>
-            <td class="todo">Add weight next time? yes / no</td>
-            <td class="todo">None / mild / moderate</td>
-            <td class="todo">Form, energy, anything notable</td>
-          </tr>
-          <tr>
-            <td>____-__-__</td>
-            <td class="session-type">Row / hinge / press</td>
-            <td class="todo">3 × 8–15</td>
-            <td class="todo">__ lbs / band</td>
-            <td class="todo">RPE __</td>
-            <td class="todo">Same weight, more reps, or increase?</td>
-            <td class="todo">None / mild / moderate</td>
-            <td class="todo">Which movement was hardest?</td>
-          </tr>
-          <tr>
-            <td>____-__-__</td>
-            <td class="session-type">Full session total</td>
-            <td class="todo">__ exercises</td>
-            <td class="todo">__ total min</td>
-            <td class="todo">Easy / moderate / hard</td>
-            <td class="todo">Next step: repeat / progress / recover</td>
-            <td class="todo">Sleep / DOMS / recovery</td>
-            <td class="todo">Any movement quality notes</td>
-          </tr>
-        </tbody>
-      </table>
+      <p id="log-empty" class="todo" style="margin-top:.6rem;font-size:.9rem">No entries yet. Add today’s treadmill time or resistance work above.</p>
 
       <div class="callout callout-green" style="margin-top:1rem">
         <strong>Weekly status snapshot</strong>
         <div class="log-summary" style="margin:0.7rem 0 0">
-          <div class="summary-box"><strong>Cardio</strong>Completed / Partially done / Missed</div>
-          <div class="summary-box"><strong>Resistance</strong>Completed / Partially done / Missed</div>
-          <div class="summary-box"><strong>Recovery walks</strong>Completed / Partially done / Missed</div>
-          <div class="summary-box"><strong>Overall</strong>On track / Mostly on track / Off track</div>
+          <div class="summary-box"><strong>Cardio</strong><span id="week-cardio">0 completed</span></div>
+          <div class="summary-box"><strong>Resistance</strong><span id="week-resistance">0 completed</span></div>
+          <div class="summary-box"><strong>Recovery walks</strong><span id="week-walks">0 completed</span></div>
+          <div class="summary-box"><strong>Overall</strong><span id="week-overall">On track / mostly / off track</span></div>
         </div>
         <div style="font-size:.82rem;color:var(--muted);margin-top:.55rem">Pick one status for each category at the end of the week. This keeps the log useful for accountability without turning it into a chore.</div>
       </div>
     </div>
   </div>
-
-<main>
 
   <!-- ======================================================================= -->
   <!-- MARK:            WHY EXERCISE IS IRREPLACEABLE                          -->
@@ -820,6 +809,390 @@ function toggle(id){
   const s=document.getElementById(id);
   s.classList.toggle('collapsed');
 }
+
+const LOG_KEY='tammys_exercise_log';
+let editingEntryId=null;
+
+function makeEntryId(){
+  return `ex-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
+}
+
+function todayISO(){
+  return new Date().toLocaleDateString('en-CA');
+}
+
+function displayDate(iso){
+  if(!iso) return '';
+  const parsed=new Date(`${iso}T00:00:00`);
+  if(Number.isNaN(parsed.getTime())) return iso;
+  return parsed.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+function parseDateISO(iso){
+  const parsed=new Date(`${iso}T00:00:00`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function escapeHTML(value){
+  return String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function loadEntries(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(LOG_KEY));
+    if(!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(item=>item&&typeof item==='object')
+      .map(item=>({
+        id:String(item.id||makeEntryId()),
+        date:String(item.date||''),
+        type:['cardio','resistance','walk'].includes(item.type)?item.type:'cardio',
+        planned:String(item.planned||''),
+        completed:['yes','partial','no'].includes(item.completed)?item.completed:'yes',
+        duration:String(item.duration||''),
+        intensity:String(item.intensity||''),
+        work:String(item.work||''),
+        notes:String(item.notes||''),
+        createdAt:Number(item.createdAt)||Date.now(),
+        updatedAt:Number(item.updatedAt)||Number(item.createdAt)||Date.now()
+      }))
+      .sort((a,b)=>{
+        const dateCompare=(b.date||'').localeCompare(a.date||'');
+        if(dateCompare) return dateCompare;
+        return (b.updatedAt||0)-(a.updatedAt||0);
+      });
+  }catch{
+    return [];
+  }
+}
+
+function saveEntries(entries){
+  localStorage.setItem(LOG_KEY,JSON.stringify(entries));
+}
+
+function csvEscape(value){
+  return '"'+String(value ?? '').replace(/"/g,'""')+'"';
+}
+
+function splitCsvRow(row){
+  const cells=[];
+  let current='';
+  let inQuotes=false;
+  for(let i=0;i<row.length;i+=1){
+    const char=row[i];
+    const next=row[i+1];
+    if(char==='"'){
+      if(inQuotes && next==='"'){
+        current+='"';
+        i+=1;
+      } else {
+        inQuotes=!inQuotes;
+      }
+    } else if(char===',' && !inQuotes){
+      cells.push(current);
+      current='';
+    } else {
+      current+=char;
+    }
+  }
+  cells.push(current);
+  return cells;
+}
+
+function parseCsvEntries(text){
+  const trimmed=String(text||'').trim();
+  if(!trimmed) return null;
+  const rows=trimmed.split(/\r?\n/).filter(Boolean);
+  if(rows.length<2) return null;
+  const headers=splitCsvRow(rows[0]).map(header=>header.trim().toLowerCase());
+  const headerIndex=label=>headers.findIndex(header=>header===label.toLowerCase());
+  const entries=rows.slice(1).map(row=>{
+    const cells=splitCsvRow(row);
+    const valueAt=label=>{
+      const index=headerIndex(label);
+      return index>=0 ? String(cells[index] ?? '').trim() : '';
+    };
+    const sessionType=valueAt('Session Type').toLowerCase();
+    const type=sessionType.includes('resistance') ? 'resistance' : sessionType.includes('walk') ? 'walk' : 'cardio';
+    const completed=valueAt('Completed').toLowerCase();
+    return {
+      id:valueAt('Id') || makeEntryId(),
+      date:valueAt('Date') || todayISO(),
+      type,
+      planned:valueAt('Planned'),
+      completed:completed==='partial' ? 'partial' : completed==='no' ? 'no' : 'yes',
+      duration:valueAt('Duration'),
+      intensity:valueAt('Intensity / HR') || valueAt('Intensity'),
+      work:valueAt('Main Work Done') || valueAt('Work'),
+      notes:valueAt('Notes'),
+      createdAt:Date.parse(valueAt('Created At')) || Date.now(),
+      updatedAt:Date.parse(valueAt('Updated At')) || Date.parse(valueAt('Created At')) || Date.now()
+    };
+  }).filter(entry=>entry.date || entry.work || entry.duration);
+  return entries.length ? entries : null;
+}
+
+function setSaveMessage(text='Saved'){
+  const msg=document.getElementById('save-msg');
+  if(!msg) return;
+  msg.textContent=text;
+  msg.classList.add('show');
+  window.clearTimeout(setSaveMessage._timer);
+  setSaveMessage._timer=window.setTimeout(()=>msg.classList.remove('show'),1800);
+}
+
+function clearForm(){
+  editingEntryId=null;
+  document.getElementById('entry-id').value='';
+  document.getElementById('entry-date').value=todayISO();
+  document.getElementById('entry-type').value='cardio';
+  document.getElementById('entry-planned').value='';
+  document.getElementById('entry-completed').value='yes';
+  document.getElementById('entry-duration').value='';
+  document.getElementById('entry-intensity').value='';
+  document.getElementById('entry-work').value='';
+  document.getElementById('entry-notes').value='';
+  document.getElementById('save-entry-btn').textContent='Save Entry';
+}
+
+function populateForm(entry){
+  editingEntryId=entry.id;
+  document.getElementById('entry-id').value=entry.id;
+  document.getElementById('entry-date').value=entry.date||todayISO();
+  document.getElementById('entry-type').value=entry.type||'cardio';
+  document.getElementById('entry-planned').value=entry.planned||'';
+  document.getElementById('entry-completed').value=entry.completed||'yes';
+  document.getElementById('entry-duration').value=entry.duration||'';
+  document.getElementById('entry-intensity').value=entry.intensity||'';
+  document.getElementById('entry-work').value=entry.work||'';
+  document.getElementById('entry-notes').value=entry.notes||'';
+  document.getElementById('save-entry-btn').textContent='Update Entry';
+  document.getElementById('entry-date').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function editEntry(id){
+  const entry=loadEntries().find(item=>String(item.id)===String(id));
+  if(entry) populateForm(entry);
+}
+
+function renderEntries(){
+  const entries=loadEntries();
+  const body=document.getElementById('log-body');
+  const empty=document.getElementById('log-empty');
+  const countEl=document.getElementById('log-count');
+  const recentEl=document.getElementById('log-recent');
+  const cardioCountEl=document.getElementById('log-cardio-count');
+  const resistanceCountEl=document.getElementById('log-resistance-count');
+  const weekCardioEl=document.getElementById('week-cardio');
+  const weekResistanceEl=document.getElementById('week-resistance');
+  const weekWalksEl=document.getElementById('week-walks');
+  const weekOverallEl=document.getElementById('week-overall');
+
+  if(countEl) countEl.textContent=String(entries.length);
+  if(recentEl) recentEl.textContent=entries.length ? displayDate(entries[0].date) : 'None yet';
+  if(cardioCountEl) cardioCountEl.textContent=String(entries.filter(entry=>entry.type==='cardio').length);
+  if(resistanceCountEl) resistanceCountEl.textContent=String(entries.filter(entry=>entry.type==='resistance').length);
+
+  const weekStart=new Date();
+  weekStart.setDate(weekStart.getDate()-6);
+  weekStart.setHours(0,0,0,0);
+  const weekEntries=entries.filter(entry=>{
+    const parsed=parseDateISO(entry.date);
+    return parsed && parsed>=weekStart;
+  });
+  const cardioWeek=weekEntries.filter(entry=>entry.type==='cardio'&&entry.completed!=='no').length;
+  const resistanceWeek=weekEntries.filter(entry=>entry.type==='resistance'&&entry.completed!=='no').length;
+  const walksWeek=weekEntries.filter(entry=>entry.type==='walk'&&entry.completed!=='no').length;
+  const overall=cardioWeek>=3&&resistanceWeek>=2&&walksWeek>=5 ? 'On track' : cardioWeek>=2&&resistanceWeek>=1 ? 'Mostly on track' : 'Off track';
+  if(weekCardioEl) weekCardioEl.textContent=`${cardioWeek} completed`;
+  if(weekResistanceEl) weekResistanceEl.textContent=`${resistanceWeek} completed`;
+  if(weekWalksEl) weekWalksEl.textContent=`${walksWeek} completed`;
+  if(weekOverallEl) weekOverallEl.textContent=overall;
+
+  if(!entries.length){
+    body.innerHTML='';
+    if(empty) empty.style.display='block';
+    return;
+  }
+
+  if(empty) empty.style.display='none';
+  const typeLabels={cardio:'Zone 2 cardio', resistance:'Resistance training', walk:'Recovery / walk'};
+  const completedLabels={yes:'Yes', partial:'Partial', no:'No'};
+  body.innerHTML=entries.map(entry=>`
+    <tr>
+      <td>${displayDate(entry.date)}</td>
+      <td class="session-type">${typeLabels[entry.type]||entry.type}</td>
+      <td>${escapeHTML(entry.planned)||'—'}</td>
+      <td>${completedLabels[entry.completed]||escapeHTML(entry.completed)}</td>
+      <td>${escapeHTML(entry.duration)||'—'}</td>
+      <td>${escapeHTML(entry.intensity)||'—'}</td>
+      <td>${escapeHTML(entry.work)||'—'}</td>
+      <td>${escapeHTML(entry.notes)||'—'}</td>
+      <td>
+        <button class="action-link" type="button" onclick="editEntry('${entry.id}')">Edit</button>
+        <span style="color:var(--border)">|</span>
+        <button class="action-link" type="button" onclick="deleteEntry('${entry.id}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function deleteEntry(id){
+  if(!confirm('Delete this exercise entry?')) return;
+  const entries=loadEntries().filter(entry=>String(entry.id)!==String(id));
+  saveEntries(entries);
+  renderEntries();
+  setSaveMessage('Deleted');
+}
+
+function handleSubmit(event){
+  event.preventDefault();
+  const wasEditing=Boolean(editingEntryId);
+  const date=document.getElementById('entry-date').value||todayISO();
+  const type=document.getElementById('entry-type').value;
+  const planned=document.getElementById('entry-planned').value.trim();
+  const completed=document.getElementById('entry-completed').value;
+  const duration=document.getElementById('entry-duration').value.trim();
+  const intensity=document.getElementById('entry-intensity').value.trim();
+  const work=document.getElementById('entry-work').value.trim();
+  const notes=document.getElementById('entry-notes').value.trim();
+
+  if(!duration && !work){
+    alert('Please enter at least a duration or a description of the work done.');
+    return;
+  }
+
+  const entries=loadEntries();
+  const now=Date.now();
+  if(editingEntryId){
+    const index=entries.findIndex(entry=>String(entry.id)===String(editingEntryId));
+    if(index>=0){
+      entries[index]={...entries[index],date,type,planned,completed,duration,intensity,work,notes,updatedAt:now};
+    }
+  } else {
+    entries.push({id:makeEntryId(),date,type,planned,completed,duration,intensity,work,notes,createdAt:now,updatedAt:now});
+  }
+
+  entries.sort((a,b)=>{
+    const dateCompare=(b.date||'').localeCompare(a.date||'');
+    if(dateCompare) return dateCompare;
+    return (b.updatedAt||0)-(a.updatedAt||0);
+  });
+
+  saveEntries(entries);
+  renderEntries();
+  clearForm();
+  setSaveMessage(wasEditing ? 'Updated' : 'Saved');
+}
+
+function exportEntries(){
+  const entries=loadEntries();
+  if(!entries.length){
+    alert('No exercise entries to export yet.');
+    return;
+  }
+  const blob=new Blob([JSON.stringify(entries,null,2)],{type:'application/json;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download=`exercise-log-${todayISO()}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportEntriesCSV(){
+  const entries=loadEntries();
+  if(!entries.length){
+    alert('No exercise entries to export yet.');
+    return;
+  }
+  const headers=['Date','Session Type','Planned','Completed','Duration','Intensity / HR','Main Work Done','Notes','Created At','Updated At'];
+  const typeLabels={cardio:'Zone 2 cardio', resistance:'Resistance training', walk:'Recovery / walk'};
+  const completedLabels={yes:'Yes', partial:'Partial', no:'No'};
+  const rows=entries.map(entry=>[
+    entry.date,
+    typeLabels[entry.type]||entry.type,
+    entry.planned,
+    completedLabels[entry.completed]||entry.completed,
+    entry.duration,
+    entry.intensity,
+    entry.work,
+    entry.notes,
+    entry.createdAt ? new Date(entry.createdAt).toISOString() : '',
+    entry.updatedAt ? new Date(entry.updatedAt).toISOString() : ''
+  ]);
+  const csv=[headers.join(','), ...rows.map(row=>row.map(csvEscape).join(','))].join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download=`exercise-log-${todayISO()}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function importEntriesFromFile(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=event=>{
+    try{
+      const text=String(event.target.result||'');
+      let sourceEntries=null;
+      try{
+        const parsed=JSON.parse(text);
+        sourceEntries=Array.isArray(parsed) ? parsed : Array.isArray(parsed?.entries) ? parsed.entries : null;
+      }catch{
+        sourceEntries=parseCsvEntries(text);
+      }
+      if(!sourceEntries){
+        alert('That file does not contain a valid exercise log.');
+        return;
+      }
+      const entries=sourceEntries.map(item=>({
+        id:String(item.id||makeEntryId()),
+        date:String(item.date||todayISO()),
+        type:['cardio','resistance','walk'].includes(item.type)?item.type:'cardio',
+        planned:String(item.planned||''),
+        completed:['yes','partial','no'].includes(item.completed)?item.completed:'yes',
+        duration:String(item.duration||''),
+        intensity:String(item.intensity||''),
+        work:String(item.work||''),
+        notes:String(item.notes||''),
+        createdAt:Number(item.createdAt)||Date.now(),
+        updatedAt:Number(item.updatedAt)||Number(item.createdAt)||Date.now()
+      }));
+      if(!confirm('Import will replace the current browser-stored log. Continue?')) return;
+      saveEntries(entries);
+      renderEntries();
+      clearForm();
+      setSaveMessage('Imported');
+    }catch{
+      alert('Could not read that file.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+document.getElementById('log-form').addEventListener('submit',handleSubmit);
+document.getElementById('clear-entry-btn').addEventListener('click',()=>{
+  clearForm();
+  setSaveMessage('Cleared');
+});
+document.getElementById('export-entry-btn').addEventListener('click',exportEntries);
+document.getElementById('export-csv-btn').addEventListener('click',exportEntriesCSV);
+document.getElementById('import-entry-btn').addEventListener('click',()=>document.getElementById('import-entry-file').click());
+document.getElementById('import-entry-file').addEventListener('change',event=>{
+  importEntriesFromFile(event.target.files && event.target.files[0]);
+  event.target.value='';
+});
+
+document.getElementById('entry-date').value=todayISO();
+renderEntries();
 </script>
 </body>
 </html>
