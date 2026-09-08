@@ -184,6 +184,14 @@
       color: var(--muted);
     }
 
+    .edit-state {
+      margin-top: .55rem;
+      font-size: .8rem;
+      font-weight: 700;
+      color: #1f6a4d;
+      min-height: 1.15rem;
+    }
+
     .chart-wrap {
       position: relative;
       height: 340px;
@@ -228,9 +236,44 @@
       background: #f4fbf6;
     }
 
+    tbody tr.editing-row {
+      background: #e9f7ee;
+      outline: 1px solid #8ac9a4;
+    }
+
     .notes-cell {
       white-space: normal;
       min-width: 240px;
+    }
+
+    .actions-cell {
+      white-space: nowrap;
+      width: 1%;
+    }
+
+    .entry-action-btn {
+      border: 1px solid var(--green-mid);
+      background: #fff;
+      color: var(--green-dark);
+      border-radius: 6px;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: .2rem .55rem;
+      cursor: pointer;
+    }
+
+    .entry-action-btn:hover {
+      background: var(--green-pale);
+    }
+
+    .entry-delete-btn {
+      border-color: #d9a3a0;
+      color: #9a2f2f;
+      margin-left: .35rem;
+    }
+
+    .entry-delete-btn:hover {
+      background: #fdf0ef;
     }
 
     .empty-msg {
@@ -318,6 +361,7 @@
       <button class="btn btn-import-file" id="import-file">Import Data File</button>
       <input type="file" id="import-file-input" accept="application/json,.json" hidden />
     </div>
+    <div class="edit-state" id="edit-state"></div>
     <p class="helper">Entries are kept in this browser for convenience, and Save Data to File downloads a JSON backup you can keep anywhere.</p>
   </section>
 
@@ -331,6 +375,7 @@
             <th>Weight (lbs)</th>
             <th>Waist (in)</th>
             <th>Notes</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="entries-body"></tbody>
@@ -358,11 +403,62 @@
   const toast = document.getElementById('toast');
   const importFileInput = document.getElementById('import-file-input');
   const weightChartCanvas = document.getElementById('weight-chart');
+  const addEntryBtn = document.getElementById('add-entry');
+  const editState = document.getElementById('edit-state');
+  let editingDate = null;
 
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 1600);
+  }
+
+  function resetEditMode() {
+    editingDate = null;
+    addEntryBtn.textContent = 'Add Entry';
+    editState.textContent = '';
+  }
+
+  function startEditingEntry(date) {
+    const record = entries.find(item => item.date === date);
+    if (!record) {
+      showToast('Entry not found.');
+      return;
+    }
+
+    editingDate = record.date;
+    dateInput.value = record.date;
+    weightInput.value = formatMaybeNumber(record.weight, 1);
+    waistInput.value = record.waist === '' ? '' : formatMaybeNumber(record.waist, 1);
+    notesInput.value = record.notes || '';
+    addEntryBtn.textContent = 'Update Entry';
+    editState.textContent = 'Editing entry: ' + record.date;
+    weightInput.focus();
+    showToast('Editing entry for ' + record.date + '.');
+    renderEntries();
+  }
+
+  function deleteEntry(date) {
+    const index = entries.findIndex(item => item.date === date);
+    if (index < 0) {
+      showToast('Entry not found.');
+      return;
+    }
+
+    const confirmDelete = window.confirm('Delete entry for ' + date + '?');
+    if (!confirmDelete) {
+      return;
+    }
+
+    entries.splice(index, 1);
+
+    if (editingDate === date) {
+      clearForm();
+    }
+
+    saveToLocalStorage();
+    renderEntries();
+    showToast('Entry deleted.');
   }
 
   function setDefaultDate() {
@@ -376,6 +472,71 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
   }
 
+  function normalizeDateOnly(value) {
+    const raw = String(value || '').trim();
+    if (!raw) {
+      return '';
+    }
+
+    const candidate = raw.includes('T') ? raw.slice(0, 10) : raw;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(candidate)) {
+      return '';
+    }
+
+    const [year, month, day] = candidate.split('-').map(Number);
+    const utc = new Date(Date.UTC(year, month - 1, day));
+    if (
+      utc.getUTCFullYear() !== year ||
+      utc.getUTCMonth() !== month - 1 ||
+      utc.getUTCDate() !== day
+    ) {
+      return '';
+    }
+
+    return candidate;
+  }
+
+  function sanitizeEntries(rawEntries) {
+    if (!Array.isArray(rawEntries)) {
+      return [];
+    }
+
+    const byDate = new Map();
+    for (const item of rawEntries) {
+      if (!item || typeof item !== 'object') {
+        continue;
+      }
+
+      const date = normalizeDateOnly(item.date);
+      if (!date) {
+        continue;
+      }
+
+      const weightNum = Number(item.weight);
+      if (!Number.isFinite(weightNum) || weightNum <= 0) {
+        continue;
+      }
+
+      const waistRaw = item.waist;
+      const waistNum = waistRaw === '' || waistRaw === null || waistRaw === undefined
+        ? ''
+        : Number(waistRaw);
+      if (waistNum !== '' && (!Number.isFinite(waistNum) || waistNum <= 0)) {
+        continue;
+      }
+
+      byDate.set(date, {
+        date,
+        weight: weightNum,
+        waist: waistNum,
+        notes: String(item.notes || '').trim(),
+        updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
+      });
+    }
+
+    return Array.from(byDate.values());
+  }
+
   function loadFromLocalStorage() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
@@ -385,7 +546,8 @@
 
     try {
       const parsed = JSON.parse(raw);
-      entries = Array.isArray(parsed) ? parsed : [];
+      entries = sanitizeEntries(parsed);
+      saveToLocalStorage();
     } catch {
       entries = [];
     }
@@ -400,7 +562,11 @@
   }
 
   function dateToStamp(dateStr) {
-    const parts = dateStr.split('-').map(Number);
+    const normalized = normalizeDateOnly(dateStr);
+    if (!normalized) {
+      return Number.NaN;
+    }
+    const parts = normalized.split('-').map(Number);
     return Date.UTC(parts[0], parts[1] - 1, parts[2]);
   }
 
@@ -434,7 +600,9 @@
   }
 
   function renderWeightChart() {
-    const chrono = sortEntriesOldestFirst(entries).filter(item => Number.isFinite(Number(item.weight)));
+    const chrono = sortEntriesOldestFirst(entries).filter(item => {
+      return !!normalizeDateOnly(item.date) && Number.isFinite(Number(item.weight));
+    });
 
     if (weightChart) {
       weightChart.destroy();
@@ -582,8 +750,12 @@
         '<td>' + escapeHtml(item.date || '') + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.weight, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.waist, 1)) + '</td>',
-        '<td class="notes-cell">' + escapeHtml(item.notes || '') + '</td>'
+        '<td class="notes-cell">' + escapeHtml(item.notes || '') + '</td>',
+        '<td class="actions-cell"><button type="button" class="entry-action-btn" data-edit-date="' + escapeHtml(item.date || '') + '">Edit</button><button type="button" class="entry-action-btn entry-delete-btn" data-delete-date="' + escapeHtml(item.date || '') + '">Delete</button></td>'
       ].join('');
+      if (editingDate && item.date === editingDate) {
+        tr.classList.add('editing-row');
+      }
       entriesBody.appendChild(tr);
     }
   }
@@ -609,6 +781,8 @@
   }
 
   function clearForm() {
+    resetEditMode();
+    setDefaultDate();
     weightInput.value = '';
     waistInput.value = '';
     notesInput.value = '';
@@ -616,7 +790,7 @@
   }
 
   function addEntry() {
-    const date = dateInput.value;
+    const date = normalizeDateOnly(dateInput.value);
     const weight = weightInput.value.trim();
     const waist = waistInput.value.trim();
     const notes = notesInput.value.trim();
@@ -655,6 +829,25 @@
       notes,
       updatedAt: new Date().toISOString()
     };
+
+    if (editingDate !== null) {
+      const editingIndex = entries.findIndex(e => e.date === editingDate);
+      if (editingIndex >= 0) {
+        if (existingIndex >= 0 && existingIndex !== editingIndex) {
+          showToast('Another entry already exists for that date.');
+          return;
+        }
+
+        entries[editingIndex] = record;
+        showToast('Entry updated.');
+        saveToLocalStorage();
+        renderEntries();
+        clearForm();
+        return;
+      }
+
+      resetEditMode();
+    }
 
     if (existingIndex >= 0) {
       entries[existingIndex] = record;
@@ -712,13 +905,13 @@
         continue;
       }
 
-      const date = String(item.date || '').trim();
+      const date = normalizeDateOnly(item.date);
       const weightNum = Number(item.weight);
       const waistNum = item.waist === '' || item.waist === null || item.waist === undefined
         ? ''
         : Number(item.waist);
 
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      if (!date) {
         continue;
       }
       if (Number.isNaN(weightNum) || weightNum <= 0) {
@@ -737,12 +930,12 @@
       });
     }
 
-    return cleaned;
+    return sanitizeEntries(cleaned);
   }
 
   function mergeEntriesByDate(importedEntries) {
-    const byDate = new Map(entries.map(entry => [entry.date, entry]));
-    for (const record of importedEntries) {
+    const byDate = new Map(sanitizeEntries(entries).map(entry => [entry.date, entry]));
+    for (const record of sanitizeEntries(importedEntries)) {
       byDate.set(record.date, record);
     }
     entries = Array.from(byDate.values());
@@ -782,6 +975,24 @@
   document.getElementById('clear-form').addEventListener('click', clearForm);
   document.getElementById('save-file').addEventListener('click', saveDataToFile);
   document.getElementById('import-file').addEventListener('click', () => importFileInput.click());
+  entriesBody.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    const deleteDate = target.getAttribute('data-delete-date');
+    if (deleteDate) {
+      deleteEntry(deleteDate);
+      return;
+    }
+
+    const date = target.getAttribute('data-edit-date');
+    if (!date) {
+      return;
+    }
+    startEditingEntry(date);
+  });
   importFileInput.addEventListener('change', () => {
     const file = importFileInput.files && importFileInput.files[0];
     if (file) {
