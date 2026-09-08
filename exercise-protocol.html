@@ -202,28 +202,12 @@
             </select>
           </div>
           <div>
-            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Planned</label>
-            <input id="entry-planned" type="text" placeholder="e.g. 20 min Zone 2" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
-          </div>
-          <div>
-            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Completed</label>
-            <select id="entry-completed" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff">
-              <option value="yes">Yes</option>
-              <option value="partial">Partial</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-          <div>
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Duration</label>
             <input id="entry-duration" type="text" placeholder="e.g. 25 min" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
           </div>
           <div>
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Intensity / HR</label>
             <input id="entry-intensity" type="text" placeholder="e.g. 98–105 bpm" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
-          </div>
-          <div class="field full" style="grid-column:1/-1">
-            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Main work done</label>
-            <input id="entry-work" type="text" placeholder="e.g. Treadmill 25 min at 2.6 mph, 4% incline" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
           </div>
           <div class="field full" style="grid-column:1/-1">
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Notes</label>
@@ -244,7 +228,7 @@
 
       <div class="callout callout-sky" style="margin-top:0">
         <strong>Suggested reporting format</strong>
-        Date · Session type · Planned vs completed · Duration · Intensity or heart rate · Main work done · Notes
+        Date · Session type · Duration · Intensity or heart rate · Notes
       </div>
 
       <div style="overflow-x:auto">
@@ -253,11 +237,8 @@
             <tr>
               <th>Date</th>
               <th>Session type</th>
-              <th>Planned</th>
-              <th>Completed</th>
               <th>Duration</th>
               <th>Intensity / HR</th>
-              <th>Main work done</th>
               <th>Notes</th>
               <th>Actions</th>
             </tr>
@@ -852,11 +833,8 @@ function loadEntries(){
         id:String(item.id||makeEntryId()),
         date:String(item.date||''),
         type:['cardio','resistance','walk'].includes(item.type)?item.type:'cardio',
-        planned:String(item.planned||''),
-        completed:['yes','partial','no'].includes(item.completed)?item.completed:'yes',
         duration:String(item.duration||''),
         intensity:String(item.intensity||''),
-        work:String(item.work||''),
         notes:String(item.notes||''),
         createdAt:Number(item.createdAt)||Date.now(),
         updatedAt:Number(item.updatedAt)||Number(item.createdAt)||Date.now()
@@ -951,11 +929,8 @@ function clearForm(){
   document.getElementById('entry-id').value='';
   document.getElementById('entry-date').value=todayISO();
   document.getElementById('entry-type').value='cardio';
-  document.getElementById('entry-planned').value='';
-  document.getElementById('entry-completed').value='yes';
   document.getElementById('entry-duration').value='';
   document.getElementById('entry-intensity').value='';
-  document.getElementById('entry-work').value='';
   document.getElementById('entry-notes').value='';
   document.getElementById('save-entry-btn').textContent='Save Entry';
 }
@@ -965,11 +940,8 @@ function populateForm(entry){
   document.getElementById('entry-id').value=entry.id;
   document.getElementById('entry-date').value=entry.date||todayISO();
   document.getElementById('entry-type').value=entry.type||'cardio';
-  document.getElementById('entry-planned').value=entry.planned||'';
-  document.getElementById('entry-completed').value=entry.completed||'yes';
   document.getElementById('entry-duration').value=entry.duration||'';
   document.getElementById('entry-intensity').value=entry.intensity||'';
-  document.getElementById('entry-work').value=entry.work||'';
   document.getElementById('entry-notes').value=entry.notes||'';
   document.getElementById('save-entry-btn').textContent='Update Entry';
   document.getElementById('entry-date').scrollIntoView({behavior:'smooth',block:'center'});
@@ -1022,16 +994,12 @@ function renderEntries(){
 
   if(empty) empty.style.display='none';
   const typeLabels={cardio:'Zone 2 cardio', resistance:'Resistance training', walk:'Recovery / walk'};
-  const completedLabels={yes:'Yes', partial:'Partial', no:'No'};
   body.innerHTML=entries.map(entry=>`
     <tr>
       <td>${displayDate(entry.date)}</td>
       <td class="session-type">${typeLabels[entry.type]||entry.type}</td>
-      <td>${escapeHTML(entry.planned)||'—'}</td>
-      <td>${completedLabels[entry.completed]||escapeHTML(entry.completed)}</td>
       <td>${escapeHTML(entry.duration)||'—'}</td>
       <td>${escapeHTML(entry.intensity)||'—'}</td>
-      <td>${escapeHTML(entry.work)||'—'}</td>
       <td>${escapeHTML(entry.notes)||'—'}</td>
       <td>
         <button class="action-link" type="button" onclick="editEntry('${entry.id}')">Edit</button>
@@ -1055,15 +1023,12 @@ function handleSubmit(event){
   const wasEditing=Boolean(editingEntryId);
   const date=document.getElementById('entry-date').value||todayISO();
   const type=document.getElementById('entry-type').value;
-  const planned=document.getElementById('entry-planned').value.trim();
-  const completed=document.getElementById('entry-completed').value;
   const duration=document.getElementById('entry-duration').value.trim();
   const intensity=document.getElementById('entry-intensity').value.trim();
-  const work=document.getElementById('entry-work').value.trim();
   const notes=document.getElementById('entry-notes').value.trim();
 
-  if(!duration && !work){
-    alert('Please enter at least a duration or a description of the work done.');
+  if(!duration){
+    alert('Please enter the duration.');
     return;
   }
 
@@ -1072,10 +1037,10 @@ function handleSubmit(event){
   if(editingEntryId){
     const index=entries.findIndex(entry=>String(entry.id)===String(editingEntryId));
     if(index>=0){
-      entries[index]={...entries[index],date,type,planned,completed,duration,intensity,work,notes,updatedAt:now};
+      entries[index]={...entries[index],date,type,duration,intensity,notes,updatedAt:now};
     }
   } else {
-    entries.push({id:makeEntryId(),date,type,planned,completed,duration,intensity,work,notes,createdAt:now,updatedAt:now});
+    entries.push({id:makeEntryId(),date,type,duration,intensity,notes,createdAt:now,updatedAt:now});
   }
 
   entries.sort((a,b)=>{
@@ -1111,17 +1076,13 @@ function exportEntriesCSV(){
     alert('No exercise entries to export yet.');
     return;
   }
-  const headers=['Date','Session Type','Planned','Completed','Duration','Intensity / HR','Main Work Done','Notes','Created At','Updated At'];
+  const headers=['Date','Session Type','Duration','Intensity / HR','Notes','Created At','Updated At'];
   const typeLabels={cardio:'Zone 2 cardio', resistance:'Resistance training', walk:'Recovery / walk'};
-  const completedLabels={yes:'Yes', partial:'Partial', no:'No'};
   const rows=entries.map(entry=>[
     entry.date,
     typeLabels[entry.type]||entry.type,
-    entry.planned,
-    completedLabels[entry.completed]||entry.completed,
     entry.duration,
     entry.intensity,
-    entry.work,
     entry.notes,
     entry.createdAt ? new Date(entry.createdAt).toISOString() : '',
     entry.updatedAt ? new Date(entry.updatedAt).toISOString() : ''
@@ -1157,11 +1118,8 @@ function importEntriesFromFile(file){
         id:String(item.id||makeEntryId()),
         date:String(item.date||todayISO()),
         type:['cardio','resistance','walk'].includes(item.type)?item.type:'cardio',
-        planned:String(item.planned||''),
-        completed:['yes','partial','no'].includes(item.completed)?item.completed:'yes',
         duration:String(item.duration||''),
         intensity:String(item.intensity||''),
-        work:String(item.work||''),
         notes:String(item.notes||''),
         createdAt:Number(item.createdAt)||Date.now(),
         updatedAt:Number(item.updatedAt)||Number(item.createdAt)||Date.now()
