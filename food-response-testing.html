@@ -548,6 +548,10 @@
         <label>+120 min</label>
         <input type="number" id="f-t120" step="1" min="0" placeholder="e.g. 122" oninput="updatePreview()" />
       </div>
+      <div class="field">
+        <label>Return to baseline minute (optional)</label>
+        <input type="number" id="f-ret-min" step="1" min="121" placeholder="e.g. 165" oninput="updatePreview()" />
+      </div>
       <div class="field full">
         <div class="spike-preview" id="spike-preview">Enter baseline + at least one reading to see spike analysis…</div>
       </div>
@@ -701,6 +705,7 @@
             <th>Peak</th>
             <th>Spike ↑</th>
             <th>120-min Δ from baseline</th>
+            <th>AUC ↑ (mg·min/dL)</th>
             <th>Activity</th>
             <th>Rating</th>
           </tr>
@@ -759,7 +764,8 @@ function exportCSV(){
   if(!tests.length){ alert('No tests to export yet.'); return; }
   const headers = [
     'Date', 'Food / Combination Tested', 'Category', 'Portion / Quantity',
-    'Baseline (T=0)', '+30 min', '+60 min', '+120 min', 'Berberine', 'ACV', 'Walk', 'Activity', 'Notes'
+    'Baseline (T=0)', '+30 min', '+60 min', '+120 min', 'Return to Baseline Minute (if >120)',
+    'Berberine', 'ACV', 'Walk', 'Activity', 'Notes'
   ];
   const rows = tests
     .slice()
@@ -773,6 +779,7 @@ function exportCSV(){
       t.t30 ?? '',
       t.t60 ?? '',
       t.t120 ?? '',
+      t.returnBaselineMin ?? '',
       t.berberine || '',
       t.acv || '',
       t.walk || '',
@@ -856,12 +863,16 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], 5));
   const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], 6));
   const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], 7));
-  const berberine = parseYesNo(read(['berberine', 'wasberberinetaken'], 8));
-  const acv = parseYesNo(read(['acv', 'wasacvtaken'], 9));
-  const walk = parseYesNo(read(['walk', 'walkbeforetest', 'walkbeforetesting'], 10));
-  const activityRaw = String(read(['activity', 'activityduring2hourtestwindow', 'activitylevel'], 11) || '').trim().toLowerCase();
+  const returnBaselineRaw = parseNumberish(read(['returntobaselineminute', 'returnbaselineminute', 'returnminute', 'returntobaseline', 'retmin'], 8));
+  const returnBaselineMin = returnBaselineRaw != null && returnBaselineRaw > 120
+    ? Math.round(returnBaselineRaw)
+    : null;
+  const berberine = parseYesNo(read(['berberine', 'wasberberinetaken'], 9));
+  const acv = parseYesNo(read(['acv', 'wasacvtaken'], 10));
+  const walk = parseYesNo(read(['walk', 'walkbeforetest', 'walkbeforetesting'], 11));
+  const activityRaw = String(read(['activity', 'activityduring2hourtestwindow', 'activitylevel'], 12) || '').trim().toLowerCase();
   const activity = ['nap', 'computer', 'general'].includes(activityRaw) ? activityRaw : '';
-  const notes = String(read(['notes', 'observations', 'notesobservations'], 12) || '').trim();
+  const notes = String(read(['notes', 'observations', 'notesobservations'], 13) || '').trim();
   const id = String(read(['id', 'entryid'], -1) || '').trim();
 
   if(!/^\d{4}-\d{2}-\d{2}$/.test(date) || !food || t0 == null){
@@ -877,13 +888,14 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
         'supplement effect':'supplement'
       })[catRaw.toLowerCase()] || 'grain';
 
-  return { id, date, food, cat, portion, t0, t30, t60, t120, berberine, acv, walk, activity, notes };
+  return { id, date, food, cat, portion, t0, t30, t60, t120, returnBaselineMin, berberine, acv, walk, activity, notes };
 }
 
 function makeTestFingerprint(test){
   return [
     test.date || '', test.food || '', test.cat || '', test.portion || '',
     test.t0 ?? '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '',
+    test.returnBaselineMin ?? '',
     test.berberine || '', test.acv || '', test.walk || '', test.activity || '', test.notes || ''
   ].join('\u0001');
 }
@@ -1000,16 +1012,52 @@ function spikeAnalysis(t0,t30,t60,t120){
   return {peak,spikeAbs,ret120,rating,cls};
 }
 
+function computeAUC(t0,t30,t60,t120,returnBaselineMin){
+  if(!t0) return null;
+  const points=[{ time:0, delta:0 }];
+  if(t30!=null) points.push({ time:30, delta:Math.max(0, t30-t0) });
+  if(t60!=null) points.push({ time:60, delta:Math.max(0, t60-t0) });
+  if(t120!=null) points.push({ time:120, delta:Math.max(0, t120-t0) });
+
+  if(points.length<2) return null;
+
+  const normalizedReturnMinute = Number.isFinite(returnBaselineMin) && returnBaselineMin > 120
+    ? Math.round(returnBaselineMin)
+    : null;
+  const lastTime = points[points.length - 1].time;
+  if(normalizedReturnMinute != null && normalizedReturnMinute > lastTime){
+    points.push({ time:normalizedReturnMinute, delta:0 });
+  }
+
+  let auc=0;
+  for(let i=1;i<points.length;i+=1){
+    const prev=points[i-1];
+    const curr=points[i];
+    auc += ((prev.delta + curr.delta) / 2) * (curr.time - prev.time);
+  }
+
+  return {
+    auc,
+    endMinute:points[points.length - 1].time,
+    usedReturnMinute:normalizedReturnMinute != null && points[points.length - 1].time === normalizedReturnMinute
+  };
+}
+
 function updatePreview(){
   const t0  =parseFloat(document.getElementById('f-t0').value)||null;
   const t30 =parseFloat(document.getElementById('f-t30').value)||null;
   const t60 =parseFloat(document.getElementById('f-t60').value)||null;
   const t120=parseFloat(document.getElementById('f-t120').value)||null;
+  const returnBaselineMin=parseFloat(document.getElementById('f-ret-min').value)||null;
   const el=document.getElementById('spike-preview');
   const a=spikeAnalysis(t0,t30,t60,t120);
   if(!a){ el.textContent='Enter baseline + at least one reading to see spike analysis…'; el.style.background=''; return; }
+  const aucInfo=computeAUC(t0,t30,t60,t120,returnBaselineMin);
   const ret=a.ret120!=null?(a.ret120>=0?'+':'')+a.ret120+' mg/dL from baseline at 120 min':'120-min not yet entered';
-  el.innerHTML=`<strong>Peak: ${a.peak} mg/dL &nbsp;·&nbsp; Spike above baseline: +${a.spikeAbs} mg/dL &nbsp;·&nbsp; ${ret}</strong> &nbsp; <span style="font-weight:700">${a.rating}</span>`;
+  const aucText=aucInfo
+    ? ` &nbsp;·&nbsp; AUC↑: ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute} min)`
+    : '';
+  el.innerHTML=`<strong>Peak: ${a.peak} mg/dL &nbsp;·&nbsp; Spike above baseline: +${a.spikeAbs} mg/dL &nbsp;·&nbsp; ${ret}${aucText}</strong> &nbsp; <span style="font-weight:700">${a.rating}</span>`;
   const bg={flat:'#e8f8ef','spike-flat':'#e8f8ef','spike-mild':'#fefbe7','spike-moderate':'#fef5e7','spike-high':'#fdf0ed'};
   el.style.background=bg[a.cls]||'';
 }
@@ -1034,7 +1082,7 @@ let editingId=null;
 function clearForm(){
   editingId=null;
   document.getElementById('f-date').value=todayISO();
-  ['f-food','f-portion','f-notes','f-t0','f-t30','f-t60','f-t120'].forEach(id=>document.getElementById(id).value='');
+  ['f-food','f-portion','f-notes','f-t0','f-t30','f-t60','f-t120','f-ret-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='grain';
   document.getElementById('f-berberine').value='';
   document.getElementById('f-acv').value='';
@@ -1057,6 +1105,7 @@ function editTest(id){
   document.getElementById('f-t30').value=t.t30!=null?t.t30:'';
   document.getElementById('f-t60').value=t.t60!=null?t.t60:'';
   document.getElementById('f-t120').value=t.t120!=null?t.t120:'';
+  document.getElementById('f-ret-min').value=t.returnBaselineMin!=null?t.returnBaselineMin:'';
   document.getElementById('f-berberine').value=t.berberine||'';
   document.getElementById('f-acv').value=t.acv||'';
   document.getElementById('f-walk').value=t.walk||'';
@@ -1077,6 +1126,10 @@ function saveTest(){
   const t30    = parseFloat(document.getElementById('f-t30').value)||null;
   const t60    = parseFloat(document.getElementById('f-t60').value)||null;
   const t120   = parseFloat(document.getElementById('f-t120').value)||null;
+  const returnBaselineRaw = parseFloat(document.getElementById('f-ret-min').value)||null;
+  const returnBaselineMin = returnBaselineRaw != null && returnBaselineRaw > 120
+    ? Math.round(returnBaselineRaw)
+    : null;
   const berberine=document.getElementById('f-berberine').value||null;
   const acv    = document.getElementById('f-acv').value||null;
   const walk   = document.getElementById('f-walk').value||null;
@@ -1084,12 +1137,16 @@ function saveTest(){
   const notes  = document.getElementById('f-notes').value.trim();
   if(!date||!food){ alert('Please enter a date and food name.'); return; }
   if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
+  if(returnBaselineRaw != null && returnBaselineRaw <= 120){
+    alert('Return to baseline minute should be greater than 120, or left blank.');
+    return;
+  }
   let tests=loadTests();
   if(editingId){
-    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,activity,notes}:x);
+    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,t30,t60,t120,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
   } else {
     const id=Date.now().toString();
-    tests.push({id,date,food,cat,portion,t0,t30,t60,t120,berberine,acv,walk,activity,notes});
+    tests.push({id,date,food,cat,portion,t0,t30,t60,t120,returnBaselineMin,berberine,acv,walk,activity,notes});
   }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
   saveTests(tests);
@@ -1344,6 +1401,7 @@ function render(){
     empty.style.display='none';
     grid.innerHTML=filtered.map(t=>{
       const a=spikeAnalysis(t.t0,t.t30,t.t60,t.t120);
+      const aucInfo=computeAUC(t.t0,t.t30,t.t60,t.t120,t.returnBaselineMin);
       const catStyle=CAT_COLORS[t.cat]||'';
       const catLabel=CAT_LABELS[t.cat]||t.cat;
       const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
@@ -1379,6 +1437,7 @@ function render(){
           <span class="spike-badge ${a.cls}">${a.rating}</span>
           <span style="font-size:.8rem;color:var(--muted)">Peak +${a.spikeAbs} mg/dL above baseline</span>
           ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
+          ${aucInfo?`<span style="font-size:.78rem;color:var(--muted)">AUC↑ ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute})</span>`:''}
           ${contextBits?`<span style="font-size:.75rem;color:var(--muted);margin-left:auto">${contextBits}</span>`:''}
         </div>`:''}
         ${t.notes?`<div class="test-card-notes">${t.notes}</div>`:''}
@@ -1397,7 +1456,10 @@ function render(){
   chartCard.style.display=''; sumCard.style.display='';
 
   // Summary table — rank by spikeAbs descending
-  const withSpike=all.map(t=>({...t,a:spikeAnalysis(t.t0,t.t30,t.t60,t.t120)})).filter(t=>t.a).sort((a,b)=>b.a.spikeAbs-a.a.spikeAbs);
+  const withSpike=all
+    .map(t=>({...t,a:spikeAnalysis(t.t0,t.t30,t.t60,t.t120),aucInfo:computeAUC(t.t0,t.t30,t.t60,t.t120,t.returnBaselineMin)}))
+    .filter(t=>t.a)
+    .sort((a,b)=>b.a.spikeAbs-a.a.spikeAbs);
   document.getElementById('sum-body').innerHTML=withSpike.map((t,i)=>{
     const worst=i===0&&withSpike.length>1;
     const best=i===withSpike.length-1&&withSpike.length>1;
@@ -1415,6 +1477,7 @@ function render(){
       <td style="font-weight:700">${t.a.peak}</td>
       <td class="${worst?'warn':best?'best':''}" style="font-weight:700">+${t.a.spikeAbs}</td>
       <td style="color:${t.a.ret120!=null&&Math.abs(t.a.ret120)<=20?'#27ae60':'#e67e22'}">${t.a.ret120!=null?(t.a.ret120>=0?'+':'')+t.a.ret120+' mg/dL':'—'}</td>
+      <td style="font-weight:700">${t.aucInfo?`${Math.round(t.aucInfo.auc)} <span style="font-weight:500;color:var(--muted)">(+${t.aucInfo.endMinute})</span>`:'—'}</td>
       <td style="font-size:.8rem;white-space:nowrap">${activityText}</td>
       <td><span class="spike-badge ${t.a.cls}">${t.a.rating}</span></td>
     </tr>`;
@@ -1434,6 +1497,7 @@ function render(){
     testId,
     label:t.food,
     fullLabel:t.food,
+    returnBaselineMin:t.returnBaselineMin,
     data:[
       0,  // Baseline normalized to 0
       t.t30!=null ? t.t30-t.t0 : null,   // Change from baseline at +30
@@ -1468,7 +1532,19 @@ function render(){
         legend:{display:false},
         tooltip:{
           titleFont:{size:14},
-          bodyFont:{size:13}
+          bodyFont:{size:13},
+          callbacks:{
+            afterBody(items){
+              const item=Array.isArray(items) ? items[0] : null;
+              if(!item || item.dataIndex!==3) return '';
+              const delta=typeof item.parsed?.y==='number' ? item.parsed.y : null;
+              if(delta==null || delta<=0) return '';
+              const retMinRaw=item.dataset?.returnBaselineMin;
+              const retMin=Number.isFinite(retMinRaw) ? retMinRaw : Number(retMinRaw);
+              if(!Number.isFinite(retMin) || retMin<=120) return '';
+              return `Return to baseline: +${Math.round(retMin)} min`;
+            }
+          }
         }
       },
       scales:{
