@@ -197,9 +197,9 @@
     .curve-legend-item:hover { border-color:var(--border); background:#f5fbf7; }
     .curve-legend-item.off { opacity:.48; }
     .curve-legend-swatch {
-      width:22px;
+      width:24px;
       height:0;
-      border-top-width:3px;
+      border-top-width:4px;
       border-top-style:solid;
       flex-shrink:0;
     }
@@ -1547,7 +1547,7 @@ function render(){
     ],
     borderColor:colors[i%colors.length],
     backgroundColor:'transparent',
-    borderWidth:2, pointRadius:4, tension:.3, spanGaps:true,
+    borderWidth:3, pointRadius:4, tension:.3, spanGaps:true,
     borderDash:hasMitigation?[8,6]:[],
     hidden:!visible
   };
