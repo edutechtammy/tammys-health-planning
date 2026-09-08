@@ -547,6 +547,9 @@
           <label for="graphics-folder-select">Image Folder</label>
           <select id="graphics-folder-select" onchange="onGraphicsFolderChange(this.value)"></select>
         </div>
+        <div class="field" style="align-self:end">
+          <button class="btn btn-outline" type="button" onclick="refreshGraphicsSlideshow(true)">Refresh Images</button>
+        </div>
         <div class="slide-count" id="graphics-slide-count"></div>
       </div>
 
@@ -4066,8 +4069,11 @@ let _compChart = null;
 let _graphicsAutoplayTimer = null;
 let _graphicsFolder = '2026-cycle-1';
 let _graphicsIndex = 0;
+let _graphicsAssetVersion = Date.now();
+const GRAPHICS_ROOT = 'cgm-graphics';
+const GRAPHICS_ROOT_MANIFEST = `${GRAPHICS_ROOT}/index.json`;
 
-const GRAPHICS_FOLDERS = {
+let GRAPHICS_FOLDERS = {
   '2026-cycle-1': [
     'cgm-graphics/2026-cycle-1/cgm_report_2026-05-27-1.png',
     'cgm-graphics/2026-cycle-1/cgm_report_2026-05-27.png',
@@ -4124,6 +4130,181 @@ function getActiveGraphicsSlides() {
   return GRAPHICS_FOLDERS[_graphicsFolder] || [];
 }
 
+function isSupportedGraphicsImage(fileName) {
+  return /\.(png|jpe?g|webp|gif|svg)$/i.test(fileName);
+}
+
+function parseManifestFolders(manifest) {
+  if (Array.isArray(manifest)) {
+    return manifest;
+  }
+  if (Array.isArray(manifest?.folders)) {
+    return manifest.folders;
+  }
+  if (manifest && typeof manifest === 'object') {
+    return Object.keys(manifest).filter(key => Array.isArray(manifest[key]));
+  }
+  return [];
+}
+
+function parseManifestImageList(manifest) {
+  if (Array.isArray(manifest)) {
+    return manifest;
+  }
+  if (Array.isArray(manifest?.images)) {
+    return manifest.images;
+  }
+  return [];
+}
+
+function normalizeFolderName(name) {
+  return String(name || '')
+    .trim()
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/^cgm-graphics\//, '');
+}
+
+function normalizeImageName(path) {
+  const cleaned = String(path || '').split('#')[0].split('?')[0].replace(/\/$/, '');
+  return cleaned.split('/').pop() || '';
+}
+
+function asGraphicsPath(folderName, fileName) {
+  return `${GRAPHICS_ROOT}/${folderName}/${fileName}`;
+}
+
+function uniqueCaseInsensitive(values) {
+  const seen = new Set();
+  const out = [];
+  for (const value of values) {
+    const key = String(value || '').toLowerCase();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    out.push(value);
+  }
+  return out;
+}
+
+async function discoverGraphicsFolderNames() {
+  const seeded = Object.keys(GRAPHICS_FOLDERS || {});
+  const discovered = [];
+
+  try {
+    const manifestRes = await fetch(`${GRAPHICS_ROOT_MANIFEST}?scan=${Date.now()}`, { cache: 'no-store' });
+    if (manifestRes.ok) {
+      const manifest = await manifestRes.json();
+      discovered.push(...parseManifestFolders(manifest));
+    }
+  } catch {
+    // Ignore manifest errors and fall back to directory scan.
+  }
+
+  if (!discovered.length) {
+    try {
+      const dirRes = await fetch(`${GRAPHICS_ROOT}/?scan=${Date.now()}`, { cache: 'no-store' });
+      if (dirRes.ok) {
+        const html = await dirRes.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const fromDir = Array.from(doc.querySelectorAll('a[href]'))
+          .map(link => String(link.getAttribute('href') || '').split('#')[0].split('?')[0])
+          .filter(path => /\/$/.test(path))
+          .map(path => decodeURIComponent(path).replace(/^\/+|\/+$/g, ''))
+          .filter(path => path && path !== '.' && path !== '..' && !path.startsWith('.'));
+        discovered.push(...fromDir);
+      }
+    } catch {
+      // Directory listing may not be available in every host.
+    }
+  }
+
+  return uniqueCaseInsensitive([...seeded, ...discovered].map(normalizeFolderName).filter(Boolean))
+    .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+}
+
+async function discoverGraphicsSlidesForFolder(folderName) {
+  const normalizedFolder = normalizeFolderName(folderName);
+  if (!normalizedFolder) return [];
+
+  const folderPath = `${GRAPHICS_ROOT}/${normalizedFolder}`;
+  let files = [];
+
+  try {
+    const manifestRes = await fetch(`${folderPath}/index.json?scan=${Date.now()}`, { cache: 'no-store' });
+    if (manifestRes.ok) {
+      const manifest = await manifestRes.json();
+      files = parseManifestImageList(manifest)
+        .map(normalizeImageName)
+        .filter(isSupportedGraphicsImage);
+    }
+  } catch {
+    files = [];
+  }
+
+  if (!files.length) {
+    try {
+      const dirRes = await fetch(`${folderPath}/?scan=${Date.now()}`, { cache: 'no-store' });
+      if (dirRes.ok) {
+        const html = await dirRes.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        files = Array.from(doc.querySelectorAll('a[href]'))
+          .map(link => String(link.getAttribute('href') || ''))
+          .map(path => decodeURIComponent(path).split('#')[0].split('?')[0].replace(/\/$/, ''))
+          .map(path => path.split('/').pop() || '')
+          .filter(Boolean)
+          .filter(isSupportedGraphicsImage);
+      }
+    } catch {
+      files = [];
+    }
+  }
+
+  return uniqueCaseInsensitive(files)
+    .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
+    .map(fileName => asGraphicsPath(normalizedFolder, fileName));
+}
+
+async function refreshGraphicsSlideshow(preserveSelection = true) {
+  const folderNames = await discoverGraphicsFolderNames();
+  if (!folderNames.length) {
+    GRAPHICS_FOLDERS = {};
+    _graphicsFolder = '';
+    _graphicsIndex = 0;
+    const sel = document.getElementById('graphics-folder-select');
+    if (sel) sel.innerHTML = '';
+    renderGraphicsSlide();
+    return;
+  }
+
+  const refreshed = {};
+  await Promise.all(folderNames.map(async (name) => {
+    refreshed[name] = await discoverGraphicsSlidesForFolder(name);
+  }));
+  GRAPHICS_FOLDERS = refreshed;
+  _graphicsAssetVersion = Date.now();
+
+  const sel = document.getElementById('graphics-folder-select');
+  if (sel) {
+    sel.innerHTML = folderNames
+      .map(name => {
+        const count = (GRAPHICS_FOLDERS[name] || []).length;
+        return `<option value="${name}">${name} (${count})</option>`;
+      })
+      .join('');
+  }
+
+  const previous = preserveSelection ? _graphicsFolder : '';
+  const hasPrevious = previous && folderNames.includes(previous);
+  const firstWithImages = folderNames.find(name => (GRAPHICS_FOLDERS[name] || []).length > 0);
+  _graphicsFolder = hasPrevious ? previous : (firstWithImages || folderNames[0]);
+  _graphicsIndex = 0;
+
+  if (sel && _graphicsFolder) {
+    sel.value = _graphicsFolder;
+  }
+
+  renderGraphicsSlide();
+}
+
 function toSlideTitle(path) {
   const file = path.split('/').pop() || path;
   return file
@@ -4158,7 +4339,7 @@ function renderGraphicsSlide() {
   const current = slides[_graphicsIndex];
   img.style.display = 'block';
   empty.style.display = 'none';
-  img.src = current;
+  img.src = `${current}?v=${_graphicsAssetVersion}`;
   img.alt = toSlideTitle(current);
   prev.disabled = slides.length < 2;
   next.disabled = slides.length < 2;
@@ -4173,9 +4354,16 @@ function moveGraphicsSlide(step) {
   renderGraphicsSlide();
 }
 
-function onGraphicsFolderChange(folder) {
+async function onGraphicsFolderChange(folder) {
   _graphicsFolder = folder;
   _graphicsIndex = 0;
+  GRAPHICS_FOLDERS[_graphicsFolder] = await discoverGraphicsSlidesForFolder(_graphicsFolder);
+  _graphicsAssetVersion = Date.now();
+  const count = (GRAPHICS_FOLDERS[_graphicsFolder] || []).length;
+  const option = document.querySelector(`#graphics-folder-select option[value="${CSS.escape(_graphicsFolder)}"]`);
+  if (option) {
+    option.textContent = `${_graphicsFolder} (${count})`;
+  }
   renderGraphicsSlide();
 }
 
@@ -4205,25 +4393,10 @@ function toggleGraphicsAutoplay() {
   if (btn) btn.textContent = '⏸ Pause';
 }
 
-function initGraphicsSlideshow() {
+async function initGraphicsSlideshow() {
   const sel = document.getElementById('graphics-folder-select');
   if (!sel) return;
-
-  const folderNames = Object.keys(GRAPHICS_FOLDERS);
-  sel.innerHTML = folderNames
-    .map(name => {
-      const count = (GRAPHICS_FOLDERS[name] || []).length;
-      return `<option value="${name}">${name} (${count})</option>`;
-    })
-    .join('');
-
-  const firstWithImages = folderNames.find(name => (GRAPHICS_FOLDERS[name] || []).length > 0);
-  _graphicsFolder = firstWithImages || folderNames[0] || '';
-  _graphicsIndex = 0;
-  if (_graphicsFolder) {
-    sel.value = _graphicsFolder;
-  }
-  renderGraphicsSlide();
+  await refreshGraphicsSlideshow(false);
 }
 
 // ═══════════════════════════════════════════════
