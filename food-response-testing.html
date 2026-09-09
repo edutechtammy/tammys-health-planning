@@ -1502,11 +1502,15 @@ function render(){
   if(!all.length){ chartCard.style.display='none'; sumCard.style.display='none'; return; }
   chartCard.style.display=''; sumCard.style.display='';
 
-  // Summary table — rank by spikeAbs descending
+  // Summary table — rank by AUC descending, with spike as the tiebreaker
   const withSpike=all
     .map(t=>({...t,a:spikeAnalysis(t.t0,t.t30,t.t60,t.t120),aucInfo:computeAUC(t.t0,t.t30,t.t60,t.t120,t.returnBaselineMin)}))
     .filter(t=>t.a)
-    .sort((a,b)=>b.a.spikeAbs-a.a.spikeAbs);
+    .sort((a,b)=>{
+      const byAuc=(b.aucInfo?.auc ?? 0) - (a.aucInfo?.auc ?? 0);
+      if(byAuc!==0) return byAuc;
+      return (b.a.spikeAbs ?? 0) - (a.a.spikeAbs ?? 0);
+    });
   document.getElementById('sum-body').innerHTML=withSpike.map((t,i)=>{
     const worst=i===0&&withSpike.length>1;
     const best=i===withSpike.length-1&&withSpike.length>1;
