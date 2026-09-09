@@ -4188,37 +4188,20 @@ function uniqueCaseInsensitive(values) {
 
 async function discoverGraphicsFolderNames() {
   const seeded = Object.keys(GRAPHICS_FOLDERS || {});
-  const discovered = [];
 
   try {
     const manifestRes = await fetch(`${GRAPHICS_ROOT_MANIFEST}?scan=${Date.now()}`, { cache: 'no-store' });
     if (manifestRes.ok) {
       const manifest = await manifestRes.json();
-      discovered.push(...parseManifestFolders(manifest));
+      const discovered = parseManifestFolders(manifest);
+      return uniqueCaseInsensitive([...seeded, ...discovered].map(normalizeFolderName).filter(Boolean))
+        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
     }
   } catch {
-    // Ignore manifest errors and fall back to directory scan.
+    // Ignore manifest fetch failures and fall back to seeded folders only.
   }
 
-  if (!discovered.length) {
-    try {
-      const dirRes = await fetch(`${GRAPHICS_ROOT}/?scan=${Date.now()}`, { cache: 'no-store' });
-      if (dirRes.ok) {
-        const html = await dirRes.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        const fromDir = Array.from(doc.querySelectorAll('a[href]'))
-          .map(link => String(link.getAttribute('href') || '').split('#')[0].split('?')[0])
-          .filter(path => /\/$/.test(path))
-          .map(path => decodeURIComponent(path).replace(/^\/+|\/+$/g, ''))
-          .filter(path => path && path !== '.' && path !== '..' && !path.startsWith('.'));
-        discovered.push(...fromDir);
-      }
-    } catch {
-      // Directory listing may not be available in every host.
-    }
-  }
-
-  return uniqueCaseInsensitive([...seeded, ...discovered].map(normalizeFolderName).filter(Boolean))
+  return uniqueCaseInsensitive(seeded.map(normalizeFolderName).filter(Boolean))
     .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
 }
 
@@ -4227,41 +4210,23 @@ async function discoverGraphicsSlidesForFolder(folderName) {
   if (!normalizedFolder) return [];
 
   const folderPath = `${GRAPHICS_ROOT}/${normalizedFolder}`;
-  let files = [];
-
   try {
     const manifestRes = await fetch(`${folderPath}/index.json?scan=${Date.now()}`, { cache: 'no-store' });
     if (manifestRes.ok) {
       const manifest = await manifestRes.json();
-      files = parseManifestImageList(manifest)
+      const files = parseManifestImageList(manifest)
         .map(normalizeImageName)
         .filter(isSupportedGraphicsImage);
+
+      return uniqueCaseInsensitive(files)
+        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
+        .map(fileName => asGraphicsPath(normalizedFolder, fileName));
     }
   } catch {
-    files = [];
+    // Manifest fetch failure is handled by showing an empty state.
   }
 
-  if (!files.length) {
-    try {
-      const dirRes = await fetch(`${folderPath}/?scan=${Date.now()}`, { cache: 'no-store' });
-      if (dirRes.ok) {
-        const html = await dirRes.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        files = Array.from(doc.querySelectorAll('a[href]'))
-          .map(link => String(link.getAttribute('href') || ''))
-          .map(path => decodeURIComponent(path).split('#')[0].split('?')[0].replace(/\/$/, ''))
-          .map(path => path.split('/').pop() || '')
-          .filter(Boolean)
-          .filter(isSupportedGraphicsImage);
-      }
-    } catch {
-      files = [];
-    }
-  }
-
-  return uniqueCaseInsensitive(files)
-    .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
-    .map(fileName => asGraphicsPath(normalizedFolder, fileName));
+  return [];
 }
 
 async function refreshGraphicsSlideshow(preserveSelection = true) {
