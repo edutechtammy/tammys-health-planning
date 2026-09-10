@@ -233,7 +233,7 @@
 
   <header>
     <h1>🌅 Dawn Effect Experiment Lab</h1>
-    <p>Designing morning glucose experiments around breakfast composition, exercise timing, sleep, supplements, and the dawn rise itself.</p>
+    <p style="color: white;">Designing morning glucose experiments around breakfast composition, exercise timing, sleep, supplements, and the dawn rise itself.</p>
   </header>
 
   <main>
@@ -381,44 +381,45 @@
     <section class="card">
       <div class="section-tag">Comparison summary</div>
       <h2>Quick comparison table</h2>
+      <p>Compare a day with no food in the Dawn Effect time window to a morning that intentionally included foods high in protein and few carbs plus berberine, plus a 40 minute walk at 1.5 mph.</p>
       <table class="comparison-table">
         <thead>
           <tr>
             <th>Metric</th>
-            <th>Baseline / smoother pattern</th>
-            <th>This morning</th>
+            <th>No Food</th>
+            <th>Best Try</th>
             <th>Interpretation</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Wake glucose</td>
-            <td>~90–100</td>
+            <td>88</td>
             <td>95</td>
             <td>Normal start</td>
           </tr>
           <tr>
             <td>Peak glucose</td>
-            <td>~110–140</td>
+            <td>100</td>
             <td>155</td>
             <td><span class="warn">Above expected morning rise</span></td>
           </tr>
           <tr>
             <td>Peak time</td>
-            <td>later, smoother climb</td>
+            <td>11:30</td>
             <td>8:42</td>
             <td>Strong early rise</td>
           </tr>
           <tr>
             <td>Curve shape</td>
-            <td>gradual / flattening</td>
+            <td>gradual rise</td>
             <td>steep early ascent</td>
             <td><span class="warn">Amplified response</span></td>
           </tr>
           <tr>
             <td>Smoothing time</td>
-            <td>~11:00–2:00</td>
-            <td>not yet observed</td>
+            <td>11:30 am to low 90s</td>
+            <td>10:52 am to low 80s</td>
             <td>Need to confirm whether the pattern persisted</td>
           </tr>
           <tr>
@@ -524,10 +525,10 @@
         <tbody>
           <tr class="experiment-row">
             <td><input type="date" value="2026-09-10" /></td>
-            <td><input type="number" class="wake-input" value="95" /></td>
-            <td><input type="number" class="peak-input" value="155" /></td>
+            <td><input type="number" class="wake-input" value="95" min="0" max="300" step="1" inputmode="numeric" /></td>
+            <td><input type="number" class="peak-input" value="155" min="0" max="300" step="1" inputmode="numeric" /></td>
             <td><input type="time" class="peak-time-input" value="08:42" /></td>
-            <td><input type="number" class="delta-output" value="60" readonly /></td>
+            <td><input type="number" class="delta-output" value="60" readonly min="-500" max="500" step="1" inputmode="numeric" /></td>
             <td><input type="time" class="smooth-time-input" value="11:30" /></td>
             <td><input type="text" class="duration-output" value="2h 48m" readonly /></td>
             <td><input type="text" value="eggs + cheese + deli meat + berberine + treadmill walk" /></td>
@@ -535,10 +536,10 @@
           </tr>
           <tr class="experiment-row">
             <td><input type="date" /></td>
-            <td><input type="number" class="wake-input" /></td>
-            <td><input type="number" class="peak-input" /></td>
+            <td><input type="number" class="wake-input" min="0" max="300" step="1" inputmode="numeric" /></td>
+            <td><input type="number" class="peak-input" min="0" max="300" step="1" inputmode="numeric" /></td>
             <td><input type="time" class="peak-time-input" /></td>
-            <td><input type="number" class="delta-output" readonly /></td>
+            <td><input type="number" class="delta-output" readonly min="-500" max="500" step="1" inputmode="numeric" /></td>
             <td><input type="time" class="smooth-time-input" /></td>
             <td><input type="text" class="duration-output" readonly /></td>
             <td><input type="text" /></td>
@@ -546,10 +547,10 @@
           </tr>
           <tr class="experiment-row">
             <td><input type="date" /></td>
-            <td><input type="number" class="wake-input" /></td>
-            <td><input type="number" class="peak-input" /></td>
+            <td><input type="number" class="wake-input" min="0" max="300" step="1" inputmode="numeric" /></td>
+            <td><input type="number" class="peak-input" min="0" max="300" step="1" inputmode="numeric" /></td>
             <td><input type="time" class="peak-time-input" /></td>
-            <td><input type="number" class="delta-output" readonly /></td>
+            <td><input type="number" class="delta-output" readonly min="-500" max="500" step="1" inputmode="numeric" /></td>
             <td><input type="time" class="smooth-time-input" /></td>
             <td><input type="text" class="duration-output" readonly /></td>
             <td><input type="text" /></td>
