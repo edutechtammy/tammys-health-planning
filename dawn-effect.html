@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dawn Effect Experiment Lab</title>
+  <style>
+    :root {
+      --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#d8f3dc;--green-pale:#f0faf2;
+      --amber:#e9a84c;--amber-pale:#fff8e1;--sky:#4a90c4;--sky-pale:#e0f7fa;--purple:#8b6abf;
+      --red:#c0392b;--red-pale:#fdf0ed;--border:#b7ddc4;--text:#1e2d24;--muted:#5a7263;
+      --card-shadow:0 2px 14px rgba(45,106,79,.11);
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:'Segoe UI',system-ui,sans-serif; background:var(--green-pale); color:var(--text);
+      line-height:1.6; padding-bottom:5rem;
+    }
+    nav {
+      background:var(--green-dark); padding:.75rem 1.5rem; display:flex; gap:1.3rem; align-items:center;
+      flex-wrap:wrap;
+    }
+    nav a {
+      color:#fff; text-decoration:none; font-weight:600; font-size:.92rem; opacity:.84; transition:opacity .2s;
+      white-space:nowrap;
+    }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+    header {
+      text-align:center; padding:2.2rem 1rem 1.6rem; background:linear-gradient(135deg,var(--green-dark),var(--sky));
+      color:#fff;
+    }
+    header h1 { font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:.5rem; }
+    header p { max-width:760px; margin:0 auto; opacity:.9; }
+    main { max-width:1100px; margin:0 auto; padding:2rem 1rem 0; }
+    .card {
+      background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--card-shadow);
+      padding:1.5rem 1.4rem; margin-bottom:1.4rem;
+    }
+    .card h2 { font-size:1.1rem; color:var(--green-dark); margin-bottom:.7rem; }
+    .card h3 { font-size:.95rem; color:var(--green-dark); margin-bottom:.5rem; }
+    .section-tag {
+      display:inline-block; background:var(--green-light); color:var(--green-dark); padding:.22rem .6rem;
+      border-radius:999px; font-size:.73rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+      margin-bottom:.8rem;
+    }
+    p, li, label { color:var(--muted); font-size:.95rem; }
+    .hero-grid, .three-col, .mini-grid, .form-grid {
+      display:grid; gap:1rem;
+    }
+    .hero-grid { grid-template-columns:1.4fr .9fr; }
+    .three-col { grid-template-columns:repeat(3, minmax(0,1fr)); }
+    .mini-grid { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
+    .form-grid { grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); margin-top:1rem; }
+    .field { display:flex; flex-direction:column; gap:.35rem; }
+    .field label { font-size:.75rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+    .field input, .field select, .field textarea {
+      border:1px solid var(--border); border-radius:8px; background:#f9fdf9; padding:.55rem .7rem; font:inherit; color:var(--text);
+    }
+    .field textarea { min-height:90px; resize:vertical; }
+    .metric-box {
+      border:1px solid var(--border); border-radius:12px; background:#f8fcf9; padding:1rem; min-height:130px;
+    }
+    .metric-value { font-size:1.9rem; font-weight:800; color:var(--green-dark); line-height:1.1; }
+    .metric-label { font-size:.77rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin-bottom:.2rem; }
+    .callout {
+      border-left:4px solid var(--amber); background:var(--amber-pale); padding:.9rem 1rem; border-radius:8px;
+      color:#7a5b14; font-size:.92rem;
+    }
+    .comparison-row {
+      display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:.9rem; margin-top:1rem;
+    }
+    .comparison-box {
+      border:1px solid var(--border); border-radius:12px; background:#fff; padding:1rem;
+    }
+    .comparison-box strong { display:block; color:var(--green-dark); margin-bottom:.3rem; }
+    .badge {
+      display:inline-block; border-radius:999px; font-size:.72rem; font-weight:700; padding:.2rem .62rem; margin-top:.4rem;
+    }
+    .badge-amber { background:var(--amber-pale); color:#7a5b14; }
+    .badge-red { background:var(--red-pale); color:var(--red); }
+    .badge-green { background:var(--green-light); color:var(--green-dark); }
+    .example-box {
+      background:#f4faf5; border:1px dashed var(--border); border-radius:12px; padding:1rem;
+      margin-top:1rem;
+    }
+    .example-box strong { color:var(--green-dark); }
+    .comparison-table {
+      width:100%; border-collapse:collapse; margin-top:1rem; background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden;
+    }
+    .comparison-table th, .comparison-table td {
+      padding:.7rem .8rem; border-bottom:1px solid var(--border); text-align:left; vertical-align:top;
+      font-size:.9rem;
+    }
+    .comparison-table th {
+      background:#f3faf6; color:var(--green-dark); font-weight:700; text-transform:uppercase; letter-spacing:.04em; font-size:.73rem;
+    }
+    .comparison-table tr:last-child td { border-bottom:none; }
+    .comparison-table .good { color:var(--green-dark); font-weight:700; }
+    .comparison-table .warn { color:var(--red); font-weight:700; }
+    .comparison-table input, .comparison-table select {
+      width:100%; border:1px solid var(--border); border-radius:6px; padding:.38rem .45rem; font:inherit; color:var(--text); background:#f9fdf9;
+    }
+    .calc-row {
+      display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.8rem;
+    }
+    .calc-pill {
+      background:#f3faf6; border:1px solid var(--border); border-radius:999px; padding:.35rem .7rem; font-size:.8rem; color:var(--green-dark); font-weight:700;
+    }
+    .chart-shell {
+      margin-top:1rem; border:1px solid var(--border); border-radius:12px; background:#f9fdf9; padding:1rem;
+    }
+    .chart-legend {
+      display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:.7rem; font-size:.8rem; color:var(--muted); font-weight:600;
+    }
+    .legend-swatch {
+      display:inline-flex; align-items:center; gap:.4rem;
+    }
+    .legend-swatch i {
+      display:inline-block; width:18px; height:4px; border-radius:999px;
+    }
+    .chart-svg {
+      width:100%; height:240px; display:block; border-radius:10px; background:linear-gradient(180deg,#ffffff 0%,#f3faf6 100%);
+      border:1px solid var(--border);
+    }
+    .dawn-slideshow {
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f9fdf9;
+      padding: 1rem;
+    }
+    .dawn-slide-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.75rem;
+      flex-wrap:wrap;
+      margin-bottom:.75rem;
+    }
+    .dawn-slide-count {
+      font-size:.76rem;
+      font-weight:700;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .dawn-slide-stage {
+      position:relative;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      overflow:hidden;
+      min-height:300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .dawn-slide-img {
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:72vh;
+      object-fit:contain;
+      background:#fff;
+    }
+    .dawn-slide-empty {
+      color:var(--muted);
+      font-size:.9rem;
+      text-align:center;
+      padding:1.4rem;
+    }
+    .dawn-slide-nav {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:2.2rem;
+      height:2.2rem;
+      border-radius:50%;
+      border:1px solid #c8d8ce;
+      background:rgba(255,255,255,.95);
+      color:#204b38;
+      font-size:1.25rem;
+      font-weight:700;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:2;
+    }
+    .dawn-slide-nav:hover { background:#fff; }
+    .dawn-slide-nav:disabled { opacity:.45; cursor:not-allowed; }
+    .dawn-slide-nav.prev { left:.7rem; }
+    .dawn-slide-nav.next { right:.7rem; }
+    .dawn-slide-meta {
+      margin-top:.7rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:.6rem;
+      flex-wrap:wrap;
+    }
+    .dawn-slide-caption {
+      font-size:.82rem;
+      color:var(--muted);
+      flex:1;
+      min-width:220px;
+    }
+    footer {
+      text-align:center; padding:1.5rem; font-size:.82rem; color:var(--muted);
+    }
+    footer a { color:var(--green-mid); }
+    @media (max-width: 760px) {
+      .hero-grid, .three-col, .comparison-row { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html">🍽️ Food Testing</a>
+    <a href="dawn-effect.html" class="active">🌅 Dawn Effect</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="exercise-protocol.html">🏃 Exercise</a>
+    <a href="cgm-tracker.html">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+  </nav>
+
+  <header>
+    <h1>🌅 Dawn Effect Experiment Lab</h1>
+    <p>Designing morning glucose experiments around breakfast composition, exercise timing, sleep, supplements, and the dawn rise itself.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="section-tag">Experimental question</div>
+      <div class="hero-grid">
+        <div>
+          <h2>What are we trying to isolate?</h2>
+          <p>The goal is not to judge a morning as “good” or “bad.” The point is to answer a clean question: which variable or combination alters the dawn surge, and how much?</p>
+          <div class="callout" style="margin-top:1rem;">
+            Example of the kind of test this page is built for: a protein-heavy breakfast, morning berberine, a treadmill walk, and a glucose rise from 95 to 155 by 8:42. The page records the combination and then compares it against the cleanest baseline available.
+          </div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Primary outcome</div>
+          <div class="metric-value">Wake → Peak</div>
+          <p style="margin-top:.5rem;">Measure the change from waking glucose to the strongest morning rise, then compare it across experiments.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Protocol snapshot</div>
+      <h2>Morning experiment setup</h2>
+
+      <div class="form-grid">
+        <div class="field">
+          <label>Wake time</label>
+          <input type="time" value="07:12" />
+        </div>
+        <div class="field">
+          <label>Wake glucose</label>
+          <input type="number" value="95" />
+        </div>
+        <div class="field">
+          <label>Breakfast start</label>
+          <input type="time" value="07:45" />
+        </div>
+        <div class="field">
+          <label>Exercise start</label>
+          <input type="time" value="08:15" />
+        </div>
+        <div class="field">
+          <label>Exercise type</label>
+          <input type="text" value="Treadmill walk" />
+        </div>
+        <div class="field">
+          <label>Workout pace</label>
+          <input type="text" value="1.5 mph" />
+        </div>
+        <div class="field">
+          <label>Workout duration</label>
+          <input type="text" value="40 min" />
+        </div>
+        <div class="field">
+          <label>Water intake</label>
+          <input type="text" value="ongoing throughout morning" />
+        </div>
+        <div class="field">
+          <label>Supplements</label>
+          <input type="text" value="Berberine + morning protocol" />
+        </div>
+        <div class="field">
+          <label>Meal structure</label>
+          <input type="text" value="Eggs + cheese + deli meat + dairy" />
+        </div>
+        <div class="field">
+          <label>Sleep duration</label>
+          <input type="text" value="track this day" />
+        </div>
+        <div class="field">
+          <label>Stress / recovery state</label>
+          <input type="text" value="record here" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Data points</div>
+      <h2>What to capture every morning</h2>
+      <div class="mini-grid">
+        <div class="metric-box">
+          <div class="metric-label">Peak glucose</div>
+          <div class="metric-value" data-summary="peak">155</div>
+          <p>Highest value in the morning response window.</p>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Time to peak</div>
+          <div class="metric-value" data-summary="peak-time">8:42</div>
+          <p>When the curve reached its maximum after breakfast/exercise.</p>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Delta</div>
+          <div class="metric-value" data-summary="delta">+60</div>
+          <p>Wake glucose to morning peak difference.</p>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>Case pattern:</strong> This morning’s pattern suggests the combination of protein-heavy breakfast, berberine, and quick treadmill walk did not smooth the curve. Instead, the early rise was stronger than expected, which means the page should explicitly compare this intervention against a no-walk, no-berberine, or lower-carb morning to isolate what mattered most.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Dawn timing</div>
+      <h2>Track how long the morning effect actually lasts</h2>
+      <div class="callout" style="margin-bottom:1rem;">
+        The most important question is not just whether the glucose rise happened, but when it started, when it peaked, and when it resolved. Your working hypothesis is that the effect fades somewhere between 11:00 AM and 2:00 PM, when the CGM curve begins smoothing.
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Dawn rise start</label>
+          <input type="time" value="04:30" />
+        </div>
+        <div class="field">
+          <label>Meal start</label>
+          <input type="time" value="07:45" />
+        </div>
+        <div class="field">
+          <label>Peak glucose time</label>
+          <input type="time" value="08:42" />
+        </div>
+        <div class="field">
+          <label>Estimated end window</label>
+          <input type="text" value="11:00 AM – 2:00 PM" />
+        </div>
+        <div class="field">
+          <label>Observed smoothing time</label>
+          <input type="time" value="11:30" />
+        </div>
+        <div class="field">
+          <label>Resolved / plateau time</label>
+          <input type="time" value="12:30" />
+        </div>
+        <div class="field">
+          <label>Resolution criteria</label>
+          <input type="text" value="curve stops climbing and begins flattening / trending down" />
+        </div>
+        <div class="field">
+          <label>How long did the rise last?</label>
+          <input type="text" value="approx. 4–7 hours" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Comparison summary</div>
+      <h2>Quick comparison table</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Baseline / smoother pattern</th>
+            <th>This morning</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wake glucose</td>
+            <td>~90–100</td>
+            <td>95</td>
+            <td>Normal start</td>
+          </tr>
+          <tr>
+            <td>Peak glucose</td>
+            <td>~110–140</td>
+            <td>155</td>
+            <td><span class="warn">Above expected morning rise</span></td>
+          </tr>
+          <tr>
+            <td>Peak time</td>
+            <td>later, smoother climb</td>
+            <td>8:42</td>
+            <td>Strong early rise</td>
+          </tr>
+          <tr>
+            <td>Curve shape</td>
+            <td>gradual / flattening</td>
+            <td>steep early ascent</td>
+            <td><span class="warn">Amplified response</span></td>
+          </tr>
+          <tr>
+            <td>Smoothing time</td>
+            <td>~11:00–2:00</td>
+            <td>not yet observed</td>
+            <td>Need to confirm whether the pattern persisted</td>
+          </tr>
+          <tr>
+            <td>Conclusion</td>
+            <td>more stable dawn curve</td>
+            <td>stronger than expected rise</td>
+            <td>Likely interaction of breakfast + movement + berberine + stress / cortisol</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Morning curve</div>
+      <h2>Simple visual comparison</h2>
+      <div class="chart-shell">
+        <div class="chart-legend">
+          <span class="legend-swatch"><i style="background:#4a90c4;"></i> smoother baseline</span>
+          <span class="legend-swatch"><i style="background:#e9a84c;"></i> this morning</span>
+        </div>
+        <svg class="chart-svg" viewBox="0 0 800 240" preserveAspectRatio="none" aria-label="Morning glucose curve comparison">
+          <g stroke="#c8dfc8" stroke-width="1">
+            <line x1="40" y1="20" x2="40" y2="200" />
+            <line x1="40" y1="200" x2="760" y2="200" />
+            <line x1="40" y1="150" x2="760" y2="150" stroke-dasharray="4 6" />
+            <line x1="40" y1="100" x2="760" y2="100" stroke-dasharray="4 6" />
+            <line x1="40" y1="50" x2="760" y2="50" stroke-dasharray="4 6" />
+          </g>
+          <g font-size="12" fill="#5a7263">
+            <text x="12" y="205">0</text>
+            <text x="9" y="155">50</text>
+            <text x="9" y="105">100</text>
+            <text x="9" y="55">150</text>
+          </g>
+          <path d="M 40 160 L 120 150 L 220 120 L 340 100 L 480 90 L 620 95 L 760 110" fill="none" stroke="#4a90c4" stroke-width="4" stroke-linecap="round" />
+          <path d="M 40 170 L 120 120 L 220 100 L 300 82 L 360 68 L 440 54 L 520 70 L 620 110 L 760 145" fill="none" stroke="#e9a84c" stroke-width="4" stroke-linecap="round" />
+          <g fill="#2d6a4f" font-size="12" font-weight="700">
+            <text x="40" y="224">wake</text>
+            <text x="330" y="224">breakfast</text>
+            <text x="640" y="224">smooths</text>
+          </g>
+          <g fill="#1e2d24" font-size="11" font-weight="700">
+            <text x="95" y="118">7:12</text>
+            <text x="286" y="72">7:45</text>
+            <text x="420" y="48">8:42 peak</text>
+            <text x="610" y="130">11:30 smooth</text>
+          </g>
+        </svg>
+      </div>
+      <div class="calc-row">
+        <div class="calc-pill">Delta: wake → peak = +60</div>
+        <div class="calc-pill">Rise length estimate: ~4–7 hours</div>
+        <div class="calc-pill">Goal: compare against smooth morning baselines</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Visual evidence</div>
+      <h2>Image comparison library</h2>
+      <p style="margin-bottom:.75rem; font-size:.82rem; color:var(--muted);">Use this slideshow to review screenshots, chart exports, or photos saved in the <strong>dawn-effect-images</strong> folder. This is a great place to compare CGM snapshots or before/after morning conditions.</p>
+      <div class="callout" style="margin-bottom:1rem;">
+        <strong>How to use this folder:</strong> Drop PNG, JPG, WEBP, GIF, or SVG files directly into <strong>dawn-effect-images</strong>. Use clear names like <em>2026-09-10-protein-walk-berberine.png</em> so each comparison is easy to identify when it appears in the slideshow.
+      </div>
+      <div class="dawn-slideshow">
+        <div class="dawn-slide-header">
+          <div class="dawn-slide-count" id="dawn-slide-count">0 images</div>
+        </div>
+        <div class="dawn-slide-stage">
+          <button class="dawn-slide-nav prev" id="dawn-slide-prev" type="button" onclick="moveDawnEffectSlide(-1)">‹</button>
+          <img id="dawn-slide-image" class="dawn-slide-img" alt="Dawn effect image" style="display:none" />
+          <div id="dawn-slide-empty" class="dawn-slide-empty">No images available in the dawn-effect-images folder yet.</div>
+          <button class="dawn-slide-nav next" id="dawn-slide-next" type="button" onclick="moveDawnEffectSlide(1)">›</button>
+        </div>
+        <div class="dawn-slide-meta">
+          <div class="dawn-slide-caption" id="dawn-slide-caption">Loading images...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Experiment log</div>
+      <h2>Track actual mornings in one place</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Wake</th>
+            <th>Peak</th>
+            <th>Peak time</th>
+            <th>Delta</th>
+            <th>Smoothing time</th>
+            <th>Rise duration</th>
+            <th>Meal / exercise / supplements</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="experiment-row">
+            <td><input type="date" value="2026-09-10" /></td>
+            <td><input type="number" class="wake-input" value="95" /></td>
+            <td><input type="number" class="peak-input" value="155" /></td>
+            <td><input type="time" class="peak-time-input" value="08:42" /></td>
+            <td><input type="number" class="delta-output" value="60" readonly /></td>
+            <td><input type="time" class="smooth-time-input" value="11:30" /></td>
+            <td><input type="text" class="duration-output" value="2h 48m" readonly /></td>
+            <td><input type="text" value="eggs + cheese + deli meat + berberine + treadmill walk" /></td>
+            <td><select><option>stronger rise</option><option>smooth</option><option>mild rise</option><option>flat</option></select></td>
+          </tr>
+          <tr class="experiment-row">
+            <td><input type="date" /></td>
+            <td><input type="number" class="wake-input" /></td>
+            <td><input type="number" class="peak-input" /></td>
+            <td><input type="time" class="peak-time-input" /></td>
+            <td><input type="number" class="delta-output" readonly /></td>
+            <td><input type="time" class="smooth-time-input" /></td>
+            <td><input type="text" class="duration-output" readonly /></td>
+            <td><input type="text" /></td>
+            <td><select><option>stronger rise</option><option>smooth</option><option>mild rise</option><option>flat</option></select></td>
+          </tr>
+          <tr class="experiment-row">
+            <td><input type="date" /></td>
+            <td><input type="number" class="wake-input" /></td>
+            <td><input type="number" class="peak-input" /></td>
+            <td><input type="time" class="peak-time-input" /></td>
+            <td><input type="number" class="delta-output" readonly /></td>
+            <td><input type="time" class="smooth-time-input" /></td>
+            <td><input type="text" class="duration-output" readonly /></td>
+            <td><input type="text" /></td>
+            <td><select><option>stronger rise</option><option>smooth</option><option>mild rise</option><option>flat</option></select></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="calc-row">
+        <div class="calc-pill">Autocalc idea: peak - wake = delta</div>
+        <div class="calc-pill">Autocalc idea: smoothing time - peak time = rise duration window</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Experiment design</div>
+      <h2>How to structure the comparison</h2>
+      <div class="three-col">
+        <div class="comparison-box">
+          <strong>Single-variable test</strong>
+          <p>Change one factor only: breakfast composition, berberine timing, exercise timing, or sleep quality.</p>
+          <span class="badge badge-amber">Best for isolating cause</span>
+        </div>
+        <div class="comparison-box">
+          <strong>Combined-condition test</strong>
+          <p>Used when you deliberately test a realistic morning stack: protein + walk + supplementation.</p>
+          <span class="badge badge-red">Useful for real-life patterns</span>
+        </div>
+        <div class="comparison-box">
+          <strong>Baseline comparison</strong>
+          <p>Always compare against a normal day or a clean morning with fewer variables changed.</p>
+          <span class="badge badge-green">Needed for interpretation</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Experiment matrix</div>
+      <h2>Fields for each trial</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Hypothesis</label>
+          <textarea>Example: Walking immediately after a high-protein breakfast may not blunt the dawn surge if berberine and cortisol itself are already amplifying the pattern.</textarea>
+        </div>
+        <div class="field">
+          <label>Primary variable changed</label>
+          <input type="text" value="Breakfast composition / supplement / exercise timing" />
+        </div>
+        <div class="field">
+          <label>Secondary variables tracked</label>
+          <input type="text" value="sleep, stress, water, timing, meal size" />
+        </div>
+        <div class="field">
+          <label>What stayed constant</label>
+          <input type="text" value="wake time, treadmill pace, fasting state, hydration" />
+        </div>
+        <div class="field">
+          <label>Expected effect</label>
+          <input type="text" value="Lower dawn peak / smoother curve / no change / stronger rise" />
+        </div>
+        <div class="field">
+          <label>Actual result</label>
+          <input type="text" value="stronger-than-expected early rise" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-tag">Interpretation rules</div>
+      <h2>How to judge the result</h2>
+      <ul>
+        <li>Compare the wake-to-peak change, not just the final value.</li>
+        <li>Track the slope: was the curve steep early, or was the body more gradual?</li>
+        <li>Look for whether exercise actually reduced the rise or simply shifted it later.</li>
+        <li>Separate the dawn effect from meal effect instead of treating them as the same signal.</li>
+        <li>When protein, supplements, and walking are all changed together, do a follow-up single-variable test the next day.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Dawn Effect Experiment Lab · structured for comparison and isolation of morning glucose drivers<br>
+    Built to test sleep, supplements, breakfast, stress, and exercise as separate but interacting variables
+  </footer>
+
+  <script>
+    const dawnEffectSlides = [];
+    let dawnEffectIndex = 0;
+
+    function parseTimeToMinutes(value) {
+      if (!value || typeof value !== 'string') return null;
+      const trimmed = value.trim();
+      if (!trimmed || trimmed === ':') return null;
+      const parts = trimmed.split(':');
+      if (parts.length !== 2) return null;
+      const hours = Number(parts[0]);
+      const minutes = Number(parts[1]);
+      if (Number.isNaN(hours) || Number.isNaN(minutes)) return null;
+      if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return null;
+      return hours * 60 + minutes;
+    }
+
+    function formatMinutesAsTime(minutes) {
+      if (minutes === null || Number.isNaN(minutes)) return '—';
+      const total = Math.max(0, Math.round(minutes));
+      const hours = Math.floor(total / 60) % 24;
+      const mins = total % 60;
+      return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+    }
+
+    function titleFromPath(path) {
+      const name = (path || '').split('/').pop() || 'Image';
+      return name
+        .replace(/\.[^.]+$/, '')
+        .replace(/[_-]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    async function discoverDawnEffectSlides() {
+      try {
+        const response = await fetch('dawn-effect-images/index.json?scan=' + Date.now(), { cache: 'no-store' });
+        if (!response.ok) return [];
+        const data = await response.json();
+        const imageNames = Array.isArray(data.images) ? data.images : [];
+        return imageNames
+          .filter(name => /\.(png|jpe?g|webp|gif|svg)$/i.test(String(name)))
+          .map(name => `dawn-effect-images/${String(name).replace(/^\/+/, '')}`);
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function renderDawnEffectSlide() {
+      const img = document.getElementById('dawn-slide-image');
+      const empty = document.getElementById('dawn-slide-empty');
+      const prev = document.getElementById('dawn-slide-prev');
+      const next = document.getElementById('dawn-slide-next');
+      const caption = document.getElementById('dawn-slide-caption');
+      const count = document.getElementById('dawn-slide-count');
+
+      if (!dawnEffectSlides.length) {
+        if (img) img.style.display = 'none';
+        if (empty) empty.style.display = 'block';
+        if (prev) prev.disabled = true;
+        if (next) next.disabled = true;
+        if (caption) caption.textContent = 'No images found yet in dawn-effect-images.';
+        if (count) count.textContent = '0 images';
+        return;
+      }
+
+      if (dawnEffectIndex >= dawnEffectSlides.length) dawnEffectIndex = 0;
+      if (dawnEffectIndex < 0) dawnEffectIndex = dawnEffectSlides.length - 1;
+
+      const current = dawnEffectSlides[dawnEffectIndex];
+      if (img) {
+        img.style.display = 'block';
+        img.src = current;
+        img.alt = titleFromPath(current);
+      }
+      if (empty) empty.style.display = 'none';
+      if (prev) prev.disabled = dawnEffectSlides.length < 2;
+      if (next) next.disabled = dawnEffectSlides.length < 2;
+      if (caption) caption.textContent = `${dawnEffectIndex + 1}/${dawnEffectSlides.length} · ${titleFromPath(current)}`;
+      if (count) count.textContent = `${dawnEffectSlides.length} image${dawnEffectSlides.length === 1 ? '' : 's'}`;
+    }
+
+    function moveDawnEffectSlide(step) {
+      if (!dawnEffectSlides.length) return;
+      dawnEffectIndex = (dawnEffectIndex + step + dawnEffectSlides.length) % dawnEffectSlides.length;
+      renderDawnEffectSlide();
+    }
+
+    async function initDawnEffectSlideshow() {
+      dawnEffectSlides.length = 0;
+      dawnEffectSlides.push(...(await discoverDawnEffectSlides()));
+      dawnEffectIndex = 0;
+      renderDawnEffectSlide();
+    }
+
+    function calculateRow(row) {
+      const wakeInput = row.querySelector('.wake-input');
+      const peakInput = row.querySelector('.peak-input');
+      const peakTimeInput = row.querySelector('.peak-time-input');
+      const smoothTimeInput = row.querySelector('.smooth-time-input');
+      const deltaOutput = row.querySelector('.delta-output');
+      const durationOutput = row.querySelector('.duration-output');
+
+      if (!wakeInput || !peakInput || !deltaOutput) return;
+
+      const wakeValue = Number(wakeInput.value || 0);
+      const peakValue = Number(peakInput.value || 0);
+      const peakMinutes = peakTimeInput ? parseTimeToMinutes(peakTimeInput.value) : null;
+      const smoothMinutes = smoothTimeInput ? parseTimeToMinutes(smoothTimeInput.value) : null;
+
+      const delta = peakValue - wakeValue;
+      if (Number.isFinite(delta)) {
+        deltaOutput.value = String(delta);
+      }
+
+      if (durationOutput) {
+        let spanText = '—';
+        if (peakMinutes !== null && smoothMinutes !== null) {
+          const diff = smoothMinutes - peakMinutes;
+          if (diff >= 0) {
+            const hours = Math.floor(diff / 60);
+            const mins = diff % 60;
+            spanText = `${hours}h ${mins}m`;
+          } else {
+            spanText = 'check times';
+          }
+        }
+        durationOutput.value = spanText;
+      }
+
+      const summaryPeak = document.querySelector('[data-summary="peak"]');
+      const summaryPeakTime = document.querySelector('[data-summary="peak-time"]');
+      const summaryDelta = document.querySelector('[data-summary="delta"]');
+
+      if (summaryPeak && peakInput.value) {
+        summaryPeak.textContent = peakInput.value;
+      }
+      if (summaryPeakTime && peakTimeInput && peakTimeInput.value) {
+        summaryPeakTime.textContent = peakTimeInput.value;
+      }
+      if (summaryDelta && wakeInput.value && peakInput.value) {
+        summaryDelta.textContent = `${delta >= 0 ? '+' : ''}${delta}`;
+      }
+    }
+
+    document.querySelectorAll('.experiment-row').forEach((row) => {
+      row.querySelectorAll('input').forEach((input) => {
+        input.addEventListener('input', () => calculateRow(row));
+        input.addEventListener('change', () => calculateRow(row));
+      });
+      calculateRow(row);
+    });
+
+    document.addEventListener('DOMContentLoaded', initDawnEffectSlideshow);
+  </script>
+
+</body>
+</html>
