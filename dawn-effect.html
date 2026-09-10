@@ -340,7 +340,7 @@
       <div class="section-tag">Dawn timing</div>
       <h2>Track how long the morning effect actually lasts</h2>
       <div class="callout" style="margin-bottom:1rem;">
-        The most important question is not just whether the glucose rise happened, but when it started, when it peaked, and when it resolved. Your working hypothesis is that the effect fades somewhere between 11:00 AM and 2:00 PM, when the CGM curve begins smoothing.
+        The most important question is not just whether the glucose rise happened, but when it started, when it peaked, and when it resolved. Working rule: if resting glucose is <strong>99 or below for more than 30 minutes</strong>, the dawn effect is considered over; if it is <strong>100 or more</strong>, the dawn effect is still active. A stricter "fully settled" cutoff is <strong>90 or below</strong> for more than 30 minutes.
       </div>
       <div class="form-grid">
         <div class="field">
@@ -369,7 +369,7 @@
         </div>
         <div class="field">
           <label>Resolution criteria</label>
-          <input type="text" value="curve stops climbing and begins flattening / trending down" />
+          <input type="text" value="resting glucose 99 or below for >30 min; 100+ = still active; 90+ = stricter settled threshold" />
         </div>
         <div class="field">
           <label>How long did the rise last?</label>
@@ -616,6 +616,8 @@
       <ul>
         <li>Compare the wake-to-peak change, not just the final value.</li>
         <li>Track the slope: was the curve steep early, or was the body more gradual?</li>
+        <li>Use a consistent finish rule: <strong>resting glucose at 99 or below for more than 30 minutes</strong> means the dawn effect is effectively over; <strong>100 or more</strong> means it is still active.</li>
+        <li>A stricter “fully settled” threshold is <strong>90 or below for more than 30 minutes</strong>, but the practical working cutoff for experiments is <strong>99</strong>.</li>
         <li>Look for whether exercise actually reduced the rise or simply shifted it later.</li>
         <li>Separate the dawn effect from meal effect instead of treating them as the same signal.</li>
         <li>When protein, supplements, and walking are all changed together, do a follow-up single-variable test the next day.</li>
