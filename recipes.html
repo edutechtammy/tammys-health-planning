@@ -104,6 +104,25 @@
     .pantry-item-label { font-size: .78rem; color: var(--text); line-height: 1.3; }
     .pantry-item-note { font-size: .67rem; color: var(--muted); display: block; }
     @media (max-width: 600px) { .pantry-checkboxes { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); } }
+
+    /* SEARCH PANEL */
+    .search-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; padding: .9rem 1.2rem; }
+    .search-label { display: block; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .45rem; }
+    .search-row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: .7rem .9rem;
+      font-size: .9rem;
+      color: var(--text);
+      background: #fff;
+    }
+    .search-input:focus { outline: none; border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(64,145,108,.15); }
+    .search-help { font-size: .78rem; color: var(--muted); margin-top: .45rem; line-height: 1.5; }
+    .search-clear { padding: .68rem .95rem; }
+
     .btn-recipe { padding: .42rem 1rem; border-radius: 8px; font-size: .83rem; font-weight: 600; cursor: pointer; border: none; transition: opacity .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; }
     .btn-recipe:hover { opacity: .82; }
     .btn-view   { background: var(--green-dark); color: #fff; }
@@ -235,6 +254,22 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="search-panel">
+    <label class="search-label" for="recipe-search">Search Recipes</label>
+    <div class="search-row">
+      <input
+        id="recipe-search"
+        class="search-input"
+        type="search"
+        placeholder="Search by recipe name, ingredient, or description"
+        oninput="updateRecipeSearch(this.value)"
+        autocomplete="off"
+      />
+      <button class="pantry-btn search-clear" type="button" onclick="clearRecipeSearch()">Clear</button>
+    </div>
+    <p class="search-help">Search works alongside the pantry and condition filters, so either tool can be used on its own or both can narrow results together.</p>
   </div>
 
   <!-- ======================================================================= -->
@@ -2323,6 +2358,7 @@ const PANTRY_NORM = {
 const PANTRY_LS_KEY = 'pantry_v1';
 let pantryChecked = new Set();
 let activeConditionTag = 'all';
+let activeRecipeSearch = '';
 
 function normIng(raw) {
   const lc = raw.trim().toLowerCase();
@@ -2435,16 +2471,39 @@ function getPantryMatch(card) {
   return tokens.every(t => t === '' || pantryChecked.has(t));
 }
 
+function getSearchMatch(card) {
+  if (!activeRecipeSearch) return true;
+  const haystack = [
+    card.querySelector('.recipe-card-title')?.textContent || '',
+    card.querySelector('.recipe-card-ingredients')?.textContent || '',
+    card.querySelector('.recipe-card-desc')?.textContent || '',
+    card.querySelector('.recipe-card-meta')?.textContent || ''
+  ].join(' ').toLowerCase();
+  return haystack.includes(activeRecipeSearch);
+}
+
 function applyAllFilters() {
   let visible = 0, total = 0;
   document.querySelectorAll('.recipe-card').forEach(card => {
     total++;
-    const show = getConditionMatch(card) && getPantryMatch(card);
+    const show = getConditionMatch(card) && getPantryMatch(card) && getSearchMatch(card);
     card.style.display = show ? '' : 'none';
     if (show) visible++;
   });
   const el = document.getElementById('pantry-count');
   if (el) el.textContent = visible + ' of ' + total + ' recipes available';
+}
+
+function updateRecipeSearch(value) {
+  activeRecipeSearch = value.trim().toLowerCase();
+  applyAllFilters();
+}
+
+function clearRecipeSearch() {
+  const input = document.getElementById('recipe-search');
+  if (input) input.value = '';
+  activeRecipeSearch = '';
+  applyAllFilters();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
