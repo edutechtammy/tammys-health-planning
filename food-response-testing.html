@@ -90,7 +90,7 @@
     .test-date { font-size:.72rem; color:var(--muted); white-space:nowrap; margin-top:.1rem; }
     .cat-pill { font-size:.7rem; font-weight:700; padding:.18rem .55rem; border-radius:20px; white-space:nowrap; }
 
-    .test-card-readings { padding:.65rem 1rem; display:grid; grid-template-columns:repeat(4,1fr); gap:.3rem; border-bottom:1px solid var(--border); }
+    .test-card-readings { padding:.65rem 1rem; display:grid; grid-template-columns:repeat(5,1fr); gap:.3rem; border-bottom:1px solid var(--border); }
     .reading-box { text-align:center; }
     .reading-box .r-label { font-size:.64rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
     .reading-box .r-val   { font-size:1.05rem; font-weight:700; }
@@ -505,8 +505,8 @@
         </div>
         <div style="background:#f7fbf8;border:1px solid var(--border);border-radius:8px;padding:.55rem .8rem;font-size:.82rem">
           <div style="font-weight:700;color:var(--green-dark);margin-bottom:.2rem">⏱️ Fasting window &amp; morning baseline timing</div>
-          <p style="margin-bottom:.4rem">The baseline reading is taken <strong>~1 hour after waking</strong>, once glucose has stabilised post-Dawn-Phenomenon — then eaten immediately after logging it.</p>
-          <p style="margin-bottom:.4rem"><strong>Why 1 hour, not on-waking:</strong> In the first 30–60 minutes after waking, cortisol and growth hormone signal the liver to release stored glucose (hepatic glucose output) — glucose is actively <em>rising</em> during this window regardless of food intake. This is the Dawn Phenomenon rise curve. At ~60 minutes post-waking the hormonal pulse settles, the liver stops the release, and glucose stabilises at the true fasting baseline. This stabilised number is the meaningful one: it reflects hepatic fasting glucose set-point, not the DP peak.</p>
+          <p style="margin-bottom:.4rem">The baseline reading is taken <strong>~1 hour after waking</strong>, once glucose has stabilized post-Dawn-Phenomenon — then eaten immediately after logging it.</p>
+          <p style="margin-bottom:.4rem"><strong>Why 1 hour, not on-waking:</strong> In the first 30–60 minutes after waking, cortisol and growth hormone signal the liver to release stored glucose (hepatic glucose output) — glucose is actively <em>rising</em> during this window regardless of food intake. This is the Dawn Phenomenon rise curve. At ~60 minutes post-waking the hormonal pulse settles, the liver stops the release, and glucose stabilizes at the true fasting baseline. This stabilized number is the meaningful one: it reflects hepatic fasting glucose set-point, not the DP peak.</p>
           <p style="margin-bottom:.4rem"><strong>CGM confirmation method:</strong> On a CGM, wait until the trend arrow is flat (→) with no active rise or fall for at least 10–15 minutes — that is the stable baseline. On a finger-stick meter, the 1-hour post-waking timing replicates this reliably.</p>
           <p style="margin-bottom:0"><strong>Consistency note:</strong> If a clinic fasting draw is done early morning (within 30 min of waking), it may read higher than your home 1-hour baseline — this is the same DP mechanism, not a real difference in metabolic status. Note the time and duration-awake on any lab draw for accurate comparison to home data. Compare <em>spike above baseline</em> across food tests, not the absolute number.</p>
         </div>
@@ -558,6 +558,10 @@
         <input type="number" id="f-t0" step="1" min="0" placeholder="e.g. 118" oninput="updatePreview()" />
       </div>
       <div class="field">
+        <label>Baseline time of day (AM/PM)</label>
+        <input type="text" id="f-baseline-time" placeholder="e.g. 7:10 AM" />
+      </div>
+      <div class="field">
         <label>+30 min</label>
         <input type="number" id="f-t30" step="1" min="0" placeholder="e.g. 145" oninput="updatePreview()" />
       </div>
@@ -568,6 +572,10 @@
       <div class="field">
         <label>+120 min</label>
         <input type="number" id="f-t120" step="1" min="0" placeholder="e.g. 122" oninput="updatePreview()" />
+      </div>
+      <div class="field">
+        <label>+180 min (optional)</label>
+        <input type="number" id="f-t180" step="1" min="0" placeholder="e.g. 114" oninput="updatePreview()" />
       </div>
       <div class="field">
         <label>Return to baseline minute (optional)</label>
@@ -723,6 +731,7 @@
             <th>Date</th>
             <th>Category</th>
             <th>Baseline</th>
+            <th>Baseline Time</th>
             <th>Peak</th>
             <th>Spike ↑</th>
             <th>120-min Δ from baseline</th>
@@ -785,7 +794,7 @@ function exportCSV(){
   if(!tests.length){ alert('No tests to export yet.'); return; }
   const headers = [
     'Date', 'Food / Combination Tested', 'Category', 'Portion / Quantity',
-    'Baseline (T=0)', '+30 min', '+60 min', '+120 min', 'Return to Baseline Minute (if >120)',
+    'Baseline (T=0)', 'Baseline Time of Day (AM/PM)', '+30 min', '+60 min', '+120 min', '+180 min (optional)', 'Return to Baseline Minute (if >120)',
     'Berberine', 'ACV', 'Walk', 'Activity', 'Notes'
   ];
   const rows = tests
@@ -797,9 +806,11 @@ function exportCSV(){
       t.cat || '',
       t.portion || '',
       t.t0 ?? '',
+      t.baselineTime || '',
       t.t30 ?? '',
       t.t60 ?? '',
       t.t120 ?? '',
+      t.t180 ?? '',
       t.returnBaselineMin ?? '',
       t.berberine || '',
       t.acv || '',
@@ -868,7 +879,33 @@ function parseYesNo(value){
   return null;
 }
 
+function normalizeBaselineTime(value){
+  const raw = String(value ?? '').trim().toUpperCase().replace(/\s+/g, ' ');
+  if(!raw) return '';
+  const match = raw.match(/^(\d{1,2})(?::([0-5]\d))?\s*(AM|PM)$/);
+  if(!match) return '';
+  const hour = Number(match[1]);
+  if(!Number.isInteger(hour) || hour < 1 || hour > 12) return '';
+  const minute = match[2] ?? '00';
+  return `${hour}:${minute} ${match[3]}`;
+}
+
 function parseImportedTestRow(row, headerMap, fallbackMode){
+  const oldFallback = fallbackMode && row.length <= 14;
+  const midFallback = fallbackMode && row.length === 15;
+  const idx = {
+    t30: oldFallback ? 5 : 6,
+    t60: oldFallback ? 6 : 7,
+    t120: oldFallback ? 7 : 8,
+    t180: oldFallback ? -1 : 9,
+    ret: oldFallback ? 8 : (midFallback ? 9 : 10),
+    berberine: oldFallback ? 9 : (midFallback ? 10 : 11),
+    acv: oldFallback ? 10 : (midFallback ? 11 : 12),
+    walk: oldFallback ? 11 : (midFallback ? 12 : 13),
+    activity: oldFallback ? 12 : (midFallback ? 13 : 14),
+    notes: oldFallback ? 13 : (midFallback ? 14 : 15)
+  };
+
   const read = (aliases, fallbackIndex) => {
     for(const alias of aliases){
       if(headerMap.has(alias)) return row[headerMap.get(alias)];
@@ -881,19 +918,21 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const catRaw = String(read(['category', 'cat'], 2) || '').trim();
   const portion = String(read(['portion', 'quantity'], 3) || '').trim();
   const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], 4));
-  const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], 5));
-  const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], 6));
-  const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], 7));
-  const returnBaselineRaw = parseNumberish(read(['returntobaselineminute', 'returnbaselineminute', 'returnminute', 'returntobaseline', 'retmin'], 8));
+  const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], oldFallback ? -1 : 5));
+  const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], idx.t30));
+  const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], idx.t60));
+  const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], idx.t120));
+  const t180 = parseNumberish(read(['180min', 't180', 'plus180min', '180'], idx.t180));
+  const returnBaselineRaw = parseNumberish(read(['returntobaselineminute', 'returnbaselineminute', 'returnminute', 'returntobaseline', 'retmin'], idx.ret));
   const returnBaselineMin = returnBaselineRaw != null && returnBaselineRaw > 120
     ? Math.round(returnBaselineRaw)
     : null;
-  const berberine = parseYesNo(read(['berberine', 'wasberberinetaken'], 9));
-  const acv = parseYesNo(read(['acv', 'wasacvtaken'], 10));
-  const walk = parseYesNo(read(['walk', 'walkbeforetest', 'walkbeforetesting'], 11));
-  const activityRaw = String(read(['activity', 'activityduring2hourtestwindow', 'activitylevel'], 12) || '').trim().toLowerCase();
+  const berberine = parseYesNo(read(['berberine', 'wasberberinetaken'], idx.berberine));
+  const acv = parseYesNo(read(['acv', 'wasacvtaken'], idx.acv));
+  const walk = parseYesNo(read(['walk', 'walkbeforetest', 'walkbeforetesting'], idx.walk));
+  const activityRaw = String(read(['activity', 'activityduring2hourtestwindow', 'activitylevel'], idx.activity) || '').trim().toLowerCase();
   const activity = ['nap', 'computer', 'general'].includes(activityRaw) ? activityRaw : '';
-  const notes = String(read(['notes', 'observations', 'notesobservations'], 13) || '').trim();
+  const notes = String(read(['notes', 'observations', 'notesobservations'], idx.notes) || '').trim();
   const id = String(read(['id', 'entryid'], -1) || '').trim();
 
   if(!/^\d{4}-\d{2}-\d{2}$/.test(date) || !food || t0 == null){
@@ -909,13 +948,13 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
         'supplement effect':'supplement'
       })[catRaw.toLowerCase()] || 'grain';
 
-  return { id, date, food, cat, portion, t0, t30, t60, t120, returnBaselineMin, berberine, acv, walk, activity, notes };
+  return { id, date, food, cat, portion, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
 }
 
 function makeTestFingerprint(test){
   return [
     test.date || '', test.food || '', test.cat || '', test.portion || '',
-    test.t0 ?? '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '',
+    test.t0 ?? '', test.baselineTime || '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '', test.t180 ?? '',
     test.returnBaselineMin ?? '',
     test.berberine || '', test.acv || '', test.walk || '', test.activity || '', test.notes || ''
   ].join('\u0001');
@@ -1019,26 +1058,28 @@ const CAT_COLORS = {
   other:'#f5f5f5;color:#424242'
 };
 
-function spikeAnalysis(t0,t30,t60,t120){
-  const readings=[t30,t60,t120].filter(v=>v!=null);
+function spikeAnalysis(t0,t30,t60,t120,t180){
+  const readings=[t30,t60,t120,t180].filter(v=>v!=null);
   if(!t0||!readings.length) return null;
   const peak=Math.max(...readings);
   const spikeAbs=peak-t0;
   const ret120=t120!=null?t120-t0:null;
+  const ret180=t180!=null?t180-t0:null;
   let rating, cls;
   if(spikeAbs<=20){      rating='Flat ✅';      cls='spike-flat'; }
   else if(spikeAbs<=40){ rating='Mild ✅';       cls='spike-mild'; }
   else if(spikeAbs<=60){ rating='Moderate ⚠️';  cls='spike-moderate'; }
   else {                  rating='High 🚫';       cls='spike-high'; }
-  return {peak,spikeAbs,ret120,rating,cls};
+  return {peak,spikeAbs,ret120,ret180,rating,cls};
 }
 
-function computeAUC(t0,t30,t60,t120,returnBaselineMin){
+function computeAUC(t0,t30,t60,t120,t180,returnBaselineMin){
   if(!t0) return null;
   const points=[{ time:0, delta:0 }];
   if(t30!=null) points.push({ time:30, delta:Math.max(0, t30-t0) });
   if(t60!=null) points.push({ time:60, delta:Math.max(0, t60-t0) });
   if(t120!=null) points.push({ time:120, delta:Math.max(0, t120-t0) });
+  if(t180!=null) points.push({ time:180, delta:Math.max(0, t180-t0) });
 
   if(points.length<2) return null;
 
@@ -1069,16 +1110,18 @@ function updatePreview(){
   const t30 =parseFloat(document.getElementById('f-t30').value)||null;
   const t60 =parseFloat(document.getElementById('f-t60').value)||null;
   const t120=parseFloat(document.getElementById('f-t120').value)||null;
+  const t180=parseFloat(document.getElementById('f-t180').value)||null;
   const returnBaselineMin=parseFloat(document.getElementById('f-ret-min').value)||null;
   const el=document.getElementById('spike-preview');
-  const a=spikeAnalysis(t0,t30,t60,t120);
+  const a=spikeAnalysis(t0,t30,t60,t120,t180);
   if(!a){ el.textContent='Enter baseline + at least one reading to see spike analysis…'; el.style.background=''; return; }
-  const aucInfo=computeAUC(t0,t30,t60,t120,returnBaselineMin);
+  const aucInfo=computeAUC(t0,t30,t60,t120,t180,returnBaselineMin);
   const ret=a.ret120!=null?(a.ret120>=0?'+':'')+a.ret120+' mg/dL from baseline at 120 min':'120-min not yet entered';
+  const ret180Text=a.ret180!=null?` &nbsp;·&nbsp; 180-min: ${a.ret180>=0?'+':''}${a.ret180} mg/dL from baseline`:' ';
   const aucText=aucInfo
     ? ` &nbsp;·&nbsp; AUC↑: ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute} min)`
     : '';
-  el.innerHTML=`<strong>Peak: ${a.peak} mg/dL &nbsp;·&nbsp; Spike above baseline: +${a.spikeAbs} mg/dL &nbsp;·&nbsp; ${ret}${aucText}</strong> &nbsp; <span style="font-weight:700">${a.rating}</span>`;
+  el.innerHTML=`<strong>Peak: ${a.peak} mg/dL &nbsp;·&nbsp; Spike above baseline: +${a.spikeAbs} mg/dL &nbsp;·&nbsp; ${ret}${ret180Text}${aucText}</strong> &nbsp; <span style="font-weight:700">${a.rating}</span>`;
   const bg={flat:'#e8f8ef','spike-flat':'#e8f8ef','spike-mild':'#fefbe7','spike-moderate':'#fef5e7','spike-high':'#fdf0ed'};
   el.style.background=bg[a.cls]||'';
 }
@@ -1103,7 +1146,7 @@ let editingId=null;
 function clearForm(){
   editingId=null;
   document.getElementById('f-date').value=todayISO();
-  ['f-food','f-portion','f-notes','f-t0','f-t30','f-t60','f-t120','f-ret-min'].forEach(id=>document.getElementById(id).value='');
+  ['f-food','f-portion','f-notes','f-t0','f-baseline-time','f-t30','f-t60','f-t120','f-t180','f-ret-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='grain';
   document.getElementById('f-berberine').value='';
   document.getElementById('f-acv').value='';
@@ -1123,9 +1166,11 @@ function editTest(id){
   document.getElementById('f-cat').value=t.cat||'grain';
   document.getElementById('f-portion').value=t.portion||'';
   document.getElementById('f-t0').value=t.t0!=null?t.t0:'';
+  document.getElementById('f-baseline-time').value=t.baselineTime||'';
   document.getElementById('f-t30').value=t.t30!=null?t.t30:'';
   document.getElementById('f-t60').value=t.t60!=null?t.t60:'';
   document.getElementById('f-t120').value=t.t120!=null?t.t120:'';
+  document.getElementById('f-t180').value=t.t180!=null?t.t180:'';
   document.getElementById('f-ret-min').value=t.returnBaselineMin!=null?t.returnBaselineMin:'';
   document.getElementById('f-berberine').value=t.berberine||'';
   document.getElementById('f-acv').value=t.acv||'';
@@ -1144,9 +1189,11 @@ function saveTest(){
   const cat    = document.getElementById('f-cat').value;
   const portion= document.getElementById('f-portion').value.trim();
   const t0     = parseFloat(document.getElementById('f-t0').value)||null;
+  const baselineTime = normalizeBaselineTime(document.getElementById('f-baseline-time').value);
   const t30    = parseFloat(document.getElementById('f-t30').value)||null;
   const t60    = parseFloat(document.getElementById('f-t60').value)||null;
   const t120   = parseFloat(document.getElementById('f-t120').value)||null;
+  const t180   = parseFloat(document.getElementById('f-t180').value)||null;
   const returnBaselineRaw = parseFloat(document.getElementById('f-ret-min').value)||null;
   const returnBaselineMin = returnBaselineRaw != null && returnBaselineRaw > 120
     ? Math.round(returnBaselineRaw)
@@ -1158,16 +1205,18 @@ function saveTest(){
   const notes  = document.getElementById('f-notes').value.trim();
   if(!date||!food){ alert('Please enter a date and food name.'); return; }
   if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
+  if(!baselineTime){ alert('Please enter baseline time of day in AM/PM format (example: 7:10 AM).'); return; }
+  document.getElementById('f-baseline-time').value=baselineTime;
   if(returnBaselineRaw != null && returnBaselineRaw <= 120){
     alert('Return to baseline minute should be greater than 120, or left blank.');
     return;
   }
   let tests=loadTests();
   if(editingId){
-    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,t30,t60,t120,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
+    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
   } else {
     const id=Date.now().toString();
-    tests.push({id,date,food,cat,portion,t0,t30,t60,t120,returnBaselineMin,berberine,acv,walk,activity,notes});
+    tests.push({id,date,food,cat,portion,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
   }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
   saveTests(tests);
@@ -1448,8 +1497,8 @@ function render(){
   } else {
     empty.style.display='none';
     grid.innerHTML=filtered.map(t=>{
-      const a=spikeAnalysis(t.t0,t.t30,t.t60,t.t120);
-      const aucInfo=computeAUC(t.t0,t.t30,t.t60,t.t120,t.returnBaselineMin);
+      const a=spikeAnalysis(t.t0,t.t30,t.t60,t.t120,t.t180);
+      const aucInfo=computeAUC(t.t0,t.t30,t.t60,t.t120,t.t180,t.returnBaselineMin);
       const catStyle=CAT_COLORS[t.cat]||'';
       const catLabel=CAT_LABELS[t.cat]||t.cat;
       const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
@@ -1470,7 +1519,7 @@ function render(){
           <div style="flex:1">
             <div class="test-food">${t.food}</div>
             ${t.portion?`<div style="font-size:.75rem;color:var(--muted);margin-top:.1rem">${t.portion}</div>`:''}
-            <div class="test-date">${formatDate(t.date)}</div>
+            <div class="test-date">${formatDate(t.date)}${t.baselineTime ? ` · Baseline time ${t.baselineTime}` : ''}</div>
           </div>
           <span class="cat-pill" style="background:${catStyle.split(';')[0].replace('background:','')};${catStyle.split(';')[1]||''}">${catLabel}</span>
           ${(!t.t30||!t.t60||!t.t120)?`<span style="font-size:.68rem;font-weight:700;background:#fff8e1;color:#7a5c00;border:1px solid #f0d080;border-radius:20px;padding:.12rem .5rem;margin-left:.3rem;white-space:nowrap">⏳ In progress</span>`:''}
@@ -1480,11 +1529,13 @@ function render(){
           <div class="reading-box"><div class="r-label">+30 min</div>${rVal(t.t30,t.t0)}</div>
           <div class="reading-box"><div class="r-label">+60 min</div>${rVal(t.t60,t.t0)}</div>
           <div class="reading-box"><div class="r-label">+120 min</div>${rVal(t.t120,t.t0)}</div>
+          <div class="reading-box"><div class="r-label">+180 min</div>${rVal(t.t180,t.t0)}</div>
         </div>
         ${a?`<div class="test-card-summary">
           <span class="spike-badge ${a.cls}">${a.rating}</span>
           <span style="font-size:.8rem;color:var(--muted)">Peak +${a.spikeAbs} mg/dL above baseline</span>
           ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
+          ${a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
           ${aucInfo?`<span style="font-size:.78rem;color:var(--muted)">AUC↑ ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute})</span>`:''}
           ${contextBits?`<span style="font-size:.75rem;color:var(--muted);margin-left:auto">${contextBits}</span>`:''}
         </div>`:''}
@@ -1505,7 +1556,7 @@ function render(){
 
   // Summary table — rank by AUC descending, with spike as the tiebreaker
   const withSpike=all
-    .map(t=>({...t,a:spikeAnalysis(t.t0,t.t30,t.t60,t.t120),aucInfo:computeAUC(t.t0,t.t30,t.t60,t.t120,t.returnBaselineMin)}))
+    .map(t=>({...t,a:spikeAnalysis(t.t0,t.t30,t.t60,t.t120,t.t180),aucInfo:computeAUC(t.t0,t.t30,t.t60,t.t120,t.t180,t.returnBaselineMin)}))
     .filter(t=>t.a)
     .sort((a,b)=>{
       const byAuc=(b.aucInfo?.auc ?? 0) - (a.aucInfo?.auc ?? 0);
@@ -1526,6 +1577,7 @@ function render(){
       <td style="white-space:nowrap;font-size:.8rem">${formatDate(t.date)}</td>
       <td style="font-size:.8rem">${CAT_LABELS[t.cat]||t.cat}</td>
       <td>${t.t0}</td>
+      <td style="white-space:nowrap">${t.baselineTime || '—'}</td>
       <td style="font-weight:700">${t.a.peak}</td>
       <td class="${worst?'warn':best?'best':''}" style="font-weight:700">+${t.a.spikeAbs}</td>
       <td style="color:${t.a.ret120!=null&&Math.abs(t.a.ret120)<=20?'#27ae60':'#e67e22'}">${t.a.ret120!=null?(t.a.ret120>=0?'+':'')+t.a.ret120+' mg/dL':'—'}</td>
@@ -1554,7 +1606,8 @@ function render(){
       0,  // Baseline normalized to 0
       t.t30!=null ? t.t30-t.t0 : null,   // Change from baseline at +30
       t.t60!=null ? t.t60-t.t0 : null,   // Change from baseline at +60
-      t.t120!=null ? t.t120-t.t0 : null  // Change from baseline at +120
+      t.t120!=null ? t.t120-t.t0 : null, // Change from baseline at +120
+      t.t180!=null ? t.t180-t.t0 : null  // Change from baseline at +180
     ],
     borderColor:colors[i%colors.length],
     backgroundColor:'transparent',
@@ -1578,7 +1631,7 @@ function render(){
   curveChart=new Chart(document.getElementById('chart-curves'),{
     type:'line',
     plugins:[highPeakZonePlugin],
-    data:{labels:['Baseline (T=0)','+30 min','+60 min','+120 min'],datasets},
+    data:{labels:['Baseline (T=0)','+30 min','+60 min','+120 min','+180 min'],datasets},
     options:{
       responsive:true, maintainAspectRatio:false,
       plugins:{
