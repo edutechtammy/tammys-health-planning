@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ceylon Cinnamon and Psyllium Mints</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Ceylon Cinnamon and Psyllium Mints",
+    "description": "No-sugar mints made from monkfruit/allulose sweetener, Ceylon cinnamon, and psyllium husk powder. Cinnamon and psyllium are included for blood sugar support, with a strict serving caution because psyllium swells and forms a gel when hydrated.",
+    "recipeYield": "About 60 small mints",
+    "prepTime": "PT12M",
+    "cookTime": "PT0M",
+    "totalTime": "PT12M",
+    "recipeCategory": "Supplemental Snack",
+    "recipeCuisine": "Functional",
+    "keywords": "Ceylon cinnamon, psyllium, blood sugar, monkfruit allulose, no sugar, gluten-free",
+    "recipeIngredient": [
+      "1 cup monkfruit/allulose sweetener blend",
+      "1 teaspoon psyllium husk powder",
+      "2 teaspoons Ceylon cinnamon powder",
+      "2 to 3 tablespoons water"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Mix dry ingredients",
+        "text": "Combine monkfruit/allulose sweetener, psyllium husk powder, and Ceylon cinnamon powder in a bowl until fully blended."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Hydrate and knead",
+        "text": "Add 2 tablespoons water and knead. Add up to 1 more tablespoon only if needed to form a workable dough."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Shape and portion",
+        "text": "Knead into a narrow clay-like cylinder, then slice into small mint-size pieces."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Air cure",
+        "text": "Spread pieces apart on parchment and air cure for at least 24 to 48 hours until dry and firm."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Store",
+        "text": "Store fully cured mints in a clean reused mint tin."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cinnamon-dark:  #7c2d12;
+      --cinnamon-mid:   #b45309;
+      --cinnamon-light: #fed7aa;
+      --cinnamon-pale:  #fff7ed;
+      --sage:           #3f6212;
+      --text:           #431407;
+      --muted:          #7c2d12;
+      --border:         #fdba74;
+      --shadow:         0 2px 12px rgba(124,45,18,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--cinnamon-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+
+    nav { background: var(--cinnamon-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .recipe-hero-emoji { background: linear-gradient(135deg, #ffedd5 40%, #fef9c3 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .45rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.65rem); color: var(--cinnamon-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: #ffedd5; border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--cinnamon-dark); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-dp      { background: #e3f2fd; color: #1565c0; }
+    .badge-celiac  { background: #fff3e0; color: #e65100; }
+    .badge-kidney  { background: #fce4ec; color: #880e4f; }
+
+    .warning-banner {
+      background: #fff1f2;
+      border: 1px solid #fb7185;
+      border-radius: 12px;
+      padding: .9rem 1.1rem;
+      color: #9f1239;
+      font-size: .85rem;
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+    }
+    .warning-banner h3 {
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: .4rem;
+      color: #9f1239;
+    }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; }
+    .panel-header { background: #ffedd5; padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--cinnamon-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+
+    .ing-list { list-style: none; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid #ffedd5; font-size: .86rem; }
+    .ing-item:last-child { border-bottom: none; }
+    .ing-amount { font-weight: 700; color: var(--cinnamon-dark); min-width: 5.2rem; flex-shrink: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .8rem; }
+    .step-item { display: flex; gap: .7rem; align-items: flex-start; font-size: .86rem; }
+    .step-num { background: var(--cinnamon-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--cinnamon-dark); margin-bottom: .2rem; }
+
+    .notes-panel {
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.3rem;
+      font-size: .85rem;
+      color: #713f12;
+      line-height: 1.7;
+    }
+    .notes-panel h3 {
+      color: var(--sage);
+      font-size: .84rem;
+      margin-bottom: .45rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .84rem; color: var(--muted); }
+
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--cinnamon-dark); color: #fff; }
+    .btn-back { background: #fff; color: var(--cinnamon-dark); border: 1.5px solid var(--cinnamon-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🌿 🍬 🟤</div>
+    <div class="recipe-hero-body">
+      <h1>Ceylon Cinnamon and Psyllium Mints</h1>
+      <p>A small no-sugar mint made from monkfruit/allulose, Ceylon cinnamon, and psyllium husk powder. This is a quick prep recipe with long air-curing time. Cinnamon and psyllium are both used as blood-sugar support ingredients, but portion size must stay small.</p>
+      <div class="meta-strip">
+        <span>⏱ 10-12 min prep</span>
+        <span>🍬 About 60 small mints</span>
+        <span>🌬 Air cure 24-48 hours</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-banner">
+    <h3>Warning</h3>
+    No more than two small mints in close time succession. Psyllium swells and forms a gel, which can become a choking and digestive-system hazard.
+  </div>
+
+  <div class="test-bar">
+    <p>Use this as a small adjunct, not a snack replacement. Track your response in Food Testing if you use these around carb-containing meals.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item"><span class="ing-amount">1 cup</span><span>Monkfruit/allulose sweetener blend</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tsp</span><span>Psyllium husk powder</span></li>
+          <li class="ing-item"><span class="ing-amount">2 tsp</span><span>Ceylon cinnamon powder</span></li>
+          <li class="ing-item"><span class="ing-amount">2-3 tbsp</span><span>Water</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Combine dry mix</div>
+              Add sweetener, psyllium powder, and Ceylon cinnamon to a bowl. Stir until uniform so the psyllium and cinnamon are evenly distributed.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Hydrate slowly</div>
+              Add 2 tablespoons water and knead. Add up to 1 more tablespoon only if needed. Stop when the dough is cohesive and clay-like, not sticky.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Shape cylinder</div>
+              Knead into a narrow cylinder, similar to a slim clay rope.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Slice mints</div>
+              Slice into small, even mint pieces. Keep each piece small to support safer serving size control.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Air cure</div>
+              Lay pieces out on parchment with space between them. Air cure for at least 24 to 48 hours until dry and firm.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">6</span>
+            <div>
+              <div class="step-name">Store</div>
+              Store fully cured pieces in a clean reused mint tin.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-panel">
+    <h3>Use Notes</h3>
+    For this recipe, use Ceylon cinnamon specifically (not Cassia). Keep mint size small and dosage conservative. If the pieces are still soft in the center after 24 hours, continue curing to 48 hours before storing.
+  </div>
+
+</div>
+
+</body>
+</html>
