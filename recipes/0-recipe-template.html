@@ -111,6 +111,12 @@
     .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
     @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
 
+    /* TRIGGER SUMMARY — carb + sat-fat alert at a glance */
+    .trigger-summary { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; background: var(--primary-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem .9rem; margin: .15rem 0 .9rem; }
+    .trigger-pill { display: inline-flex; align-items: center; gap: .3rem; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .22rem .7rem; font-size: .74rem; font-weight: 700; color: var(--primary-dark); }
+    .trigger-pill strong { color: var(--primary-dark); }
+    .trigger-note { font-size: .72rem; color: var(--muted); line-height: 1.5; }
+
     /* INGREDIENT LIST */
     .ing-list { list-style: none; }
     .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--primary-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
@@ -208,6 +214,11 @@
         <span>⏱ [X] min prep + [X] min cook</span>
         <span>🍽 [X] servings</span>
         <span>❄️ Keeps [X] days; [storage/reheating notes]</span>
+      </div>
+      <div class="trigger-summary">
+        <span class="trigger-pill"><strong>Net carbs:</strong> ~[X]g/serving</span>
+        <span class="trigger-pill"><strong>Saturated fat:</strong> ~[Y]g/serving</span>
+        <span class="trigger-note">When saturated fat is present, keep net carbs under ~15g per serving to reduce the glucose trigger risk.</span>
       </div>
       <div class="badge-row">
         <span class="badge badge-apoe4">APOE4</span>

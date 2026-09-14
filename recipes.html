@@ -79,6 +79,9 @@
 
     .recipe-card-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; }
     .recipe-card-ingredients { font-size: .75rem; color: var(--muted); line-height: 1.4; margin: .3rem 0 .15rem; }
+    .recipe-card-trigger { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .12rem; }
+    .trigger-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: .18rem .55rem; background: var(--green-pale); border: 1px solid var(--border); color: var(--green-dark); font-size: .68rem; font-weight: 700; }
+    .trigger-pill.warning { background: #fff7ed; border-color: #fed7aa; color: #9a4d00; }
     .recipe-card-footer { padding: .85rem 1.2rem; border-top: 1px solid var(--green-light); display: flex; gap: .6rem; flex-wrap: wrap; }
 
     /* PANTRY FILTER PANEL */
@@ -365,6 +368,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">ground beef ⋅ kale ⋅ parmesan ⋅ lemon ⋅ onion ⋅ garlic ⋅ EVOO ⋅ oregano</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~6g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~8g/serving</span>
+        </div>
         <p class="recipe-card-desc">Ground beef browned with activated garlic and onion, tossed with wilted kale, finished off-heat with lemon juice and zest, then topped with grated Parmesan. Uses kale rather than spinach — nearly identical taste and texture once wilted but ~200× lower in oxalate (2–4mg vs 600–900mg per 100g raw). Lemon's citrate supports urinary citrate formation, and Parmesan gives the savoury finish without the higher-carb cheese profile. ~3–5mg oxalate per serving. All six conditions.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-greek-beef-kale.html">🥬 View Recipe</a>
@@ -392,7 +399,11 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">ground beef ⋅ bell pepper ⋅ cauliflower ⋅ tomatoes ⋅ onion ⋅ garlic ⋅ feta ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">ground beef ⋅ bell pepper ⋅ cauliflower ⋅ tomatoes ⋅ onion ⋅ garlic ⋅ parmesan ⋅ EVOO</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~10g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~9g/serving</span>
+        </div>
         <p class="recipe-card-desc">Classic stuffed bell peppers rebuilt for the blood sugar protocol: cauliflower rice replaces grain rice, removing ~40g carbs per serving (from ~60–70g to ~15–20g total). Red bell pepper is one of the highest Vitamin C foods by weight — protects methylfolate and boosts iron absorption. Lycopene from tomato sauce is absorbed via EVOO. Raw cauliflower rice goes directly into the filling and steams inside the pepper during baking — do not pre-cook. ~5–8mg oxalate per stuffed pepper. All six conditions.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-stuffed-peppers.html">🫑 View Recipe</a>
@@ -421,6 +432,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">ground beef ⋅ onion ⋅ parsley ⋅ allspice ⋅ Ceylon cinnamon ⋅ garlic ⋅ labneh ⋅ lemon</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~1g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~7g/serving</span>
+        </div>
         <p class="recipe-card-desc">Ground beef patties with grated onion (squeezed dry — essential), fresh parsley, allspice, cinnamon, and black pepper. Parsley is the highest folate food by weight — directly benefits MTHFR. Cinnamon activates GLUT4 receptors (same mechanism as Berberine). Allspice eugenol inhibits COX-2 inflammation. Zero carbohydrates; ~2–4mg oxalate per serving. Garlic must be activated before adding. Served with labneh, cucumber, cherry tomatoes, and lemon. Ideal post-exercise protein meal. All six conditions.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-kafta.html">🌿 View Recipe</a>
@@ -477,6 +492,10 @@
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
         <p class="recipe-card-ingredients">chicken livers ⋅ onion ⋅ garlic ⋅ herbs ⋅ EVOO ⋅ lemon</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~1g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
         <p class="recipe-card-desc">The most nutrient-dense weekly anchor in the library. Per serve: ~75% daily iron (heme, 25–30% absorbed), &gt;100% B12, &gt;100% natural folate (bypasses MTHFR conversion entirely — arrives as 5-MTHF), &gt;100% choline (direct VLDL fat-export mechanism for fatty liver), &gt;100% B2 riboflavin (MTHFR enzyme cofactor), and 32% B1 thiamine. Soaked in lemon water first to mellow the flavour, then pan-seared with caramelised onions and finished with activated garlic. Once weekly — Vitamin A cap. Zero oxalate.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-chicken-livers.html">🫀 View Recipe</a>
@@ -505,6 +524,10 @@
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
         <p class="recipe-card-ingredients">smoked oysters ⋅ millet / millet flour ⋅ avocado ⋅ cucumber ⋅ garlic ⋅ lemon</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~9g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~2g/serving</span>
+        </div>
         <p class="recipe-card-desc">Canned smoked oysters over warm millet with avocado, cucumber, activated garlic, and lemon. Ready in 20 minutes from pantry staples — no fresh seafood sourcing, no Vibrio risk (fully cooked). Per tin: &gt;100% zinc (cofactor for insulin synthesis and receptor signalling — the two primary failure points in pre-diabetes), ~31% heme iron, &gt;100% B12, &gt;100% selenium, and preformed DHA (bypasses the impaired ALA→DHA conversion in APOE4). Pairs in alternating weeks with Recipe 42 (chicken livers) for complementary full-spectrum coverage. Zero oxalate.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-smoked-oyster-bowl.html">🦪 View Recipe</a>
@@ -534,6 +557,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">feta ⋅ EVOO ⋅ jalapeño ⋅ dried chili ⋅ oregano ⋅ parsley ⋅ lemon</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~1g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Very Low GI</span>
@@ -568,6 +595,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">millet / millet flour ⋅ sorghum flour ⋅ EVOO ⋅ kefir ⋅ eggs ⋅ tomatoes ⋅ onion ⋅ olives ⋅ capers ⋅ parmesan ⋅ oregano</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~14g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~5g/serving</span>
+        </div>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-mod"></span>
           <span class="gi-mod" style="color:#b45309;font-weight:700;font-size:.75rem">Moderate GI</span>
@@ -635,6 +666,10 @@
           <span class="badge badge-liver">Fatty Liver</span>
         </div>
         <p class="recipe-card-ingredients">cassava flour ⋅ EVOO ⋅ salt</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~18g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~1g/serving</span>
+        </div>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-mod"></span>
           <span style="color:#b45309;font-weight:700;font-size:.75rem">Moderate GI</span>
@@ -974,6 +1009,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">cucumber ⋅ tomatoes ⋅ bell pepper ⋅ onion ⋅ olives ⋅ parsley ⋅ mint ⋅ labneh ⋅ lemon ⋅ EVOO</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~9g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~3g/serving</span>
+        </div>
         <p class="recipe-card-desc">Everything cut to the same ½cm dice — cucumber, tomato, red and yellow bell pepper, red onion, kalamata olives, flat-leaf parsley, fresh mint, labneh or feta. Cold lemon-EVOO-garlic dressing. Garlic: crush → 5-min rest → add cold (ideal allicin format — no heat degradation). EVOO multiplies carotenoid absorption from tomatoes and peppers 3–6×. Flat-leaf parsley at 30g is a therapeutic folate dose (MTHFR). Optional chickpeas for a main. ~10mg oxalate/serve without chickpeas, ~15mg with. No cooking, nothing to check for GF.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-chop-chop-salad.html">🥗 View Recipe</a>
@@ -1002,6 +1041,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">labneh ⋅ eggs ⋅ blueberries ⋅ lemon ⋅ sorghum flour ⋅ millet / millet flour ⋅ EVOO ⋅ honey ⋅ coconut sugar</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~13g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~5g/serving</span>
+        </div>
         <p class="recipe-card-desc">Baked cheesecake with labneh as the cream cheese base — same tang, same richness, cleaner set with eggs because labneh has no stabilisers. Sorghum-millet-EVOO-honey crust pre-baked to a golden crumb. Filling: labneh, eggs, coconut sugar, lemon zest and juice, tapioca starch. Topping: partial blueberry compote — some berries burst for glossy sauce, rest whole for texture. Blueberries are APOE4's most targeted dessert fruit (pterostilbene, anthocyanins, BBB crossing). Lowest carb of the three celebration desserts — no flour in the filling. ~7mg oxalate per slice.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-lemon-blueberry-cheesecake.html">🍋 View Recipe</a>
@@ -1030,6 +1073,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">carrot ⋅ sorghum flour ⋅ millet / millet flour ⋅ eggs ⋅ coconut sugar ⋅ Ceylon cinnamon ⋅ ginger ⋅ labneh ⋅ honey</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~14g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
         <p class="recipe-card-desc">The spring birthday cake — rebuilt for every condition. Grated fresh carrot (beta-carotene + falcarinol — a neuroprotective and liver-protective polyacetylene not present in pumpkin), same sorghum + millet + tapioca flour blend as Recipe 31, psyllium husk binder, coconut sugar + maple syrup. Key technique difference: grated carrot is a wet ingredient — the batter is looser, the 5-minute rest is essential, and the result stays moist for days. Labneh honey frosting — the natural cream cheese frosting analogue. ~10mg oxalate per slice. Better the day after baking.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-carrot-celebration-cake.html">🥕 View Recipe</a>
@@ -1058,6 +1105,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">pumpkin ⋅ sorghum flour ⋅ millet / millet flour ⋅ eggs ⋅ coconut sugar ⋅ Ceylon cinnamon ⋅ ginger ⋅ labneh ⋅ honey</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~15g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
         <p class="recipe-card-desc">The family fall and winter birthday cake — rebuilt for every condition. Sorghum + millet + tapioca flour with psyllium husk binder. Coconut sugar (GI ~35, caramel depth that is genuinely better with pumpkin spice) + maple syrup replaces white sugar. Seven warming spices: Ceylon cinnamon, fresh ginger, nutmeg, cloves, cardamom, allspice. Frosted with labneh honey frosting — tangy, rich, probiotic — which is the correct substitute for cream cheese frosting. ~7mg oxalate per slice. Better the day after baking.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-pumpkin-celebration-cake.html">🎂 View Recipe</a>
@@ -1086,6 +1137,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">labneh ⋅ blueberries ⋅ honey ⋅ walnuts</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~7g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~3g/serving</span>
+        </div>
         <p class="recipe-card-desc">Cold labneh (Recipe 8 — live Lactobacillus fully preserved cold) layered with fresh blueberries (pterostilbene + anthocyanins cross the blood-brain barrier — APOE4's most targeted dessert ingredient), raw honey at 1 tsp per serve, and roughly crushed walnuts for crunch. Deconstructed cheesecake texture. Ready in 5 minutes. No cooking. Protein and fat in the labneh buffer the honey response completely — very low GI. All six conditions. ~22mg oxalate per serve.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-labneh-berry-parfait.html">🫐 View Recipe</a>
@@ -1114,6 +1169,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">carrot ⋅ ginger ⋅ bell pepper ⋅ Fuji apple ⋅ lemon ⋅ EVOO</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~8g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~1g/serving</span>
+        </div>
         <p class="recipe-card-desc">Raw slaw of grated carrot (beta-carotene, falcarinol, prebiotic fibre — raw GI ~16 vs cooked ~47), very finely grated fresh ginger (gingerols — NF-κB suppression, same anti-inflammatory pathway as quercetin and rosmarinic acid), red/orange sweet pepper (more vitamin C per gram than oranges — directly enhances folate bioavailability for MTHFR), Fuji apple skin-on (quercetin, pectin), and fresh lemon juice (citrate for kidney stone prevention). No cooking, no sugar, no grain. Optional EVOO drizzle at serving significantly increases beta-carotene absorption. ~6mg oxalate per serve.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-ginger-carrot-slaw.html">🥕 View Recipe</a>
@@ -1142,6 +1201,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">ground turkey ⋅ onion ⋅ garlic ⋅ sage ⋅ rosemary ⋅ thyme ⋅ parsley ⋅ eggs ⋅ tomatoes ⋅ smoked paprika</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~6g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
         <p class="recipe-card-desc">Ground turkey with sautéed onion, cold-rested garlic, and a four-herb blend (sage, rosemary, thyme, parsley — all containing rosmarinic acid for Nrf2 activation and APOE4 amyloid-β inhibition), bound with eggs alone — fully grain-free, no breadcrumbs, no oats. Topped with a two-stage smoky-sweet tomato glaze that delivers all four BBQ sauce flavour elements — smoky (smoked paprika), sweet (2 tsp honey across the whole loaf), tangy (lemon), umami depth (tomato paste + Dijon) — without the sugar spike, corn syrup, or hidden gluten of commercial BBQ sauce. ~11mg oxalate per serve. Low GI. The family recipe, rebuilt for every condition.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-turkey-meatloaf.html">🦃 View Recipe</a>
@@ -1170,6 +1233,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">pork shoulder ⋅ Fuji apple ⋅ fennel ⋅ garlic ⋅ thyme ⋅ Dijon mustard ⋅ lemon</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~5g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~9g/serving</span>
+        </div>
         <p class="recipe-card-desc">Bone-in pork shoulder slow-braised with Fuji apple (skin-on for quercetin), fennel (anethole anti-inflammatory), cold-rested garlic (allicin preserved), and fresh thyme (rosmarinic acid, Nrf2 activation). The apple dissolves into the braising liquid, giving the sauce natural body with no thickener — finished off-heat with Dijon mustard and lemon. Pork is the most B-vitamin-dense protein in the collection: B1 thiamine, B6, B12, and choline — the most MTHFR-targeted main course. Lean braised shoulder is high-protein, negligible carbohydrate. ~10mg oxalate per serve.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-slow-braised-pork-apple.html">🍖 View Recipe</a>
@@ -1198,6 +1265,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">kale ⋅ Fuji apple ⋅ blueberries ⋅ mozzarella ⋅ walnuts ⋅ lemon ⋅ EVOO</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~9g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
         <p class="recipe-card-desc">Massaged kale with Fuji apple, blueberries, torn fresh mozzarella, walnuts, and a lemon-EVOO dressing. Kale is chopped and rested 5 minutes before massaging (myrosinase activation for sulforaphane — same principle as broccoli). Blueberries contain pterostilbene and anthocyanins that cross the blood-brain barrier with direct amyloid-β inhibition evidence for APOE4. Apple provides quercetin (anti-inflammatory) and pectin prebiotic fibre. Fresh mozzarella is zero oxalate and adds protein — casein doesn't bind polyphenols in a cold solid salad. Walnuts at garnish quantity (7.5g/serve ≈ 5.5mg oxalate). Total ~26mg oxalate per serve. Low GI. Add a hard boiled egg or flaked salmon to make it a full meal.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-kale-fruit-salad.html">🥬 View Recipe</a>
@@ -1226,6 +1297,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">eggs</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~0g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~1.5g/serving</span>
+        </div>
         <p class="recipe-card-desc">Cold eggs into cold water, bring to boil, 10 minutes at a low simmer, immediate ice bath. The grey-green ring is iron sulphide from overcooked H₂S — the 10-minute rule and ice bath prevent it entirely. The egg yolk is one of the most concentrated dietary sources of choline: directly neuroprotective for APOE4, and choline deficiency is a direct driver of NAFLD for fatty liver. Choline also converts to betaine which supports the methylation cycle via the BHMT bypass — relevant for MTHFR when the primary enzyme is impaired. Zero GI, zero oxalate. APOE4 frequency note: 4–5 eggs/week not daily.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-hard-boiled-eggs.html">🥚 View Recipe</a>
@@ -1254,6 +1329,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">zucchini ⋅ EVOO ⋅ garlic ⋅ lemon ⋅ oregano ⋅ parmesan ⋅ pumpkin seeds</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~6g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~3g/serving</span>
+        </div>
         <p class="recipe-card-desc">Zucchini spears in EVOO with garlic powder, lemon zest, dried oregano, and a parmesan crust — roasted at 190°C until golden. Enhanced with a cold fresh-garlic lemon-EVOO finish drizzle (same two-garlic approach as R19 — garlic powder for roasting flavour, cold fresh garlic for allicin), pumpkin seeds scattered on top for the last 10 minutes (zinc, magnesium), and optional nutritional yeast blended with the parmesan (B vitamins, folate for MTHFR). Very low oxalate (~6–11mg per serve), very low GI, good folate source, and contains lutein and zeaxanthin in the skin. Don't peel the zucchini.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-roasted-zucchini-parmesan.html">🥒 View Recipe</a>
@@ -1282,6 +1361,10 @@
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">rice paper ⋅ salmon ⋅ avocado ⋅ carrot ⋅ cabbage ⋅ tamari ⋅ ginger ⋅ labneh</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~10g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
         <p class="recipe-card-desc">Fresh rice paper rolls with wild-caught salmon, thin-sliced avocado, julienned carrot, and shredded purple cabbage — the same cyanidin-3-glucoside anthocyanins as the purple sauerkraut, crossing the blood-brain barrier. EPA and DHA from the salmon are the most directly neuroprotective fats for APOE4 carriers and the most reliable dietary source. Rice paper is naturally gluten-free. Two dipping sauces — Tamari-Ginger-Lime (cold-activated garlic, allicin fully preserved, GF tamari not regular soy sauce) and Tart Labneh-Lime-Dill (when the sour-cream style labneh is available). No peanut sauce (peanuts ~187mg oxalate/100g). Includes rolling technique and how much to soak the rice paper.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-salmon-rice-paper-rolls.html">🌯 View Recipe</a>
