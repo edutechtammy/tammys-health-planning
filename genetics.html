@@ -8,14 +8,109 @@
     :root {
       --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;--green-pale:#d8f3dc;
       --amber:#e9c46a;--amber-dark:#f4a261;--sky:#90e0ef;--sky-dark:#0077b6;
+      --purple:#c77dff;--purple-dark:#7b2d8b;--red:#e63946;--red-pale:#fde8ea;
       --border:#d1e8d5;--text:#1a1a2e;--muted:#6c757d;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);min-height:100vh}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);min-height:100vh;line-height:1.6}
+    nav{background:var(--green-dark);padding:.75rem 1.5rem;display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+    nav a{color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;opacity:.85;transition:opacity .2s;white-space:nowrap}
+    nav a:hover,nav a.active{opacity:1;text-decoration:underline}
     main{max-width:960px;margin:0 auto;padding:2rem 1.2rem 3rem}
+    h1{font-size:2.1rem;margin-bottom:1rem}
+    .section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.4rem;margin-bottom:1.25rem}
+    .label{display:inline-block;background:var(--green-pale);color:var(--green-dark);font-weight:700;padding:.25rem .7rem;border-radius:999px;margin-bottom:.8rem}
+    h2{font-size:1.25rem;margin-bottom:.7rem}
+    p, li{font-size:1rem;color:var(--text)}
+    a{color:var(--green-dark)}
+    ul{padding-left:1.3rem;margin-top:.6rem}
+    .note{background:#f7fbf8;border-left:4px solid var(--green-mid);padding:.85rem 1rem;border-radius:8px;margin-top:1rem}
+    .tag-row{display:flex;flex-wrap:wrap;gap:.45rem;margin:.9rem 0 .2rem}
+    .tag{display:inline-block;padding:.2rem .7rem;border-radius:999px;font-size:.8rem;font-weight:700;background:#f3e5ff;color:var(--purple-dark)}
+    .tag.sky{background:#e0f7fa;color:var(--sky-dark)}
+    .tag.amber{background:#fff8e1;color:#7a5c00}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+    @media (max-width: 640px){.two-col{grid-template-columns:1fr}}
+    .mini{background:#f9fbfa;border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem}
+    .mini h3{font-size:1rem;margin-bottom:.45rem}
   </style>
 </head>
 <body>
-  <main></main>
+
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html">🍽️ Food Testing</a>
+    <a href="dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="genetics.html" class="active">🧬 Genetics</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="exercise-protocol.html">🏃 Exercise</a>
+    <a href="cgm-tracker.html">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+  </nav>
+
+  <main>
+    <h1>Genetics</h1>
+
+    <section class="section">
+      <div class="label">SNP entry</div>
+      <h2>rs1260326 (T;T) — GCKR</h2>
+      <p>The T allele of <strong>rs1260326</strong> has been associated with <strong>type 2 diabetes</strong>. This variant sits in the <strong>GCKR</strong> gene, which encodes the glucokinase regulatory protein and is highly relevant to hepatic glucose control, triglyceride handling, and liver fat accumulation.</p>
+      <p><a href="https://www.snpedia.com/index.php/rs1260326" target="_blank" rel="noopener noreferrer">SNPedia: rs1260326</a></p>
+
+      <div class="tag-row">
+        <span class="tag">GCKR</span>
+        <span class="tag sky">Pre-diabetes</span>
+        <span class="tag amber">Fatty liver / metabolic risk</span>
+      </div>
+
+      <div class="note">
+        A fine-mapping approach indicates this SNP shows the strongest association signal with metabolic phenotypes in the region also harboring the tightly linked <a href="https://www.snpedia.com/index.php/Rs780094" target="_blank" rel="noopener noreferrer">rs780094</a> variant, which has previously been associated with triglyceride and glucose concentrations. This SNP encodes a common missense variant in the glucokinase regulatory protein gene <strong>GCKR</strong>.
+      </div>
+
+      <div class="two-col">
+        <div class="mini">
+          <h3>Relevant findings</h3>
+          <ul>
+            <li>Associated with <strong>type 2 diabetes</strong> risk.</li>
+            <li>Linked to <strong>postprandial lipemic response</strong> in dietary intervention studies.</li>
+            <li>Associated with <strong>triglycerides</strong> and <strong>free fatty acids</strong>.</li>
+            <li>Related to <strong>fatty liver</strong> in children and adolescents.</li>
+            <li>Relevant to <strong>metabolic syndrome pathways</strong> and inflammatory markers such as CRP.</li>
+          </ul>
+        </div>
+
+        <div class="mini">
+          <h3>Why it matters here</h3>
+          <p>This variant is especially relevant to the project’s <strong>Pre-diabetes</strong> tracking because it affects how the liver handles glucose and converts excess carbohydrate into fat. That can amplify <strong>Dawn Phenomenon</strong>, <strong>hepatic insulin resistance</strong>, and <strong>fatty liver</strong> risk.</p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:1.1rem">
+        <strong>GCKR gene function:</strong> the GCKR gene encodes the <strong>Glucokinase Regulatory Protein (GKRP)</strong>, which acts as an on/off switch for glucokinase (GCK), the master glucose sensor in the liver and pancreas. With a <strong>T;T</strong> pairing, GKRP is less restrictive, allowing glucokinase to remain hyper-active and continuously pulling glucose out of the bloodstream for conversion to storage. While that may sound helpful for blood sugar control, the trade-off is that the liver aggressively processes glucose into <strong>fat and triglycerides</strong> instead of burning it or releasing it steadily.
+      </div>
+
+      <div class="note" style="margin-top:1rem">
+        <strong>Project-specific interpretation:</strong> for a <strong>GCKR T;T</strong> pattern, the bottleneck is often not simply insulin sensitivity but the <strong>liver’s capacity to process the glucose it clears</strong>. This makes blood sugar management more about <strong>liver offloading</strong>, <strong>fat synthesis control</strong>, and <strong>triglyceride regulation</strong> than just “improving insulin receptors.” This fits especially well with the project’s focus on pre-diabetes, metabolic liver stress, and Dawn Phenomenon.
+      </div>
+
+      <div class="mini" style="margin-top:1rem">
+        <h3>Practical approach for a GCKR T;T pattern</h3>
+        <ul>
+          <li><strong>Shift focus from insulin sensitivity to liver offloading.</strong> Generic advice often treats high blood sugar as a muscle or insulin-receptor issue; in GCKR T;T, the liver’s ability to process cleared glucose is frequently the real bottleneck.</li>
+          <li><strong>Prioritize fish oils / Omega-3s.</strong> T;T genotypes are associated with lower fasting glucose but higher triglycerides, so omega-3 support can help blunt triglyceride spikes and improve lipid handling. Foods especially high in EPA/DHA to seek out include <strong>salmon</strong>, <strong>sardines</strong>, <strong>mackerel</strong>, <strong>anchovies</strong>, <strong>herring</strong>, <strong>trout</strong>, <strong>cod liver oil</strong>, and <strong>high-quality omega-3 fish oil supplements</strong> when dietary intake is not sufficient.</li>
+          <li><strong>Minimize fructose.</strong> Fructose metabolism interacts strongly with the GCK/GKRP pathway and can act as a trigger for the liver’s glucose-to-fat conversion machinery. The practical restriction focus should be on the foods that add fructose in a concentrated, easy-to-overconsume form: <strong>table sugar</strong> (sucrose), <strong>high-fructose corn syrup</strong>, <strong>sweetened sodas and juice drinks</strong>, <strong>fruit juice concentrates</strong>, <strong>many desserts and pastries</strong>, <strong>sweetened yogurt</strong>, and <strong>large portions of fruit that are naturally higher in fructose</strong> such as <strong>apples, pears, mangoes, grapes, and dried fruit</strong>. It is also worth watching <strong>commercial sauces and snack foods</strong> that hide sugar in ingredient lists and drive frequent fructose exposure.</li>
+          <li><strong>Favor resistance training over steady-state cardio.</strong> Resistance training simply means using your muscles against a load or tension to make them work harder — for example, <strong>lifting weights</strong>, <strong>bodyweight exercises</strong> like squats, lunges, push-ups, or rows, <strong>bands</strong>, or even <strong>machines at a gym</strong>. The goal is not to “be a bodybuilder,” but to train the muscles to store and use glucose more effectively so the liver does not have to process every bit of incoming carbohydrate alone. This helps build a stronger “glucose sink” and supports blood sugar control with less metabolic strain.</li>
+          <li><strong>Use Mediterranean-style fats.</strong> Monounsaturated fats and EPA/DHA-rich foods are generally a better fit than low-fat or excessive high-fructose patterns when managing GCKR-driven metabolic risk. Prioritize foods such as <strong>extra-virgin olive oil</strong>, <strong>olives</strong>, <strong>avocados</strong>, <strong>almonds</strong>, <strong>walnuts</strong>, <strong>hazelnuts</strong>, <strong>pecans</strong>, <strong>salmon</strong>, <strong>sardines</strong>, <strong>mackerel</strong>, <strong>anchovies</strong>, <strong>canned salmon</strong>, <strong>grass-fed butter</strong> in moderation, and <strong>whole-food Mediterranean-style meals built around olive oil, fish, nuts, and legumes</strong>.</li>
+        </ul>
+      </div>
+
+      <p style="margin-top:1rem"><strong>Project relevance:</strong> the strongest fit is with <strong>pre-diabetes</strong>, <strong>glucose dysregulation</strong>, <strong>fatty liver / hepatic steatosis</strong>, and <strong>triglyceride elevation</strong>. It is less likely to be a major direct driver of kidney stone or UTI history, but it may compound the metabolic burden behind the broader condition set by increasing hepatic glucose output and lipogenesis.</p>
+    </section>
+  </main>
 </body>
 </html>
