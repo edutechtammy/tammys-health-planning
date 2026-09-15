@@ -1574,7 +1574,7 @@ function render(){
     grid.innerHTML=filtered.map(t=>{
       const a=spikeAnalysis(t.t0,t.t30,t.t60,t.t120,t.t180);
       const aucInfo=computeAUC(t.t0,t.t30,t.t60,t.t120,t.t180,t.returnBaselineMin);
-      const peakTone=a ? (a.peak<=140?'safe':a.peak<=160?'caution':'high') : 'safe';
+      const peakTone=a ? (a.spikeAbs<=20?'safe':a.spikeAbs<=40?'caution':'high') : 'safe';
       const catStyle=CAT_COLORS[t.cat]||'';
       const catLabel=CAT_LABELS[t.cat]||t.cat;
       const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
@@ -1609,10 +1609,10 @@ function render(){
         </div>
         ${a?`<div class="test-card-summary">
           <span class="spike-badge ${a.cls}">${a.rating}</span>
-          <span class="peak-pill ${peakTone}" title="Absolute peak glucose value">
-            Peak <span class="peak-val">${a.peak}</span> mg/dL
+          <span class="peak-pill ${peakTone}" title="Peak above baseline (used for Peak sorting)">
+            Peak above baseline <span class="peak-val">+${a.spikeAbs}</span> mg/dL
           </span>
-          <span style="font-size:.8rem;color:var(--muted)">Peak +${a.spikeAbs} mg/dL above baseline</span>
+          <span style="font-size:.8rem;color:var(--muted)">Absolute peak: ${a.peak} mg/dL</span>
           ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
           ${a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
           ${aucInfo?`<span style="font-size:.78rem;color:var(--muted)">AUC↑ ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute})</span>`:''}
