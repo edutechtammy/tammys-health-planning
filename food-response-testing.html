@@ -137,6 +137,10 @@
       background:#fff7f7;
       border-color:#f1caca;
     }
+    .test-card.milk-pair-friendly {
+      background:#f5fff7;
+      border-color:#cfead5;
+    }
     .test-card-header { padding:.7rem 1rem; display:flex; align-items:flex-start; gap:.6rem; border-bottom:1px solid var(--border); }
     .test-food { font-weight:700; font-size:.95rem; flex:1; }
     .test-date { font-size:.72rem; color:var(--muted); white-space:nowrap; margin-top:.1rem; }
@@ -1890,9 +1894,13 @@ function render(){
         t.activity ? activityLabel[t.activity] || '🧭 Activity' : ''
       ].filter(Boolean).join(' · ');
       const baselineValue=Number(t.t0);
-      const baselineOutlierClass=(baselineValue > 120 || baselineValue <= 75) ? ' baseline-outlier' : '';
+      const satFatValue=Number(t.satFat);
+      const netCarbValue=Number(t.netCarbs);
+      const baselineOutlier=(baselineValue > 120 || baselineValue <= 75);
+      const milkPairFriendly=(Number.isFinite(satFatValue) && satFatValue <= 5) || (Number.isFinite(netCarbValue) && netCarbValue <= 2);
+      const cardClass=baselineOutlier ? ' baseline-outlier' : (milkPairFriendly ? ' milk-pair-friendly' : '');
       return `
-      <div class="test-card${baselineOutlierClass}">
+      <div class="test-card${cardClass}">
         <div class="test-card-header">
           <div style="flex:1">
             <div class="test-food">${t.food}</div>
