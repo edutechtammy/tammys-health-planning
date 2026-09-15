@@ -123,6 +123,23 @@
     .peak-pill.safe { background:#e8f8ef; border-color:#bde5cb; color:#1e8449; }
     .peak-pill.caution { background:#fff5e6; border-color:#f6d29a; color:#9a6000; }
     .peak-pill.high { background:#fdeeee; border-color:#efb0a8; color:#c0392b; }
+    .metric-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:.3rem;
+      padding:.18rem .55rem;
+      border-radius:10px;
+      border:1px solid transparent;
+      font-size:.76rem;
+      font-weight:700;
+      line-height:1;
+    }
+    .metric-pill .metric-val {
+      font-size:.9rem;
+      font-weight:800;
+    }
+    .metric-pill.carbs { background:#f0f8ff; border-color:#b6d8f2; color:#1a5276; }
+    .metric-pill.fat { background:#f9f1ff; border-color:#d8bee9; color:#6c3483; }
 
     .test-card-notes { padding:.4rem 1rem .7rem; font-size:.8rem; color:var(--muted); font-style:italic; }
 
@@ -616,6 +633,14 @@
         <input type="text" id="f-portion" placeholder="e.g. 1 cup, 2 slices, 100g" />
       </div>
       <div class="field">
+        <label>Net Carbs (g) optional</label>
+        <input type="number" id="f-net-carbs" step="0.1" min="0" placeholder="e.g. 18.5" />
+      </div>
+      <div class="field">
+        <label>Saturated Fat (g) optional</label>
+        <input type="number" id="f-sat-fat" step="0.1" min="0" placeholder="e.g. 7.2" />
+      </div>
+      <div class="field">
         <label>Was Berberine taken?</label>
         <select id="f-berberine">
           <option value="">— not logged —</option>
@@ -708,6 +733,9 @@
       <button class="btn-sort-auc" id="auc-sort-btn" type="button" onclick="toggleAucSort()">Order by AUC is off</button>
       <button class="btn-sort-auc" id="peak-sort-btn" type="button" onclick="togglePeakSort()">Peak is off</button>
       <button class="btn-sort-auc" id="am-sort-btn" type="button" onclick="toggleAmSort()">AM is off</button>
+      <button class="btn-sort-auc" id="carb-sort-btn" type="button" onclick="toggleCarbSort()">Net carbs is off</button>
+      <button class="btn-sort-auc" id="fat-sort-btn" type="button" onclick="toggleFatSort()">Sat fat is off</button>
+      <button class="btn-sort-auc" id="combo-sort-btn" type="button" onclick="toggleComboFilter()">5g/15g combo is off</button>
     </div>
   </div>
 
@@ -760,6 +788,10 @@
             <th>Category</th>
             <th>Baseline</th>
             <th>Baseline Time</th>
+            <th>5g/15g</th>
+            <th>Long Tail</th>
+            <th>Net Carbs</th>
+            <th>Sat Fat</th>
             <th>Peak</th>
             <th>Spike ↑</th>
             <th>120-min Δ from baseline</th>
@@ -822,6 +854,7 @@ function exportCSV(){
   if(!tests.length){ alert('No tests to export yet.'); return; }
   const headers = [
     'Date', 'Food / Combination Tested', 'Category', 'Portion / Quantity',
+    'Net Carbs (g)', 'Saturated Fat (g)',
     'Baseline (T=0)', 'Baseline Time of Day (AM/PM)', '+30 min', '+60 min', '+120 min', '+180 min (optional)', 'Return to Baseline Minute (if >120)',
     'Berberine', 'ACV', 'Walk', 'Activity', 'Notes'
   ];
@@ -833,6 +866,8 @@ function exportCSV(){
       t.food || '',
       t.cat || '',
       t.portion || '',
+      t.netCarbs ?? '',
+      t.satFat ?? '',
       t.t0 ?? '',
       t.baselineTime || '',
       t.t30 ?? '',
@@ -921,17 +956,18 @@ function normalizeBaselineTime(value){
 function parseImportedTestRow(row, headerMap, fallbackMode){
   const oldFallback = fallbackMode && row.length <= 14;
   const midFallback = fallbackMode && row.length === 15;
+  const newFallback = fallbackMode && row.length >= 18;
   const idx = {
-    t30: oldFallback ? 5 : 6,
-    t60: oldFallback ? 6 : 7,
-    t120: oldFallback ? 7 : 8,
-    t180: oldFallback ? -1 : 9,
-    ret: oldFallback ? 8 : (midFallback ? 9 : 10),
-    berberine: oldFallback ? 9 : (midFallback ? 10 : 11),
-    acv: oldFallback ? 10 : (midFallback ? 11 : 12),
-    walk: oldFallback ? 11 : (midFallback ? 12 : 13),
-    activity: oldFallback ? 12 : (midFallback ? 13 : 14),
-    notes: oldFallback ? 13 : (midFallback ? 14 : 15)
+    t30: newFallback ? 8 : (oldFallback ? 5 : 6),
+    t60: newFallback ? 9 : (oldFallback ? 6 : 7),
+    t120: newFallback ? 10 : (oldFallback ? 7 : 8),
+    t180: newFallback ? 11 : (oldFallback ? -1 : 9),
+    ret: newFallback ? 12 : (oldFallback ? 8 : (midFallback ? 9 : 10)),
+    berberine: newFallback ? 13 : (oldFallback ? 9 : (midFallback ? 10 : 11)),
+    acv: newFallback ? 14 : (oldFallback ? 10 : (midFallback ? 11 : 12)),
+    walk: newFallback ? 15 : (oldFallback ? 11 : (midFallback ? 12 : 13)),
+    activity: newFallback ? 16 : (oldFallback ? 12 : (midFallback ? 13 : 14)),
+    notes: newFallback ? 17 : (oldFallback ? 13 : (midFallback ? 14 : 15))
   };
 
   const read = (aliases, fallbackIndex) => {
@@ -945,8 +981,10 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const food = String(read(['food', 'foodcombinationtested', 'foodcombination', 'combinationtested', 'combination', 'foodname'], 1) || '').trim();
   const catRaw = String(read(['category', 'cat'], 2) || '').trim();
   const portion = String(read(['portion', 'quantity'], 3) || '').trim();
-  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], 4));
-  const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], oldFallback ? -1 : 5));
+  const netCarbs = parseNumberish(read(['netcarbs', 'netcarb', 'netcarbsg'], newFallback ? 4 : -1));
+  const satFat = parseNumberish(read(['saturatedfat', 'satfat', 'saturatedfatg'], newFallback ? 5 : -1));
+  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], newFallback ? 6 : 4));
+  const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], newFallback ? 7 : (oldFallback ? -1 : 5)));
   const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], idx.t30));
   const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], idx.t60));
   const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], idx.t120));
@@ -977,12 +1015,13 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
         'supplement effect':'supplement'
       })[catRaw.toLowerCase()] || 'grain';
 
-  return { id, date, food, cat, portion, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
+  return { id, date, food, cat, portion, netCarbs, satFat, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
 }
 
 function makeTestFingerprint(test){
   return [
     test.date || '', test.food || '', test.cat || '', test.portion || '',
+    test.netCarbs ?? '', test.satFat ?? '',
     test.t0 ?? '', test.baselineTime || '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '', test.t180 ?? '',
     test.returnBaselineMin ?? '',
     test.berberine || '', test.acv || '', test.walk || '', test.activity || '', test.notes || ''
@@ -1042,7 +1081,7 @@ function importCSV(input){
       if(rows.length < 2){ alert('CSV appears empty or invalid.'); return; }
 
       const firstRow = rows[0].map(normalizeCSVHeader);
-      const headerLike = firstRow.some(h => ['date', 'food', 'foodcombinationtested', 'category', 'baseline', 'baselinefasting', 't0'].includes(h));
+      const headerLike = firstRow.some(h => ['date', 'food', 'foodcombinationtested', 'category', 'portion', 'netcarbs', 'saturatedfat', 'baseline', 'baselinefasting', 't0'].includes(h));
       const headerMap = new Map();
       let dataRows = rows;
 
@@ -1158,7 +1197,10 @@ function updatePreview(){
 let activeFilter='all';
 let sortByAuc=false;
 let sortByPeak=false;
+let sortByCarbs=false;
+let sortByFat=false;
 let filterAmOnly=false;
+let filterComboOnly=false;
 function setFilter(cat){
   activeFilter=cat;
   document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===cat));
@@ -1167,18 +1209,35 @@ function setFilter(cat){
 
 function toggleAucSort(){
   sortByAuc=!sortByAuc;
-  if(sortByAuc) sortByPeak=false;
+  if(sortByAuc){ sortByPeak=false; sortByCarbs=false; sortByFat=false; }
   render();
 }
 
 function togglePeakSort(){
   sortByPeak=!sortByPeak;
-  if(sortByPeak) sortByAuc=false;
+  if(sortByPeak){ sortByAuc=false; sortByCarbs=false; sortByFat=false; }
   render();
 }
 
 function toggleAmSort(){
   filterAmOnly=!filterAmOnly;
+  render();
+}
+
+function toggleCarbSort(){
+  sortByCarbs=!sortByCarbs;
+  if(sortByCarbs){ sortByAuc=false; sortByPeak=false; sortByFat=false; }
+  render();
+}
+
+function toggleFatSort(){
+  sortByFat=!sortByFat;
+  if(sortByFat){ sortByAuc=false; sortByPeak=false; sortByCarbs=false; }
+  render();
+}
+
+function toggleComboFilter(){
+  filterComboOnly=!filterComboOnly;
   render();
 }
 
@@ -1195,7 +1254,7 @@ let editingId=null;
 function clearForm(){
   editingId=null;
   document.getElementById('f-date').value=todayISO();
-  ['f-food','f-portion','f-notes','f-t0','f-baseline-time','f-t30','f-t60','f-t120','f-t180','f-ret-min'].forEach(id=>document.getElementById(id).value='');
+  ['f-food','f-portion','f-net-carbs','f-sat-fat','f-notes','f-t0','f-baseline-time','f-t30','f-t60','f-t120','f-t180','f-ret-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='grain';
   document.getElementById('f-berberine').value='';
   document.getElementById('f-acv').value='';
@@ -1214,6 +1273,8 @@ function editTest(id){
   document.getElementById('f-food').value=t.food||'';
   document.getElementById('f-cat').value=t.cat||'grain';
   document.getElementById('f-portion').value=t.portion||'';
+  document.getElementById('f-net-carbs').value=t.netCarbs!=null?t.netCarbs:'';
+  document.getElementById('f-sat-fat').value=t.satFat!=null?t.satFat:'';
   document.getElementById('f-t0').value=t.t0!=null?t.t0:'';
   document.getElementById('f-baseline-time').value=t.baselineTime||'';
   document.getElementById('f-t30').value=t.t30!=null?t.t30:'';
@@ -1237,6 +1298,8 @@ function saveTest(){
   const food   = document.getElementById('f-food').value.trim();
   const cat    = document.getElementById('f-cat').value;
   const portion= document.getElementById('f-portion').value.trim();
+  const netCarbs = parseNumberish(document.getElementById('f-net-carbs').value);
+  const satFat = parseNumberish(document.getElementById('f-sat-fat').value);
   const t0     = parseFloat(document.getElementById('f-t0').value)||null;
   const baselineTime = normalizeBaselineTime(document.getElementById('f-baseline-time').value);
   const t30    = parseFloat(document.getElementById('f-t30').value)||null;
@@ -1266,10 +1329,10 @@ function saveTest(){
   }
   let tests=loadTests();
   if(editingId){
-    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
+    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,netCarbs,satFat,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
   } else {
     const id=Date.now().toString();
-    tests.push({id,date,food,cat,portion,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
+    tests.push({id,date,food,cat,portion,netCarbs,satFat,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
   }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
   saveTests(tests);
@@ -1494,6 +1557,27 @@ function renderCurveLegendList(){
   });
 }
 
+  function getMetricValue(test, key){
+    const value=Number(test?.[key]);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function hasComboThreshold(test){
+    const netCarbs=getMetricValue(test,'netCarbs');
+    const satFat=getMetricValue(test,'satFat');
+    return netCarbs != null && satFat != null && netCarbs >= 15 && satFat >= 5;
+  }
+
+  function hasLongTail(test){
+    if(!test || !test.t0) return false;
+    const t0=Number(test.t0);
+    const t180=Number(test.t180);
+    const returnBaselineMin=Number(test.returnBaselineMin);
+    if(Number.isFinite(returnBaselineMin) && returnBaselineMin > 180) return true;
+    if(Number.isFinite(t180) && t180 > t0) return true;
+    return false;
+  }
+
 function setCurveLegendShowAll(nextValue){
   curveLegendShowAll=!!nextValue;
   renderCurveLegendList();
@@ -1544,12 +1628,28 @@ function render(){
     amSortBtn.classList.toggle('on',filterAmOnly);
     amSortBtn.textContent=`AM is ${filterAmOnly?'on':'off'}`;
   }
+  const comboSortBtn=document.getElementById('combo-sort-btn');
+  if(comboSortBtn){
+    comboSortBtn.classList.toggle('on',filterComboOnly);
+    comboSortBtn.textContent=`5g/15g combo is ${filterComboOnly?'on':'off'}`;
+  }
+  const carbSortBtn=document.getElementById('carb-sort-btn');
+  if(carbSortBtn){
+    carbSortBtn.classList.toggle('on',sortByCarbs);
+    carbSortBtn.textContent=`Net carbs is ${sortByCarbs?'on':'off'}`;
+  }
+  const fatSortBtn=document.getElementById('fat-sort-btn');
+  if(fatSortBtn){
+    fatSortBtn.classList.toggle('on',sortByFat);
+    fatSortBtn.textContent=`Sat fat is ${sortByFat?'on':'off'}`;
+  }
   const filtered=all
     .filter(t=>{
       const catOk=activeFilter==='all'||t.cat===activeFilter;
       const searchOk=!search||t.food.toLowerCase().includes(search);
       const amOk=!filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
-      return catOk&&searchOk&&amOk;
+      const comboOk=!filterComboOnly || hasComboThreshold(t);
+      return catOk&&searchOk&&amOk&&comboOk;
     })
     .sort((a,b)=>{
       if(sortByAuc){
@@ -1570,6 +1670,16 @@ function render(){
         const peakB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.peak ?? -1;
         const byPeak=peakB-peakA;
         if(byPeak!==0) return byPeak;
+      } else if(sortByCarbs){
+        const carbsA=Number(a.netCarbs);
+        const carbsB=Number(b.netCarbs);
+        const byCarbs=((Number.isFinite(carbsB)?carbsB:-1) - (Number.isFinite(carbsA)?carbsA:-1));
+        if(byCarbs!==0) return byCarbs;
+      } else if(sortByFat){
+        const fatA=Number(a.satFat);
+        const fatB=Number(b.satFat);
+        const byFat=((Number.isFinite(fatB)?fatB:-1) - (Number.isFinite(fatA)?fatA:-1));
+        if(byFat!==0) return byFat;
       }
       const byFood=(a.food||'').localeCompare(b.food||'', undefined, { sensitivity:'base' });
       if(byFood!==0) return byFood;
@@ -1588,6 +1698,16 @@ function render(){
       const a=spikeAnalysis(t.t0,t.t30,t.t60,t.t120,t.t180);
       const aucInfo=computeAUC(t.t0,t.t30,t.t60,t.t120,t.t180,t.returnBaselineMin);
       const peakTone=a ? (a.spikeAbs<=20?'safe':a.spikeAbs<=40?'caution':'high') : 'safe';
+      const comboMet=hasComboThreshold(t);
+      const longTail=hasLongTail(t);
+      const metricBits=[
+        t.netCarbs!=null?`<span class="metric-pill carbs" title="Net carbs">Net carbs <span class="metric-val">${t.netCarbs}</span> g</span>`:'',
+        t.satFat!=null?`<span class="metric-pill fat" title="Saturated fat">Sat fat <span class="metric-val">${t.satFat}</span> g</span>`:''
+      ].filter(Boolean).join(' ');
+      const analysisBits=[
+        comboMet?`<span class="metric-pill carbs" title="Net carbs >= 15g and saturated fat >= 5g in the same serving">5g/15g combo</span>`:'',
+        longTail?`<span class="metric-pill fat" title="Long tail: still elevated at 180 min or return-to-baseline after 180 min">Long tail</span>`:''
+      ].filter(Boolean).join(' ');
       const catStyle=CAT_COLORS[t.cat]||'';
       const catLabel=CAT_LABELS[t.cat]||t.cat;
       const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
@@ -1626,9 +1746,11 @@ function render(){
             Peak above baseline <span class="peak-val">+${a.spikeAbs}</span> mg/dL
           </span>
           <span style="font-size:.8rem;color:var(--muted)">Absolute peak: ${a.peak} mg/dL</span>
+          ${analysisBits}
           ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
           ${a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
           ${aucInfo?`<span style="font-size:.78rem;color:var(--muted)">AUC↑ ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute})</span>`:''}
+          ${metricBits}
           ${contextBits?`<span style="font-size:.75rem;color:var(--muted);margin-left:auto">${contextBits}</span>`:''}
         </div>`:''}
         ${t.notes?`<div class="test-card-notes">${t.notes}</div>`:''}
@@ -1670,6 +1792,10 @@ function render(){
       <td style="font-size:.8rem">${CAT_LABELS[t.cat]||t.cat}</td>
       <td>${t.t0}</td>
       <td style="white-space:nowrap">${t.baselineTime || '—'}</td>
+      <td>${hasComboThreshold(t)?'<span class="spike-badge spike-high">Yes</span>':'—'}</td>
+      <td>${hasLongTail(t)?'<span class="spike-badge spike-moderate">Yes</span>':'—'}</td>
+      <td>${t.netCarbs!=null?t.netCarbs:'—'}</td>
+      <td>${t.satFat!=null?t.satFat:'—'}</td>
       <td style="font-weight:700">${t.a.peak}</td>
       <td class="${worst?'warn':best?'best':''}" style="font-weight:700">+${t.a.spikeAbs}</td>
       <td style="color:${t.a.ret120!=null&&Math.abs(t.a.ret120)<=20?'#27ae60':'#e67e22'}">${t.a.ret120!=null?(t.a.ret120>=0?'+':'')+t.a.ret120+' mg/dL':'—'}</td>
