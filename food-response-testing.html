@@ -687,6 +687,7 @@
     <div class="search-sort-wrap">
       <input class="search-box" id="search-box" type="text" placeholder="Search food name…" oninput="render()" />
       <button class="btn-sort-auc" id="auc-sort-btn" type="button" onclick="toggleAucSort()">Order by AUC is off</button>
+      <button class="btn-sort-auc" id="peak-sort-btn" type="button" onclick="togglePeakSort()">Peak is off</button>
     </div>
   </div>
 
@@ -1136,6 +1137,7 @@ function updatePreview(){
 
 let activeFilter='all';
 let sortByAuc=false;
+let sortByPeak=false;
 function setFilter(cat){
   activeFilter=cat;
   document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===cat));
@@ -1144,6 +1146,13 @@ function setFilter(cat){
 
 function toggleAucSort(){
   sortByAuc=!sortByAuc;
+  if(sortByAuc) sortByPeak=false;
+  render();
+}
+
+function togglePeakSort(){
+  sortByPeak=!sortByPeak;
+  if(sortByPeak) sortByAuc=false;
   render();
 }
 
@@ -1499,6 +1508,11 @@ function render(){
     sortBtn.classList.toggle('on',sortByAuc);
     sortBtn.textContent=`Order by AUC is ${sortByAuc?'on':'off'}`;
   }
+  const peakSortBtn=document.getElementById('peak-sort-btn');
+  if(peakSortBtn){
+    peakSortBtn.classList.toggle('on',sortByPeak);
+    peakSortBtn.textContent=`Peak is ${sortByPeak?'on':'off'}`;
+  }
   const filtered=all
     .filter(t=>{
       const catOk=activeFilter==='all'||t.cat===activeFilter;
@@ -1511,6 +1525,15 @@ function render(){
         const aucB=computeAUC(b.t0,b.t30,b.t60,b.t120,b.t180,b.returnBaselineMin)?.auc ?? -1;
         const byAuc=aucB-aucA;
         if(byAuc!==0) return byAuc;
+        const spikeA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.spikeAbs ?? -1;
+        const spikeB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.spikeAbs ?? -1;
+        const bySpike=spikeB-spikeA;
+        if(bySpike!==0) return bySpike;
+      } else if(sortByPeak){
+        const peakA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.peak ?? -1;
+        const peakB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.peak ?? -1;
+        const byPeak=peakB-peakA;
+        if(byPeak!==0) return byPeak;
         const spikeA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.spikeAbs ?? -1;
         const spikeB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.spikeAbs ?? -1;
         const bySpike=spikeB-spikeA;
