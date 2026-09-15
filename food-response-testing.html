@@ -83,6 +83,51 @@
     .search-sort-wrap { display:flex; flex-direction:column; gap:.45rem; align-items:flex-start; }
     .btn-sort-auc { background:#eef6fb; color:#1a5276; border:1px solid #aed6f1; padding:.38rem .85rem; border-radius:8px; font-size:.8rem; font-weight:700; cursor:pointer; }
     .btn-sort-auc.on { background:#d6ecfb; border-color:#5dade2; color:#154360; }
+    .threshold-controls {
+      margin-top:.2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem .7rem;
+      align-items:center;
+      border:1px dashed var(--border);
+      border-radius:10px;
+      background:#f8fcf9;
+      padding:.45rem .6rem;
+    }
+    .threshold-label {
+      font-size:.73rem;
+      font-weight:700;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+    .threshold-controls label {
+      font-size:.78rem;
+      color:var(--muted);
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:.35rem;
+    }
+    .threshold-controls input {
+      width:70px;
+      border:1px solid var(--border);
+      border-radius:7px;
+      padding:.2rem .4rem;
+      font-size:.82rem;
+      background:#fff;
+      color:var(--text);
+    }
+    .threshold-controls button {
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--muted);
+      border-radius:7px;
+      font-size:.75rem;
+      font-weight:700;
+      padding:.22rem .55rem;
+      cursor:pointer;
+    }
 
     /* RESULTS GRID */
     .results-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem; }
@@ -740,6 +785,18 @@
       <button class="btn-sort-auc" id="fat-sort-btn" type="button" onclick="toggleFatSort()">Sat fat is off</button>
       <button class="btn-sort-auc" id="combo-sort-btn" type="button" onclick="toggleComboFilter()">5g/15g combo is off</button>
       <button class="btn-sort-auc" id="longtail-sort-btn" type="button" onclick="toggleLongTailSort()">Long tail is off</button>
+      <div class="threshold-controls">
+        <span class="threshold-label">Long tail thresholds</span>
+        <label>Min peak +
+          <input type="number" id="lt-min-spike" min="0" step="1" value="15" oninput="updateLongTailThresholds()" />
+          mg/dL
+        </label>
+        <label>Min +180 delta
+          <input type="number" id="lt-min-180" min="0" step="1" value="10" oninput="updateLongTailThresholds()" />
+          mg/dL
+        </label>
+        <button type="button" onclick="resetLongTailThresholds()">Reset</button>
+      </div>
     </div>
   </div>
 
@@ -813,6 +870,7 @@
 
 <script>
 const STORE_KEY = 'tammys_food_response';
+const LONG_TAIL_SETTINGS_KEY = 'tammys_food_response_long_tail_settings';
 function makeGeneratedTestId(){
   return `ft-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 }
@@ -1206,6 +1264,58 @@ let sortByFat=false;
 let sortByLongTail=false;
 let filterAmOnly=false;
 let filterComboOnly=false;
+let longTailMinSpikeAboveBaseline=15;
+let longTailMin180Delta=10;
+
+function clampThreshold(value, fallback){
+  const n=Number(value);
+  if(!Number.isFinite(n) || n < 0) return fallback;
+  return Math.round(n);
+}
+
+function applyLongTailThresholdInputs(){
+  const spikeInput=document.getElementById('lt-min-spike');
+  const tailInput=document.getElementById('lt-min-180');
+  if(spikeInput) spikeInput.value=String(longTailMinSpikeAboveBaseline);
+  if(tailInput) tailInput.value=String(longTailMin180Delta);
+}
+
+function saveLongTailThresholdSettings(){
+  localStorage.setItem(LONG_TAIL_SETTINGS_KEY, JSON.stringify({
+    minSpike: longTailMinSpikeAboveBaseline,
+    min180: longTailMin180Delta
+  }));
+}
+
+function loadLongTailThresholdSettings(){
+  try {
+    const parsed=JSON.parse(localStorage.getItem(LONG_TAIL_SETTINGS_KEY));
+    if(parsed && typeof parsed === 'object'){
+      longTailMinSpikeAboveBaseline=clampThreshold(parsed.minSpike, 15);
+      longTailMin180Delta=clampThreshold(parsed.min180, 10);
+    }
+  } catch {
+    longTailMinSpikeAboveBaseline=15;
+    longTailMin180Delta=10;
+  }
+}
+
+function updateLongTailThresholds(){
+  longTailMinSpikeAboveBaseline=clampThreshold(document.getElementById('lt-min-spike')?.value, longTailMinSpikeAboveBaseline);
+  longTailMin180Delta=clampThreshold(document.getElementById('lt-min-180')?.value, longTailMin180Delta);
+  applyLongTailThresholdInputs();
+  saveLongTailThresholdSettings();
+  render();
+}
+
+function resetLongTailThresholds(){
+  longTailMinSpikeAboveBaseline=15;
+  longTailMin180Delta=10;
+  applyLongTailThresholdInputs();
+  saveLongTailThresholdSettings();
+  render();
+}
+
 function setFilter(cat){
   activeFilter=cat;
   document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===cat));
@@ -1584,10 +1694,21 @@ function renderCurveLegendList(){
     const t0=Number(test.t0);
     const t180=Number(test.t180);
     const returnBaselineMin=Number(test.returnBaselineMin);
-    if(Number.isFinite(returnBaselineMin) && returnBaselineMin > 180) return 'yes';
-    if(Number.isFinite(t180) && t180 > t0) return 'yes';
-    if(Number.isFinite(returnBaselineMin) && returnBaselineMin <= 180) return 'no';
-    if(Number.isFinite(t180) && t180 <= t0) return 'no';
+    const spikeAbs=spikeAnalysis(test.t0,test.t30,test.t60,test.t120,test.t180)?.spikeAbs ?? null;
+    const delta180=Number.isFinite(t180) ? (t180 - t0) : null;
+    const smallSignal=(spikeAbs != null && spikeAbs < longTailMinSpikeAboveBaseline)
+      && (delta180 == null || delta180 < longTailMin180Delta);
+
+    if(Number.isFinite(returnBaselineMin)){
+      if(returnBaselineMin <= 180) return 'no';
+      return smallSignal ? 'no' : 'yes';
+    }
+
+    if(delta180 != null){
+      if(delta180 >= longTailMin180Delta && (spikeAbs == null || spikeAbs >= longTailMinSpikeAboveBaseline)) return 'yes';
+      return 'no';
+    }
+
     return 'unknown';
   }
 
@@ -1667,7 +1788,8 @@ function render(){
       const searchOk=!search||t.food.toLowerCase().includes(search);
       const amOk=!filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
       const comboOk=!filterComboOnly || hasComboThreshold(t);
-      return catOk&&searchOk&&amOk&&comboOk;
+      const longTailOk=!sortByLongTail || getLongTailStatus(t)==='yes';
+      return catOk&&searchOk&&amOk&&comboOk&&longTailOk;
     })
     .sort((a,b)=>{
       if(sortByAuc){
@@ -1733,9 +1855,9 @@ function render(){
       const analysisBits=[
         comboMet?`<span class="metric-pill carbs" title="Net carbs >= 15g and saturated fat >= 5g in the same serving">5g/15g combo</span>`:'',
         longTailStatus==='yes'
-          ? `<span class="metric-pill tail-yes" title="Long tail: still elevated at 180 min or return-to-baseline after 180 min">Long tail</span>`
+          ? `<span class="metric-pill tail-yes" title="Long tail: meaningful delayed recovery past 180 min (noise-guarded by min peak +${longTailMinSpikeAboveBaseline} and min +180 delta +${longTailMin180Delta})">Long tail</span>`
           : longTailStatus==='no'
-            ? `<span class="metric-pill tail-no" title="Data indicates no long tail">No long tail</span>`
+            ? `<span class="metric-pill tail-no" title="No long tail or only small background drift (below current noise guards)">No long tail</span>`
             : `<span class="metric-pill tail-unknown" title="Need 180-min or return-to-baseline data to classify tail behavior">Need 180-min data</span>`
       ].filter(Boolean).join(' ');
       const catStyle=CAT_COLORS[t.cat]||'';
@@ -1840,6 +1962,7 @@ function render(){
   const chartTests = all
     .filter(t => t.t0 && (activeFilter==='all' || t.cat===activeFilter))
     .filter(t => !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim()))
+    .filter(t => !filterComboOnly || hasComboThreshold(t))
     .filter(t => !sortByLongTail || getLongTailStatus(t)==='yes')
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
@@ -1918,6 +2041,8 @@ function render(){
 }
 
 // Init
+loadLongTailThresholdSettings();
+applyLongTailThresholdInputs();
 document.getElementById('f-date').value=todayISO();
 loadComparisonImages();
 render();
