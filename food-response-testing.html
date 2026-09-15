@@ -707,6 +707,7 @@
       <input class="search-box" id="search-box" type="text" placeholder="Search food name…" oninput="render()" />
       <button class="btn-sort-auc" id="auc-sort-btn" type="button" onclick="toggleAucSort()">Order by AUC is off</button>
       <button class="btn-sort-auc" id="peak-sort-btn" type="button" onclick="togglePeakSort()">Peak is off</button>
+      <button class="btn-sort-auc" id="am-sort-btn" type="button" onclick="toggleAmSort()">AM is off</button>
     </div>
   </div>
 
@@ -1157,6 +1158,7 @@ function updatePreview(){
 let activeFilter='all';
 let sortByAuc=false;
 let sortByPeak=false;
+let filterAmOnly=false;
 function setFilter(cat){
   activeFilter=cat;
   document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===cat));
@@ -1172,6 +1174,11 @@ function toggleAucSort(){
 function togglePeakSort(){
   sortByPeak=!sortByPeak;
   if(sortByPeak) sortByAuc=false;
+  render();
+}
+
+function toggleAmSort(){
+  filterAmOnly=!filterAmOnly;
   render();
 }
 
@@ -1532,11 +1539,17 @@ function render(){
     peakSortBtn.classList.toggle('on',sortByPeak);
     peakSortBtn.textContent=`Peak is ${sortByPeak?'on':'off'}`;
   }
+  const amSortBtn=document.getElementById('am-sort-btn');
+  if(amSortBtn){
+    amSortBtn.classList.toggle('on',filterAmOnly);
+    amSortBtn.textContent=`AM is ${filterAmOnly?'on':'off'}`;
+  }
   const filtered=all
     .filter(t=>{
       const catOk=activeFilter==='all'||t.cat===activeFilter;
       const searchOk=!search||t.food.toLowerCase().includes(search);
-      return catOk&&searchOk;
+      const amOk=!filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
+      return catOk&&searchOk&&amOk;
     })
     .sort((a,b)=>{
       if(sortByAuc){
@@ -1670,6 +1683,7 @@ function render(){
   const colors=['#4a90c4','#e9a84c','#8b6abf','#27ae60','#e07a5f','#00838f','#c0392b','#f39c12','#1abc9c','#9b59b6'];
   const chartTests = all
     .filter(t => t.t0 && (activeFilter==='all' || t.cat===activeFilter))
+    .filter(t => !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim()))
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
   const datasets=chartTests.map((t,i)=>{
