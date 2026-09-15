@@ -104,6 +104,25 @@
     .spike-mild    { background:#fef9e7; color:#9a7d0a; }
     .spike-moderate{ background:#fef5e7; color:#9a6000; }
     .spike-high    { background:var(--red-pale); color:var(--red); }
+    .peak-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      padding:.22rem .62rem;
+      border-radius:10px;
+      border:1px solid transparent;
+      font-size:.78rem;
+      font-weight:700;
+      line-height:1;
+    }
+    .peak-pill .peak-val {
+      font-size:.92rem;
+      font-weight:800;
+      letter-spacing:.01em;
+    }
+    .peak-pill.safe { background:#e8f8ef; border-color:#bde5cb; color:#1e8449; }
+    .peak-pill.caution { background:#fff5e6; border-color:#f6d29a; color:#9a6000; }
+    .peak-pill.high { background:#fdeeee; border-color:#efb0a8; color:#c0392b; }
 
     .test-card-notes { padding:.4rem 1rem .7rem; font-size:.8rem; color:var(--muted); font-style:italic; }
 
@@ -1530,14 +1549,14 @@ function render(){
         const bySpike=spikeB-spikeA;
         if(bySpike!==0) return bySpike;
       } else if(sortByPeak){
-        const peakA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.peak ?? -1;
-        const peakB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.peak ?? -1;
-        const byPeak=peakB-peakA;
-        if(byPeak!==0) return byPeak;
         const spikeA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.spikeAbs ?? -1;
         const spikeB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.spikeAbs ?? -1;
         const bySpike=spikeB-spikeA;
         if(bySpike!==0) return bySpike;
+        const peakA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.peak ?? -1;
+        const peakB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.peak ?? -1;
+        const byPeak=peakB-peakA;
+        if(byPeak!==0) return byPeak;
       }
       const byFood=(a.food||'').localeCompare(b.food||'', undefined, { sensitivity:'base' });
       if(byFood!==0) return byFood;
@@ -1555,6 +1574,7 @@ function render(){
     grid.innerHTML=filtered.map(t=>{
       const a=spikeAnalysis(t.t0,t.t30,t.t60,t.t120,t.t180);
       const aucInfo=computeAUC(t.t0,t.t30,t.t60,t.t120,t.t180,t.returnBaselineMin);
+      const peakTone=a ? (a.peak<=140?'safe':a.peak<=160?'caution':'high') : 'safe';
       const catStyle=CAT_COLORS[t.cat]||'';
       const catLabel=CAT_LABELS[t.cat]||t.cat;
       const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
@@ -1589,6 +1609,9 @@ function render(){
         </div>
         ${a?`<div class="test-card-summary">
           <span class="spike-badge ${a.cls}">${a.rating}</span>
+          <span class="peak-pill ${peakTone}" title="Absolute peak glucose value">
+            Peak <span class="peak-val">${a.peak}</span> mg/dL
+          </span>
           <span style="font-size:.8rem;color:var(--muted)">Peak +${a.spikeAbs} mg/dL above baseline</span>
           ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
           ${a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
