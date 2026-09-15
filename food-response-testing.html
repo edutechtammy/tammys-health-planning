@@ -133,6 +133,10 @@
     .results-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem; }
 
     .test-card { background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:0 1px 8px rgba(45,106,79,.07); }
+    .test-card.baseline-outlier {
+      background:#fff7f7;
+      border-color:#f1caca;
+    }
     .test-card-header { padding:.7rem 1rem; display:flex; align-items:flex-start; gap:.6rem; border-bottom:1px solid var(--border); }
     .test-food { font-weight:700; font-size:.95rem; flex:1; }
     .test-date { font-size:.72rem; color:var(--muted); white-space:nowrap; margin-top:.1rem; }
@@ -800,6 +804,8 @@
     </div>
   </div>
 
+  <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph.</p>
+
   <!-- RESULTS GRID -->
   <div class="results-grid" id="results-grid"></div>
   <p class="empty-msg" id="empty-msg" style="display:none">No tests logged yet — add your first one above.</p>
@@ -856,7 +862,7 @@
             <th>Peak</th>
             <th>Spike ↑</th>
             <th>120-min Δ from baseline</th>
-            <th>AUC ↑ (mg·min/dL)</th>
+            <th>iAUC ↑ (mg·min/dL)</th>
             <th>Activity</th>
             <th>Rating</th>
           </tr>
@@ -1213,11 +1219,15 @@ function computeAUC(t0,t30,t60,t120,t180,returnBaselineMin){
 
   if(points.length<2) return null;
 
+  const has120=Number.isFinite(Number(t120));
+  const has180=Number.isFinite(Number(t180));
+  const lateRising180=has120 && has180 && Number(t180) > Number(t120);
+
   const normalizedReturnMinute = Number.isFinite(returnBaselineMin) && returnBaselineMin > 120
     ? Math.round(returnBaselineMin)
     : null;
   const lastTime = points[points.length - 1].time;
-  if(normalizedReturnMinute != null && normalizedReturnMinute > lastTime){
+  if(!lateRising180 && normalizedReturnMinute != null && normalizedReturnMinute > lastTime){
     points.push({ time:normalizedReturnMinute, delta:0 });
   }
 
@@ -1231,7 +1241,8 @@ function computeAUC(t0,t30,t60,t120,t180,returnBaselineMin){
   return {
     auc,
     endMinute:points[points.length - 1].time,
-    usedReturnMinute:normalizedReturnMinute != null && points[points.length - 1].time === normalizedReturnMinute
+    usedReturnMinute:!lateRising180 && normalizedReturnMinute != null && points[points.length - 1].time === normalizedReturnMinute,
+    status:lateRising180 ? 'incomplete' : 'complete'
   };
 }
 
@@ -1249,7 +1260,9 @@ function updatePreview(){
   const ret=a.ret120!=null?(a.ret120>=0?'+':'')+a.ret120+' mg/dL from baseline at 120 min':'120-min not yet entered';
   const ret180Text=a.ret180!=null?` &nbsp;·&nbsp; 180-min: ${a.ret180>=0?'+':''}${a.ret180} mg/dL from baseline`:' ';
   const aucText=aucInfo
-    ? ` &nbsp;·&nbsp; AUC↑: ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute} min)`
+    ? (aucInfo.status==='incomplete'
+      ? ' &nbsp;·&nbsp; iAUC↑: Incomplete / Unbounded (late rise at +180)'
+      : ` &nbsp;·&nbsp; iAUC↑: ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute} min)`)
     : '';
   el.innerHTML=`<strong>Peak: ${a.peak} mg/dL &nbsp;·&nbsp; Spike above baseline: +${a.spikeAbs} mg/dL &nbsp;·&nbsp; ${ret}${ret180Text}${aucText}</strong> &nbsp; <span style="font-weight:700">${a.rating}</span>`;
   const bg={flat:'#e8f8ef','spike-flat':'#e8f8ef','spike-mild':'#fefbe7','spike-moderate':'#fef5e7','spike-high':'#fdf0ed'};
@@ -1793,8 +1806,10 @@ function render(){
     })
     .sort((a,b)=>{
       if(sortByAuc){
-        const aucA=computeAUC(a.t0,a.t30,a.t60,a.t120,a.t180,a.returnBaselineMin)?.auc ?? -1;
-        const aucB=computeAUC(b.t0,b.t30,b.t60,b.t120,b.t180,b.returnBaselineMin)?.auc ?? -1;
+        const aucAInfo=computeAUC(a.t0,a.t30,a.t60,a.t120,a.t180,a.returnBaselineMin);
+        const aucBInfo=computeAUC(b.t0,b.t30,b.t60,b.t120,b.t180,b.returnBaselineMin);
+        const aucA=aucAInfo && aucAInfo.status!=='incomplete' ? aucAInfo.auc : -1;
+        const aucB=aucBInfo && aucBInfo.status!=='incomplete' ? aucBInfo.auc : -1;
         const byAuc=aucB-aucA;
         if(byAuc!==0) return byAuc;
         const spikeA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.spikeAbs ?? -1;
@@ -1874,8 +1889,10 @@ function render(){
         t.walk==='yes'?'🚶 Walk':'',
         t.activity ? activityLabel[t.activity] || '🧭 Activity' : ''
       ].filter(Boolean).join(' · ');
+      const baselineValue=Number(t.t0);
+      const baselineOutlierClass=(baselineValue > 120 || baselineValue <= 75) ? ' baseline-outlier' : '';
       return `
-      <div class="test-card">
+      <div class="test-card${baselineOutlierClass}">
         <div class="test-card-header">
           <div style="flex:1">
             <div class="test-food">${t.food}</div>
@@ -1901,7 +1918,7 @@ function render(){
           ${analysisBits}
           ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
           ${a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
-          ${aucInfo?`<span style="font-size:.78rem;color:var(--muted)">AUC↑ ${Math.round(aucInfo.auc)} mg·min/dL (to +${aucInfo.endMinute})</span>`:''}
+          ${aucInfo?`<span style="font-size:.78rem;color:var(--muted)">${aucInfo.status==='incomplete'?'iAUC↑ Incomplete / Unbounded':'iAUC↑ '+Math.round(aucInfo.auc)+' mg·min/dL (to +'+aucInfo.endMinute+')'}</span>`:''}
           ${metricBits}
           ${contextBits?`<span style="font-size:.75rem;color:var(--muted);margin-left:auto">${contextBits}</span>`:''}
         </div>`:''}
@@ -1925,7 +1942,9 @@ function render(){
     .map(t=>({...t,a:spikeAnalysis(t.t0,t.t30,t.t60,t.t120,t.t180),aucInfo:computeAUC(t.t0,t.t30,t.t60,t.t120,t.t180,t.returnBaselineMin)}))
     .filter(t=>t.a)
     .sort((a,b)=>{
-      const byAuc=(b.aucInfo?.auc ?? 0) - (a.aucInfo?.auc ?? 0);
+      const aucA=a.aucInfo && a.aucInfo.status!=='incomplete' ? a.aucInfo.auc : -1;
+      const aucB=b.aucInfo && b.aucInfo.status!=='incomplete' ? b.aucInfo.auc : -1;
+      const byAuc=aucB-aucA;
       if(byAuc!==0) return byAuc;
       return (b.a.spikeAbs ?? 0) - (a.a.spikeAbs ?? 0);
     });
@@ -1951,7 +1970,7 @@ function render(){
       <td style="font-weight:700">${t.a.peak}</td>
       <td class="${worst?'warn':best?'best':''}" style="font-weight:700">+${t.a.spikeAbs}</td>
       <td style="color:${t.a.ret120!=null&&Math.abs(t.a.ret120)<=20?'#27ae60':'#e67e22'}">${t.a.ret120!=null?(t.a.ret120>=0?'+':'')+t.a.ret120+' mg/dL':'—'}</td>
-      <td style="font-weight:700">${t.aucInfo?`${Math.round(t.aucInfo.auc)} <span style="font-weight:500;color:var(--muted)">(+${t.aucInfo.endMinute})</span>`:'—'}</td>
+      <td style="font-weight:700">${t.aucInfo?(t.aucInfo.status==='incomplete'?'Incomplete / Unbounded':`${Math.round(t.aucInfo.auc)} <span style="font-weight:500;color:var(--muted)">(+${t.aucInfo.endMinute})</span>`):'—'}</td>
       <td style="font-size:.8rem;white-space:nowrap">${activityText}</td>
       <td><span class="spike-badge ${t.a.cls}">${t.a.rating}</span></td>
     </tr>`;
@@ -1961,6 +1980,8 @@ function render(){
   const colors=['#4a90c4','#e9a84c','#8b6abf','#27ae60','#e07a5f','#00838f','#c0392b','#f39c12','#1abc9c','#9b59b6'];
   const chartTests = all
     .filter(t => t.t0 && (activeFilter==='all' || t.cat===activeFilter))
+    .filter(t => !search || String(t.food || '').toLowerCase().includes(search))
+    .filter(t => Number(t.t0) > 75 && Number(t.t0) <= 120)
     .filter(t => !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim()))
     .filter(t => !filterComboOnly || hasComboThreshold(t))
     .filter(t => !sortByLongTail || getLongTailStatus(t)==='yes')
