@@ -739,6 +739,7 @@
       <button class="btn-sort-auc" id="carb-sort-btn" type="button" onclick="toggleCarbSort()">Net carbs is off</button>
       <button class="btn-sort-auc" id="fat-sort-btn" type="button" onclick="toggleFatSort()">Sat fat is off</button>
       <button class="btn-sort-auc" id="combo-sort-btn" type="button" onclick="toggleComboFilter()">5g/15g combo is off</button>
+      <button class="btn-sort-auc" id="longtail-sort-btn" type="button" onclick="toggleLongTailSort()">Long tail is off</button>
     </div>
   </div>
 
@@ -1202,6 +1203,7 @@ let sortByAuc=false;
 let sortByPeak=false;
 let sortByCarbs=false;
 let sortByFat=false;
+let sortByLongTail=false;
 let filterAmOnly=false;
 let filterComboOnly=false;
 function setFilter(cat){
@@ -1212,13 +1214,13 @@ function setFilter(cat){
 
 function toggleAucSort(){
   sortByAuc=!sortByAuc;
-  if(sortByAuc){ sortByPeak=false; sortByCarbs=false; sortByFat=false; }
+  if(sortByAuc){ sortByPeak=false; sortByCarbs=false; sortByFat=false; sortByLongTail=false; }
   render();
 }
 
 function togglePeakSort(){
   sortByPeak=!sortByPeak;
-  if(sortByPeak){ sortByAuc=false; sortByCarbs=false; sortByFat=false; }
+  if(sortByPeak){ sortByAuc=false; sortByCarbs=false; sortByFat=false; sortByLongTail=false; }
   render();
 }
 
@@ -1229,13 +1231,19 @@ function toggleAmSort(){
 
 function toggleCarbSort(){
   sortByCarbs=!sortByCarbs;
-  if(sortByCarbs){ sortByAuc=false; sortByPeak=false; sortByFat=false; }
+  if(sortByCarbs){ sortByAuc=false; sortByPeak=false; sortByFat=false; sortByLongTail=false; }
   render();
 }
 
 function toggleFatSort(){
   sortByFat=!sortByFat;
-  if(sortByFat){ sortByAuc=false; sortByPeak=false; sortByCarbs=false; }
+  if(sortByFat){ sortByAuc=false; sortByPeak=false; sortByCarbs=false; sortByLongTail=false; }
+  render();
+}
+
+function toggleLongTailSort(){
+  sortByLongTail=!sortByLongTail;
+  if(sortByLongTail){ sortByAuc=false; sortByPeak=false; sortByCarbs=false; sortByFat=false; }
   render();
 }
 
@@ -1648,6 +1656,11 @@ function render(){
     fatSortBtn.classList.toggle('on',sortByFat);
     fatSortBtn.textContent=`Sat fat is ${sortByFat?'on':'off'}`;
   }
+  const longTailSortBtn=document.getElementById('longtail-sort-btn');
+  if(longTailSortBtn){
+    longTailSortBtn.classList.toggle('on',sortByLongTail);
+    longTailSortBtn.textContent=`Long tail is ${sortByLongTail?'on':'off'}`;
+  }
   const filtered=all
     .filter(t=>{
       const catOk=activeFilter==='all'||t.cat===activeFilter;
@@ -1685,6 +1698,14 @@ function render(){
         const fatB=Number(b.satFat);
         const byFat=((Number.isFinite(fatB)?fatB:-1) - (Number.isFinite(fatA)?fatA:-1));
         if(byFat!==0) return byFat;
+      } else if(sortByLongTail){
+        const tailRank = status => status==='yes' ? 2 : status==='no' ? 1 : 0;
+        const byLongTail = tailRank(getLongTailStatus(b)) - tailRank(getLongTailStatus(a));
+        if(byLongTail!==0) return byLongTail;
+        const spikeA=spikeAnalysis(a.t0,a.t30,a.t60,a.t120,a.t180)?.spikeAbs ?? -1;
+        const spikeB=spikeAnalysis(b.t0,b.t30,b.t60,b.t120,b.t180)?.spikeAbs ?? -1;
+        const bySpike=spikeB-spikeA;
+        if(bySpike!==0) return bySpike;
       }
       const byFood=(a.food||'').localeCompare(b.food||'', undefined, { sensitivity:'base' });
       if(byFood!==0) return byFood;
@@ -1819,6 +1840,7 @@ function render(){
   const chartTests = all
     .filter(t => t.t0 && (activeFilter==='all' || t.cat===activeFilter))
     .filter(t => !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim()))
+    .filter(t => !sortByLongTail || getLongTailStatus(t)==='yes')
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
   const datasets=chartTests.map((t,i)=>{
