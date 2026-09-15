@@ -531,7 +531,7 @@
     <p style="margin:-.45rem 0 .9rem;font-size:.82rem;color:var(--muted)"><strong>Food test title format:</strong> food - time; source; add-ins</p>
     <div class="form-grid wide">
       <div class="field">
-        <label>Date</label>
+        <label>Date (optional)</label>
         <input type="date" id="f-date" />
       </div>
       <div class="field">
@@ -936,7 +936,8 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const notes = String(read(['notes', 'observations', 'notesobservations'], idx.notes) || '').trim();
   const id = String(read(['id', 'entryid'], -1) || '').trim();
 
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(date) || !food || t0 == null){
+  const hasValidDate = !date || /^\d{4}-\d{2}-\d{2}$/.test(date);
+  if(!hasValidDate || !food || t0 == null){
     return null;
   }
 
@@ -1204,7 +1205,11 @@ function saveTest(){
   const walk   = document.getElementById('f-walk').value||null;
   const activity = document.getElementById('f-activity').value||null;
   const notes  = document.getElementById('f-notes').value.trim();
-  if(!date||!food){ alert('Please enter a date and food name.'); return; }
+  if(!food){ alert('Please enter a food name.'); return; }
+  if(date && !/^\d{4}-\d{2}-\d{2}$/.test(date)){
+    alert('If provided, date must be in YYYY-MM-DD format.');
+    return;
+  }
   if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
   if(!baselineTime){ alert('Please enter baseline time of day in AM/PM format (example: 7:10 AM).'); return; }
   document.getElementById('f-baseline-time').value=baselineTime;
