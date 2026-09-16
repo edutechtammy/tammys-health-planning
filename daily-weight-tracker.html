@@ -332,7 +332,14 @@
     <div class="chart-wrap">
       <canvas id="weight-chart"></canvas>
     </div>
-    <p class="chart-helper">Target line is fixed at 160 lbs. A 7-day average smooths daily noise, and the y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
+    <div class="field" style="max-width: 260px; margin-top: .75rem;">
+      <label for="gap-threshold-days">Compress gaps longer than</label>
+      <div style="display: flex; align-items: center; gap: .6rem;">
+        <input type="number" id="gap-threshold-days" min="7" max="180" step="1" value="30" style="flex: 1;" />
+        <span>days</span>
+      </div>
+    </div>
+    <p class="chart-helper">Target line is fixed at 160 lbs. A 7-day average smooths daily noise, and the y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
   </section>
 
   <section class="card">
@@ -393,9 +400,11 @@
   const STORAGE_KEY = 'dailyWeightEntries_v1';
   const TARGET_WEIGHT = 160;
   const START_WEIGHT_CAP = 230;
+  const DEFAULT_GAP_COMPRESSION_DAYS = 30;
   let entries = [];
   let weightChart = null;
 
+  const gapThresholdInput = document.getElementById('gap-threshold-days');
   const dateInput = document.getElementById('w-date');
   const weightInput = document.getElementById('w-weight');
   const waistInput = document.getElementById('w-waist');
@@ -580,6 +589,44 @@
     });
   }
 
+  function getGapCompressionDays() {
+    const value = Number(gapThresholdInput.value);
+    if (!Number.isFinite(value) || value < 7) {
+      return DEFAULT_GAP_COMPRESSION_DAYS;
+    }
+    return Math.min(Math.max(Math.round(value), 7), 180);
+  }
+
+  function buildCompressedWeightPoints(points, maxGapDays = DEFAULT_GAP_COMPRESSION_DAYS) {
+    if (!points.length) {
+      return [];
+    }
+
+    const maxGapMs = maxGapDays * 24 * 60 * 60 * 1000;
+    const compressed = [];
+    let cursor = 0;
+
+    for (let i = 0; i < points.length; i += 1) {
+      const point = points[i];
+      const previous = i === 0 ? null : points[i - 1];
+      const gapMs = previous ? point.x - previous.x : 0;
+
+      if (previous && gapMs > maxGapMs) {
+        cursor += maxGapMs;
+      } else if (previous) {
+        cursor += gapMs;
+      }
+
+      compressed.push({
+        x: cursor,
+        y: point.y,
+        originalDate: point.originalDate || point.date || null
+      });
+    }
+
+    return compressed;
+  }
+
   function buildMovingAveragePoints(points, windowSize) {
     const movingPoints = [];
     let rollingSum = 0;
@@ -615,10 +662,14 @@
       return;
     }
 
-    const weightPoints = chrono.map(item => ({
+    const rawWeightPoints = chrono.map(item => ({
       x: dateToStamp(item.date),
-      y: Number(item.weight)
+      y: Number(item.weight),
+      originalDate: item.date
     }));
+
+    const weightPoints = buildCompressedWeightPoints(rawWeightPoints, getGapCompressionDays());
+    const dateLookup = new Map(weightPoints.map(point => [Math.round(point.x), point.originalDate]));
 
     const allWeights = weightPoints.map(point => point.y);
     const minWeight = Math.min(...allWeights);
@@ -691,7 +742,9 @@
                 if (!context.length) {
                   return '';
                 }
-                return stampToDateLabel(context[0].parsed.x);
+                const valueX = Math.round(context[0].parsed.x);
+                const dateForX = dateLookup.get(valueX);
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
               },
               label(context) {
                 if (context.parsed.y === null) {
@@ -710,7 +763,8 @@
               autoSkip: true,
               maxTicksLimit: 12,
               callback(value) {
-                return stampToDateLabel(value);
+                const dateForX = dateLookup.get(Math.round(value));
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
               }
             },
             grid: { color: 'rgba(183,221,196,.45)' }
@@ -972,6 +1026,13 @@
 
     reader.readAsText(file);
   }
+
+  gapThresholdInput.addEventListener('input', () => {
+    renderEntries();
+  });
+  gapThresholdInput.addEventListener('change', () => {
+    renderEntries();
+  });
 
   document.getElementById('add-entry').addEventListener('click', addEntry);
   document.getElementById('clear-form').addEventListener('click', clearForm);

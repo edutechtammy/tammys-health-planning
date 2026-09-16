@@ -1,0 +1,42 @@
+{
+  "exportedAt": "2026-09-16T15:25:04.717Z",
+  "app": "Daily Weight Tracker",
+  "entryCount": 5,
+  "entries": [
+    {
+      "date": "2026-09-16",
+      "weight": 224,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-16T15:14:45.709Z"
+    },
+    {
+      "date": "2026-09-14",
+      "weight": 225.8,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-14T12:12:51.228Z"
+    },
+    {
+      "date": "2026-09-08",
+      "weight": 226,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-08T12:21:56.761Z"
+    },
+    {
+      "date": "2026-09-06",
+      "weight": 227.2,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-06T12:48:41.640Z"
+    },
+    {
+      "date": "2026-09-04",
+      "weight": 229.4,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-04T15:57:11.890Z"
+    }
+  ]
+}
