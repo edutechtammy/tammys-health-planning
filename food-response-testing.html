@@ -60,6 +60,17 @@
     }
     .field textarea { resize:vertical; min-height:56px; }
     .field input:focus, .field select:focus, .field textarea:focus { outline:2px solid var(--green-mid); background:#fff; }
+    .field-hint-warning {
+      margin-top:.15rem;
+      font-size:.76rem;
+      font-weight:700;
+      color:#b03a2e;
+      background:#fdeeee;
+      border:1px solid #efb0a8;
+      border-radius:8px;
+      padding:.42rem .55rem;
+      line-height:1.35;
+    }
 
     .spike-preview { grid-column:1/-1; background:var(--green-pale); border-radius:8px; padding:.6rem 1rem; font-size:.85rem; color:var(--green-dark); min-height:36px; border:1px solid var(--border); }
 
@@ -141,6 +152,10 @@
       background:#f5fff7;
       border-color:#cfead5;
     }
+      .test-card.milk-pair-unfriendly {
+        background:#fff5f2;
+        border-color:#f1c8be;
+      }
     .test-card-header { padding:.7rem 1rem; display:flex; align-items:flex-start; gap:.6rem; border-bottom:1px solid var(--border); }
     .test-food { font-weight:700; font-size:.95rem; flex:1; }
     .test-date { font-size:.72rem; color:var(--muted); white-space:nowrap; margin-top:.1rem; }
@@ -673,6 +688,7 @@
       <div class="field">
         <label>Baseline (T=0, fasting)</label>
         <input type="number" id="f-t0" step="1" min="0" placeholder="e.g. 118" oninput="updatePreview()" />
+        <div class="field-hint-warning" id="baseline-graph-warning" style="display:none">This baseline can still be saved, but it will not appear in the graph because the graph only includes baseline values above 75 and no higher than 120.</div>
       </div>
       <div class="field">
         <label>Baseline time of day (AM/PM)</label>
@@ -829,7 +845,7 @@
     </div>
   </div>
 
-  <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph. Soft green cards mark foods or serving sizes that look compatible with pairing alongside a serving of <strong>skim milk</strong> based on the current net carb / saturated fat thresholds.</p>
+  <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph. Soft green cards mark foods or serving sizes that still fit alongside a serving of <strong>skim milk</strong> inside the current 5g sat fat / 15g net carb limits. Soft red cards mark foods that would push that pairing outside the limit. The skim-milk tint does not remove entries from the graph.</p>
 
   <!-- RESULTS GRID -->
   <div class="results-grid" id="results-grid"></div>
@@ -1279,6 +1295,10 @@ function updatePreview(){
   const t180=parseFloat(document.getElementById('f-t180').value)||null;
   const returnBaselineMin=parseFloat(document.getElementById('f-ret-min').value)||null;
   const el=document.getElementById('spike-preview');
+  const baselineWarning=document.getElementById('baseline-graph-warning');
+  if(baselineWarning){
+    baselineWarning.style.display=(t0!=null && !isBaselineEligibleForGraph(t0)) ? 'block' : 'none';
+  }
   const a=spikeAnalysis(t0,t30,t60,t120,t180);
   if(!a){ el.textContent='Enter baseline + at least one reading to see spike analysis…'; el.style.background=''; return; }
   const aucInfo=computeAUC(t0,t30,t60,t120,t180,returnBaselineMin);
@@ -1304,6 +1324,13 @@ let filterAmOnly=false;
 let filterComboOnly=false;
 let longTailMinSpikeAboveBaseline=15;
 let longTailMin180Delta=10;
+const SKIM_MILK_PAIRING_NET_CARBS=13;
+const SKIM_MILK_PAIRING_SAT_FAT=0;
+
+function isBaselineEligibleForGraph(value){
+  const baseline=Number(value);
+  return Number.isFinite(baseline) && baseline > 75 && baseline <= 120;
+}
 
 function clampThreshold(value, fallback){
   const n=Number(value);
@@ -1480,6 +1507,10 @@ function saveTest(){
     return;
   }
   if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
+  if(!isBaselineEligibleForGraph(t0)){
+    const keepSaving=confirm('This baseline is outside the graph range (it must be above 75 and no higher than 120). The test can still be saved, but it will not appear in the graph. Save anyway?');
+    if(!keepSaving) return;
+  }
   if(!baselineTime){ alert('Please enter baseline time of day in AM/PM format (example: 7:10 AM).'); return; }
   document.getElementById('f-baseline-time').value=baselineTime;
   if(returnBaselineRaw != null && returnBaselineRaw <= 120){
@@ -1487,12 +1518,16 @@ function saveTest(){
     return;
   }
   let tests=loadTests();
+  let savedId=editingId;
   if(editingId){
+    delete curveVisibilityOverrides[editingId];
     tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,netCarbs,satFat,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
   } else {
     const id=Date.now().toString();
+    savedId=id;
     tests.push({id,date,food,cat,portion,netCarbs,satFat,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
   }
+  if(savedId){ delete curveVisibilityOverrides[savedId]; }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
   saveTests(tests);
   const msg=document.getElementById('save-msg');
@@ -1727,6 +1762,15 @@ function renderCurveLegendList(){
     return netCarbs != null && satFat != null && netCarbs >= 15 && satFat >= 5;
   }
 
+  function getMilkPairStatus(test){
+    const netCarbs=getMetricValue(test,'netCarbs');
+    const satFat=getMetricValue(test,'satFat');
+    if(netCarbs == null || satFat == null) return 'unknown';
+    const withinNetCarbs=(netCarbs + SKIM_MILK_PAIRING_NET_CARBS) <= 15;
+    const withinSatFat=(satFat + SKIM_MILK_PAIRING_SAT_FAT) <= 5;
+    return withinNetCarbs && withinSatFat ? 'friendly' : 'unfriendly';
+  }
+
   function getLongTailStatus(test){
     if(!test || !test.t0) return 'unknown';
     const t0=Number(test.t0);
@@ -1915,11 +1959,18 @@ function render(){
         t.activity ? activityLabel[t.activity] || '🧭 Activity' : ''
       ].filter(Boolean).join(' · ');
       const baselineValue=Number(t.t0);
-      const satFatValue=Number(t.satFat);
-      const netCarbValue=Number(t.netCarbs);
-      const baselineOutlier=(baselineValue > 120 || baselineValue <= 75);
-      const milkPairFriendly=(Number.isFinite(satFatValue) && satFatValue <= 5) || (Number.isFinite(netCarbValue) && netCarbValue <= 2);
-      const cardClass=baselineOutlier ? ' baseline-outlier' : (milkPairFriendly ? ' milk-pair-friendly' : '');
+      const testId=t.id || '';
+      const baselineOutlier=!isBaselineEligibleForGraph(baselineValue);
+      const milkPairStatus=getMilkPairStatus(t);
+      const hiddenInGraph=testId ? curveVisibilityOverrides[testId]===false : false;
+      const graphStatusNote=baselineOutlier
+        ? '<span style="font-size:.74rem;font-weight:700;color:#b03a2e;background:#fdeeee;border:1px solid #efb0a8;border-radius:999px;padding:.15rem .5rem;white-space:nowrap">Excluded from graph: baseline outside 76-120</span>'
+        : (hiddenInGraph
+          ? '<span style="font-size:.74rem;font-weight:700;color:#7d6608;background:#fff7da;border:1px solid #f0d080;border-radius:999px;padding:.15rem .5rem;white-space:nowrap">Hidden in graph</span>'
+          : '');
+      const cardClass=baselineOutlier
+        ? ' baseline-outlier'
+        : (milkPairStatus==='friendly' ? ' milk-pair-friendly' : (milkPairStatus==='unfriendly' ? ' milk-pair-unfriendly' : ''));
       return `
       <div class="test-card${cardClass}">
         <div class="test-card-header">
@@ -1929,6 +1980,7 @@ function render(){
             <div class="test-date">${formatDate(t.date)}${t.baselineTime ? ` · Baseline time ${t.baselineTime}` : ''}</div>
           </div>
           <span class="cat-pill" style="background:${catStyle.split(';')[0].replace('background:','')};${catStyle.split(';')[1]||''}">${catLabel}</span>
+          ${graphStatusNote}
           ${(!t.t30||!t.t60||!t.t120)?`<span style="font-size:.68rem;font-weight:700;background:#fff8e1;color:#7a5c00;border:1px solid #f0d080;border-radius:20px;padding:.12rem .5rem;margin-left:.3rem;white-space:nowrap">⏳ In progress</span>`:''}
         </div>
         <div class="test-card-readings">
@@ -2010,7 +2062,7 @@ function render(){
   const chartTests = all
     .filter(t => t.t0 && (activeFilter==='all' || t.cat===activeFilter))
     .filter(t => !search || String(t.food || '').toLowerCase().includes(search))
-    .filter(t => Number(t.t0) > 75 && Number(t.t0) <= 120)
+    .filter(t => isBaselineEligibleForGraph(t.t0))
     .filter(t => !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim()))
     .filter(t => !filterComboOnly || hasComboThreshold(t))
     .filter(t => !sortByLongTail || getLongTailStatus(t)==='yes')
