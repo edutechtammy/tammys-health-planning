@@ -373,6 +373,40 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE 62 — ALMOND FLOUR WAFFLES
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="celiac dp" data-oxalate="moderate">
+      <div class="recipe-card-img">🧇🥛🌿</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Almond Flour Waffles</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 10 min prep + 12-15 min cook</span>
+          <span>🧇 About 6 waffles</span>
+          <span>🌡 Waffle iron (no oven)</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+        </div>
+        <p class="recipe-card-ingredients">almond flour ⋅ monkfruit + allulose blend ⋅ baking powder ⋅ eggs ⋅ milk ⋅ almond oil ⋅ vanilla extract</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~7g/waffle</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/waffle</span>
+        </div>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-mod"></span>
+          <span style="color:#b45309;font-weight:700;font-size:.75rem">Moderate GI</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— sweetened batter; portion and test your response</span>
+        </div>
+        <p class="recipe-card-desc">A gluten-free waffle batter using almond flour and monkfruit-allulose sweetener, made for quick stovetop-style cooking when turning on a full oven is not practical in peak summer heat. Uses a lighter almond oil ratio to keep texture crisp outside and tender without feeling overly rich.</p>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-almond-flour-waffles.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE SET 56-60 — SOUS VIDE OVERNIGHT MEAL PREP COLLECTION
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
@@ -2396,6 +2430,7 @@ const PANTRY_GROUPS = {
     label: '🫙 Pantry, Shelf & Produce',
     items: [
       'ACV','aleppo pepper','allspice','almond flour','allulose','arrowroot starch','artichoke',
+      'almond oil',
       'avocado','baking powder','balsamic vinegar','basil','bay leaf','black beans','black pepper','blueberries',
       'carrot','cassava flour','cheddar','monkfruit','monkfruit + allulose blend',
       'Ceylon cinnamon','chamomile','chili powder','citric acid','cocoa','coconut aminos',
@@ -2454,6 +2489,7 @@ const PANTRY_NORM = {
   'monkfruit allulose':  'monkfruit + allulose blend',
   'allulose blend':      'monkfruit + allulose blend',
   'allulose':            'monkfruit + allulose blend',
+  'monk-allulose one to one sugar replacement': 'monkfruit + allulose blend',
   'dry chilies':         'dried chili',
   'dried chilies':       'dried chili',
   'dry chili':           'dried chili',
@@ -2522,6 +2558,7 @@ let activeRecipeSearch = '';
 
 const EXPLICIT_CATEGORY_TITLES = {
   breakfast: [
+    'Almond Flour Waffles',
     'Sugar Shift Probiotic Yogurt',
     'Perfect Hard Boiled Eggs — No Grey Ring',
     'Rice Paper Bagels',
@@ -2533,6 +2570,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Sous Vide Overnight Meal Prep Collection — 5 Recipes'
   ],
   'bread-baked': [
+    'Almond Flour Waffles',
     'Olive & Cheddar Cheese Bread (GF Yeasted Mini Loaf)',
     'Cassava Flour Pita Bread (GF) — Blood Sugar Test Item',
     'Rosemary EVOO Cassava Crackers — Low-Oxalate Almond Cracker Replacement',
