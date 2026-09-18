@@ -2680,6 +2680,50 @@ const EXPLICIT_CATEGORY_TITLES = {
   ],
 };
 
+const CARD_MACROS = {
+  'Small-Batch Almond Oil Mayo': { net: '~0g/serving', sat: '~1g/serving' },
+  'Sous Vide Overnight Meal Prep Collection — 5 Recipes': { net: 'varies by recipe', sat: 'varies by recipe' },
+  'Marinated Olive Salad': { net: '~3g/serving', sat: '~1g/serving' },
+  'Tzatziki — Greek Yogurt, Cucumber & Garlic Dip': { net: '~2g/serving', sat: '~2g/serving' },
+  'Mediterranean & Classic EVOO Dressings — Week 1 Set': { net: '~1-3g/serving', sat: '~2g/serving' },
+  'ACV Double-Duty Dressings — Week 2 Set': { net: '~1-3g/serving', sat: '~2g/serving' },
+  'Fresh Herb EVOO Dressings — Week 3 Set ⚠️ Short Shelf Life': { net: '~1-2g/serving', sat: '~2g/serving' },
+  'Bold & Savory EVOO Dressings — Week 4 Set': { net: '~1-3g/serving', sat: '~2g/serving' },
+  'Creamy EVOO Dressings — Week 5 Set ⚠️ Short Shelf Life': { net: '~2-4g/serving', sat: '~2-3g/serving' },
+  'Cultured Butter — 1 L Mason Jar Shake Method': { net: '~0g/serving', sat: '~7g/serving' },
+  'Rice Paper Potstickers': { net: '~10g/serving', sat: '~2g/serving' },
+  'Rice Paper Muffin Pouches': { net: '~8g/serving', sat: '~2g/serving' },
+  'Rice Paper Bagels': { net: '~5g/serving', sat: '~1g/serving' },
+  'Sugar Shift Probiotic Yogurt': { net: '~4g/serving', sat: '~3g/serving' },
+  'Therapeutic Teas — Rooibos, Chamomile, Peppermint, Ginger, Hibiscus': { net: '~0g/serving', sat: '~0g/serving' },
+  'Rosemary EVOO Cassava Crackers — Low-Oxalate Almond Cracker Replacement': { net: '~9g/serving', sat: '~1g/serving' },
+  'Purple Sauerkraut — Lacto-Fermented Red Cabbage': { net: '~2g/serving', sat: '~0g/serving' },
+  'Roasted Broccoli with Bone Broth Mozzarella Cheese Sauce': { net: '~8g/serving', sat: '~5g/serving' },
+  'Afternoon MCT Coffee — Decaf Arabica, Ceylon Cinnamon, MCT Oil': { net: '~2g/serving', sat: '~2g/serving' },
+  'Roasted Whole Artichoke with Garlic EVOO Dipping Sauce': { net: '~8g/serving', sat: '~1g/serving' },
+  '30-Minute Homemade Mozzarella — Marinated & Baked Sticks (GF)': { net: '~1g/serving', sat: '~4g/serving' },
+  'Sugar Shift Labneh (Strained Yogurt Cheese)': { net: '~2g/serving', sat: '~3g/serving' },
+  'Kidney-Safe Trail Mix (GF)': { net: '~9g/serving', sat: '~2g/serving' },
+  'Herb-Crusted Baked Chicken Breast (GF)': { net: '~3g/serving', sat: '~2g/serving' },
+  'Ginger-Garlic Chicken Stir-Fry with Cabbage & Mushrooms': { net: '~6g/serving', sat: '~2g/serving' },
+  'Kefir-Marinated Chicken Breast': { net: '~3g/serving', sat: '~2g/serving' },
+  'Bulk Brownie Base Mix for GF Flour Testing': { net: 'varies by test batch', sat: 'varies by test batch' },
+  'Healthier Brownie Base Mix — Monkfruit + Allulose & Almond Flour': { net: 'varies by test batch', sat: 'varies by test batch' },
+  'Turkish Çılbır — Poached Eggs on Garlic Yogurt': { net: '~4g/serving', sat: '~6g/serving' },
+  'Caprese Hasselback Chicken': { net: '~5g/serving', sat: '~4g/serving' },
+  'Creamy Tuscan Chicken': { net: '~6g/serving', sat: '~7g/serving' },
+  'Golden Paste Roasted Chicken Thighs': { net: '~2g/serving', sat: '~6g/serving' },
+  'Lemon-Garlic Pan Chicken with Bone Broth Pan Sauce': { net: '~2g/serving', sat: '~2g/serving' },
+  'Roasted Asparagus — EVOO, Garlic & Lemon': { net: '~4g/serving', sat: '~1g/serving' },
+  'Olive & Cheddar Cheese Bread (GF Yeasted Mini Loaf)': { net: '~12g/serving', sat: '~4g/serving' },
+  'Guacamole — Classic with Garlic & Lemon': { net: '~5g/serving', sat: '~2g/serving' },
+  'Golden Paste Salmon — Turmeric, Black Pepper & EVOO': { net: '~1g/serving', sat: '~4g/serving' },
+  'Kefir Overnight Grain Porridge': { net: '~18g/serving', sat: '~3g/serving' },
+  'Bone Broth Soup Base — Master Recipe': { net: '~1g/serving', sat: '~0g/serving' },
+  'Shakshuka — Eggs in Spiced Tomato-Pepper Sauce': { net: '~9g/serving', sat: '~5g/serving' },
+  'Ginger-Garlic Millet Bowl with Golden Paste': { net: '~14g/serving', sat: '~3g/serving' }
+};
+
 function normIng(raw) {
   const lc = raw.trim().toLowerCase();
   return PANTRY_NORM[lc] || lc;
@@ -2832,6 +2876,59 @@ function getSearchMatch(card) {
   return haystack.includes(activeRecipeSearch);
 }
 
+function addMissingMacroTriggers() {
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    const title = card.querySelector('.recipe-card-title')?.textContent?.trim() || '';
+    if (!title || title === 'Ceylon Cinnamon and Psyllium Mints') return;
+    if (card.querySelector('.recipe-card-trigger')) return;
+
+    const macro = CARD_MACROS[title] || { net: 'see full recipe', sat: 'see full recipe' };
+    const trigger = document.createElement('div');
+    trigger.className = 'recipe-card-trigger';
+    trigger.innerHTML =
+      '<span class="trigger-pill"><strong>Net carbs:</strong> ' + macro.net + '</span>' +
+      '<span class="trigger-pill warning"><strong>Saturated fat:</strong> ' + macro.sat + '</span>';
+
+    const body = card.querySelector('.recipe-card-body');
+    const insertBefore = card.querySelector('.glucose-row') || card.querySelector('.glucose-strip') || card.querySelector('.recipe-card-desc');
+    if (body && insertBefore && insertBefore.parentNode === body) {
+      body.insertBefore(trigger, insertBefore);
+    } else if (body) {
+      body.appendChild(trigger);
+    }
+  });
+}
+
+function parseSatFatGrams(text) {
+  const match = (text || '').match(/([0-9]+(?:\.[0-9]+)?)/);
+  return match ? Number(match[1]) : NaN;
+}
+
+function addWaterOnlyWarnings() {
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    if (card.querySelector('.drink-warning')) return;
+
+    const satPill = Array.from(card.querySelectorAll('.trigger-pill.warning'))
+      .find(pill => /saturated fat/i.test(pill.textContent || ''));
+    if (!satPill) return;
+
+    const satGrams = parseSatFatGrams(satPill.textContent || '');
+    if (!Number.isFinite(satGrams) || satGrams <= 5) return;
+
+    const warning = document.createElement('div');
+    warning.className = 'drink-warning';
+    warning.textContent = 'WATER ONLY';
+
+    const trigger = card.querySelector('.recipe-card-trigger');
+    const body = card.querySelector('.recipe-card-body');
+    if (trigger && trigger.parentNode) {
+      trigger.insertAdjacentElement('afterend', warning);
+    } else if (body) {
+      body.appendChild(warning);
+    }
+  });
+}
+
 function applyAllFilters() {
   let visible = 0, total = 0;
   document.querySelectorAll('.recipe-card').forEach(card => {
@@ -2926,6 +3023,8 @@ function initMealboardToggles() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initMealboardToggles();
+  addMissingMacroTriggers();
+  addWaterOnlyWarnings();
   loadPantry();
   buildPantryPanel();
   applyAllFilters();
