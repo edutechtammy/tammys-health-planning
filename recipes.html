@@ -112,6 +112,10 @@
     /* SEARCH PANEL */
     .search-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; padding: .9rem 1.2rem; }
     .search-label { display: block; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .45rem; }
+    .category-row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; margin-bottom: .85rem; }
+    .category-label { font-size: .76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .category-select { min-width: 220px; border: 1.5px solid var(--border); border-radius: 10px; padding: .68rem .85rem; font-size: .9rem; color: var(--text); background: #fff; }
+    .category-select:focus { outline: none; border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(64,145,108,.15); }
     .search-row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
     .search-input {
       flex: 1;
@@ -262,6 +266,29 @@
   </div>
 
   <div class="search-panel">
+    <div class="category-row">
+      <label class="category-label" for="recipe-category">Category</label>
+      <select id="recipe-category" class="category-select" onchange="updateRecipeCategory(this.value)">
+        <option value="all">All categories</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="sous-vide">Sous Vide</option>
+        <option value="beef">Beef</option>
+        <option value="chicken">Chicken</option>
+        <option value="seafood">Seafood</option>
+        <option value="pork">Pork</option>
+        <option value="vegetables">Vegetables</option>
+        <option value="salads">Salads</option>
+        <option value="dressings-sauces">Dressings &amp; Sauces</option>
+        <option value="bread-baked">Just Breads</option>
+        <option value="desserts">Desserts</option>
+        <option value="dairy">Dairy</option>
+        <option value="eggs">Eggs</option>
+        <option value="soups">Soups &amp; Broths</option>
+        <option value="snacks">Snacks</option>
+        <option value="beverages">Beverages</option>
+        <option value="other">Other / Uncategorized</option>
+      </select>
+    </div>
     <label class="search-label" for="recipe-search">Search Recipes</label>
     <div class="search-row">
       <input
@@ -274,7 +301,7 @@
       />
       <button class="pantry-btn search-clear" type="button" onclick="clearRecipeSearch()">Clear</button>
     </div>
-    <p class="search-help">Search works alongside the pantry and condition filters, so either tool can be used on its own or both can narrow results together.</p>
+    <p class="search-help">Category, search, pantry, and condition filters all work together, so you can narrow recipes with any combination of them.</p>
   </div>
 
   <!-- ======================================================================= -->
@@ -2381,12 +2408,11 @@ const PANTRY_GROUPS = {
       'red lentils','red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
       'salt','smoked oysters','smoked paprika','sorghum flour','steel-cut oats','sugar','sumac',
       'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme',
-      'tomatoes','trail mix','turmeric','vanilla extract','vegetable broth','walnuts','yeast',
+      'tomatoes','trail mix','turmeric','vanilla extract','vegetable broth','walnuts','yeast'
     ]
   }
 };
 
-// Safety aliases: raw card strings that didn't get normalised in HTML
 const PANTRY_NORM = {
   'napa cabbage':        'cabbage',
   'red bell peppers':    'bell pepper',
@@ -2491,7 +2517,130 @@ const PANTRY_NORM = {
 const PANTRY_LS_KEY = 'pantry_v1';
 let pantryChecked = new Set();
 let activeConditionTag = 'all';
+let activeRecipeCategory = 'all';
 let activeRecipeSearch = '';
+
+const EXPLICIT_CATEGORY_TITLES = {
+  breakfast: [
+    'Sugar Shift Probiotic Yogurt',
+    'Perfect Hard Boiled Eggs — No Grey Ring',
+    'Rice Paper Bagels',
+    'Kefir Overnight Grain Porridge',
+    'Shakshuka — Eggs in Spiced Tomato-Pepper Sauce',
+    'Ginger-Garlic Millet Bowl with Golden Paste'
+  ],
+  'sous-vide': [
+    'Sous Vide Overnight Meal Prep Collection — 5 Recipes'
+  ],
+  'bread-baked': [
+    'Olive & Cheddar Cheese Bread (GF Yeasted Mini Loaf)',
+    'Cassava Flour Pita Bread (GF) — Blood Sugar Test Item',
+    'Rosemary EVOO Cassava Crackers — Low-Oxalate Almond Cracker Replacement',
+    'Ladenia — GF Greek Island Flatbread (Kimolos-Style)',
+    'Rice Paper Bagels',
+    'Rice Paper Muffin Pouches',
+    'Bulk Brownie Base Mix for GF Flour Testing',
+    'Healthier Brownie Base Mix — Monkfruit + Allulose & Almond Flour'
+  ],
+  'dressings-sauces': [
+    'Small-Batch Almond Oil Mayo',
+    'Mediterranean & Classic EVOO Dressings — Week 1 Set',
+    'ACV Double-Duty Dressings — Week 2 Set',
+    'Fresh Herb EVOO Dressings — Week 3 Set',
+    'Bold & Savory EVOO Dressings — Week 4 Set',
+    'Creamy EVOO Dressings — Week 5 Set',
+    'Tzatziki — Greek Yogurt, Cucumber & Garlic Dip',
+    'Guacamole — Classic with Garlic & Lemon',
+    'Fresh Herb EVOO Dressings — Week 3 Set ⚠️ Short Shelf Life',
+    'Creamy EVOO Dressings — Week 5 Set ⚠️ Short Shelf Life'
+  ],
+  beef: [
+    'Greek-Style Beef with Kale & Parmesan',
+    'Low-Carb Stuffed Bell Peppers',
+    'Lebanese-Style Kafta',
+    'Turkey Meatloaf with Smoky-Sweet Tomato Glaze'
+  ],
+  chicken: [
+    'Pan-Seared Chicken Livers with Onions & Herbs',
+    'Herb-Crusted Baked Chicken Breast (GF)',
+    'Ginger-Garlic Chicken Stir-Fry with Cabbage & Mushrooms',
+    'Kefir-Marinated Chicken Breast',
+    'Caprese Hasselback Chicken',
+    'Creamy Tuscan Chicken',
+    'Golden Paste Roasted Chicken Thighs',
+    'Lemon-Garlic Pan Chicken with Bone Broth Pan Sauce'
+  ],
+  seafood: [
+    'Smoked Oyster Bowl — Pantry Iron & Zinc',
+    'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
+    'Golden Paste Salmon — Turmeric, Black Pepper & EVOO'
+  ],
+  pork: [
+    'Slow-Braised Pork Shoulder with Apple, Fennel & Thyme'
+  ],
+  vegetables: [
+    'Low-Carb Stuffed Bell Peppers',
+    'Ginger Carrot Slaw with Apple, Sweet Pepper & Lemon',
+    'Kale, Apple, Blueberry & Mozzarella Salad with Lemon-EVOO Dressing',
+    'Roasted Zucchini with Lemon-Garlic Parmesan Crust',
+    'Purple Sauerkraut — Lacto-Fermented Red Cabbage',
+    'Roasted Broccoli with Bone Broth Mozzarella Cheese Sauce',
+    'Roasted Whole Artichoke with Garlic EVOO Dipping Sauce',
+    'Roasted Asparagus — EVOO, Garlic & Lemon',
+    'Marinated Olive Salad',
+    'Mediterranean Chop Chop Salad'
+  ],
+  salads: [
+    'Marinated Olive Salad',
+    'Mediterranean Chop Chop Salad',
+    'Kale, Apple, Blueberry & Mozzarella Salad with Lemon-EVOO Dressing',
+    'Ginger Carrot Slaw with Apple, Sweet Pepper & Lemon'
+  ],
+  desserts: [
+    'Lemon Blueberry Labneh Cheesecake',
+    'Spiced Carrot Celebration Cake with Labneh Honey Frosting',
+    'Spiced Pumpkin Celebration Cake with Labneh Honey Frosting',
+    'Labneh Berry Parfait with Honey & Walnuts',
+    'Bulk Brownie Base Mix for GF Flour Testing',
+    'Healthier Brownie Base Mix — Monkfruit + Allulose & Almond Flour'
+  ],
+  dairy: [
+    'Marinated Feta in Chili & Herb EVOO',
+    'Marinated Smoked Gouda in Chili & Herb EVOO',
+    'Cultured Butter — 1 L Mason Jar Shake Method',
+    '30-Minute Homemade Mozzarella — Marinated & Baked Sticks (GF)',
+    'Sugar Shift Labneh (Strained Yogurt Cheese)',
+    'Sugar Shift Probiotic Yogurt',
+    'Lemon Blueberry Labneh Cheesecake',
+    'Spiced Carrot Celebration Cake with Labneh Honey Frosting',
+    'Spiced Pumpkin Celebration Cake with Labneh Honey Frosting',
+    'Labneh Berry Parfait with Honey & Walnuts',
+    'Turkish Çılbır — Poached Eggs on Garlic Yogurt',
+    'Tzatziki — Greek Yogurt, Cucumber & Garlic Dip',
+    'Kefir Overnight Grain Porridge',
+    'Caprese Hasselback Chicken',
+    'Creamy Tuscan Chicken',
+    'Roasted Broccoli with Bone Broth Mozzarella Cheese Sauce',
+    'Olive & Cheddar Cheese Bread (GF Yeasted Mini Loaf)'
+  ],
+  eggs: [
+    'Perfect Hard Boiled Eggs — No Grey Ring',
+    'Shakshuka — Eggs in Spiced Tomato-Pepper Sauce',
+    'Turkish Çılbır — Poached Eggs on Garlic Yogurt'
+  ],
+  soups: [
+    'Bone Broth Soup Base — Master Recipe'
+  ],
+  snacks: [
+    'Kidney-Safe Trail Mix (GF)',
+    'Rice Paper Potstickers',
+    'Rice Paper Muffin Pouches'
+  ],
+  beverages: [
+    'Therapeutic Teas — Rooibos, Chamomile, Peppermint, Ginger, Hibiscus',
+    'Afternoon MCT Coffee — Decaf Arabica, Ceylon Cinnamon, MCT Oil'
+  ],
+};
 
 function normIng(raw) {
   const lc = raw.trim().toLowerCase();
@@ -2502,6 +2651,31 @@ function allPantryKeys() {
   const s = new Set();
   Object.values(PANTRY_GROUPS).forEach(g => g.items.forEach(it => s.add(it.toLowerCase())));
   return s;
+}
+
+function getRecipeText(card) {
+  return [
+    card.querySelector('.recipe-card-title')?.textContent || '',
+    card.querySelector('.recipe-card-ingredients')?.textContent || '',
+    card.querySelector('.recipe-card-desc')?.textContent || '',
+    card.querySelector('.recipe-card-meta')?.textContent || ''
+  ].join(' ').toLowerCase();
+}
+
+function getRecipeTitle(card) {
+  return card.querySelector('.recipe-card-title')?.textContent || '';
+}
+
+function normalizeRecipeTitle(title) {
+  return title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function getRecipeCategories(card) {
+  const title = normalizeRecipeTitle(getRecipeTitle(card));
+  const matches = Object.entries(EXPLICIT_CATEGORY_TITLES).flatMap(([category, titles]) => {
+    return titles.some(recipeTitle => normalizeRecipeTitle(recipeTitle) === title) ? [category] : [];
+  });
+  return matches.length ? matches : ['other'];
 }
 
 // ── LocalStorage ────────────────────────────────────────────────────────────
@@ -2597,6 +2771,11 @@ function getConditionMatch(card) {
   return card.dataset.conditions.includes(activeConditionTag);
 }
 
+function getCategoryMatch(card) {
+  if (activeRecipeCategory === 'all') return true;
+  return getRecipeCategories(card).includes(activeRecipeCategory);
+}
+
 function getPantryMatch(card) {
   const ingEl = card.querySelector('.recipe-card-ingredients');
   if (!ingEl) return true;
@@ -2619,12 +2798,17 @@ function applyAllFilters() {
   let visible = 0, total = 0;
   document.querySelectorAll('.recipe-card').forEach(card => {
     total++;
-    const show = getConditionMatch(card) && getPantryMatch(card) && getSearchMatch(card);
+    const show = getConditionMatch(card) && getCategoryMatch(card) && getPantryMatch(card) && getSearchMatch(card);
     card.style.display = show ? '' : 'none';
     if (show) visible++;
   });
   const el = document.getElementById('pantry-count');
   if (el) el.textContent = visible + ' of ' + total + ' recipes available';
+}
+
+function updateRecipeCategory(value) {
+  activeRecipeCategory = value;
+  applyAllFilters();
 }
 
 function updateRecipeSearch(value) {
