@@ -255,6 +255,30 @@
   </div>
 
   <!-- FOOD TEST LINK -->
+<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
+      </div>
+    </div>
+  </div>
   <div class="test-bar">
     <p><strong>⚠️ This is a reformulated recipe</strong> with new ingredients (almond flour, flax, yeast). Recommend food-testing to assess your glucose response before making it a regular staple.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
@@ -266,7 +290,63 @@
   <!-- MAIN LAYOUT -->
   <div class="recipe-layout">
 
-    <!-- INGREDIENTS -->
+    
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 slice, 1 of 8) <span>estimates · millet/sorghum flour + 3 eggs + feta + kefir</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~58 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:14%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">14% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— satiety · glucose stability</span></span>
+          <span class="nutr-amount">~6 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:8%;background:#16a34a"></div></div>
+        <div class="nutr-pct">8% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~0.65 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:27%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">27% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~13 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:3%;background:#db2777"></div></div>
+        <div class="nutr-pct">3% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Zinc <span class="nutr-why">— metabolic · immune</span></span>
+          <span class="nutr-amount">~0.7 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:9%;background:#0284c7"></div></div>
+        <div class="nutr-pct">9% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Selenium <span class="nutr-why">— thyroid · antioxidant</span></span>
+          <span class="nutr-amount">~9.5 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:17%;background:#0891b2"></div></div>
+        <div class="nutr-pct">17% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ For a baked bread, the B12 and choline are unusually strong — driven by 3 eggs and feta together. Kalamata olives add polyphenols (hydroxytyrosol) not in nutrient databases. Best consumed same-day or toasted from freezer. Two slices with eggs would push choline and B12 toward strong daily coverage.</div>
+  </div>
+
+  <!-- INGREDIENTS -->
     <div class="panel">
       <div class="panel-header">🧾 Ingredients — 1 mini loaf</div>
       <div class="panel-body">

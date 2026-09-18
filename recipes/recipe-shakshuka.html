@@ -250,6 +250,30 @@
   </div>
 
   <!-- FOOD TEST LINK -->
+<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
+      </div>
+    </div>
+  </div>
   <div class="test-bar">
     <p>If this is your first time having tomatoes in a food test context, log a session. Tomato sauce can affect some DP patterns at dinner — note timing and T+120 glucose response.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
@@ -262,7 +286,63 @@
   <!-- MAIN LAYOUT -->
   <div class="recipe-layout">
 
-    <!-- INGREDIENTS -->
+    
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 serve, 1 of 2 — 2 eggs) <span>estimates · 2 eggs + tomatoes + feta + bell pepper</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~329 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:77%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">77% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— glucose stability</span></span>
+          <span class="nutr-amount">~24.5 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:31%;background:#16a34a"></div></div>
+        <div class="nutr-pct">31% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~2.2 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:92%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">92% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~89 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:22%;background:#db2777"></div></div>
+        <div class="nutr-pct">22% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Zinc <span class="nutr-why">— metabolic · immune</span></span>
+          <span class="nutr-amount">~3.4 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:42%;background:#0284c7"></div></div>
+        <div class="nutr-pct">42% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Selenium <span class="nutr-why">— thyroid · antioxidant</span></span>
+          <span class="nutr-amount">~35 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:64%;background:#0891b2"></div></div>
+        <div class="nutr-pct">64% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ Shakshuka is the highest-choline recipe in the collection — 2 eggs provide 294mg choline alone. This is the go-to rescue meal when a daily choline shortfall is apparent. B12 at 92% means this single meal nearly covers the full daily requirement. Eat this whenever the meatloaf or salmon aren't on the menu.</div>
+  </div>
+
+  <!-- INGREDIENTS -->
     <div class="panel">
       <div class="panel-header">🧾 Ingredients — 2 servings</div>
       <div class="panel-body">

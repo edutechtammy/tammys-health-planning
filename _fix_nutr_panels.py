@@ -5,7 +5,7 @@ Inserts immediately before the <!-- INGREDIENTS --> comment (or equivalent ancho
 """
 import os, re
 
-BASE = "/Volumes/LaCie 2/00_Development/01_Repositories/tammys-health-planning"
+BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "recipes")
 
 def nutr_row(name, why, amount, pct_float, color):
     pct = min(pct_float, 100)

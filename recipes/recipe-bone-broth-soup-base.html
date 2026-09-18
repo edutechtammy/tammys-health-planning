@@ -256,6 +256,30 @@
   </div>
 
   <!-- NAV BAR -->
+<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
+      </div>
+    </div>
+  </div>
   <div class="test-bar">
     <p>Bone broth as a standalone warm drink has near-zero glucose impact. Log a test if pairing with a higher-GI food to isolate that food's contribution.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
@@ -267,7 +291,63 @@
   <!-- MAIN LAYOUT -->
   <div class="recipe-layout">
 
-    <!-- INGREDIENTS -->
+    
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 cup / 240ml) <span>estimates · chicken-based broth · 9 cups per batch</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~15 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:4%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">4% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— glucose stability</span></span>
+          <span class="nutr-amount">~4 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:5%;background:#16a34a"></div></div>
+        <div class="nutr-pct">5% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~0.3 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:12%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">12% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~5 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:1%;background:#db2777"></div></div>
+        <div class="nutr-pct">1% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Zinc <span class="nutr-why">— metabolic · immune</span></span>
+          <span class="nutr-amount">~1 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:12%;background:#0284c7"></div></div>
+        <div class="nutr-pct">12% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Selenium <span class="nutr-why">— thyroid · antioxidant</span></span>
+          <span class="nutr-amount">~5 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:9%;background:#0891b2"></div></div>
+        <div class="nutr-pct">9% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ Used as a cooking liquid — nutrient contribution scales every time it replaces water. Primary value is glycine, proline, and collagen precursors (not tracked in standard databases) plus minerals leached from bones during long simmering. Each cup of broth used in millet, sauce, or soup adds to daily totals.</div>
+  </div>
+
+  <!-- INGREDIENTS -->
     <div class="panel">
       <div class="panel-header">🧾 Ingredients — makes 8–10 cups</div>
       <div class="panel-body">

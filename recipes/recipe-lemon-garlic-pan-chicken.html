@@ -258,6 +258,30 @@
   </div>
 
   <!-- FOOD TEST BAR -->
+<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
+      </div>
+    </div>
+  </div>
   <div class="test-bar">
     <p>Chicken + pan sauce is negligible GI. Food-test the full meal (chicken + side dish combination) if the side is millet, quinoa, or GF bread — the chicken itself does not require testing.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
@@ -269,7 +293,63 @@
   <!-- MAIN LAYOUT -->
   <div class="recipe-layout">
 
-    <!-- INGREDIENTS -->
+    
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 serve, 1 of 2 — ~190g breast) <span>estimates · chicken breast + bone broth sauce</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~92 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:22%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">22% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— glucose stability</span></span>
+          <span class="nutr-amount">~42 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:52%;background:#16a34a"></div></div>
+        <div class="nutr-pct">52% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~0.3 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:12%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">12% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~6 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:2%;background:#db2777"></div></div>
+        <div class="nutr-pct">2% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Zinc <span class="nutr-why">— metabolic · immune</span></span>
+          <span class="nutr-amount">~1.7 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:21%;background:#0284c7"></div></div>
+        <div class="nutr-pct">21% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Selenium <span class="nutr-why">— thyroid · antioxidant</span></span>
+          <span class="nutr-amount">~42 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:76%;background:#0891b2"></div></div>
+        <div class="nutr-pct">76% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ Standard chicken breast nutrient profile. The bone broth deglazing adds a small collagen/glycine contribution not reflected here. Folate is low — chicken breast is not a folate source. Pair with asparagus, broccoli, or kale to fill the folate gap for the day.</div>
+  </div>
+
+  <!-- INGREDIENTS -->
     <div class="panel">
       <div class="panel-header">🧾 Ingredients — 2 servings</div>
       <div class="panel-body">

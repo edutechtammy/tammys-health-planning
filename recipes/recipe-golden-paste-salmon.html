@@ -259,6 +259,30 @@
   </div>
 
   <!-- FOOD TEST LINK -->
+<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
+      </div>
+      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
+        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
+          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
+        </div>
+        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
+      </div>
+    </div>
+  </div>
   <div class="test-bar">
     <p>Salmon itself has zero GI. If you log a food test, the variable is the side dish — use this as an opportunity to test a new low-oxalate grain or vegetable pairing rather than the salmon itself.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
@@ -270,7 +294,71 @@
   <!-- MAIN LAYOUT -->
   <div class="recipe-layout">
 
-    <!-- INGREDIENTS -->
+    
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 serve, 1 of 2 — ~165g fillet) <span>estimates · salmon + golden paste + EVOO</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~130 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:31%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">31% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— glucose stability</span></span>
+          <span class="nutr-amount">~34 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:42%;background:#16a34a"></div></div>
+        <div class="nutr-pct">42% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~3.8 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:100%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">158% of daily target ← exceeds daily target (bar capped)</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~28 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:7%;background:#db2777"></div></div>
+        <div class="nutr-pct">7% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Zinc <span class="nutr-why">— metabolic · immune</span></span>
+          <span class="nutr-amount">~0.7 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:9%;background:#0284c7"></div></div>
+        <div class="nutr-pct">9% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Selenium <span class="nutr-why">— thyroid · antioxidant</span></span>
+          <span class="nutr-amount">~50 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:91%;background:#0891b2"></div></div>
+        <div class="nutr-pct">91% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Omega-3 (EPA+DHA) <span class="nutr-why">— APOE4 · cardiovascular · anti-inflammatory</span></span>
+          <span class="nutr-amount">~3000 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:100%;background:#059669"></div></div>
+        <div class="nutr-pct">300% of daily target ← exceeds daily target (bar capped)</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ Highest B12 source in the collection — one serving exceeds the daily target (bar capped at 100%). Omega-3 EPA+DHA of ~3000mg is 3× the general daily target; APOE4 specifically benefits from high EPA+DHA intake. The turmeric golden paste enhances the anti-inflammatory synergy between omega-3 and curcumin.</div>
+  </div>
+
+  <!-- INGREDIENTS -->
     <div class="panel">
       <div class="panel-header">🧾 Ingredients — 2 servings</div>
       <div class="panel-body">
