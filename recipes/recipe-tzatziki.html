@@ -146,6 +146,22 @@
     .variation-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
     .variation-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .7rem; font-weight: 700; }
     .var-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+    .nutr-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin: 0 0 1.2rem; }
+    .nutr-panel-header { background: #fff3d6; color: var(--green-dark); font-size: .82rem; font-weight: 700; padding: .7rem 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .4rem; }
+    .nutr-panel-header span { font-size: .72rem; font-weight: 400; color: var(--muted); }
+    .nutr-pills { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 1rem 0; }
+    .nutr-pill-green { display: inline-flex; align-items: center; gap: .35rem; background: #e8f5e9; color: #166534; border: 1px solid #86efac; border-radius: 999px; padding: .38rem .8rem; font-size: .76rem; font-weight: 700; }
+    .nutr-pill-amber { display: inline-flex; align-items: center; gap: .35rem; background: #fff7ed; color: #9a4d00; border: 1px solid #fed7aa; border-radius: 999px; padding: .38rem .8rem; font-size: .76rem; font-weight: 700; }
+    .nutr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .65rem; padding: .8rem 1rem .95rem; }
+    .nutr-row { display: flex; flex-direction: column; gap: .2rem; }
+    .nutr-label-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .nutr-name { font-size: .8rem; font-weight: 700; color: var(--text); }
+    .nutr-amount { font-size: .78rem; font-weight: 700; color: var(--muted); }
+    .nutr-why { font-weight: 500; color: var(--muted); }
+    .nutr-track { background: #f0ede8; border-radius: 20px; height: 10px; overflow: hidden; }
+    .nutr-fill { height: 100%; border-radius: 20px; }
+    .nutr-pct { font-size: .69rem; color: var(--muted); }
+    .nutr-note { font-size: .76rem; line-height: 1.6; color: var(--muted); padding: 0 1rem .95rem; }
     .var-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .83rem; line-height: 1.5; }
     .var-card strong { display: block; color: var(--green-dark); margin-bottom: .2rem; font-size: .8rem; }
 
@@ -221,31 +237,11 @@
     </div>
   </div>
 
-  <!-- ACTION BAR -->
-<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
-        </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
-      </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
-        </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
-      </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
-        </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
-      </div>
-    </div>
+  <div style="display:flex; flex-wrap:wrap; gap:.6rem; margin: 0 0 1rem;">
+    <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Net carbs: ~1–2 g per serving</span>
+    <span style="display:inline-flex; align-items:center; gap:.35rem; background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Saturated fat: ~3–4 g per serving</span>
   </div>
+  <div style="font-size:.78rem; line-height:1.6; color:#475569; margin:0 0 1rem;">Tzatziki is a low-carb condiment that makes vegetables and proteins feel more substantial, but the dairy fat still matters if you are tracking satiety and post-meal stability.</div>
   <div class="test-bar">
     <p>Tzatziki is nearly all protein and fat — very unlikely to move glucose. Only worth logging if pairing with GF bread on the side and you want a composite reading of that combination.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">

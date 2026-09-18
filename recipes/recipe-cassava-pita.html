@@ -114,6 +114,23 @@
     .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #fef9c3; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #78350f; }
     .gi-dot-mod { width: 9px; height: 9px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
 
+    .nutr-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin: 0 0 1.2rem; }
+    .nutr-panel-header { background: #fff3d6; color: var(--green-dark); font-size: .82rem; font-weight: 700; padding: .7rem 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .4rem; }
+    .nutr-panel-header span { font-size: .72rem; font-weight: 400; color: var(--muted); }
+    .nutr-pills { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 1rem 0; }
+    .nutr-pill-green { display: inline-flex; align-items: center; gap: .35rem; background: #e8f5e9; color: #166534; border: 1px solid #86efac; border-radius: 999px; padding: .38rem .8rem; font-size: .76rem; font-weight: 700; }
+    .nutr-pill-amber { display: inline-flex; align-items: center; gap: .35rem; background: #fff7ed; color: #9a4d00; border: 1px solid #fed7aa; border-radius: 999px; padding: .38rem .8rem; font-size: .76rem; font-weight: 700; }
+    .nutr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .65rem; padding: .8rem 1rem .95rem; }
+    .nutr-row { display: flex; flex-direction: column; gap: .2rem; }
+    .nutr-label-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .nutr-name { font-size: .8rem; font-weight: 700; color: var(--text); }
+    .nutr-amount { font-size: .78rem; font-weight: 700; color: var(--muted); }
+    .nutr-why { font-weight: 500; color: var(--muted); }
+    .nutr-track { background: #f0ede8; border-radius: 20px; height: 10px; overflow: hidden; }
+    .nutr-fill { height: 100%; border-radius: 20px; }
+    .nutr-pct { font-size: .69rem; color: var(--muted); }
+    .nutr-note { font-size: .76rem; line-height: 1.6; color: var(--muted); padding: 0 1rem .95rem; }
+
     .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
     @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
 
@@ -237,30 +254,40 @@
     </div>
   </div>
 
-  <!-- ACTION BAR -->
-<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 pita, 1 of 6) <span>estimates · cassava flour + EVOO + salt</span></div>
+    <div class="nutr-pills">
+      <span class="nutr-pill-green">Net carbs: ~8–10 g per pita</span>
+      <span class="nutr-pill-amber">Saturated fat: ~1–2 g per pita</span>
+    </div>
+    <div class="nutr-note">Cassava is the main glucose variable here, so the plain-pita curve matters more than the toppings. Keep the portion simple and log the T+120 reading before adding gyro meat or sauces.</div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fiber <span class="nutr-why">— satiety</span></span>
+          <span class="nutr-amount">~1 g</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:5%;background:#22c55e"></div></div>
+        <div class="nutr-pct">5% of daily target</div>
       </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— liver support</span></span>
+          <span class="nutr-amount">~1 g</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:2%;background:#16a34a"></div></div>
+        <div class="nutr-pct">2% of daily target</div>
       </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Potassium <span class="nutr-why">— blood pressure</span></span>
+          <span class="nutr-amount">~30 mg</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:1%;background:#06b6d4"></div></div>
+        <div class="nutr-pct">1% of daily target</div>
       </div>
     </div>
+    <div class="nutr-note">⚠️ This is a test food for glycaemic response, not a free-pass carb. The plain pita result tells you whether cassava belongs in your wrap rotation.</div>
   </div>
   <div class="test-bar">
     <p>Eat 1–2 plain pitas as a standalone food test. Log your fasting baseline, then T+60 and T+120 readings. Only proceed to gyros if the curve returns cleanly.</p>

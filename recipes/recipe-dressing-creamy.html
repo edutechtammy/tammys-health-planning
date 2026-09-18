@@ -58,6 +58,22 @@
     .shelf-guide { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.65rem 1.1rem; margin-bottom:1.4rem; }
     .shelf-guide-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:.4rem; }
     .shelf-items { display:flex; gap:1.5rem; flex-wrap:wrap; }
+    .nutr-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin: 0 0 1.2rem; }
+    .nutr-panel-header { background: #fff3d6; color: var(--green-dark); font-size: .82rem; font-weight: 700; padding: .7rem 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .4rem; }
+    .nutr-panel-header span { font-size: .72rem; font-weight: 400; color: var(--muted); }
+    .nutr-pills { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 1rem 0; }
+    .nutr-pill-green { display: inline-flex; align-items: center; gap: .35rem; background: #e8f5e9; color: #166534; border: 1px solid #86efac; border-radius: 999px; padding: .38rem .8rem; font-size: .76rem; font-weight: 700; }
+    .nutr-pill-amber { display: inline-flex; align-items: center; gap: .35rem; background: #fff7ed; color: #9a4d00; border: 1px solid #fed7aa; border-radius: 999px; padding: .38rem .8rem; font-size: .76rem; font-weight: 700; }
+    .nutr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .65rem; padding: .8rem 1rem .95rem; }
+    .nutr-row { display: flex; flex-direction: column; gap: .2rem; }
+    .nutr-label-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .nutr-name { font-size: .8rem; font-weight: 700; color: var(--text); }
+    .nutr-amount { font-size: .78rem; font-weight: 700; color: var(--muted); }
+    .nutr-why { font-weight: 500; color: var(--muted); }
+    .nutr-track { background: #f0ede8; border-radius: 20px; height: 10px; overflow: hidden; }
+    .nutr-fill { height: 100%; border-radius: 20px; }
+    .nutr-pct { font-size: .69rem; color: var(--muted); }
+    .nutr-note { font-size: .76rem; line-height: 1.6; color: var(--muted); padding: 0 1rem .95rem; }
     .shelf-item { display:flex; align-items:center; gap:.4rem; font-size:.82rem; }
     .sdot-short  { width:11px; height:11px; border-radius:50%; background:#f59e0b; flex-shrink:0; }
     .action-bar { background:#fff; border:1px solid var(--border); border-radius:12px; padding:.7rem 1.1rem; display:flex; align-items:center; justify-content:space-between; gap:.8rem; flex-wrap:wrap; margin-bottom:1.4rem; }
@@ -146,6 +162,42 @@
   <div class="action-bar">
     <p>Both dressings are low GI at a 1-oz serving. The yogurt base in #15 and the avocado fat in #16 both slow glucose absorption from the salad — genuinely beneficial for blood sugar management, not just neutral.</p>
     <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 oz / 30g) <span>estimates · Sugar Shift yogurt + EVOO</span></div>
+    <div class="nutr-pills">
+      <span class="nutr-pill-green">Net carbs: ~1 g per serving</span>
+      <span class="nutr-pill-amber">Saturated fat: ~1–2 g per serving</span>
+    </div>
+    <div class="nutr-note">This keeps the dressing light enough for a salad while still giving enough fat and protein to blunt the glucose signal from the rest of the meal.</div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— satiety</span></span>
+          <span class="nutr-amount">~1 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:2%;background:#16a34a"></div></div>
+        <div class="nutr-pct">2% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Calcium <span class="nutr-why">— kidney stone</span></span>
+          <span class="nutr-amount">~20 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:2%;background:#06b6d4"></div></div>
+        <div class="nutr-pct">2% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Monounsaturated fat <span class="nutr-why">— blood sugar</span></span>
+          <span class="nutr-amount">~2–3 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:10%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">10% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ Use the dressing as a finishing sauce, not a free-float pour. That keeps the carb and fat signal controlled while still making the greens feel satisfying.</div>
   </div>
 
   <!-- ═══ RECIPE 15 ═══ -->

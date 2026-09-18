@@ -95,6 +95,13 @@
     .badge-celiac { background: #fff3e0; color: #e65100; }
 
     .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--primary-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--primary-light); border-radius: 4px; }
+    .nutr-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .nutr-panel-header { background: #f8fafc; padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--primary-dark); border-bottom: 1px solid var(--border); }
+    .nutr-pill-row { display:flex; flex-wrap:wrap; gap:.6rem; margin: .8rem 1.2rem 0; }
+    .nutr-pill { display:inline-flex; align-items:center; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700; }
+    .nutr-pill-green { background:#e8f5e9; color:#166534; border:1px solid #86efac; }
+    .nutr-pill-amber { background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; }
+    .nutr-note { font-size: .78rem; line-height: 1.6; color: #475569; padding: .8rem 1.2rem .95rem; border-top: 1px solid var(--border); }
     
     .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
     .panel-header { background: var(--primary-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--primary-dark); border-bottom: 1px solid var(--border); }
@@ -153,6 +160,15 @@
         <span class="badge badge-celiac">Celiac / GF</span>
       </div>
     </div>
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving</div>
+    <div class="nutr-pill-row">
+      <span class="nutr-pill nutr-pill-green">Net carbs: ~13–16 g/serving</span>
+      <span class="nutr-pill nutr-pill-amber">Saturated fat: ~0.5–1 g/serving</span>
+    </div>
+    <div class="nutr-note">These are bean-forward, fiber-rich, and low in saturated fat. The main glucose question is the serving size and what you pair with them rather than the fat content itself.</div>
   </div>
 
   <div class="section-divider">🥗 Ingredients &amp; Method</div>
@@ -229,29 +245,6 @@
       </div>
     </div>
   </div>
-<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
-        </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
-      </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
-        </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
-      </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
-        </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
-      </div>
-    </div>
   </div>
 
   <div class="test-bar">

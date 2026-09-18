@@ -85,11 +85,22 @@
     .badge-lower-carb { background: #e8f5e9; color: #2e7d32; }
     .badge-nutrition { background: #f3e5f5; color: #6a1b9a; }
 
-    .notes-panel { background: #fffaf0; border: 1px solid #f5d9a0; border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 1.2rem; }
-    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--chocolate-dark); margin-bottom: .7rem; font-weight: 700; }
-    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
-    .notes-panel li { font-size: .87rem; line-height: 1.6; color: var(--muted); position: relative; padding-left: 1.2rem; }
-    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--chocolate-mid); font-weight: 700; }
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:#f8f8f8; padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--chocolate-dark); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted); }
+    .nutr-pills { display:flex; flex-wrap:wrap; gap:.6rem; padding:.9rem 1.2rem 0; }
+    .nutr-pill-green { background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700; }
+    .nutr-pill-amber { background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700; }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.65rem; padding:.8rem 1.2rem 1rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:var(--text); }
+    .nutr-why  { font-size:.7rem; color:var(--muted); font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:var(--muted); }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill  { height:100%; border-radius:20px; }
+    .nutr-pct { font-size:.69rem; color:var(--muted); margin-top:.05rem; }
+    .nutr-note { font-size:.76rem; line-height:1.6; color:var(--muted); padding:0 1.2rem .95rem; }
 
     .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
     .panel-header { background: var(--chocolate-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--chocolate-dark); border-bottom: 1px solid var(--border); }
@@ -168,13 +179,48 @@
     </div>
   </div>
 
-  <div class="notes-panel">
-    <h3>Condition-targeted brownie version</h3>
-    <ul>
-      <li><strong>Lower sugar load:</strong> This version uses a monkfruit + allulose blend instead of granulated sugar to reduce the glycemic impact while preserving the sweetness and structure needed for a chewy brownie.</li>
-      <li><strong>Lower empty-carb starch:</strong> Tapioca starch is replaced with almond flour gram-for-gram so the recipe keeps a chewy, fudgy feel without the pure starch load. Almond flour adds protein, healthy fats, and satiety instead of a mostly empty carb.</li>
-      <li><strong>Texture-first testing:</strong> The base method keeps the egg blend, rest, chill, and low-temperature bake so the brownie still aims for a pleasant chew; the recipe uses <strong>light olive oil</strong> instead of butter to keep the fat profile more favorable while still supporting the fudgy texture.</li>
-    </ul>
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — for the assembled 2-egg batch <span>estimates · 100g base mix + 2 eggs + 20g almond flour + light olive oil</span></div>
+    <div class="nutr-pills">
+      <span class="nutr-pill-green">Net carbs: ~10–14 g per batch</span>
+      <span class="nutr-pill-amber">Saturated fat: ~4–6 g per batch</span>
+    </div>
+    <div class="nutr-note" style="margin-top: .8rem;">This reflects the complete brownie you actually bake, not just the dry base mix. The 2 eggs add choline and protein, so the final batch is more nutritionally complete than the dry mix alone.</div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— satiety</span></span>
+          <span class="nutr-amount">~8–11 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:35%;background:#16a34a"></div></div>
+        <div class="nutr-pct">35% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4</span></span>
+          <span class="nutr-amount">~120–180 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:28%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">28% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fiber <span class="nutr-why">— glucose stability</span></span>
+          <span class="nutr-amount">~1–3 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:10%;background:#22c55e"></div></div>
+        <div class="nutr-pct">10% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fat load <span class="nutr-why">— satiety</span></span>
+          <span class="nutr-amount">~8–12 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:22%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">22% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ The carbohydrate total depends on the test flour you choose; the sweetener keeps the base lower than a standard brownie, but the flour variable still matters for the final glucose signal.</div>
   </div>
 
   <div class="section-divider">🥄 Base Mix Ingredients</div>
@@ -272,42 +318,71 @@
     <p>This base mix allows you to isolate the variable you're testing — the flour. In this healthier variant, <strong>tapioca starch is replaced with almond flour at a gram-for-gram swap (20g)</strong>, and the recipe uses <strong>light olive oil (or almond oil) instead of butter</strong> to keep the fat profile more favorable while still aiming for a chewy brownie texture. By keeping the cocoa, sweetener, leavening, and the rest of the method constant across tests, you can compare how different GF flours perform: cassava for chewiness, millet for nuttiness, sorghum for structure, or custom blends. The 2-egg test batch keeps the workflow practical while avoiding the previous one-egg scaling language. The standardized fudgy brownie method (egg-sweetener blend, 10-minute flour rest, 2-hour+ chill, 325°F bake) ensures that texture differences come from the flour being tested, not from inconsistent technique. Measure all flours by weight (not volume) for consistency.</p>
   </div>
 
-  <div class="section-divider">📝 Usage Notes</div>
+  <div class="section-divider">📝 Complete Brownie Test Batch</div>
 
-  <div class="panel">
-    <div class="panel-header">Single-Egg Test Batch — Standardized Fudgy Brownie Protocol</div>
-    <div class="panel-body">
-      <p style="font-size:.88rem;line-height:1.65;margin-bottom:.8rem;">For each 2-egg test batch using about <strong>100g</strong> of this base mix, add:</p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.85rem;line-height:1.6;">
-        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>About 100g brownie base mix</strong> (measured from this bulk batch)</li>
-        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>2 large eggs</strong></li>
-        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>20g almond flour</strong> — gram-for-gram replacement for tapioca starch in this variant</li>
-        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>1/4 cup (60ml) light olive oil</strong> — or almond oil. fat source for the healthier variant</li>
-        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>Test flour(s)</strong> — type and amount listed in the testing log below (cassava, millet, sorghum, oat, almond, chickpea, rice flours, or blends)</li>
-        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>1/2 tsp vanilla extract</strong></li>
-        <li style="padding-left:1.2rem;position:relative;"><span style="position:absolute;left:0;color:var(--chocolate-dark);font-weight:700;">•</span> <strong>Chocolate chips to taste</strong> (optional; use GF-certified chips if needed)</li>
-      </ul>
-      
-      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
-        <p style="font-size:.82rem;font-weight:700;color:var(--chocolate-dark);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.04em;">🎯 Fudgy Brownie Assembly Method</p>
-        
-        <ol style="list-style:decimal;padding-left:1.3rem;display:flex;flex-direction:column;gap:.6rem;font-size:.85rem;line-height:1.6;">
-          <li><strong>Create sugar-egg base:</strong> In a bowl, whisk together about 100g brownie base mix and 2 eggs vigorously until smooth and slightly aerated. This helps the sweetener dissolve and builds a light brownie batter base.</li>
-          
-          <li><strong>Add vanilla and flour, then rest:</strong> Add the vanilla extract, 20g almond flour (gram-for-gram tapioca swap), and your test flour (see testing log for specific flour and amount). Stir to combine. <strong>Let the mixture sit for 10 minutes</strong> — this allows the flours to absorb the liquid before the fat is fully added, maximizing moisture retention.</li>
-          
-          <li><strong>Add the oil:</strong> After the 10-minute rest, add the <strong>1/4 cup light olive oil</strong>, stirring until just combined. Fold in chocolate chips if using. The batter will be thick.</li>
-          
-          <li><strong>Pour and chill:</strong> Pour batter into a greased 5×7 inch glass casserole dish (standardized across all tests). Cover and <strong>refrigerate for 2 hours to overnight</strong>. This chilling step maximizes hydration, chills the oil-based batter to swing texture from cakey to fudgy, and helps the lower-saturated-fat version set with a pleasantly chewy center.</li>
-          
-          <li><strong>Bake low and slow:</strong> Preheat oven to <strong>325°F (163°C)</strong>. Bake chilled batter for <strong>32–36 minutes</strong>. The low temperature coaxes gentle leavening and even baking in glass, maximizing fudginess. Test doneness with a butter knife — it may not come out completely clean due to the fudgy texture, but should not have wet batter clinging.</li>
-          
-          <li><strong>Cool completely:</strong> Allow brownies to cool completely in the pan before cutting. This allows the fudgy center to fully set. Cooling takes 1–2 hours at room temperature.</li>
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">Ingredients</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item"><span class="ing-amount">~100g</span><span>Monkfruit brownie base mix</span></li>
+          <li class="ing-item"><span class="ing-amount">2</span><span>Large eggs</span></li>
+          <li class="ing-item"><span class="ing-amount">20g</span><span>Almond flour (tapioca replacement)</span></li>
+          <li class="ing-item"><span class="ing-amount">60ml</span><span>Light olive oil (or almond oil)</span></li>
+          <li class="ing-item"><span class="ing-amount">Varies</span><span>Chosen test flour, weighed by gram</span></li>
+          <li class="ing-item"><span class="ing-amount">1/2 tsp</span><span>Vanilla extract</span></li>
+          <li class="ing-item"><span class="ing-amount">Optional</span><span>Chocolate chips, if desired</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Whisk the egg base</div>
+              Whisk the 2 eggs with the ~100g brownie base mix until smooth and slightly aerated. This helps the sweetener dissolve and starts building the brownie batter structure.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Add flour + rest</div>
+              Stir in the vanilla, 20g almond flour, and your test flour. Let the batter rest for 10 minutes so the flours hydrate before the fat is added.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Mix in the oil</div>
+              Add the 60ml light olive oil and stir until the batter is thick, glossy, and fully combined. Fold in chocolate chips if using.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Chill + bake</div>
+              Spread into a greased 5×7 inch dish, cover, and refrigerate for 2 hours to overnight. Bake at 325°F for 32–36 minutes until the center is just set and the top is set with a crackle.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Cool before slicing</div>
+              Cool fully before cutting so the center sets properly and the texture reads as fudgy rather than underbaked.
+            </div>
+          </li>
         </ol>
       </div>
-      
-      <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border);"><strong>Testing note:</strong> Record the test flour type, amount, actual bake time, texture notes, and how the crackled surface developed. In this variant, the <strong>almond flour swap (60g total across the batch)</strong> and the <strong>1/4 cup light olive oil</strong> are the starting constants; only the test flour changes while the rest of the method remains fixed.</p>
     </div>
+  </div>
+
+  <div class="flag-ok">
+    <h4>🧪 Testing note</h4>
+    <p>This is the assembled recipe the nutrient panel refers to: 100g base mix + 2 eggs + 20g almond flour + 60ml light olive oil + designated test flour. The eggs contribute protein and choline, while the flour choice still determines the final carb load and texture.</p>
   </div>
 
   <div class="panel" style="margin-top:1rem;">
@@ -433,7 +508,6 @@
       <p style="font-size:.8rem;color:var(--muted);line-height:1.6;margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border);"><strong>Testing tips:</strong> Take notes immediately after tasting while the brownie is still warm, then again after it has fully cooled — fudgy brownies often taste and feel different at room temperature. Note whether the shiny crackled surface developed as expected. Record actual bake time (may vary by a few minutes). If a flour needs adjustment, test the modification in the next batch before considering it final.</p>
     </div>
   </div>
-<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;"><div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;"><div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;"><span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span><span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span></div><div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div></div><div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;"><div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;"><span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span><span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span></div><div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div></div><div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;"><div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;"><span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span><span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span></div><div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div></div></div>
   </div>
 
   <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap;">

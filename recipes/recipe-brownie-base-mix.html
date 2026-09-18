@@ -114,6 +114,20 @@
     .flag-ok   { background: #f0fdf4; border: 1px solid #86efac; border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .75rem; }
     .flag-ok h4 { color: #166534; font-size: .82rem; margin-bottom: .4rem; font-weight: 700; }
 
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:#f8fafc; padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--chocolate-dark); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted); }
+    .nutr-pills { display:flex; flex-wrap:wrap; gap:.6rem; padding:.9rem 1.2rem 0; }
+    .nutr-pill-green { background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700; }
+    .nutr-pill-amber { background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700; }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.65rem; padding:.8rem 1.2rem 1rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:var(--text); }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:var(--muted); }
+    .nutr-pct { font-size:.69rem; color:var(--muted); }
+    .nutr-note { font-size:.76rem; line-height:1.6; color:var(--muted); padding:0 1.2rem .95rem; }
+
     .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
     .btn-primary { background: var(--chocolate-dark); color: #fff; }
     .btn-back    { background: #fff; color: var(--chocolate-dark); border: 1.5px solid var(--chocolate-dark); }
@@ -155,6 +169,38 @@
 
       <div class="badge-row">
         <span class="badge badge-celiac">Celiac / GF Base</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per brownie test batch <span>estimates · single-egg batch</span></div>
+    <div class="nutr-pills">
+      <span class="nutr-pill-green">Net carbs: ~12–15 g per batch</span>
+      <span class="nutr-pill-amber">Saturated fat: ~3–5 g per batch</span>
+    </div>
+    <div class="nutr-note">This is still a dessert-style base, but the standard single-egg portion keeps the carb load manageable while allowing a satisfying fudgy texture without turning it into a high-saturated-fat treat.</div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein</span>
+          <span class="nutr-amount">~4 g</span>
+        </div>
+        <div class="nutr-pct">Helps with satiety and steadier post-meal response.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fiber</span>
+          <span class="nutr-amount">~2 g</span>
+        </div>
+        <div class="nutr-pct">Useful for glucose stability, but still not a low-carb dessert.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fat load</span>
+          <span class="nutr-amount">~7–10 g</span>
+        </div>
+        <div class="nutr-pct">Mostly from the base ingredients and any added chocolate chips or oil.</div>
       </div>
     </div>
   </div>
