@@ -22,7 +22,7 @@
       "3 tablespoons ground chia seeds",
       "3 tablespoons cocoa powder",
       "3 tablespoons monkfruit and allulose sugar substitute",
-      "1.5 cups milk"
+      "1.5 cups skim milk"
     ],
     "recipeInstructions": [
       {
@@ -98,6 +98,20 @@
     .trigger-pill { display: inline-flex; align-items: center; gap: .3rem; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .22rem .7rem; font-size: .74rem; font-weight: 700; color: var(--choco-dark); }
     .trigger-pill strong { color: var(--choco-dark); }
 
+    .nutr-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin: 1.2rem 0; }
+    .nutr-panel-header { background: var(--choco-light); color: var(--choco-dark); font-size: .8rem; font-weight: 800; padding: .75rem 1rem; border-bottom: 1px solid var(--border); }
+    .nutr-panel-header span { color: var(--muted); font-weight: 600; }
+    .nutr-grid { display: grid; gap: .75rem; padding: .9rem 1rem 0.2rem; }
+    .nutr-row { display: grid; gap: .25rem; }
+    .nutr-label-row { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; }
+    .nutr-name { font-size: .8rem; font-weight: 700; color: var(--text); }
+    .nutr-why { font-weight: 600; color: var(--muted); }
+    .nutr-amount { font-size: .78rem; font-weight: 700; color: var(--choco-dark); }
+    .nutr-track { background: #f0ede8; border-radius: 20px; height: 10px; overflow: hidden; }
+    .nutr-fill { height: 100%; border-radius: 20px; }
+    .nutr-pct { font-size: .68rem; color: #64748b; }
+    .nutr-note { margin: .8rem 1rem 1rem; padding: .7rem .85rem; border-radius: 10px; background: #fff7ed; border: 1px solid #fed7aa; color: var(--muted); font-size: .78rem; line-height: 1.65; }
+
     .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--choco-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--choco-light); border-radius: 4px; }
 
     .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
@@ -153,15 +167,15 @@
     <div class="recipe-hero-emoji">🍫🥣🌱</div>
     <div class="recipe-hero-body">
       <h1>Chia Chocolate Pudding</h1>
-      <p>A simple chocolate pudding made by combining ground chia, cocoa, and a monkfruit/allulose sweetener with milk, then chilling until thick and creamy. It is a low-effort dessert or breakfast option with a texture that improves the longer it sits, and it can be frozen after the overnight chill for a rich, ice-cream-like finish.</p>
+      <p>A simple chocolate pudding made by combining ground chia, cocoa, and a monkfruit/allulose sweetener with skim milk, then chilling until thick and creamy. It is a low-effort dessert or breakfast option with a texture that improves the longer it sits, and it can be frozen after the overnight chill for a rich, ice-cream-like finish.</p>
       <div class="meta-strip">
         <span>⏱ 10 min prep + 12 hr chill</span>
         <span>🍽 2–3 servings</span>
         <span>❄️ Chill overnight; freeze after set if desired</span>
       </div>
       <div class="trigger-summary">
-        <span class="trigger-pill"><strong>Net carbs:</strong> low</span>
-        <span class="trigger-pill"><strong>Saturated fat:</strong> low</span>
+        <span class="trigger-pill"><strong>Net carbs:</strong> ~4g/serving</span>
+        <span class="trigger-pill"><strong>Saturated fat:</strong> ~1g/serving</span>
       </div>
       <div class="badge-row">
         <span class="badge badge-apoe4">APOE4</span>
@@ -174,6 +188,54 @@
     </div>
   </div>
 
+  <section class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 of 2–3) <span>estimates · ground chia + cocoa + skim milk</span></div>
+    <div style="display:flex; flex-wrap:wrap; gap:.6rem; margin: .8rem .95rem 0;">
+      <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">
+        Net carbs: ~7 g per serving
+      </span>
+      <span style="display:inline-flex; align-items:center; gap:.35rem; background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">
+        Saturated fat: ~1 g per serving
+      </span>
+    </div>
+    <div class="nutr-note">The chia contributes fibre and a little omega-3 ALA while the skim milk keeps the saturated-fat load low. The monkfruit/allulose sweetener keeps the glycemic drive minimal compared with a standard sweetened pudding.</div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— satiety</span></span>
+          <span class="nutr-amount">~6–8 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:18%; background:#16a34a"></div></div>
+        <div class="nutr-pct">12–16% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fiber <span class="nutr-why">— glucose stability</span></span>
+          <span class="nutr-amount">~5–7 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:28%; background:#22c55e"></div></div>
+        <div class="nutr-pct">20–28% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">ALA omega-3 <span class="nutr-why">— anti-inflammatory</span></span>
+          <span class="nutr-amount">~1.5–2 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:38%; background:#f59e0b"></div></div>
+        <div class="nutr-pct">~100% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Magnesium <span class="nutr-why">— metabolic support</span></span>
+          <span class="nutr-amount">~30–40 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:10%; background:#06b6d4"></div></div>
+        <div class="nutr-pct">8–10% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ This is a dessert-style pudding, not a high-protein meal. It works best as a controlled ingredient in the plan rather than as your main protein anchor.</div>
+  </section>
+
   <div class="section-divider">Ingredients</div>
   <div class="recipe-layout">
     <div class="panel">
@@ -183,7 +245,7 @@
           <li class="ing-item"><span class="ing-amount">3 TBSP</span> ground chia seeds</li>
           <li class="ing-item"><span class="ing-amount">3 TBSP</span> cocoa powder</li>
           <li class="ing-item"><span class="ing-amount">3 TBSP</span> monkfruit and allulose sugar substitute</li>
-          <li class="ing-item"><span class="ing-amount">1.5 c</span> milk</li>
+          <li class="ing-item"><span class="ing-amount">1.5 c</span> skim milk</li>
         </ul>
       </div>
     </div>
@@ -193,13 +255,18 @@
       <div class="panel-body">
         <ol class="step-list">
           <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Combine the dry mix</div>Add all dry ingredients to a mason jar and stir well so the cocoa and sweetener are evenly distributed.</div></li>
-          <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Add the milk gradually</div>Pour in the milk slowly, stirring as you go or shaking the jar until the mixture fills the jar and the dry ingredients are fully moistened.</div></li>
+          <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Add the skim milk gradually</div>Pour in the skim milk slowly, stirring as you go or shaking the jar until the mixture fills the jar and the dry ingredients are fully moistened.</div></li>
           <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Shake well</div>Seal the jar and shake vigorously until the pudding is smooth and no dry pockets remain.</div></li>
           <li class="step-item"><span class="step-num">4</span><div><div class="step-name">Refrigerate overnight</div>Place the jar in the refrigerator for a minimum of 12 hours. Less time can create a higher glucose spike and a looser texture.</div></li>
           <li class="step-item"><span class="step-num">5</span><div><div class="step-name">Set and serve</div>Shake the sealed jar a few times over the chill period to keep the chia distributed. For a frozen dessert, transfer to the freezer after the 12-hour chill for a rich ice cream texture.</div></li>
         </ol>
       </div>
     </div>
+  </div>
+
+  <div class="flag-note">
+    <h4>Timing note</h4>
+    The overnight chill is not just about texture — it also helps the chia fully hydrate and reduces the chance of a higher glycemic rise. A minimum of 12 hours is the sweet spot for a thicker, more satisfying pudding.
   </div>
 
   <div class="flag-note">
