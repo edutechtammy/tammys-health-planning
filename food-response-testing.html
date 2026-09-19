@@ -1848,6 +1848,40 @@ function setCurveLegendShowAll(nextValue){
   renderCurveLegendList();
 }
 
+const mildResponseZonePlugin={
+  id:'mildResponseZone',
+  beforeDraw(chart,args,pluginOptions){
+    const { ctx, chartArea, scales } = chart;
+    if(!chartArea||!scales||!scales.y) return;
+    const minValue=Number(pluginOptions?.min ?? 0);
+    const maxValue=Number(pluginOptions?.max ?? 30);
+    const yScale=scales.y;
+    const yMin=yScale.getPixelForValue(minValue);
+    const yMax=yScale.getPixelForValue(maxValue);
+
+    if(!Number.isFinite(yMin)||!Number.isFinite(yMax)) return;
+
+    const zoneTop=Math.min(yMin,yMax);
+    const zoneBottom=Math.max(yMin,yMax);
+    const fillTop=Math.max(chartArea.top, zoneTop);
+    const fillBottom=Math.min(chartArea.bottom, zoneBottom);
+    if(fillBottom<=fillTop) return;
+
+    ctx.save();
+    ctx.fillStyle=pluginOptions?.fillColor||'rgba(34, 197, 94, 0.08)';
+    ctx.fillRect(chartArea.left, fillTop, chartArea.right-chartArea.left, fillBottom-fillTop);
+
+    ctx.strokeStyle=pluginOptions?.lineColor||'rgba(16, 185, 129, 0.28)';
+    ctx.setLineDash([6, 6]);
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(chartArea.left, yMax);
+    ctx.lineTo(chartArea.right, yMax);
+    ctx.stroke();
+    ctx.restore();
+  }
+};
+
 const highPeakZonePlugin={
   id:'highPeakZone',
   beforeDraw(chart,args,pluginOptions){
@@ -2154,11 +2188,17 @@ function render(){
   if(curveChart) curveChart.destroy();
   curveChart=new Chart(document.getElementById('chart-curves'),{
     type:'line',
-    plugins:[highPeakZonePlugin],
+    plugins:[mildResponseZonePlugin,highPeakZonePlugin],
     data:{labels:['Baseline (T=0)','+30 min','+60 min','+120 min','+180 min'],datasets},
     options:{
       responsive:true, maintainAspectRatio:false,
       plugins:{
+        mildResponseZone:{
+          min:0,
+          max:30,
+          fillColor:'rgba(34, 197, 94, 0.09)',
+          lineColor:'rgba(16, 185, 129, 0.30)'
+        },
         highPeakZone:{
           threshold:45,
           fillColor:'rgba(245, 158, 11, 0.12)',
