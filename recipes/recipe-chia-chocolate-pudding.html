@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chia Chocolate Pudding</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Chia Chocolate Pudding",
+    "description": "A simple chia pudding with cocoa, monkfruit/allulose sweetener, and milk. Shaken in a mason jar and chilled overnight for a thicker, lower-glucose texture and a pudding-like finish. Sugar-free, gluten-free, and easy to freeze into a rich ice cream texture.",
+    "recipeYield": "2–3 servings",
+    "prepTime": "PT10M",
+    "cookTime": "PT0M",
+    "totalTime": "PT12H10M",
+    "recipeCategory": "Dessert / Breakfast",
+    "recipeCuisine": "Modern Functional",
+    "keywords": "chia pudding, chocolate pudding, monkfruit allulose, chia seeds, cocoa, milk, low glycemic, APOE4, blood sugar, gluten-free, meal prep",
+    "recipeIngredient": [
+      "3 tablespoons ground chia seeds",
+      "3 tablespoons cocoa powder",
+      "3 tablespoons monkfruit and allulose sugar substitute",
+      "1.5 cups milk"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Combine dry ingredients",
+        "text": "Add the ground chia seeds, cocoa powder, and monkfruit/allulose blend to a clean mason jar. Stir them together so the cocoa is evenly distributed before adding the liquid."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add the milk gradually",
+        "text": "Pour in the milk slowly, a little at a time, while stirring or shaking. Keep adding until the jar is nearly full and the dry ingredients are fully moistened."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Seal and shake vigorously",
+        "text": "Put the lid on the jar and shake the mixture very well until it becomes smooth and the dry powder is fully incorporated. If clumps remain, shake again or stir with a spoon."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Chill overnight",
+        "text": "Place the sealed jar in the refrigerator for a minimum of 12 hours. The longer it sits, the thicker and creamier the pudding becomes. The 12-hour minimum is recommended because less time can lead to a larger glucose spike and a looser pudding texture."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Shake and serve",
+        "text": "Shake the jar a few times over the chilling period to help the chia settle evenly and keep the pudding consistent. Before serving, stir or shake again. If you want a frozen dessert texture, move the jar to the freezer after the 12-hour chill and let it set until firm."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --choco-dark: #3b1d1a;
+      --choco-mid: #7c3f2a;
+      --choco-light: #f3d6bd;
+      --choco-pale: #fffaf5;
+      --cocoa-dark: #2d120d;
+      --cocoa-light: #f3e5d8;
+      --text: #1f1713;
+      --muted: #5d4138;
+      --border: #e7c7ad;
+      --shadow: 0 2px 12px rgba(59,29,26,.10);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--choco-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    nav { background: var(--choco-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: linear-gradient(135deg, var(--choco-light) 0%, #f5eadf 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .3rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--choco-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.68; margin-bottom: .9rem; }
+
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--choco-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--choco-dark); margin-bottom: .9rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .trigger-summary { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; background: #fff7ed; border: 1px solid var(--border); border-radius: 10px; padding: .7rem .9rem; margin: .15rem 0 .9rem; }
+    .trigger-pill { display: inline-flex; align-items: center; gap: .3rem; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .22rem .7rem; font-size: .74rem; font-weight: 700; color: var(--choco-dark); }
+    .trigger-pill strong { color: var(--choco-dark); }
+
+    .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--choco-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--choco-light); border-radius: 4px; }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--choco-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--choco-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--choco-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid #f7e5d8; font-size: .85rem; }
+    .ing-amount { font-weight: 700; color: var(--choco-dark); min-width: 4rem; flex-shrink: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num { background: var(--choco-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--choco-dark); margin-bottom: .2rem; }
+
+    .flag-note { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: .9rem 1.1rem; font-size: .84rem; line-height: 1.65; margin-bottom: .75rem; }
+    .flag-note h4 { color: #c2410c; margin-bottom: .35rem; font-size: .84rem; }
+
+    .notes-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.2rem; }
+    .notes-panel h3 { color: var(--choco-dark); font-size: .95rem; margin-bottom: .65rem; }
+    .notes-panel ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.7; color: #334155; display: flex; flex-direction: column; gap: .4rem; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--choco-dark); color: #fff; }
+    .btn-back { background: #fff; color: var(--choco-dark); border: 1.5px solid var(--choco-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../genetics.html">🧬 Genetics</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+</nav>
+
+<div class="main-wrap">
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍫🥣🌱</div>
+    <div class="recipe-hero-body">
+      <h1>Chia Chocolate Pudding</h1>
+      <p>A simple chocolate pudding made by combining ground chia, cocoa, and a monkfruit/allulose sweetener with milk, then chilling until thick and creamy. It is a low-effort dessert or breakfast option with a texture that improves the longer it sits, and it can be frozen after the overnight chill for a rich, ice-cream-like finish.</p>
+      <div class="meta-strip">
+        <span>⏱ 10 min prep + 12 hr chill</span>
+        <span>🍽 2–3 servings</span>
+        <span>❄️ Chill overnight; freeze after set if desired</span>
+      </div>
+      <div class="trigger-summary">
+        <span class="trigger-pill"><strong>Net carbs:</strong> low</span>
+        <span class="trigger-pill"><strong>Saturated fat:</strong> low</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">Ingredients</div>
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">Core ingredients</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item"><span class="ing-amount">3 TBSP</span> ground chia seeds</li>
+          <li class="ing-item"><span class="ing-amount">3 TBSP</span> cocoa powder</li>
+          <li class="ing-item"><span class="ing-amount">3 TBSP</span> monkfruit and allulose sugar substitute</li>
+          <li class="ing-item"><span class="ing-amount">1.5 c</span> milk</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Combine the dry mix</div>Add all dry ingredients to a mason jar and stir well so the cocoa and sweetener are evenly distributed.</div></li>
+          <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Add the milk gradually</div>Pour in the milk slowly, stirring as you go or shaking the jar until the mixture fills the jar and the dry ingredients are fully moistened.</div></li>
+          <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Shake well</div>Seal the jar and shake vigorously until the pudding is smooth and no dry pockets remain.</div></li>
+          <li class="step-item"><span class="step-num">4</span><div><div class="step-name">Refrigerate overnight</div>Place the jar in the refrigerator for a minimum of 12 hours. Less time can create a higher glucose spike and a looser texture.</div></li>
+          <li class="step-item"><span class="step-num">5</span><div><div class="step-name">Set and serve</div>Shake the sealed jar a few times over the chill period to keep the chia distributed. For a frozen dessert, transfer to the freezer after the 12-hour chill for a rich ice cream texture.</div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="flag-note">
+    <h4>Timing note</h4>
+    The overnight chill is not just about texture — it also helps the chia fully hydrate and reduces the chance of a higher glycemic rise. A minimum of 12 hours is the sweet spot for a thicker, more satisfying pudding.
+  </div>
+
+  <div class="notes-panel">
+    <h3>Practical notes</h3>
+    <ul>
+      <li>Use ground chia for the smoothest texture; whole seeds will create a more rustic, grainier pudding.</li>
+      <li>Monkfruit/allulose works well here because it dissolves more cleanly than some other sweeteners and does not leave a harsh aftertaste.</li>
+      <li>For a richer dessert, a splash of extra milk before serving can loosen the texture without changing the flavor profile.</li>
+      <li>This is a good make-ahead option for breakfast or a dessert when you want a chocolate fix without a heavy sugar load.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>Best served cold and well chilled for the most stable texture and the lowest glycemic impact.</p>
+    <a class="btn btn-back" href="../recipes.html">← Back to Recipe Library</a>
+  </div>
+</div>
+
+</body>
+</html>
