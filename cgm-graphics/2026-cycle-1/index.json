@@ -1,20 +1,74 @@
 [
-  "0_daily_mean_sorted.png",
-  "0_daily_tir_breakdown.png",
-  "0_daily_trends.png",
-  "0_event_durations_sorted.png",
-  "0_hba1c_gauge.png",
-  "cgm_report_2026-05-27.png",
-  "cgm_report_2026-05-28.png",
-  "cgm_report_2026-05-29.png",
-  "cgm_report_2026-05-30.png",
-  "cgm_report_2026-05-31.png",
-  "cgm_report_2026-06-01.png",
-  "cgm_report_2026-06-02.png",
-  "cgm_report_2026-06-03.png",
-  "cgm_report_2026-06-04.png",
-  "cgm_report_2026-06-05.png",
-  "cgm_report_2026-06-06.png",
-  "cgm_report_2026-06-07.png",
-  "daily_cgm_time_series.png"
+  {
+    "file": "0_daily_mean_sorted.png",
+    "caption": "Daily mean glucose values sorted for quick comparison across the cycle."
+  },
+  {
+    "file": "0_daily_tir_breakdown.png",
+    "caption": "Time-in-range breakdown for each day in the cycle."
+  },
+  {
+    "file": "0_daily_trends.png",
+    "caption": "Trend summary showing how daily metrics changed across the cycle."
+  },
+  {
+    "file": "0_event_durations_sorted.png",
+    "caption": "Spikes and lows sorted by duration so the longest events stand out."
+  },
+  {
+    "file": "0_hba1c_gauge.png",
+    "caption": "Estimated A1c gauge derived from the CGM data."
+  },
+  {
+    "file": "cgm_report_2026-05-27.png",
+    "caption": "Daily CGM report for May 27, 2026."
+  },
+  {
+    "file": "cgm_report_2026-05-28.png",
+    "caption": "Daily CGM report for May 28, 2026."
+  },
+  {
+    "file": "cgm_report_2026-05-29.png",
+    "caption": "Daily CGM report for May 29, 2026."
+  },
+  {
+    "file": "cgm_report_2026-05-30.png",
+    "caption": "Daily CGM report for May 30, 2026."
+  },
+  {
+    "file": "cgm_report_2026-05-31.png",
+    "caption": "Daily CGM report for May 31, 2026."
+  },
+  {
+    "file": "cgm_report_2026-06-01.png",
+    "caption": "Daily CGM report for June 1, 2026."
+  },
+  {
+    "file": "cgm_report_2026-06-02.png",
+    "caption": "Daily CGM report for June 2, 2026."
+  },
+  {
+    "file": "cgm_report_2026-06-03.png",
+    "caption": "Daily CGM report for June 3, 2026."
+  },
+  {
+    "file": "cgm_report_2026-06-04.png",
+    "caption": "Daily CGM report for June 4, 2026."
+  },
+  {
+    "file": "cgm_report_2026-06-05.png",
+    "caption": "Daily CGM report for June 5, 2026."
+  },
+  {
+    "file": "cgm_report_2026-06-06.png",
+    "caption": "Daily CGM report for June 6, 2026."
+  },
+  {
+    "file": "cgm_report_2026-06-07.png",
+    "caption": "Daily CGM report for June 7, 2026."
+  },
+  {
+    "file": "daily_cgm_time_series.png",
+    "caption": "Continuous CGM time-series chart across the full cycle."
+  }
 ]

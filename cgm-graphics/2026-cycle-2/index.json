@@ -1,6 +1,18 @@
 [
-  "Daily Food Tests.png",
-  "Duration of Hypo and Spike Events.png",
-  "Projected Glycemic Indicators.png",
-  "Sorted Daily Mean.png"
+  {
+    "file": "Daily Food Tests.png",
+    "caption": "Daily food-test summary for this cycle."
+  },
+  {
+    "file": "Duration of Hypo and Spike Events.png",
+    "caption": "Event duration view comparing hypo and spike lengths."
+  },
+  {
+    "file": "Projected Glycemic Indicators.png",
+    "caption": "Projected glucose indicators based on the cycle data."
+  },
+  {
+    "file": "Sorted Daily Mean.png",
+    "caption": "Daily mean glucose sorted from lowest to highest."
+  }
 ]

@@ -1,31 +1,112 @@
 {
     "images": [
-        "berberine-bread1-oats-Test.png",
-        "berberine-brocoli-cauliflower-vs-none.png",
-        "berberine-meatloaf.png",
-        "berberine-pile-up-tacos.png",
-        "bread2-olive-salad-vs-olives-alone.png",
-        "dawn-dairy-tests-1morning.png",
-        "dawn-dairy-tests-2afternoon.png",
-        "dawn-dairy-tests-3evening.png",
-        "dawn-morning-meal.png",
-        "dawn-negative-end.png",
-        "dawn-quizicle-kefir.png",
-        "dawn-yogurt-time of day and cup of milk.png",
-        "fiber-chicken-salad-almonds",
-        "flatline-40-or-less.png",
-        "flatline-steady-foods.png",
-        "fto-example-001.png",
-        "fto-milk.png",
-        "fto-no-sat-fat.png",
-        "high-five.png",
-        "kefir-vs-sugar-shift.png",
-        "meal-tests.png",
-        "milk morning protein impact.png",
-        "morning-eggs.png",
-        "Protein.png",
-        "quick-snacks.png",
-        "speed-limit-thirty",
-        "walmart-deli-chicken-salad.png"
+        {
+            "file": "berberine-bread1-oats-Test.png",
+            "caption": "Berberine vs no berberine for the original gluten-free bread recipe, bread 1."
+        },
+        {
+            "file": "berberine-brocoli-cauliflower-vs-none.png",
+            "caption": "Berberine broccoli and cauliflower comparison against no intervention."
+        },
+        {
+            "file": "berberine-meatloaf.png",
+            "caption": "Berberine meatloaf test result."
+        },
+        {
+            "file": "berberine-pile-up-tacos.png",
+            "caption": "Berberine taco test comparison."
+        },
+        {
+            "file": "bread2-olive-salad-vs-olives-alone.png",
+            "caption": "Bread 2 olive salad compared with olives alone."
+        },
+        {
+            "file": "dawn-dairy-tests-1morning.png",
+            "caption": "Morning dawn-effect dairy comparison."
+        },
+        {
+            "file": "dawn-dairy-tests-2afternoon.png",
+            "caption": "Afternoon dawn-effect dairy comparison."
+        },
+        {
+            "file": "dawn-dairy-tests-3evening.png",
+            "caption": "Evening dawn-effect dairy comparison."
+        },
+        {
+            "file": "dawn-morning-meal.png",
+            "caption": "Morning meal dawn-effect example."
+        },
+        {
+            "file": "dawn-negative-end.png",
+            "caption": "A dawn-effect example that finished with a negative result."
+        },
+        {
+            "file": "dawn-quizicle-kefir.png",
+            "caption": "Dawn-effect kefir comparison example."
+        },
+        {
+            "file": "dawn-yogurt-time of day and cup of milk.png",
+            "caption": "Yogurt and milk comparison showing time-of-day effects."
+        },
+        {
+            "file": "fiber-chicken-salad-almonds",
+            "caption": "Fiber-rich chicken salad with almonds comparison."
+        },
+        {
+            "file": "flatline-40-or-less.png",
+            "caption": "Flatline example staying at or below 40 mg/dL rise."
+        },
+        {
+            "file": "flatline-steady-foods.png",
+            "caption": "Steady-food comparison with minimal glucose movement."
+        },
+        {
+            "file": "fto-example-001.png",
+            "caption": "Food test optimization example 001."
+        },
+        {
+            "file": "fto-milk.png",
+            "caption": "Milk-focused food test optimization example."
+        },
+        {
+            "file": "fto-no-sat-fat.png",
+            "caption": "Food test optimization example with no saturated fat."
+        },
+        {
+            "file": "high-five.png",
+            "caption": "High-five comparison example from the test gallery."
+        },
+        {
+            "file": "kefir-vs-sugar-shift.png",
+            "caption": "Kefir compared against the sugar shift reference."
+        },
+        {
+            "file": "meal-tests.png",
+            "caption": "General meal test comparison overview."
+        },
+        {
+            "file": "milk morning protein impact.png",
+            "caption": "Morning milk and protein impact comparison."
+        },
+        {
+            "file": "morning-eggs.png",
+            "caption": "Morning eggs comparison example."
+        },
+        {
+            "file": "Protein.png",
+            "caption": "Protein-focused comparison image."
+        },
+        {
+            "file": "quick-snacks.png",
+            "caption": "Quick snack comparison gallery image."
+        },
+        {
+            "file": "speed-limit-thirty",
+            "caption": "Speed limit thirty comparison example."
+        },
+        {
+            "file": "walmart-deli-chicken-salad.png",
+            "caption": "Walmart deli chicken salad comparison example."
+        }
     ]
 }

@@ -1,5 +1,14 @@
 [
-  "cgm-eating-guide.png",
-  "cgm-simulator-background.png",
-  "fasting-glucose-over-time.png"
+  {
+    "file": "cgm-eating-guide.png",
+    "caption": "Overview of the food sequencing and glucose-friendly eating guide used in this tracker."
+  },
+  {
+    "file": "cgm-simulator-background.png",
+    "caption": "Background reference image for the CGM simulator and related explanations.The red line is the background Dawn phenomenon and circadian rhythm I currently am at. the blue line is what I am trying to rest to which is more typical and should lead to a lessened glucose level overall."
+  },
+  {
+    "file": "fasting-glucose-over-time.png",
+    "caption": "Trend view showing fasting glucose changes over time. Under 100 is considered normal."
+  }
 ]

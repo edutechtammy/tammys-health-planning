@@ -370,6 +370,17 @@
       border-radius:8px;
       background:#fff;
     }
+    .comparison-caption {
+      margin-top:.6rem;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:#fff;
+      color:#334155;
+      font-size:.84rem;
+      line-height:1.45;
+      padding:.7rem .85rem;
+      white-space:pre-wrap;
+    }
     @media (max-width: 680px) {
       .comparison-stage { min-height:360px; }
       .comparison-stage img { max-height:680px; }
@@ -925,6 +936,7 @@
         <div class="comparison-count" id="comparison-count"></div>
       </div>
       <div class="comparison-stage" id="comparison-stage"></div>
+      <div class="comparison-caption" id="comparison-caption" hidden></div>
       <div class="comparison-controls">
         <button class="comparison-btn" type="button" onclick="showComparisonPrev()">◀ Previous</button>
         <button class="comparison-btn" type="button" onclick="showComparisonNext()">Next ▶</button>
@@ -1605,11 +1617,30 @@ let curveLegendShowAll=true;
 const COMPARISON_FOLDER='food-test-comparisons/';
 const COMPARISON_MANIFEST='food-test-comparisons/index.json';
 let comparisonImages=[];
+let comparisonCaptions=Object.create(null);
 let comparisonIndex=0;
 const comparisonAssetVersion=Date.now();
 
 function isSupportedComparisonImage(fileName){
   return /\.(png|jpe?g|webp|gif|svg)$/i.test(fileName);
+}
+
+function normalizeComparisonEntry(entry){
+  if(typeof entry === 'string'){
+    const fileName = String(entry || '').trim();
+    return fileName ? { fileName, caption: '' } : null;
+  }
+
+  if(entry && typeof entry === 'object'){
+    const fileName = String(entry.file ?? entry.fileName ?? entry.name ?? entry.image ?? entry.src ?? entry.path ?? '').trim();
+    if(!fileName) return null;
+    return {
+      fileName,
+      caption: String(entry.caption ?? entry.text ?? entry.description ?? '').trim()
+    };
+  }
+
+  return null;
 }
 
 async function loadComparisonImages(){
@@ -1624,12 +1655,19 @@ async function loadComparisonImages(){
         : Array.isArray(manifest?.images)
           ? manifest.images
           : [];
-      const names = files
-        .map(name => String(name || '').trim())
+      const entries = files
+        .map(normalizeComparisonEntry)
         .filter(Boolean)
         .filter(isSupportedComparisonImage);
 
-      comparisonImages = Array.from(new Set(names)).sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:'base' }));
+      comparisonImages = Array.from(new Set(entries.map(entry => entry.fileName)))
+        .sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:'base' }));
+      comparisonCaptions = Object.create(null);
+      entries.forEach(entry => {
+        if(entry.caption){
+          comparisonCaptions[entry.fileName] = entry.caption;
+        }
+      });
       loadedFromManifest = comparisonImages.length > 0;
     }
   } catch {
@@ -1650,8 +1688,10 @@ async function loadComparisonImages(){
       .filter(isSupportedComparisonImage);
 
     comparisonImages = Array.from(new Set(names)).sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:'base' }));
+    comparisonCaptions = Object.create(null);
   } catch {
     comparisonImages = [];
+    comparisonCaptions = Object.create(null);
   }
   }
 
@@ -1663,12 +1703,15 @@ function renderComparisonSlide(){
   const stage=document.getElementById('comparison-stage');
   const nameEl=document.getElementById('comparison-filename');
   const countEl=document.getElementById('comparison-count');
-  if(!stage||!nameEl||!countEl) return;
+  const captionEl=document.getElementById('comparison-caption');
+  if(!stage||!nameEl||!countEl||!captionEl) return;
 
   if(!comparisonImages.length){
     stage.innerHTML='<div class="comparison-empty">No comparison images found in food-test-comparisons.</div>';
     nameEl.textContent='';
     countEl.textContent='0/0';
+    captionEl.hidden=true;
+    captionEl.textContent='';
     return;
   }
 
@@ -1688,6 +1731,9 @@ function renderComparisonSlide(){
 
   nameEl.textContent=filename;
   countEl.textContent=(comparisonIndex+1)+'/'+comparisonImages.length;
+  const captionText=String(comparisonCaptions[filename] || '').trim();
+  captionEl.hidden=!captionText;
+  captionEl.textContent=captionText;
 }
 
 function showComparisonNext(){
