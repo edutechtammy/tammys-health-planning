@@ -1622,7 +1622,7 @@ let comparisonIndex=0;
 const comparisonAssetVersion=Date.now();
 
 function isSupportedComparisonImage(fileName){
-  return /\.(png|jpe?g|webp|gif|svg)$/i.test(fileName);
+  return /\.(png|jpe?g|webp|gif|svg)$/i.test(String(fileName || ''));
 }
 
 function normalizeComparisonEntry(entry){
@@ -1657,8 +1657,7 @@ async function loadComparisonImages(){
           : [];
       const entries = files
         .map(normalizeComparisonEntry)
-        .filter(Boolean)
-        .filter(isSupportedComparisonImage);
+        .filter(entry => entry && isSupportedComparisonImage(entry.fileName));
 
       comparisonImages = Array.from(new Set(entries.map(entry => entry.fileName)))
         .sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:'base' }));
