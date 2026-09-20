@@ -94,6 +94,12 @@
     .search-sort-wrap { display:flex; flex-direction:column; gap:.45rem; align-items:flex-start; }
     .btn-sort-auc { background:#eef6fb; color:#1a5276; border:1px solid #aed6f1; padding:.38rem .85rem; border-radius:8px; font-size:.8rem; font-weight:700; cursor:pointer; }
     .btn-sort-auc.on { background:#d6ecfb; border-color:#5dade2; color:#154360; }
+    .risk-summary {
+      margin:-.35rem 0 .85rem;
+      font-size:.8rem;
+      color:var(--muted);
+    }
+    .risk-summary strong { color:#8e1d1d; }
     .threshold-controls {
       margin-top:.2rem;
       display:flex;
@@ -156,7 +162,18 @@
         background:#fff5f2;
         border-color:#f1c8be;
       }
-    .test-card-header { padding:.7rem 1rem; display:flex; align-items:flex-start; gap:.6rem; border-bottom:1px solid var(--border); }
+    .test-card.satfat-high {
+      border-color:#f4b7af;
+      box-shadow:0 0 0 2px rgba(192,57,43,.16), 0 1px 8px rgba(45,106,79,.07);
+    }
+    .test-card-header {
+      padding:.7rem 1rem;
+      display:flex;
+      align-items:flex-start;
+      gap:.45rem .6rem;
+      flex-wrap:wrap;
+      border-bottom:1px solid var(--border);
+    }
     .test-food { font-weight:700; font-size:.95rem; flex:1; }
     .test-date { font-size:.72rem; color:var(--muted); white-space:nowrap; margin-top:.1rem; }
     .cat-pill { font-size:.7rem; font-weight:700; padding:.18rem .55rem; border-radius:20px; white-space:nowrap; }
@@ -211,6 +228,20 @@
     .metric-pill.tail-yes { background:#fff5e6; border-color:#f6d29a; color:#9a6000; }
     .metric-pill.tail-no { background:#e8f8ef; border-color:#bde5cb; color:#1e8449; }
     .metric-pill.tail-unknown { background:#f4f6f7; border-color:#d5dbdb; color:#5d6d7e; }
+    .satfat-warning {
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:.18rem .58rem;
+      background:#c62828;
+      border:1px solid #8e1d1d;
+      color:#fff;
+      font-size:.68rem;
+      font-weight:800;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
 
     .test-card-notes { padding:.4rem 1rem .7rem; font-size:.8rem; color:var(--muted); font-style:italic; }
 
@@ -647,7 +678,13 @@
         <p>150 g cucumber + 22.5 g hemp hearts</p>
       </div>
 
-      <div style="font-size:.99rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">CGM 2 - Week 1</div>
+      <div style="font-size:.99rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">CGM 2 - Week 2</div>
+      <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.75rem">
+        <p>Circadian Rhythm Realignment</p>
+        <p>Breakfast: Sugar Shift Yogurt with skim milk carbs: 3; Sat Fat 0.1 g. 1 Tbsp hemp hearts. 1 Tbsp almonds. 1/3 c blueberries, blackberries, or raspberries. Side of 85 to 120 g cooked chicken. 100 to 150 g broccoli.</p>
+      </div>
+
+      <div style="font-size:.99rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#1a5276;margin:.5rem 0 .4rem">CGM 2 - Week 2</div>
       <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.75rem">
         <p><strong>Bread 2 Recipe Test</strong> Bread 1 used tapioca starch which I was told was required for gluten free bread structure. I really disliked that because that is pure carb with no nutritive value. Recipe 2, removed the tapioca starch and shifted it to almond flour. Note that I have two variations of this recipe. One is plain and the other has olives/olive salad and cheese/no Cheese added.</p>
         <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;cursor:pointer"><input type="checkbox" style="margin-top:.2rem;flex-shrink:0"> <span><strong>☑ Test Name: Bread 2 - Olive Salad and Cheese</strong> FOCUS: This is a test where the focus is a comparison between the tapioca flour based recipe and this new one using almond flour instead.</span></label>
@@ -871,6 +908,7 @@
   
   
   <!-- FILTER BAR -->
+  <div class="callout callout-amber"><strong>Saturated Fat Resctriction: 10-13 g per day.</strong></div>
   <div class="filter-bar">
     <label>Filter:</label>
     <span class="filter-chip on" data-cat="all"    onclick="setFilter('all')">All</span>
@@ -888,6 +926,7 @@
       <button class="btn-sort-auc" id="am-sort-btn" type="button" onclick="toggleAmSort()">AM is off</button>
       <button class="btn-sort-auc" id="carb-sort-btn" type="button" onclick="toggleCarbSort()">Net carbs is off</button>
       <button class="btn-sort-auc" id="fat-sort-btn" type="button" onclick="toggleFatSort()">Sat fat is off</button>
+      <button class="btn-sort-auc" id="satfat-filter-btn" type="button" onclick="toggleSatFatHighFilter()">High Sat Fat only is off</button>
       <button class="btn-sort-auc" id="combo-sort-btn" type="button" onclick="toggleComboFilter()">5g/15g combo is off</button>
       <button class="btn-sort-auc" id="longtail-sort-btn" type="button" onclick="toggleLongTailSort()">Long tail is off</button>
       <div class="threshold-controls">
@@ -905,6 +944,7 @@
     </div>
   </div>
 
+  <p class="risk-summary" id="satfat-risk-summary">Visible high sat fat tests (>=5 g): 0 of 0</p>
   <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph. Soft green cards mark foods or serving sizes that still fit alongside a serving of <strong>skim milk</strong> inside the current 5g sat fat / 15g net carb limits. Soft red cards mark foods that would push that pairing outside the limit. The skim-milk tint does not remove entries from the graph.</p>
 
   <!-- RESULTS GRID -->
@@ -1383,6 +1423,7 @@ let sortByFat=false;
 let sortByLongTail=false;
 let filterAmOnly=false;
 let filterComboOnly=false;
+let filterSatFatHighOnly=false;
 let longTailMinSpikeAboveBaseline=15;
 let longTailMin180Delta=10;
 const SKIM_MILK_PAIRING_NET_CARBS=13;
@@ -1485,6 +1526,11 @@ function toggleLongTailSort(){
 
 function toggleComboFilter(){
   filterComboOnly=!filterComboOnly;
+  render();
+}
+
+function toggleSatFatHighFilter(){
+  filterSatFatHighOnly=!filterSatFatHighOnly;
   render();
 }
 
@@ -1987,6 +2033,11 @@ function render(){
     fatSortBtn.classList.toggle('on',sortByFat);
     fatSortBtn.textContent=`Sat fat is ${sortByFat?'on':'off'}`;
   }
+  const satFatFilterBtn=document.getElementById('satfat-filter-btn');
+  if(satFatFilterBtn){
+    satFatFilterBtn.classList.toggle('on',filterSatFatHighOnly);
+    satFatFilterBtn.textContent=`High Sat Fat only is ${filterSatFatHighOnly?'on':'off'}`;
+  }
   const longTailSortBtn=document.getElementById('longtail-sort-btn');
   if(longTailSortBtn){
     longTailSortBtn.classList.toggle('on',sortByLongTail);
@@ -1998,8 +2049,9 @@ function render(){
       const searchOk=!search||t.food.toLowerCase().includes(search);
       const amOk=!filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
       const comboOk=!filterComboOnly || hasComboThreshold(t);
+      const satFatHighOnlyOk=!filterSatFatHighOnly || Number(t.satFat) >= 5;
       const longTailOk=!sortByLongTail || getLongTailStatus(t)==='yes';
-      return catOk&&searchOk&&amOk&&comboOk&&longTailOk;
+      return catOk&&searchOk&&amOk&&comboOk&&satFatHighOnlyOk&&longTailOk;
     })
     .sort((a,b)=>{
       if(sortByAuc){
@@ -2046,6 +2098,12 @@ function render(){
       return (a.date||'').localeCompare(b.date||'');
     });
 
+  const highSatVisibleCount=filtered.filter(t => Number(t.satFat) >= 5).length;
+  const satFatSummaryEl=document.getElementById('satfat-risk-summary');
+  if(satFatSummaryEl){
+    satFatSummaryEl.innerHTML=`Visible high sat fat tests (>=5 g): <strong>${highSatVisibleCount}</strong> of ${filtered.length}`;
+  }
+
   const grid=document.getElementById('results-grid');
   const empty=document.getElementById('empty-msg');
 
@@ -2090,6 +2148,8 @@ function render(){
       const testId=t.id || '';
       const baselineOutlier=!isBaselineEligibleForGraph(baselineValue);
       const milkPairStatus=getMilkPairStatus(t);
+      const satFatValue=Number(t.satFat);
+      const satFatHigh=Number.isFinite(satFatValue) && satFatValue >= 5;
       const hiddenInGraph=testId ? curveVisibilityOverrides[testId]===false : false;
       const graphStatusNote=baselineOutlier
         ? '<span style="font-size:.74rem;font-weight:700;color:#b03a2e;background:#fdeeee;border:1px solid #efb0a8;border-radius:999px;padding:.15rem .5rem;white-space:nowrap">Excluded from graph: baseline outside 76-120</span>'
@@ -2099,15 +2159,17 @@ function render(){
       const cardClass=baselineOutlier
         ? ' baseline-outlier'
         : (milkPairStatus==='friendly' ? ' milk-pair-friendly' : (milkPairStatus==='unfriendly' ? ' milk-pair-unfriendly' : ''));
+      const satFatClass=satFatHigh ? ' satfat-high' : '';
       return `
-      <div class="test-card${cardClass}">
+      <div class="test-card${cardClass}${satFatClass}">
         <div class="test-card-header">
-          <div style="flex:1">
+          <div style="flex:1 1 240px;min-width:0">
             <div class="test-food">${t.food}</div>
             ${t.portion?`<div style="font-size:.75rem;color:var(--muted);margin-top:.1rem">${t.portion}</div>`:''}
             <div class="test-date">${formatDate(t.date)}${t.baselineTime ? ` · Baseline time ${t.baselineTime}` : ''}</div>
           </div>
           <span class="cat-pill" style="background:${catStyle.split(';')[0].replace('background:','')};${catStyle.split(';')[1]||''}">${catLabel}</span>
+          ${satFatHigh?`<span class="satfat-warning" title="Saturated fat is ${t.satFat} g (5 g or more)">High Sat Fat: ${t.satFat} g</span>`:''}
           ${graphStatusNote}
           ${(!t.t30||!t.t60||!t.t120)?`<span style="font-size:.68rem;font-weight:700;background:#fff8e1;color:#7a5c00;border:1px solid #f0d080;border-radius:20px;padding:.12rem .5rem;margin-left:.3rem;white-space:nowrap">⏳ In progress</span>`:''}
         </div>
@@ -2193,6 +2255,7 @@ function render(){
     .filter(t => isBaselineEligibleForGraph(t.t0))
     .filter(t => !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim()))
     .filter(t => !filterComboOnly || hasComboThreshold(t))
+    .filter(t => !filterSatFatHighOnly || Number(t.satFat) >= 5)
     .filter(t => !sortByLongTail || getLongTailStatus(t)==='yes')
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
