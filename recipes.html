@@ -130,6 +130,18 @@
     .search-input:focus { outline: none; border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(64,145,108,.15); }
     .search-help { font-size: .78rem; color: var(--muted); margin-top: .45rem; line-height: 1.5; }
     .search-clear { padding: .68rem .95rem; }
+    .restriction-note {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green-mid);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      color: var(--green-dark);
+      font-size: .88rem;
+      font-weight: 700;
+      margin-bottom: .85rem;
+      padding: .75rem 1rem;
+    }
 
     .btn-recipe { padding: .42rem 1rem; border-radius: 8px; font-size: .83rem; font-weight: 600; cursor: pointer; border: none; transition: opacity .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; }
     .btn-recipe:hover { opacity: .82; }
@@ -264,6 +276,8 @@
       </div>
     </div>
   </div>
+
+  <div class="restriction-note">Saturated Fat Resctriction: 10-13 g per day.</div>
 
   <div class="search-panel">
     <div class="category-row">
