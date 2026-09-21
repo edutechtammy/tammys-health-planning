@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CGM Tracker — Glucose Patterns by Weight Milestone</title>
+  <title>CGM Tracker — Glucose Patterns by Sensor Set</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
   <style>
@@ -461,7 +461,7 @@
 
 <header>
   <h1>📡 CGM Cycle Tracker</h1>
-  <p>~2-week Lingo sensor cycles · Time-in-range · Spikes &amp; hypo events · Cross-cycle trends tied to each 10% weight-loss milestone</p>
+  <p>~2-week Lingo sensor cycles · Time-in-range · Spikes &amp; hypo events · Cross-sensor trends tracked by sensor set</p>
 </header>
 
 
@@ -586,27 +586,18 @@
       <div class="form-grid">
         <div class="field">
           <label>Cycle Label</label>
-          <input type="text" id="f-label" placeholder="e.g. Cycle 2 — First Milestone" />
+          <input type="text" id="f-label" placeholder="e.g. Sensor 2 — Next Lingo Round" />
         </div>
         <div class="field">
-          <label>Milestone #</label>
+          <label>Sensor Set #</label>
           <select id="f-milestone">
-            <option value="0">0 — Baseline (starting weight)</option>
-            <option value="1">1 — First 10% lost</option>
-            <option value="2">2 — Second 10% lost</option>
-            <option value="3">3 — Third 10% lost</option>
-            <option value="4">4 — Fourth 10% lost</option>
-            <option value="5">5 — Fifth 10% lost</option>
-            <option value="6">6 — Sixth 10% lost</option>
+            <option value="1">1 — Sensor Set 1</option>
+            <option value="2">2 — Sensor Set 2</option>
+            <option value="3">3 — Sensor Set 3</option>
+            <option value="4">4 — Sensor Set 4</option>
+            <option value="5">5 — Sensor Set 5</option>
+            <option value="6">6 — Sensor Set 6</option>
           </select>
-        </div>
-        <div class="field">
-          <label>Start Weight (lbs)</label>
-          <input type="number" id="f-weight-start" placeholder="e.g. 185" step="0.1" />
-        </div>
-        <div class="field">
-          <label>End Weight (lbs)</label>
-          <input type="number" id="f-weight-end" placeholder="optional" step="0.1" />
         </div>
         <div class="field full">
           <label>Observations / Notes</label>
@@ -4569,8 +4560,6 @@ function computeStats(rows) {
 function importCycle() {
   const label     = (document.getElementById('f-label').value.trim()) || 'Unnamed Cycle';
   const milestone = parseInt(document.getElementById('f-milestone').value, 10);
-  const wStart    = parseFloat(document.getElementById('f-weight-start').value) || null;
-  const wEnd      = parseFloat(document.getElementById('f-weight-end').value)   || null;
   const notes     = document.getElementById('f-notes').value.trim();
   const csvText   = document.getElementById('f-csv').value;
   clearImportStatus();
@@ -4594,7 +4583,12 @@ function importCycle() {
 
   const cycle = {
     id: 'cycle-' + Date.now(),
-    label, milestone, weightStart: wStart, weightEnd: wEnd, notes, stats,
+    label,
+    milestone,
+    weightStart: null,
+    weightEnd: null,
+    notes,
+    stats,
     csvData: csvText
   };
   cycles.push(cycle);
@@ -4658,9 +4652,9 @@ function buildCycleFromJsonPayload(payload) {
   return {
     id: 'cycle-' + Date.now(),
     label: String(payload.label || fallbackLabel),
-    milestone: Number.isFinite(milestoneNum) ? milestoneNum : 0,
-    weightStart: toNullableNumber(payload.weightStart),
-    weightEnd: toNullableNumber(payload.weightEnd),
+    milestone: Number.isFinite(milestoneNum) ? milestoneNum : 1,
+    weightStart: null,
+    weightEnd: null,
     notes: String(payload.notes || ''),
     stats,
     csvData: payload.csvData
@@ -4711,8 +4705,6 @@ function handleJSONFileImport(ev) {
 
 function clearImportForm() {
   ['f-label', 'f-notes', 'f-csv'].forEach(id => { document.getElementById(id).value = ''; });
-  document.getElementById('f-weight-start').value = '';
-  document.getElementById('f-weight-end').value = '';
   clearImportStatus();
 }
 
@@ -4750,11 +4742,12 @@ function renderCycleSelector() {
   const sel = document.getElementById('cycle-select');
   if (!cycles.length) { bar.style.display = 'none'; return; }
   bar.style.display = 'flex';
-  sel.innerHTML = cycles.map(c =>
-    `<option value="${c.id}" ${c.id === currentCycleId ? 'selected' : ''}>
-      Milestone ${c.milestone} — ${c.label} (${c.stats.dateStart})
-    </option>`
-  ).join('');
+  sel.innerHTML = cycles.map(c => {
+    const sensorSet = Number.isFinite(Number(c.milestone)) && Number(c.milestone) > 0 ? Number(c.milestone) : 1;
+    return `<option value="${c.id}" ${c.id === currentCycleId ? 'selected' : ''}>
+      Sensor Set ${sensorSet} — ${c.label} (${c.stats.dateStart})
+    </option>`;
+  }).join('');
 }
 
 function selectCycle(id) {
@@ -4777,12 +4770,8 @@ function renderCycleDetail(cycle) {
   const el = document.getElementById('cycle-detail');
 
   // Meta
-  const milestoneLabel = cycle.milestone === 0
-    ? 'Baseline (pre-weight-loss)'
-    : `#${cycle.milestone} — ${cycle.milestone * 10}%+ total weight lost`;
-  const wtStr = cycle.weightStart
-    ? `${cycle.weightStart} lbs${cycle.weightEnd ? ' → ' + cycle.weightEnd + ' lbs' : ''}`
-    : '—';
+  const sensorSetNum = Number.isFinite(Number(cycle.milestone)) && Number(cycle.milestone) > 0 ? Number(cycle.milestone) : 1;
+  const sensorLabel = `Sensor Set ${sensorSetNum}`;
 
   // Dawn badge
   const dawnBadge = s.dawnPositive
@@ -4872,8 +4861,7 @@ function renderCycleDetail(cycle) {
     <div class="card-body">
 
       <div class="meta-row">
-        <span>Milestone: <strong>${milestoneLabel}</strong></span>
-        <span>Weight: <strong>${wtStr}</strong></span>
+        <span>Sensor: <strong>${sensorLabel}</strong></span>
         <span>GMI: <strong>${s.gmi}</strong> (~A1c equiv.)</span>
         ${dawnBadge}
       </div>
@@ -5612,10 +5600,6 @@ function renderComparison() {
       return `<td>${curr} <span class="${cls}">${arrow}${Math.abs(delta)}</span></td>`;
     }
 
-    const wt = c.weightStart
-      ? `${c.weightStart}${c.weightEnd ? ' → ' + c.weightEnd : ''} lbs`
-      : '—';
-
     return `<tr>
       <td><strong>${escHtml(c.label)}</strong><br><span style="font-size:.75rem;color:var(--muted)">${s.dateStart} · ${s.durationDays} days</span></td>
       ${td(s.mean,         prev?.mean,         false)}
@@ -5623,7 +5607,6 @@ function renderComparison() {
       ${td(s.pctBelow70,   prev?.pctBelow70,   true)}
       ${td(s.pctAbove140,  prev?.pctAbove140,  true)}
       ${td(s.gmi,          prev?.gmi,          true)}
-      <td>${wt}</td>
       <td>${s.spikes.length}</td>
       <td>${s.hypos.length}</td>
     </tr>`;
@@ -5632,8 +5615,8 @@ function renderComparison() {
   el.innerHTML = `
   <div class="card">
     <div class="card-header sky">
-      📈 Cross-Cycle Comparison
-      <span class="ch-sub">${cycles.length} cycle${cycles.length !== 1 ? 's' : ''} · each tied to a 10% weight-loss milestone</span>
+      📈 Cross-Sensor Comparison
+      <span class="ch-sub">${cycles.length} sensor set${cycles.length !== 1 ? 's' : ''} tracked in sequence</span>
     </div>
     <div class="card-body">
 
@@ -5646,7 +5629,6 @@ function renderComparison() {
             <th>% &lt;70</th>
             <th>% &gt;140</th>
             <th>GMI</th>
-            <th>Weight</th>
             <th>Spikes</th>
             <th>Hypos</th>
           </tr></thead>
@@ -5680,7 +5662,7 @@ function buildComparisonChart() {
   if (!ctx) return;
   if (_compChart) { _compChart.destroy(); _compChart = null; }
 
-  const labels = cycles.map((c, i) => `M${c.milestone}`);
+  const labels = cycles.map((c, i) => `S${Number.isFinite(Number(c.milestone)) && Number(c.milestone) > 0 ? Number(c.milestone) : i + 1}`);
 
   _compChart = new Chart(ctx, {
     type: 'line',
