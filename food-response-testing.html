@@ -245,7 +245,30 @@
 
     .test-card-notes { padding:.4rem 1rem .7rem; font-size:.8rem; color:var(--muted); font-style:italic; }
 
-    .test-card-actions { padding:.4rem .75rem .6rem; display:flex; gap:.5rem; border-top:1px solid var(--border); }
+    .test-card-actions { padding:.4rem .75rem .6rem; display:flex; gap:.5rem; border-top:1px solid var(--border); align-items:center; }
+    .pin-btn {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 1;
+      transition: all .15s ease;
+      flex-shrink: 0;
+    }
+    .pin-btn:hover { border-color: #cfead5; background:#f2fbf4; color:var(--green-dark); }
+    .pin-btn.pinned {
+      background: #fff4d6;
+      border-color: #f0d08a;
+      color: #a86900;
+      box-shadow: inset 0 0 0 1px rgba(168,105,0,.1);
+    }
     .btn-sm { padding:.28rem .75rem; border:none; border-radius:6px; font-size:.78rem; font-weight:600; cursor:pointer; }
     .btn-sm-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
     .btn-sm-danger  { background:var(--red-pale); color:var(--red); border:1px solid #f5c0b0; }
@@ -1643,9 +1666,36 @@ function saveTest(){
   render();
 }
 
+function loadPinnedTests(){
+  try {
+    const raw = localStorage.getItem(PINNED_TESTS_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
+function savePinnedTests(){
+  localStorage.setItem(PINNED_TESTS_KEY, JSON.stringify(Array.from(pinnedTestIds)));
+}
+
+function togglePinnedTest(id){
+  const key = String(id);
+  if (pinnedTestIds.has(key)) {
+    pinnedTestIds.delete(key);
+  } else {
+    pinnedTestIds.add(key);
+  }
+  savePinnedTests();
+  render();
+}
+
 function deleteTest(id){
   if(!confirm('Delete this test entry?')) return;
   delete curveVisibilityOverrides[id];
+  pinnedTestIds.delete(String(id));
+  savePinnedTests();
   saveTests(loadTests().filter(t=>String(t.id)!==String(id)));
   render();
 }
@@ -1659,6 +1709,8 @@ function confirmClearAll(){
 let curveChart=null;
 let legendHoverTip=null;
 const curveVisibilityOverrides=Object.create(null);
+const PINNED_TESTS_KEY='food-response-pinned-tests';
+let pinnedTestIds = new Set(loadPinnedTests());
 let curveLegendShowAll=true;
 const COMPARISON_FOLDER='food-test-comparisons/';
 const COMPARISON_MANIFEST='food-test-comparisons/index.json';
@@ -2043,14 +2095,16 @@ function render(){
     longTailSortBtn.classList.toggle('on',sortByLongTail);
     longTailSortBtn.textContent=`Long tail is ${sortByLongTail?'on':'off'}`;
   }
+  const pinnedSet = new Set(pinnedTestIds);
   const filtered=all
     .filter(t=>{
-      const catOk=activeFilter==='all'||t.cat===activeFilter;
-      const searchOk=!search||t.food.toLowerCase().includes(search);
-      const amOk=!filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
-      const comboOk=!filterComboOnly || hasComboThreshold(t);
-      const satFatHighOnlyOk=!filterSatFatHighOnly || Number(t.satFat) >= 5;
-      const longTailOk=!sortByLongTail || getLongTailStatus(t)==='yes';
+      const isPinned = pinnedSet.has(String(t.id));
+      const catOk = isPinned || activeFilter==='all' || t.cat===activeFilter;
+      const searchOk = isPinned || !search || t.food.toLowerCase().includes(search);
+      const amOk = isPinned || !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
+      const comboOk = isPinned || !filterComboOnly || hasComboThreshold(t);
+      const satFatHighOnlyOk = isPinned || !filterSatFatHighOnly || Number(t.satFat) >= 5;
+      const longTailOk = isPinned || !sortByLongTail || getLongTailStatus(t)==='yes';
       return catOk&&searchOk&&amOk&&comboOk&&satFatHighOnlyOk&&longTailOk;
     })
     .sort((a,b)=>{
@@ -2151,17 +2205,18 @@ function render(){
       const satFatValue=Number(t.satFat);
       const satFatHigh=Number.isFinite(satFatValue) && satFatValue >= 5;
       const hiddenInGraph=testId ? curveVisibilityOverrides[testId]===false : false;
+      const isPinned = pinnedTestIds.has(String(t.id));
       const graphStatusNote=baselineOutlier
         ? '<span style="font-size:.74rem;font-weight:700;color:#b03a2e;background:#fdeeee;border:1px solid #efb0a8;border-radius:999px;padding:.15rem .5rem;white-space:nowrap">Excluded from graph: baseline outside 76-120</span>'
         : (hiddenInGraph
           ? '<span style="font-size:.74rem;font-weight:700;color:#7d6608;background:#fff7da;border:1px solid #f0d080;border-radius:999px;padding:.15rem .5rem;white-space:nowrap">Hidden in graph</span>'
-          : '');
+          : (isPinned ? '<span style="font-size:.74rem;font-weight:700;color:#8a5a00;background:#fff7d6;border:1px solid #edd186;border-radius:999px;padding:.15rem .5rem;white-space:nowrap">Pinned</span>' : ''));
       const cardClass=baselineOutlier
         ? ' baseline-outlier'
         : (milkPairStatus==='friendly' ? ' milk-pair-friendly' : (milkPairStatus==='unfriendly' ? ' milk-pair-unfriendly' : ''));
       const satFatClass=satFatHigh ? ' satfat-high' : '';
       return `
-      <div class="test-card${cardClass}${satFatClass}">
+      <div class="test-card${cardClass}${satFatClass}${isPinned ? ' pinned-card' : ''}">
         <div class="test-card-header">
           <div style="flex:1 1 240px;min-width:0">
             <div class="test-food">${t.food}</div>
@@ -2196,6 +2251,7 @@ function render(){
         ${t.notes?`<div class="test-card-notes">${t.notes}</div>`:''}
         <div class="test-card-actions">
           <button class="btn-sm btn-sm-outline" onclick="editTest('${t.id}')">✏️ Add / Edit Readings</button>
+          <button class="pin-btn ${isPinned ? 'pinned' : ''}" type="button" onclick="togglePinnedTest('${t.id}')" title="${isPinned ? 'Unpin this card' : 'Pin this card for graph comparison'}" aria-label="${isPinned ? 'Unpin card' : 'Pin card'}">📌</button>
           <button class="btn-sm btn-sm-danger" onclick="deleteTest('${t.id}')">Delete</button>
         </div>
       </div>`;
@@ -2250,13 +2306,17 @@ function render(){
   // Curves chart — category-aware + legend override, normalized to baseline
   const colors=['#4a90c4','#e9a84c','#8b6abf','#27ae60','#e07a5f','#00838f','#c0392b','#f39c12','#1abc9c','#9b59b6'];
   const chartTests = all
-    .filter(t => t.t0 && (activeFilter==='all' || t.cat===activeFilter))
-    .filter(t => !search || String(t.food || '').toLowerCase().includes(search))
-    .filter(t => isBaselineEligibleForGraph(t.t0))
-    .filter(t => !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim()))
-    .filter(t => !filterComboOnly || hasComboThreshold(t))
-    .filter(t => !filterSatFatHighOnly || Number(t.satFat) >= 5)
-    .filter(t => !sortByLongTail || getLongTailStatus(t)==='yes')
+    .filter(t => {
+      const isPinned = pinnedTestIds.has(String(t.id));
+      const catOk = isPinned || (activeFilter==='all' || t.cat===activeFilter);
+      const searchOk = isPinned || !search || String(t.food || '').toLowerCase().includes(search);
+      const amOk = isPinned || !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
+      const comboOk = isPinned || !filterComboOnly || hasComboThreshold(t);
+      const satFatOk = isPinned || !filterSatFatHighOnly || Number(t.satFat) >= 5;
+      const longTailOk = isPinned || !sortByLongTail || getLongTailStatus(t)==='yes';
+      const baselineOk = isBaselineEligibleForGraph(t.t0);
+      return catOk && searchOk && amOk && comboOk && satFatOk && longTailOk && baselineOk;
+    })
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
   const datasets=chartTests.map((t,i)=>{
