@@ -1,18 +1,54 @@
 [
   {
     "file": "Daily Food Tests.png",
-    "caption": "Daily food-test summary for this cycle."
+    "caption": "CGM cycle asset: Daily Food Tests."
   },
   {
     "file": "Duration of Hypo and Spike Events.png",
-    "caption": "Event duration view comparing hypo and spike lengths."
+    "caption": "CGM cycle asset: Duration of Hypo and Spike Events."
   },
   {
     "file": "Projected Glycemic Indicators.png",
-    "caption": "Projected glucose indicators based on the cycle data."
+    "caption": "CGM cycle asset: Projected Glycemic Indicators."
   },
   {
     "file": "Sorted Daily Mean.png",
-    "caption": "Daily mean glucose sorted from lowest to highest."
+    "caption": "CGM cycle asset: Sorted Daily Mean."
+  },
+  {
+    "file": "cgm_report_2026-09-08.png",
+    "caption": "Daily CGM report for September 8, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-09.png",
+    "caption": "Daily CGM report for September 9, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-10.png",
+    "caption": "Daily CGM report for September 10, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-11.png",
+    "caption": "Daily CGM report for September 11, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-12.png",
+    "caption": "Daily CGM report for September 12, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-13.png",
+    "caption": "Daily CGM report for September 13, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-14.png",
+    "caption": "Daily CGM report for September 14, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-15.png",
+    "caption": "Daily CGM report for September 15, 2026."
+  },
+  {
+    "file": "cgm_report_2026-09-16.png",
+    "caption": "Daily CGM report for September 16, 2026."
   }
 ]

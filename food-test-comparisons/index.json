@@ -1,6 +1,14 @@
 {
     "images": [
         {
+            "file": "cgm_report_2026-05-30.png",
+            "caption": "Late morning whole milk did not cause the usual over 140 morning glucose spike that a mixed carb and saturated fat food typically causes during the morning. Thankfully, the insulin sensitivity is normal for the afternoon and evenings most days."
+        },
+        {
+            "file": "carb-vs-fat-morning.png",
+            "caption": "I have found that if carbs and saturated fat are combined, I get a higher glucose rise, so I am testing protein+carb alone and protein+fat alone to see what happens during the dawn effect morning hours."
+        },
+        {
             "file": "berberine-bread1-oats-Test.png",
             "caption": "Berberine vs no berberine for the original gluten-free bread recipe, bread 1."
         },
