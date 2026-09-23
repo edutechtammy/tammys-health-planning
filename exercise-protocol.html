@@ -145,6 +145,21 @@
   #save-msg.show{opacity:1}
   .action-link{background:none;border:none;color:var(--green-dark);font:inherit;font-weight:600;cursor:pointer;padding:0 .15rem}
   .action-link:hover{text-decoration:underline}
+
+  /* EXERCISE ILLUSTRATION SLIDESHOW */
+  .exercise-slideshow{border:1px solid var(--border);border-radius:12px;background:#f8fdf9;padding:.8rem}
+  .exercise-slide-header{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:.55rem}
+  .exercise-slide-count{font-size:.82rem;color:var(--muted);font-weight:600}
+  .exercise-slide-stage{position:relative;background:#fff;border:1px solid var(--border);border-radius:10px;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .exercise-slide-img{width:100%;height:100%;max-height:540px;object-fit:contain;display:block;background:#fff}
+  .exercise-slide-empty{font-size:.88rem;color:var(--muted);padding:1rem;text-align:center}
+  .exercise-slide-nav{position:absolute;top:50%;transform:translateY(-50%);border:1px solid var(--border);background:#ffffffd9;color:var(--green-dark);width:2.2rem;height:2.2rem;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:pointer;transition:background .2s,color .2s}
+  .exercise-slide-nav:hover{background:#fff}
+  .exercise-slide-nav:disabled{opacity:.45;cursor:not-allowed}
+  .exercise-slide-nav.prev{left:.7rem}
+  .exercise-slide-nav.next{right:.7rem}
+  .exercise-slide-meta{padding:.55rem .35rem .2rem}
+  .exercise-slide-caption{font-size:.84rem;color:var(--muted);line-height:1.5}
 </style>
 </head>
 <body>
@@ -260,6 +275,31 @@
           <div class="summary-box"><strong>Overall</strong><span id="week-overall">On track / mostly / off track</span></div>
         </div>
         <div style="font-size:.82rem;color:var(--muted);margin-top:.55rem">Pick one status for each category at the end of the week. This keeps the log useful for accountability without turning it into a chore.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section band-sky" id="sec-ex-illustrations">
+    <div class="section-header" onclick="toggle('sec-ex-illustrations')">
+      <span class="icon">🖼️</span>
+      <h2>Exercise Illustration Slideshow</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:.75rem;font-size:.9rem">Use this slideshow to quickly review form visuals from the <strong>exercise-illustrations</strong> folder while planning or logging sessions.</p>
+      <div class="exercise-slideshow">
+        <div class="exercise-slide-header">
+          <div class="exercise-slide-count" id="exercise-slide-count">0 images</div>
+        </div>
+        <div class="exercise-slide-stage">
+          <button class="exercise-slide-nav prev" id="exercise-slide-prev" type="button" onclick="moveExerciseSlide(-1)">‹</button>
+          <img id="exercise-slide-image" class="exercise-slide-img" alt="Exercise illustration" style="display:none" />
+          <div id="exercise-slide-empty" class="exercise-slide-empty">No images available in exercise-illustrations yet.</div>
+          <button class="exercise-slide-nav next" id="exercise-slide-next" type="button" onclick="moveExerciseSlide(1)">›</button>
+        </div>
+        <div class="exercise-slide-meta">
+          <div class="exercise-slide-caption" id="exercise-slide-caption">Loading images...</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1161,6 +1201,100 @@ function importEntriesFromFile(file){
   reader.readAsText(file);
 }
 
+const EXERCISE_SLIDES_FALLBACK=[
+  {src:'exercise-illustrations/chair-squats.png',caption:'Chair squat form guide'},
+  {src:'exercise-illustrations/glute-bridsge.png',caption:'Glute bridge setup and movement pattern'},
+  {src:'exercise-illustrations/step-up.png',caption:'Step-up movement for legs and balance'},
+  {src:'exercise-illustrations/wall-push-ups.png',caption:'Wall push-up positioning and progression'},
+  {src:'exercise-illustrations/hip-hinge.png',caption:'Hip hinge mechanics for posterior-chain training'},
+  {src:'exercise-illustrations/calf-raise.png',caption:'Calf raise movement for ankle and lower-leg strength'},
+  {src:'exercise-illustrations/resistance-band-row.png',caption:'Resistance band row for back-muscle recruitment'},
+  {src:'exercise-illustrations/dead-bug.png',caption:'Dead bug core-stability pattern'},
+  {src:'exercise-illustrations/weekly-schedule.jpg',caption:'Weekly exercise schedule visual'},
+  {src:'exercise-illustrations/cgm-Dawn-Effect-Walk%20guide.png',caption:'Dawn effect walking guide visual'}
+];
+const EXERCISE_SLIDE_CAPTIONS={
+  'chair-squats.png':'Chair squat form guide',
+  'glute-bridsge.png':'Glute bridge setup and movement pattern',
+  'step-up.png':'Step-up movement for legs and balance',
+  'wall-push-ups.png':'Wall push-up positioning and progression',
+  'hip-hinge.png':'Hip hinge mechanics for posterior-chain training',
+  'calf-raise.png':'Calf raise movement for ankle and lower-leg strength',
+  'resistance-band-row.png':'Resistance band row for back-muscle recruitment',
+  'dead-bug.png':'Dead bug core-stability pattern',
+  'weekly-schedule.jpg':'Weekly exercise schedule visual',
+  'cgm-Dawn-Effect-Walk guide.png':'Dawn effect walking guide visual'
+};
+let EXERCISE_SLIDES=[...EXERCISE_SLIDES_FALLBACK];
+let exerciseSlideIndex=0;
+
+function encodeSlidePath(fileName){
+  return `exercise-illustrations/${encodeURIComponent(fileName)}`;
+}
+
+function normalizeExerciseSlides(list){
+  if(!Array.isArray(list)) return [];
+  return list
+    .filter(item=>typeof item==='string' && item.trim())
+    .map(item=>item.trim())
+    .map(fileName=>({
+      src:encodeSlidePath(fileName),
+      caption:EXERCISE_SLIDE_CAPTIONS[fileName]||fileName
+    }));
+}
+
+async function loadExerciseSlides(){
+  try{
+    const response=await fetch('exercise-illustrations/index.json',{cache:'no-store'});
+    if(!response.ok) throw new Error('Index not found');
+    const payload=await response.json();
+    const images=Array.isArray(payload) ? payload : payload?.images;
+    const discovered=normalizeExerciseSlides(images);
+    if(discovered.length) EXERCISE_SLIDES=discovered;
+  }catch{
+    EXERCISE_SLIDES=[...EXERCISE_SLIDES_FALLBACK];
+  }
+}
+
+function renderExerciseSlide(){
+  const img=document.getElementById('exercise-slide-image');
+  const empty=document.getElementById('exercise-slide-empty');
+  const prev=document.getElementById('exercise-slide-prev');
+  const next=document.getElementById('exercise-slide-next');
+  const caption=document.getElementById('exercise-slide-caption');
+  const count=document.getElementById('exercise-slide-count');
+  if(!img||!empty||!prev||!next||!caption||!count) return;
+
+  if(!EXERCISE_SLIDES.length){
+    img.style.display='none';
+    empty.style.display='block';
+    prev.disabled=true;
+    next.disabled=true;
+    caption.textContent='Drop PNG/JPG images into exercise-illustrations to populate this slideshow.';
+    count.textContent='0 images';
+    return;
+  }
+
+  if(exerciseSlideIndex>=EXERCISE_SLIDES.length) exerciseSlideIndex=0;
+  if(exerciseSlideIndex<0) exerciseSlideIndex=EXERCISE_SLIDES.length-1;
+
+  const current=EXERCISE_SLIDES[exerciseSlideIndex];
+  img.src=current.src;
+  img.alt=current.caption||'Exercise illustration';
+  img.style.display='block';
+  empty.style.display='none';
+  prev.disabled=EXERCISE_SLIDES.length<2;
+  next.disabled=EXERCISE_SLIDES.length<2;
+  caption.textContent=current.caption||current.src;
+  count.textContent=`${exerciseSlideIndex+1} / ${EXERCISE_SLIDES.length}`;
+}
+
+function moveExerciseSlide(step){
+  if(!EXERCISE_SLIDES.length) return;
+  exerciseSlideIndex+=step;
+  renderExerciseSlide();
+}
+
 document.getElementById('log-form').addEventListener('submit',handleSubmit);
 document.getElementById('clear-entry-btn').addEventListener('click',()=>{
   clearForm();
@@ -1176,6 +1310,7 @@ document.getElementById('import-entry-file').addEventListener('change',event=>{
 
 document.getElementById('entry-date').value=todayISO();
 renderEntries();
+loadExerciseSlides().finally(renderExerciseSlide);
 </script>
 </body>
 </html>
