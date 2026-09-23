@@ -160,6 +160,24 @@
   .exercise-slide-nav.next{right:.7rem}
   .exercise-slide-meta{padding:.55rem .35rem .2rem}
   .exercise-slide-caption{font-size:.84rem;color:var(--muted);line-height:1.5}
+  .exercise-slide-note-wrap{margin-top:.55rem}
+  .exercise-slide-note-label{display:block;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.3rem}
+  .exercise-slide-note{
+    width:100%;
+    min-height:78px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.55rem .7rem;
+    font:inherit;
+    font-size:.84rem;
+    line-height:1.45;
+    color:#334155;
+    background:#fff;
+    resize:vertical;
+  }
+  .exercise-slide-note:focus{outline:2px solid var(--green-mid);outline-offset:1px}
+  .exercise-slide-note-help{margin-top:.3rem;font-size:.74rem;color:var(--muted)}
+  .exercise-slide-note-actions{margin-top:.45rem;display:flex;gap:.45rem;flex-wrap:wrap;align-items:center}
 </style>
 </head>
 <body>
@@ -299,6 +317,16 @@
         </div>
         <div class="exercise-slide-meta">
           <div class="exercise-slide-caption" id="exercise-slide-caption">Loading images...</div>
+        </div>
+        <div class="exercise-slide-note-wrap">
+          <label class="exercise-slide-note-label" for="exercise-slide-note">Slide Notes (editable)</label>
+          <textarea id="exercise-slide-note" class="exercise-slide-note" placeholder="Add notes for this slide..."></textarea>
+          <div class="exercise-slide-note-actions">
+            <button class="btn btn-export" type="button" id="exercise-notes-export-btn">Export Slide Notes</button>
+            <button class="btn btn-import-wrap" type="button" id="exercise-notes-import-btn">Import Slide Notes</button>
+            <input id="exercise-notes-import-file" type="file" accept=".json,application/json" hidden />
+          </div>
+          <div class="exercise-slide-note-help">Saved automatically in this browser for each image.</div>
         </div>
       </div>
     </div>
@@ -1202,16 +1230,16 @@ function importEntriesFromFile(file){
 }
 
 const EXERCISE_SLIDES_FALLBACK=[
-  {src:'exercise-illustrations/chair-squats.png',caption:'Chair squat form guide'},
-  {src:'exercise-illustrations/glute-bridsge.png',caption:'Glute bridge setup and movement pattern'},
-  {src:'exercise-illustrations/step-up.png',caption:'Step-up movement for legs and balance'},
-  {src:'exercise-illustrations/wall-push-ups.png',caption:'Wall push-up positioning and progression'},
-  {src:'exercise-illustrations/hip-hinge.png',caption:'Hip hinge mechanics for posterior-chain training'},
-  {src:'exercise-illustrations/calf-raise.png',caption:'Calf raise movement for ankle and lower-leg strength'},
-  {src:'exercise-illustrations/resistance-band-row.png',caption:'Resistance band row for back-muscle recruitment'},
-  {src:'exercise-illustrations/dead-bug.png',caption:'Dead bug core-stability pattern'},
-  {src:'exercise-illustrations/weekly-schedule.jpg',caption:'Weekly exercise schedule visual'},
-  {src:'exercise-illustrations/cgm-Dawn-Effect-Walk%20guide.png',caption:'Dawn effect walking guide visual'}
+  {fileName:'chair-squats.png',caption:'Chair squat form guide'},
+  {fileName:'glute-bridsge.png',caption:'Glute bridge setup and movement pattern'},
+  {fileName:'step-up.png',caption:'Step-up movement for legs and balance'},
+  {fileName:'wall-push-ups.png',caption:'Wall push-up positioning and progression'},
+  {fileName:'hip-hinge.png',caption:'Hip hinge mechanics for posterior-chain training'},
+  {fileName:'calf-raise.png',caption:'Calf raise movement for ankle and lower-leg strength'},
+  {fileName:'resistance-band-row.png',caption:'Resistance band row for back-muscle recruitment'},
+  {fileName:'dead-bug.png',caption:'Dead bug core-stability pattern'},
+  {fileName:'weekly-schedule.jpg',caption:'Weekly exercise schedule visual'},
+  {fileName:'cgm-Dawn-Effect-Walk guide.png',caption:'Dawn effect walking guide visual'}
 ];
 const EXERCISE_SLIDE_CAPTIONS={
   'chair-squats.png':'Chair squat form guide',
@@ -1225,22 +1253,64 @@ const EXERCISE_SLIDE_CAPTIONS={
   'weekly-schedule.jpg':'Weekly exercise schedule visual',
   'cgm-Dawn-Effect-Walk guide.png':'Dawn effect walking guide visual'
 };
-let EXERCISE_SLIDES=[...EXERCISE_SLIDES_FALLBACK];
+const EXERCISE_SLIDE_NOTES_KEY='exercise-illustration-slide-notes';
+let EXERCISE_SLIDES=[];
 let exerciseSlideIndex=0;
+
+function loadExerciseSlideNotes(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(EXERCISE_SLIDE_NOTES_KEY));
+    if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)) return {};
+    return parsed;
+  }catch{
+    return {};
+  }
+}
+
+function saveExerciseSlideNotes(notesMap){
+  localStorage.setItem(EXERCISE_SLIDE_NOTES_KEY,JSON.stringify(notesMap));
+}
+
+let exerciseSlideNotes=loadExerciseSlideNotes();
 
 function encodeSlidePath(fileName){
   return `exercise-illustrations/${encodeURIComponent(fileName)}`;
 }
 
+function normalizeExerciseSlideEntry(entry){
+  if(typeof entry==='string'){
+    const fileName=entry.trim();
+    if(!fileName) return null;
+    return {
+      fileName,
+      caption:EXERCISE_SLIDE_CAPTIONS[fileName]||fileName
+    };
+  }
+
+  if(entry&&typeof entry==='object'){
+    const fileName=String(entry.file ?? entry.fileName ?? entry.name ?? entry.image ?? entry.src ?? entry.path ?? '').trim();
+    if(!fileName) return null;
+    const caption=String(entry.caption ?? entry.text ?? entry.description ?? EXERCISE_SLIDE_CAPTIONS[fileName] ?? fileName).trim();
+    return { fileName, caption };
+  }
+
+  return null;
+}
+
 function normalizeExerciseSlides(list){
   if(!Array.isArray(list)) return [];
-  return list
-    .filter(item=>typeof item==='string' && item.trim())
-    .map(item=>item.trim())
-    .map(fileName=>({
-      src:encodeSlidePath(fileName),
-      caption:EXERCISE_SLIDE_CAPTIONS[fileName]||fileName
-    }));
+  const normalized=[];
+  for(const raw of list){
+    const entry=normalizeExerciseSlideEntry(raw);
+    if(!entry) continue;
+    if(normalized.some(item=>item.fileName===entry.fileName)) continue;
+    normalized.push({
+      fileName:entry.fileName,
+      src:encodeSlidePath(entry.fileName),
+      caption:entry.caption
+    });
+  }
+  return normalized;
 }
 
 async function loadExerciseSlides(){
@@ -1250,10 +1320,99 @@ async function loadExerciseSlides(){
     const payload=await response.json();
     const images=Array.isArray(payload) ? payload : payload?.images;
     const discovered=normalizeExerciseSlides(images);
-    if(discovered.length) EXERCISE_SLIDES=discovered;
+    if(discovered.length){
+      EXERCISE_SLIDES=discovered;
+      return;
+    }
+    EXERCISE_SLIDES=normalizeExerciseSlides(EXERCISE_SLIDES_FALLBACK);
   }catch{
-    EXERCISE_SLIDES=[...EXERCISE_SLIDES_FALLBACK];
+    EXERCISE_SLIDES=normalizeExerciseSlides(EXERCISE_SLIDES_FALLBACK);
   }
+}
+
+function getCurrentExerciseSlide(){
+  if(!EXERCISE_SLIDES.length) return null;
+  if(exerciseSlideIndex>=EXERCISE_SLIDES.length) exerciseSlideIndex=0;
+  if(exerciseSlideIndex<0) exerciseSlideIndex=EXERCISE_SLIDES.length-1;
+  return EXERCISE_SLIDES[exerciseSlideIndex];
+}
+
+function getExerciseSlideNote(slide){
+  if(!slide) return '';
+  const saved=exerciseSlideNotes[slide.fileName];
+  if(typeof saved==='string') return saved;
+  return String(slide.caption||'');
+}
+
+function updateExerciseSlideNote(){
+  const noteField=document.getElementById('exercise-slide-note');
+  const slide=getCurrentExerciseSlide();
+  if(!noteField||!slide) return;
+  exerciseSlideNotes[slide.fileName]=noteField.value;
+  saveExerciseSlideNotes(exerciseSlideNotes);
+}
+
+function normalizeExerciseSlideNotesPayload(payload){
+  const source = payload && typeof payload === 'object' && !Array.isArray(payload)
+    ? (payload.notes && typeof payload.notes === 'object' && !Array.isArray(payload.notes) ? payload.notes : payload)
+    : null;
+  if(!source) return null;
+
+  const normalized={};
+  for(const [key,value] of Object.entries(source)){
+    const fileName=String(key||'').trim();
+    if(!fileName) continue;
+    normalized[fileName]=String(value ?? '');
+  }
+  return normalized;
+}
+
+function exportExerciseSlideNotes(){
+  const notes=exerciseSlideNotes && typeof exerciseSlideNotes==='object' ? exerciseSlideNotes : {};
+  if(!Object.keys(notes).length){
+    alert('No slide notes to export yet.');
+    return;
+  }
+  const payload={
+    version:1,
+    exportedAt:new Date().toISOString(),
+    notes
+  };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download=`exercise-slide-notes-${todayISO()}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function importExerciseSlideNotes(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=event=>{
+    try{
+      const text=String(event.target?.result||'').trim();
+      if(!text){
+        alert('The selected file is empty.');
+        return;
+      }
+      const parsed=JSON.parse(text);
+      const incoming=normalizeExerciseSlideNotesPayload(parsed);
+      if(!incoming||!Object.keys(incoming).length){
+        alert('No valid slide notes were found in that file.');
+        return;
+      }
+      if(!confirm('Import and merge slide notes? Existing notes for matching images will be overwritten.')) return;
+      exerciseSlideNotes={...exerciseSlideNotes,...incoming};
+      saveExerciseSlideNotes(exerciseSlideNotes);
+      renderExerciseSlide();
+      setSaveMessage('Slide notes imported');
+    }catch{
+      alert('Could not parse slide notes JSON.');
+    }
+  };
+  reader.readAsText(file);
 }
 
 function renderExerciseSlide(){
@@ -1263,7 +1422,8 @@ function renderExerciseSlide(){
   const next=document.getElementById('exercise-slide-next');
   const caption=document.getElementById('exercise-slide-caption');
   const count=document.getElementById('exercise-slide-count');
-  if(!img||!empty||!prev||!next||!caption||!count) return;
+  const noteField=document.getElementById('exercise-slide-note');
+  if(!img||!empty||!prev||!next||!caption||!count||!noteField) return;
 
   if(!EXERCISE_SLIDES.length){
     img.style.display='none';
@@ -1272,13 +1432,13 @@ function renderExerciseSlide(){
     next.disabled=true;
     caption.textContent='Drop PNG/JPG images into exercise-illustrations to populate this slideshow.';
     count.textContent='0 images';
+    noteField.value='';
+    noteField.disabled=true;
     return;
   }
 
-  if(exerciseSlideIndex>=EXERCISE_SLIDES.length) exerciseSlideIndex=0;
-  if(exerciseSlideIndex<0) exerciseSlideIndex=EXERCISE_SLIDES.length-1;
-
-  const current=EXERCISE_SLIDES[exerciseSlideIndex];
+  const current=getCurrentExerciseSlide();
+  if(!current) return;
   img.src=current.src;
   img.alt=current.caption||'Exercise illustration';
   img.style.display='block';
@@ -1287,6 +1447,8 @@ function renderExerciseSlide(){
   next.disabled=EXERCISE_SLIDES.length<2;
   caption.textContent=current.caption||current.src;
   count.textContent=`${exerciseSlideIndex+1} / ${EXERCISE_SLIDES.length}`;
+  noteField.disabled=false;
+  noteField.value=getExerciseSlideNote(current);
 }
 
 function moveExerciseSlide(step){
@@ -1305,6 +1467,13 @@ document.getElementById('export-csv-btn').addEventListener('click',exportEntries
 document.getElementById('import-entry-btn').addEventListener('click',()=>document.getElementById('import-entry-file').click());
 document.getElementById('import-entry-file').addEventListener('change',event=>{
   importEntriesFromFile(event.target.files && event.target.files[0]);
+  event.target.value='';
+});
+document.getElementById('exercise-slide-note').addEventListener('input',updateExerciseSlideNote);
+document.getElementById('exercise-notes-export-btn').addEventListener('click',exportExerciseSlideNotes);
+document.getElementById('exercise-notes-import-btn').addEventListener('click',()=>document.getElementById('exercise-notes-import-file').click());
+document.getElementById('exercise-notes-import-file').addEventListener('change',event=>{
+  importExerciseSlideNotes(event.target.files && event.target.files[0]);
   event.target.value='';
 });
 

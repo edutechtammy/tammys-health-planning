@@ -1,14 +1,52 @@
 {
     "images": [
-        "chair-squats.png",
-        "glute-bridsge.png",
-        "step-up.png",
-        "wall-push-ups.png",
-        "hip-hinge.png",
-        "calf-raise.png",
-        "resistance-band-row.png",
-        "dead-bug.png",
-        "weekly-schedule.jpg",
-        "cgm-Dawn-Effect-Walk guide.png"
+        {
+            "file": "cgm-night-before-walk.png",
+            "caption": "Data from exercising the night before"
+        },
+        {
+            "file": "cgm-morning-walk.png",
+            "caption": "Data from no food but walking in the morning test on the Dawn Phenomenon"
+        },
+        {
+            "file": "chair-squats.png",
+            "caption": "Chair squat form guide."
+        },
+        {
+            "file": "glute-bridsge.png",
+            "caption": "Glute bridge setup and movement pattern."
+        },
+        {
+            "file": "step-up.png",
+            "caption": "Step-up movement for legs and balance."
+        },
+        {
+            "file": "wall-push-ups.png",
+            "caption": "Wall push-up positioning and progression."
+        },
+        {
+            "file": "hip-hinge.png",
+            "caption": "Hip hinge mechanics for posterior-chain training."
+        },
+        {
+            "file": "calf-raise.png",
+            "caption": "Calf raise movement for ankle and lower-leg strength."
+        },
+        {
+            "file": "resistance-band-row.png",
+            "caption": "Resistance band row for back-muscle recruitment."
+        },
+        {
+            "file": "dead-bug.png",
+            "caption": "Dead bug core-stability pattern."
+        },
+        {
+            "file": "weekly-schedule.jpg",
+            "caption": "Weekly exercise schedule visual."
+        },
+        {
+            "file": "cgm-Dawn-Effect-Walk guide.png",
+            "caption": "Dawn effect walking guide visual."
+        }
     ]
 }

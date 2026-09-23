@@ -171,6 +171,36 @@
       gap: .5rem;
       flex-wrap: wrap;
     }
+    .slide-note-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .slide-note-label {
+      font-size: .74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+    }
+    .slide-note {
+      width: 100%;
+      min-height: 84px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .55rem .7rem;
+      font: inherit;
+      font-size: .84rem;
+      line-height: 1.45;
+      color: #334155;
+      background: #fff;
+      resize: vertical;
+    }
+    .slide-note:focus { outline: 2px solid var(--green-mid); outline-offset: 1px; }
+    .slide-note-help {
+      font-size: .74rem;
+      color: var(--muted);
+    }
 
     /* CYCLE SELECTOR BAR */
     #cycle-selector-bar { display: flex; align-items: center; gap: .8rem; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: .8rem 1.2rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
@@ -568,6 +598,14 @@
         <div class="slide-caption" id="graphics-slide-caption" hidden></div>
         <div class="slide-actions">
           <button class="btn btn-outline" id="graphics-autoplay-btn" type="button" onclick="toggleGraphicsAutoplay()">▶ Auto Play</button>
+          <button class="btn btn-export" type="button" id="graphics-notes-export-btn">Export Slide Notes</button>
+          <button class="btn btn-import-wrap" type="button" id="graphics-notes-import-btn">Import Slide Notes</button>
+          <input id="graphics-notes-import-file" type="file" accept=".json,application/json" hidden />
+        </div>
+        <div class="slide-note-wrap">
+          <label class="slide-note-label" for="graphics-slide-note">Slide Notes (editable)</label>
+          <textarea id="graphics-slide-note" class="slide-note" placeholder="Add notes for this graphic..."></textarea>
+          <div class="slide-note-help">Saved automatically in this browser for each graphic path.</div>
         </div>
       </div>
     </div>
@@ -4065,6 +4103,37 @@ let _graphicsAutoplayTimer = null;
 let _graphicsFolder = '2026-cycle-1';
 let _graphicsIndex = 0;
 let _graphicsAssetVersion = Date.now();
+const GRAPHICS_SLIDE_NOTES_KEY = 'cgm-graphics-slide-notes';
+
+function loadGraphicsSlideNotes() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(GRAPHICS_SLIDE_NOTES_KEY));
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+    return parsed;
+  } catch {
+    return {};
+  }
+}
+
+function saveGraphicsSlideNotes(notesMap) {
+  localStorage.setItem(GRAPHICS_SLIDE_NOTES_KEY, JSON.stringify(notesMap));
+}
+
+function normalizeGraphicsNotesPayload(payload) {
+  const source = payload && typeof payload === 'object' && !Array.isArray(payload)
+    ? (payload.notes && typeof payload.notes === 'object' && !Array.isArray(payload.notes) ? payload.notes : payload)
+    : null;
+  if (!source) return null;
+  const normalized = {};
+  for (const [key, value] of Object.entries(source)) {
+    const path = String(key || '').trim();
+    if (!path) continue;
+    normalized[path] = String(value ?? '');
+  }
+  return normalized;
+}
+
+let graphicsSlideNotes = loadGraphicsSlideNotes();
 const GRAPHICS_ROOT = 'cgm-graphics';
 const GRAPHICS_ROOT_MANIFEST = `${GRAPHICS_ROOT}/index.json`;
 
@@ -4329,6 +4398,7 @@ function renderGraphicsSlide() {
   const next = document.getElementById('slide-next');
   const caption = document.getElementById('graphics-slide-caption');
   const count = document.getElementById('graphics-slide-count');
+  const noteField = document.getElementById('graphics-slide-note');
 
   if (!slides.length) {
     img.style.display = 'none';
@@ -4338,6 +4408,10 @@ function renderGraphicsSlide() {
     caption.hidden = true;
     caption.textContent = '';
     count.textContent = '0 images';
+    if (noteField) {
+      noteField.value = '';
+      noteField.disabled = true;
+    }
     return;
   }
 
@@ -4355,6 +4429,66 @@ function renderGraphicsSlide() {
   caption.hidden = !captionText;
   caption.textContent = captionText;
   count.textContent = `${slides.length} image${slides.length === 1 ? '' : 's'}`;
+  if (noteField) {
+    noteField.disabled = false;
+    noteField.value = typeof graphicsSlideNotes[current.path] === 'string' ? graphicsSlideNotes[current.path] : captionText;
+  }
+}
+
+function updateGraphicsSlideNote() {
+  const slides = getActiveGraphicsSlides();
+  const current = slides[_graphicsIndex];
+  const noteField = document.getElementById('graphics-slide-note');
+  if (!current || !noteField) return;
+  graphicsSlideNotes[current.path] = noteField.value;
+  saveGraphicsSlideNotes(graphicsSlideNotes);
+}
+
+function exportGraphicsSlideNotes() {
+  if (!Object.keys(graphicsSlideNotes).length) {
+    showToast('No slide notes to export yet.');
+    return;
+  }
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    notes: graphicsSlideNotes
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `cgm-slide-notes-${new Date().toLocaleDateString('en-CA')}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function importGraphicsSlideNotes(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = event => {
+    try {
+      const text = String(event.target?.result || '').trim();
+      if (!text) {
+        showToast('Selected slide-note file is empty.');
+        return;
+      }
+      const parsed = JSON.parse(text);
+      const incoming = normalizeGraphicsNotesPayload(parsed);
+      if (!incoming || !Object.keys(incoming).length) {
+        showToast('No valid slide notes found in that file.');
+        return;
+      }
+      if (!confirm('Import and merge slide notes? Existing notes for matching paths will be overwritten.')) return;
+      graphicsSlideNotes = { ...graphicsSlideNotes, ...incoming };
+      saveGraphicsSlideNotes(graphicsSlideNotes);
+      renderGraphicsSlide();
+      showToast('Slide notes imported');
+    } catch {
+      showToast('Could not parse slide notes JSON');
+    }
+  };
+  reader.readAsText(file);
 }
 
 function moveGraphicsSlide(step) {
@@ -5806,6 +5940,13 @@ function showToast(msg) {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Page loaded, initializing...');
   initGraphicsSlideshow();
+  document.getElementById('graphics-slide-note')?.addEventListener('input', updateGraphicsSlideNote);
+  document.getElementById('graphics-notes-export-btn')?.addEventListener('click', exportGraphicsSlideNotes);
+  document.getElementById('graphics-notes-import-btn')?.addEventListener('click', () => document.getElementById('graphics-notes-import-file')?.click());
+  document.getElementById('graphics-notes-import-file')?.addEventListener('change', event => {
+    importGraphicsSlideNotes(event.target.files && event.target.files[0]);
+    event.target.value = '';
+  });
   
   // Check if data version has changed - if so, reload PRESET_CYCLE
   const storedVersion = parseInt(localStorage.getItem(VERSION_KEY) || '0');

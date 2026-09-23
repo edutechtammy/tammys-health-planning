@@ -478,6 +478,43 @@
       word-break:break-word;
       text-overflow:clip;
     }
+    .comparison-note-wrap {
+      margin-top:.55rem;
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
+    }
+    .comparison-note-label {
+      font-size:.74rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      color:var(--muted);
+    }
+    .comparison-note {
+      width:100%;
+      min-height:84px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:.55rem .7rem;
+      font:inherit;
+      font-size:.84rem;
+      line-height:1.45;
+      color:#334155;
+      background:#fff;
+      resize:vertical;
+    }
+    .comparison-note:focus { outline:2px solid var(--green-mid); outline-offset:1px; }
+    .comparison-note-actions {
+      display:flex;
+      gap:.45rem;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .comparison-note-help {
+      font-size:.74rem;
+      color:var(--muted);
+    }
 
     /* SUMMARY TABLE */
     .sum-table { width:100%; border-collapse:collapse; font-size:.85rem; }
@@ -1000,6 +1037,16 @@
       </div>
       <div class="comparison-stage" id="comparison-stage"></div>
       <div class="comparison-caption" id="comparison-caption" hidden></div>
+      <div class="comparison-note-wrap">
+        <label class="comparison-note-label" for="comparison-slide-note">Slide Notes (editable)</label>
+        <textarea id="comparison-slide-note" class="comparison-note" placeholder="Add notes for this comparison image..."></textarea>
+        <div class="comparison-note-actions">
+          <button class="comparison-btn" type="button" id="comparison-notes-export-btn">Export Slide Notes</button>
+          <button class="comparison-btn" type="button" id="comparison-notes-import-btn">Import Slide Notes</button>
+          <input id="comparison-notes-import-file" type="file" accept=".json,application/json" hidden />
+        </div>
+        <div class="comparison-note-help">Saved automatically in this browser for each image.</div>
+      </div>
       <div class="comparison-controls">
         <button class="comparison-btn" type="button" onclick="showComparisonPrev()">◀ Previous</button>
         <button class="comparison-btn" type="button" onclick="showComparisonNext()">Next ▶</button>
@@ -1718,6 +1765,37 @@ let comparisonImages=[];
 let comparisonCaptions=Object.create(null);
 let comparisonIndex=0;
 const comparisonAssetVersion=Date.now();
+const COMPARISON_SLIDE_NOTES_KEY='food-comparison-slide-notes';
+
+function loadComparisonSlideNotes(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(COMPARISON_SLIDE_NOTES_KEY));
+    if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)) return {};
+    return parsed;
+  }catch{
+    return {};
+  }
+}
+
+function saveComparisonSlideNotes(notesMap){
+  localStorage.setItem(COMPARISON_SLIDE_NOTES_KEY,JSON.stringify(notesMap));
+}
+
+function normalizeComparisonNotesPayload(payload){
+  const source=payload&&typeof payload==='object'&&!Array.isArray(payload)
+    ? (payload.notes&&typeof payload.notes==='object'&&!Array.isArray(payload.notes) ? payload.notes : payload)
+    : null;
+  if(!source) return null;
+  const normalized={};
+  for(const [key,value] of Object.entries(source)){
+    const fileName=String(key||'').trim();
+    if(!fileName) continue;
+    normalized[fileName]=String(value ?? '');
+  }
+  return normalized;
+}
+
+let comparisonSlideNotes=loadComparisonSlideNotes();
 
 function isSupportedComparisonImage(fileName){
   return /\.(png|jpe?g|webp|gif|svg)$/i.test(String(fileName || ''));
@@ -1801,7 +1879,8 @@ function renderComparisonSlide(){
   const nameEl=document.getElementById('comparison-filename');
   const countEl=document.getElementById('comparison-count');
   const captionEl=document.getElementById('comparison-caption');
-  if(!stage||!nameEl||!countEl||!captionEl) return;
+  const noteField=document.getElementById('comparison-slide-note');
+  if(!stage||!nameEl||!countEl||!captionEl||!noteField) return;
 
   if(!comparisonImages.length){
     stage.innerHTML='<div class="comparison-empty">No comparison images found in food-test-comparisons.</div>';
@@ -1809,6 +1888,8 @@ function renderComparisonSlide(){
     countEl.textContent='0/0';
     captionEl.hidden=true;
     captionEl.textContent='';
+    noteField.value='';
+    noteField.disabled=true;
     return;
   }
 
@@ -1831,6 +1912,62 @@ function renderComparisonSlide(){
   const captionText=String(comparisonCaptions[filename] || '').trim();
   captionEl.hidden=!captionText;
   captionEl.textContent=captionText;
+  noteField.disabled=false;
+  noteField.value=typeof comparisonSlideNotes[filename]==='string' ? comparisonSlideNotes[filename] : captionText;
+}
+
+function updateComparisonSlideNote(){
+  const noteField=document.getElementById('comparison-slide-note');
+  const filename=comparisonImages[comparisonIndex];
+  if(!noteField||!filename) return;
+  comparisonSlideNotes[filename]=noteField.value;
+  saveComparisonSlideNotes(comparisonSlideNotes);
+}
+
+function exportComparisonSlideNotes(){
+  if(!Object.keys(comparisonSlideNotes).length){
+    alert('No slide notes to export yet.');
+    return;
+  }
+  const payload={
+    version:1,
+    exportedAt:new Date().toISOString(),
+    notes:comparisonSlideNotes
+  };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download=`food-comparison-slide-notes-${new Date().toLocaleDateString('en-CA')}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function importComparisonSlideNotes(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=event=>{
+    try{
+      const text=String(event.target?.result||'').trim();
+      if(!text){
+        alert('The selected file is empty.');
+        return;
+      }
+      const parsed=JSON.parse(text);
+      const incoming=normalizeComparisonNotesPayload(parsed);
+      if(!incoming||!Object.keys(incoming).length){
+        alert('No valid slide notes were found in that file.');
+        return;
+      }
+      if(!confirm('Import and merge slide notes? Existing notes for matching images will be overwritten.')) return;
+      comparisonSlideNotes={...comparisonSlideNotes,...incoming};
+      saveComparisonSlideNotes(comparisonSlideNotes);
+      renderComparisonSlide();
+    }catch{
+      alert('Could not parse slide notes JSON.');
+    }
+  };
+  reader.readAsText(file);
 }
 
 function showComparisonNext(){
@@ -2403,6 +2540,13 @@ function render(){
 loadLongTailThresholdSettings();
 applyLongTailThresholdInputs();
 document.getElementById('f-date').value=todayISO();
+document.getElementById('comparison-slide-note').addEventListener('input',updateComparisonSlideNote);
+document.getElementById('comparison-notes-export-btn').addEventListener('click',exportComparisonSlideNotes);
+document.getElementById('comparison-notes-import-btn').addEventListener('click',()=>document.getElementById('comparison-notes-import-file').click());
+document.getElementById('comparison-notes-import-file').addEventListener('change',event=>{
+  importComparisonSlideNotes(event.target.files && event.target.files[0]);
+  event.target.value='';
+});
 loadComparisonImages();
 render();
 </script>

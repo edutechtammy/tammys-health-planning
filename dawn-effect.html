@@ -205,6 +205,54 @@
       flex:1;
       min-width:220px;
     }
+    .dawn-slide-note-wrap {
+      margin-top:.65rem;
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
+    }
+    .dawn-slide-note-label {
+      font-size:.74rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      color:var(--muted);
+    }
+    .dawn-slide-note {
+      width:100%;
+      min-height:84px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:.55rem .7rem;
+      font:inherit;
+      font-size:.84rem;
+      line-height:1.45;
+      color:#334155;
+      background:#fff;
+      resize:vertical;
+    }
+    .dawn-slide-note:focus { outline:2px solid var(--green-mid); outline-offset:1px; }
+    .dawn-slide-note-actions {
+      display:flex;
+      gap:.45rem;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .dawn-note-btn {
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--green-dark);
+      border-radius:8px;
+      font-size:.78rem;
+      font-weight:700;
+      padding:.32rem .72rem;
+      cursor:pointer;
+    }
+    .dawn-note-btn:hover { background:#eff8f1; }
+    .dawn-slide-note-help {
+      font-size:.74rem;
+      color:var(--muted);
+    }
     footer {
       text-align:center; padding:1.5rem; font-size:.82rem; color:var(--muted);
     }
@@ -503,6 +551,16 @@
         <div class="dawn-slide-meta">
           <div class="dawn-slide-caption" id="dawn-slide-caption">Loading images...</div>
         </div>
+        <div class="dawn-slide-note-wrap">
+          <label class="dawn-slide-note-label" for="dawn-slide-note">Slide Notes (editable)</label>
+          <textarea id="dawn-slide-note" class="dawn-slide-note" placeholder="Add notes for this image..."></textarea>
+          <div class="dawn-slide-note-actions">
+            <button class="dawn-note-btn" type="button" id="dawn-notes-export-btn">Export Slide Notes</button>
+            <button class="dawn-note-btn" type="button" id="dawn-notes-import-btn">Import Slide Notes</button>
+            <input id="dawn-notes-import-file" type="file" accept=".json,application/json" hidden />
+          </div>
+          <div class="dawn-slide-note-help">Saved automatically in this browser for each image.</div>
+        </div>
       </div>
     </section>
 
@@ -641,6 +699,38 @@
   <script>
     const dawnEffectSlides = [];
     let dawnEffectIndex = 0;
+    const DAWN_SLIDE_NOTES_KEY = 'dawn-effect-slide-notes';
+
+    function loadDawnSlideNotes() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(DAWN_SLIDE_NOTES_KEY));
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+        return parsed;
+      } catch {
+        return {};
+      }
+    }
+
+    function saveDawnSlideNotes(notesMap) {
+      localStorage.setItem(DAWN_SLIDE_NOTES_KEY, JSON.stringify(notesMap));
+    }
+
+    function normalizeDawnSlideNotesPayload(payload) {
+      const source = payload && typeof payload === 'object' && !Array.isArray(payload)
+        ? (payload.notes && typeof payload.notes === 'object' && !Array.isArray(payload.notes) ? payload.notes : payload)
+        : null;
+      if (!source) return null;
+
+      const normalized = {};
+      for (const [key, value] of Object.entries(source)) {
+        const fileName = String(key || '').trim();
+        if (!fileName) continue;
+        normalized[fileName] = String(value ?? '');
+      }
+      return normalized;
+    }
+
+    let dawnSlideNotes = loadDawnSlideNotes();
 
     function parseTimeToMinutes(value) {
       if (!value || typeof value !== 'string') return null;
@@ -672,6 +762,64 @@
         .trim();
     }
 
+    function keyFromPath(path) {
+      return String(path || '').split('/').pop() || String(path || '');
+    }
+
+    function updateDawnSlideNote() {
+      const field = document.getElementById('dawn-slide-note');
+      const current = dawnEffectSlides[dawnEffectIndex];
+      if (!field || !current) return;
+      dawnSlideNotes[keyFromPath(current)] = field.value;
+      saveDawnSlideNotes(dawnSlideNotes);
+    }
+
+    function exportDawnSlideNotes() {
+      if (!Object.keys(dawnSlideNotes).length) {
+        alert('No slide notes to export yet.');
+        return;
+      }
+      const payload = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        notes: dawnSlideNotes
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `dawn-slide-notes-${new Date().toLocaleDateString('en-CA')}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importDawnSlideNotes(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = event => {
+        try {
+          const text = String(event.target?.result || '').trim();
+          if (!text) {
+            alert('The selected file is empty.');
+            return;
+          }
+          const parsed = JSON.parse(text);
+          const incoming = normalizeDawnSlideNotesPayload(parsed);
+          if (!incoming || !Object.keys(incoming).length) {
+            alert('No valid slide notes were found in that file.');
+            return;
+          }
+          if (!confirm('Import and merge slide notes? Existing notes for matching images will be overwritten.')) return;
+          dawnSlideNotes = { ...dawnSlideNotes, ...incoming };
+          saveDawnSlideNotes(dawnSlideNotes);
+          renderDawnEffectSlide();
+        } catch {
+          alert('Could not parse slide notes JSON.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
     async function discoverDawnEffectSlides() {
       try {
         const response = await fetch('dawn-effect-images/index.json?scan=' + Date.now(), { cache: 'no-store' });
@@ -693,6 +841,7 @@
       const next = document.getElementById('dawn-slide-next');
       const caption = document.getElementById('dawn-slide-caption');
       const count = document.getElementById('dawn-slide-count');
+      const noteField = document.getElementById('dawn-slide-note');
 
       if (!dawnEffectSlides.length) {
         if (img) img.style.display = 'none';
@@ -701,6 +850,10 @@
         if (next) next.disabled = true;
         if (caption) caption.textContent = 'No images found yet in dawn-effect-images.';
         if (count) count.textContent = '0 images';
+        if (noteField) {
+          noteField.value = '';
+          noteField.disabled = true;
+        }
         return;
       }
 
@@ -718,6 +871,11 @@
       if (next) next.disabled = dawnEffectSlides.length < 2;
       if (caption) caption.textContent = `${dawnEffectIndex + 1}/${dawnEffectSlides.length} · ${titleFromPath(current)}`;
       if (count) count.textContent = `${dawnEffectSlides.length} image${dawnEffectSlides.length === 1 ? '' : 's'}`;
+      if (noteField) {
+        const key = keyFromPath(current);
+        noteField.disabled = false;
+        noteField.value = typeof dawnSlideNotes[key] === 'string' ? dawnSlideNotes[key] : titleFromPath(current);
+      }
     }
 
     function moveDawnEffectSlide(step) {
@@ -789,6 +947,14 @@
         input.addEventListener('change', () => calculateRow(row));
       });
       calculateRow(row);
+    });
+
+    document.getElementById('dawn-slide-note')?.addEventListener('input', updateDawnSlideNote);
+    document.getElementById('dawn-notes-export-btn')?.addEventListener('click', exportDawnSlideNotes);
+    document.getElementById('dawn-notes-import-btn')?.addEventListener('click', () => document.getElementById('dawn-notes-import-file')?.click());
+    document.getElementById('dawn-notes-import-file')?.addEventListener('change', event => {
+      importDawnSlideNotes(event.target.files && event.target.files[0]);
+      event.target.value = '';
     });
 
     document.addEventListener('DOMContentLoaded', initDawnEffectSlideshow);
