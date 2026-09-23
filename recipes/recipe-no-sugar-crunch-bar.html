@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No-Sugar Crunch Bar</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "No-Sugar Crunch Bar",
+    "description": "A no-sugar seed-and-nut bar bound with psyllium husk and ground flax. It delivers a satisfying crunch with no added sweetener, making it a reliable low-glycemic snack that stays grain-free and gluten-free while keeping fiber and healthy fats high.",
+    "recipeYield": "8 bars",
+    "prepTime": "PT15M",
+    "cookTime": "PT0M",
+    "totalTime": "PT15M",
+    "recipeCategory": "Snack / Bar",
+    "recipeCuisine": "Whole Food / Gluten-Free",
+    "keywords": "no sugar bar, seed bar, almond butter bar, gluten-free snack, low-carb crisp bar, psyllium, flax, pumpkin seeds, hemp hearts, no bake",
+    "recipeIngredient": [
+      "1/2 cup + 2 tbsp (145g) smooth unsweetened almond butter, slightly warmed",
+      "1/2 cup (65g) pepitas (pumpkin seeds), pre-salted",
+      "1/2 cup (80g) hemp hearts",
+      "1/2 cup (70g) almonds, roughly chopped",
+      "2 tbsp (20g) ground flaxseed",
+      "2 tbsp (10g) psyllium husk (whole)",
+      "4 tbsp (60ml) warm water",
+      "1/2 tsp cinnamon",
+      "1 tsp vanilla extract (optional; only if baking)",
+      "A pinch of salt only if your pepitas are unsalted"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate the binder",
+        "text": "Whisk the psyllium husk, ground flax, and warm water together in a small bowl. Let it sit for 5 minutes until it turns into a thick gel. This gel is what gives the bars enough structure to hold together without sugar or starches."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Combine the dry mix",
+        "text": "In a large bowl, combine the pepitas, hemp hearts, chopped almonds, and cinnamon. Stir well so the nuts and seeds are evenly distributed."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Bring it together",
+        "text": "Add the warmed almond butter and the psyllium-flax gel to the dry mixture. Stir vigorously until a thick, uniform dough forms and no dry pockets remain. If using the baked option, mix the vanilla into the warm almond butter before adding it to the mixture."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Press and set",
+        "text": "Line an 8x4-inch loaf pan with parchment paper. Press the mixture firmly into the pan, packing it down as tightly as possible for a dense bar. For a no-bake version, refrigerate for 2 hours until firm, then slice into 8 bars. For the baked version, bake at 325°F (160°C) for 15 minutes, cool fully in the pan, and then slice. Store refrigerated for best texture."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #2d6a4f;
+      --green-mid: #40916c;
+      --green-light: #d8f3dc;
+      --green-pale: #f0faf2;
+      --amber: #fff8e1;
+      --amber-dark: #78350f;
+      --text: #1e2d24;
+      --muted: #5a7263;
+      --border: #b7ddc4;
+      --shadow: 0 2px 12px rgba(45,106,79,.12);
+      --red-pale: #fff5f5;
+      --red-border: #fecaca;
+      --red-dark: #991b1b;
+      --blue-pale: #eff6ff;
+      --blue-dark: #1d4ed8;
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 3rem; }
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .wrap { max-width: 860px; margin: 0 auto; padding: 1.25rem 1rem 0; }
+    .hero { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .hero-top { background: linear-gradient(135deg, var(--green-light), #fef3c7); text-align: center; font-size: 3.2rem; padding: .9rem; }
+    .hero-body { padding: 1.1rem 1.2rem 1.2rem; }
+    h1 { color: var(--green-dark); font-size: clamp(1.25rem, 3vw, 1.7rem); margin-bottom: .55rem; }
+    .meta { display: flex; gap: .9rem; flex-wrap: wrap; background: var(--green-pale); border: 1px solid var(--border); border-radius: 8px; padding: .55rem .75rem; font-size: .82rem; color: var(--muted); margin-top: .75rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin: .75rem 0 .2rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp { background: #e3f2fd; color: #1565c0; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+    .badge-apoe4 { background: #e8f5e9; color: #2e7d32; }
+
+    .trigger-strip { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1rem 0 .9rem; }
+    .trigger-pill { display: inline-flex; align-items: center; gap: .3rem; border-radius: 999px; padding: .38rem .8rem; font-size: .76rem; font-weight: 700; }
+    .trigger-pill.green { background: #e8f5e9; color: #166534; border: 1px solid #86efac; }
+    .trigger-pill.amber { background: #fff7ed; color: #9a4d00; border: 1px solid #fed7aa; }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1rem; overflow: hidden; }
+    .panel h2 { font-size: .86rem; text-transform: uppercase; letter-spacing: .06em; background: var(--green-light); color: var(--green-dark); padding: .65rem .95rem; border-bottom: 1px solid var(--border); }
+    .panel .body { padding: .95rem 1rem; }
+
+    .ingredients { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .ingredients li { font-size: .88rem; display: flex; align-items: baseline; gap: .55rem; line-height: 1.5; }
+    .ing-amount { min-width: 120px; font-weight: 700; color: var(--green-dark); flex-shrink: 0; }
+
+    .method { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .method li { display: flex; gap: .75rem; align-items: flex-start; font-size: .88rem; line-height: 1.6; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 1.7rem; height: 1.7rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .15rem; }
+
+    .callout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .9rem; margin-top: .9rem; }
+    .callout-card { border-radius: 10px; padding: .8rem .9rem; font-size: .82rem; line-height: 1.6; }
+    .callout-card h3 { font-size: .8rem; margin-bottom: .25rem; }
+    .cc-green { background: #f0fdf4; border: 1px solid #86efac; }
+    .cc-green h3 { color: #166534; }
+    .cc-blue { background: #eff6ff; border: 1px solid #bfdbfe; }
+    .cc-blue h3 { color: #1e40af; }
+    .cc-amber { background: #fefce8; border: 1px solid #fde68a; }
+    .cc-amber h3 { color: #ca8a04; }
+
+    .note { background: #fff7ed; border: 1px solid #f3cf94; border-radius: 10px; padding: .75rem .9rem; color: #7c4a00; font-size: .84rem; margin-top: .7rem; }
+    .note.blue { background: #eef7ff; border-color: #bfe0ff; color: #1d4f91; }
+
+    .bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: .7rem .9rem; }
+    .btn { padding: .48rem 1rem; border-radius: 8px; border: none; text-decoration: none; font-weight: 600; font-size: .84rem; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn-back { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../genetics.html">🧬 Genetics</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+</nav>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-top">🥜 🌾 ✨</div>
+    <div class="hero-body">
+      <h1>No-Sugar Crunch Bar</h1>
+      <p>A dense, crunchy seed-and-nut bar that uses psyllium husk and ground flax as the binder, so it stays sturdy without added sugar, grain flour, or any sticky sweeteners. It is naturally grain-free and gluten-free, and the ingredients provide a satisfying snack texture with a much lower glucose load than typical granola bars.</p>
+
+      <div class="meta">
+        <span>⏱ 15 min prep</span>
+        <span>❄️ 2 hours to set (or 15 min bake)</span>
+        <span>🍽 8 bars</span>
+        <span>🫙 Refrigerate 5-7 days</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="trigger-strip">
+        <span class="trigger-pill green">Net carbs: ~3–4 g/bar</span>
+        <span class="trigger-pill amber">Saturated fat: ~2–3 g/bar</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Ingredients</h2>
+    <div class="body">
+      <ul class="ingredients">
+        <li><span class="ing-amount">1/2 cup + 2 tbsp</span><span>smooth unsweetened almond butter (145g), slightly warmed</span></li>
+        <li><span class="ing-amount">1/2 cup</span><span>pepitas (pumpkin seeds), pre-salted</span></li>
+        <li><span class="ing-amount">1/2 cup</span><span>hemp hearts (80g)</span></li>
+        <li><span class="ing-amount">1/2 cup</span><span>almonds, roughly chopped (70g)</span></li>
+        <li><span class="ing-amount">2 tbsp</span><span>ground flaxseed (20g)</span></li>
+        <li><span class="ing-amount">2 tbsp</span><span>psyllium husk (whole) (10g)</span></li>
+        <li><span class="ing-amount">4 tbsp</span><span>warm water (60ml)</span></li>
+        <li><span class="ing-amount">1/2 tsp</span><span>cinnamon</span></li>
+        <li><span class="ing-amount">1 tsp</span><span>vanilla extract, optional and only if baking</span></li>
+      </ul>
+      <div class="note">Pepitas are pre-salted here; do not add extra salt. The texture depends on the psyllium and flax gel setting properly.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Method</h2>
+    <div class="body">
+      <ol class="method">
+        <li><span class="step-num">1</span><span><strong>Activate the binder:</strong> Whisk the psyllium husk, ground flaxseed, and warm water together in a small bowl. Let it sit for 5 minutes until it thickens into a gel. This is the glue that makes the bars hold together without a sugar syrup or starch-based binder.</span></li>
+        <li><span class="step-num">2</span><span><strong>Combine the dry mix:</strong> In a large bowl, mix the pepitas, hemp hearts, chopped almonds, and cinnamon. Keep the mixture fairly even so every bar has a consistent crunch.</span></li>
+        <li><span class="step-num">3</span><span><strong>Bring it together:</strong> Stir in the warmed almond butter and the psyllium-flax gel. Mix until the texture becomes a thick, sticky dough with no dry pockets. If baking, blend the vanilla into the warm almond butter before combining.</span></li>
+        <li><span class="step-num">4</span><span><strong>Press and set:</strong> Line an 8x4-inch loaf pan with parchment. Press the mixture in very firmly—compact it well so the bars hold their shape. For the no-bake method, chill 2 hours before slicing. For the baked method, bake at 325°F (160°C) for 15 minutes, cool completely, and then slice. Keep refrigerated for the best texture.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Choose your finish</h2>
+    <div class="body">
+      <div class="callout-grid">
+        <div class="callout-card cc-green">
+          <h3>No-Bake</h3>
+          <p>Press firmly into the loaf pan, refrigerate 2 hours, then slice into 8 bars. This method keeps the crunch and avoids baking the seeds and nuts too much.</p>
+        </div>
+        <div class="callout-card cc-blue">
+          <h3>Baked</h3>
+          <p>Use vanilla only if baking. Bake at 325°F (160°C) for 15 minutes, then cool fully in the pan before slicing so the bars don't crack apart.</p>
+        </div>
+        <div class="callout-card cc-amber">
+          <h3>Texture note</h3>
+          <p>For the densest bars, press the mixture as hard as you can before chilling or baking. A loose press makes the bars crumble more easily.</p>
+        </div>
+      </div>
+      <div class="note blue">If you want a softer, less crisp bite, use the no-bake method and keep the bars in the fridge. If you want a more set, slightly firmer structure, the 15-minute bake is the better option.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Cookie-like sweet variation</h2>
+    <div class="body">
+      <p style="font-size:.88rem; line-height:1.6; margin-bottom:.8rem;">The base version is intentionally savory and crunchy. If you want a sweeter, more cookie-like version with the same seed-and-nut structure, use this variation instead:</p>
+      <ul class="ingredients" style="margin-bottom:.7rem;">
+        <li><span class="ing-amount">2 tbsp</span><span>monkfruit + allulose blend or another granulated no-sugar sweetener</span></li>
+        <li><span class="ing-amount">1 tsp</span><span>vanilla extract</span></li>
+        <li><span class="ing-amount">1 tbsp</span><span>unsweetened shredded coconut</span></li>
+        <li><span class="ing-amount">1/4 tsp</span><span>cinnamon or a pinch of nutmeg for a warm cookie profile</span></li>
+      </ul>
+      <div class="note">Mix the sweetener and vanilla into the warm almond butter before combining everything, then press firmly and bake at 325°F (160°C) for 15 minutes. This gives the bars a softer, more cookie-like edge while still staying far lower in carbohydrate impact than a standard granola or cookie bar.</div>
+    </div>
+  </section>
+
+  <div class="bar">
+    <p>Best eaten as a controlled snack; the nuts and seeds are calorie-dense and the texture is meant to be satisfying without needing a sweet finish.</p>
+    <div>
+      <a class="btn btn-primary" href="../food-response-testing.html">Log a Test</a>
+      <a class="btn btn-back" href="../recipes.html">Back to Recipes</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

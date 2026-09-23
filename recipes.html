@@ -452,6 +452,41 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE 63 — NO-SUGAR CRUNCH BAR
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
+      <div class="recipe-card-img">🥜 🌾 ✨</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">No-Sugar Crunch Bar</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 15 min prep</span>
+          <span>🍽 Makes 8 bars</span>
+          <span>❄️ Chill 2 hours or bake 15 min</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">almond butter ⋅ pepitas ⋅ hemp hearts ⋅ almonds ⋅ flaxseed ⋅ psyllium husk ⋅ cinnamon</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~3–4g/bar</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~2–3g/bar</span>
+        </div>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-low"></span>
+          <span class="gi-low">Low GI</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— no added sugar; dense, high-fiber seed base</span>
+        </div>
+        <p class="recipe-card-desc">A crunchy, no-sugar seed-and-nut bar held together with psyllium husk and ground flax instead of sweeteners or grain flour. It is dense, satisfying, and easy to batch for the week, with a cookie-like sweet variation that keeps the same structure but adds a warm vanilla finish.</p>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-no-sugar-crunch-bar.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE SET 56-60 — SOUS VIDE OVERNIGHT MEAL PREP COLLECTION
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
@@ -2487,10 +2522,10 @@ const PANTRY_GROUPS = {
   pantry: {
     label: '🫙 Pantry, Shelf & Produce',
     items: [
-      'ACV','aleppo pepper','allspice','almond flour','allulose','arrowroot starch','artichoke',
+      'ACV','aleppo pepper','allspice','almond butter','almond flour','almonds','allulose','arrowroot starch','artichoke',
       'almond oil',
       'avocado','baking powder','balsamic vinegar','basil','bay leaf','black beans','black pepper','blueberries',
-      'carrot','cassava flour','cheddar','ground chia seeds','chia seeds','monkfruit','monkfruit + allulose blend',
+      'carrot','cassava flour','cheddar','ground chia seeds','chia seeds','hemp hearts','monkfruit','monkfruit + allulose blend',
       'Ceylon cinnamon','chamomile','chili powder','citric acid','cocoa','coconut aminos',
       'coconut flakes','coconut sugar','coriander','cumin',
       'dark chocolate chips','decaf coffee','dill','Dijon mustard','dried chili','dry milk powder','EVOO',
@@ -2540,6 +2575,12 @@ const PANTRY_NORM = {
   'whole globe artichoke': 'artichoke',
   'purple cabbage':      'cabbage',
   'red cabbage':         'cabbage',
+  'almond butter':       'almond butter',
+  'almonds':             'almonds',
+  'hemp hearts':         'hemp hearts',
+  'psyllium husk':       'psyllium',
+  'psyllium husk powder': 'psyllium',
+  'whole psyllium husk': 'psyllium',
   "za'atar":             'thyme',
   'za\u2019atar':             'thyme',
   'jalapeno':            'jalap\u00e9\u00f1o',
@@ -2594,10 +2635,9 @@ const PANTRY_NORM = {
   'tapioca starch/flour': 'tapioca starch',
   'tapioca flour':       'tapioca starch',
   // olive cheese bread v2 variants
-  'psyllium husk':       'psyllium',
-  'psyllium husk powder': 'psyllium',
   'ground flax':         'flax seed',
   'ground flax seed':    'flax seed',
+  'ground flaxseed':     'flax seed',
   'flax':                'flax seed',
   'flaxseed':            'flax seed',
   'active dry yeast':    'yeast',
