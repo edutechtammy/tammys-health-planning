@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mulled ACV Cider-Style Sipper — Holiday Beverage</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Mulled ACV Cider-Style Sipper — Holiday Beverage",
+    "description": "A hot holiday drink that gives the sensory experience of mulled cider without the full glucose load of a standard apple-cider mug. A small amount of real apple cider is diluted with water, then layered with apple cider vinegar, allulose, cinnamon, ginger, and orange peel so the cup still feels festive while staying much lighter metabolically.",
+    "recipeYield": "2 cups",
+    "prepTime": "PT5M",
+    "cookTime": "PT10M",
+    "totalTime": "PT15M",
+    "recipeCategory": "Beverage",
+    "recipeCuisine": "Holiday / Modern",
+    "keywords": "allulose, apple cider vinegar, mulled cider, holiday drink, pre-diabetes, fatty liver, beverage",
+    "recipeIngredient": [
+      "1/4 cup unsweetened apple cider",
+      "1 3/4 cups water",
+      "2 tsp apple cider vinegar",
+      "10-20 g allulose",
+      "1 cinnamon stick or 1/4 tsp Ceylon cinnamon",
+      "2-3 thin ginger slices",
+      "1 small strip of orange peel",
+      "1 whole clove, optional"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Simmer the spice base",
+        "text": "Combine the apple cider, water, cinnamon, ginger, orange peel, and clove if using in a small saucepan. Bring just to a gentle simmer, then keep at low heat for 8-10 minutes so the spices infuse without boiling hard."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish with allulose and ACV",
+        "text": "Turn off the heat. Stir in the allulose until dissolved, then add the apple cider vinegar after the pan comes off the burner. This keeps the ACV brighter and less harsh while preserving the intended flavor balance."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Strain and serve",
+        "text": "Strain into two mugs and serve warm. Taste and adjust future batches by increasing or decreasing the allulose within the 10-20 g total range."
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary-dark:#7c2d12;
+      --primary-mid:#c2410c;
+      --primary-light:#ffedd5;
+      --primary-pale:#fff7ed;
+      --primary-border:#fdba74;
+      --accent-1:#7c3aed;
+      --accent-1-pale:#f5f3ff;
+      --accent-2:#166534;
+      --accent-2-pale:#f0fdf4;
+      --text:#0f172a;
+      --muted:#475569;
+      --border:#fdba74;
+      --shadow:0 2px 12px rgba(124,45,18,.12);
+    }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--primary-pale); color:var(--text); line-height:1.6; padding-bottom:4rem; }
+    nav { background:#2d6a4f; padding:.75rem 1.5rem; display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; font-size:.95rem; opacity:.85; transition:opacity .2s; }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+    .main-wrap { max-width:860px; margin:0 auto; padding:1.5rem 1rem 0; }
+    .recipe-hero { background:#fff; border-radius:16px; border:1px solid var(--primary-border); box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.5rem; }
+    .recipe-hero-emoji { background:linear-gradient(135deg,var(--primary-light),#fef3c7); height:120px; display:flex; align-items:center; justify-content:center; font-size:3.7rem; letter-spacing:.45rem; }
+    .recipe-hero-body { padding:1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size:clamp(1.2rem,3vw,1.7rem); color:var(--primary-dark); margin-bottom:.6rem; }
+    .recipe-hero-body p { color:var(--muted); font-size:.92rem; line-height:1.68; margin-bottom:.9rem; }
+    .meta-strip { display:flex; gap:1.2rem; flex-wrap:wrap; background:var(--primary-light); border-radius:8px; padding:.6rem 1rem; font-size:.82rem; color:var(--primary-dark); margin-bottom:.9rem; }
+    .trigger-summary { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; background:var(--primary-pale); border:1px solid var(--primary-border); border-radius:10px; padding:.7rem .9rem; margin:.15rem 0 .9rem; }
+    .trigger-pill { display:inline-flex; align-items:center; gap:.3rem; background:#fff; border:1px solid var(--primary-border); border-radius:999px; padding:.22rem .7rem; font-size:.74rem; font-weight:700; color:var(--primary-dark); }
+    .trigger-note { font-size:.72rem; color:var(--muted); line-height:1.5; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.75rem; }
+    .badge { border-radius:12px; padding:.2rem .65rem; font-size:.73rem; font-weight:700; }
+    .badge-celiac { background:#fff3e0; color:#e65100; }
+    .badge-dp { background:#e3f2fd; color:#1565c0; }
+    .badge-liver { background:#fef3c7; color:#78350f; }
+    .badge-kidney { background:#fce7f3; color:#9d174d; }
+    .section-divider { text-align:center; font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--primary-dark); margin:1.5rem 0 .75rem; padding:.35rem 0; border-top:1px solid var(--primary-border); border-bottom:1px solid var(--primary-border); background:var(--primary-light); border-radius:4px; }
+    .callout-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.9rem; margin-bottom:1.2rem; }
+    .c-card { border-radius:12px; padding:.85rem 1rem; font-size:.8rem; line-height:1.6; }
+    .c-card h4 { font-size:.82rem; margin-bottom:.35rem; }
+    .c-orange { background:#fff7ed; border:1px solid #fed7aa; }
+    .c-orange h4 { color:#c2410c; }
+    .c-green { background:#f0fdf4; border:1px solid #86efac; }
+    .c-green h4 { color:#166534; }
+    .c-purple { background:#f5f3ff; border:1px solid #c4b5fd; }
+    .c-purple h4 { color:#5b21b6; }
+    .recipe-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.2rem; }
+    @media (max-width:640px) { .recipe-layout { grid-template-columns:1fr; } }
+    .panel { background:#fff; border:1px solid var(--primary-border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .panel-header { background:var(--primary-light); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--primary-dark); border-bottom:1px solid var(--primary-border); }
+    .panel-body { padding:1rem 1.2rem; }
+    .ing-list { list-style:none; }
+    .ing-item { display:flex; align-items:baseline; gap:.5rem; padding:.28rem 0; border-bottom:1px solid #fed7aa; font-size:.85rem; }
+    .ing-item:last-child { border-bottom:none; }
+    .ing-amount { font-weight:700; color:var(--primary-dark); min-width:4.8rem; flex-shrink:0; }
+    .step-list { list-style:none; display:flex; flex-direction:column; gap:.85rem; }
+    .step-item { display:flex; gap:.75rem; align-items:flex-start; font-size:.85rem; }
+    .step-num { background:var(--primary-dark); color:#fff; border-radius:50%; width:1.6rem; height:1.6rem; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; flex-shrink:0; margin-top:.1rem; }
+    .step-name { font-weight:700; color:var(--primary-dark); margin-bottom:.2rem; }
+    .flag-info, .flag-warn, .flag-ok { border-radius:12px; padding:.9rem 1.1rem; font-size:.84rem; line-height:1.65; margin-bottom:.75rem; }
+    .flag-info { background:#eff6ff; border:1px solid #bfdbfe; }
+    .flag-info h4 { color:#1d4ed8; margin-bottom:.35rem; font-size:.84rem; }
+    .flag-warn { background:#fff7ed; border:1px solid #fed7aa; }
+    .flag-warn h4 { color:#c2410c; margin-bottom:.35rem; font-size:.84rem; }
+    .flag-ok { background:#f0fdf4; border:1px solid #86efac; }
+    .flag-ok h4 { color:#166534; margin-bottom:.35rem; font-size:.84rem; }
+    .test-bar { background:#fff; border:1px solid var(--primary-border); border-radius:12px; padding:.8rem 1.2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+    .test-bar p { font-size:.85rem; color:var(--muted); }
+    .btn { padding:.48rem 1.15rem; border-radius:8px; font-size:.85rem; font-weight:600; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:.35rem; }
+    .btn-primary { background:var(--primary-dark); color:#fff; }
+    .btn-back { background:#fff; color:var(--primary-dark); border:1.5px solid var(--primary-mid); }
+    .btn:hover { opacity:.82; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../genetics.html">🧬 Genetics</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+</nav>
+<div class="main-wrap">
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍎🔥🍊</div>
+    <div class="recipe-hero-body">
+      <h1>Mulled ACV Cider-Style Sipper — Holiday Beverage</h1>
+      <p>This is a holiday mug built to feel like mulled cider without accepting the full sugar load of a standard cup of apple cider. A small amount of real cider is stretched with water for aroma, allulose provides sweetness plus endocrine activity, and a small off-heat addition of apple cider vinegar contributes acetic acid support in a form that still tastes festive rather than medicinal.</p>
+      <div class="meta-strip">
+        <span>⏱ 15 min</span>
+        <span>☕ 2 cups total</span>
+        <span>🔥 Warm holiday drink</span>
+      </div>
+      <div class="trigger-summary">
+        <span class="trigger-pill"><strong>Net carbs:</strong> ~4g per cup</span>
+        <span class="trigger-pill"><strong>Saturated fat:</strong> 0g</span>
+        <span class="trigger-note">The small real-cider amount is intentional: enough for aroma and familiarity, not enough to turn the mug into a sugar delivery vehicle.</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">What each ingredient is doing</div>
+  <div class="callout-grid">
+    <div class="c-card c-orange">
+      <h4>Allulose — sweetness plus incretin support</h4>
+      This drink uses allulose not just for flavor, but because it can support GLP-1 and satiety signalling while keeping the beverage from behaving like standard mulled cider. It makes the holiday format metabolically usable instead of purely decorative.
+    </div>
+    <div class="c-card c-green">
+      <h4>Apple cider vinegar — acetic acid support</h4>
+      ACV is added after the pan comes off the heat so the flavor stays cleaner and less sharp. The amount is small enough to hide inside the spiced profile, but still meaningful as part of the blood-sugar strategy.
+    </div>
+    <div class="c-card c-purple">
+      <h4>Spices and peel — the holiday architecture</h4>
+      Cinnamon, ginger, orange peel, and optional clove do the sensory heavy lifting. They create the impression of a fuller mulled cider so the recipe can keep the real cider amount intentionally modest.
+    </div>
+  </div>
+
+  <div class="section-divider">Ingredients &amp; Method</div>
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">Ingredients</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item"><span class="ing-amount">1/4 cup</span><span>unsweetened apple cider</span></li>
+          <li class="ing-item"><span class="ing-amount">1 3/4 cups</span><span>water</span></li>
+          <li class="ing-item"><span class="ing-amount">2 tsp</span><span>apple cider vinegar</span></li>
+          <li class="ing-item"><span class="ing-amount">10-20 g</span><span>allulose</span></li>
+          <li class="ing-item"><span class="ing-amount">1 stick</span><span>cinnamon, or 1/4 tsp Ceylon cinnamon</span></li>
+          <li class="ing-item"><span class="ing-amount">2-3 slices</span><span>fresh ginger</span></li>
+          <li class="ing-item"><span class="ing-amount">1 strip</span><span>orange peel</span></li>
+          <li class="ing-item"><span class="ing-amount">optional</span><span>1 whole clove</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Simmer gently</div>Combine the cider, water, cinnamon, ginger, orange peel, and clove if using. Bring just to a gentle simmer and keep it there for 8-10 minutes.</div></li>
+          <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Sweeten off heat</div>Turn off the heat and stir in the allulose until dissolved.</div></li>
+          <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Add ACV last</div>Add the apple cider vinegar after the pan is off the burner. This keeps the flavor brighter and stops the drink from becoming harsh.</div></li>
+          <li class="step-item"><span class="step-num">4</span><div><div class="step-name">Strain and serve</div>Strain into two mugs and serve warm. Adjust future batches by increasing or decreasing the allulose inside the planned 10-20 g total range.</div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="flag-info">
+    <h4>Why the cider amount is small</h4>
+    The point is to borrow apple aroma and holiday recognition from real cider, not to drink a full cider serving. This dilution keeps the drink in a much safer glucose range while still tasting like an intentional seasonal beverage.
+  </div>
+  <div class="flag-warn">
+    <h4>Best timing</h4>
+    This is better with or after a meal than as a fasting morning drink. Even though the sugar load is reduced sharply, the small cider portion still makes it a meal-context beverage rather than an all-day free pour.
+  </div>
+  <div class="flag-ok">
+    <h4>Variation path</h4>
+    For an even lighter version, cut the cider to 2 tbsp and keep the spices the same. For a richer holiday version, add one extra strip of orange peel rather than more cider.
+  </div>
+
+  <div class="test-bar">
+    <p>This is a good candidate for Food Testing because it isolates whether a small real-cider amount is acceptable when buffered by ACV, dilution, and allulose.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-primary" href="../food-response-testing.html">🍽 Log a Test</a>
+      <a class="btn btn-back" href="../recipes.html">← Back to Recipes</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

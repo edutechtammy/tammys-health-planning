@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allulose Cocoa — Hot or Iced Chocolate Drink</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Allulose Cocoa — Hot or Iced Chocolate Drink",
+    "description": "A cocoa drink designed to work either hot or cold, using allulose at a meaningful dose rather than as a token sweetener. Cocoa brings the chocolate flavor you actually want, while allulose lets the drink function as both a pleasure beverage and a lower-glycemic endocrine-active sweetened drink.",
+    "recipeYield": "1 cup",
+    "prepTime": "PT5M",
+    "cookTime": "PT5M",
+    "totalTime": "PT10M",
+    "recipeCategory": "Beverage",
+    "recipeCuisine": "Modern",
+    "keywords": "cocoa, hot chocolate, iced chocolate, allulose, blood sugar, fatty liver, beverage, low sugar",
+    "recipeIngredient": [
+      "1 cup skim milk or unsweetened higher-protein milk of choice",
+      "1 tbsp unsweetened cocoa powder",
+      "5-10 g allulose",
+      "1/4 tsp vanilla extract, optional",
+      "Pinch of salt",
+      "Optional: pinch of Ceylon cinnamon"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Make the cocoa base",
+        "text": "Whisk the cocoa powder, allulose, and pinch of salt together first so the cocoa disperses evenly. Add a small splash of milk and whisk into a smooth paste."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish hot or cold",
+        "text": "For hot cocoa: add the rest of the milk and warm gently, whisking until smooth and steaming but not boiling. For iced cocoa: whisk in the rest of the milk cold, then pour over ice or chill before serving."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Adjust sweetness in range",
+        "text": "Keep the allulose within the 5-10 g range depending on how sweet you want the cup. Add vanilla or a pinch of Ceylon cinnamon if desired."
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary-dark:#3b1f0e;
+      --primary-mid:#7c4a1e;
+      --primary-light:#f5ede5;
+      --primary-pale:#fdf8f5;
+      --primary-border:#d6bfad;
+      --accent-1:#7c3aed;
+      --accent-1-pale:#f5f3ff;
+      --accent-2:#166534;
+      --accent-2-pale:#f0fdf4;
+      --text:#0f172a;
+      --muted:#475569;
+      --border:#d6bfad;
+      --shadow:0 2px 12px rgba(59,31,14,.12);
+    }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--primary-pale); color:var(--text); line-height:1.6; padding-bottom:4rem; }
+    nav { background:#2d6a4f; padding:.75rem 1.5rem; display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; font-size:.95rem; opacity:.85; transition:opacity .2s; }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+    .main-wrap { max-width:860px; margin:0 auto; padding:1.5rem 1rem 0; }
+    .recipe-hero { background:#fff; border-radius:16px; border:1px solid var(--primary-border); box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.5rem; }
+    .recipe-hero-emoji { background:linear-gradient(135deg,var(--primary-light),#eff6ff); height:120px; display:flex; align-items:center; justify-content:center; font-size:3.7rem; letter-spacing:.45rem; }
+    .recipe-hero-body { padding:1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size:clamp(1.2rem,3vw,1.7rem); color:var(--primary-dark); margin-bottom:.6rem; }
+    .recipe-hero-body p { color:var(--muted); font-size:.92rem; line-height:1.68; margin-bottom:.9rem; }
+    .meta-strip { display:flex; gap:1.2rem; flex-wrap:wrap; background:var(--primary-light); border-radius:8px; padding:.6rem 1rem; font-size:.82rem; color:var(--primary-dark); margin-bottom:.9rem; }
+    .trigger-summary { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; background:var(--primary-pale); border:1px solid var(--primary-border); border-radius:10px; padding:.7rem .9rem; margin:.15rem 0 .9rem; }
+    .trigger-pill { display:inline-flex; align-items:center; gap:.3rem; background:#fff; border:1px solid var(--primary-border); border-radius:999px; padding:.22rem .7rem; font-size:.74rem; font-weight:700; color:var(--primary-dark); }
+    .trigger-note { font-size:.72rem; color:var(--muted); line-height:1.5; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.75rem; }
+    .badge { border-radius:12px; padding:.2rem .65rem; font-size:.73rem; font-weight:700; }
+    .badge-celiac { background:#fff3e0; color:#e65100; }
+    .badge-dp { background:#e3f2fd; color:#1565c0; }
+    .badge-liver { background:#fef3c7; color:#78350f; }
+    .section-divider { text-align:center; font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--primary-dark); margin:1.5rem 0 .75rem; padding:.35rem 0; border-top:1px solid var(--primary-border); border-bottom:1px solid var(--primary-border); background:var(--primary-light); border-radius:4px; }
+    .callout-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.9rem; margin-bottom:1.2rem; }
+    .c-card { border-radius:12px; padding:.85rem 1rem; font-size:.8rem; line-height:1.6; }
+    .c-card h4 { font-size:.82rem; margin-bottom:.35rem; }
+    .c-brown { background:#fef3e8; border:1px solid #e7c5a6; }
+    .c-brown h4 { color:#7c4a1e; }
+    .c-blue { background:#eff6ff; border:1px solid #bfdbfe; }
+    .c-blue h4 { color:#1d4ed8; }
+    .c-green { background:#f0fdf4; border:1px solid #86efac; }
+    .c-green h4 { color:#166534; }
+    .recipe-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.2rem; }
+    @media (max-width:640px) { .recipe-layout { grid-template-columns:1fr; } }
+    .panel { background:#fff; border:1px solid var(--primary-border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .panel-header { background:var(--primary-light); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--primary-dark); border-bottom:1px solid var(--primary-border); }
+    .panel-body { padding:1rem 1.2rem; }
+    .ing-list { list-style:none; }
+    .ing-item { display:flex; align-items:baseline; gap:.5rem; padding:.28rem 0; border-bottom:1px solid #efe1d2; font-size:.85rem; }
+    .ing-item:last-child { border-bottom:none; }
+    .ing-amount { font-weight:700; color:var(--primary-dark); min-width:4.4rem; flex-shrink:0; }
+    .step-list { list-style:none; display:flex; flex-direction:column; gap:.85rem; }
+    .step-item { display:flex; gap:.75rem; align-items:flex-start; font-size:.85rem; }
+    .step-num { background:var(--primary-dark); color:#fff; border-radius:50%; width:1.6rem; height:1.6rem; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; flex-shrink:0; margin-top:.1rem; }
+    .step-name { font-weight:700; color:var(--primary-dark); margin-bottom:.2rem; }
+    .flag-info, .flag-warn, .flag-ok { border-radius:12px; padding:.9rem 1.1rem; font-size:.84rem; line-height:1.65; margin-bottom:.75rem; }
+    .flag-info { background:#eff6ff; border:1px solid #bfdbfe; }
+    .flag-info h4 { color:#1d4ed8; margin-bottom:.35rem; font-size:.84rem; }
+    .flag-warn { background:#fff7ed; border:1px solid #fed7aa; }
+    .flag-warn h4 { color:#c2410c; margin-bottom:.35rem; font-size:.84rem; }
+    .flag-ok { background:#f0fdf4; border:1px solid #86efac; }
+    .flag-ok h4 { color:#166534; margin-bottom:.35rem; font-size:.84rem; }
+    .test-bar { background:#fff; border:1px solid var(--primary-border); border-radius:12px; padding:.8rem 1.2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+    .test-bar p { font-size:.85rem; color:var(--muted); }
+    .btn { padding:.48rem 1.15rem; border-radius:8px; font-size:.85rem; font-weight:600; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:.35rem; }
+    .btn-primary { background:var(--primary-dark); color:#fff; }
+    .btn-back { background:#fff; color:var(--primary-dark); border:1.5px solid var(--primary-mid); }
+    .btn:hover { opacity:.82; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../weekly-meal-plan.html">🥗 Meal Plan</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../genetics.html">🧬 Genetics</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+</nav>
+<div class="main-wrap">
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🍫☕🧊</div>
+    <div class="recipe-hero-body">
+      <h1>Allulose Cocoa — Hot or Iced Chocolate Drink</h1>
+      <p>A flexible cocoa drink that works as either a warm mug or a cold chocolate drink, without depending on standard sugar. The allulose dose is intentional, cocoa gives the flavor backbone, and the whole recipe is simple enough to become a repeat beverage rather than a one-off project.</p>
+      <div class="meta-strip">
+        <span>⏱ 5-10 min</span>
+        <span>☕ 1 cup</span>
+        <span>🔥 Hot or ❄️ iced</span>
+      </div>
+      <div class="trigger-summary">
+        <span class="trigger-pill"><strong>Net carbs:</strong> ~7-9g/cup</span>
+        <span class="trigger-pill"><strong>Saturated fat:</strong> ~0g with skim milk</span>
+        <span class="trigger-note">Use 5-10 g allulose per cup so the drink keeps the endocrine-active sweetener effect while staying pleasant enough to drink regularly.</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">What each ingredient is doing</div>
+  <div class="callout-grid">
+    <div class="c-card c-brown">
+      <h4>Cocoa — real chocolate flavor without dessert structure</h4>
+      Cocoa gives you an actual chocolate drink rather than a sweet milk drink with a little color. It also brings polyphenols, which is part of why a cocoa beverage is worth separating from a generic sweetened drink.
+    </div>
+    <div class="c-card c-blue">
+      <h4>Allulose — sweetener with metabolic intent</h4>
+      This is not just there to avoid sugar. At 5-10 g per cup, the allulose is in the range where it may support satiety and help keep the drink from behaving like a conventional sweet chocolate beverage.
+    </div>
+    <div class="c-card c-green">
+      <h4>Skim or low-fat milk — keeps the cup lighter</h4>
+      Using skim milk keeps the drink more compatible with the rest of the blood-sugar and lipid strategy. If you later test another milk base, it is useful to compare it against this lower-fat baseline first.
+    </div>
+  </div>
+
+  <div class="section-divider">Ingredients &amp; Method</div>
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">Ingredients</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item"><span class="ing-amount">1 cup</span><span>skim milk or other unsweetened higher-protein milk</span></li>
+          <li class="ing-item"><span class="ing-amount">1 tbsp</span><span>unsweetened cocoa powder</span></li>
+          <li class="ing-item"><span class="ing-amount">5-10 g</span><span>allulose</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span>salt</span></li>
+          <li class="ing-item"><span class="ing-amount">optional</span><span>1/4 tsp vanilla extract</span></li>
+          <li class="ing-item"><span class="ing-amount">optional</span><span>pinch of Ceylon cinnamon</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">Method</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Make a paste</div>Whisk the cocoa, allulose, and salt together first. Add a small splash of milk and whisk into a smooth paste so the cocoa does not clump.</div></li>
+          <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Choose hot or cold</div>For hot cocoa, add the rest of the milk and warm gently while whisking until steaming but not boiling. For a cold chocolate drink, whisk in the rest of the milk cold and pour over ice or chill first.</div></li>
+          <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Finish</div>Add vanilla or a pinch of Ceylon cinnamon if wanted. Taste and keep the allulose within the 5-10 g range rather than drifting upward toward dessert sweetness.</div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="flag-info">
+    <h4>Why one recipe covers both versions</h4>
+    The ingredient logic is the same whether the cup is hot or iced. Keeping it on one page makes it easier to use the same drink as a year-round template instead of splitting your chocolate habit into separate systems.
+  </div>
+  <div class="flag-warn">
+    <h4>What not to do</h4>
+    Do not turn this into a syrupy dessert drink by piling on sweetener. The point is a drink you can actually repeat often without drifting back toward sugar-heavy hot chocolate behavior.
+  </div>
+  <div class="flag-ok">
+    <h4>Easy variations</h4>
+    Blend with ice for a colder cafe-style version, add a little cinnamon for a Mexican-hot-chocolate direction, or use half milk and half water if you want a lighter cup that still tastes recognizably chocolatey.
+  </div>
+
+  <div class="test-bar">
+    <p>This one is worth logging if you want a direct baseline for chocolate beverages before testing richer dairy or add-in variations.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-primary" href="../food-response-testing.html">🍽 Log a Test</a>
+      <a class="btn btn-back" href="../recipes.html">← Back to Recipes</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
