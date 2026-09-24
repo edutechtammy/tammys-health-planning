@@ -515,6 +515,57 @@
       font-size:.74rem;
       color:var(--muted);
     }
+    .comparison-fullscreen-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      z-index: 2200;
+    }
+    .comparison-fullscreen-overlay.visible { display: flex; }
+    .comparison-fullscreen-dialog {
+      position: relative;
+      width: min(96vw, 1700px);
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+    }
+    .comparison-fullscreen-img {
+      width: 100%;
+      max-height: calc(94vh - 2.5rem);
+      object-fit: contain;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid #d5e3db;
+    }
+    .comparison-fullscreen-meta {
+      color: #e2e8f0;
+      font-size: .84rem;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .comparison-fullscreen-close {
+      position: absolute;
+      top: .35rem;
+      right: .35rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .95);
+      color: #0f172a;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comparison-fullscreen-close:hover { background:#fff; }
 
     /* SUMMARY TABLE */
     .sum-table { width:100%; border-collapse:collapse; font-size:.85rem; }
@@ -1050,6 +1101,7 @@
       <div class="comparison-controls">
         <button class="comparison-btn" type="button" onclick="showComparisonPrev()">◀ Previous</button>
         <button class="comparison-btn" type="button" onclick="showComparisonNext()">Next ▶</button>
+        <button class="comparison-btn" type="button" id="comparison-fullscreen-btn">⛶ Expand</button>
         <div class="comparison-filename" id="comparison-filename"></div>
       </div>
     </div>
@@ -1764,6 +1816,7 @@ const COMPARISON_MANIFEST='food-test-comparisons/index.json';
 let comparisonImages=[];
 let comparisonCaptions=Object.create(null);
 let comparisonIndex=0;
+let comparisonFullscreenModal=null;
 const comparisonAssetVersion=Date.now();
 const COMPARISON_SLIDE_NOTES_KEY='food-comparison-slide-notes';
 
@@ -1880,12 +1933,14 @@ function renderComparisonSlide(){
   const countEl=document.getElementById('comparison-count');
   const captionEl=document.getElementById('comparison-caption');
   const noteField=document.getElementById('comparison-slide-note');
+  const fullscreenBtn=document.getElementById('comparison-fullscreen-btn');
   if(!stage||!nameEl||!countEl||!captionEl||!noteField) return;
 
   if(!comparisonImages.length){
     stage.innerHTML='<div class="comparison-empty">No comparison images found in food-test-comparisons.</div>';
     nameEl.textContent='';
     countEl.textContent='0/0';
+    if(fullscreenBtn) fullscreenBtn.disabled=true;
     captionEl.hidden=true;
     captionEl.textContent='';
     noteField.value='';
@@ -1902,6 +1957,8 @@ function renderComparisonSlide(){
   const img=document.createElement('img');
   img.alt=filename;
   img.src=encodeURI(imagePath)+'?v='+comparisonAssetVersion;
+  img.style.cursor='zoom-in';
+  img.addEventListener('click',openComparisonFullscreen);
   img.onerror=function(){
     stage.innerHTML='<div class="comparison-empty">Image could not be loaded: '+filename+'</div>';
   };
@@ -1909,11 +1966,88 @@ function renderComparisonSlide(){
 
   nameEl.textContent=filename;
   countEl.textContent=(comparisonIndex+1)+'/'+comparisonImages.length;
+  if(fullscreenBtn) fullscreenBtn.disabled=false;
   const captionText=String(comparisonCaptions[filename] || '').trim();
   captionEl.hidden=!captionText;
   captionEl.textContent=captionText;
   noteField.disabled=false;
   noteField.value=typeof comparisonSlideNotes[filename]==='string' ? comparisonSlideNotes[filename] : captionText;
+}
+
+function ensureComparisonFullscreenModal(){
+  if(comparisonFullscreenModal) return comparisonFullscreenModal;
+
+  const overlay=document.createElement('div');
+  overlay.id='comparison-fullscreen-overlay';
+  overlay.className='comparison-fullscreen-overlay';
+  overlay.innerHTML=`
+    <div class="comparison-fullscreen-dialog">
+      <button class="comparison-fullscreen-close" id="comparison-fullscreen-close" type="button" aria-label="Close fullscreen">×</button>
+      <img class="comparison-fullscreen-img" id="comparison-fullscreen-image" alt="Expanded comparison image" />
+      <div class="comparison-fullscreen-meta" id="comparison-fullscreen-meta"></div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.getElementById('comparison-fullscreen-close')?.addEventListener('click',closeComparisonFullscreen);
+  overlay.addEventListener('click',event=>{
+    if(event.target===overlay) closeComparisonFullscreen();
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){
+      closeComparisonFullscreen();
+      return;
+    }
+    if(!isComparisonFullscreenOpen()) return;
+    if(event.key==='ArrowRight'){
+      event.preventDefault();
+      showComparisonNext();
+    } else if(event.key==='ArrowLeft'){
+      event.preventDefault();
+      showComparisonPrev();
+    }
+  });
+
+  comparisonFullscreenModal={
+    overlay,
+    image:document.getElementById('comparison-fullscreen-image'),
+    meta:document.getElementById('comparison-fullscreen-meta')
+  };
+  return comparisonFullscreenModal;
+}
+
+function isComparisonFullscreenOpen(){
+  return !!(comparisonFullscreenModal&&comparisonFullscreenModal.overlay.classList.contains('visible'));
+}
+
+function updateComparisonFullscreenContent(){
+  if(!isComparisonFullscreenOpen()) return;
+  if(!comparisonImages.length){
+    closeComparisonFullscreen();
+    return;
+  }
+  if(comparisonIndex<0||comparisonIndex>=comparisonImages.length) return;
+  const filename=comparisonImages[comparisonIndex];
+  const modal=ensureComparisonFullscreenModal();
+  modal.image.src=encodeURI(COMPARISON_FOLDER+filename)+'?v='+comparisonAssetVersion;
+  modal.image.alt=filename;
+  const captionText=String(comparisonCaptions[filename]||'').trim();
+  modal.meta.textContent=captionText
+    ? `${comparisonIndex+1}/${comparisonImages.length} · ${filename} · ${captionText}`
+    : `${comparisonIndex+1}/${comparisonImages.length} · ${filename}`;
+}
+
+function openComparisonFullscreen(){
+  if(!comparisonImages.length) return;
+  if(comparisonIndex<0||comparisonIndex>=comparisonImages.length) return;
+  const modal=ensureComparisonFullscreenModal();
+  modal.overlay.classList.add('visible');
+  updateComparisonFullscreenContent();
+}
+
+function closeComparisonFullscreen(){
+  if(!comparisonFullscreenModal) return;
+  comparisonFullscreenModal.overlay.classList.remove('visible');
 }
 
 function updateComparisonSlideNote(){
@@ -1973,11 +2107,13 @@ function importComparisonSlideNotes(file){
 function showComparisonNext(){
   comparisonIndex+=1;
   renderComparisonSlide();
+  updateComparisonFullscreenContent();
 }
 
 function showComparisonPrev(){
   comparisonIndex-=1;
   renderComparisonSlide();
+  updateComparisonFullscreenContent();
 }
 
 function ensureLegendHoverTip(){
@@ -2547,6 +2683,7 @@ document.getElementById('comparison-notes-import-file').addEventListener('change
   importComparisonSlideNotes(event.target.files && event.target.files[0]);
   event.target.value='';
 });
+document.getElementById('comparison-fullscreen-btn').addEventListener('click',openComparisonFullscreen);
 loadComparisonImages();
 render();
 </script>
