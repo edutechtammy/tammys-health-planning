@@ -356,6 +356,12 @@
       color: #334155;
       border: 1px solid #d1d5db;
     }
+    .prefill-note {
+      margin-top: .55rem;
+      font-size: .8rem;
+      color: var(--muted);
+      min-height: 1.2rem;
+    }
     select {
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -526,6 +532,7 @@
         <input id="import-log-json-file" type="file" accept=".json,application/json" hidden />
         <input id="import-log-csv-file" type="file" accept=".csv,text/csv" hidden />
       </div>
+      <p class="prefill-note" id="prefill-status" aria-live="polite"></p>
 
       <div class="score-grid">
         <div class="score-card">
@@ -593,6 +600,7 @@
   <script>
     const FINAL_TARGET = 2291;
     const DIET_POWER_LOG_KEY = 'diet-power-daily-log-v1';
+    const DIET_POWER_PREFILL_KEY = 'diet-power-prefill-from-food-test-v1';
     let activePlanPhases = [];
     let pendingImportPayload = null;
 
@@ -1086,6 +1094,159 @@
       return Math.max(min, Math.min(max, value));
     }
 
+    function toFiniteNumber(value) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    function setPrefillStatus(message) {
+      const el = document.getElementById('prefill-status');
+      if (el) el.textContent = message || '';
+    }
+
+    function normalizeFoodTransferItem(rawItem) {
+      if (!rawItem || typeof rawItem !== 'object') return null;
+      return {
+        date: String(rawItem.date || '').trim(),
+        food: String(rawItem.food || '').trim(),
+        portion: String(rawItem.portion || '').trim(),
+        netCarbs: toFiniteNumber(rawItem.netCarbs),
+        satFat: toFiniteNumber(rawItem.satFat),
+        protein: toFiniteNumber(rawItem.protein),
+        totalFat: toFiniteNumber(rawItem.totalFat),
+        calories: toFiniteNumber(rawItem.calories)
+      };
+    }
+
+    function deriveCaloriesFromItemMacros(item) {
+      let total = 0;
+      let used = false;
+      if (item.protein != null) { total += item.protein * 4; used = true; }
+      if (item.netCarbs != null) { total += item.netCarbs * 4; used = true; }
+      if (item.totalFat != null) { total += item.totalFat * 9; used = true; }
+      return used ? total : null;
+    }
+
+    function applyFoodTestingPrefillItems(items) {
+      const normalized = items
+        .map(normalizeFoodTransferItem)
+        .filter(Boolean);
+      if (!normalized.length) return false;
+
+      const validDates = normalized
+        .map(item => item.date)
+        .filter(date => /^\d{4}-\d{2}-\d{2}$/.test(date));
+      const sameDate = validDates.length && validDates.every(date => date === validDates[0]);
+
+      let totalNetCarbs = 0;
+      let hasNetCarbs = false;
+      let totalSatFat = 0;
+      let hasSatFat = false;
+      let totalProtein = 0;
+      let hasProtein = false;
+      let totalFat = 0;
+      let hasTotalFat = false;
+      let totalCalories = 0;
+      let hasCalories = false;
+      let usedDerivedCalories = false;
+
+      normalized.forEach(item => {
+        if (item.netCarbs != null) {
+          totalNetCarbs += item.netCarbs;
+          hasNetCarbs = true;
+        }
+        if (item.satFat != null) {
+          totalSatFat += item.satFat;
+          hasSatFat = true;
+        }
+        if (item.protein != null) {
+          totalProtein += item.protein;
+          hasProtein = true;
+        }
+        if (item.totalFat != null) {
+          totalFat += item.totalFat;
+          hasTotalFat = true;
+        }
+
+        const caloriesFromEntry = item.calories != null ? item.calories : deriveCaloriesFromItemMacros(item);
+        if (caloriesFromEntry != null) {
+          totalCalories += caloriesFromEntry;
+          hasCalories = true;
+          if (item.calories == null) usedDerivedCalories = true;
+        }
+      });
+
+      if (sameDate) {
+        document.getElementById('entry-date').value = validDates[0];
+      }
+      if (hasCalories && totalCalories >= 0) {
+        document.getElementById('actual-calories').value = String(Math.round(totalCalories));
+      }
+      if (hasSatFat) {
+        document.getElementById('sat-actual').value = String(Number(totalSatFat.toFixed(1)));
+      }
+
+      const fatCalories = hasTotalFat ? totalFat * 9 : null;
+      const proteinCalories = hasProtein ? totalProtein * 4 : null;
+      const carbCalories = hasNetCarbs ? totalNetCarbs * 4 : null;
+      const denominator = hasCalories && totalCalories > 0 ? totalCalories : null;
+
+      if (denominator != null) {
+        if (fatCalories != null) {
+          const fatPct = clamp((fatCalories / denominator) * 100, 0, 100);
+          document.getElementById('fat-actual-pct').value = String(Number(fatPct.toFixed(1)));
+        }
+        if (proteinCalories != null) {
+          const proteinPct = clamp((proteinCalories / denominator) * 100, 0, 100);
+          document.getElementById('protein-actual-pct').value = String(Number(proteinPct.toFixed(1)));
+        }
+        if (carbCalories != null) {
+          const carbPct = clamp((carbCalories / denominator) * 100, 0, 100);
+          document.getElementById('carb-actual-pct').value = String(Number(carbPct.toFixed(1)));
+        }
+      }
+
+      const filledAny = hasNetCarbs || hasSatFat || hasProtein || hasTotalFat || hasCalories;
+      if (!filledAny) return false;
+
+      const sampleFoods = normalized
+        .map(item => item.food)
+        .filter(Boolean)
+        .slice(0, 3);
+      const sampleLabel = sampleFoods.length
+        ? sampleFoods.join(', ') + (normalized.length > sampleFoods.length ? ` (+${normalized.length - sampleFoods.length} more)` : '')
+        : `${normalized.length} selected food test${normalized.length === 1 ? '' : 's'}`;
+      const dateLabel = sameDate ? `date ${validDates[0]}` : 'mixed dates';
+      const caloriesNote = hasCalories
+        ? (usedDerivedCalories ? 'calories mixed logged+derived' : 'calories from logged values')
+        : 'calories unavailable';
+
+      setPrefillStatus(`Prefilled from Food Testing (${normalized.length} item${normalized.length === 1 ? '' : 's'}): ${sampleLabel} (${dateLabel}; ${caloriesNote}).`);
+      computeNutritionQuotient();
+      return true;
+    }
+
+    function applyFoodTestingPrefillPayload(payload) {
+      if (!payload || typeof payload !== 'object') return false;
+      const incomingItems = Array.isArray(payload.items)
+        ? payload.items
+        : [payload];
+      return applyFoodTestingPrefillItems(incomingItems);
+    }
+
+    function applyFoodTestingPrefillIfAvailable() {
+      const raw = localStorage.getItem(DIET_POWER_PREFILL_KEY);
+      if (!raw) return false;
+
+      localStorage.removeItem(DIET_POWER_PREFILL_KEY);
+      try {
+        const payload = JSON.parse(raw);
+        return applyFoodTestingPrefillPayload(payload);
+      } catch {
+        return false;
+      }
+    }
+
     function caloriesScore(actual, target) {
       if (target <= 0) return 0;
       const pctDiff = (Math.abs(actual - target) / target) * 100;
@@ -1311,6 +1472,7 @@
     });
     document.getElementById('entry-date').value = todayISO();
     buildDynamicPlan();
+    applyFoodTestingPrefillIfAvailable();
     computeNutritionQuotient();
     renderProgressLoop();
   </script>

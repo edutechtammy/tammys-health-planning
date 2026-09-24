@@ -225,6 +225,9 @@
     }
     .metric-pill.carbs { background:#f0f8ff; border-color:#b6d8f2; color:#1a5276; }
     .metric-pill.fat { background:#f9f1ff; border-color:#d8bee9; color:#6c3483; }
+    .metric-pill.protein { background:#eef6ff; border-color:#c8dcff; color:#1e3a8a; }
+    .metric-pill.fat-total { background:#f6f0ff; border-color:#d9c9f3; color:#5b2c8a; }
+    .metric-pill.calories { background:#fff8e6; border-color:#f5d89b; color:#8a4b08; }
     .metric-pill.tail-yes { background:#fff5e6; border-color:#f6d29a; color:#9a6000; }
     .metric-pill.tail-no { background:#e8f8ef; border-color:#bde5cb; color:#1e8449; }
     .metric-pill.tail-unknown { background:#f4f6f7; border-color:#d5dbdb; color:#5d6d7e; }
@@ -943,6 +946,18 @@
         <input type="number" id="f-sat-fat" step="0.1" min="0" placeholder="e.g. 7.2" />
       </div>
       <div class="field">
+        <label>Protein (g) optional</label>
+        <input type="number" id="f-protein" step="0.1" min="0" placeholder="e.g. 24.0" />
+      </div>
+      <div class="field">
+        <label>Total Fat (g) optional</label>
+        <input type="number" id="f-total-fat" step="0.1" min="0" placeholder="e.g. 18.5" />
+      </div>
+      <div class="field">
+        <label>Calories (kcal) optional</label>
+        <input type="number" id="f-calories" step="1" min="0" placeholder="e.g. 320" />
+      </div>
+      <div class="field">
         <label>Was Berberine taken?</label>
         <select id="f-berberine">
           <option value="">— not logged —</option>
@@ -1056,6 +1071,12 @@
     </div>
   </div>
 
+  <div class="btn-row" style="margin-top:-.35rem;margin-bottom:.85rem">
+    <button class="btn btn-outline" type="button" onclick="sendSelectedTestsToDietPower()">🥣 Send Selected to Diet Power</button>
+    <button class="btn btn-outline" type="button" onclick="clearDietPowerSelection()">Clear Selected</button>
+    <span id="diet-power-selection-status" style="font-size:.82rem;color:var(--muted);font-weight:700">Selected for Diet Power: 0</span>
+  </div>
+
   <p class="risk-summary" id="satfat-risk-summary">Visible high sat fat tests (>=5 g): 0 of 0</p>
   <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph. Soft green cards mark foods or serving sizes that still fit alongside a serving of <strong>skim milk</strong> inside the current 5g sat fat / 15g net carb limits. Soft red cards mark foods that would push that pairing outside the limit. The skim-milk tint does not remove entries from the graph.</p>
 
@@ -1124,6 +1145,9 @@
             <th>Long Tail</th>
             <th>Net Carbs</th>
             <th>Sat Fat</th>
+            <th>Protein</th>
+            <th>Total Fat</th>
+            <th>Calories</th>
             <th>Peak</th>
             <th>Spike ↑</th>
             <th>120-min Δ from baseline</th>
@@ -1142,6 +1166,7 @@
 <script>
 const STORE_KEY = 'tammys_food_response';
 const LONG_TAIL_SETTINGS_KEY = 'tammys_food_response_long_tail_settings';
+const DIET_POWER_PREFILL_KEY = 'diet-power-prefill-from-food-test-v1';
 function makeGeneratedTestId(){
   return `ft-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 }
@@ -1187,7 +1212,7 @@ function exportCSV(){
   if(!tests.length){ alert('No tests to export yet.'); return; }
   const headers = [
     'Date', 'Food / Combination Tested', 'Category', 'Portion / Quantity',
-    'Net Carbs (g)', 'Saturated Fat (g)',
+    'Net Carbs (g)', 'Saturated Fat (g)', 'Protein (g)', 'Total Fat (g)', 'Calories (kcal)',
     'Baseline (T=0)', 'Baseline Time of Day (AM/PM)', '+30 min', '+60 min', '+120 min', '+180 min (optional)', 'Return to Baseline Minute (if >120)',
     'Berberine', 'ACV', 'Walk', 'Activity', 'Notes'
   ];
@@ -1201,6 +1226,9 @@ function exportCSV(){
       t.portion || '',
       t.netCarbs ?? '',
       t.satFat ?? '',
+      t.protein ?? '',
+      t.totalFat ?? '',
+      t.calories ?? '',
       t.t0 ?? '',
       t.baselineTime || '',
       t.t30 ?? '',
@@ -1289,18 +1317,19 @@ function normalizeBaselineTime(value){
 function parseImportedTestRow(row, headerMap, fallbackMode){
   const oldFallback = fallbackMode && row.length <= 14;
   const midFallback = fallbackMode && row.length === 15;
-  const newFallback = fallbackMode && row.length >= 18;
+  const newFallback = fallbackMode && row.length >= 18 && row.length < 21;
+  const latestFallback = fallbackMode && row.length >= 21;
   const idx = {
-    t30: newFallback ? 8 : (oldFallback ? 5 : 6),
-    t60: newFallback ? 9 : (oldFallback ? 6 : 7),
-    t120: newFallback ? 10 : (oldFallback ? 7 : 8),
-    t180: newFallback ? 11 : (oldFallback ? -1 : 9),
-    ret: newFallback ? 12 : (oldFallback ? 8 : (midFallback ? 9 : 10)),
-    berberine: newFallback ? 13 : (oldFallback ? 9 : (midFallback ? 10 : 11)),
-    acv: newFallback ? 14 : (oldFallback ? 10 : (midFallback ? 11 : 12)),
-    walk: newFallback ? 15 : (oldFallback ? 11 : (midFallback ? 12 : 13)),
-    activity: newFallback ? 16 : (oldFallback ? 12 : (midFallback ? 13 : 14)),
-    notes: newFallback ? 17 : (oldFallback ? 13 : (midFallback ? 14 : 15))
+    t30: latestFallback ? 11 : (newFallback ? 8 : (oldFallback ? 5 : 6)),
+    t60: latestFallback ? 12 : (newFallback ? 9 : (oldFallback ? 6 : 7)),
+    t120: latestFallback ? 13 : (newFallback ? 10 : (oldFallback ? 7 : 8)),
+    t180: latestFallback ? 14 : (newFallback ? 11 : (oldFallback ? -1 : 9)),
+    ret: latestFallback ? 15 : (newFallback ? 12 : (oldFallback ? 8 : (midFallback ? 9 : 10))),
+    berberine: latestFallback ? 16 : (newFallback ? 13 : (oldFallback ? 9 : (midFallback ? 10 : 11))),
+    acv: latestFallback ? 17 : (newFallback ? 14 : (oldFallback ? 10 : (midFallback ? 11 : 12))),
+    walk: latestFallback ? 18 : (newFallback ? 15 : (oldFallback ? 11 : (midFallback ? 12 : 13))),
+    activity: latestFallback ? 19 : (newFallback ? 16 : (oldFallback ? 12 : (midFallback ? 13 : 14))),
+    notes: latestFallback ? 20 : (newFallback ? 17 : (oldFallback ? 13 : (midFallback ? 14 : 15)))
   };
 
   const read = (aliases, fallbackIndex) => {
@@ -1314,10 +1343,13 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const food = String(read(['food', 'foodcombinationtested', 'foodcombination', 'combinationtested', 'combination', 'foodname'], 1) || '').trim();
   const catRaw = String(read(['category', 'cat'], 2) || '').trim();
   const portion = String(read(['portion', 'quantity'], 3) || '').trim();
-  const netCarbs = parseNumberish(read(['netcarbs', 'netcarb', 'netcarbsg'], newFallback ? 4 : -1));
-  const satFat = parseNumberish(read(['saturatedfat', 'satfat', 'saturatedfatg'], newFallback ? 5 : -1));
-  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], newFallback ? 6 : 4));
-  const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], newFallback ? 7 : (oldFallback ? -1 : 5)));
+  const netCarbs = parseNumberish(read(['netcarbs', 'netcarb', 'netcarbsg'], (newFallback || latestFallback) ? 4 : -1));
+  const satFat = parseNumberish(read(['saturatedfat', 'satfat', 'saturatedfatg'], (newFallback || latestFallback) ? 5 : -1));
+  const protein = parseNumberish(read(['protein', 'proteing', 'protein(g)'], latestFallback ? 6 : -1));
+  const totalFat = parseNumberish(read(['totalfat', 'fat', 'totalfatg', 'fatg', 'totalfat(g)'], latestFallback ? 7 : -1));
+  const calories = parseNumberish(read(['calories', 'kcal', 'energy', 'calorieskcal'], latestFallback ? 8 : -1));
+  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], latestFallback ? 9 : (newFallback ? 6 : 4)));
+  const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], latestFallback ? 10 : (newFallback ? 7 : (oldFallback ? -1 : 5))));
   const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], idx.t30));
   const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], idx.t60));
   const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], idx.t120));
@@ -1348,13 +1380,13 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
         'supplement effect':'supplement'
       })[catRaw.toLowerCase()] || 'grain';
 
-  return { id, date, food, cat, portion, netCarbs, satFat, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
+  return { id, date, food, cat, portion, netCarbs, satFat, protein, totalFat, calories, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
 }
 
 function makeTestFingerprint(test){
   return [
     test.date || '', test.food || '', test.cat || '', test.portion || '',
-    test.netCarbs ?? '', test.satFat ?? '',
+    test.netCarbs ?? '', test.satFat ?? '', test.protein ?? '', test.totalFat ?? '', test.calories ?? '',
     test.t0 ?? '', test.baselineTime || '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '', test.t180 ?? '',
     test.returnBaselineMin ?? '',
     test.berberine || '', test.acv || '', test.walk || '', test.activity || '', test.notes || ''
@@ -1670,7 +1702,7 @@ let editingId=null;
 function clearForm(){
   editingId=null;
   document.getElementById('f-date').value=todayISO();
-  ['f-food','f-portion','f-net-carbs','f-sat-fat','f-notes','f-t0','f-baseline-time','f-t30','f-t60','f-t120','f-t180','f-ret-min'].forEach(id=>document.getElementById(id).value='');
+  ['f-food','f-portion','f-net-carbs','f-sat-fat','f-protein','f-total-fat','f-calories','f-notes','f-t0','f-baseline-time','f-t30','f-t60','f-t120','f-t180','f-ret-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='grain';
   document.getElementById('f-berberine').value='';
   document.getElementById('f-acv').value='';
@@ -1691,6 +1723,9 @@ function editTest(id){
   document.getElementById('f-portion').value=t.portion||'';
   document.getElementById('f-net-carbs').value=t.netCarbs!=null?t.netCarbs:'';
   document.getElementById('f-sat-fat').value=t.satFat!=null?t.satFat:'';
+  document.getElementById('f-protein').value=t.protein!=null?t.protein:'';
+  document.getElementById('f-total-fat').value=t.totalFat!=null?t.totalFat:'';
+  document.getElementById('f-calories').value=t.calories!=null?t.calories:'';
   document.getElementById('f-t0').value=t.t0!=null?t.t0:'';
   document.getElementById('f-baseline-time').value=t.baselineTime||'';
   document.getElementById('f-t30').value=t.t30!=null?t.t30:'';
@@ -1716,6 +1751,9 @@ function saveTest(){
   const portion= document.getElementById('f-portion').value.trim();
   const netCarbs = parseNumberish(document.getElementById('f-net-carbs').value);
   const satFat = parseNumberish(document.getElementById('f-sat-fat').value);
+  const protein = parseNumberish(document.getElementById('f-protein').value);
+  const totalFat = parseNumberish(document.getElementById('f-total-fat').value);
+  const calories = parseNumberish(document.getElementById('f-calories').value);
   const t0     = parseFloat(document.getElementById('f-t0').value)||null;
   const baselineTime = normalizeBaselineTime(document.getElementById('f-baseline-time').value);
   const t30    = parseFloat(document.getElementById('f-t30').value)||null;
@@ -1751,11 +1789,11 @@ function saveTest(){
   let savedId=editingId;
   if(editingId){
     delete curveVisibilityOverrides[editingId];
-    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,netCarbs,satFat,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
+    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,netCarbs,satFat,protein,totalFat,calories,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
   } else {
     const id=Date.now().toString();
     savedId=id;
-    tests.push({id,date,food,cat,portion,netCarbs,satFat,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
+    tests.push({id,date,food,cat,portion,netCarbs,satFat,protein,totalFat,calories,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
   }
   if(savedId){ delete curveVisibilityOverrides[savedId]; }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
@@ -1795,14 +1833,97 @@ function deleteTest(id){
   if(!confirm('Delete this test entry?')) return;
   delete curveVisibilityOverrides[id];
   pinnedTestIds.delete(String(id));
+  selectedForDietPower.delete(String(id));
   savePinnedTests();
   saveTests(loadTests().filter(t=>String(t.id)!==String(id)));
   render();
 }
 
+function buildDietPowerTransferItem(test){
+  return {
+    testId:String(test.id||''),
+    date:String(test.date||''),
+    food:String(test.food||''),
+    portion:String(test.portion||''),
+    netCarbs:parseNumberish(test.netCarbs),
+    satFat:parseNumberish(test.satFat),
+    protein:parseNumberish(test.protein),
+    totalFat:parseNumberish(test.totalFat),
+    calories:parseNumberish(test.calories)
+  };
+}
+
+function hasTransferNutrition(item){
+  return [item.netCarbs,item.satFat,item.protein,item.totalFat,item.calories].some(v=>v!=null);
+}
+
+function sendTestToDietPower(id){
+  const test=loadTests().find(t=>String(t.id)===String(id));
+  if(!test){
+    alert('That test entry could not be found.');
+    return;
+  }
+
+  const item=buildDietPowerTransferItem(test);
+  const payload={
+    source:'food-response-testing',
+    mode:'single',
+    transferredAt:new Date().toISOString(),
+    items:[item]
+  };
+
+  if(!hasTransferNutrition(item)){
+    alert('Add at least one nutrition value (net carbs, sat fat, protein, total fat, or calories) before sending to Diet Power.');
+    return;
+  }
+
+  localStorage.setItem(DIET_POWER_PREFILL_KEY, JSON.stringify(payload));
+  window.location.href='diet-power.html?prefill=food-test';
+}
+
+let selectedForDietPower=new Set();
+
+function toggleDietPowerSelection(id){
+  const key=String(id);
+  if(selectedForDietPower.has(key)) selectedForDietPower.delete(key);
+  else selectedForDietPower.add(key);
+  render();
+}
+
+function clearDietPowerSelection(){
+  selectedForDietPower.clear();
+  render();
+}
+
+function sendSelectedTestsToDietPower(){
+  const tests=loadTests();
+  const selected=tests.filter(t=>selectedForDietPower.has(String(t.id)));
+  if(!selected.length){
+    alert('Select at least one test card first.');
+    return;
+  }
+
+  const items=selected.map(buildDietPowerTransferItem).filter(hasTransferNutrition);
+  if(!items.length){
+    alert('Selected tests do not have nutrition values to send yet.');
+    return;
+  }
+
+  const payload={
+    source:'food-response-testing',
+    mode:'batch',
+    transferredAt:new Date().toISOString(),
+    items
+  };
+
+  localStorage.setItem(DIET_POWER_PREFILL_KEY, JSON.stringify(payload));
+  window.location.href='diet-power.html?prefill=food-tests-batch';
+}
+
 function confirmClearAll(){
   if(!confirm('Delete ALL food response tests? This cannot be undone.')) return;
   Object.keys(curveVisibilityOverrides).forEach(k=>delete curveVisibilityOverrides[k]);
+  selectedForDietPower.clear();
   localStorage.removeItem(STORE_KEY); render();
 }
 
@@ -2328,6 +2449,10 @@ const highPeakZonePlugin={
 
 function render(){
   const all=loadTests();
+  const validIds=new Set(all.map(t=>String(t.id||'')));
+  Array.from(selectedForDietPower).forEach(id=>{
+    if(!validIds.has(id)) selectedForDietPower.delete(id);
+  });
   const search=(document.getElementById('search-box').value||'').toLowerCase();
   const sortBtn=document.getElementById('auc-sort-btn');
   if(sortBtn){
@@ -2431,6 +2556,10 @@ function render(){
   if(satFatSummaryEl){
     satFatSummaryEl.innerHTML=`Visible high sat fat tests (>=5 g): <strong>${highSatVisibleCount}</strong> of ${filtered.length}`;
   }
+  const selectionStatusEl=document.getElementById('diet-power-selection-status');
+  if(selectionStatusEl){
+    selectionStatusEl.textContent=`Selected for Diet Power: ${selectedForDietPower.size}`;
+  }
 
   const grid=document.getElementById('results-grid');
   const empty=document.getElementById('empty-msg');
@@ -2448,7 +2577,10 @@ function render(){
       const longTailStatus=getLongTailStatus(t);
       const metricBits=[
         t.netCarbs!=null?`<span class="metric-pill carbs" title="Net carbs">Net carbs <span class="metric-val">${t.netCarbs}</span> g</span>`:'',
-        t.satFat!=null?`<span class="metric-pill fat" title="Saturated fat">Sat fat <span class="metric-val">${t.satFat}</span> g</span>`:''
+        t.satFat!=null?`<span class="metric-pill fat" title="Saturated fat">Sat fat <span class="metric-val">${t.satFat}</span> g</span>`:'',
+        t.protein!=null?`<span class="metric-pill protein" title="Protein">Protein <span class="metric-val">${t.protein}</span> g</span>`:'',
+        t.totalFat!=null?`<span class="metric-pill fat-total" title="Total fat">Total fat <span class="metric-val">${t.totalFat}</span> g</span>`:'',
+        t.calories!=null?`<span class="metric-pill calories" title="Calories">Calories <span class="metric-val">${t.calories}</span> kcal</span>`:''
       ].filter(Boolean).join(' ');
       const analysisBits=[
         comboMet?`<span class="metric-pill carbs" title="Net carbs >= 15g and saturated fat >= 5g in the same serving">5g/15g combo</span>`:'',
@@ -2489,6 +2621,7 @@ function render(){
         ? ' baseline-outlier'
         : (milkPairStatus==='friendly' ? ' milk-pair-friendly' : (milkPairStatus==='unfriendly' ? ' milk-pair-unfriendly' : ''));
       const satFatClass=satFatHigh ? ' satfat-high' : '';
+      const selectedForTransfer=selectedForDietPower.has(String(t.id));
       return `
       <div class="test-card${cardClass}${satFatClass}${isPinned ? ' pinned-card' : ''}">
         <div class="test-card-header">
@@ -2525,6 +2658,8 @@ function render(){
         ${t.notes?`<div class="test-card-notes">${t.notes}</div>`:''}
         <div class="test-card-actions">
           <button class="btn-sm btn-sm-outline" onclick="editTest('${t.id}')">✏️ Add / Edit Readings</button>
+          <button class="btn-sm btn-sm-outline" onclick="sendTestToDietPower('${t.id}')">🥣 Use in Diet Power</button>
+          <button class="btn-sm btn-sm-outline" onclick="toggleDietPowerSelection('${t.id}')">${selectedForTransfer?'☑️ Selected':'⬜ Select for Diet Power'}</button>
           <button class="pin-btn ${isPinned ? 'pinned' : ''}" type="button" onclick="togglePinnedTest('${t.id}')" title="${isPinned ? 'Unpin this card' : 'Pin this card for graph comparison'}" aria-label="${isPinned ? 'Unpin card' : 'Pin card'}">📌</button>
           <button class="btn-sm btn-sm-danger" onclick="deleteTest('${t.id}')">Delete</button>
         </div>
@@ -2568,6 +2703,9 @@ function render(){
       <td>${getLongTailStatus(t)==='yes'?'<span class="spike-badge spike-moderate">Yes</span>':getLongTailStatus(t)==='no'?'<span class="spike-badge spike-flat">No</span>':'<span class="spike-badge" style="background:#f4f6f7;color:#5d6d7e">Need data</span>'}</td>
       <td>${t.netCarbs!=null?t.netCarbs:'—'}</td>
       <td>${t.satFat!=null?t.satFat:'—'}</td>
+      <td>${t.protein!=null?t.protein:'—'}</td>
+      <td>${t.totalFat!=null?t.totalFat:'—'}</td>
+      <td>${t.calories!=null?t.calories:'—'}</td>
       <td style="font-weight:700">${t.a.peak}</td>
       <td class="${worst?'warn':best?'best':''}" style="font-weight:700">+${t.a.spikeAbs}</td>
       <td style="color:${t.a.ret120!=null&&Math.abs(t.a.ret120)<=20?'#27ae60':'#e67e22'}">${t.a.ret120!=null?(t.a.ret120>=0?'+':'')+t.a.ret120+' mg/dL':'—'}</td>
