@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diet Power</title>
+  <style>
+    :root {
+      --green-dark: #2d6a4f;
+      --green-mid: #40916c;
+      --green-pale: #f0f7f2;
+      --sky-dark: #1a4f8a;
+      --text: #1f2937;
+      --muted: #5f6f65;
+      --border: #cde3d4;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--green-pale);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    nav {
+      background: var(--green-dark);
+      padding: .75rem 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .95rem;
+      opacity: .85;
+      transition: opacity .2s;
+    }
+    nav a:hover,
+    nav a.active {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    header {
+      background: linear-gradient(135deg, var(--green-dark), #2f7d58);
+      color: #fff;
+      padding: 2rem 1.25rem 1.4rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: .35rem;
+    }
+    header p {
+      font-size: .98rem;
+      opacity: .9;
+    }
+    main {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 1.35rem 1rem 2.2rem;
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 10px rgba(45, 106, 79, .08);
+    }
+    .panel h2 {
+      color: var(--green-dark);
+      font-size: 1.08rem;
+      margin-bottom: .55rem;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-top: .7rem;
+    }
+    .pill {
+      background: #f6fbf8;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: .35rem .72rem;
+      font-size: .84rem;
+      color: var(--green-dark);
+      font-weight: 600;
+    }
+    .goal-highlight {
+      border-left: 4px solid var(--sky-dark);
+      background: #f4f8fd;
+      padding: .75rem .9rem;
+      border-radius: 10px;
+      margin-top: .75rem;
+      font-size: .9rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: .75rem;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+    .field label {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .field input {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .48rem .65rem;
+      font: inherit;
+      background: #fff;
+      color: var(--text);
+    }
+    .field input:focus {
+      outline: 2px solid var(--green-mid);
+      outline-offset: 1px;
+    }
+    .btn {
+      border: none;
+      border-radius: 8px;
+      background: var(--green-dark);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      padding: .55rem .95rem;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: .9; }
+    .plan-summary {
+      margin-top: .75rem;
+      font-size: .9rem;
+      color: var(--text);
+    }
+    .plan-list {
+      margin-top: .75rem;
+      display: grid;
+      gap: .55rem;
+    }
+    .plan-step {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fcfefd;
+      padding: .62rem .72rem;
+    }
+    .plan-step strong { color: var(--green-dark); }
+    .plan-step .meta {
+      color: var(--muted);
+      font-size: .83rem;
+      margin-top: .2rem;
+    }
+    .foot-note {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: .75rem;
+    }
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: .65rem;
+      margin-top: .75rem;
+    }
+    .score-card {
+      background: #f8fcf9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .62rem .72rem;
+    }
+    .score-card h3 {
+      font-size: .84rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: .25rem;
+    }
+    .score-card .value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+    .phase-target-line {
+      margin-top: .55rem;
+      font-size: .9rem;
+      color: var(--text);
+    }
+    .inline-help {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: .2rem;
+    }
+    .level-badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: .25rem .7rem;
+      font-size: .8rem;
+      font-weight: 700;
+      background: #ecfdf3;
+      color: #17623f;
+      border: 1px solid #bde5cd;
+    }
+    .score-list {
+      margin-top: .65rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .score-list-row {
+      display: flex;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .52rem .65rem;
+      background: #fff;
+      border-top: 1px solid #edf4ef;
+      font-size: .88rem;
+    }
+    .score-list-row:first-child { border-top: none; }
+    .score-list-row strong { color: var(--green-dark); }
+    .guardrail-note {
+      margin-top: .65rem;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: .65rem;
+      margin-top: .75rem;
+    }
+    .trend-card {
+      background: #f8fcf9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .6rem .7rem;
+    }
+    .trend-card h3 {
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: .2rem;
+    }
+    .trend-card .value {
+      color: var(--green-dark);
+      font-size: 1.18rem;
+      font-weight: 700;
+    }
+    .mini-list {
+      margin-top: .75rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .mini-row {
+      display: flex;
+      justify-content: space-between;
+      gap: .6rem;
+      padding: .45rem .65rem;
+      border-top: 1px solid #edf4ef;
+      background: #fff;
+      font-size: .84rem;
+    }
+    .mini-row:first-child { border-top: none; }
+    .mini-row .date { color: var(--muted); }
+    .mini-row .score { font-weight: 700; color: var(--green-dark); }
+    .btn-secondary {
+      background: #1a4f8a;
+    }
+    .import-preview-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 2200;
+    }
+    .import-preview-overlay.visible { display: flex; }
+    .import-preview-card {
+      width: min(92vw, 540px);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .2);
+      overflow: hidden;
+    }
+    .import-preview-head {
+      background: #f3faf6;
+      border-bottom: 1px solid var(--border);
+      padding: .75rem .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .6rem;
+    }
+    .import-preview-head h3 {
+      font-size: .97rem;
+      color: var(--green-dark);
+    }
+    .import-preview-close {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 999px;
+      width: 1.9rem;
+      height: 1.9rem;
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      color: #526d61;
+    }
+    .import-preview-body {
+      padding: .85rem .95rem;
+    }
+    .import-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .45rem;
+      margin-top: .45rem;
+    }
+    .import-preview-item {
+      background: #f8fcf9;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .45rem .55rem;
+      font-size: .83rem;
+      color: var(--muted);
+    }
+    .import-preview-item strong {
+      display: block;
+      color: var(--green-dark);
+      font-size: 1rem;
+      margin-top: .05rem;
+    }
+    .import-preview-actions {
+      padding: .75rem .95rem;
+      border-top: 1px solid #edf4ef;
+      display: flex;
+      gap: .6rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      background: #fff;
+    }
+    .btn-muted {
+      background: #fff;
+      color: #334155;
+      border: 1px solid #d1d5db;
+    }
+    select {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .48rem .65rem;
+      font: inherit;
+      background: #fff;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html">🍽️ Food Testing</a>
+    <a href="dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="genetics.html">🧬 Genetics</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="exercise-protocol.html">🏃 Exercise</a>
+    <a href="cgm-tracker.html">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="diet-power.html" class="active">🥣 Diet Power</a>
+  </nav>
+
+  <header>
+    <h1>🥣 Diet Power Foundation</h1>
+    <p>Dynamic calorie drops with a clear path to your final 160-lb target</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Calorie Target Strategy</h2>
+      <p>Instead of dropping all at once, this page plans staged calorie targets so your body and routine can adapt while still moving toward fat loss.</p>
+      <div class="goal-highlight">
+        <strong>Final target at 160 lb:</strong> <span id="final-target">2291</span> kcal/day
+      </div>
+      <div class="pill-row">
+        <span class="pill">Current Weight: 222 lb</span>
+        <span class="pill">Goal Weight: 160 lb</span>
+        <span class="pill">Top Level Goal: Genius consistency</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Dynamic Drop Planner</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="start-calories">Starting Calories (Now)</label>
+          <input id="start-calories" type="number" min="1200" max="5000" step="1" value="2791" />
+        </div>
+        <div class="field">
+          <label for="drop-size">Drop Per Phase (kcal)</label>
+          <input id="drop-size" type="number" min="50" max="500" step="10" value="150" />
+        </div>
+        <div class="field">
+          <label for="phase-days">Days Per Phase</label>
+          <input id="phase-days" type="number" min="7" max="28" step="1" value="14" />
+        </div>
+      </div>
+      <div style="margin-top:.75rem">
+        <button class="btn" type="button" id="build-plan-btn">Build Plan</button>
+      </div>
+
+      <div class="plan-summary" id="plan-summary"></div>
+      <div class="plan-list" id="plan-list"></div>
+      <p class="foot-note">Guideline: stay on each phase until adherence and energy are stable. If a phase feels too aggressive, reduce the drop size and rebuild the plan.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Nutrition Quotient (Phase-Aware)</h2>
+      <p>Calorie scoring below automatically uses whichever plan phase you mark as active.</p>
+
+      <div class="grid" style="margin-top:.75rem">
+        <div class="field">
+          <label for="entry-date">Entry Date</label>
+          <input id="entry-date" type="date" />
+        </div>
+        <div class="field">
+          <label for="active-phase">Active Plan Phase</label>
+          <select id="active-phase"></select>
+          <div class="inline-help">Choose the phase you are currently following.</div>
+        </div>
+        <div class="field">
+          <label for="actual-calories">Actual Calories (Today)</label>
+          <input id="actual-calories" type="number" min="0" max="6000" step="1" value="2600" />
+        </div>
+        <div class="field">
+          <label for="water-target">Water Target (L)</label>
+          <input id="water-target" type="number" min="0" max="8" step="0.1" value="2.2" />
+        </div>
+        <div class="field">
+          <label for="water-actual">Water Intake (L)</label>
+          <input id="water-actual" type="number" min="0" max="8" step="0.1" value="1.9" />
+        </div>
+      </div>
+
+      <div class="phase-target-line">Active phase calorie target: <strong id="active-phase-target">-</strong> kcal/day</div>
+
+      <div class="grid" style="margin-top:.85rem">
+        <div class="field">
+          <label for="fat-target-pct">Fat Target (%)</label>
+          <input id="fat-target-pct" type="number" min="0" max="100" step="1" value="50" />
+        </div>
+        <div class="field">
+          <label for="fat-actual-pct">Fat Actual (%)</label>
+          <input id="fat-actual-pct" type="number" min="0" max="100" step="1" value="47" />
+        </div>
+        <div class="field">
+          <label for="protein-target-pct">Protein Target (%)</label>
+          <input id="protein-target-pct" type="number" min="0" max="100" step="1" value="30" />
+        </div>
+        <div class="field">
+          <label for="protein-actual-pct">Protein Actual (%)</label>
+          <input id="protein-actual-pct" type="number" min="0" max="100" step="1" value="31" />
+        </div>
+        <div class="field">
+          <label for="carb-target-pct">Carb Target (%)</label>
+          <input id="carb-target-pct" type="number" min="0" max="100" step="1" value="20" />
+        </div>
+        <div class="field">
+          <label for="carb-actual-pct">Carb Actual (%)</label>
+          <input id="carb-actual-pct" type="number" min="0" max="100" step="1" value="22" />
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:.85rem">
+        <div class="field">
+          <label for="omega3-target">Omega-3 Target (g)</label>
+          <input id="omega3-target" type="number" min="0" max="20" step="0.1" value="2.0" />
+        </div>
+        <div class="field">
+          <label for="omega3-actual">Omega-3 Actual (g)</label>
+          <input id="omega3-actual" type="number" min="0" max="20" step="0.1" value="1.8" />
+        </div>
+        <div class="field">
+          <label for="c15-target">C15:0 Target (mg)</label>
+          <input id="c15-target" type="number" min="0" max="2000" step="5" value="100" />
+        </div>
+        <div class="field">
+          <label for="c15-actual">C15:0 Actual (mg)</label>
+          <input id="c15-actual" type="number" min="0" max="2000" step="5" value="90" />
+        </div>
+        <div class="field">
+          <label for="sat-soft-cap">Sat Fat Soft Cap (g)</label>
+          <input id="sat-soft-cap" type="number" min="0" max="100" step="0.5" value="12" />
+        </div>
+        <div class="field">
+          <label for="sat-hard-cap">Sat Fat Hard Cap (g)</label>
+          <input id="sat-hard-cap" type="number" min="0" max="100" step="0.5" value="16" />
+        </div>
+        <div class="field">
+          <label for="sat-actual">Sat Fat Actual (g)</label>
+          <input id="sat-actual" type="number" min="0" max="100" step="0.1" value="11.5" />
+        </div>
+      </div>
+
+      <div style="margin-top:.8rem">
+        <button class="btn" id="compute-nq-btn" type="button">Compute Nutrition Quotient</button>
+        <button class="btn btn-secondary" id="save-day-btn" type="button" style="margin-left:.45rem">Save Day Result</button>
+        <button class="btn" id="export-log-json-btn" type="button" style="margin-left:.45rem">Export Log JSON</button>
+        <button class="btn" id="import-log-json-btn" type="button" style="margin-left:.45rem">Import Log JSON</button>
+        <button class="btn" id="export-log-csv-btn" type="button" style="margin-left:.45rem">Export Log CSV</button>
+        <button class="btn" id="import-log-csv-btn" type="button" style="margin-left:.45rem">Import Log CSV</button>
+        <input id="import-log-json-file" type="file" accept=".json,application/json" hidden />
+        <input id="import-log-csv-file" type="file" accept=".csv,text/csv" hidden />
+      </div>
+
+      <div class="score-grid">
+        <div class="score-card">
+          <h3>Nutrition Quotient</h3>
+          <div class="value" id="nq-score">-</div>
+        </div>
+        <div class="score-card">
+          <h3>Level</h3>
+          <div class="value"><span class="level-badge" id="nq-level">-</span></div>
+        </div>
+      </div>
+
+      <div class="score-list" id="score-breakdown">
+        <div class="score-list-row"><span>Calories (max 25)</span><strong id="score-calories">-</strong></div>
+        <div class="score-list-row"><span>Water (max 15)</span><strong id="score-water">-</strong></div>
+        <div class="score-list-row"><span>Macro Ratio (max 25)</span><strong id="score-macro">-</strong></div>
+        <div class="score-list-row"><span>Fat Quality (max 35)</span><strong id="score-fat-quality">-</strong></div>
+      </div>
+
+      <p class="guardrail-note" id="guardrail-note">Genius requires total 90+ and guardrails: sat fat within soft cap, omega-3 at 100% target, C15:0 at 90% target, and water at 90% target.</p>
+
+      <div class="trend-grid">
+        <div class="trend-card">
+          <h3>Current Streak</h3>
+          <div class="value" id="trend-streak">0 days</div>
+        </div>
+        <div class="trend-card">
+          <h3>7-Day Avg NQ</h3>
+          <div class="value" id="trend-avg">-</div>
+        </div>
+        <div class="trend-card">
+          <h3>Genius Days (7)</h3>
+          <div class="value" id="trend-genius">0</div>
+        </div>
+      </div>
+
+      <div class="mini-list" id="recent-days-list"></div>
+    </section>
+  </main>
+
+  <div class="import-preview-overlay" id="import-preview-overlay" aria-hidden="true">
+    <div class="import-preview-card" role="dialog" aria-modal="true" aria-labelledby="import-preview-title">
+      <div class="import-preview-head">
+        <h3 id="import-preview-title">Import Preview</h3>
+        <button class="import-preview-close" id="import-preview-close" type="button" aria-label="Close import preview">×</button>
+      </div>
+      <div class="import-preview-body">
+        <p id="import-preview-message">Review import results before applying.</p>
+        <div class="import-preview-grid">
+          <div class="import-preview-item">Rows read<strong id="preview-rows-read">0</strong></div>
+          <div class="import-preview-item">Valid rows<strong id="preview-valid-rows">0</strong></div>
+          <div class="import-preview-item">Invalid rows<strong id="preview-invalid-rows">0</strong></div>
+          <div class="import-preview-item">New days<strong id="preview-new-days">0</strong></div>
+          <div class="import-preview-item">Replaced days<strong id="preview-replaced-days">0</strong></div>
+          <div class="import-preview-item">Unchanged days<strong id="preview-unchanged-days">0</strong></div>
+        </div>
+      </div>
+      <div class="import-preview-actions">
+        <button class="btn btn-muted" id="preview-cancel-btn" type="button">Cancel</button>
+        <button class="btn" id="preview-apply-btn" type="button">Apply Import</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const FINAL_TARGET = 2291;
+    const DIET_POWER_LOG_KEY = 'diet-power-daily-log-v1';
+    let activePlanPhases = [];
+    let pendingImportPayload = null;
+
+    function toInt(value, fallback) {
+      const n = Number(value);
+      return Number.isFinite(n) ? Math.round(n) : fallback;
+    }
+
+    function todayISO() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function shiftDateISO(isoDate, days) {
+      const d = new Date(`${isoDate}T00:00:00`);
+      d.setDate(d.getDate() + days);
+      return d.toISOString().slice(0, 10);
+    }
+
+    function loadDailyLog() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(DIET_POWER_LOG_KEY) || '[]');
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveDailyLog(entries) {
+      localStorage.setItem(DIET_POWER_LOG_KEY, JSON.stringify(entries));
+    }
+
+    function sortLogByDateDesc(entries) {
+      return [...entries].sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    }
+
+    function mergeLogEntriesByDate(incomingEntries) {
+      const existing = loadDailyLog();
+      const byDate = new Map(existing.map(item => [String(item.date || ''), item]));
+
+      let changed = 0;
+      incomingEntries.forEach(item => {
+        const date = String(item.date || '');
+        if (!date) return;
+        const previous = byDate.get(date);
+        byDate.set(date, item);
+        if (!previous || JSON.stringify(previous) !== JSON.stringify(item)) {
+          changed += 1;
+        }
+      });
+
+      const merged = sortLogByDateDesc(Array.from(byDate.values()));
+      saveDailyLog(merged);
+      return { changed, total: merged.length };
+    }
+
+    function classifyImportByDate(incomingEntries) {
+      const existing = loadDailyLog();
+      const byDate = new Map(existing.map(item => [String(item.date || ''), item]));
+
+      let newDays = 0;
+      let replacedDays = 0;
+      let unchangedDays = 0;
+
+      incomingEntries.forEach(item => {
+        const date = String(item.date || '');
+        if (!date) return;
+        const previous = byDate.get(date);
+        if (!previous) {
+          newDays += 1;
+          return;
+        }
+        if (JSON.stringify(previous) === JSON.stringify(item)) {
+          unchangedDays += 1;
+        } else {
+          replacedDays += 1;
+        }
+      });
+
+      return { newDays, replacedDays, unchangedDays };
+    }
+
+    function closeImportPreview() {
+      document.getElementById('import-preview-overlay')?.classList.remove('visible');
+      pendingImportPayload = null;
+    }
+
+    function openImportPreview({ formatLabel, rowsRead, validRows, invalidRows, newDays, replacedDays, unchangedDays, entries }) {
+      pendingImportPayload = { entries, formatLabel };
+
+      document.getElementById('import-preview-message').textContent = `Review ${formatLabel} import results before applying changes.`;
+      document.getElementById('preview-rows-read').textContent = String(rowsRead);
+      document.getElementById('preview-valid-rows').textContent = String(validRows);
+      document.getElementById('preview-invalid-rows').textContent = String(invalidRows);
+      document.getElementById('preview-new-days').textContent = String(newDays);
+      document.getElementById('preview-replaced-days').textContent = String(replacedDays);
+      document.getElementById('preview-unchanged-days').textContent = String(unchangedDays);
+
+      document.getElementById('import-preview-overlay')?.classList.add('visible');
+    }
+
+    function applyPendingImport() {
+      if (!pendingImportPayload || !Array.isArray(pendingImportPayload.entries)) {
+        closeImportPreview();
+        return;
+      }
+
+      const result = mergeLogEntriesByDate(pendingImportPayload.entries);
+      renderProgressLoop();
+      alert(`${pendingImportPayload.formatLabel} import applied: ${result.changed} day(s) merged. Total stored days: ${result.total}.`);
+      closeImportPreview();
+    }
+
+    function normalizeDateInput(value) {
+      const text = String(value || '').trim();
+      if (!text) return '';
+      if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+      const parsed = new Date(text);
+      if (Number.isNaN(parsed.getTime())) return '';
+      return parsed.toISOString().slice(0, 10);
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let value = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i += 1) {
+        const ch = text[i];
+        if (ch === '"') {
+          if (inQuotes && text[i + 1] === '"') {
+            value += '"';
+            i += 1;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (ch === ',' && !inQuotes) {
+          row.push(value);
+          value = '';
+        } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+          if (ch === '\r' && text[i + 1] === '\n') i += 1;
+          row.push(value);
+          rows.push(row);
+          row = [];
+          value = '';
+        } else {
+          value += ch;
+        }
+      }
+
+      row.push(value);
+      if (row.length > 1 || String(row[0] || '').trim()) rows.push(row);
+      return rows;
+    }
+
+    function normalizeCSVHeader(value) {
+      return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
+    }
+
+    function triggerImportLogJSON() {
+      document.getElementById('import-log-json-file')?.click();
+    }
+
+    function triggerImportLogCSV() {
+      document.getElementById('import-log-csv-file')?.click();
+    }
+
+    function exportDailyLogJSON() {
+      const entries = loadDailyLog();
+      if (!entries.length) {
+        alert('No Diet Power log data to export.');
+        return;
+      }
+
+      const payload = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        source: 'diet-power',
+        entries
+      };
+
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `diet-power-log-${todayISO()}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportDailyLogCSV() {
+      const entries = loadDailyLog();
+      if (!entries.length) {
+        alert('No Diet Power log data to export.');
+        return;
+      }
+
+      const rows = [[
+        'Date',
+        'Score',
+        'Level',
+        'PhaseNumber',
+        'PhaseTargetCalories',
+        'CaloriesPoints',
+        'WaterPoints',
+        'MacroPoints',
+        'FatQualityPoints',
+        'SavedAt'
+      ]];
+
+      sortLogByDateDesc(entries).forEach(item => {
+        rows.push([
+          item.date || '',
+          item.score ?? '',
+          item.level || '',
+          item.phaseNumber ?? '',
+          item.phaseTargetCalories ?? '',
+          item.components?.calories ?? '',
+          item.components?.water ?? '',
+          item.components?.macro ?? '',
+          item.components?.fatQuality ?? '',
+          item.savedAt || ''
+        ]);
+      });
+
+      const csv = rows
+        .map(row => row.map(cell => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
+        .join('\n');
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `diet-power-log-${todayISO()}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importDailyLogJSON(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = event => {
+        try {
+          const text = String(event.target?.result || '').trim();
+          if (!text) {
+            alert('Selected JSON file is empty.');
+            return;
+          }
+
+          const parsed = JSON.parse(text);
+          const source = Array.isArray(parsed)
+            ? parsed
+            : (parsed && Array.isArray(parsed.entries) ? parsed.entries : null);
+
+          if (!source) {
+            alert('JSON must be an array or an object with an entries array.');
+            return;
+          }
+
+          const rowsRead = source.length;
+
+          const normalized = source
+            .filter(item => item && typeof item === 'object')
+            .map(item => {
+              const date = normalizeDateInput(item.date);
+              if (!date) return null;
+              return {
+                date,
+                score: Number(item.score ?? 0),
+                level: String(item.level || 'Starter'),
+                guardrailMessage: String(item.guardrailMessage || ''),
+                phaseTargetCalories: Number(item.phaseTargetCalories ?? 0),
+                phaseNumber: Number(item.phaseNumber ?? 1),
+                components: {
+                  calories: Number(item.components?.calories ?? 0),
+                  water: Number(item.components?.water ?? 0),
+                  macro: Number(item.components?.macro ?? 0),
+                  fatQuality: Number(item.components?.fatQuality ?? 0)
+                },
+                inputs: item.inputs && typeof item.inputs === 'object' ? item.inputs : {},
+                savedAt: String(item.savedAt || new Date().toISOString())
+              };
+            })
+            .filter(Boolean);
+
+          const validRows = normalized.length;
+          const invalidRows = Math.max(0, rowsRead - validRows);
+
+          if (!normalized.length) {
+            alert('No valid Diet Power day entries found in that JSON file.');
+            return;
+          }
+
+          const summary = classifyImportByDate(normalized);
+          openImportPreview({
+            formatLabel: 'JSON',
+            rowsRead,
+            validRows,
+            invalidRows,
+            ...summary,
+            entries: normalized
+          });
+        } catch {
+          alert('Could not parse that JSON file.');
+        }
+      };
+
+      reader.onerror = () => {
+        alert('Unable to read the selected JSON file.');
+      };
+
+      reader.readAsText(file);
+    }
+
+    function importDailyLogCSV(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = event => {
+        try {
+          const text = String(event.target?.result || '').trim();
+          if (!text) {
+            alert('Selected CSV file is empty.');
+            return;
+          }
+
+          const rows = parseCSV(text);
+          if (rows.length < 2) {
+            alert('CSV must include a header row and at least one data row.');
+            return;
+          }
+
+          const rowsRead = Math.max(0, rows.length - 1);
+
+          const headers = rows[0].map(normalizeCSVHeader);
+          const idx = new Map(headers.map((header, i) => [header, i]));
+
+          const imported = rows.slice(1)
+            .map(row => {
+              const date = normalizeDateInput(row[idx.get('date') ?? 0]);
+              if (!date) return null;
+              return {
+                date,
+                score: Number(row[idx.get('score') ?? 1] || 0),
+                level: String(row[idx.get('level') ?? 2] || 'Starter'),
+                guardrailMessage: '',
+                phaseNumber: Number(row[idx.get('phasenumber') ?? 3] || 1),
+                phaseTargetCalories: Number(row[idx.get('phasetargetcalories') ?? 4] || 0),
+                components: {
+                  calories: Number(row[idx.get('caloriespoints') ?? 5] || 0),
+                  water: Number(row[idx.get('waterpoints') ?? 6] || 0),
+                  macro: Number(row[idx.get('macropoints') ?? 7] || 0),
+                  fatQuality: Number(row[idx.get('fatqualitypoints') ?? 8] || 0)
+                },
+                inputs: {},
+                savedAt: String(row[idx.get('savedat') ?? 9] || new Date().toISOString())
+              };
+            })
+            .filter(Boolean);
+
+          const validRows = imported.length;
+          const invalidRows = Math.max(0, rowsRead - validRows);
+
+          if (!imported.length) {
+            alert('No valid Diet Power day entries were found in that CSV.');
+            return;
+          }
+
+          const summary = classifyImportByDate(imported);
+          openImportPreview({
+            formatLabel: 'CSV',
+            rowsRead,
+            validRows,
+            invalidRows,
+            ...summary,
+            entries: imported
+          });
+        } catch {
+          alert('Could not parse that CSV file.');
+        }
+      };
+
+      reader.onerror = () => {
+        alert('Unable to read the selected CSV file.');
+      };
+
+      reader.readAsText(file);
+    }
+
+    function buildDynamicPlan() {
+      const startCalories = toInt(document.getElementById('start-calories').value, 2791);
+      const dropSize = Math.max(50, toInt(document.getElementById('drop-size').value, 150));
+      const phaseDays = Math.max(7, toInt(document.getElementById('phase-days').value, 14));
+
+      const summary = document.getElementById('plan-summary');
+      const list = document.getElementById('plan-list');
+      list.innerHTML = '';
+      activePlanPhases = [];
+
+      if (startCalories <= FINAL_TARGET) {
+        summary.textContent = `You are already at or below your final target (${FINAL_TARGET} kcal/day). Hold steady and focus on consistency.`;
+        const step = document.createElement('div');
+        step.className = 'plan-step';
+        step.innerHTML = `<strong>Phase 1: ${startCalories} kcal/day</strong><div class="meta">No additional drop needed to reach the 160-lb calorie target.</div>`;
+        list.appendChild(step);
+        activePlanPhases = [{ phaseNumber: 1, calories: startCalories }];
+        populateActivePhaseOptions();
+        return;
+      }
+
+      const phases = [];
+      let current = startCalories;
+      let phaseNumber = 1;
+
+      while (current > FINAL_TARGET) {
+        const next = Math.max(FINAL_TARGET, current - dropSize);
+        phases.push({ phaseNumber, calories: current, nextCalories: next, drop: current - next });
+        current = next;
+        phaseNumber += 1;
+      }
+
+      const totalDrop = startCalories - FINAL_TARGET;
+      const estimatedDays = phases.length * phaseDays;
+      summary.textContent = `Starting at ${startCalories} kcal/day, this plan reaches ${FINAL_TARGET} kcal/day in ${phases.length} phases. Total planned drop: ${totalDrop} kcal over about ${estimatedDays} days.`;
+
+      phases.forEach(phase => {
+        const item = document.createElement('div');
+        item.className = 'plan-step';
+        item.innerHTML = `
+          <strong>Phase ${phase.phaseNumber}: ${phase.calories} kcal/day</strong>
+          <div class="meta">Hold for ${phaseDays} days → drop ${phase.drop} kcal to ${phase.nextCalories} kcal/day.</div>
+        `;
+        list.appendChild(item);
+      });
+
+      activePlanPhases = phases.map(phase => ({ phaseNumber: phase.phaseNumber, calories: phase.calories }));
+      populateActivePhaseOptions();
+
+      const finalItem = document.createElement('div');
+      finalItem.className = 'plan-step';
+      finalItem.innerHTML = `<strong>Final Phase Target: ${FINAL_TARGET} kcal/day</strong><div class="meta">This is your established 160-lb target calorie value.</div>`;
+      list.appendChild(finalItem);
+    }
+
+    function populateActivePhaseOptions() {
+      const select = document.getElementById('active-phase');
+      if (!select) return;
+      select.innerHTML = '';
+
+      if (!activePlanPhases.length) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'No plan phases yet';
+        select.appendChild(option);
+        updateActivePhaseTargetText();
+        return;
+      }
+
+      activePlanPhases.forEach(phase => {
+        const option = document.createElement('option');
+        option.value = String(phase.phaseNumber);
+        option.textContent = `Phase ${phase.phaseNumber} (${phase.calories} kcal/day)`;
+        select.appendChild(option);
+      });
+
+      select.value = String(activePlanPhases[0].phaseNumber);
+      updateActivePhaseTargetText();
+    }
+
+    function getActivePhaseTargetCalories() {
+      const select = document.getElementById('active-phase');
+      if (!select || !activePlanPhases.length) return FINAL_TARGET;
+      const selected = Number(select.value);
+      const phase = activePlanPhases.find(item => item.phaseNumber === selected);
+      return phase ? phase.calories : activePlanPhases[0].calories;
+    }
+
+    function getActivePhaseNumber() {
+      const select = document.getElementById('active-phase');
+      if (!select || !activePlanPhases.length) return 1;
+      const selected = Number(select.value);
+      return Number.isFinite(selected) ? selected : activePlanPhases[0].phaseNumber;
+    }
+
+    function updateActivePhaseTargetText() {
+      const target = getActivePhaseTargetCalories();
+      const targetEl = document.getElementById('active-phase-target');
+      if (targetEl) targetEl.textContent = String(target);
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function caloriesScore(actual, target) {
+      if (target <= 0) return 0;
+      const pctDiff = (Math.abs(actual - target) / target) * 100;
+      if (pctDiff <= 5) return 25;
+      if (pctDiff >= 20) return 0;
+      return 25 * (1 - ((pctDiff - 5) / 15));
+    }
+
+    function macroSubScore(actualPct, targetPct) {
+      const diff = Math.abs(actualPct - targetPct);
+      if (diff <= 3) return 8.333333;
+      if (diff >= 12) return 0;
+      return 8.333333 * (1 - ((diff - 3) / 9));
+    }
+
+    function computeNutritionQuotient() {
+      const targetCalories = getActivePhaseTargetCalories();
+      const actualCalories = Number(document.getElementById('actual-calories').value || 0);
+
+      const waterTarget = Number(document.getElementById('water-target').value || 0);
+      const waterActual = Number(document.getElementById('water-actual').value || 0);
+
+      const fatTargetPct = Number(document.getElementById('fat-target-pct').value || 0);
+      const fatActualPct = Number(document.getElementById('fat-actual-pct').value || 0);
+      const proteinTargetPct = Number(document.getElementById('protein-target-pct').value || 0);
+      const proteinActualPct = Number(document.getElementById('protein-actual-pct').value || 0);
+      const carbTargetPct = Number(document.getElementById('carb-target-pct').value || 0);
+      const carbActualPct = Number(document.getElementById('carb-actual-pct').value || 0);
+
+      const omegaTarget = Number(document.getElementById('omega3-target').value || 0);
+      const omegaActual = Number(document.getElementById('omega3-actual').value || 0);
+      const c15Target = Number(document.getElementById('c15-target').value || 0);
+      const c15Actual = Number(document.getElementById('c15-actual').value || 0);
+      const satSoft = Number(document.getElementById('sat-soft-cap').value || 0);
+      const satHardRaw = Number(document.getElementById('sat-hard-cap').value || 0);
+      const satHard = Math.max(satSoft, satHardRaw);
+      const satActual = Number(document.getElementById('sat-actual').value || 0);
+
+      const calPts = clamp(caloriesScore(actualCalories, targetCalories), 0, 25);
+      const waterPts = waterTarget > 0 ? clamp((waterActual / waterTarget) * 15, 0, 15) : 0;
+
+      const macroPts = clamp(
+        macroSubScore(fatActualPct, fatTargetPct) +
+        macroSubScore(proteinActualPct, proteinTargetPct) +
+        macroSubScore(carbActualPct, carbTargetPct),
+        0,
+        25
+      );
+
+      const omegaPts = omegaTarget > 0 ? clamp((omegaActual / omegaTarget) * 12, 0, 12) : 0;
+      const c15Pts = c15Target > 0 ? clamp((c15Actual / c15Target) * 8, 0, 8) : 0;
+      let satPts = 0;
+      if (satActual <= satSoft) {
+        satPts = 15;
+      } else if (satActual >= satHard || satHard === satSoft) {
+        satPts = 0;
+      } else {
+        satPts = 15 * (1 - ((satActual - satSoft) / (satHard - satSoft)));
+      }
+      satPts = clamp(satPts, 0, 15);
+
+      const fatQualityPts = clamp(omegaPts + c15Pts + satPts, 0, 35);
+      const total = clamp(calPts + waterPts + macroPts + fatQualityPts, 0, 100);
+
+      let level = 'Starter';
+      if (total >= 90) level = 'Genius';
+      else if (total >= 80) level = 'High Performer';
+      else if (total >= 65) level = 'Steady';
+      else if (total >= 50) level = 'Builder';
+
+      const geniusGuardrailsPass =
+        satActual <= satSoft &&
+        (omegaTarget <= 0 || omegaActual >= omegaTarget) &&
+        (c15Target <= 0 || c15Actual >= (0.9 * c15Target)) &&
+        (waterTarget <= 0 || waterActual >= (0.9 * waterTarget));
+
+      let guardrailMessage = 'Genius requires total 90+ and guardrails: sat fat within soft cap, omega-3 at 100% target, C15:0 at 90% target, and water at 90% target.';
+      if (level === 'Genius' && !geniusGuardrailsPass) {
+        level = 'High Performer';
+        guardrailMessage = 'Score reached 90+, but Genius guardrails were not fully met today. You still earned High Performer.';
+      } else if (level === 'Genius' && geniusGuardrailsPass) {
+        guardrailMessage = 'Genius earned: total score and all guardrails passed.';
+      }
+
+      document.getElementById('nq-score').textContent = total.toFixed(1);
+      document.getElementById('nq-level').textContent = level;
+      document.getElementById('score-calories').textContent = calPts.toFixed(1);
+      document.getElementById('score-water').textContent = waterPts.toFixed(1);
+      document.getElementById('score-macro').textContent = macroPts.toFixed(1);
+      document.getElementById('score-fat-quality').textContent = fatQualityPts.toFixed(1);
+      document.getElementById('guardrail-note').textContent = guardrailMessage;
+
+      return {
+        score: Number(total.toFixed(1)),
+        level,
+        guardrailMessage,
+        phaseTargetCalories: targetCalories,
+        phaseNumber: getActivePhaseNumber(),
+        components: {
+          calories: Number(calPts.toFixed(1)),
+          water: Number(waterPts.toFixed(1)),
+          macro: Number(macroPts.toFixed(1)),
+          fatQuality: Number(fatQualityPts.toFixed(1))
+        },
+        inputs: {
+          actualCalories,
+          waterTarget,
+          waterActual,
+          fatTargetPct,
+          fatActualPct,
+          proteinTargetPct,
+          proteinActualPct,
+          carbTargetPct,
+          carbActualPct,
+          omegaTarget,
+          omegaActual,
+          c15Target,
+          c15Actual,
+          satSoft,
+          satHard,
+          satActual
+        }
+      };
+    }
+
+    function saveDayResult() {
+      const entryDate = document.getElementById('entry-date').value;
+      if (!entryDate) {
+        alert('Please choose an entry date before saving.');
+        return;
+      }
+
+      const result = computeNutritionQuotient();
+      const existing = loadDailyLog();
+      const withoutDate = existing.filter(item => item.date !== entryDate);
+      withoutDate.push({
+        date: entryDate,
+        ...result,
+        savedAt: new Date().toISOString()
+      });
+
+      withoutDate.sort((a, b) => b.date.localeCompare(a.date));
+      saveDailyLog(withoutDate);
+      renderProgressLoop();
+    }
+
+    function renderProgressLoop() {
+      const entries = loadDailyLog().sort((a, b) => b.date.localeCompare(a.date));
+      const byDate = new Map(entries.map(item => [item.date, item]));
+
+      let streak = 0;
+      let cursor = todayISO();
+      while (byDate.has(cursor)) {
+        streak += 1;
+        cursor = shiftDateISO(cursor, -1);
+      }
+      document.getElementById('trend-streak').textContent = `${streak} day${streak === 1 ? '' : 's'}`;
+
+      const last7 = [];
+      let dayCursor = todayISO();
+      for (let i = 0; i < 7; i += 1) {
+        if (byDate.has(dayCursor)) last7.push(byDate.get(dayCursor));
+        dayCursor = shiftDateISO(dayCursor, -1);
+      }
+
+      if (last7.length) {
+        const avg = last7.reduce((sum, item) => sum + Number(item.score || 0), 0) / last7.length;
+        document.getElementById('trend-avg').textContent = avg.toFixed(1);
+      } else {
+        document.getElementById('trend-avg').textContent = '-';
+      }
+
+      const geniusCount = last7.filter(item => String(item.level || '') === 'Genius').length;
+      document.getElementById('trend-genius').textContent = String(geniusCount);
+
+      const list = document.getElementById('recent-days-list');
+      list.innerHTML = '';
+      if (!entries.length) {
+        const row = document.createElement('div');
+        row.className = 'mini-row';
+        row.innerHTML = '<span class="date">No saved days yet</span><span class="score">Save your first day above</span>';
+        list.appendChild(row);
+        return;
+      }
+
+      entries.slice(0, 7).forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'mini-row';
+        row.innerHTML = `
+          <span class="date">${item.date}</span>
+          <span class="score">NQ ${Number(item.score || 0).toFixed(1)} · ${item.level || 'Starter'}</span>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    document.getElementById('build-plan-btn').addEventListener('click', buildDynamicPlan);
+    document.getElementById('active-phase').addEventListener('change', updateActivePhaseTargetText);
+    document.getElementById('compute-nq-btn').addEventListener('click', computeNutritionQuotient);
+    document.getElementById('save-day-btn').addEventListener('click', saveDayResult);
+    document.getElementById('export-log-json-btn').addEventListener('click', exportDailyLogJSON);
+    document.getElementById('import-log-json-btn').addEventListener('click', triggerImportLogJSON);
+    document.getElementById('export-log-csv-btn').addEventListener('click', exportDailyLogCSV);
+    document.getElementById('import-log-csv-btn').addEventListener('click', triggerImportLogCSV);
+    document.getElementById('import-log-json-file').addEventListener('change', event => {
+      importDailyLogJSON(event.target.files && event.target.files[0]);
+      event.target.value = '';
+    });
+    document.getElementById('import-log-csv-file').addEventListener('change', event => {
+      importDailyLogCSV(event.target.files && event.target.files[0]);
+      event.target.value = '';
+    });
+    document.getElementById('preview-cancel-btn').addEventListener('click', closeImportPreview);
+    document.getElementById('import-preview-close').addEventListener('click', closeImportPreview);
+    document.getElementById('preview-apply-btn').addEventListener('click', applyPendingImport);
+    document.getElementById('import-preview-overlay').addEventListener('click', event => {
+      if (event.target === document.getElementById('import-preview-overlay')) {
+        closeImportPreview();
+      }
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeImportPreview();
+    });
+    document.getElementById('entry-date').value = todayISO();
+    buildDynamicPlan();
+    computeNutritionQuotient();
+    renderProgressLoop();
+  </script>
+</body>
+</html>
