@@ -253,6 +253,11 @@
         <button class="btn btn-primary" onclick="saveEntry()">💾 Save Result</button>
         <button class="btn btn-clear"   onclick="clearForm()">✕ Clear</button>
         <button class="btn btn-export"  onclick="exportCSV()">📥 Export CSV</button>
+        <button class="btn btn-export"  onclick="exportJSON()">📥 Export JSON</button>
+        <button class="btn btn-export"  onclick="triggerImportCSV()">📤 Import CSV</button>
+        <button class="btn btn-export"  onclick="triggerImportJSON()">📤 Import JSON</button>
+        <input type="file" id="import-csv-file" accept=".csv,text/csv" style="display:none" />
+        <input type="file" id="import-json-file" accept=".json,application/json" style="display:none" />
       </div>
     </div>
   </div>
@@ -443,6 +448,10 @@ function loadEntries() {
 }
 function saveEntries(e) { localStorage.setItem(STORAGE_KEY, JSON.stringify(e)); }
 
+const TEST_ID_BY_NAME = Object.fromEntries(
+  TESTS.map(test => [String(test.name || '').toLowerCase(), test.id])
+);
+
 // ── SAVE / DELETE ─────────────────────────────────────────────────────────
 function saveEntry() {
   const date   = document.getElementById('f-date').value;
@@ -470,6 +479,232 @@ function clearForm() {
   filterTests();
   document.getElementById('f-value').value = '';
   document.getElementById('f-notes').value = '';
+}
+
+function normalizeDateInput(value) {
+  const text = String(value || '').trim();
+  if (!text) return '';
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+
+  const parsed = new Date(text);
+  if (Number.isNaN(parsed.getTime())) return '';
+  const y = parsed.getFullYear();
+  const m = String(parsed.getMonth() + 1).padStart(2, '0');
+  const d = String(parsed.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let value = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text[i];
+    if (ch === '"') {
+      if (inQuotes && text[i + 1] === '"') {
+        value += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (ch === ',' && !inQuotes) {
+      row.push(value);
+      value = '';
+    } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      if (ch === '\r' && text[i + 1] === '\n') i += 1;
+      row.push(value);
+      rows.push(row);
+      row = [];
+      value = '';
+    } else {
+      value += ch;
+    }
+  }
+
+  row.push(value);
+  if (row.length > 1 || String(row[0] || '').trim()) rows.push(row);
+  return rows;
+}
+
+function normalizeCSVHeader(value) {
+  return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+
+function toEntryFingerprint(entry) {
+  return [entry.date, entry.testId, String(entry.value || '').trim(), String(entry.notes || '').trim()].join('::');
+}
+
+function mergeUniqueEntries(importedEntries) {
+  const existing = loadEntries();
+  const existingFingerprints = new Set(existing.map(toEntryFingerprint));
+  const uniqueToAdd = importedEntries.filter(entry => !existingFingerprints.has(toEntryFingerprint(entry)));
+
+  if (!uniqueToAdd.length) return { added: 0 };
+
+  saveEntries([...existing, ...uniqueToAdd]);
+  return { added: uniqueToAdd.length };
+}
+
+function triggerImportCSV() {
+  document.getElementById('import-csv-file')?.click();
+}
+
+function triggerImportJSON() {
+  document.getElementById('import-json-file')?.click();
+}
+
+function importCSVFile(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = event => {
+    try {
+      const csvText = String(event.target?.result || '').trim();
+      if (!csvText) {
+        alert('Selected CSV file is empty.');
+        return;
+      }
+
+      const rows = parseCSV(csvText);
+      if (rows.length < 2) {
+        alert('CSV must include a header row and at least one data row.');
+        return;
+      }
+
+      const headers = rows[0].map(normalizeCSVHeader);
+      const headerIndex = new Map(headers.map((header, index) => [header, index]));
+
+      const dateIdx = headerIndex.has('date') ? headerIndex.get('date') : 0;
+      const testIdx = headerIndex.has('test') ? headerIndex.get('test') : 2;
+      const valueIdx = headerIndex.has('value') ? headerIndex.get('value') : 3;
+      const notesIdx = headerIndex.has('notes') ? headerIndex.get('notes') : 5;
+
+      const imported = [];
+      for (let i = 1; i < rows.length; i += 1) {
+        const row = rows[i];
+        if (!row || !row.length) continue;
+
+        const date = normalizeDateInput(row[dateIdx]);
+        const testName = String(row[testIdx] || '').trim();
+        const value = String(row[valueIdx] || '').trim();
+        const notes = String(row[notesIdx] || '').trim();
+        const testId = TEST_ID_BY_NAME[testName.toLowerCase()] || '';
+
+        if (!date || !testId || !value) continue;
+        imported.push({
+          id: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+          date,
+          testId,
+          value,
+          notes
+        });
+      }
+
+      if (!imported.length) {
+        alert('No valid lab rows found. Make sure CSV has Date, Test, and Value columns using exported tracker format.');
+        return;
+      }
+
+      const mergeResult = mergeUniqueEntries(imported);
+      if (!mergeResult.added) {
+        alert('No new rows were imported. All matching entries already exist.');
+        return;
+      }
+
+      renderResults();
+      showToast(`Imported ${mergeResult.added} lab result${mergeResult.added === 1 ? '' : 's'} ✓`);
+    } catch {
+      alert('Could not parse that CSV file.');
+    }
+  };
+
+  reader.onerror = () => {
+    alert('Unable to read the selected CSV file.');
+  };
+
+  reader.readAsText(file);
+}
+
+function exportJSON() {
+  const entries = loadEntries();
+  if (!entries.length) {
+    alert('No data to export.');
+    return;
+  }
+
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    entries
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'lab-results-' + new Date().toISOString().slice(0, 10) + '.json';
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJSONFile(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = event => {
+    try {
+      const jsonText = String(event.target?.result || '').trim();
+      if (!jsonText) {
+        alert('Selected JSON file is empty.');
+        return;
+      }
+
+      const parsed = JSON.parse(jsonText);
+      const sourceEntries = Array.isArray(parsed)
+        ? parsed
+        : (parsed && Array.isArray(parsed.entries) ? parsed.entries : null);
+
+      if (!sourceEntries) {
+        alert('JSON must be an array of entries or an object with an entries array.');
+        return;
+      }
+
+      const imported = sourceEntries
+        .filter(item => item && typeof item === 'object')
+        .map(item => ({
+          id: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+          date: normalizeDateInput(item.date),
+          testId: String(item.testId || '').trim(),
+          value: String(item.value || '').trim(),
+          notes: String(item.notes || '').trim()
+        }))
+        .filter(item => item.date && item.testId && item.value && TESTS.some(test => test.id === item.testId));
+
+      if (!imported.length) {
+        alert('No valid lab entries found in that JSON file.');
+        return;
+      }
+
+      const mergeResult = mergeUniqueEntries(imported);
+      if (!mergeResult.added) {
+        alert('No new rows were imported. All matching entries already exist.');
+        return;
+      }
+
+      renderResults();
+      showToast(`Imported ${mergeResult.added} lab result${mergeResult.added === 1 ? '' : 's'} ✓`);
+    } catch {
+      alert('Could not parse that JSON file.');
+    }
+  };
+
+  reader.onerror = () => {
+    alert('Unable to read the selected JSON file.');
+  };
+
+  reader.readAsText(file);
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────
@@ -600,6 +835,16 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
+
+document.getElementById('import-csv-file')?.addEventListener('change', event => {
+  importCSVFile(event.target.files && event.target.files[0]);
+  event.target.value = '';
+});
+
+document.getElementById('import-json-file')?.addEventListener('change', event => {
+  importJSONFile(event.target.files && event.target.files[0]);
+  event.target.value = '';
+});
 </script>
 
 </body>
