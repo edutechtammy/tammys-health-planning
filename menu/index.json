@@ -1,0 +1,94 @@
+{
+    "images": [
+        {
+            "file": "baked-mozzerella-sticks.jpg",
+            "caption": "Baked Mozzarella Sticks",
+            "description": "Crisp, oven-baked mozzarella sticks from the recipe collection. Use this slide to highlight breading texture and serving size."
+        },
+        {
+            "file": "beverages.png",
+            "caption": "Beverage Highlights",
+            "description": "Overview image for recipe-library drinks and low-glucose beverage ideas."
+        },
+        {
+            "file": "caprese-hasselback-chicken.png",
+            "caption": "Caprese Hasselback Chicken",
+            "description": "Finished chicken presentation with caprese flavors and a plated serving view."
+        },
+        {
+            "file": "hard-boiled-egg-serving-suggestion.png",
+            "caption": "Hard-Boiled Egg Serving Suggestion",
+            "description": "Simple serving idea that pairs hard-boiled eggs with other recipe-library staples."
+        },
+        {
+            "file": "kefir-marinated-chicken-breast.png",
+            "caption": "Kefir-Marinated Chicken Breast",
+            "description": "Cooked result for the kefir-marinated chicken recipe, useful for texture and browning reference."
+        },
+        {
+            "file": "ladenia.png",
+            "caption": "Ladenia",
+            "description": "Photo for the ladenia-style recipe variation in the recipe library."
+        },
+        {
+            "file": "lebanese-style-kafta.jpg",
+            "caption": "Lebanese-Style Kafta",
+            "description": "Serving presentation of kafta with the herb-forward, grilled-style finish."
+        },
+        {
+            "file": "lemon-blueberry-labneh-cheesecake.jpg",
+            "caption": "Lemon Blueberry Labneh Cheesecake",
+            "description": "Dessert slide showing the lemon-labneh cheesecake with blueberry topping."
+        },
+        {
+            "file": "marinated-olive-salad.jpg",
+            "caption": "Marinated Olive Salad",
+            "description": "Close-up of the marinated olive salad to highlight the chopped texture and oil-based finish."
+        },
+        {
+            "file": "mediterranean-chop-chop-salad.jpg",
+            "caption": "Mediterranean Chop Chop Salad",
+            "description": "Finished salad image showing the fine dice and colorful Mediterranean ingredient mix."
+        },
+        {
+            "file": "micebay-1oz-bottles.png",
+            "caption": "1 oz Bottles",
+            "description": "Accessory image used alongside recipe prep and storage ideas."
+        },
+        {
+            "file": "roasted-whole-artichoke.jpg",
+            "caption": "Roasted Whole Artichoke",
+            "description": "Whole roasted artichoke presentation for the recipe index slideshow."
+        },
+        {
+            "file": "salmon-rice-paper-rolls.jpg",
+            "caption": "Salmon Rice Paper Rolls",
+            "description": "Serving photo for the salmon rice paper rolls recipe."
+        },
+        {
+            "file": "shakshuka.png",
+            "caption": "Shakshuka",
+            "description": "Recipe image for shakshuka with the finished sauce-and-egg presentation."
+        },
+        {
+            "file": "turkey-meatloaf-broccoli.jpg",
+            "caption": "Turkey Meatloaf with Broccoli",
+            "description": "Meal-plated image pairing turkey meatloaf with broccoli."
+        },
+        {
+            "file": "turkish-eggs-cilbir.png",
+            "caption": "Turkish Eggs (Cilbir)",
+            "description": "Photo reference for the Turkish eggs recipe, including yogurt and chile-butter style plating."
+        },
+        {
+            "file": "tuscan-chicken.jpg",
+            "caption": "Tuscan Chicken",
+            "description": "Rich plated view of the Tuscan chicken recipe for the slideshow rotation."
+        },
+        {
+            "file": "tzatziki.png",
+            "caption": "Tzatziki",
+            "description": "Close-up of the tzatziki recipe to show consistency and serving presentation."
+        }
+    ]
+}

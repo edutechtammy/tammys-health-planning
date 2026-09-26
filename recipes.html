@@ -189,6 +189,39 @@
     .mb-progress-label strong { color: var(--green-dark); }
     .mb-progress-track { flex: 1; min-width: 120px; background: var(--green-light); border-radius: 20px; height: 10px; overflow: hidden; }
     .mb-progress-fill { height: 100%; background: var(--green-dark); border-radius: 20px; transition: width .3s ease; }
+
+    /* MENU SLIDESHOW */
+    .menu-slideshow-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
+    .menu-slideshow-header { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); color: #fff; padding: .9rem 1.2rem; }
+    .menu-slideshow-header h2 { font-size: 1rem; }
+    .menu-slideshow-header p { margin-top: .3rem; font-size: .83rem; color: rgba(255,255,255,.9); }
+    .menu-slideshow-body { padding: 1rem 1.2rem 1.1rem; }
+    .menu-slide-count { font-size: .76rem; font-weight: 700; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; margin-bottom: .7rem; }
+    .menu-slide-stage { position: relative; border: 1px solid var(--border); border-radius: 12px; background: #f9fdf9; overflow: hidden; min-height: 320px; display: flex; align-items: center; justify-content: center; }
+    .menu-slide-img { display: block; width: 100%; height: auto; max-height: 68vh; object-fit: contain; background: #fff; }
+    .menu-slide-empty { color: var(--muted); font-size: .9rem; text-align: center; padding: 1.4rem; }
+    .menu-slide-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 2.35rem; height: 2.35rem; border-radius: 50%; border: 1px solid #c8d8ce; background: rgba(255,255,255,.95); color: var(--green-dark); font-size: 1.3rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; }
+    .menu-slide-nav:hover { background: #fff; }
+    .menu-slide-nav:disabled { opacity: .45; cursor: not-allowed; }
+    .menu-slide-nav.prev { left: .7rem; }
+    .menu-slide-nav.next { right: .7rem; }
+    .menu-slide-meta { margin-top: .7rem; display: flex; align-items: center; justify-content: space-between; gap: .7rem; flex-wrap: wrap; }
+    .menu-slide-caption { font-size: .83rem; color: var(--muted); flex: 1; min-width: 220px; }
+    .menu-slide-expand { border: 1px solid var(--border); background: #fff; color: var(--green-dark); border-radius: 8px; font-size: .78rem; font-weight: 700; padding: .34rem .78rem; cursor: pointer; }
+    .menu-slide-expand:hover { background: var(--green-pale); }
+    .menu-slide-expand:disabled { opacity: .5; cursor: not-allowed; }
+    .menu-slide-note-wrap { margin-top: .7rem; display: flex; flex-direction: column; gap: .35rem; }
+    .menu-slide-note-label { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    .menu-slide-note { min-height: 88px; border: 1px solid var(--border); border-radius: 10px; padding: .7rem .8rem; background: #f9fdf9; font-size: .84rem; line-height: 1.55; color: var(--text); white-space: pre-wrap; }
+    .menu-slide-note.empty { color: var(--muted); }
+    .menu-slide-note-help { font-size: .74rem; color: var(--muted); }
+    .menu-fullscreen-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, .88); display: none; align-items: center; justify-content: center; padding: 1.25rem; z-index: 2200; }
+    .menu-fullscreen-overlay.visible { display: flex; }
+    .menu-fullscreen-dialog { position: relative; width: min(96vw, 1700px); max-height: 94vh; display: flex; flex-direction: column; gap: .45rem; }
+    .menu-fullscreen-img { width: 100%; max-height: calc(94vh - 2.5rem); object-fit: contain; border-radius: 12px; background: #fff; border: 1px solid #d5e3db; }
+    .menu-fullscreen-meta { color: #e2e8f0; font-size: .84rem; text-align: center; line-height: 1.4; }
+    .menu-fullscreen-close { position: absolute; top: .35rem; right: .35rem; width: 2.2rem; height: 2.2rem; border: 1px solid #cbd5e1; border-radius: 999px; background: rgba(255,255,255,.95); color: #0f172a; font-size: 1.4rem; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+    .menu-fullscreen-close:hover { background: #fff; }
   </style>
 </head>
 <body>
@@ -244,6 +277,31 @@
     <span class="mb-progress-label"><strong id="mb-count">0</strong> of <strong id="mb-total">24</strong> recipes imported to MealBoard</span>
     <div class="mb-progress-track"><div class="mb-progress-fill" id="mb-progress-fill" style="width:0%"></div></div>
   </div>
+
+  <section class="menu-slideshow-panel" aria-labelledby="menu-slideshow-title">
+    <div class="menu-slideshow-header">
+      <h2 id="menu-slideshow-title">📸 Menu Image Slideshow</h2>
+      <p>Browse recipe highlights and serving photos from the menu folder. Add or reorder slides by updating the menu manifest.</p>
+    </div>
+    <div class="menu-slideshow-body">
+      <div class="menu-slide-count" id="menu-slide-count">Loading images...</div>
+      <div class="menu-slide-stage">
+        <button class="menu-slide-nav prev" id="menu-slide-prev" type="button" onclick="moveMenuSlide(-1)">‹</button>
+        <img id="menu-slide-image" class="menu-slide-img" alt="Recipe highlight image" style="display:none" />
+        <div id="menu-slide-empty" class="menu-slide-empty">No slideshow images found in the menu folder yet.</div>
+        <button class="menu-slide-nav next" id="menu-slide-next" type="button" onclick="moveMenuSlide(1)">›</button>
+      </div>
+      <div class="menu-slide-meta">
+        <div class="menu-slide-caption" id="menu-slide-caption">Loading menu slideshow...</div>
+        <button class="menu-slide-expand" id="menu-fullscreen-btn" type="button">⛶ Expand</button>
+      </div>
+      <div class="menu-slide-note-wrap">
+        <div class="menu-slide-note-label">Image Notes</div>
+        <div class="menu-slide-note" id="menu-slide-note">Descriptions are loaded from menu/index.json.</div>
+        <div class="menu-slide-note-help">Use <strong>file</strong>, <strong>caption</strong>, and optional <strong>description</strong> fields in menu/index.json.</div>
+      </div>
+    </div>
+  </section>
 
   <!-- PANTRY FILTER -->
   <div class="pantry-panel" id="pantry-panel">
@@ -2969,6 +3027,12 @@ let pantryChecked = new Set();
 let activeConditionTag = 'all';
 let activeRecipeCategory = 'all';
 let activeRecipeSearch = '';
+let menuSlides = [];
+let menuSlideIndex = 0;
+let menuFullscreenModal = null;
+
+const MENU_SLIDES_MANIFEST = 'menu/index.json';
+const MENU_SLIDES_FOLDER = 'menu/';
 
 const EXPLICIT_CATEGORY_TITLES = {
   breakfast: [
@@ -3388,6 +3452,215 @@ function clearRecipeSearch() {
   applyAllFilters();
 }
 
+function menuTitleFromFile(fileName) {
+  return String(fileName || '')
+    .split('/')
+    .pop()
+    .replace(/\.[^.]+$/, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim() || 'Untitled image';
+}
+
+function isSupportedMenuImage(fileName) {
+  return /\.(png|jpe?g|webp|gif|svg)$/i.test(String(fileName || ''));
+}
+
+function encodeMenuPath(fileName) {
+  return MENU_SLIDES_FOLDER + String(fileName || '')
+    .replace(/^\/+/, '')
+    .split('/')
+    .map(segment => encodeURIComponent(segment))
+    .join('/');
+}
+
+function normalizeMenuSlideEntry(entry) {
+  if (typeof entry === 'string') {
+    const fileName = String(entry || '').trim();
+    if (!fileName || !isSupportedMenuImage(fileName)) return null;
+    const title = menuTitleFromFile(fileName);
+    return { fileName, caption: title, description: title };
+  }
+
+  if (entry && typeof entry === 'object') {
+    const fileName = String(entry.file ?? entry.fileName ?? entry.name ?? entry.image ?? entry.src ?? entry.path ?? '').trim();
+    if (!fileName || !isSupportedMenuImage(fileName)) return null;
+    const title = menuTitleFromFile(fileName);
+    const caption = String(entry.caption ?? title).trim() || title;
+    const description = String(entry.description ?? entry.text ?? entry.note ?? caption).trim() || caption;
+    return { fileName, caption, description };
+  }
+
+  return null;
+}
+
+async function loadMenuSlides() {
+  try {
+    const response = await fetch(MENU_SLIDES_MANIFEST + '?scan=' + Date.now(), { cache: 'no-store' });
+    if (!response.ok) throw new Error('Menu slideshow manifest not found');
+    const payload = await response.json();
+    const images = Array.isArray(payload) ? payload : payload?.images;
+    const discovered = Array.isArray(images)
+      ? images.map(normalizeMenuSlideEntry).filter(Boolean)
+      : [];
+    const deduped = [];
+    const seen = new Set();
+
+    discovered.forEach(item => {
+      if (seen.has(item.fileName)) return;
+      seen.add(item.fileName);
+      deduped.push({
+        ...item,
+        src: encodeMenuPath(item.fileName)
+      });
+    });
+
+    menuSlides = deduped;
+  } catch (error) {
+    menuSlides = [];
+  }
+}
+
+function getCurrentMenuSlide() {
+  if (!menuSlides.length) return null;
+  if (menuSlideIndex >= menuSlides.length) menuSlideIndex = 0;
+  if (menuSlideIndex < 0) menuSlideIndex = menuSlides.length - 1;
+  return menuSlides[menuSlideIndex];
+}
+
+function renderMenuSlide() {
+  const slide = getCurrentMenuSlide();
+  const image = document.getElementById('menu-slide-image');
+  const empty = document.getElementById('menu-slide-empty');
+  const prev = document.getElementById('menu-slide-prev');
+  const next = document.getElementById('menu-slide-next');
+  const caption = document.getElementById('menu-slide-caption');
+  const count = document.getElementById('menu-slide-count');
+  const note = document.getElementById('menu-slide-note');
+  const expand = document.getElementById('menu-fullscreen-btn');
+
+  if (!slide) {
+    if (image) {
+      image.style.display = 'none';
+      image.style.cursor = 'default';
+      image.removeAttribute('src');
+    }
+    if (empty) empty.style.display = 'block';
+    if (prev) prev.disabled = true;
+    if (next) next.disabled = true;
+    if (expand) expand.disabled = true;
+    if (caption) caption.textContent = 'No images found yet in menu/index.json.';
+    if (count) count.textContent = '0 images';
+    if (note) {
+      note.textContent = 'Add image entries to menu/index.json to populate this slideshow.';
+      note.classList.add('empty');
+    }
+    return;
+  }
+
+  if (image) {
+    image.style.display = 'block';
+    image.style.cursor = 'zoom-in';
+    image.src = slide.src;
+    image.alt = slide.caption;
+  }
+  if (empty) empty.style.display = 'none';
+  if (prev) prev.disabled = menuSlides.length < 2;
+  if (next) next.disabled = menuSlides.length < 2;
+  if (expand) expand.disabled = false;
+  if (caption) caption.textContent = (menuSlideIndex + 1) + '/' + menuSlides.length + ' · ' + slide.caption;
+  if (count) count.textContent = menuSlides.length + ' image' + (menuSlides.length === 1 ? '' : 's');
+  if (note) {
+    note.textContent = slide.description || slide.caption;
+    note.classList.toggle('empty', !(slide.description || slide.caption));
+  }
+}
+
+function moveMenuSlide(step) {
+  if (!menuSlides.length) return;
+  menuSlideIndex = (menuSlideIndex + step + menuSlides.length) % menuSlides.length;
+  renderMenuSlide();
+  updateMenuFullscreenContent();
+}
+
+function ensureMenuFullscreenModal() {
+  if (menuFullscreenModal) return menuFullscreenModal;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'menu-fullscreen-overlay';
+  overlay.className = 'menu-fullscreen-overlay';
+  overlay.innerHTML = `
+    <div class="menu-fullscreen-dialog">
+      <button class="menu-fullscreen-close" id="menu-fullscreen-close" type="button" aria-label="Close fullscreen">×</button>
+      <img class="menu-fullscreen-img" id="menu-fullscreen-image" alt="Expanded recipe slideshow image" />
+      <div class="menu-fullscreen-meta" id="menu-fullscreen-meta"></div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.getElementById('menu-fullscreen-close')?.addEventListener('click', closeMenuFullscreen);
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay) closeMenuFullscreen();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      closeMenuFullscreen();
+      return;
+    }
+    if (!isMenuFullscreenOpen()) return;
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      moveMenuSlide(1);
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      moveMenuSlide(-1);
+    }
+  });
+
+  menuFullscreenModal = {
+    overlay,
+    image: document.getElementById('menu-fullscreen-image'),
+    meta: document.getElementById('menu-fullscreen-meta')
+  };
+  return menuFullscreenModal;
+}
+
+function isMenuFullscreenOpen() {
+  return !!(menuFullscreenModal && menuFullscreenModal.overlay.classList.contains('visible'));
+}
+
+function updateMenuFullscreenContent() {
+  if (!isMenuFullscreenOpen()) return;
+  const slide = getCurrentMenuSlide();
+  if (!slide) {
+    closeMenuFullscreen();
+    return;
+  }
+  const modal = ensureMenuFullscreenModal();
+  modal.image.src = slide.src;
+  modal.image.alt = slide.caption;
+  modal.meta.textContent = (menuSlideIndex + 1) + '/' + menuSlides.length + ' · ' + slide.caption;
+}
+
+function openMenuFullscreen() {
+  const slide = getCurrentMenuSlide();
+  if (!slide) return;
+  const modal = ensureMenuFullscreenModal();
+  modal.overlay.classList.add('visible');
+  updateMenuFullscreenContent();
+}
+
+function closeMenuFullscreen() {
+  if (!menuFullscreenModal) return;
+  menuFullscreenModal.overlay.classList.remove('visible');
+}
+
+async function initMenuSlideshow() {
+  await loadMenuSlides();
+  menuSlideIndex = 0;
+  renderMenuSlide();
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 //  CONDITION FILTER
 // ═══════════════════════════════════════════════════════════════════════════
@@ -3452,6 +3725,9 @@ function initMealboardToggles() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initMenuSlideshow();
+  document.getElementById('menu-fullscreen-btn')?.addEventListener('click', openMenuFullscreen);
+  document.getElementById('menu-slide-image')?.addEventListener('click', openMenuFullscreen);
   initMealboardToggles();
   addMissingMacroTriggers();
   addWaterOnlyWarnings();
