@@ -610,7 +610,6 @@
 
 <nav>
   <a href="index.html">🏠 Home</a>
-  <a href="weekly-meal-plan.html">🥗 Meal Plan</a>
   <a href="health-tracker.html">📈 Health Tracker</a>
   <a href="lab-tracker.html">🧪 Lab Results</a>
   <a href="recipes.html">👩‍🍳 Recipes</a>
@@ -909,6 +908,7 @@
           <option value="dairy">🥛 Dairy / Fermented</option>
           <option value="fruit">🍓 Fruit/Veg</option>
           <option value="protein">🥩 Protein</option>
+          <option value="seed-nut">🥜 Seed/Nut</option>
           <option value="fat-carb">🥑 Fat + Carb Combo</option>
           <option value="supplement">💊 Supplement Effect</option>
           <option value="other">🍽 Meal</option>
@@ -1072,6 +1072,7 @@
     <span class="filter-chip"   data-cat="dairy"   onclick="setFilter('dairy')">🥛 Dairy</span>
     <span class="filter-chip"   data-cat="fruit"   onclick="setFilter('fruit')">🍓 Fruit/Veg</span>
     <span class="filter-chip"   data-cat="protein" onclick="setFilter('protein')">🥩 Protein</span>
+    <span class="filter-chip"   data-cat="seed-nut" onclick="setFilter('seed-nut')">🥜 Seed/Nut</span>
     <span class="filter-chip"   data-cat="fat-carb" onclick="setFilter('fat-carb')">🥑 Fat+Carb</span>
     <span class="filter-chip"   data-cat="supplement" onclick="setFilter('supplement')">💊 Supplement</span>
     <span class="filter-chip"   data-cat="other"   onclick="setFilter('other')">🍽 Meal</span>
@@ -1404,11 +1405,14 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
     return null;
   }
 
-  const cat = ['grain','dairy','fruit','protein','fat-carb','supplement','other'].includes(catRaw)
+  const cat = ['grain','dairy','fruit','protein','seed-nut','fat-carb','supplement','other'].includes(catRaw)
     ? catRaw
     : ({
         'grain/starch':'grain',
         'dairy/fermented':'dairy',
+        'seed/nut':'seed-nut',
+        'seeds/nuts':'seed-nut',
+        'seed & nut':'seed-nut',
         'fat + carb combo':'fat-carb',
         'supplement effect':'supplement'
       })[catRaw.toLowerCase()] || 'grain';
@@ -1514,12 +1518,13 @@ function importCSV(input){
 
 const CAT_LABELS = {
   grain:'🌾 Grain', dairy:'🥛 Dairy', fruit:'🍓 Fruit',
-  protein:'🥩 Protein', 'fat-carb':'🥑 Fat+Carb',
+  protein:'🥩 Protein', 'seed-nut':'🥜 Seed/Nut', 'fat-carb':'🥑 Fat+Carb',
   supplement:'💊 Supplement', other:'🔬 Other'
 };
 const CAT_COLORS = {
   grain:'#fff3cd;color:#7a5c00', dairy:'#e0f7fa;color:#006064',
   fruit:'#fce4ec;color:#880e4f', protein:'#e8f5e9;color:#1b5e20',
+  'seed-nut':'#f7efe1;color:#7a4b00',
   'fat-carb':'#f3e5f5;color:#4a148c', supplement:'#e3f2fd;color:#0d47a1',
   other:'#f5f5f5;color:#424242'
 };
