@@ -142,6 +142,19 @@
     .btn-primary { background: var(--green-dark); color: #fff; }
     .btn-back { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
     .btn:hover { opacity: .82; }
+
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:#f8f8f8; padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:#2f2f2f; border-bottom:1px solid var(--border); }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:.6rem; padding:1rem 1.2rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:#1f2937; }
+    .nutr-why { font-size:.7rem; color:#64748b; font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:#334155; }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill { height:100%; border-radius:20px; }
+    .nutr-pct { font-size:.69rem; color:#64748b; }
+    .nutr-note { font-size:.72rem; color:#64748b; padding:.5rem 1.2rem .9rem; border-top:1px solid var(--border); line-height:1.5; }
   </style>
 </head>
 <body>
@@ -206,6 +219,37 @@
 
   <div class="callout-blue">
     <strong>Why this works for beginners:</strong> The flavors are classic and gentle — garlic, rosemary, olive oil, and tomato — so the dish feels familiar right away. Cannellini beans have a naturally velvety texture, making this feel rich and comforting without needing any complicated technique.
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (approx.) <span>estimates · white beans + EVOO + garlic</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Net carbs <span class="nutr-why">— glucose signal</span></span>
+          <span class="nutr-amount">~8–10 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:46%;background:#16a34a"></div></div>
+        <div class="nutr-pct">Low enough to keep the dish satisfying without being heavy.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Saturated fat <span class="nutr-why">— APOE4 watch</span></span>
+          <span class="nutr-amount">~3–5 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:34%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">Mostly from the olive oil and the small amount of bean fat.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fiber <span class="nutr-why">— gut · fullness</span></span>
+          <span class="nutr-amount">~7–9 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:52%;background:#0891b2"></div></div>
+        <div class="nutr-pct">Excellent for fullness and slower glucose handling.</div>
+      </div>
+    </div>
+    <div class="nutr-note">This is a classic bean dish that feels rustic and nourishing without becoming a heavy carb load. The beans carry most of the satisfaction, while the garlic, rosemary, and olive oil make it taste rich and complete.</div>
   </div>
 
   <div class="recipe-layout">

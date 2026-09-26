@@ -194,6 +194,20 @@
     .btn-back    { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
     .btn:hover { opacity: .82; }
 
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:#f8f8f8; padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:#2f2f2f; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted,#666); }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:.6rem; padding:1rem 1.2rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:#1f2937; }
+    .nutr-why { font-size:.7rem; color:#64748b; font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:#334155; }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill { height:100%; border-radius:20px; }
+    .nutr-pct { font-size:.69rem; color:#64748b; }
+    .nutr-note { font-size:.72rem; color:#64748b; padding:.5rem 1.2rem .9rem; border-top:1px solid var(--border); line-height:1.5; }
+
     .mechanism-strip { grid-column: 1 / -1; background: var(--green-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.6; }
     .mechanism-strip strong { color: var(--green-dark); }
   </style>
@@ -268,11 +282,36 @@
     <strong>⚠️ Tomato oxalate strategy:</strong> Tomatoes are a moderate-oxalate ingredient. This version uses Parmesan for the lower-carb finish, keeping the dish aligned with the current low-carb, hard-cheese strategy. If you prefer a calcium-rich pairing for tomato oxalate, serve a separate calcium source at the same meal rather than relying on a cheese topping.
   </div>
 
-  <div style="display:flex; flex-wrap:wrap; gap:.6rem; margin: 0 0 1rem;">
-    <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Net carbs: ~8–12 g per serving</span>
-    <span style="display:inline-flex; align-items:center; gap:.35rem; background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Saturated fat: ~6–8 g per serving</span>
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 of 4) <span>estimates · millet-sorghum batter + tomatoes + olives</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Net carbs <span class="nutr-why">— glucose signal</span></span>
+          <span class="nutr-amount">~8–12 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:48%;background:#16a34a"></div></div>
+        <div class="nutr-pct">Moderate enough to log T+120 before making this a regular repeat meal.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Saturated fat <span class="nutr-why">— APOE4 watch</span></span>
+          <span class="nutr-amount">~6–8 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:42%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">The EVOO and Parmesan make this a richer dish; keep the portion moderate.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Fiber <span class="nutr-why">— gut · fullness</span></span>
+          <span class="nutr-amount">~4–6 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:30%;background:#0891b2"></div></div>
+        <div class="nutr-pct">Helpful for satiety, though the bread-like starch still matters for the glucose response.</div>
+      </div>
+    </div>
+    <div class="nutr-note">The millet-sorghum batter keeps this in the moderate-GI range, so the T+120 response is worth logging before making it a repeat meal.</div>
   </div>
-  <div style="font-size:.78rem; line-height:1.6; color:#475569; margin:0 0 1rem;">The millet-sorghum batter keeps this in the moderate-GI range, so the T+120 response is worth logging before making it a repeat meal.</div>
   <div class="test-bar">
     <p>This combines tomatoes + a millet-sorghum crust — both worth logging if you haven't tested this combination before. T+120 reading gives you the composite bread-and-sauce glucose response.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
