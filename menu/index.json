@@ -1,6 +1,11 @@
 {
     "images": [
         {
+            "file": "0-grocery-list.jpg",
+            "caption": "Mediterranean Grocery List",
+            "description": "Mediterranean grocery list"
+        },
+        {
             "file": "baked-mozzerella-sticks.jpg",
             "caption": "Baked Mozzarella Sticks",
             "description": "Crisp, oven-baked mozzarella sticks from the recipe collection. Use this slide to highlight breading texture and serving size."
@@ -14,6 +19,11 @@
             "file": "caprese-hasselback-chicken.png",
             "caption": "Caprese Hasselback Chicken",
             "description": "Finished chicken presentation with caprese flavors and a plated serving view."
+        },
+        {
+            "file": "dressing-serving-idea.png",
+            "caption": "Dressing Serving Idea",
+            "description": "Ideas for how to do individual dressing and smaller serving size in glasses vs bowls."
         },
         {
             "file": "hard-boiled-egg-serving-suggestion.png",
@@ -53,7 +63,7 @@
         {
             "file": "micebay-1oz-bottles.png",
             "caption": "1 oz Bottles",
-            "description": "Accessory image used alongside recipe prep and storage ideas."
+            "description": "Micebay bottles are small single-serving containers perfect for small-bathc homemade salad dressings."
         },
         {
             "file": "roasted-whole-artichoke.jpg",
@@ -83,7 +93,7 @@
         {
             "file": "tuscan-chicken.jpg",
             "caption": "Tuscan Chicken",
-            "description": "Rich plated view of the Tuscan chicken recipe for the slideshow rotation."
+            "description": "Tuscan chicken recipe"
         },
         {
             "file": "tzatziki.png",
