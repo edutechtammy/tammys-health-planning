@@ -3034,7 +3034,7 @@ const PANTRY_GROUPS = {
       'red lentils','red pepper flakes','red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
       'salt','scallion','sesame oil','smoked oysters','smoked paprika','sorghum flour','steel-cut oats','sugar','sumac',
       'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme','tomato sauce','tomatoes','trail mix','turmeric',
-      'vanilla extract','vegetable broth','walnuts','whole-grain bread','white beans','yeast','apricots','cherries'
+      'vanilla extract','vegetable broth','walnuts','whole-grain bread','white beans','yeast','apricots','cherries','chickpeas'
     ]
   }
 };
@@ -3073,6 +3073,8 @@ const PANTRY_NORM = {
   'orange peel':         'orange peel',
   'fresh lime juice':    'lime',
   'fresh lemon juice':   'lemon',
+  'lemon juice or acv':  '',
+  'lemon juice or ACV':  '',
   'extra virgin olive oil': 'evoo',
   'olive oil':           'evoo',
   'whole-grain bread':   'whole-grain bread',
@@ -3129,6 +3131,13 @@ const PANTRY_NORM = {
   'dry chilies':         'dried chili',
   'dried chilies':       'dried chili',
   'dry chili':           'dried chili',
+  'chili':               'dried chili',
+  'cucumbers':           'cucumber',
+  'italian herbs':       'herbs',
+  'vanilla':             'vanilla extract',
+  'homemade mozzarella': 'mozzarella',
+  'sun-dried tomatoes':  'tomatoes',
+  'lacinato kale':       'kale',
   // dressing variants
   'dijon':               'dijon mustard',
   'dried oregano':       'oregano',
@@ -3401,6 +3410,8 @@ const CARD_MACROS = {
 function normIng(raw) {
   let s = raw.trim().toLowerCase();
 
+  // Normalize apostrophe variants so pantry aliases match reliably (e.g., za’atar -> za'atar)
+  s = s.replace(/[’ʻʼ]/g, "'");
   s = s.replace(/^[\d\s]+/, '');
   s = s.replace(/^(?:large|medium|small|extra|fresh|dried|ground|whole|raw|dry|optional|to taste|pinch|sprig|clove|cloves|tbsp|tsp|oz|can|cans|cups?|slices?|slice)\s+/i, '');
   s = s.replace(/\s*\([^)]*\)/g, '');
