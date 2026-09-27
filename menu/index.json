@@ -6,6 +6,11 @@
             "description": "Mediterranean grocery list"
         },
         {
+            "file": "apricot-salad",
+            "caption": "Apricot Salad",
+            "description": "Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese is a healthy Summer salad packed with fiber and antioxidants."
+        },
+        {
             "file": "baked-mozzerella-sticks.jpg",
             "caption": "Baked Mozzarella Sticks",
             "description": "Crisp, oven-baked mozzarella sticks from the recipe collection. Use this slide to highlight breading texture and serving size."
@@ -119,6 +124,11 @@
             "file": "tzatziki.png",
             "caption": "Tzatziki",
             "description": "Close-up of the tzatziki recipe to show consistency and serving presentation."
+        },
+        {
+            "file": "yogurt-parfait.png",
+            "caption": "Yogurt Parfait",
+            "description": "Layering yyogurt with the mix ins makes for a pretty presentation."
         }
     ]
 }

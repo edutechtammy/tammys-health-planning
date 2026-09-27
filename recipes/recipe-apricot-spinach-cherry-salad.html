@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese",
+    "description": "A summer spinach salad with fresh apricots, cherries, pecans, crumbled feta, and balsamic glaze.",
+    "recipeYield": "4 servings",
+    "prepTime": "PT10M",
+    "cookTime": "PT10M",
+    "totalTime": "PT20M",
+    "recipeCategory": "Salad",
+    "recipeCuisine": "Modern",
+    "keywords": "apricot salad, spinach salad, cherry salad, feta salad, balsamic glaze",
+    "recipeIngredient": [
+      "1 cup balsamic vinegar",
+      "1/4 cup honey or brown sugar",
+      "5 oz fresh baby spinach",
+      "2 cups apricots, cored and sliced",
+      "2 cups fresh cherries, cored and halved",
+      "4 oz feta cheese, crumbled",
+      "1/2 cup pecans"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Make balsamic glaze",
+        "text": "In a small saucepan, heat balsamic vinegar and honey over medium heat. Bring to a gentle boil, reduce to a simmer, and cook while stirring until reduced by about half (about 10 minutes). Remove from heat and cool in a heat-safe bowl until thick enough to coat the back of a spoon."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Assemble salad",
+        "text": "Arrange spinach in bowls or a large serving dish. Top with sliced apricots, halved cherries, pecans (some whole, some chopped), and crumbled feta. Drizzle with balsamic glaze just before serving."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary-dark:   #2d6a4f;
+      --primary-mid:    #40916c;
+      --primary-light:  #d8f3dc;
+      --primary-pale:   #f0faf2;
+      --primary-border: #b7ddc4;
+      --accent-1:       #9d174d;
+      --accent-1-pale:  #fdf2f8;
+      --text:           #1e2d24;
+      --muted:          #5a7263;
+      --border:         #b7ddc4;
+      --shadow:         0 2px 12px rgba(45,106,79,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--primary-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    nav { background: var(--primary-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-image { display: block; width: 100%; height: clamp(180px, 34vw, 320px); object-fit: cover; object-position: center; background: linear-gradient(135deg, var(--primary-light) 40%, var(--accent-1-pale) 100%); }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--primary-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.68; margin-bottom: .9rem; }
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--primary-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--primary-dark); margin-bottom: .9rem; }
+    .trigger-summary { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; background: var(--primary-pale); border: 1px solid var(--border); border-radius: 10px; padding: .7rem .9rem; margin: .15rem 0 .9rem; }
+    .trigger-pill { display: inline-flex; align-items: center; gap: .3rem; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: .22rem .7rem; font-size: .74rem; font-weight: 700; color: var(--primary-dark); }
+    .trigger-note { font-size: .72rem; color: var(--muted); line-height: 1.5; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+
+    .section-divider { text-align: center; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--primary-dark); margin: 1.5rem 0 .75rem; padding: .35rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--primary-light); border-radius: 4px; }
+
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--primary-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--primary-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: 1rem 1.2rem; }
+
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--primary-mid); margin: .75rem 0 .3rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .28rem 0; border-bottom: 1px solid #e0e9ff; font-size: .85rem; }
+    .ing-amount { font-weight: 700; color: var(--primary-dark); min-width: 3.5rem; flex-shrink: 0; }
+    .ing-note { margin-left: auto; font-size: .72rem; font-weight: 600; white-space: nowrap; padding: .1rem .4rem; border-radius: 6px; }
+    .ox-low  { background: #dcfce7; color: #166534; }
+    .ox-mod  { background: #fef3c7; color: #78350f; }
+    .ox-high { background: #fee2e2; color: #991b1b; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .85rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num { background: var(--primary-dark); color: #fff; border-radius: 50%; width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--primary-dark); margin-bottom: .2rem; }
+
+    .notes-panel { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.2rem; }
+    .notes-panel h3 { color: #9a3412; font-size: .95rem; margin-bottom: .65rem; }
+    .notes-panel ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.7; color: #7c2d12; display: flex; flex-direction: column; gap: .4rem; }
+
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--primary-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--primary-dark); border: 1.5px solid var(--primary-mid); }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../dawn-effect.html">🌅 Dawn Effect</a>
+  <a href="../genetics.html">🧬 Genetics</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+  <a href="../daily-weight-tracker.html">⚖️ Weight</a>
+  <a href="../diet-power.html">🥣 Diet Power</a>
+</nav>
+
+<div class="main-wrap">
+  <div class="recipe-hero">
+    <img class="recipe-hero-image" src="../menu/apricot-salad.png" alt="Apricot spinach cherry salad with feta and pecans" loading="lazy" />
+    <div class="recipe-hero-body">
+      <h1>Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese</h1>
+      <p>A fresh summer salad with spinach, apricots, cherries, pecans, and feta, topped with balsamic glaze. It is meatless, gluten-free, and rich in fiber and antioxidants. Because this salad includes spinach, pecans, and a sweetened glaze, it is best used as an occasional seasonal option and tested in your personal glucose workflow.</p>
+      <div class="meta-strip">
+        <span>⏱ 20 min total</span>
+        <span>🥗 4 servings</span>
+        <span>🌞 Summer / picnic style</span>
+      </div>
+      <div class="trigger-summary">
+        <span class="trigger-pill"><strong>Net carbs:</strong> ~35g/serving</span>
+        <span class="trigger-pill"><strong>Saturated fat:</strong> ~3g/serving</span>
+        <span class="trigger-note">Higher fruit sugar load than baseline salads. Consider portioning and test response when used.</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">🥗 Ingredients &amp; Method</div>
+
+  <div class="recipe-layout">
+    <section class="panel">
+      <div class="panel-header">Ingredients</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-section-label">Balsamic Dressing / Glaze</li>
+          <li class="ing-item"><span class="ing-amount">1 cup</span><span>balsamic vinegar</span><span class="ing-note ox-low">Low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1/4 cup</span><span>honey or brown sugar</span><span class="ing-note ox-low">Low ox</span></li>
+
+          <li class="ing-section-label">Salad</li>
+          <li class="ing-item"><span class="ing-amount">5 oz</span><span>fresh baby spinach</span><span class="ing-note ox-high">High ox</span></li>
+          <li class="ing-item"><span class="ing-amount">2 cups</span><span>apricots, cored and sliced</span><span class="ing-note ox-mod">Moderate ox</span></li>
+          <li class="ing-item"><span class="ing-amount">2 cups</span><span>fresh cherries, cored and halved</span><span class="ing-note ox-mod">Moderate ox</span></li>
+          <li class="ing-item"><span class="ing-amount">4 oz</span><span>feta cheese, crumbled</span><span class="ing-note ox-low">Low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">1/2 cup</span><span>pecans</span><span class="ing-note ox-high">High ox</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Make balsamic glaze</div>
+              In a small saucepan, heat balsamic vinegar and honey over medium heat. Bring to a gentle boil, reduce to a simmer, and cook while stirring until reduced by about half (about 10 minutes).
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Cool</div>
+              Remove from heat and pour into a heat-safe bowl. Let cool until the glaze thickens enough to coat the back of a spoon.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Assemble salad</div>
+              Arrange spinach in individual bowls (or one large serving bowl). Top with sliced apricots, halved cherries, pecans (some whole, some chopped), and crumbled feta.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Dress and serve</div>
+              Drizzle balsamic glaze over each serving. If using one large bowl, add glaze and toss gently to combine just before serving.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </div>
+
+  <section class="notes-panel">
+    <h3>Nutrition Snapshot (per serving)</h3>
+    <ul>
+      <li>Calories: 247</li>
+      <li>Fat: 10g (Saturated fat: 3g)</li>
+      <li>Carbohydrates: 35g (Fiber: 3g, Sugar: 29g)</li>
+      <li>Protein: 6g</li>
+      <li>Sodium: 245mg, Potassium: 468mg</li>
+      <li>Calcium: 147mg, Iron: 2mg, Vitamin C: 15mg</li>
+    </ul>
+  </section>
+
+  <div class="notes-panel">
+    <h3>Protocol Notes</h3>
+    <ul>
+      <li>Source recipe inspiration: <a href="https://juliasalbum.com/apricot-salad/" target="_blank" rel="noopener noreferrer">Julia's Album — Apricot Salad</a>.</li>
+      <li>This recipe is gluten-free and meatless.</li>
+      <li>Spinach and pecans increase oxalate load versus your low-oxalate baseline recipes.</li>
+      <li>Fruit and glaze raise sugar load, so this is a better fit for occasional use and food-response testing.</li>
+      <li>If you want a lower-oxalate variation, substitute kale for spinach and reduce pecan quantity.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>Suggested test format: run this as a standalone meal test in Food Response Testing and compare against your lower-sugar salad baseline entries.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-primary" href="../food-response-testing.html">🍽 Log a Test</a>
+      <a class="btn btn-back" href="../recipes.html">← Back to Recipe Library</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
