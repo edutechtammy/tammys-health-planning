@@ -51,6 +51,11 @@
             "description": "A gluten free recipe for the bread used for Greek Gyros"
         },
         {
+            "file": "greek-salad.png",
+            "caption": "Greek Salad",
+            "description": "This recipe is not yet added to the recipe collection. This picture is a reminder for me to add it."
+        },
+        {
             "file": "Greek-Sheet-Pan-Chicken.png",
             "caption": "Greek Sheet Pan Chicken",
             "description": "A recipe is not really needed for this one. Just look at the image and gather ingredients on a pan and roast."
