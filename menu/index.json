@@ -53,7 +53,7 @@
         {
             "file": "greek-salad.png",
             "caption": "Greek Salad",
-            "description": "This recipe is not yet added to the recipe collection. This picture is a reminder for me to add it."
+            "description": "A Greek Salad does not contain lettuce. It contains ripe tomatoes, cucumbers, bell peppers, red onions, olives, and feta cheese on top. It differs from Chop Chop Salad in the size of the pieces. Chop Chop has a uniform, small diced vegetable (and meat if there is meat look."
         },
         {
             "file": "Greek-Sheet-Pan-Chicken.png",
@@ -96,9 +96,14 @@
             "description": "Close-up of the marinated olive salad to highlight the chopped texture and oil-based finish."
         },
         {
+            "file": "mediterranean-salad.jpg",
+            "caption": "Mediterranean Salad",
+            "description": "This image shows the ingredients and their proportions for a Mediterranean salad."
+        },
+        {
             "file": "mediterranean-chop-chop-salad.jpg",
             "caption": "Mediterranean Chop Chop Salad",
-            "description": "Finished salad image showing the fine dice and colorful Mediterranean ingredient mix."
+            "description": "This is a Mediterranean salad in the Chop chop style, fine dice and colorful Mediterranean ingredients."
         },
         {
             "file": "micebay-1oz-bottles.png",
