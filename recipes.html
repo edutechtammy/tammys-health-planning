@@ -552,6 +552,37 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE — SOFT & PLIABLE GLUTEN-FREE GYRO PITA
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
+      <img class="recipe-card-img" src="menu/gf-greek-gyros.png" alt="Soft &amp; Pliable Gluten-Free Gyro Pita" loading="lazy" />
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Soft &amp; Pliable Gluten-Free Gyro Pita</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 10 min prep + 15 min rest</span>
+          <span>🔥 15 min cook</span>
+          <span>🍽 4 large flatbreads</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">psyllium husk ⋅ warm water ⋅ sorghum/millet flour ⋅ almond flour ⋅ baking powder ⋅ EVOO</p>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-low"></span>
+          <span class="gi-low">Low GI</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— psyllium + millet/sorghum help keep the response gentler</span>
+        </div>
+        <p class="recipe-card-desc">A soft, foldable GF gyro pita made with psyllium gel for elasticity and whole-grain millet or sorghum for a rustic flavor. Pan-fried and immediately wrapped in a damp towel so the finished flatbread stays supple enough for gyros, kebabs, and warm Mediterranean fillings.</p>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-soft-pliable-gluten-free-gyro-pita.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE — SMALL-BATCH ALMOND OIL MAYO
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
@@ -3067,6 +3098,10 @@ const PANTRY_NORM = {
   'thin-sliced ginger':  'ginger',
   'raw honey':           'honey',
   'skim milk':           'milk',
+  'warm water':          '',
+  'lukewarm water':      '',
+  'hot water':           '',
+  'water':               '',
   'lemon juice':         'lemon',
   'lime juice':          'lime',
   'apple cider vinegar': 'acv',
@@ -3552,8 +3587,21 @@ function getCategoryMatch(card) {
 function getPantryMatch(card) {
   const ingEl = card.querySelector('.recipe-card-ingredients');
   if (!ingEl) return true;
-  const tokens = ingEl.textContent.split('\u22c5').map(s => normIng(s));
-  return tokens.every(t => t === '' || pantryChecked.has(t));
+
+  const groups = ingEl.textContent
+    .split('\u22c5')
+    .map(group => group.trim())
+    .filter(Boolean);
+
+  return groups.every(group => {
+    const options = group
+      .split(/\s+or\s+|\//i)
+      .map(part => normIng(part))
+      .filter(Boolean);
+
+    if (options.length === 0) return true;
+    return options.some(option => pantryChecked.has(option));
+  });
 }
 
 function getSearchMatch(card) {

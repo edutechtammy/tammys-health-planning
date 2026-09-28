@@ -31,6 +31,11 @@
             "description": "Finished chicken presentation with caprese flavors and a plated serving view."
         },
         {
+            "file": "chia-nutrients.png",
+            "caption": "Chia Nutrients",
+            "description": "Chia is a powerhouse of nutrient density."
+        },
+        {
             "file": "dressing-serving-idea.png",
             "caption": "Dressing Serving Idea",
             "description": "Ideas for how to do individual dressing and smaller serving size in glasses vs bowls."
@@ -38,7 +43,12 @@
         {
             "file": "egg-fancy.jpg",
             "caption": "Dressing Up the Egg",
-            "description": "Ideas for how to do eggs up a little fancy: Cajoun Shrimp, Philly Cheese steak, Garlic Parmesan, Nashville Hot Chicken; Bacon Jalepeno Ranch, Smoky Pulled Pork."
+            "description": "Ideas for how to do eggs up a little fancy: Cajan Shrimp, Philly Cheese steak, Garlic Parmesan, Nashville Hot Chicken; Bacon Jalepeno Ranch, Smoky Pulled Pork."
+        },
+        {
+            "file": "gf-greek-gyros.png",
+            "caption": "Gluten Free Greek Gyros",
+            "description": "A gluten free recipe for the bread used for Greek Gyros"
         },
         {
             "file": "Greek-Sheet-Pan-Chicken.png",
