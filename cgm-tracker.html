@@ -5142,6 +5142,10 @@ function renderCycleDetail(cycle) {
         ${dawnBadge}
       </div>
 
+      <div class="callout callout-sky" style="margin: .8rem 0 1rem;">
+        <strong>Average glucose ↔ HbA1c:</strong> The CGM mean mg/dL is the average glucose you are living with across the cycle. The GMI formula estimates what your HbA1c would be from that average: <strong>GMI = 3.31 + 0.02392 × mean glucose</strong>. HbA1c is not a direct sugar reading; it reflects how much glucose has stuck to hemoglobin in red blood cells. Think of hemoglobin as little cups that can hold glucose, and when glucose is high those cups get filled more often. Once glucose binds, it stays on that red blood cell for the life of that cell, so the HbA1c percentage reflects the average glucose exposure over roughly the last 3 months.
+      </div>
+
       <div class="stats-strip">
         <div class="stat-box">
           <div class="stat-val ${meanCol(s.mean)}">${s.mean}</div>
@@ -5166,6 +5170,10 @@ function renderCycleDetail(cycle) {
         <div class="stat-box">
           <div class="stat-val col-muted">${s.max}</div>
           <div class="stat-label">Highest</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val col-sky">${s.gmi}</div>
+          <div class="stat-label">Est. HbA1c</div>
         </div>
       </div>
 
