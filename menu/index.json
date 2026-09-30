@@ -66,6 +66,11 @@
             "description": "A gluten free recipe for the bread used for Greek Gyros"
         },
         {
+            "file": "greek-chicken-kabobs.png",
+            "caption": "Greek Chicken Kabobs",
+            "description": "I added this one more for the serving suggestions/plating ideas that comes with the chicken"
+        },
+        {
             "file": "greek-salad.png",
             "caption": "Greek Salad",
             "description": "A Greek Salad does not contain lettuce. It contains ripe tomatoes, cucumbers, bell peppers, red onions, olives, and feta cheese on top. It differs from Chop Chop Salad in the size of the pieces. Chop Chop has a uniform, small diced vegetable (and meat if there is meat look."
@@ -129,6 +134,11 @@
             "file": "mediterranean-snacks.png",
             "caption": "Mediterranean Snacks",
             "description": "Ideas for when you want a snack"
+        },
+        {
+            "file": "mezze.jpg",
+            "caption": "Mezze Suggestion",
+            "description": "Delicious"
         },
         {
             "file": "micebay-1oz-bottles.png",
