@@ -126,6 +126,11 @@
             "description": "This is a Mediterranean salad in the Chop chop style, fine dice and colorful Mediterranean ingredients."
         },
         {
+            "file": "mediterranean-snacks.png",
+            "caption": "Mediterranean Snacks",
+            "description": "Ideas for when you want a snack"
+        },
+        {
             "file": "micebay-1oz-bottles.png",
             "caption": "1 oz Bottles",
             "description": "Micebay bottles are small single-serving containers perfect for small-bathc homemade salad dressings."
