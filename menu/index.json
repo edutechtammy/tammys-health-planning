@@ -41,6 +41,11 @@
             "description": "Ideas for how to do individual dressing and smaller serving size in glasses vs bowls."
         },
         {
+            "file": "egg-drop-soup.jpg",
+            "caption": "Egg Drop Soup",
+            "description": "A savory, comforting Chinese restaurant classic modified for ultimate glycemic stability. Traditional cornstarch is replaced with finely ground flaxseed to achieve a rich, velvety texture without blood glucose spikes."
+        },
+        {
             "file": "egg-fancy.jpg",
             "caption": "Dressing Up the Egg",
             "description": "Ideas for how to do eggs up a little fancy: Cajan Shrimp, Philly Cheese steak, Garlic Parmesan, Nashville Hot Chicken; Bacon Jalepeno Ranch, Smoky Pulled Pork."
@@ -109,6 +114,11 @@
             "file": "micebay-1oz-bottles.png",
             "caption": "1 oz Bottles",
             "description": "Micebay bottles are small single-serving containers perfect for small-bathc homemade salad dressings."
+        },
+        {
+            "file": "no-sugar-crunch-bar.png",
+            "caption": "No Sugar Crunch Bar (Baked Version)",
+            "description": "Seed-based snack bar that can be served chilled without cooking or cooked."
         },
         {
             "file": "roasted-whole-artichoke.jpg",
