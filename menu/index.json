@@ -6,6 +6,11 @@
             "description": "Mediterranean grocery list"
         },
         {
+            "file": "3-diets.png",
+            "caption": "Three Diets Compared",
+            "description": "Macronutrients compared across three different diet types: Very low-carb Keto, Mediterranean, and Plant-forward"
+        },
+        {
             "file": "apricot-salad",
             "caption": "Apricot Salad",
             "description": "Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese is a healthy Summer salad packed with fiber and antioxidants."
