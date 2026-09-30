@@ -21,6 +21,11 @@
             "description": "Simple meal using ground beef. Spinach can be used for kale."
         },
         {
+            "file": "beef-kale-parmesan+glucose.png",
+            "caption": "Greek-Style Beef with Kale & Parmesan glucose pattern",
+            "description": "Greek-Style Beef with Kale & Parmesan food testing resulted in this glucose pattern"
+        },
+        {
             "file": "beverages.png",
             "caption": "Beverage Highlights",
             "description": "Overview image for recipe-library drinks and low-glucose beverage ideas."
@@ -94,6 +99,11 @@
             "file": "lemon-blueberry-labneh-cheesecake.jpg",
             "caption": "Lemon Blueberry Labneh Cheesecake",
             "description": "Dessert slide showing the lemon-labneh cheesecake with blueberry topping."
+        },
+        {
+            "file": "lemon-blueberry-labneh-cheesecake+glucose.png",
+            "caption": "Lemon Blueberry Labneh Cheesecake glucose response",
+            "description": "Glucose response to the cheesecake recipe."
         },
         {
             "file": "marinated-olive-salad.jpg",
