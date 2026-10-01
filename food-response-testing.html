@@ -596,10 +596,14 @@
     .comparison-fullscreen-close:hover { background:#fff; }
 
     /* SUMMARY TABLE */
-    .sum-table { width:100%; border-collapse:collapse; font-size:.85rem; }
+    #summary-card { max-width: 1500px; margin-left: auto; margin-right: auto; }
+    .sum-table { width:100%; min-width: 1450px; border-collapse:collapse; font-size:.85rem; }
+    .sum-table th, .sum-table td:first-child { position: sticky; left: 0; z-index: 1; }
     .sum-table th { background:var(--green-dark); color:#fff; padding:.45rem .75rem; text-align:left; font-size:.78rem; }
+    .sum-table td:first-child { background: #fff; padding:.4rem .75rem; border-bottom:1px solid #e8f0eb; vertical-align:middle; }
     .sum-table td { padding:.4rem .75rem; border-bottom:1px solid #e8f0eb; vertical-align:middle; }
     .sum-table tr:nth-child(even) td { background:#f7fbf8; }
+    .sum-table tr:nth-child(even) td:first-child { background:#f7fbf8; }
     .sum-table .best { color:#1e8449; font-weight:700; }
     .sum-table .warn { color:var(--red); font-weight:700; }
 
