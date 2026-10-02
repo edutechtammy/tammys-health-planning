@@ -376,7 +376,7 @@
         <span>days</span>
       </div>
     </div>
-    <p class="chart-helper">Target line is fixed at 160 lbs, and the y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
+    <p class="chart-helper">The trendline shows your overall weight direction, while the target line stays fixed at 160 lbs. The y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
   </section>
 
   <section class="card">
@@ -816,6 +816,40 @@
     return compressed;
   }
 
+  function buildLinearTrendLinePoints(points) {
+    if (points.length < 2) {
+      return [];
+    }
+
+    const xOrigin = points[0].x;
+    const n = points.length;
+    let sumX = 0;
+    let sumY = 0;
+    let sumXY = 0;
+    let sumXX = 0;
+
+    for (const point of points) {
+      const x = point.x - xOrigin;
+      const y = point.y;
+      sumX += x;
+      sumY += y;
+      sumXY += x * y;
+      sumXX += x * x;
+    }
+
+    const denominator = (n * sumXX) - (sumX * sumX);
+    const slope = denominator === 0 ? 0 : ((n * sumXY) - (sumX * sumY)) / denominator;
+    const intercept = (sumY - (slope * sumX)) / n;
+
+    const firstX = points[0].x;
+    const lastX = points[points.length - 1].x;
+
+    return [
+      { x: firstX, y: intercept },
+      { x: lastX, y: intercept + (slope * (lastX - xOrigin)) }
+    ];
+  }
+
   function renderWeightChart() {
     const chrono = sortEntriesOldestFirst(entries).filter(item => {
       return !!normalizeDateOnly(item.date) && Number.isFinite(Number(item.weight));
@@ -846,6 +880,7 @@
     const maxX = weightPoints[weightPoints.length - 1].x;
     const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
     const pointRadius = weightPoints.length > 240 ? 0 : 2.2;
+    const trendLinePoints = buildLinearTrendLinePoints(weightPoints);
 
     weightChart = new Chart(weightChartCanvas, {
       type: 'line',
@@ -862,6 +897,16 @@
             pointRadius,
             pointHoverRadius: 4,
             pointHitRadius: 12,
+            fill: false
+          },
+          {
+            label: 'Trendline',
+            data: trendLinePoints,
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            parsing: false,
+            pointRadius: 0,
             fill: false
           },
           {
