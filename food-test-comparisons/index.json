@@ -1,6 +1,10 @@
 {
     "images": [
         {
+            "file": "0-blood-sugar-guide.jpg",
+            "caption": "Knowing what is normal is helpful."
+        },
+        {
             "file": "cgm_report_2026-05-30.png",
             "caption": "Late morning whole milk did not cause the usual over 140 morning glucose spike that a mixed carb and saturated fat food typically causes during the morning. Thankfully, the insulin sensitivity is normal for the afternoon and evenings most days."
         },

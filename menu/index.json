@@ -11,6 +11,11 @@
             "description": "Macronutrients compared across three different diet types: Very low-carb Keto, Mediterranean, and Plant-forward"
         },
         {
+            "file": "almond-bark.png",
+            "caption": "Almond Bark",
+            "description": "Almonds and Lily's Stevia sweetened chocolate chips cause very little glucose response. Mix the two for a sweet treat. Don't forget the white chocolate option as well."
+        },
+        {
             "file": "apricot-salad.png",
             "caption": "Apricot Salad",
             "description": "Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese is a healthy Summer salad packed with fiber and antioxidants."
@@ -189,6 +194,11 @@
             "file": "no-sugar-crunch-bar.png",
             "caption": "No Sugar Crunch Bar (Baked Version)",
             "description": "Seed-based snack bar that can be served chilled without cooking or cooked."
+        },
+        {
+            "file": "pumpkin-seed-chocolate-bites.png",
+            "caption": "Pumpkin Seed Chocolate Bites",
+            "description": "pepitas (pumpkin seeds), salt, chocolate, and optionally a dusting of monkfruit/allulose sweetener"
         },
         {
             "file": "roasted-whole-artichoke.jpg",
