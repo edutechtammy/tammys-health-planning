@@ -203,6 +203,43 @@
       color: var(--muted);
     }
 
+    .milestone-info {
+      margin-top: .8rem;
+      background: #f7fbf8;
+      border: 1px solid #dceee3;
+      border-radius: 10px;
+      padding: .7rem .8rem;
+    }
+
+    .milestone-info-title {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: .35rem;
+    }
+
+    .milestone-list {
+      list-style: none;
+      display: grid;
+      gap: .32rem;
+      margin: 0;
+      padding: 0;
+      font-size: .8rem;
+      color: var(--text);
+    }
+
+    .milestone-chip {
+      display: inline-block;
+      width: .72rem;
+      height: .72rem;
+      border-radius: 2px;
+      margin-right: .4rem;
+      border: 1px solid rgba(0, 0, 0, .14);
+      vertical-align: -0.08rem;
+    }
+
     .table-wrap {
       overflow-x: auto;
     }
@@ -343,6 +380,24 @@
   </section>
 
   <section class="card">
+    <h2>Waist Circumference Progress (Belly Button)</h2>
+    <div class="chart-wrap">
+      <canvas id="waist-chart"></canvas>
+    </div>
+    <div class="empty-msg" id="waist-chart-empty" style="display: none; padding-top: .75rem;">No waist measurements yet. Add a waist value in Log Daily Weight to begin this chart.</div>
+    <p class="chart-helper">Tracks waist reduction from the 47 in baseline toward the 34 in target. Missing days are handled automatically and do not break the chart.</p>
+    <div class="milestone-info">
+      <div class="milestone-info-title">Metabolic Milestone Bands</div>
+      <ul class="milestone-list">
+        <li><span class="milestone-chip" style="background: rgba(198, 90, 60, .14);"></span><strong>Liver &amp; Pancreas Unloading:</strong> 44-46 in waist (early visceral fat unloading, often within first 5-10% loss).</li>
+        <li><span class="milestone-chip" style="background: rgba(212, 138, 57, .13);"></span><strong>Sub-0.60 WHtR Threshold:</strong> 40-41 in waist (crosses below 0.60 WHtR, reduced inflammatory pressure).</li>
+        <li><span class="milestone-chip" style="background: rgba(76, 150, 92, .13);"></span><strong>Reversed Metabolic Risk Zone:</strong> 34-35 in waist (approaches/enters WHtR &lt; 0.50 territory).</li>
+        <li><span class="milestone-chip" style="background: rgba(38, 120, 75, .18);"></span><strong>Optimal Metabolic Goal Band:</strong> at or under 34 in waist (aligned with your 160 lb target phase).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
     <h2>Log Daily Weight</h2>
     <div class="form-grid">
       <div class="field">
@@ -400,9 +455,46 @@
   const STORAGE_KEY = 'dailyWeightEntries_v1';
   const TARGET_WEIGHT = 160;
   const START_WEIGHT_CAP = 230;
+  const START_WAIST = 47;
+  const TARGET_WAIST = 34;
+  const WAIST_MILESTONE_BANDS = [
+    {
+      key: 'liver-pancreas-unloading',
+      label: 'Liver & Pancreas Unloading',
+      shortLabel: 'Liver/Pancreas',
+      low: 44,
+      high: 46,
+      color: 'rgba(198,90,60,.14)'
+    },
+    {
+      key: 'sub-060-whtr',
+      label: 'Sub-0.60 WHtR Threshold',
+      shortLabel: 'WHtR < 0.60',
+      low: 40,
+      high: 41,
+      color: 'rgba(212,138,57,.13)'
+    },
+    {
+      key: 'reversed-risk-zone',
+      label: 'Reversed Metabolic Risk Zone',
+      shortLabel: 'WHtR < 0.50',
+      low: 34,
+      high: 35,
+      color: 'rgba(76,150,92,.13)'
+    },
+    {
+      key: 'optimal-goal-band',
+      label: 'Optimal Metabolic Goal Band',
+      shortLabel: 'Goal Zone',
+      low: 32,
+      high: 34,
+      color: 'rgba(38,120,75,.18)'
+    }
+  ];
   const DEFAULT_GAP_COMPRESSION_DAYS = 30;
   let entries = [];
   let weightChart = null;
+  let waistChart = null;
 
   const gapThresholdInput = document.getElementById('gap-threshold-days');
   const dateInput = document.getElementById('w-date');
@@ -414,9 +506,106 @@
   const toast = document.getElementById('toast');
   const importFileInput = document.getElementById('import-file-input');
   const weightChartCanvas = document.getElementById('weight-chart');
+  const waistChartCanvas = document.getElementById('waist-chart');
+  const waistChartEmpty = document.getElementById('waist-chart-empty');
   const addEntryBtn = document.getElementById('add-entry');
   const editState = document.getElementById('edit-state');
   let editingDate = null;
+
+  const waistMilestoneBandsPlugin = {
+    id: 'waistMilestoneBands',
+    beforeDatasetsDraw(chart, _args, pluginOptions) {
+      if (!pluginOptions || !Array.isArray(pluginOptions.bands) || !pluginOptions.bands.length) {
+        return;
+      }
+
+      const { ctx, chartArea, scales } = chart;
+      const yScale = scales.y;
+      if (!ctx || !chartArea || !yScale) {
+        return;
+      }
+
+      ctx.save();
+      for (const band of pluginOptions.bands) {
+        if (!band || !Number.isFinite(band.low) || !Number.isFinite(band.high)) {
+          continue;
+        }
+        const high = Math.max(band.high, band.low);
+        const low = Math.min(band.high, band.low);
+        const topPx = yScale.getPixelForValue(high);
+        const bottomPx = yScale.getPixelForValue(low);
+        const rectY = Math.min(topPx, bottomPx);
+        const rectH = Math.abs(bottomPx - topPx);
+
+        if (!Number.isFinite(rectY) || !Number.isFinite(rectH) || rectH <= 0) {
+          continue;
+        }
+
+        ctx.fillStyle = band.color || 'rgba(0,0,0,.05)';
+        ctx.fillRect(chartArea.left, rectY, chartArea.right - chartArea.left, rectH);
+      }
+      ctx.restore();
+    },
+    afterDatasetsDraw(chart, _args, pluginOptions) {
+      if (!pluginOptions || !Array.isArray(pluginOptions.bands) || !pluginOptions.bands.length || !pluginOptions.showLabels) {
+        return;
+      }
+
+      const { ctx, chartArea, scales } = chart;
+      const yScale = scales.y;
+      if (!ctx || !chartArea || !yScale) {
+        return;
+      }
+
+      const labelColor = pluginOptions.labelColor || 'rgba(30,45,36,.78)';
+      const labelBackground = pluginOptions.labelBackground || 'rgba(255,255,255,.62)';
+
+      ctx.save();
+      ctx.font = '600 10px Segoe UI, system-ui, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+
+      for (const band of pluginOptions.bands) {
+        if (!band || !Number.isFinite(band.low) || !Number.isFinite(band.high)) {
+          continue;
+        }
+
+        const high = Math.max(band.high, band.low);
+        const low = Math.min(band.high, band.low);
+        const centerValue = (high + low) / 2;
+        let labelY = yScale.getPixelForValue(centerValue);
+
+        if (!Number.isFinite(labelY)) {
+          continue;
+        }
+
+        const minY = chartArea.top + 8;
+        const maxY = chartArea.bottom - 8;
+        labelY = Math.min(maxY, Math.max(minY, labelY));
+
+        const labelText = String(band.shortLabel || band.label || '').trim();
+        if (!labelText) {
+          continue;
+        }
+
+        const textWidth = ctx.measureText(labelText).width;
+        const padX = 5;
+        const padY = 2;
+        const textX = chartArea.right - 6;
+        const rectW = textWidth + (padX * 2);
+        const rectH = 14;
+        const rectX = textX - rectW;
+        const rectY = labelY - (rectH / 2);
+
+        ctx.fillStyle = labelBackground;
+        ctx.fillRect(rectX, rectY, rectW, rectH);
+        ctx.fillStyle = labelColor;
+        ctx.fillText(labelText, textX - padX, labelY);
+      }
+
+      ctx.restore();
+    }
+  };
 
   function showToast(message) {
     toast.textContent = message;
@@ -788,8 +977,166 @@
     });
   }
 
+  function renderWaistChart() {
+    const waistChrono = sortEntriesOldestFirst(entries).filter(item => {
+      if (!normalizeDateOnly(item.date)) {
+        return false;
+      }
+      if (item.waist === '' || item.waist === null || item.waist === undefined) {
+        return false;
+      }
+      const waistValue = Number(item.waist);
+      return Number.isFinite(waistValue) && waistValue > 0;
+    });
+
+    if (waistChart) {
+      waistChart.destroy();
+      waistChart = null;
+    }
+
+    if (!waistChrono.length) {
+      if (waistChartEmpty) {
+        waistChartEmpty.style.display = 'block';
+      }
+      return;
+    }
+
+    if (waistChartEmpty) {
+      waistChartEmpty.style.display = 'none';
+    }
+
+    const rawWaistPoints = waistChrono.map(item => ({
+      x: dateToStamp(item.date),
+      y: Number(item.waist),
+      originalDate: item.date
+    }));
+
+    const waistPoints = buildCompressedWeightPoints(rawWaistPoints, getGapCompressionDays());
+    const dateLookup = new Map(waistPoints.map(point => [Math.round(point.x), point.originalDate]));
+    const measuredWaists = waistPoints.map(point => point.y);
+    const minWaist = Math.min(...measuredWaists);
+    const maxWaist = Math.max(...measuredWaists);
+    const minX = waistPoints[0].x;
+    const maxX = waistPoints[waistPoints.length - 1].x;
+    const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
+    const pointRadius = waistPoints.length > 240 ? 0 : 2.2;
+
+    waistChart = new Chart(waistChartCanvas, {
+      type: 'line',
+      plugins: [waistMilestoneBandsPlugin],
+      data: {
+        datasets: [
+          {
+            label: 'Waist Measurement',
+            data: waistPoints,
+            borderColor: '#b3541e',
+            backgroundColor: 'rgba(179,84,30,.16)',
+            borderWidth: 2,
+            tension: 0.2,
+            parsing: false,
+            pointRadius,
+            pointHoverRadius: 4,
+            pointHitRadius: 12,
+            fill: false
+          },
+          {
+            label: 'Start 47 in',
+            data: [
+              { x: minX, y: START_WAIST },
+              { x: targetEndX, y: START_WAIST }
+            ],
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          },
+          {
+            label: 'Target 34 in',
+            data: [
+              { x: minX, y: TARGET_WAIST },
+              { x: targetEndX, y: TARGET_WAIST }
+            ],
+            borderColor: '#c0392b',
+            borderWidth: 2,
+            borderDash: [7, 6],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        normalized: true,
+        plugins: {
+          waistMilestoneBands: {
+            bands: WAIST_MILESTONE_BANDS,
+            showLabels: true,
+            labelColor: 'rgba(30,45,36,.78)',
+            labelBackground: 'rgba(255,255,255,.62)'
+          },
+          legend: {
+            position: 'top',
+            labels: { boxWidth: 18 }
+          },
+          tooltip: {
+            callbacks: {
+              title(context) {
+                if (!context.length) {
+                  return '';
+                }
+                const valueX = Math.round(context[0].parsed.x);
+                const dateForX = dateLookup.get(valueX);
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              },
+              label(context) {
+                if (context.parsed.y === null) {
+                  return context.dataset.label + ': not enough data yet';
+                }
+                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 12,
+              callback(value) {
+                const dateForX = dateLookup.get(Math.round(value));
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.45)' }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Waist (in)'
+            },
+            min: Math.min(TARGET_WAIST - 2, Math.floor(minWaist - 1)),
+            max: Math.max(START_WAIST + 1, Math.ceil(maxWaist + 1)),
+            ticks: {
+              callback(value) {
+                return value + ' in';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.5)' }
+          }
+        }
+      }
+    });
+  }
+
   function renderEntries() {
     renderWeightChart();
+    renderWaistChart();
     sortEntriesNewestFirst();
     entriesBody.innerHTML = '';
 
