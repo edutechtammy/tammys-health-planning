@@ -146,6 +146,28 @@
   .action-link{background:none;border:none;color:var(--green-dark);font:inherit;font-weight:600;cursor:pointer;padding:0 .15rem}
   .action-link:hover{text-decoration:underline}
 
+  /* TREADMILL CHECKLIST */
+  .checklist-card{background:#f8fdf9;border:1px solid var(--border);border-radius:12px;padding:1rem 1.05rem}
+  .checklist-list{display:grid;gap:.65rem;margin:.95rem 0 1rem}
+  .checklist-item{display:flex;align-items:flex-start;gap:.7rem;padding:.7rem .8rem;background:#fff;border:1px solid var(--border);border-radius:10px}
+  .checklist-item input[type="checkbox"]{width:1.15rem;height:1.15rem;margin-top:.12rem;accent-color:var(--green-mid);flex-shrink:0}
+  .checklist-item label{font-size:.94rem;line-height:1.5;cursor:pointer}
+  .checklist-status{font-size:.84rem;color:var(--muted)}
+  .checklist-status strong{color:var(--green-dark)}
+
+  /* TREADMILL CALCULATOR */
+  .calc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin:.95rem 0 0}
+  .calc-grid .summary-box{background:#f8fdf9;border:1px solid var(--border);border-radius:10px;padding:.65rem .8rem;font-size:.84rem;line-height:1.45}
+  .calc-grid .summary-box strong{display:block;color:var(--green-dark);margin-bottom:.15rem}
+  .calc-grid .summary-box span{display:block}
+  .calc-profile{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0 .35rem}
+  .calc-helper{font-size:.82rem;color:var(--muted);margin-top:.65rem;line-height:1.55}
+  .calc-form{margin-top:.75rem;background:#f8fdf9}
+  .preset-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem}
+  .preset-btn{background:#fff8e1;border:1px solid #f1d58a;color:#7a5c00}
+  .preset-btn.active{background:var(--amber);color:#4b3a00;border-color:var(--amber-dark)}
+  @media(max-width:700px){.calc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
   /* EXERCISE ILLUSTRATION SLIDESHOW */
   .exercise-slideshow{border:1px solid var(--border);border-radius:12px;background:#f8fdf9;padding:.8rem}
   .exercise-slide-header{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:.55rem}
@@ -256,6 +278,104 @@
 
 <main>
 
+  <div class="section band-green" id="sec-ready">
+    <div class="section-header" onclick="toggle('sec-ready')">
+      <span class="icon">✅</span>
+      <h2>Treadmill Ready Checklist</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="checklist-card">
+        <p style="font-size:.93rem">Run this quick check before you start so you do not have to interrupt the treadmill and lose what is on the display.</p>
+
+        <div class="checklist-list" id="treadmill-ready-list">
+          <div class="checklist-item">
+            <input id="ready-water" type="checkbox" data-ready-item="water" />
+            <label for="ready-water">Water bottle filled &amp; within reach?</label>
+          </div>
+          <div class="checklist-item">
+            <input id="ready-phone" type="checkbox" data-ready-item="phone" />
+            <label for="ready-phone">Phone / secondary device present?</label>
+          </div>
+          <div class="checklist-item">
+            <input id="ready-work" type="checkbox" data-ready-item="work" />
+            <label for="ready-work">Work tasks queued up (Deep Work vs. Passive Video)?</label>
+          </div>
+          <div class="checklist-item">
+            <input id="ready-audio" type="checkbox" data-ready-item="audio" />
+            <label for="ready-audio">Earbuds / Audio ready?</label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button" id="reset-ready-btn">Reset Checklist</button>
+          <span class="checklist-status" id="ready-status"><strong>0 / 4 ready</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section band-amber" id="sec-calories">
+    <div class="section-header" onclick="toggle('sec-calories')">
+      <span class="icon">🔥</span>
+      <h2>Personal Treadmill Calorie Estimator</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:.93rem">Enter the treadmill speed and total walking time. The calculator uses the ACSM walking equation with your built-in profile and fixed 4% incline.</p>
+
+      <div class="calc-profile">
+        <span class="pill pill-green">Weight: 222 lb</span>
+        <span class="pill pill-amber">Age: 62</span>
+        <span class="pill pill-sky">Sex: Female</span>
+        <span class="pill pill-orange">Incline: 4%</span>
+      </div>
+
+      <div class="callout callout-sky" style="margin-top:.75rem">
+        <strong>When to update the built-in weight</strong>
+        Calories burned scale directly with body weight, so refresh this calculator's weight after each <strong>10 lb lost</strong> as a practical rule of thumb. Starting from 222 lb, good update points would be <strong>212 lb, 202 lb, 192 lb</strong>, and so on. If you want tighter accuracy, update every <strong>5 lb</strong> instead.
+      </div>
+
+      <form id="treadmill-calc-form" class="band-card calc-form">
+        <div class="two-col">
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Speed (mph)</label>
+            <input id="calc-speed" type="number" min="0.1" step="0.1" inputmode="decimal" placeholder="e.g. 1.6" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Duration (minutes)</label>
+            <input id="calc-duration" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 30" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+          </div>
+        </div>
+
+        <div class="preset-row" aria-label="Speed presets">
+          <button class="btn preset-btn" type="button" data-speed-preset="1.6">Set 1.6 mph</button>
+          <button class="btn preset-btn" type="button" data-speed-preset="2.5">Set 2.5 mph</button>
+        </div>
+
+        <div class="btn-row" style="margin-top:.9rem">
+          <button class="btn btn-primary" type="submit" id="calc-run-btn">Calculate</button>
+          <button class="btn btn-export" type="button" id="calc-use-log-btn">Use In Log</button>
+          <button class="btn btn-outline" type="button" id="calc-reset-btn">Reset</button>
+        </div>
+      </form>
+
+      <div class="calc-grid" id="calc-results">
+        <div class="summary-box"><strong>Calories / min</strong><span id="calc-kcal-min">--</span></div>
+        <div class="summary-box"><strong>Gross calories</strong><span id="calc-gross">--</span></div>
+        <div class="summary-box"><strong>Net exercise calories</strong><span id="calc-net">--</span></div>
+        <div class="summary-box"><strong>VO₂ estimate</strong><span id="calc-vo2">--</span></div>
+      </div>
+
+      <div class="callout callout-amber" style="margin-top:.85rem">
+        <strong>How this estimate is built</strong>
+        Gross VO₂ = (0.1 × speed in m/min) + (1.8 × speed × grade) + 3.5. Calories per minute = (VO₂ × body weight in kg / 1000) × 5. Net exercise calories remove the resting 3.5 mL/kg/min component.
+      </div>
+
+      <p class="calc-helper">This is personalized mainly by your body weight and fixed incline. Age and sex are part of the profile context, but the ACSM walking calorie equation itself is driven by speed, grade, and weight.</p>
+    </div>
+  </div>
+
   <div class="section band-sky" id="sec-log">
     <div class="section-header" onclick="toggle('sec-log')">
       <span class="icon">📝</span>
@@ -295,6 +415,10 @@
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Intensity / HR</label>
             <input id="entry-intensity" type="text" placeholder="e.g. 98–105 bpm" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
           </div>
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Est. calories</label>
+            <input id="entry-calories" type="text" placeholder="Added from calculator" readonly style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#f8fdf9;color:#334155" />
+          </div>
           <div class="field full" style="grid-column:1/-1">
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Notes</label>
             <textarea id="entry-notes" rows="3" placeholder="Energy, soreness, progression, form notes" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff;resize:vertical"></textarea>
@@ -314,7 +438,7 @@
 
       <div class="callout callout-sky" style="margin-top:0">
         <strong>Suggested reporting format</strong>
-        Date · Session type · Duration · Intensity or heart rate · Notes
+        Date · Session type · Duration · Estimated calories · Intensity or heart rate · Notes
       </div>
 
       <div style="overflow-x:auto">
@@ -324,6 +448,7 @@
               <th>Date</th>
               <th>Session type</th>
               <th>Duration</th>
+              <th>Est. calories</th>
               <th>Intensity / HR</th>
               <th>Notes</th>
               <th>Actions</th>
@@ -950,8 +1075,184 @@ function toggle(id){
   s.classList.toggle('collapsed');
 }
 
+const READY_CHECKLIST_KEY='tammys_treadmill_ready_checklist';
+const TREADMILL_CALC_KEY='tammys_treadmill_calculator_inputs';
 const LOG_KEY='tammys_exercise_log';
 let editingEntryId=null;
+let currentTreadmillCalcResult=null;
+
+const TREADMILL_PROFILE={
+  weightLbs:222,
+  age:62,
+  sex:'Female',
+  gradeDecimal:0.04
+};
+
+function loadReadyChecklist(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(READY_CHECKLIST_KEY));
+    if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)) return {};
+    return parsed;
+  }catch{
+    return {};
+  }
+}
+
+function saveReadyChecklist(state){
+  localStorage.setItem(READY_CHECKLIST_KEY,JSON.stringify(state));
+}
+
+function getReadyChecklistInputs(){
+  return Array.from(document.querySelectorAll('[data-ready-item]'));
+}
+
+function updateReadyChecklistStatus(){
+  const inputs=getReadyChecklistInputs();
+  const checkedCount=inputs.filter(input=>input.checked).length;
+  const statusEl=document.getElementById('ready-status');
+  if(!statusEl) return;
+  statusEl.innerHTML=checkedCount===inputs.length && inputs.length
+    ? '<strong>All set to start</strong>'
+    : `<strong>${checkedCount} / ${inputs.length} ready</strong>`;
+}
+
+function applyReadyChecklistState(state){
+  getReadyChecklistInputs().forEach(input=>{
+    input.checked=Boolean(state[input.dataset.readyItem]);
+  });
+  updateReadyChecklistStatus();
+}
+
+function persistReadyChecklist(){
+  const state={};
+  getReadyChecklistInputs().forEach(input=>{
+    state[input.dataset.readyItem]=input.checked;
+  });
+  saveReadyChecklist(state);
+  updateReadyChecklistStatus();
+}
+
+function resetReadyChecklist(){
+  getReadyChecklistInputs().forEach(input=>{
+    input.checked=false;
+  });
+  localStorage.removeItem(READY_CHECKLIST_KEY);
+  updateReadyChecklistStatus();
+}
+
+function loadTreadmillCalculatorState(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(TREADMILL_CALC_KEY));
+    if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)) return null;
+    return {
+      speed:parsed.speed==='' ? '' : Number(parsed.speed),
+      duration:parsed.duration==='' ? '' : Number(parsed.duration)
+    };
+  }catch{
+    return null;
+  }
+}
+
+function saveTreadmillCalculatorState(state){
+  localStorage.setItem(TREADMILL_CALC_KEY,JSON.stringify(state));
+}
+
+function updateSpeedPresetButtons(selectedSpeed){
+  document.querySelectorAll('[data-speed-preset]').forEach(button=>{
+    const presetValue=Number(button.dataset.speedPreset);
+    button.classList.toggle('active',Number.isFinite(selectedSpeed) && Math.abs(presetValue-selectedSpeed)<0.001);
+  });
+}
+
+function setTreadmillCalculatorResults(result){
+  currentTreadmillCalcResult=result;
+  document.getElementById('calc-kcal-min').textContent=result ? `${result.caloriesPerMinute.toFixed(2)} kcal` : '--';
+  document.getElementById('calc-gross').textContent=result ? `${Math.round(result.grossCalories)} kcal` : '--';
+  document.getElementById('calc-net').textContent=result ? `${Math.round(result.netCalories)} kcal` : '--';
+  document.getElementById('calc-vo2').textContent=result ? `${result.vo2.toFixed(2)} mL/kg/min` : '--';
+  document.getElementById('calc-use-log-btn').disabled=!result;
+  updateSpeedPresetButtons(result ? result.speedMph : Number(document.getElementById('calc-speed').value));
+}
+
+function calculateTreadmillCalories(speedMph,durationMinutes,weightLbs=TREADMILL_PROFILE.weightLbs,gradeDecimal=TREADMILL_PROFILE.gradeDecimal){
+  const speedMpm=speedMph*26.8224;
+  const weightKg=weightLbs/2.20462;
+  const vo2=(0.1*speedMpm)+(1.8*speedMpm*gradeDecimal)+3.5;
+  const netVo2=Math.max(vo2-3.5,0);
+  const caloriesPerMinute=(vo2*weightKg/1000)*5;
+  const netCaloriesPerMinute=(netVo2*weightKg/1000)*5;
+  return {
+    speedMph,
+    durationMinutes,
+    speedMpm,
+    vo2,
+    caloriesPerMinute,
+    netCaloriesPerMinute,
+    grossCalories:caloriesPerMinute*durationMinutes,
+    netCalories:netCaloriesPerMinute*durationMinutes
+  };
+}
+
+function runTreadmillCalculator(){
+  const speedField=document.getElementById('calc-speed');
+  const durationField=document.getElementById('calc-duration');
+  const speed=Number(speedField.value);
+  const duration=Number(durationField.value);
+
+  if(!(speed>0)){
+    alert('Enter a treadmill speed above 0 mph.');
+    speedField.focus();
+    return;
+  }
+  if(!(duration>0)){
+    alert('Enter a duration above 0 minutes.');
+    durationField.focus();
+    return;
+  }
+
+  const result=calculateTreadmillCalories(speed,duration);
+  saveTreadmillCalculatorState({speed,duration});
+  setTreadmillCalculatorResults(result);
+}
+
+function applySpeedPreset(speed){
+  document.getElementById('calc-speed').value=String(speed);
+  updateSpeedPresetButtons(speed);
+}
+
+function applyTreadmillCalculatorToLog(){
+  if(!currentTreadmillCalcResult){
+    alert('Calculate a treadmill session first.');
+    return;
+  }
+  document.getElementById('entry-type').value='cardio';
+  document.getElementById('entry-duration').value=`${currentTreadmillCalcResult.durationMinutes} min`;
+  document.getElementById('entry-intensity').value=`${currentTreadmillCalcResult.speedMph.toFixed(1)} mph @ ${Math.round(TREADMILL_PROFILE.gradeDecimal*100)}% incline`;
+  document.getElementById('entry-calories').value=`${Math.round(currentTreadmillCalcResult.grossCalories)} kcal`;
+  document.getElementById('entry-duration').scrollIntoView({behavior:'smooth',block:'center'});
+  setSaveMessage('Calculator copied to log');
+}
+
+function resetTreadmillCalculator(){
+  document.getElementById('calc-speed').value='';
+  document.getElementById('calc-duration').value='';
+  localStorage.removeItem(TREADMILL_CALC_KEY);
+  setTreadmillCalculatorResults(null);
+  updateSpeedPresetButtons(null);
+}
+
+function initializeTreadmillCalculator(){
+  const saved=loadTreadmillCalculatorState();
+  const speedField=document.getElementById('calc-speed');
+  const durationField=document.getElementById('calc-duration');
+  if(saved&&Number.isFinite(saved.speed)&&saved.speed>0) speedField.value=String(saved.speed);
+  if(saved&&Number.isFinite(saved.duration)&&saved.duration>0) durationField.value=String(saved.duration);
+  if(speedField.value&&durationField.value){
+    setTreadmillCalculatorResults(calculateTreadmillCalories(Number(speedField.value),Number(durationField.value)));
+  } else {
+    setTreadmillCalculatorResults(null);
+  }
+}
 
 function makeEntryId(){
   return `ex-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
@@ -993,6 +1294,7 @@ function loadEntries(){
         date:String(item.date||''),
         type:['cardio','resistance','walk'].includes(item.type)?item.type:'cardio',
         duration:String(item.duration||''),
+        calories:String(item.calories||item.estimatedCalories||''),
         intensity:String(item.intensity||''),
         notes:String(item.notes||''),
         createdAt:Number(item.createdAt)||Date.now(),
@@ -1064,6 +1366,7 @@ function parseCsvEntries(text){
       planned:valueAt('Planned'),
       completed:completed==='partial' ? 'partial' : completed==='no' ? 'no' : 'yes',
       duration:valueAt('Duration'),
+      calories:valueAt('Estimated Calories') || valueAt('Est. Calories') || valueAt('Calories'),
       intensity:valueAt('Intensity / HR') || valueAt('Intensity'),
       work:valueAt('Main Work Done') || valueAt('Work'),
       notes:valueAt('Notes'),
@@ -1089,6 +1392,7 @@ function clearForm(){
   document.getElementById('entry-date').value=todayISO();
   document.getElementById('entry-type').value='cardio';
   document.getElementById('entry-duration').value='';
+  document.getElementById('entry-calories').value='';
   document.getElementById('entry-intensity').value='';
   document.getElementById('entry-notes').value='';
   document.getElementById('save-entry-btn').textContent='Save Entry';
@@ -1100,6 +1404,7 @@ function populateForm(entry){
   document.getElementById('entry-date').value=entry.date||todayISO();
   document.getElementById('entry-type').value=entry.type||'cardio';
   document.getElementById('entry-duration').value=entry.duration||'';
+  document.getElementById('entry-calories').value=entry.calories||'';
   document.getElementById('entry-intensity').value=entry.intensity||'';
   document.getElementById('entry-notes').value=entry.notes||'';
   document.getElementById('save-entry-btn').textContent='Update Entry';
@@ -1158,6 +1463,7 @@ function renderEntries(){
       <td>${displayDate(entry.date)}</td>
       <td class="session-type">${typeLabels[entry.type]||entry.type}</td>
       <td>${escapeHTML(entry.duration)||'—'}</td>
+      <td>${escapeHTML(entry.calories)||'—'}</td>
       <td>${escapeHTML(entry.intensity)||'—'}</td>
       <td>${escapeHTML(entry.notes)||'—'}</td>
       <td>
@@ -1183,6 +1489,7 @@ function handleSubmit(event){
   const date=document.getElementById('entry-date').value||todayISO();
   const type=document.getElementById('entry-type').value;
   const duration=document.getElementById('entry-duration').value.trim();
+  const calories=document.getElementById('entry-calories').value.trim();
   const intensity=document.getElementById('entry-intensity').value.trim();
   const notes=document.getElementById('entry-notes').value.trim();
 
@@ -1196,10 +1503,10 @@ function handleSubmit(event){
   if(editingEntryId){
     const index=entries.findIndex(entry=>String(entry.id)===String(editingEntryId));
     if(index>=0){
-      entries[index]={...entries[index],date,type,duration,intensity,notes,updatedAt:now};
+      entries[index]={...entries[index],date,type,duration,calories,intensity,notes,updatedAt:now};
     }
   } else {
-    entries.push({id:makeEntryId(),date,type,duration,intensity,notes,createdAt:now,updatedAt:now});
+    entries.push({id:makeEntryId(),date,type,duration,calories,intensity,notes,createdAt:now,updatedAt:now});
   }
 
   entries.sort((a,b)=>{
@@ -1235,12 +1542,13 @@ function exportEntriesCSV(){
     alert('No exercise entries to export yet.');
     return;
   }
-  const headers=['Date','Session Type','Duration','Intensity / HR','Notes','Created At','Updated At'];
+  const headers=['Date','Session Type','Duration','Estimated Calories','Intensity / HR','Notes','Created At','Updated At'];
   const typeLabels={cardio:'Zone 2 cardio', resistance:'Resistance training', walk:'Recovery / walk'};
   const rows=entries.map(entry=>[
     entry.date,
     typeLabels[entry.type]||entry.type,
     entry.duration,
+    entry.calories,
     entry.intensity,
     entry.notes,
     entry.createdAt ? new Date(entry.createdAt).toISOString() : '',
@@ -1278,6 +1586,7 @@ function importEntriesFromFile(file){
         date:String(item.date||todayISO()),
         type:['cardio','resistance','walk'].includes(item.type)?item.type:'cardio',
         duration:String(item.duration||''),
+        calories:String(item.calories||item.estimatedCalories||''),
         intensity:String(item.intensity||''),
         notes:String(item.notes||''),
         createdAt:Number(item.createdAt)||Date.now(),
@@ -1601,6 +1910,15 @@ function moveExerciseSlide(step){
   updateExerciseFullscreenContent();
 }
 
+getReadyChecklistInputs().forEach(input=>input.addEventListener('change',persistReadyChecklist));
+document.getElementById('reset-ready-btn').addEventListener('click',resetReadyChecklist);
+document.querySelectorAll('[data-speed-preset]').forEach(button=>button.addEventListener('click',()=>applySpeedPreset(Number(button.dataset.speedPreset))));
+document.getElementById('treadmill-calc-form').addEventListener('submit',event=>{
+  event.preventDefault();
+  runTreadmillCalculator();
+});
+document.getElementById('calc-use-log-btn').addEventListener('click',applyTreadmillCalculatorToLog);
+document.getElementById('calc-reset-btn').addEventListener('click',resetTreadmillCalculator);
 document.getElementById('log-form').addEventListener('submit',handleSubmit);
 document.getElementById('clear-entry-btn').addEventListener('click',()=>{
   clearForm();
@@ -1623,6 +1941,8 @@ document.getElementById('exercise-notes-import-file').addEventListener('change',
 document.getElementById('exercise-fullscreen-btn').addEventListener('click',openExerciseFullscreen);
 document.getElementById('exercise-slide-image').addEventListener('click',openExerciseFullscreen);
 
+applyReadyChecklistState(loadReadyChecklist());
+initializeTreadmillCalculator();
 document.getElementById('entry-date').value=todayISO();
 renderEntries();
 loadExerciseSlides().finally(renderExerciseSlide);
