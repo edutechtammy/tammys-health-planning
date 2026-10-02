@@ -376,7 +376,7 @@
         <span>days</span>
       </div>
     </div>
-    <p class="chart-helper">Target line is fixed at 160 lbs. A 7-day average smooths daily noise, and the y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
+    <p class="chart-helper">Target line is fixed at 160 lbs, and the y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
   </section>
 
   <section class="card">
@@ -816,27 +816,6 @@
     return compressed;
   }
 
-  function buildMovingAveragePoints(points, windowSize) {
-    const movingPoints = [];
-    let rollingSum = 0;
-
-    for (let i = 0; i < points.length; i += 1) {
-      rollingSum += points[i].y;
-
-      if (i >= windowSize) {
-        rollingSum -= points[i - windowSize].y;
-      }
-
-      if (i < windowSize - 1) {
-        movingPoints.push({ x: points[i].x, y: null });
-      } else {
-        movingPoints.push({ x: points[i].x, y: rollingSum / windowSize });
-      }
-    }
-
-    return movingPoints;
-  }
-
   function renderWeightChart() {
     const chrono = sortEntriesOldestFirst(entries).filter(item => {
       return !!normalizeDateOnly(item.date) && Number.isFinite(Number(item.weight));
@@ -867,7 +846,6 @@
     const maxX = weightPoints[weightPoints.length - 1].x;
     const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
     const pointRadius = weightPoints.length > 240 ? 0 : 2.2;
-    const movingAveragePoints = buildMovingAveragePoints(weightPoints, 7);
 
     weightChart = new Chart(weightChartCanvas, {
       type: 'line',
@@ -884,20 +862,6 @@
             pointRadius,
             pointHoverRadius: 4,
             pointHitRadius: 12,
-            fill: false
-          },
-          {
-            label: '7-day Average',
-            data: movingAveragePoints,
-            borderColor: '#1a5276',
-            backgroundColor: 'rgba(26,82,118,.14)',
-            borderWidth: 2,
-            tension: 0.2,
-            parsing: false,
-            pointRadius: 0,
-            pointHoverRadius: 3,
-            pointHitRadius: 10,
-            spanGaps: false,
             fill: false
           },
           {
