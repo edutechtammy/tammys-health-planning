@@ -196,6 +196,16 @@
             "description": "Seed-based snack bar that can be served chilled without cooking or cooked."
         },
         {
+            "file": "pesto-eggs.png",
+            "caption": "Sun-dried Tomato and Walnut Pesto, egg, and toast",
+            "description": "Wit or without the bread, the sun-dried tomato pesto is tasty with eggs."
+        },
+        {
+            "file": "pesto.png",
+            "caption": "Sun-dried Tomato and Walnut Pesto",
+            "description": "See the Cracker and Bread Spread Recipe.This is good on eggs, and in the stuffing part of deviled eggs. Serve it as a spread on crackers or bread."
+        },
+        {
             "file": "pumpkin-seed-chocolate-bites.png",
             "caption": "Pumpkin Seed Chocolate Bites",
             "description": "pepitas (pumpkin seeds), salt, chocolate, and optionally a dusting of monkfruit/allulose sweetener"
@@ -239,6 +249,11 @@
             "file": "tzatziki.png",
             "caption": "Tzatziki",
             "description": "Close-up of the tzatziki recipe to show consistency and serving presentation."
+        },
+        {
+            "file": "yogurt-mayo-swap.png",
+            "caption": "Yogurt Can Be Swapped for Mayo",
+            "description": "Use yogurt instead of mayo. Not only is it a great taste alternative, you get good gut bacteria too."
         },
         {
             "file": "yogurt-parfait.png",
