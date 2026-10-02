@@ -258,7 +258,12 @@
         {
             "file": "yogurt-parfait.png",
             "caption": "Yogurt Parfait",
-            "description": "Layering yyogurt with the mix ins makes for a pretty presentation."
+            "description": "Layering yogurt with the mix ins makes for a pretty presentation."
+        },
+        {
+            "file": "yogurt-dips-and-sauces.png",
+            "caption": "Yogurt Dips and Sauces",
+            "description": "You can tak Greek yogurt into many directions to give a nice dipping sauce or spread."
         }
     ]
 }
