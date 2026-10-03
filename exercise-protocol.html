@@ -315,67 +315,6 @@
     </div>
   </div>
 
-  <div class="section band-amber" id="sec-calories">
-    <div class="section-header" onclick="toggle('sec-calories')">
-      <span class="icon">🔥</span>
-      <h2>Personal Treadmill Calorie Estimator</h2>
-      <span class="toggle">▾</span>
-    </div>
-    <div class="section-body">
-      <p style="font-size:.93rem">Enter the treadmill speed and total walking time. The calculator uses the ACSM walking equation with your built-in profile and fixed 4% incline.</p>
-
-      <div class="calc-profile">
-        <span class="pill pill-green">Weight: 222 lb</span>
-        <span class="pill pill-amber">Age: 62</span>
-        <span class="pill pill-sky">Sex: Female</span>
-        <span class="pill pill-orange">Incline: 4%</span>
-      </div>
-
-      <div class="callout callout-sky" style="margin-top:.75rem">
-        <strong>When to update the built-in weight</strong>
-        Calories burned scale directly with body weight, so refresh this calculator's weight after each <strong>10 lb lost</strong> as a practical rule of thumb. Starting from 222 lb, good update points would be <strong>212 lb, 202 lb, 192 lb</strong>, and so on. If you want tighter accuracy, update every <strong>5 lb</strong> instead.
-      </div>
-
-      <form id="treadmill-calc-form" class="band-card calc-form">
-        <div class="two-col">
-          <div>
-            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Speed (mph)</label>
-            <input id="calc-speed" type="number" min="0.1" step="0.1" inputmode="decimal" placeholder="e.g. 1.6" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
-          </div>
-          <div>
-            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Duration (minutes)</label>
-            <input id="calc-duration" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 30" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
-          </div>
-        </div>
-
-        <div class="preset-row" aria-label="Speed presets">
-          <button class="btn preset-btn" type="button" data-speed-preset="1.6">Set 1.6 mph</button>
-          <button class="btn preset-btn" type="button" data-speed-preset="2.5">Set 2.5 mph</button>
-        </div>
-
-        <div class="btn-row" style="margin-top:.9rem">
-          <button class="btn btn-primary" type="submit" id="calc-run-btn">Calculate</button>
-          <button class="btn btn-export" type="button" id="calc-use-log-btn">Use In Log</button>
-          <button class="btn btn-outline" type="button" id="calc-reset-btn">Reset</button>
-        </div>
-      </form>
-
-      <div class="calc-grid" id="calc-results">
-        <div class="summary-box"><strong>Calories / min</strong><span id="calc-kcal-min">--</span></div>
-        <div class="summary-box"><strong>Gross calories</strong><span id="calc-gross">--</span></div>
-        <div class="summary-box"><strong>Net exercise calories</strong><span id="calc-net">--</span></div>
-        <div class="summary-box"><strong>VO₂ estimate</strong><span id="calc-vo2">--</span></div>
-      </div>
-
-      <div class="callout callout-amber" style="margin-top:.85rem">
-        <strong>How this estimate is built</strong>
-        Gross VO₂ = (0.1 × speed in m/min) + (1.8 × speed × grade) + 3.5. Calories per minute = (VO₂ × body weight in kg / 1000) × 5. Net exercise calories remove the resting 3.5 mL/kg/min component.
-      </div>
-
-      <p class="calc-helper">This is personalized mainly by your body weight and fixed incline. Age and sex are part of the profile context, but the ACSM walking calorie equation itself is driven by speed, grade, and weight.</p>
-    </div>
-  </div>
-
   <div class="section band-sky" id="sec-log">
     <div class="section-header" onclick="toggle('sec-log')">
       <span class="icon">📝</span>
@@ -410,6 +349,7 @@
           <div>
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Duration</label>
             <input id="entry-duration" type="text" placeholder="e.g. 25 min" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
+            <div style="margin-top:.4rem;font-size:.72rem;color:var(--muted)">Recovery / walk = 1.6 mph • Zone 2 cardio = 2.5 mph</div>
           </div>
           <div>
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Intensity / HR</label>
@@ -1242,9 +1182,10 @@ function resetTreadmillCalculator(){
 }
 
 function initializeTreadmillCalculator(){
-  const saved=loadTreadmillCalculatorState();
   const speedField=document.getElementById('calc-speed');
   const durationField=document.getElementById('calc-duration');
+  if(!speedField||!durationField) return;
+  const saved=loadTreadmillCalculatorState();
   if(saved&&Number.isFinite(saved.speed)&&saved.speed>0) speedField.value=String(saved.speed);
   if(saved&&Number.isFinite(saved.duration)&&saved.duration>0) durationField.value=String(saved.duration);
   if(speedField.value&&durationField.value){
@@ -1386,6 +1327,39 @@ function setSaveMessage(text='Saved'){
   setSaveMessage._timer=window.setTimeout(()=>msg.classList.remove('show'),1800);
 }
 
+function getLogSessionSpeed(type){
+  if(type==='walk') return 1.6;
+  if(type==='cardio') return 2.5;
+  return null;
+}
+
+function parseDurationMinutes(rawValue){
+  if(!rawValue || typeof rawValue!=='string') return 0;
+  const match=rawValue.match(/(\d+(?:\.\d+)?)/);
+  return match ? Number(match[1]) : 0;
+}
+
+function updateLogCaloriesPreview(){
+  const typeField=document.getElementById('entry-type');
+  const durationField=document.getElementById('entry-duration');
+  const caloriesField=document.getElementById('entry-calories');
+  if(!typeField||!durationField||!caloriesField) return;
+
+  const type=typeField.value;
+  const durationMinutes=parseDurationMinutes(durationField.value);
+  if(type==='walk' || type==='cardio'){
+    if(durationMinutes>0){
+      const speed=getLogSessionSpeed(type);
+      const result=calculateTreadmillCalories(speed,durationMinutes);
+      caloriesField.value=`${Math.round(result.grossCalories)} kcal`;
+    } else {
+      caloriesField.value='';
+    }
+  } else {
+    caloriesField.value='';
+  }
+}
+
 function clearForm(){
   editingEntryId=null;
   document.getElementById('entry-id').value='';
@@ -1396,6 +1370,7 @@ function clearForm(){
   document.getElementById('entry-intensity').value='';
   document.getElementById('entry-notes').value='';
   document.getElementById('save-entry-btn').textContent='Save Entry';
+  updateLogCaloriesPreview();
 }
 
 function populateForm(entry){
@@ -1408,6 +1383,7 @@ function populateForm(entry){
   document.getElementById('entry-intensity').value=entry.intensity||'';
   document.getElementById('entry-notes').value=entry.notes||'';
   document.getElementById('save-entry-btn').textContent='Update Entry';
+  updateLogCaloriesPreview();
   document.getElementById('entry-date').scrollIntoView({behavior:'smooth',block:'center'});
 }
 
@@ -1496,6 +1472,16 @@ function handleSubmit(event){
   if(!duration){
     alert('Please enter the duration.');
     return;
+  }
+
+  if((type==='walk' || type==='cardio') && !calories){
+    const speed=getLogSessionSpeed(type);
+    const durationMinutes=parseDurationMinutes(duration);
+    if(speed && durationMinutes>0){
+      const result=calculateTreadmillCalories(speed,durationMinutes);
+      calories=`${Math.round(result.grossCalories)} kcal`;
+      document.getElementById('entry-calories').value=calories;
+    }
   }
 
   const entries=loadEntries();
@@ -1912,13 +1898,22 @@ function moveExerciseSlide(step){
 
 getReadyChecklistInputs().forEach(input=>input.addEventListener('change',persistReadyChecklist));
 document.getElementById('reset-ready-btn').addEventListener('click',resetReadyChecklist);
-document.querySelectorAll('[data-speed-preset]').forEach(button=>button.addEventListener('click',()=>applySpeedPreset(Number(button.dataset.speedPreset))));
-document.getElementById('treadmill-calc-form').addEventListener('submit',event=>{
-  event.preventDefault();
-  runTreadmillCalculator();
-});
-document.getElementById('calc-use-log-btn').addEventListener('click',applyTreadmillCalculatorToLog);
-document.getElementById('calc-reset-btn').addEventListener('click',resetTreadmillCalculator);
+const treadmillCalcForm=document.getElementById('treadmill-calc-form');
+if(treadmillCalcForm){
+  document.querySelectorAll('[data-speed-preset]').forEach(button=>button.addEventListener('click',()=>applySpeedPreset(Number(button.dataset.speedPreset))));
+  treadmillCalcForm.addEventListener('submit',event=>{
+    event.preventDefault();
+    runTreadmillCalculator();
+  });
+  const calcUseLogBtn=document.getElementById('calc-use-log-btn');
+  if(calcUseLogBtn) calcUseLogBtn.addEventListener('click',applyTreadmillCalculatorToLog);
+  const calcResetBtn=document.getElementById('calc-reset-btn');
+  if(calcResetBtn) calcResetBtn.addEventListener('click',resetTreadmillCalculator);
+}
+const entryTypeField=document.getElementById('entry-type');
+const entryDurationField=document.getElementById('entry-duration');
+if(entryTypeField) entryTypeField.addEventListener('change',updateLogCaloriesPreview);
+if(entryDurationField) entryDurationField.addEventListener('input',updateLogCaloriesPreview);
 document.getElementById('log-form').addEventListener('submit',handleSubmit);
 document.getElementById('clear-entry-btn').addEventListener('click',()=>{
   clearForm();
@@ -1942,7 +1937,8 @@ document.getElementById('exercise-fullscreen-btn').addEventListener('click',open
 document.getElementById('exercise-slide-image').addEventListener('click',openExerciseFullscreen);
 
 applyReadyChecklistState(loadReadyChecklist());
-initializeTreadmillCalculator();
+if(document.getElementById('calc-speed')&&document.getElementById('calc-duration')) initializeTreadmillCalculator();
+else updateLogCaloriesPreview();
 document.getElementById('entry-date').value=todayISO();
 renderEntries();
 loadExerciseSlides().finally(renderExerciseSlide);
