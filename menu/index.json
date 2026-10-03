@@ -86,6 +86,11 @@
             "description": "Chia is a powerhouse of nutrient density. If you use cocoa as a flavoring and pair it with some avocado it will vastly increase the absorption of the polyphenols in the cocoa which otherwise is difficult to absorb."
         },
         {
+            "file": "chipotle-sauce.png",
+            "caption": "Chipotle Sauce",
+            "description": "Creamy, smokey, and packed with flavor."
+        },
+        {
             "file": "cravings.png",
             "caption": "Cravings",
             "description": "This AI graphic came out of seeing someone else's graphic posted on social media where it linked food cravings to specific vitamins and minerals. However, those connections were not the real source of the cravings. The real reasons came down to the sugar, fats, and social aspects giving a dopamine hit in the brain. Quick energy that comes from them are usually followed by sleepiness, sluggishness, poor health, and weight gain. So, this more accurate and healthy lifestyle supporting graphic replaces it."
@@ -229,6 +234,11 @@
             "file": "roasted-whole-artichoke.jpg",
             "caption": "Roasted Whole Artichoke",
             "description": "Whole roasted artichoke presentation for the recipe index slideshow."
+        },
+        {
+            "file": "romesco-sauce.png",
+            "caption": "Romeso Sauce",
+            "description": "Romesco is a creamy, nutty, flavorful sauce from Catalonia, Spain. It is excellent on anything grilled, as a dip or spread, and even as a pasta sauce."
         },
         {
             "file": "salad-brain-memory.jpg",
