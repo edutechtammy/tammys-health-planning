@@ -226,6 +226,11 @@
             "description": "See the Cracker and Bread Spread Recipe.This is good on eggs, and in the stuffing part of deviled eggs. Serve it as a spread on crackers or bread."
         },
         {
+            "file": "pizza-bowl.png",
+            "caption": "Crustless pizza",
+            "description": "No need for a crust."
+        },
+        {
             "file": "pumpkin-seed-chocolate-bites.png",
             "caption": "Pumpkin Seed Chocolate Bites",
             "description": "pepitas (pumpkin seeds), salt, chocolate, and optionally a dusting of monkfruit/allulose sweetener"
