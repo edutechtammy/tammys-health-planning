@@ -315,6 +315,42 @@
     </div>
   </div>
 
+  <div class="section band-sky" id="sec-target-burn">
+    <div class="section-header" onclick="toggle('sec-target-burn')">
+      <span class="icon">🎯</span>
+      <h2>Calorie Burn Target Calculator</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="callout callout-sky" style="margin-top:0">
+        <strong>Target burn to time conversion</strong>
+        Enter the number of calories you want to burn, and this estimates how long you would need to walk at your 1.6 mph recovery pace or 2.6 mph Zone 2 pace. These calculations use the same <strong>222 lb body weight</strong> and <strong>~4% incline</strong> profile as the Workout Accountability Log math.
+      </div>
+
+      <form id="target-burn-form" class="band-card" style="margin-top:.85rem;background:#f8fdf9">
+        <div class="two-col">
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Calories to burn</label>
+            <input id="target-burn-calories" type="number" min="1" step="1" placeholder="e.g. 300" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.55rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div style="display:flex;align-items:end;gap:.5rem">
+            <button class="btn btn-primary" type="submit" id="target-burn-btn">Calculate</button>
+            <button class="btn btn-outline" type="button" id="target-burn-reset-btn">Clear</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="calc-grid" style="margin-top:1rem">
+        <div class="summary-box"><strong>At 1.6 mph</strong><span id="target-burn-1-6">--</span></div>
+        <div class="summary-box"><strong>At 2.6 mph</strong><span id="target-burn-2-6">--</span></div>
+        <div class="summary-box"><strong>1.6 mph burn rate</strong><span id="target-burn-rate-1-6">--</span></div>
+        <div class="summary-box"><strong>2.6 mph burn rate</strong><span id="target-burn-rate-2-6">--</span></div>
+      </div>
+
+      <p class="calc-helper" style="margin-top:.8rem">Minutes are estimated using the same treadmill equation as the log: speed × grade × body weight, with your treadmill fixed at approximately 4% incline. This is not a flat-belt estimate.</p>
+    </div>
+  </div>
+
   <div class="section band-sky" id="sec-log">
     <div class="section-header" onclick="toggle('sec-log')">
       <span class="icon">📝</span>
@@ -1115,6 +1151,42 @@ function setTreadmillCalculatorResults(result){
   updateSpeedPresetButtons(result ? result.speedMph : Number(document.getElementById('calc-speed').value));
 }
 
+function formatMinutesNeeded(minutes){
+  if(!Number.isFinite(minutes)||minutes<=0) return '--';
+  return `${minutes.toFixed(1)} min`;
+}
+
+function updateTargetBurnCalculator(){
+  const input=document.getElementById('target-burn-calories');
+  const targetField=document.getElementById('target-burn-1-6');
+  const targetField2=document.getElementById('target-burn-2-6');
+  const rateField1=document.getElementById('target-burn-rate-1-6');
+  const rateField2=document.getElementById('target-burn-rate-2-6');
+
+  if(!input||!targetField||!targetField2||!rateField1||!rateField2) return;
+
+  const targetCalories=Number(input.value);
+  if(!(targetCalories>0)){
+    targetField.textContent='--';
+    targetField2.textContent='--';
+    rateField1.textContent='--';
+    rateField2.textContent='--';
+    return;
+  }
+
+  const speed1=1.6;
+  const speed2=2.6;
+  const rate1=calculateTreadmillCalories(speed1,1).caloriesPerMinute;
+  const rate2=calculateTreadmillCalories(speed2,1).caloriesPerMinute;
+  const minutes1=targetCalories/rate1;
+  const minutes2=targetCalories/rate2;
+
+  targetField.textContent=formatMinutesNeeded(minutes1);
+  targetField2.textContent=formatMinutesNeeded(minutes2);
+  rateField1.textContent=`~${rate1.toFixed(1)} kcal/min`;
+  rateField2.textContent=`~${rate2.toFixed(1)} kcal/min`;
+}
+
 function calculateTreadmillCalories(speedMph,durationMinutes,weightLbs=TREADMILL_PROFILE.weightLbs,gradeDecimal=TREADMILL_PROFILE.gradeDecimal){
   const speedMpm=speedMph*26.8224;
   const weightKg=weightLbs/2.20462;
@@ -1911,6 +1983,14 @@ if(treadmillCalcForm){
   const calcResetBtn=document.getElementById('calc-reset-btn');
   if(calcResetBtn) calcResetBtn.addEventListener('click',resetTreadmillCalculator);
 }
+const targetBurnForm=document.getElementById('target-burn-form');
+const targetBurnCalorieInput=document.getElementById('target-burn-calories');
+const targetBurnBtn=document.getElementById('target-burn-btn');
+const targetBurnResetBtn=document.getElementById('target-burn-reset-btn');
+if(targetBurnForm) targetBurnForm.addEventListener('submit',event=>{ event.preventDefault(); updateTargetBurnCalculator(); });
+if(targetBurnCalorieInput) targetBurnCalorieInput.addEventListener('input',updateTargetBurnCalculator);
+if(targetBurnResetBtn) targetBurnResetBtn.addEventListener('click',()=>{ if(targetBurnCalorieInput) targetBurnCalorieInput.value=''; updateTargetBurnCalculator(); });
+
 const entryTypeField=document.getElementById('entry-type');
 const entryDurationField=document.getElementById('entry-duration');
 if(entryTypeField) entryTypeField.addEventListener('change',updateLogCaloriesPreview);
