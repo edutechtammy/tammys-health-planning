@@ -240,6 +240,17 @@
       background:#f8fdf9;
       padding:.8rem 1rem;
     }
+    .pinned-calorie-qr {
+      display:block;
+      width:min(260px,50%);
+      max-width:260px;
+      margin:0 auto .8rem;
+      padding:.55rem;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      box-shadow:0 2px 8px rgba(15,23,42,.05);
+    }
     .pinned-calorie-summary-header {
       display:flex;
       align-items:center;
@@ -262,24 +273,31 @@
     }
     .pinned-calorie-list { display:grid; gap:.35rem; }
     .pinned-calorie-row {
-      display:flex;
-      justify-content:space-between;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) auto;
       gap:.8rem;
       align-items:center;
-      flex-wrap:wrap;
       padding:.4rem .55rem;
       border-radius:8px;
       background:#fff;
       border:1px solid var(--border);
       font-size:.82rem;
     }
-    .pinned-calorie-label { color:var(--text); font-weight:600; }
+    .pinned-calorie-label {
+      color:var(--text);
+      font-weight:600;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
     .pinned-calorie-meta {
       display:flex;
       align-items:center;
+      justify-content:flex-end;
       gap:.45rem;
       flex-wrap:wrap;
       color:var(--muted);
+      text-align:right;
+      white-space:nowrap;
     }
     .pinned-missing-badge {
       display:inline-flex;
@@ -2620,6 +2638,7 @@ function render(){
       const missingCount = pinnedItems.length - validPinned.length;
       pinnedSummaryEl.style.display='block';
       pinnedSummaryEl.innerHTML=`
+        <img class="pinned-calorie-qr" src="qr-assets/exercise-protocol-qr.png" alt="QR code for the exercise protocol page" />
         <div class="pinned-calorie-summary-header">
           <div class="pinned-calorie-summary-title">Pinned food calories</div>
           <div class="pinned-calorie-total">${totalKnownCalories.toFixed(0)} kcal</div>

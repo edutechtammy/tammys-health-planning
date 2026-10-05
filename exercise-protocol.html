@@ -148,6 +148,7 @@
 
   /* TREADMILL CHECKLIST */
   .checklist-card{background:#f8fdf9;border:1px solid var(--border);border-radius:12px;padding:1rem 1.05rem}
+  .checklist-qr{display:block;width:min(280px,50%);max-width:280px;margin:0 auto .9rem;padding:.6rem;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 8px rgba(15,23,42,.05)}
   .checklist-list{display:grid;gap:.65rem;margin:.95rem 0 1rem}
   .checklist-item{display:flex;align-items:flex-start;gap:.7rem;padding:.7rem .8rem;background:#fff;border:1px solid var(--border);border-radius:10px}
   .checklist-item input[type="checkbox"]{width:1.15rem;height:1.15rem;margin-top:.12rem;accent-color:var(--green-mid);flex-shrink:0}
@@ -286,6 +287,7 @@
     </div>
     <div class="section-body">
       <div class="checklist-card">
+        <img class="checklist-qr" src="qr-assets/exercise-protocol-qr.png" alt="QR code for the exercise protocol page" />
         <p style="font-size:.93rem">Run this quick check before you start so you do not have to interrupt the treadmill and lose what is on the display.</p>
 
         <div class="checklist-list" id="treadmill-ready-list">
