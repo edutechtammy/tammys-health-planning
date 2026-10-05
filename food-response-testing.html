@@ -242,7 +242,7 @@
     }
     .pinned-calorie-qr {
       display:block;
-      width:min(260px,50%);
+      width:min(260px,58%);
       max-width:260px;
       margin:0 auto .8rem;
       padding:.55rem;
@@ -250,6 +250,18 @@
       border:1px solid var(--border);
       border-radius:12px;
       box-shadow:0 2px 8px rgba(15,23,42,.05);
+    }
+    .pinned-calorie-qr-link {
+      display:block;
+      width:100%;
+      text-align:center;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .pinned-calorie-qr-link:hover,
+    .pinned-calorie-qr-link:focus-visible {
+      transform:translateY(-1px);
+      box-shadow:0 4px 12px rgba(15,23,42,.08);
+      outline:none;
     }
     .pinned-calorie-summary-header {
       display:flex;
@@ -2638,7 +2650,9 @@ function render(){
       const missingCount = pinnedItems.length - validPinned.length;
       pinnedSummaryEl.style.display='block';
       pinnedSummaryEl.innerHTML=`
-        <img class="pinned-calorie-qr" src="qr-assets/exercise-protocol-qr.png" alt="QR code for the exercise protocol page" />
+        <a class="pinned-calorie-qr-link" href="exercise-protocol.html" target="_blank" rel="noopener noreferrer" aria-label="Open the Exercise as Metabolic Medicine protocol">
+          <img class="pinned-calorie-qr" src="qr-assets/exercise-protocol-qr.png" alt="QR code for the exercise protocol page" />
+        </a>
         <div class="pinned-calorie-summary-header">
           <div class="pinned-calorie-summary-title">Pinned food calories</div>
           <div class="pinned-calorie-total">${totalKnownCalories.toFixed(0)} kcal</div>
