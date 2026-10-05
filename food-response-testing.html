@@ -229,9 +229,72 @@
     .metric-pill.protein { background:#eef6ff; border-color:#c8dcff; color:#1e3a8a; }
     .metric-pill.fat-total { background:#f6f0ff; border-color:#d9c9f3; color:#5b2c8a; }
     .metric-pill.calories { background:#fff8e6; border-color:#f5d89b; color:#8a4b08; }
+    .metric-pill.missing-calories { background:#fef2f2; border-color:#f5b5b8; color:#b91c1c; }
     .metric-pill.tail-yes { background:#fff5e6; border-color:#f6d29a; color:#9a6000; }
     .metric-pill.tail-no { background:#e8f8ef; border-color:#bde5cb; color:#1e8449; }
     .metric-pill.tail-unknown { background:#f4f6f7; border-color:#d5dbdb; color:#5d6d7e; }
+    .pinned-calorie-summary {
+      margin: .2rem 0 .9rem;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#f8fdf9;
+      padding:.8rem 1rem;
+    }
+    .pinned-calorie-summary-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:.75rem;
+      margin-bottom:.55rem;
+      flex-wrap:wrap;
+    }
+    .pinned-calorie-summary-title {
+      font-size:.8rem;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:var(--green-dark);
+    }
+    .pinned-calorie-total {
+      font-size:1.2rem;
+      font-weight:800;
+      color:var(--green-dark);
+    }
+    .pinned-calorie-list { display:grid; gap:.35rem; }
+    .pinned-calorie-row {
+      display:flex;
+      justify-content:space-between;
+      gap:.8rem;
+      align-items:center;
+      flex-wrap:wrap;
+      padding:.4rem .55rem;
+      border-radius:8px;
+      background:#fff;
+      border:1px solid var(--border);
+      font-size:.82rem;
+    }
+    .pinned-calorie-label { color:var(--text); font-weight:600; }
+    .pinned-calorie-meta {
+      display:flex;
+      align-items:center;
+      gap:.45rem;
+      flex-wrap:wrap;
+      color:var(--muted);
+    }
+    .pinned-missing-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      border-radius:999px;
+      padding:.12rem .55rem;
+      background:#fef2f2;
+      border:1px solid #f5b5b8;
+      color:#b91c1c;
+      font-size:.68rem;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
     .satfat-warning {
       display:inline-flex;
       align-items:center;
@@ -1113,6 +1176,8 @@
 
   <p class="risk-summary" id="satfat-risk-summary">Visible high sat fat tests (>=5 g): 0 of 0</p>
   <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph. Soft green cards mark foods or serving sizes that still fit alongside a serving of <strong>skim milk</strong> inside the current 5g sat fat / 15g net carb limits. Soft red cards mark foods that would push that pairing outside the limit. The skim-milk tint does not remove entries from the graph.</p>
+
+  <div class="pinned-calorie-summary" id="pinned-calorie-summary" style="display:none"></div>
 
   <!-- RESULTS GRID -->
   <div class="results-grid" id="results-grid"></div>
@@ -2540,6 +2605,46 @@ function render(){
     longTailSortBtn.textContent=`Long tail is ${sortByLongTail?'on':'off'}`;
   }
   const pinnedSet = new Set(pinnedTestIds);
+  const pinnedItems = all.filter(t => pinnedSet.has(String(t.id)));
+  const pinnedSummaryEl=document.getElementById('pinned-calorie-summary');
+  if(pinnedSummaryEl){
+    if(!pinnedItems.length){
+      pinnedSummaryEl.style.display='none';
+      pinnedSummaryEl.innerHTML='';
+    } else {
+      const validPinned = pinnedItems.filter(t => {
+        const value = Number(t.calories);
+        return t.calories != null && String(t.calories).trim() !== '' && Number.isFinite(value) && value >= 0;
+      });
+      const totalKnownCalories = validPinned.reduce((sum,t)=>sum + Number(t.calories),0);
+      const missingCount = pinnedItems.length - validPinned.length;
+      pinnedSummaryEl.style.display='block';
+      pinnedSummaryEl.innerHTML=`
+        <div class="pinned-calorie-summary-header">
+          <div class="pinned-calorie-summary-title">Pinned food calories</div>
+          <div class="pinned-calorie-total">${totalKnownCalories.toFixed(0)} kcal</div>
+        </div>
+        <div class="pinned-calorie-meta" style="margin-bottom:.5rem;color:var(--muted);font-size:.78rem">
+          ${validPinned.length} known calorie item${validPinned.length===1?'':'s'} · ${missingCount} missing calorie item${missingCount===1?'':'s'}
+        </div>
+        <div class="pinned-calorie-list">
+          ${pinnedItems.map(t => {
+            const hasCalories = t.calories != null && String(t.calories).trim() !== '' && Number.isFinite(Number(t.calories)) && Number(t.calories) >= 0;
+            const caloriesLabel = hasCalories ? `${Number(t.calories).toFixed(0)} kcal / serving` : 'Calories missing';
+            return `
+              <div class="pinned-calorie-row">
+                <span class="pinned-calorie-label">${escapeHTML(t.food || 'Food item')}</span>
+                <span class="pinned-calorie-meta">
+                  <span>${hasCalories ? caloriesLabel : '<span class="pinned-missing-badge">Calories missing</span>'}</span>
+                </span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+  }
+
   const filtered=all
     .filter(t=>{
       const isPinned = pinnedSet.has(String(t.id));
@@ -2620,13 +2725,16 @@ function render(){
       const peakTone=a ? (a.spikeAbs<=20?'safe':a.spikeAbs<=40?'caution':'high') : 'safe';
       const comboMet=hasComboThreshold(t);
       const longTailStatus=getLongTailStatus(t);
+      const hasCalories = t.calories != null && String(t.calories).trim() !== '' && Number.isFinite(Number(t.calories)) && Number(t.calories) >= 0;
       const metricBits=[
         t.netCarbs!=null?`<span class="metric-pill carbs" title="Net carbs">Net carbs <span class="metric-val">${t.netCarbs}</span> g</span>`:'',
         t.fiber!=null?`<span class="metric-pill fiber" title="Fiber">Fiber <span class="metric-val">${t.fiber}</span> g</span>`:'',
         t.satFat!=null?`<span class="metric-pill fat" title="Saturated fat">Sat fat <span class="metric-val">${t.satFat}</span> g</span>`:'',
         t.protein!=null?`<span class="metric-pill protein" title="Protein">Protein <span class="metric-val">${t.protein}</span> g</span>`:'',
         t.totalFat!=null?`<span class="metric-pill fat-total" title="Total fat">Total fat <span class="metric-val">${t.totalFat}</span> g</span>`:'',
-        t.calories!=null?`<span class="metric-pill calories" title="Calories">Calories <span class="metric-val">${t.calories}</span> kcal</span>`:''
+        hasCalories
+          ? `<span class="metric-pill calories" title="Calories">Calories <span class="metric-val">${Number(t.calories).toFixed(0)}</span> kcal</span>`
+          : `<span class="metric-pill missing-calories" title="Calories missing">Calories missing</span>`
       ].filter(Boolean).join(' ');
       const analysisBits=[
         comboMet?`<span class="metric-pill carbs" title="Net carbs >= 15g and saturated fat >= 5g in the same serving">5g/15g combo</span>`:'',
