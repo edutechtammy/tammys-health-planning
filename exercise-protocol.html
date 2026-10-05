@@ -133,7 +133,25 @@
   .log-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin:.85rem 0 1rem}
   .log-summary .summary-box{background:#f8fdf9;border:1px solid var(--border);border-radius:10px;padding:.65rem .8rem;font-size:.84rem;line-height:1.45}
   .log-summary .summary-box strong{display:block;color:var(--green-dark);margin-bottom:.15rem}
-  @media(max-width:700px){.log-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .monthly-goals-panel{margin:0 0 1rem;border:1px solid var(--border);border-radius:12px;background:#f8fdf9;padding:.8rem .9rem}
+  .monthly-goals-header{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem}
+  .monthly-goals-title{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--green-dark)}
+  .monthly-goal-tag{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .6rem;border-radius:999px;border:1px solid #bfe7d1;background:#ebf9f0;color:#1d6f42;font-size:.72rem;font-weight:800}
+  .monthly-goal-settings{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+  .monthly-goal-input{width:90px;border:1px solid var(--border);border-radius:8px;padding:.35rem .5rem;font:inherit;background:#fff;color:var(--text)}
+  .monthly-goal-input:focus{outline:2px solid var(--green-mid);outline-offset:1px}
+  .monthly-goals-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.6rem}
+  .monthly-goal-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.55rem .6rem;min-height:110px;display:flex;flex-direction:column;justify-content:space-between}
+  .monthly-goal-card.goal-met{border-color:#8ad4a2;background:#f3fbf5}
+  .monthly-goal-card.goal-below{border-color:#d8e6db;background:#fff}
+  .monthly-goal-month{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  .monthly-goal-miles{font-size:1.15rem;font-weight:800;color:var(--green-dark)}
+  .monthly-goal-speed{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+  .monthly-goal-bar-wrap{height:8px;border-radius:999px;background:#edf3ee;overflow:hidden;margin-top:.45rem}
+  .monthly-goal-bar{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#4da36a,#8bcf9b)}
+  .monthly-goal-empty{color:var(--muted);font-size:.76rem;opacity:.8}
+  @media(max-width:700px){.log-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.monthly-goals-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(max-width:480px){.monthly-goals-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
   .btn-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
   .btn{border:none;border-radius:8px;padding:.52rem .9rem;font:inherit;font-weight:600;cursor:pointer;transition:opacity .15s,transform .15s}
   .btn:hover{opacity:.88;transform:translateY(-1px)}
@@ -155,6 +173,10 @@
   .checklist-item label{font-size:.94rem;line-height:1.5;cursor:pointer}
   .checklist-status{font-size:.84rem;color:var(--muted)}
   .checklist-status strong{color:var(--green-dark)}
+  .calibration-banner{margin-bottom:.8rem;padding:.6rem .75rem;border:1px solid #c5e7d2;border-radius:10px;background:#effaf3;color:#1f5a3d;font-size:.78rem;line-height:1.5}
+  .calibration-banner strong{font-weight:800}
+  .storage-note-banner{margin:.2rem 0 .8rem;padding:.6rem .75rem;border:1px solid #f1d59a;border-radius:10px;background:#fff8e8;color:#7a5b00;font-size:.78rem;line-height:1.5}
+  .storage-note-banner strong{font-weight:800}
 
   /* TREADMILL CALCULATOR */
   .calc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin:.95rem 0 0}
@@ -365,6 +387,10 @@
     </div>
     <div class="section-body">
       <p style="margin-bottom:.8rem;font-size:.93rem">Use this as a simple reporting record. Entries are saved in your browser, and you can export or import the log as JSON anytime.</p>
+      <div class="calibration-banner"><strong>Current treadmill calibration:</strong> 222 lb · 62 years · Female · 4% incline. This is the active personal profile used for all exercise calorie estimates until weight is updated.</div>
+      <div class="storage-note-banner"><strong>Automatic storage protection:</strong> the browser keeps full session detail for the current month, and older months are automatically summarized so the last 6-month trend stays available without letting the log grow without limit.</div>
+
+      <div class="monthly-goals-panel" id="monthly-goals-panel" aria-live="polite"></div>
 
       <div class="log-summary" id="log-summary">
         <div class="summary-box"><strong>Stored entries</strong><span id="log-count">0</span></div>
@@ -397,11 +423,7 @@
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Intensity / HR</label>
             <input id="entry-intensity" type="text" placeholder="e.g. 98–105 bpm" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff" />
           </div>
-          <div>
-            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Est. calories (4% incline)</label>
-            <input id="entry-calories" type="text" placeholder="Added from calculator" readonly style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#f8fdf9;color:#334155" />
-            <div style="margin-top:.4rem;font-size:.72rem;color:var(--muted)">Calculated using the fixed ~4% treadmill incline in your setup.</div>
-          </div>
+          <input id="entry-calories" type="hidden" />
           <div class="field full" style="grid-column:1/-1">
             <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Notes</label>
             <textarea id="entry-notes" rows="3" placeholder="Energy, soreness, progression, form notes" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff;resize:vertical"></textarea>
@@ -1061,6 +1083,8 @@ function toggle(id){
 const READY_CHECKLIST_KEY='tammys_treadmill_ready_checklist';
 const TREADMILL_CALC_KEY='tammys_treadmill_calculator_inputs';
 const LOG_KEY='tammys_exercise_log';
+const LOG_SUMMARY_KEY='tammys_exercise_log_monthly_summary';
+const LOG_FULL_MONTHS=1;
 let editingEntryId=null;
 let currentTreadmillCalcResult=null;
 
@@ -1068,7 +1092,8 @@ const TREADMILL_PROFILE={
   weightLbs:222,
   age:62,
   sex:'Female',
-  gradeDecimal:0.04
+  gradeDecimal:0.04,
+  calibrationNote:'Current personal treadmill calibration for all exercise calorie math until weight is updated.'
 };
 
 function loadReadyChecklist(){
@@ -1303,11 +1328,120 @@ function escapeHTML(value){
     .replace(/'/g,'&#39;');
 }
 
+function monthKeyForDate(dateValue){
+  const parsed=parseDateISO(dateValue);
+  if(!parsed) return '';
+  return `${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,'0')}`;
+}
+
+function monthLabelForKey(monthKey){
+  if(!monthKey) return '';
+  const [year, month]=monthKey.split('-').map(Number);
+  if(!Number.isFinite(year)||!Number.isFinite(month)) return '';
+  const parsed=new Date(year, month-1, 1);
+  return new Intl.DateTimeFormat('en-US',{month:'short',year:'2-digit'}).format(parsed);
+}
+
+function getCurrentMonthEntries(entries){
+  const currentMonthKey=monthKeyForDate(todayISO());
+  return entries.filter(entry=>monthKeyForDate(entry.date)===currentMonthKey);
+}
+
+function buildMonthlySummaryFromEntries(entries){
+  const monthMap=new Map();
+  entries.forEach(entry=>{
+    const monthKey=monthKeyForDate(entry.date);
+    if(!monthKey) return;
+    if(!monthMap.has(monthKey)){
+      monthMap.set(monthKey,{
+        monthKey,
+        label:monthLabelForKey(monthKey),
+        miles:0,
+        totalMinutes:0,
+        avgSpeed:0,
+        hasData:false
+      });
+    }
+    const month=monthMap.get(monthKey);
+    const miles=getMilesFromEntry(entry);
+    if(miles<=0) return;
+    month.miles += miles;
+    month.totalMinutes += parseDurationMinutes(entry.duration) || 0;
+    month.hasData=true;
+  });
+
+  return Array.from(monthMap.values()).map(month=>{
+    if(month.totalMinutes>0){
+      month.avgSpeed=(month.miles/(month.totalMinutes/60)) || 0;
+    }
+    return month;
+  }).sort((a,b)=>a.monthKey.localeCompare(b.monthKey));
+}
+
+function loadMonthlySummaryArchive(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(LOG_SUMMARY_KEY));
+    if(!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(item=>item&&typeof item==='object'&&item.monthKey)
+      .map(item=>({
+        monthKey:String(item.monthKey),
+        label:String(item.label || monthLabelForKey(item.monthKey)),
+        miles:Number(item.miles)||0,
+        totalMinutes:Number(item.totalMinutes)||0,
+        avgSpeed:Number(item.avgSpeed)||0,
+        hasData:Boolean(item.hasData || (Number(item.miles)||0)>0)
+      }))
+      .filter(item=>item.hasData)
+      .sort((a,b)=>a.monthKey.localeCompare(b.monthKey));
+  }catch{
+    return [];
+  }
+}
+
+function saveMonthlySummaryArchive(summary){
+  localStorage.setItem(LOG_SUMMARY_KEY,JSON.stringify(summary));
+}
+
+function mergeSummaryArchives(existingSummary, incomingSummary){
+  const merged=[...existingSummary,...incomingSummary].reduce((acc,item)=>{
+    const existing=acc.find(summary=>summary.monthKey===item.monthKey);
+    if(existing){
+      existing.miles += Number(item.miles)||0;
+      existing.totalMinutes += Number(item.totalMinutes)||0;
+      existing.hasData = true;
+      existing.avgSpeed = existing.totalMinutes>0 ? (existing.miles/(existing.totalMinutes/60)) || 0 : 0;
+      existing.label = existing.label || item.label;
+      return acc;
+    }
+    acc.push({...item});
+    return acc;
+  }, []);
+
+  return merged
+    .sort((a,b)=>a.monthKey.localeCompare(b.monthKey))
+    .slice(-12);
+}
+
+function compactHistoricalExerciseLog(entries){
+  const currentMonthKey=monthKeyForDate(todayISO());
+  const currentMonthEntries=entries.filter(entry=>monthKeyForDate(entry.date)===currentMonthKey);
+  const historicalEntries=entries.filter(entry=>monthKeyForDate(entry.date)!==currentMonthKey);
+  const archiveSummary=buildMonthlySummaryFromEntries(historicalEntries);
+  const mergedSummary=mergeSummaryArchives(loadMonthlySummaryArchive(), archiveSummary);
+  saveMonthlySummaryArchive(mergedSummary);
+  return currentMonthEntries.sort((a,b)=>{
+    const dateCompare=(b.date||'').localeCompare(a.date||'');
+    if(dateCompare) return dateCompare;
+    return (b.updatedAt||0)-(a.updatedAt||0);
+  });
+}
+
 function loadEntries(){
   try{
     const parsed=JSON.parse(localStorage.getItem(LOG_KEY));
     if(!Array.isArray(parsed)) return [];
-    return parsed
+    const entries=parsed
       .filter(item=>item&&typeof item==='object')
       .map(item=>({
         id:String(item.id||makeEntryId()),
@@ -1325,6 +1459,12 @@ function loadEntries(){
         if(dateCompare) return dateCompare;
         return (b.updatedAt||0)-(a.updatedAt||0);
       });
+
+    const compactedEntries=compactHistoricalExerciseLog(entries);
+    if(compactedEntries.length!==entries.length || compactedEntries.some((entry,index)=>entry.id!==entries[index].id||entry.date!==entries[index].date)){ 
+      saveEntries(compactedEntries);
+    }
+    return compactedEntries;
   }catch{
     return [];
   }
@@ -1418,6 +1558,119 @@ function parseDurationMinutes(rawValue){
   return match ? Number(match[1]) : 0;
 }
 
+function getSpeedFromEntry(entry){
+  if(!entry || typeof entry!=='object') return 0;
+  const type=entry.type;
+  const intensityString=String(entry.intensity || '');
+  const mphMatch=intensityString.match(/(\d+(?:\.\d+)?)\s*mph/i);
+  if(mphMatch) return Number(mphMatch[1]);
+  if(type==='walk') return 1.6;
+  if(type==='cardio') return 2.5;
+  return 0;
+}
+
+function getMilesFromEntry(entry){
+  const durationMinutes=parseDurationMinutes(entry.duration);
+  if(!(durationMinutes>0)) return 0;
+  const speed=getSpeedFromEntry(entry);
+  if(!(speed>0)) return 0;
+  return (durationMinutes/60)*speed;
+}
+
+function getMonthLabel(dateValue){
+  const parsed=parseDateISO(dateValue);
+  if(!parsed) return '';
+  return new Intl.DateTimeFormat('en-US',{month:'short',year:'2-digit'}).format(parsed);
+}
+
+const MONTHLY_GOAL_KEY='tammys_monthly_mileage_goal';
+const DEFAULT_MONTHLY_GOAL_MILES=30;
+
+function loadMonthlyGoalMiles(){
+  try{
+    const value=Number(localStorage.getItem(MONTHLY_GOAL_KEY));
+    if(Number.isFinite(value)&&value>0) return value;
+  }catch{}
+  return DEFAULT_MONTHLY_GOAL_MILES;
+}
+
+function saveMonthlyGoalMiles(value){
+  const safeValue=Number(value);
+  if(Number.isFinite(safeValue)&&safeValue>0){
+    localStorage.setItem(MONTHLY_GOAL_KEY,String(safeValue));
+  }
+}
+
+function renderMonthlyGoalsSummary(){
+  const panel=document.getElementById('monthly-goals-panel');
+  if(!panel) return;
+
+  const goalMiles=loadMonthlyGoalMiles();
+  const liveEntries=loadEntries();
+  const archivedSummaries=loadMonthlySummaryArchive();
+  const now=new Date();
+  const monthMap=new Map();
+
+  for(let i=5;i>=0;i-=1){
+    const d=new Date(now.getFullYear(), now.getMonth()-i, 1);
+    const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    monthMap.set(key,{key,label:new Intl.DateTimeFormat('en-US',{month:'short',year:'2-digit'}).format(d),miles:0,avgSpeed:0,totalMinutes:0,hasData:false});
+  }
+
+  const summaryEntries=[...buildMonthlySummaryFromEntries(liveEntries), ...archivedSummaries];
+  summaryEntries.forEach(summary=>{
+    const month=monthMap.get(summary.monthKey);
+    if(!month) return;
+    month.miles += Number(summary.miles)||0;
+    month.totalMinutes += Number(summary.totalMinutes)||0;
+    month.hasData = month.hasData || Boolean(summary.hasData);
+  });
+
+  const monthData=Array.from(monthMap.values());
+  monthData.forEach(month=>{
+    if(month.totalMinutes>0){
+      month.avgSpeed=(month.miles/(month.totalMinutes/60)) || 0;
+    }
+  });
+
+  const maxBarValue=Math.max(goalMiles, ...monthData.map(month=>month.miles), 1);
+
+  panel.innerHTML=`
+    <div class="monthly-goals-header">
+      <div class="monthly-goals-title">6-month mileage goal</div>
+      <div class="monthly-goal-settings">
+        <div class="monthly-goal-tag">Goal: ${goalMiles} mi / month</div>
+        <label style="font-size:.72rem;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:.35rem;">
+          Set goal
+          <input class="monthly-goal-input" type="number" min="1" step="1" value="${goalMiles}" aria-label="Monthly mileage goal" oninput="const value=Number(this.value); if(Number.isFinite(value)&&value>0){ saveMonthlyGoalMiles(value); renderMonthlyGoalsSummary(); }" />
+        </label>
+      </div>
+    </div>
+    <div class="monthly-goals-grid">
+      ${monthData.map(month=>{
+        const width = month.hasData ? Math.min((month.miles / maxBarValue) * 100, 100) : 0;
+        const barColor = month.miles >= goalMiles ? '#2e7d4d' : '#7fc69a';
+        const avgSpeedText = month.hasData ? `${month.avgSpeed.toFixed(1)} mph avg` : 'No data';
+        return `
+          <div class="monthly-goal-card ${month.hasData && month.miles >= goalMiles ? 'goal-met' : 'goal-below'}">
+            <div>
+              <div class="monthly-goal-month">${month.label}</div>
+              <div class="monthly-goal-miles">${month.hasData ? month.miles.toFixed(1) : '—'} mi</div>
+              <div class="monthly-goal-speed">${avgSpeedText}</div>
+            </div>
+            <div>
+              <div class="monthly-goal-bar-wrap">
+                <span class="monthly-goal-bar" style="width:${month.hasData ? width : 0}%;background:${barColor};"></span>
+              </div>
+              <div class="monthly-goal-empty" style="margin-top:.4rem;">${month.hasData ? `${month.miles >= goalMiles ? 'Goal met' : 'Below goal'}` : 'No treadmill miles yet'}</div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
 function updateLogCaloriesPreview(){
   const typeField=document.getElementById('entry-type');
   const durationField=document.getElementById('entry-duration');
@@ -1505,6 +1758,8 @@ function renderEntries(){
   if(weekWalksEl) weekWalksEl.textContent=`${walksWeek} completed`;
   if(weekOverallEl) weekOverallEl.textContent=overall;
 
+  renderMonthlyGoalsSummary();
+
   if(!entries.length){
     body.innerHTML='';
     if(empty) empty.style.display='block';
@@ -1582,6 +1837,7 @@ function handleSubmit(event){
 
   saveEntries(entries);
   renderEntries();
+  renderMonthlyGoalsSummary();
   clearForm();
   setSaveMessage(wasEditing ? 'Updated' : 'Saved');
 }
@@ -1592,7 +1848,12 @@ function exportEntries(){
     alert('No exercise entries to export yet.');
     return;
   }
-  const blob=new Blob([JSON.stringify(entries,null,2)],{type:'application/json;charset=utf-8;'});
+  const payload={
+    exportedAt:new Date().toISOString(),
+    entries,
+    summary:loadMonthlySummaryArchive()
+  };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
   const link=document.createElement('a');
   link.href=url;
@@ -1636,9 +1897,16 @@ function importEntriesFromFile(file){
     try{
       const text=String(event.target.result||'');
       let sourceEntries=null;
+      let sourceSummary=null;
       try{
         const parsed=JSON.parse(text);
-        sourceEntries=Array.isArray(parsed) ? parsed : Array.isArray(parsed?.entries) ? parsed.entries : null;
+        if(Array.isArray(parsed)){
+          sourceEntries=parsed;
+        } else if(parsed&&typeof parsed==='object'){
+          sourceEntries=Array.isArray(parsed.entries) ? parsed.entries : null;
+          sourceSummary=Array.isArray(parsed.summary) ? parsed.summary : null;
+          if(!sourceSummary && Array.isArray(parsed.monthlySummary)) sourceSummary=parsed.monthlySummary;
+        }
       }catch{
         sourceEntries=parseCsvEntries(text);
       }
@@ -1657,8 +1925,16 @@ function importEntriesFromFile(file){
         createdAt:Number(item.createdAt)||Date.now(),
         updatedAt:Number(item.updatedAt)||Number(item.createdAt)||Date.now()
       }));
-      if(!confirm('Import will replace the current browser-stored log. Continue?')) return;
-      saveEntries(entries);
+      if(!confirm('Import will merge with the current browser-stored log and rebuild the summary archive. Continue?')) return;
+      const existingEntries=loadEntries();
+      const mergedEntries=[...existingEntries,...entries].sort((a,b)=>{
+        const dateCompare=(b.date||'').localeCompare(a.date||'');
+        if(dateCompare) return dateCompare;
+        return (b.updatedAt||0)-(a.updatedAt||0);
+      });
+      const mergedSummary=sourceSummary ? mergeSummaryArchives(loadMonthlySummaryArchive(), sourceSummary) : loadMonthlySummaryArchive();
+      saveEntries(compactHistoricalExerciseLog(mergedEntries));
+      saveMonthlySummaryArchive(mergedSummary);
       renderEntries();
       clearForm();
       setSaveMessage('Imported');
