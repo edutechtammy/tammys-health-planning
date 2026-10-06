@@ -1008,6 +1008,7 @@
           <option value="seed-nut">🥜 Seed/Nut</option>
           <option value="fat-carb">🥑 Fat + Carb Combo</option>
           <option value="supplement">💊 Supplement Effect</option>
+          <option value="test">🧪 Test</option>
           <option value="other">🍽 Meal</option>
         </select>
       </div>
@@ -1172,6 +1173,7 @@
     <span class="filter-chip"   data-cat="seed-nut" onclick="setFilter('seed-nut')">🥜 Seed/Nut</span>
     <span class="filter-chip"   data-cat="fat-carb" onclick="setFilter('fat-carb')">🥑 Fat+Carb</span>
     <span class="filter-chip"   data-cat="supplement" onclick="setFilter('supplement')">💊 Supplement</span>
+    <span class="filter-chip"   data-cat="test" onclick="setFilter('test')">🧪 Test</span>
     <span class="filter-chip"   data-cat="other"   onclick="setFilter('other')">🍽 Meal</span>
     <div class="search-sort-wrap">
       <input class="search-box" id="search-box" type="text" placeholder="Search food name…" oninput="render()" />
@@ -1301,6 +1303,33 @@ function makeGeneratedTestId(){
   return `ft-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 }
 
+function normalizeCategory(raw){
+  const value = String(raw ?? '').trim().toLowerCase();
+  if(!value) return 'grain';
+  const mapped = {
+    'grain / starch':'grain',
+    'grain/starch':'grain',
+    'dairy / fermented':'dairy',
+    'dairy/fermented':'dairy',
+    'fruit/veg':'fruit',
+    'fruit / veg':'fruit',
+    'protein':'protein',
+    'seed/nut':'seed-nut',
+    'seed / nut':'seed-nut',
+    'seeds/nuts':'seed-nut',
+    'seed & nut':'seed-nut',
+    'fat + carb combo':'fat-carb',
+    'fat+carb':'fat-carb',
+    'fat + carb':'fat-carb',
+    'supplement effect':'supplement',
+    'supplement':'supplement',
+    'test':'test',
+    'meal':'other',
+    'other':'other'
+  };
+  return mapped[value] || (['grain','dairy','fruit','protein','seed-nut','fat-carb','supplement','test','other'].includes(value) ? value : 'grain');
+}
+
 function loadTests(){
   try{
     const parsed = JSON.parse(localStorage.getItem(STORE_KEY));
@@ -1312,8 +1341,9 @@ function loadTests(){
         const normalizedId = item.id == null || String(item.id).trim() === ''
           ? makeGeneratedTestId()
           : String(item.id);
-        if(item.id !== normalizedId) changed = true;
-        return { ...item, id: normalizedId };
+        const normalizedCat = normalizeCategory(item.cat);
+        if(item.id !== normalizedId || item.cat !== normalizedCat) changed = true;
+        return { ...item, id: normalizedId, cat: normalizedCat };
       });
     if(changed){ localStorage.setItem(STORE_KEY, JSON.stringify(normalized)); }
     return normalized;
@@ -1321,7 +1351,7 @@ function loadTests(){
     return [];
   }
 }
-function saveTests(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr)); }
+function saveTests(arr){ localStorage.setItem(STORE_KEY,JSON.stringify(arr.map(t => ({...t, cat: normalizeCategory(t.cat)})))); }
 
 function csvEscape(value){
   return '"' + String(value ?? '').replace(/"/g, '""') + '"';
@@ -1504,17 +1534,7 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
     return null;
   }
 
-  const cat = ['grain','dairy','fruit','protein','seed-nut','fat-carb','supplement','other'].includes(catRaw)
-    ? catRaw
-    : ({
-        'grain/starch':'grain',
-        'dairy/fermented':'dairy',
-        'seed/nut':'seed-nut',
-        'seeds/nuts':'seed-nut',
-        'seed & nut':'seed-nut',
-        'fat + carb combo':'fat-carb',
-        'supplement effect':'supplement'
-      })[catRaw.toLowerCase()] || 'grain';
+  const cat = normalizeCategory(catRaw);
 
   return { id, date, food, cat, portion, netCarbs, fiber, satFat, protein, totalFat, calories, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
 }
@@ -1618,14 +1638,14 @@ function importCSV(input){
 const CAT_LABELS = {
   grain:'🌾 Grain', dairy:'🥛 Dairy', fruit:'🍓 Fruit',
   protein:'🥩 Protein', 'seed-nut':'🥜 Seed/Nut', 'fat-carb':'🥑 Fat+Carb',
-  supplement:'💊 Supplement', other:'🔬 Other'
+  supplement:'💊 Supplement', test:'🧪 Test', other:'🍽 Meal'
 };
 const CAT_COLORS = {
   grain:'#fff3cd;color:#7a5c00', dairy:'#e0f7fa;color:#006064',
   fruit:'#fce4ec;color:#880e4f', protein:'#e8f5e9;color:#1b5e20',
   'seed-nut':'#f7efe1;color:#7a4b00',
   'fat-carb':'#f3e5f5;color:#4a148c', supplement:'#e3f2fd;color:#0d47a1',
-  other:'#f5f5f5;color:#424242'
+  test:'#e0f7fa;color:#0f766e', other:'#f5f5f5;color:#424242'
 };
 
 function spikeAnalysis(t0,t30,t60,t120,t180){
@@ -1885,7 +1905,7 @@ function editTest(id){
 function saveTest(){
   const date   = document.getElementById('f-date').value;
   const food   = document.getElementById('f-food').value.trim();
-  const cat    = document.getElementById('f-cat').value;
+  const cat    = normalizeCategory(document.getElementById('f-cat').value);
   const portion= document.getElementById('f-portion').value.trim();
   const netCarbs = parseNumberish(document.getElementById('f-net-carbs').value);
   const fiber = parseNumberish(document.getElementById('f-fiber').value);
@@ -1908,19 +1928,22 @@ function saveTest(){
   const walk   = document.getElementById('f-walk').value||null;
   const activity = document.getElementById('f-activity').value||null;
   const notes  = document.getElementById('f-notes').value.trim();
+  const isPlannedTest = cat === 'test';
   if(!food){ alert('Please enter a food name.'); return; }
   if(date && !/^\d{4}-\d{2}-\d{2}$/.test(date)){
     alert('If provided, date must be in YYYY-MM-DD format.');
     return;
   }
-  if(!t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
-  if(!isBaselineEligibleForGraph(t0)){
+  if(!isPlannedTest && !t0){ alert('Please enter the baseline glucose (T=0) reading.'); return; }
+  if(t0 != null && !isBaselineEligibleForGraph(t0)){
     const keepSaving=confirm('This baseline is outside the graph range (it must be above 75 and no higher than 120). The test can still be saved, but it will not appear in the graph. Save anyway?');
     if(!keepSaving) return;
   }
-  if(!baselineTime){ alert('Please enter baseline time of day in AM/PM format (example: 7:10 AM).'); return; }
-  document.getElementById('f-baseline-time').value=baselineTime;
-  if(returnBaselineRaw != null && returnBaselineRaw <= 120){
+  if(!isPlannedTest && !baselineTime){ alert('Please enter baseline time of day in AM/PM format (example: 7:10 AM).'); return; }
+  if(baselineTime){
+    document.getElementById('f-baseline-time').value=baselineTime;
+  }
+  if(!isPlannedTest && returnBaselineRaw != null && returnBaselineRaw <= 120){
     alert('Return to baseline minute should be greater than 120, or left blank.');
     return;
   }
@@ -2681,7 +2704,8 @@ function render(){
   const filtered=all
     .filter(t=>{
       const isPinned = pinnedSet.has(String(t.id));
-      const catOk = isPinned || activeFilter==='all' || t.cat===activeFilter;
+      const normalizedCat = normalizeCategory(t.cat);
+      const catOk = isPinned || activeFilter==='all' || normalizedCat===activeFilter;
       const searchOk = isPinned || !search || t.food.toLowerCase().includes(search);
       const amOk = isPinned || !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
       const comboOk = isPinned || !filterComboOnly || hasComboThreshold(t);
@@ -2777,8 +2801,9 @@ function render(){
             ? `<span class="metric-pill tail-no" title="No long tail or only small background drift (below current noise guards)">No long tail</span>`
             : `<span class="metric-pill tail-unknown" title="Need 180-min or return-to-baseline data to classify tail behavior">Need 180-min data</span>`
       ].filter(Boolean).join(' ');
-      const catStyle=CAT_COLORS[t.cat]||'';
-      const catLabel=CAT_LABELS[t.cat]||t.cat;
+      const normalizedCat = normalizeCategory(t.cat);
+      const catStyle=CAT_COLORS[normalizedCat]||'';
+      const catLabel=CAT_LABELS[normalizedCat]||normalizedCat;
       const rVal=(v,t0)=>v!=null?`<div class="r-val" style="color:${v-t0>60?'#c0392b':v-t0>40?'#e67e22':v-t0>20?'#f39c12':'#27ae60'}">${v}</div>`:`<div class="r-val" style="color:#ccc">—</div>`;
       const activityLabel = {
         nap: '😴 Nap',
@@ -2809,6 +2834,7 @@ function render(){
         : (milkPairStatus==='friendly' ? ' milk-pair-friendly' : (milkPairStatus==='unfriendly' ? ' milk-pair-unfriendly' : ''));
       const satFatClass=satFatHigh ? ' satfat-high' : '';
       const selectedForTransfer=selectedForDietPower.has(String(t.id));
+      const hasSummaryContent = Boolean(a || metricBits || analysisBits || contextBits);
       return `
       <div class="test-card${cardClass}${satFatClass}${isPinned ? ' pinned-card' : ''}">
         <div class="test-card-header">
@@ -2823,22 +2849,22 @@ function render(){
           ${(!t.t30||!t.t60||!t.t120)?`<span style="font-size:.68rem;font-weight:700;background:#fff8e1;color:#7a5c00;border:1px solid #f0d080;border-radius:20px;padding:.12rem .5rem;margin-left:.3rem;white-space:nowrap">⏳ In progress</span>`:''}
         </div>
         <div class="test-card-readings">
-          <div class="reading-box"><div class="r-label">Baseline</div><div class="r-val" style="color:var(--muted)">${t.t0}</div></div>
+          <div class="reading-box"><div class="r-label">Baseline</div><div class="r-val" style="color:var(--muted)">${t.t0 ?? '—'}</div></div>
           <div class="reading-box"><div class="r-label">+30 min</div>${rVal(t.t30,t.t0)}</div>
           <div class="reading-box"><div class="r-label">+60 min</div>${rVal(t.t60,t.t0)}</div>
           <div class="reading-box"><div class="r-label">+120 min</div>${rVal(t.t120,t.t0)}</div>
           <div class="reading-box"><div class="r-label">+180 min</div>${rVal(t.t180,t.t0)}</div>
         </div>
-        ${a?`<div class="test-card-summary">
-          <span class="spike-badge ${a.cls}">${a.rating}</span>
+        ${hasSummaryContent?`<div class="test-card-summary">
+          ${a?`<span class="spike-badge ${a.cls}">${a.rating}</span>
           <span class="peak-pill ${peakTone}" title="Peak above baseline (used for Peak sorting)">
             Peak above baseline <span class="peak-val">+${a.spikeAbs}</span> mg/dL
           </span>
-          <span style="font-size:.8rem;color:var(--muted)">Absolute peak: ${a.peak} mg/dL</span>
+          <span style="font-size:.8rem;color:var(--muted)">Absolute peak: ${a.peak} mg/dL</span>`:''}
           ${analysisBits}
-          ${a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
-          ${a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
-          ${aucInfo?`<span style="font-size:.78rem;color:var(--muted)">${aucInfo.status==='incomplete'?'iAUC↑ Incomplete / Unbounded':'iAUC↑ '+Math.round(aucInfo.auc)+' mg·min/dL (to +'+aucInfo.endMinute+')'}</span>`:''}
+          ${a && a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
+          ${a && a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
+          ${a && aucInfo?`<span style="font-size:.78rem;color:var(--muted)">${aucInfo.status==='incomplete'?'iAUC↑ Incomplete / Unbounded':'iAUC↑ '+Math.round(aucInfo.auc)+' mg·min/dL (to +'+aucInfo.endMinute+')'}</span>`:''}
           ${metricBits}
           ${contextBits?`<span style="font-size:.75rem;color:var(--muted);margin-left:auto">${contextBits}</span>`:''}
         </div>`:''}
@@ -2908,7 +2934,8 @@ function render(){
   const chartTests = all
     .filter(t => {
       const isPinned = pinnedTestIds.has(String(t.id));
-      const catOk = isPinned || (activeFilter==='all' || t.cat===activeFilter);
+      const normalizedCat = normalizeCategory(t.cat);
+      const catOk = isPinned || (activeFilter==='all' || normalizedCat===activeFilter);
       const searchOk = isPinned || !search || String(t.food || '').toLowerCase().includes(search);
       const amOk = isPinned || !filterAmOnly || /\bAM\s*$/i.test(String(t.baselineTime || '').trim());
       const comboOk = isPinned || !filterComboOnly || hasComboThreshold(t);
