@@ -694,6 +694,43 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE 64 — GLUTEN-FREE BAGEL BITES
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="celiac dp liver kidney" data-oxalate="moderate">
+      <div class="recipe-card-img">🫓✨🥣</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Gluten-Free Bagel Bites</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 10 min prep + 15-20 min bake</span>
+          <span>🫓 About 8 bites</span>
+          <span>🌡 400°F oven</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-kidney">Kidney Stone (portion-aware)</span>
+        </div>
+        <p class="recipe-card-ingredients">almond flour ⋅ baking powder ⋅ Greek yogurt (Sugar Shift) ⋅ everything bagel seasoning</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Calories:</strong> ~94 per bite</span>
+          <span class="trigger-pill"><strong>Protein:</strong> ~3.8g per bite</span>
+          <span class="trigger-pill warning"><strong>Net carbs:</strong> ~2.0g per bite</span>
+        </div>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-low"></span>
+          <span class="gi-low">Low GI style</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— simple Type 2 test snack from insulinresistant1</span>
+        </div>
+        <p class="recipe-card-desc">Almond flour + Greek yogurt dough rolled into bite-size balls, coated in everything-bagel seasoning, and baked until set. A practical gluten-free, lower-net-carb bread-style option with better protein than most snack breads.</p>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-gluten-free-bagel-bites.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE 63 — NO-SUGAR CRUNCH BAR
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
@@ -3109,6 +3146,7 @@ const PANTRY_GROUPS = {
       'red lentils','red pepper flakes','red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
       'salt','scallion','sesame oil','smoked oysters','smoked paprika','sorghum flour','steel-cut oats','sugar','sumac',
       'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme','tomato sauce','tomatoes','trail mix','turmeric',
+      'everything bagel seasoning',
       'vanilla extract','vegetable broth','walnuts','whole-grain bread','white beans','yeast','apricots','cherries','chickpeas'
     ]
   }
@@ -3243,8 +3281,14 @@ const PANTRY_NORM = {
   'gf tamari':           'tamari',
   'dried mint':          'mint',
   'sugar shift yogurt or labneh': 'sugar shift yogurt',
+  'greek yogurt':       'sugar shift yogurt',
+  'greek yoghurt':      'sugar shift yogurt',
+  'greek yogurt sugar shift': 'sugar shift yogurt',
   'plain yogurt':        'sugar shift yogurt',
   'plain whole milk yogurt': 'sugar shift yogurt',
+  'everything bagel':    'everything bagel seasoning',
+  'everything bagel seasoning': 'everything bagel seasoning',
+  'everything-bagel seasoning': 'everything bagel seasoning',
   'balsamic':            'balsamic vinegar',
   'pomegranate molasses': 'pomegranate juice',
   // sous vide legume variants
