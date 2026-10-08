@@ -198,6 +198,24 @@
     .menu-planning-header p { margin-top: .3rem; font-size: .83rem; color: rgba(255,255,255,.9); }
     .menu-planning-body { padding: 1rem 1.2rem 1.1rem; }
 
+    /* NUTRITION TARGET PLANNER */
+    .nutrition-planner-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
+    .nutrition-planner-header { background: linear-gradient(135deg, #1d4d3d, #2d6a4f); color: #fff; padding: .9rem 1.2rem; }
+    .nutrition-planner-header h2 { font-size: 1rem; }
+    .nutrition-planner-header p { margin-top: .3rem; font-size: .83rem; color: rgba(255,255,255,.9); }
+    .nutrition-planner-body { padding: 1rem 1.2rem 1.1rem; }
+    .nutrition-target-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: .9rem; }
+    .nutrition-target-card { background: linear-gradient(180deg, #f9fffa, #f2faf5); border: 1px solid var(--border); border-radius: 12px; padding: .9rem 1rem; }
+    .nutrition-target-header { display: flex; align-items: center; justify-content: space-between; gap: .6rem; margin-bottom: .6rem; }
+    .nutrition-target-name { font-weight: 800; color: var(--green-dark); }
+    .nutrition-target-pill { background: var(--green-light); color: var(--green-dark); border-radius: 999px; padding: .22rem .6rem; font-size: .68rem; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
+    .nutrition-target-kpi { font-size: 1.75rem; font-weight: 800; color: var(--text); line-height: 1.1; }
+    .nutrition-target-meta { font-size: .79rem; color: var(--muted); margin-top: .15rem; }
+    .nutrition-target-list { margin-top: .7rem; padding-left: 1.1rem; color: var(--text); font-size: .79rem; line-height: 1.55; }
+    .nutrition-target-list li + li { margin-top: .18rem; }
+    .nutrition-target-footnote { margin-top: .9rem; font-size: .78rem; color: var(--muted); line-height: 1.55; }
+    .nutrition-target-footnote strong { color: var(--green-dark); }
+
     /* MENU SLIDESHOW */
     .menu-slideshow-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
     .menu-slideshow-header { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); color: #fff; padding: .9rem 1.2rem; }
@@ -319,6 +337,17 @@
         <div class="menu-slide-note" id="menu-slide-note">Descriptions are loaded from menu/index.json.</div>
         <div class="menu-slide-note-help">Use <strong>file</strong>, <strong>caption</strong>, and optional <strong>description</strong> fields in menu/index.json.</div>
       </div>
+    </div>
+  </section>
+
+  <section class="nutrition-planner-panel" aria-labelledby="nutrition-planner-title">
+    <div class="nutrition-planner-header">
+      <h2 id="nutrition-planner-title">📊 Nutrition Target Planner</h2>
+      <p>Build each day around a target, then expand the same structure later for additional nutrients.</p>
+    </div>
+    <div class="nutrition-planner-body">
+      <div id="nutrition-target-grid" class="nutrition-target-grid"></div>
+      <div class="nutrition-target-footnote"><strong>How to use it:</strong> set a daily goal, then plan each meal around foods that hit the target. This structure is intentionally reusable — you can add magnesium, B12, folate, fiber, or protein later without rebuilding the planner.</div>
     </div>
   </section>
 
@@ -4068,7 +4097,67 @@ function initMealboardToggles() {
   updateProgress();
 }
 
+const DAILY_NUTRITION_TARGETS = [
+  {
+    key: 'choline',
+    name: 'Choline',
+    unit: 'mg',
+    target: '740–1,140',
+    detail: 'food-only target depending on betaine use',
+    items: [
+      'Food-only shortfall = 740 mg/day if betaine is taken',
+      'Food-only shortfall = 1,140 mg/day if betaine is not taken',
+      'Anchor foods: eggs, salmon, chicken/turkey, liver, lentils, broccoli'
+    ]
+  },
+  {
+    key: 'protein',
+    name: 'Protein',
+    unit: 'g',
+    target: 'custom',
+    detail: 'add later if needed',
+    items: [
+      'Use this slot for a daily protein target',
+      'Good for future tracking beyond choline',
+      'Keep the same format as the choline block'
+    ]
+  },
+  {
+    key: 'fiber',
+    name: 'Fiber',
+    unit: 'g',
+    target: 'custom',
+    detail: 'add later if needed',
+    items: [
+      'Use this slot for a daily fiber target',
+      'Useful for gut, glucose, and fatty liver tracking',
+      'The planner stays flexible without changing layout'
+    ]
+  }
+];
+
+function renderNutritionTargetCards() {
+  const container = document.getElementById('nutrition-target-grid');
+  if (!container) return;
+
+  container.innerHTML = DAILY_NUTRITION_TARGETS.map((target) => {
+    const listHtml = target.items.map(item => `<li>${item}</li>`).join('');
+    return `
+      <div class="nutrition-target-card" data-target="${target.key}">
+        <div class="nutrition-target-header">
+          <div class="nutrition-target-name">${target.name}</div>
+          <div class="nutrition-target-pill">${target.unit}</div>
+        </div>
+        <div class="nutrition-target-kpi">${target.target}</div>
+        <div class="nutrition-target-meta">${target.detail}</div>
+        <ul class="nutrition-target-list">${listHtml}</ul>
+      </div>
+    `;
+  }).join('');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  renderNutritionTargetCards();
   initMenuSlideshow();
   document.getElementById('menu-fullscreen-btn')?.addEventListener('click', openMenuFullscreen);
   document.getElementById('menu-slide-image')?.addEventListener('click', openMenuFullscreen);
