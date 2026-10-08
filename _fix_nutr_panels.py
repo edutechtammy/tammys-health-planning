@@ -21,6 +21,22 @@ def nutr_row(name, why, amount, pct_float, color):
         <div class="nutr-pct">{pct_label}% of daily target{extra}</div>
       </div>"""
 
+
+def omega3_row(name, why, amount_mg, color, target_mg=2000):
+    pct_float = amount_mg / target_mg * 100
+    pct = min(pct_float, 100)
+    pct_label = round(pct_float)
+    extra = " ← exceeds therapeutic target (bar capped)" if pct_float > 100 else ""
+    return f"""
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">{name} <span class="nutr-why">— {why}</span></span>
+          <span class="nutr-amount">~{amount_mg} mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:{pct:.0f}%;background:{color}"></div></div>
+        <div class="nutr-pct">{pct_label}% of therapeutic APOE4 + fatty liver target{extra}</div>
+      </div>"""
+
 def panel(title, serving, rows, note):
     return f"""
   <div class="nutr-panel">
@@ -127,8 +143,8 @@ RECIPES = {
      nutr_row("Folate","MTHFR","~28 µg",28/400*100,"#db2777"),
      nutr_row("Zinc","metabolic · immune","~0.7 mg",0.7/8*100,"#0284c7"),
      nutr_row("Selenium","thyroid · antioxidant","~50 µg",50/55*100,"#0891b2"),
-     nutr_row("Omega-3 (EPA+DHA)","APOE4 · cardiovascular · anti-inflammatory","~3000 mg",3000/1000*100,"#059669")],
-    "Highest B12 source in the collection — one serving exceeds the daily target (bar capped at 100%). Omega-3 EPA+DHA of ~3000mg is 3× the general daily target; APOE4 specifically benefits from high EPA+DHA intake. The turmeric golden paste enhances the anti-inflammatory synergy between omega-3 and curcumin."
+     omega3_row("Omega-3 (EPA+DHA)","APOE4 · cardiovascular · anti-inflammatory",3000,"#059669")],
+    "Highest B12 source in the collection — one serving exceeds the daily target (bar capped at 100%). Omega-3 EPA+DHA of ~3000mg is 150% of the therapeutic APOE4 + fatty liver target (2,000mg/day), which is exactly why this is a high-priority marine food anchor. The turmeric golden paste enhances the anti-inflammatory synergy between omega-3 and curcumin."
 ),
 "recipe-guacamole.html": panel(
     "(1 serve, 1 of 2 — 1 avocado)", "estimates · avocado + garlic + lemon",
