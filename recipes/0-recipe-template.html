@@ -40,6 +40,59 @@
   </script>
 
   <!-- ════════════════════════════════════════════════════════════════════
+       RECIPE COMPLETION CHECKLIST
+       Before publishing, every recipe must satisfy all required items below.
+
+       1) CORE DATA
+          [ ] Title, category, cuisine, yield, prep/cook/total time are filled in.
+          [ ] Description includes the key benefit and any condition relevance.
+          [ ] Ingredient list is complete and every item is matched to the recipe.
+          [ ] Instructions are organized in clear numbered steps.
+
+       2) NUTRITION PANEL STANDARD
+          [ ] Panel includes calories, protein, total carbs, fiber, net carbs,
+              and saturated fat unless a valid exception exists.
+          [ ] A choline row is included whenever the dish sits in the APOE4,
+              Fatty Liver, or MTHFR context.
+          [ ] If the recipe is relevant to supplementation or methylation, add
+              B12, folate, magnesium, calcium, or other condition-specific nutrients
+              as needed.
+          [ ] Any exception is documented in a brief note rather than silently absent.
+
+       3) CONDITION-SPECIFIC RULES
+          [ ] APOE4 / Fatty Liver recipes clearly note choline support and the
+              liver-fat-export / membrane-support role.
+          [ ] MTHFR recipes explicitly mention methylation pathway relevance,
+              BHMT/betaine usage, folate support, or methyl donor relevance.
+          [ ] The dish description or panel note explains why the nutrient profile
+              matches the condition stack.
+
+       4) FINAL QUALITY CHECK
+          [ ] JSON-LD is valid and matches the visible recipe content.
+          [ ] No major nutrient row is omitted for a recipe that is intended to be
+              a nutrition-focused meal.
+          [ ] If the recipe is a guide, sauce, snack, or single-ingredient food,
+              the author states why a reduced panel is acceptable.
+
+       STANDARD PANEL RULE
+       Every recipe should aim for a complete nutrition panel, not just a few
+       headline metrics. At minimum, include the key metrics relevant to the
+       recipe's purpose: calories, protein, total carbs, fiber, net carbs,
+       saturated fat, and choline whenever the recipe contributes to the
+       APOE4/Fatty Liver/MTHFR condition stack. If relevant, add B12,
+       folate, calcium, magnesium, or other condition-specific nutrients.
+
+       For MTHFR recipes: explicitly note methylation pathway relevance when
+       the dish supports or depends on methyl donors, folate, or BHMT/betaine
+       metabolism. For APOE4 or Fatty Liver recipes: include choline as a
+       dedicated row and note the liver-fat-export / membrane-support role.
+
+       Exceptions are allowed only for recipes that are primarily a guide,
+       sauce, snack, or single-ingredient item where a full panel is not
+       meaningful, but the default standard is completeness.
+  ════════════════════════════════════════════════════════════════════ -->
+
+  <!-- ════════════════════════════════════════════════════════════════════
        CSS STYLING — STANDARD RECIPE TEMPLATE
        - Update CSS custom properties in :root for recipe-specific colors
        - Standard color sets: med (Mediterranean blue), spring (green),
