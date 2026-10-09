@@ -257,23 +257,103 @@
 
     .tip-card h4 { margin-bottom: .35rem; font-size: .84rem; color: #9a3412; }
 
-    .nutr-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: .8rem;
+    .nutr-panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
       margin-bottom: 1.2rem;
     }
 
-    .nutr-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: .85rem 1rem;
+    .nutr-panel-header {
+      background: linear-gradient(135deg, var(--green-light) 0%, #edf9ef 100%);
+      padding: .7rem 1rem;
       font-size: .82rem;
-      line-height: 1.55;
+      font-weight: 700;
+      color: var(--green-dark);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
     }
 
-    .nutr-card h4 { font-size: .82rem; margin-bottom: .25rem; color: var(--green-dark); }
+    .nutr-panel-header span {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nutr-grid {
+      display: grid;
+      gap: .72rem;
+      padding: 1rem 1rem .7rem;
+    }
+
+    .nutr-row {
+      background: #f9fcfa;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .65rem .8rem;
+    }
+
+    .nutr-label-row {
+      display: flex;
+      justify-content: space-between;
+      gap: .65rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: .35rem;
+    }
+
+    .nutr-name {
+      font-size: .76rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .nutr-why {
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .nutr-amount {
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--green-mid);
+    }
+
+    .nutr-track {
+      width: 100%;
+      background: #eaf3ec;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .nutr-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .nutr-pct {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: .35rem;
+    }
+
+    .nutr-note {
+      margin: 0 1rem 1rem;
+      background: #fff8f0;
+      border: 1px solid #ffd7a5;
+      border-radius: 10px;
+      padding: .8rem 1rem;
+      font-size: .8rem;
+      line-height: 1.6;
+      color: #7c3a00;
+    }
 
     .btn {
       padding: .48rem 1.15rem;
@@ -335,6 +415,83 @@
       </div>
     </div>
 
+    <div class="nutr-panel">
+      <div class="nutr-panel-header">📊 Nutrient panel — per serving (based on 2 servings) <span>values estimated from broth + flax + egg profile</span></div>
+      <div style="display:flex; flex-wrap:wrap; gap:.6rem; margin: .8rem 1rem 0;">
+        <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Calories: ~80 kcal</span>
+        <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Protein: ~11 g</span>
+        <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Net carbs: &lt;1 g</span>
+        <span style="display:inline-flex; align-items:center; gap:.35rem; background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Saturated fat: ~1–2 g</span>
+      </div>
+      <div class="nutr-grid">
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Calories</span>
+            <span class="nutr-amount">~80 kcal</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:4%;background:#16a34a"></div></div>
+          <div class="nutr-pct">Light but satisfying</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Protein <span class="nutr-why">— satiety</span></span>
+            <span class="nutr-amount">~11 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:22%;background:#16a34a"></div></div>
+          <div class="nutr-pct">Good support for steadier energy and fullness</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Total carbs</span>
+            <span class="nutr-amount">~2 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:4%;background:#22c55e"></div></div>
+          <div class="nutr-pct">Very low carb load for a soup base</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Fiber</span>
+            <span class="nutr-amount">~1.2 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:5%;background:#14b8a6"></div></div>
+          <div class="nutr-pct">Ground flax adds soluble fiber and body</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Net carbs</span>
+            <span class="nutr-amount">&lt;1 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:2%;background:#15803d"></div></div>
+          <div class="nutr-pct">Designed to stay low-glycemic and flatline-friendly</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+            <span class="nutr-amount">~125–150 mg</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:22%;background:#f59e0b"></div></div>
+          <div class="nutr-pct">Meaningful choline contribution from the eggs</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Omega-3 (ALA) <span class="nutr-why">— flax contribution</span></span>
+            <span class="nutr-amount">~750–1,000 mg</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:40%;background:#14b8a6"></div></div>
+          <div class="nutr-pct">Good source range when the flax is used as the main omega-3 base</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Saturated fat</span>
+            <span class="nutr-amount">~1–2 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:10%;background:#0891b2"></div></div>
+          <div class="nutr-pct">Low enough to keep the soup gentle on blood sugar goals</div>
+        </div>
+      </div>
+      <div class="nutr-note">This version swaps starch for flax to keep the soup silky without a glycemic bump. The egg contribution gives a meaningful choline boost, while the flax brings a useful plant-based omega-3 signal. For APOE4 and fatty liver planning, the soup works as a light, nutrient-dense base that still supports blood sugar stability and satiety.</div>
+    </div>
+
     <div class="tip-card">
       <h4>The texture key</h4>
       Whisk flaxseed into cold broth first, then simmer briefly. This lets soluble fiber hydrate evenly and gives the soup a smooth body before the egg ribbons go in.
@@ -383,25 +540,7 @@
       </div>
     </div>
 
-    <div class="panel">
-      <div class="panel-header">Nutritional Profile (Per Serving, based on 2 servings)</div>
-      <div class="panel-body">
-        <div class="nutr-grid">
-          <div class="nutr-card">
-            <h4>Net Carbohydrates</h4>
-            <div>Less than 0.5g</div>
-          </div>
-          <div class="nutr-card">
-            <h4>Saturated Fat</h4>
-            <div>About 2.0g</div>
-          </div>
-          <div class="nutr-card">
-            <h4>Protein</h4>
-            <div>About 11g</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <div style="margin-top: 1rem;">
       <a href="../recipes.html" class="btn btn-back">← Back to Recipe Library</a>
