@@ -343,7 +343,7 @@
   <section class="nutrition-planner-panel" aria-labelledby="nutrition-planner-title">
     <div class="nutrition-planner-header">
       <h2 id="nutrition-planner-title">📊 Nutrition Target Planner</h2>
-      <p>Build each day around a target, then expand the same structure later for additional nutrients.</p>
+      <p>Build each day around a target, then expand the same structure later for additional nutrients. APOE4 and Fatty liver conditions both desperately need higher than normal choline and omega-3. specifically EPA and DHA found in marine sources—are powerful tools for lowering triglycerides, improving liver fat scores, and providing vital neuroprotection against cognitive decline.</p>
     </div>
     <div class="nutrition-planner-body">
       <div id="nutrition-target-grid" class="nutrition-target-grid"></div>
@@ -443,7 +443,7 @@
           <p style="margin-left: 40px;">☑ Make Mayo with the new immersion blender</p>
           <p style="margin-left: 40px;">☑ Explore making a wrap</p>
           <p><strong>Breakfast</strong></p>
-          <p style="margin-left: 40px;">Sugar shift yogurt with almont slices, Lily's Stevia sweetened chocolate chips, sugar-free cherry flavoring</p>
+          <p style="margin-left: 40px;">Sugar shift yogurt with almond slices, Lily's Stevia sweetened chocolate chips, sugar-free cherry flavoring</p>
           <p><strong>Lunch</strong></p>
           <p style="margin-left: 40px;">Tuna wrap with the new wrap made earlier.</p>
           <p><strong>Dinner</strong></p>
@@ -547,7 +547,7 @@
     </div>
   </div>
 
-  <div class="restriction-note">Saturated Fat Resctriction: 10-13 g per day.</div>
+  <div class="restriction-note">Saturated Fat Restriction: 10-13 g per day.</div>
 
   <div class="search-panel">
     <div class="category-row">
@@ -568,6 +568,8 @@
         <option value="dairy">Dairy</option>
         <option value="eggs">Eggs</option>
         <option value="soups">Soups &amp; Broths</option>
+        <option value="omega3">Omega-3</option>
+        <option value="choline">Choline</option>
         <option value="snacks">Snacks</option>
         <option value="beverages">Beverages</option>
         <option value="other">Other / Uncategorized</option>
@@ -607,17 +609,25 @@
           <span>📉 Zero-spike baseline</span>
         </div>
         <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
           <span class="badge badge-celiac">Celiac / GF</span>
           <span class="badge badge-dp">DP / Blood Sugar</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">bone broth ⋅ eggs ⋅ ground flaxseed ⋅ sesame oil ⋅ ginger ⋅ scallion (optional)</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Low GI</span>
           <span style="color:var(--muted);font-weight:400;font-size:.75rem">- no cornstarch; flax-based velvety texture</span>
         </div>
-        <p class="recipe-card-desc">A Chinese-restaurant-style egg drop soup modified for glycemic stability. Traditional cornstarch is replaced with a tiny amount of finely ground flaxseed so the broth thickens into a silky texture without glucose spikes. <strong>Kidney stone fit:</strong> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <p class="recipe-card-ingredients">bone broth ⋅ eggs ⋅ ground flaxseed ⋅ sesame oil ⋅ ginger ⋅ scallion (optional)</p>
+        <div class="recipe-card-desc">
+          <p>A Chinese-restaurant-style egg drop soup modified for glycemic stability. Traditional cornstarch is replaced with a tiny amount of finely ground flaxseed so the broth thickens into a silky texture without glucose spikes.
+          <br><span class="badge badge-apoe4">APOE4</span> 125 - 150 mg - Excellent Source of Choline. 750 - 1000 mg  - Excellent Source of Omega-3.
+          <br><span class="badge badge-liver">Fatty Liver</span> 125 - 150 mg - Excellent Source of Choline. 750 - 1000 mg  - Excellent Source of Omega-3.
+          <br><span class="badge badge-kidney">Kidney Stone</span> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention. 
+          <br><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
       </div>
       <div class="recipe-card-footer">
         <a class="btn-recipe btn-view" href="recipes/recipe-low-carb-velvet-egg-drop-soup.html" target="_blank">📄 Full Recipe / Import Page</a>
@@ -638,17 +648,22 @@
           <span>🍽 4 large flatbreads</span>
         </div>
         <div class="badge-row">
-          <span class="badge badge-celiac">Celiac / GF</span>
           <span class="badge badge-dp">DP / Blood Sugar</span>
           <span class="badge badge-kidney">Kidney Stone</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
         </div>
-        <p class="recipe-card-ingredients">psyllium husk ⋅ warm water ⋅ sorghum/millet flour ⋅ almond flour ⋅ baking powder ⋅ EVOO</p>
+        <p class="recipe-card-ingredients">psyllium husk ⋅ warm water ⋅ sorghum ⋅ almond flour ⋅ baking powder ⋅ EVOO</p>
         <div class="glucose-row">
           <span class="gi-dot gi-dot-low"></span>
           <span class="gi-low">Low GI</span>
           <span style="color:var(--muted);font-weight:400;font-size:.75rem">— psyllium + millet/sorghum help keep the response gentler</span>
         </div>
-        <p class="recipe-card-desc">A soft, foldable GF gyro pita made with psyllium gel for elasticity and whole-grain millet or sorghum for a rustic flavor. Pan-fried and immediately wrapped in a damp towel so the finished flatbread stays supple enough for gyros, kebabs, and warm Mediterranean fillings. <strong>Kidney stone fit:</strong> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention. <strong>DP / blood sugar fit:</strong> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern.</p>
+        <div class="recipe-card-desc">
+          <p>A soft, foldable GF gyro pita made with psyllium gel for elasticity and whole-grain millet or sorghum for a rustic flavor. Pan-fried and immediately wrapped in a damp towel so the finished flatbread stays supple enough for gyros, kebabs, and warm Mediterranean fillings.
+          <br><span class="badge badge-dp">DP / Blood Sugar</span> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern.
+          <br><span class="badge badge-kidney">Kidney Stone</span> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention.
+          <br><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
       </div>
       <div class="recipe-card-footer">
         <a class="btn-recipe btn-view" href="recipes/recipe-soft-pliable-gluten-free-gyro-pita.html" target="_blank">📄 Full Recipe / Import Page</a>
@@ -679,7 +694,12 @@
           <span class="gi-low">Low GI</span>
           <span style="color:var(--muted);font-weight:400;font-size:.75rem">— no seed oils, no added sugar</span>
         </div>
-        <p class="recipe-card-desc">A clean, fast mayo made with almond oil instead of seed oils or EVOO. The immersion-blender method works best with a room-temperature egg in a tall jar, and it avoids the bitter, harsh flavor that extra virgin olive oil develops when emulsified in a blender. <strong>Kidney stone fit:</strong> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention. <strong>DP / blood sugar fit:</strong> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+          <p>It doesn't taste the same as jarred mayo. Give it a try and see what you think. An alternative is to use unflavored yogurt or add some yogurt to give a more similar flavor to store-bought. A clean, fast mayo made with almond oil instead of seed oils or EVOO. Olive oil (EVOO) is great for most things, but an immersion blender cases some odd flavor shifts making it have some bitterness. The immersion-blender method works best with a room-temperature egg in a tall jar. 
+          <br><span class="badge badge-dp">DP / Blood Sugar</span> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern.
+          <br><span class="badge badge-kidney">Kidney Stone</span> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention.
+          <br><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
       </div>
       <div class="recipe-card-footer">
         <a class="btn-recipe btn-view" href="recipes/recipe-almond-oil-mayo.html" target="_blank">📄 Full Recipe / Import Page</a>
@@ -700,8 +720,8 @@
           <span>🍬 About 60 small mints</span>
         </div>
         <div class="badge-row">
-          <span class="badge badge-celiac">Celiac / GF</span>
           <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
         <p class="recipe-card-ingredients">monkfruit + allulose blend ⋅ psyllium ⋅ Ceylon cinnamon</p>
@@ -710,7 +730,13 @@
           <span class="gi-low">Low GI</span>
           <span style="color:var(--muted);font-weight:400;font-size:.75rem">— no sugar; use as a small adjunct around meals</span>
         </div>
-        <p class="recipe-card-desc">A no-sugar mint made from monkfruit/allulose sweetener, Ceylon cinnamon, and psyllium husk powder. Knead with water into a narrow cylinder, slice into small pieces, and air cure until fully firm. <strong style="color:#991b1b">Warning: no more than two small mints in close succession. Psyllium swells and forms a gel, which can become a choking and digestive-system hazard.</strong> <strong>Kidney stone fit:</strong> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention. <strong>DP / blood sugar fit:</strong> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+          <p>A no-sugar mint made from monkfruit/allulose sweetener, Ceylon cinnamon, and psyllium husk powder. Knead with water into a narrow cylinder, slice into small pieces, and air cure until fully firm.</p>
+          <p><strong style="color:#991b1b">Warning: no more than two small mints in close succession. Psyllium swells and forms a gel, which can become a choking and digestive-system hazard.</strong></p>
+          <p><span class="badge badge-dp">DP / Blood Sugar</span> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern.</p>
+          <p><span class="badge badge-kidney">Kidney Stone</span> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention.</p>
+          <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
       </div>
       <div class="recipe-card-footer">
         <a class="btn-recipe btn-view" href="recipes/recipe-ceylon-cinnamon-psyllium-mints.html" target="_blank">📄 Full Recipe / Import Page</a>
@@ -978,7 +1004,14 @@
           <span class="badge badge-celiac">Celiac / GF</span>
         </div>
         <p class="recipe-card-ingredients">olives ⋅ pimento ⋅ cauliflower ⋅ carrot ⋅ celery ⋅ bell pepper ⋅ capers ⋅ garlic ⋅ EVOO ⋅ red wine vinegar</p>
-        <p class="recipe-card-desc">The Italian antipasto olive salad rebuilt with EVOO instead of seed oil — olives (whole and chopped), pimento, cauliflower, carrots, celery, red bell pepper, capers, garlic, red wine vinegar, and spices all cut to a fine 5mm dice and preserved in cold-pressed extra-virgin olive oil. Every spoonful delivers EVOO polyphenols, caper quercetin (the highest food source by weight), acetic acid from the vinegar (same mechanism as the ACV capsule), and activated allicin from garlic. ~2–3mg oxalate per serve. Ready in 30 minutes; keeps 3–4 weeks. Replaces every commercial jar with seed oil in the fridge. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>MTHFR fit:</strong> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+        <p>The Italian antipasto olive salad rebuilt with EVOO instead of seed oil — olives (whole and chopped), pimento, cauliflower, carrots, celery, red bell pepper, capers, garlic, red wine vinegar, and spices all cut to a fine 5mm dice and preserved in cold-pressed extra-virgin olive oil. Replaces every commercial jar with seed oil in the fridge. Every spoonful delivers activated allicin from garlic.  
+        <br><span class="badge badge-dp">DP / Blood Sugar</span> Acetic acid from the vinegar (same mechanism as the ACV capsule) reduces blood sugar from what is eaten immediately after it. The quercetin in the capers is a mild metabolic regulator which helps with lowering blood sugar and insulin resistance.
+        <br> <span class="badge badge-apoe4">APOE4</span> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. The quercetin in the capers is neuroprotective and is commonly used in nutrition protocols for Alzheimer's prevention because it stabalizes Apoliprotein E in the brain, inhibits harmful neuro-inflamation, and reduces the formation o amyloid-beta oligomers.<br><span class="badge badge-mthfr">MTHFR</span> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress. 
+        <br><span class="badge badge-liver">Fatty Liver</span> Capers are the highest food source by weight of <strong>quercetin</strong>. Recent human randomized controlled trials and meta-analyses demonstrate that quercetin significantly reduces liver enzymes (ALT, AST, GGT), lowers intrahepatic fat accumulation, and clears inflammation via AMPK-mediated pathways.The <strong>polyphenols</strong> in olive oil (tyrosol and oleocanthal) are unique are powerful metabolic switches in liver tissue which downregulates de novo lipogenesis (the creation of new fat cells in the liver). they suppress the NF-xB and STAT3 pathways which are the exact inflammatory cascades that turn benign fatty liver into aggressive inflammation and liver fibrosis. It also reduces hydrogen peroxide release within liver mitochonria which allows repairs of the cellular leaks that cause liver tissue damage.
+        <br><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.
+        <br><span class="badge badge-kidney">Kidney Stone</span> Quercetin again pops up. This time as a natural calcium chelator which means it competes with oxalate to bind with calcium reducing the risk of a stone. ~2–3mg oxalate per serve.</p>
+        </div>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-olive-salad.html">🫒 View Recipe</a>
         </div>
@@ -1077,6 +1110,134 @@
       </div>
     </div>
 
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 46B — SARDINE & OLIVE CHOPPED SALAD
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+      <div class="recipe-card-img">🐟🫒🥗</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Sardine &amp; Olive Chopped Salad</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 10 min prep</span>
+          <span>🐟 120g sardines</span>
+          <span>🍽 1 large salad serving</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">sardines ⋅ cucumber ⋅ romaine ⋅ olive salad ⋅ hemp hearts ⋅ EVOO ⋅ parsley ⋅ lemon</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~4g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~2–3g/serving</span>
+        </div>
+        <p class="recipe-card-desc">A large chopped salad built around sardines, cucumber, romaine, olives, hemp hearts, parsley, and EVOO. This is one of the cleanest “brain-and-liver” meals in the library: strong marine EPA/DHA support, a solid choline contribution, and very little glycemic load. The olive salad brings salty depth and polyphenols; the hemp hearts add healthy fat and a gentle nutty texture; the cucumber keeps the bowl crisp and flat on glucose. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-actions">
+          <a class="btn btn-primary" href="recipes/recipe-sardine-olive-chopped-salad.html">🐟 View Recipe</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 46C — PAN-SEARED MACKEREL WITH ROASTED CRUCIFEROUS MEDLEY
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+      <div class="recipe-card-img">🐟🥦🧄</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Pan-Seared Mackerel with Roasted Cruciferous Medley</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 20 min total</span>
+          <span>🐟 150g mackerel</span>
+          <span>🍽 1 generous serving</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">mackerel ⋅ broccoli ⋅ garlic ⋅ EVOO</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~3.5g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~2–3g/serving</span>
+        </div>
+        <p class="recipe-card-desc">Wild mackerel seared in a hot skillet until the skin crisps and the flesh stays rich, tender, and loaded with EPA/DHA. Paired with roasted broccoli and activated garlic, this is one of the most nutrient-dense seafood meals in the library: high choline, exceptional marine omega-3, and a very low glycemic load. The cruciferous medley brings sulfur compounds and deep roasted flavor while the fish provides the direct, highly bioavailable omega-3s that APOE4 and fatty-liver pathways often need. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-actions">
+          <a class="btn btn-primary" href="recipes/recipe-pan-seared-mackerel.html">🐟 View Recipe</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 46D — SAVORY CHICKEN BREAST & SHIITAKE SKILLET
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+      <div class="recipe-card-img">🍲🍄🧄</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Savory Chicken Breast &amp; Shiitake Skillet</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 20 min total</span>
+          <span>🐔 150g chicken breast</span>
+          <span>🍄 100g shiitake</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">chicken breast ⋅ shiitake mushrooms ⋅ garlic ⋅ bone broth ⋅ EVOO ⋅ thyme</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~3g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~2g/serving</span>
+        </div>
+        <p class="recipe-card-desc">A dense choline skillet built around chicken breast, shiitake mushrooms, garlic, and bone broth. It delivers strong liver-supportive choline infrastructure, gut-friendly mushroom fiber, and a rich pan glaze without any unnecessary starch. The garlic is crushed and rested first to maximize the anti-inflammatory sulfur compounds, while the shiitakes bring meaty texture and a very low glycemic load. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-actions">
+          <a class="btn btn-primary" href="recipes/recipe-savory-chicken-shiitake-skillet.html">🍄 View Recipe</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 46E — GARLIC BEEF & BROCCOLI BOWL
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+      <div class="recipe-card-img">🥩🥦🧄</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Garlic Beef &amp; Broccoli Bowl</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 15 min total</span>
+          <span>🥩 150g lean beef</span>
+          <span>🥦 150g broccoli</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">beef ⋅ broccoli ⋅ garlic ⋅ EVOO ⋅ bone broth ⋅ coconut aminos</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~3.5g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
+        </div>
+        <p class="recipe-card-desc">A fast, high-choline skillet built around thin-sliced beef and broccoli with activated garlic and a light savory glaze. It is designed to support liver fat transport and provide a dense, low-carb protein plus cruciferous sulfur compounds without pushing the meal into a high-omega-3 lane. The broccoli covers the secondary choline load while the beef provides the major structural choline support needed for liver resilience and metabolic efficiency. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-actions">
+          <a class="btn btn-primary" href="recipes/recipe-garlic-beef-broccoli-bowl.html">🥩 View Recipe</a>
+        </div>
+      </div>
+    </div>
 
     <!-- ═══════════════════════════════════════════════
          RECIPE 47 — MARINATED FETA IN CHILI & HERB EVOO
@@ -3181,7 +3342,7 @@ const PANTRY_GROUPS = {
     items: [
       'A2 Brand Milk','A2 cream','asparagus','bell pepper','bone broth','bones','broccoli',
       'cabbage','capers','cauliflower','celery','chicken','chicken livers',
-      'cucumber','eggs','Farm Fresh Milk','beef','ground beef','ground turkey','turkey',
+      'cucumber','eggs','Farm Fresh Milk','beef','ground beef','ground turkey','turkey','mackerel','beef steak',
       'feta','heavy cream','jalapeño','kefir','kale','labneh','liquid rennet','milk','skim milk','mozzarella','spinach',
       'mushrooms','parmesan','pimento','pork shoulder','salmon','shrimp',
       'smoked salmon','Sugar Shift yogurt','tamari','zucchini',
@@ -3201,7 +3362,7 @@ const PANTRY_GROUPS = {
       'extra virgin olive oil','fennel','flax seed','Fuji apple','garlic','ginger','great northern beans','green split peas','herbs','hibiscus','honey',
       'lemon','lime','MCT oil','millet / millet flour','mint','olive-cheddar spread','olive cheddar spread',
       'apple cider','orange peel','pomegranate molasses','paprika','olives','onion','onion powder','oregano','parsley','peppermint',
-      'pecans','pepitas','pinto beans','pomegranate juice','potatoes','Prebio Plus','psyllium','pumpkin','pumpkin seeds',
+      'pecans','pepitas','pinto beans','pomegranate juice','potatoes','Prebio Plus','psyllium','pumpkin','pumpkin seeds','romaine','shiitake',
       'red lentils','red pepper flakes','red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
       'salt','scallion','sesame oil','smoked oysters','smoked paprika','sorghum flour','steel-cut oats','sugar','sumac',
       'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme','tomato sauce','tomatoes','trail mix','turmeric',
@@ -3234,6 +3395,10 @@ const PANTRY_NORM = {
   'low-sodium brine':    'salt',
   'fresh herbs':         'herbs',
   'flat-leaf parsley':   'parsley',
+  'romaine lettuce':     'romaine',
+  'romaine heart':       'romaine',
+  'shiitake mushrooms':  'shiitake',
+  'shiitake mushroom':   'shiitake',
   'fresh ginger':        'ginger',
   'grated ginger':       'ginger',
   'thin-sliced ginger':  'ginger',
@@ -3383,6 +3548,10 @@ const PANTRY_NORM = {
   'olive-cheddar spread': 'olive-cheddar spread',
   'olive & cheddar spread': 'olive-cheddar spread',
   'milled olives':       'olives',
+  'mackerel fillet':     'mackerel',
+  'mackerel fillets':    'mackerel',
+  'wild mackerel':       'mackerel',
+  'mackerel':            'mackerel',
   'sardines':            'sardines',
   'sesame seed':         'sesame seeds',
   'sesame seeds':        'sesame seeds',
@@ -3456,7 +3625,8 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Greek-Style Beef with Kale & Parmesan',
     'Low-Carb Stuffed Bell Peppers',
     'Lebanese-Style Kafta',
-    'Turkey Meatloaf with Smoky-Sweet Tomato Glaze'
+    'Turkey Meatloaf with Smoky-Sweet Tomato Glaze',
+    'Garlic Beef & Broccoli Bowl'
   ],
   chicken: [
     'Pan-Seared Chicken Livers with Onions & Herbs',
@@ -3466,12 +3636,15 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Caprese Hasselback Chicken',
     'Creamy Tuscan Chicken',
     'Golden Paste Roasted Chicken Thighs',
-    'Lemon-Garlic Pan Chicken with Bone Broth Pan Sauce'
+    'Lemon-Garlic Pan Chicken with Bone Broth Pan Sauce',
+    'Savory Chicken Breast & Shiitake Skillet'
   ],
   seafood: [
     'Smoked Oyster Bowl — Pantry Iron & Zinc',
     'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
-    'Golden Paste Salmon — Turmeric, Black Pepper & EVOO'
+    'Golden Paste Salmon — Turmeric, Black Pepper & EVOO',
+    'Sardine & Olive Chopped Salad',
+    'Pan-Seared Mackerel with Roasted Cruciferous Medley'
   ],
   pork: [
     'Slow-Braised Pork Shoulder with Apple, Fennel & Thyme'
@@ -3494,7 +3667,8 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Mediterranean Chop Chop Salad',
     'Kale, Apple, Blueberry & Mozzarella Salad with Lemon-EVOO Dressing',
     'Ginger Carrot Slaw with Apple, Sweet Pepper & Lemon',
-    'Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese'
+    'Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese',
+    'Sardine & Olive Chopped Salad'
   ],
   desserts: [
     'Lemon Blueberry Labneh Cheesecake',
@@ -3526,6 +3700,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Olive & Cheddar Cheese Bread (GF Yeasted Mini Loaf)'
   ],
   eggs: [
+    'Low-Carb Velvet Egg Drop Soup (Starch-Free)',
     'Perfect Hard Boiled Eggs — No Grey Ring',
     'Shakshuka — Eggs in Spiced Tomato-Pepper Sauce',
     'Turkish Çılbır — Poached Eggs on Garlic Yogurt'
@@ -3549,6 +3724,26 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Therapeutic Teas — Rooibos, Chamomile, Peppermint, Ginger, Hibiscus',
     'Afternoon MCT Coffee — Decaf Arabica, Ceylon Cinnamon, MCT Oil'
   ],
+  omega3: [
+    'Low-Carb Velvet Egg Drop Soup (Starch-Free)',
+    'Smoked Oyster Bowl — Pantry Iron & Zinc',
+    'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
+    'Golden Paste Salmon — Turmeric, Black Pepper & EVOO',
+    'Sardine & Olive Chopped Salad',
+    'Pan-Seared Mackerel with Roasted Cruciferous Medley'
+  ],
+  choline: [
+    'Low-Carb Velvet Egg Drop Soup (Starch-Free)',
+    'Perfect Hard Boiled Eggs — No Grey Ring',
+    'Shakshuka — Eggs in Spiced Tomato-Pepper Sauce',
+    'Turkish Çılbır — Poached Eggs on Garlic Yogurt',
+    'Smoked Oyster Bowl — Pantry Iron & Zinc',
+    'Golden Paste Salmon — Turmeric, Black Pepper & EVOO',
+    'Sardine & Olive Chopped Salad',
+    'Pan-Seared Mackerel with Roasted Cruciferous Medley',
+    'Savory Chicken Breast & Shiitake Skillet',
+    'Garlic Beef & Broccoli Bowl'
+  ]
 };
 
 const CARD_MACROS = {
@@ -3610,7 +3805,10 @@ function normIng(raw) {
   s = s.replace(/\s*\([^)]*\)/g, '');
   s = s.replace(/\s+/g, ' ').trim();
 
-  return PANTRY_NORM[s] || s;
+  if (Object.prototype.hasOwnProperty.call(PANTRY_NORM, s)) {
+    return PANTRY_NORM[s];
+  }
+  return s;
 }
 
 function allPantryKeys() {
@@ -4135,6 +4333,9 @@ const DAILY_NUTRITION_TARGETS = [
     target: '740–1,140',
     detail: 'food-only target depending on betaine use',
     items: [
+      'Excellent source / high choline = 110 mg+ per serving (20%+ DV)',
+      'Good source of choline = 55–109 mg per serving (10–19% DV)',
+      'Ignore / do not label = under 55 mg per serving',
       'Food-only shortfall = 740 mg/day if betaine is taken',
       'Food-only shortfall = 1,140 mg/day if betaine is not taken',
       'Anchor foods: eggs, salmon, chicken/turkey, liver, lentils, broccoli'
@@ -4147,6 +4348,9 @@ const DAILY_NUTRITION_TARGETS = [
     target: '800–1,500',
     detail: 'food-only target after supplement; total 2,000–3,000 mg/day',
     items: [
+      'Excellent source / high omega-3 = 250 mg+ marine EPA/DHA per serving',
+      'Good source of omega-3 = 110–249 mg EPA/DHA per serving OR 500 mg+ ALA per serving',
+      'Ignore / do not label = negligible amounts or heavily diluted recipes',
       'Food-only shortfall = 800–1,500 mg/day from seafood',
       'Total target = 2,000–3,000 mg/day EPA + DHA with supplement',
       'Anchor foods: salmon, sardines, mackerel, oysters, mussels'

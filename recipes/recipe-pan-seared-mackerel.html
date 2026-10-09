@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pan-Seared Mackerel with Roasted Cruciferous Medley</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Pan-Seared Mackerel with Roasted Cruciferous Medley",
+    "description": "Wild mackerel seared in a hot skillet and served with garlic-roasted broccoli for a high-choline, high-omega-3, low-oxalate liver-friendly meal.",
+    "recipeYield": "1 serving",
+    "prepTime": "PT15M",
+    "cookTime": "PT10M",
+    "totalTime": "PT25M",
+    "recipeCategory": "Seafood",
+    "recipeCuisine": "Mediterranean-inspired",
+    "keywords": "mackerel, omega-3, choline, fatty liver, APOE4, low carb",
+    "recipeIngredient": [
+      "150g wild mackerel fillet, thawed and patted dry",
+      "120g broccoli florets, cut small",
+      "15g extra virgin olive oil, divided",
+      "12g fresh garlic cloves, crushed",
+      "Sea salt, to taste (optional; fish pouch may already be salted)"
+    ],
+    "recipeInstructions": [
+      { "@type": "HowToStep", "name": "Roast the medley", "text": "Preheat the oven to 400°F (204°C). Toss the broccoli with 7.5g olive oil and crushed garlic. Roast on a sheet pan for 12 to 15 minutes until browned and crisp at the edges." },
+      { "@type": "HowToStep", "name": "Prep the fish", "text": "Pat the mackerel dry and make sure the skin is fully dry before searing." },
+      { "@type": "HowToStep", "name": "Sear the fish", "text": "Heat the remaining 7.5g olive oil in a skillet over medium-high heat. Place the mackerel skin-side down, reduce to medium heat, and press lightly for 30 seconds. Cook 3 to 4 minutes until the skin is crisp and golden." },
+      { "@type": "HowToStep", "name": "Finish the fillet", "text": "Flip briefly to the flesh side and cook for 60 to 90 seconds more. The goal is to finish the fish without overheating the delicate oils." },
+      { "@type": "HowToStep", "name": "Serve", "text": "Plate the fish with the roasted broccoli and spoon over the pan oil and garlic bits for extra flavor and health support." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --green-dark:#1f5a40; --green-mid:#2e7d5b; --green-light:#d8f3dc; --green-pale:#f3fbf5; --border:#bfdcc8; --text:#163126; --muted:#4c695d; --shadow:0 2px 12px rgba(31,90,64,.12); }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--green-pale); color:var(--text); line-height:1.6; padding-bottom:3rem; }
+    nav { background:var(--green-dark); padding:.75rem 1.5rem; display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; opacity:.85; font-size:.95rem; }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+    .main-wrap { max-width:860px; margin:0 auto; padding:1.5rem 1rem 0; }
+    .recipe-hero { background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.5rem; }
+    .recipe-hero-emoji { background:linear-gradient(135deg, var(--green-light) 40%, #fff9e8 100%); height:120px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; letter-spacing:.35rem; }
+    .recipe-hero-body { padding:1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size:clamp(1.3rem,3vw,1.8rem); color:var(--green-dark); margin-bottom:.6rem; }
+    .recipe-hero-body p { color:var(--muted); font-size:.92rem; line-height:1.7; margin-bottom:.9rem; }
+    .meta-strip { display:flex; flex-wrap:wrap; gap:1rem; background:var(--green-light); border-radius:8px; padding:.7rem 1rem; font-size:.82rem; color:var(--green-dark); margin-bottom:.9rem; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.8rem; }
+    .badge { display:inline-block; border-radius:12px; padding:.2rem .65rem; font-size:.72rem; font-weight:700; }
+    .badge-apoe4 { background:#f3e8ff; color:#6d28d9; }
+    .badge-celiac { background:#fff3e0; color:#e65100; }
+    .badge-dp { background:#e3f2fd; color:#1565c0; }
+    .badge-liver { background:#fce4ec; color:#880e4f; }
+    .badge-mthfr { background:#e0f2fe; color:#075985; }
+    .badge-kidney { background:#ecfccb; color:#3f6212; }
+    .recipe-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.2rem; }
+    @media (max-width:640px){ .recipe-layout { grid-template-columns:1fr; } }
+    .panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .panel-header { background:var(--green-light); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--green-dark); border-bottom:1px solid var(--border); }
+    .panel-body { padding:1rem 1.2rem; }
+    .ing-list { list-style:none; }
+    .ing-section-label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--green-mid); margin:.8rem 0 .35rem; }
+    .ing-item { display:flex; align-items:baseline; gap:.5rem; padding:.28rem 0; border-bottom:1px solid #e5f0e8; font-size:.85rem; }
+    .ing-item:last-child { border-bottom:none; }
+    .ing-amount { font-weight:700; color:var(--green-dark); min-width:7rem; flex-shrink:0; }
+    .step-list { list-style:none; display:flex; flex-direction:column; gap:.85rem; }
+    .step-item { display:flex; gap:.75rem; align-items:flex-start; font-size:.85rem; }
+    .step-num { background:var(--green-dark); color:#fff; border-radius:50%; width:1.6rem; height:1.6rem; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; flex-shrink:0; margin-top:.1rem; }
+    .step-name { font-weight:700; color:var(--green-dark); margin-bottom:.2rem; }
+    .btn { padding:.48rem 1.15rem; border-radius:8px; font-size:.85rem; font-weight:600; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:.35rem; }
+    .btn-back { background:#fff; color:var(--green-dark); border:1.5px solid var(--green-mid); }
+    .btn:hover { opacity:.82; }
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:linear-gradient(135deg, var(--green-light) 0%, #edf9ef 100%); padding:.7rem 1rem; font-size:.82rem; font-weight:700; color:var(--green-dark); border-bottom:1px solid var(--border); }
+    .nutr-grid { display:grid; gap:.7rem; padding:1rem; }
+    .nutr-row { background:#f9fcfa; border:1px solid var(--border); border-radius:12px; padding:.7rem .8rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; gap:.6rem; align-items:center; width:100%; margin-bottom:.35rem; flex-wrap:wrap; }
+    .nutr-name { font-size:.76rem; font-weight:700; color:var(--green-dark); }
+    .nutr-amount { font-size:.8rem; font-weight:800; color:var(--green-mid); }
+    .nutr-track { width:100%; background:#eaf3ec; height:8px; border-radius:999px; overflow:hidden; }
+    .nutr-fill { height:100%; border-radius:999px; }
+    .nutr-pct { font-size:.72rem; color:var(--muted); margin-top:.35rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html">🏠 Home</a>
+    <a href="../health-tracker.html">📈 Health Tracker</a>
+    <a href="../lab-tracker.html">🧪 Lab Results</a>
+    <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+    <a href="../food-response-testing.html">🍽️ Food Testing</a>
+    <a href="../dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="../genetics.html">🧬 Genetics</a>
+    <a href="../health-reference.html">📋 Reference</a>
+    <a href="../supplement-timing.html">💊 Supplements</a>
+    <a href="../exercise-protocol.html">🏃 Exercise</a>
+    <a href="../cgm-tracker.html">📡 CGM</a>
+    <a href="../daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="../diet-power.html">🥣 Diet Power</a>
+  </nav>
+
+  <div class="main-wrap">
+    <div class="recipe-hero">
+      <div class="recipe-hero-emoji">🐟🥦🧄</div>
+      <div class="recipe-hero-body">
+        <h1>Pan-Seared Mackerel with Roasted Cruciferous Medley</h1>
+        <p>Wild mackerel seared in a hot skillet and served with garlic-roasted broccoli. It is one of the cleanest seafood options for brain support, liver support, and true marine omega-3 density.</p>
+        <div class="meta-strip">
+          <span>⏱ 25 min total</span>
+          <span>🐟 150g mackerel</span>
+          <span>🥦 120g broccoli</span>
+          <span>🌿 GF / grain-free</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-layout">
+      <div class="panel">
+        <div class="panel-header">Ingredients</div>
+        <div class="panel-body">
+          <ul class="ing-list">
+            <li class="ing-item"><span class="ing-amount">150g</span><span>wild mackerel fillet, thawed and dried</span></li>
+            <li class="ing-item"><span class="ing-amount">120g</span><span>broccoli florets, cut small</span></li>
+            <li class="ing-item"><span class="ing-amount">15g</span><span>extra virgin olive oil, divided</span></li>
+            <li class="ing-item"><span class="ing-amount">12g</span><span>garlic cloves, crushed</span></li>
+            <li class="ing-item"><span class="ing-amount">to taste</span><span>sea salt if needed; pouch may already contain salt</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Instructions</div>
+        <div class="panel-body">
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Roast the medley</div>Preheat the oven to 400°F and toss the broccoli with half the olive oil and crushed garlic. Roast 12 to 15 minutes until crisp at the edges.</div></li>
+            <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Prep the fish</div>Pat the mackerel very dry so the skin sears properly instead of steaming.</div></li>
+            <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Sear</div>Heat the remaining olive oil in a skillet over medium-high heat. Lay the fish skin-side down, lower to medium, and press gently for the first 30 seconds.</div></li>
+            <li class="step-item"><span class="step-num">4</span><div><div class="step-name">Finish</div>Cook 3 to 4 minutes until the skin is crisp and golden, then flip to the flesh side for 60 to 90 seconds more.</div></li>
+            <li class="step-item"><span class="step-num">5</span><div><div class="step-name">Serve</div>Plate with the roasted broccoli and spoon over the pan oil and garlic bits.</div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="nutr-panel">
+      <div class="nutr-panel-header">📊 Nutrient panel (estimated)</div>
+      <div class="nutr-grid">
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Choline</span>
+            <span class="nutr-amount">~135 mg</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:75%;background:#f59e0b"></div></div>
+          <div class="nutr-pct">Excellent source with the fish and broccoli combined</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Marine omega-3 (EPA + DHA)</span>
+            <span class="nutr-amount">~1,800–2,200 mg</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:90%;background:#14b8a6"></div></div>
+          <div class="nutr-pct">Exceptional source in a single serving</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Net carbs</span>
+            <span class="nutr-amount">~3.5g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:12%;background:#15803d"></div></div>
+          <div class="nutr-pct">Very low for a whole seafood meal</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <a href="../recipes.html" class="btn btn-back">← Back to Recipe Library</a>
+    </div>
+  </div>
+</body>
+</html>
