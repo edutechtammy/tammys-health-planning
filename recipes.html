@@ -148,6 +148,8 @@
     .btn-recipe:hover { opacity: .82; }
     .btn-view   { background: var(--green-dark); color: #fff; }
     .btn-test   { background: #fff; color: #1565c0; border: 1.5px solid #90caf9; }
+    .recipe-card-footer .btn-view { flex: 1 1 100%; justify-content: center; }
+    .recipe-card-footer.multi-recipe-links .btn-view { flex: 0 1 auto; }
 
     /* FULL RECIPE PANEL */
     .recipe-full { display: none; background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); margin-top: 1rem; overflow: hidden; }
@@ -2373,10 +2375,10 @@
           <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~1g/serving</span>
         </div>
         <div class="recipe-card-desc">
-          <p>A silky chocolate chia pudding built from chia, cocoa, monkfruit/allulose, and milk. The overnight set is the key move here: it thickens into a pudding-like texture, lowers the spike risk compared with a shorter chill, and makes a very satisfying dessert or breakfast bowl. It can also be enjoyed just before a meal because the chia may help coat the digestive tract; for extra antioxidant support, add a little dark chocolate, or for a gentle blood-sugar-friendly boost, finish with a sprinkle of cinnamon. Freeze after the 12-hour set for a rich pseudo-ice cream texture.</p> <p><strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly.</p>
-          <p><strong>MTHFR fit:</strong> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress.</p>
-          <p><strong>Kidney stone fit:</strong> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention.</p>
-          <p><strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+          <p>A silky chocolate chia pudding built from chia, cocoa, monkfruit/allulose, and milk. The overnight set is the key move here: it thickens into a pudding-like texture, lowers the spike risk compared with a shorter chill, and makes a very satisfying dessert or breakfast bowl. It can also be enjoyed just before a meal because the chia may help coat the digestive tract; for extra antioxidant support, add a little dark chocolate, or for a gentle blood-sugar-friendly boost, finish with a sprinkle of cinnamon. Freeze after the 12-hour set for a rich pseudo-ice cream texture.</p> <p><span class="badge badge-apoe4">APOE4</span> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly.</p>
+          <p><span class="badge badge-mthfr">MTHFR</span> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress.</p>
+          <p><span class="badge badge-kidney">Kidney Stone</span> Low-oxalate, citrate-supporting ingredients and a lighter stone-risk profile help keep the meal aligned with kidney stone prevention.</p>
+          <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
         </div>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-chia-chocolate-pudding.html">🍫 View Recipe</a>
@@ -2409,7 +2411,11 @@
           <span class="trigger-pill"><strong>Net carbs:</strong> ~8g/serving</span>
           <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~1g/serving</span>
         </div>
-        <p class="recipe-card-desc">Raw slaw of grated carrot (beta-carotene, falcarinol, prebiotic fibre — raw GI ~16 vs cooked ~47), very finely grated fresh ginger (gingerols — NF-κB suppression, same anti-inflammatory pathway as quercetin and rosmarinic acid), red/orange sweet pepper (more vitamin C per gram than oranges — directly enhances folate bioavailability for MTHFR), Fuji apple skin-on (quercetin, pectin), and fresh lemon juice (citrate for kidney stone prevention). No cooking, no sugar, no grain. Optional EVOO drizzle at serving significantly increases beta-carotene absorption. ~6mg oxalate per serve. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+        <p>Raw slaw of grated carrot (beta-carotene, falcarinol, prebiotic fibre — raw GI ~16 vs cooked ~47), very finely grated fresh ginger (gingerols — NF-κB suppression, same anti-inflammatory pathway as quercetin and rosmarinic acid), red/orange sweet pepper (more vitamin C per gram than oranges — directly enhances folate bioavailability for MTHFR), Fuji apple skin-on (quercetin, pectin), and fresh lemon juice (citrate for kidney stone prevention). No cooking, no sugar, no grain. Optional EVOO drizzle at serving significantly increases beta-carotene absorption. ~6mg oxalate per serve.</p>
+        <p><span class="badge badge-apoe4">APOE4</span> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly.</p>
+        <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-ginger-carrot-slaw.html">🥕 View Recipe</a>
         </div>
@@ -2441,7 +2447,12 @@
           <span class="trigger-pill"><strong>Net carbs:</strong> ~6g/serving</span>
           <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
         </div>
-        <p class="recipe-card-desc">Ground turkey with sautéed onion, cold-rested garlic, and a four-herb blend (sage, rosemary, thyme, parsley — all containing rosmarinic acid for Nrf2 activation and APOE4 amyloid-β inhibition), bound with eggs alone — fully grain-free, no breadcrumbs, no oats. Topped with a two-stage smoky-sweet tomato glaze that delivers all four BBQ sauce flavour elements — smoky (smoked paprika), sweet (2 tsp honey across the whole loaf), tangy (lemon), umami depth (tomato paste + Dijon) — without the sugar spike, corn syrup, or hidden gluten of commercial BBQ sauce. ~11mg oxalate per serve. Low GI. The family recipe, rebuilt for every condition. <strong>MTHFR fit:</strong> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress. <strong>DP / blood sugar fit:</strong> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+        <p>Ground turkey with sautéed onion, cold-rested garlic, and a four-herb blend (sage, rosemary, thyme, parsley — all containing rosmarinic acid for Nrf2 activation and APOE4 amyloid-β inhibition), bound with eggs alone — fully grain-free, no breadcrumbs, no oats. Topped with a two-stage smoky-sweet tomato glaze that delivers all four BBQ sauce flavour elements — smoky (smoked paprika), sweet (2 tsp honey across the whole loaf), tangy (lemon), umami depth (tomato paste + Dijon) — without the sugar spike, corn syrup, or hidden gluten of commercial BBQ sauce. ~11mg oxalate per serve. Low GI. The family recipe, rebuilt for every condition.</p>
+        <p><span class="badge badge-mthfr">MTHFR</span> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress.</p>
+        <p><span class="badge badge-dp">DP / Blood Sugar</span> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern.</p>
+        <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-turkey-meatloaf.html">🦃 View Recipe</a>
         </div>
@@ -2473,7 +2484,11 @@
           <span class="trigger-pill"><strong>Net carbs:</strong> ~5g/serving</span>
           <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~9g/serving</span>
         </div>
-        <p class="recipe-card-desc">Bone-in pork shoulder slow-braised with Fuji apple (skin-on for quercetin), fennel (anethole anti-inflammatory), cold-rested garlic (allicin preserved), and fresh thyme (rosmarinic acid, Nrf2 activation). The apple dissolves into the braising liquid, giving the sauce natural body with no thickener — finished off-heat with Dijon mustard and lemon. Pork is the most B-vitamin-dense protein in the collection: B1 thiamine, B6, B12, and choline — the most MTHFR-targeted main course. Lean braised shoulder is high-protein, negligible carbohydrate. ~10mg oxalate per serve. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+        <p>Bone-in pork shoulder slow-braised with Fuji apple (skin-on for quercetin), fennel (anethole anti-inflammatory), cold-rested garlic (allicin preserved), and fresh thyme (rosmarinic acid, Nrf2 activation). The apple dissolves into the braising liquid, giving the sauce natural body with no thickener — finished off-heat with Dijon mustard and lemon. Pork is the most B-vitamin-dense protein in the collection: B1 thiamine, B6, B12, and choline — the most MTHFR-targeted main course. Lean braised shoulder is high-protein, negligible carbohydrate. ~10mg oxalate per serve.</p>
+        <p><span class="badge badge-apoe4">APOE4</span> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly.</p>
+        <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-slow-braised-pork-apple.html">🍖 View Recipe</a>
         </div>
@@ -2511,7 +2526,12 @@
           <span class="gi-test">Test Recommended</span>
           <span style="color:var(--muted);font-weight:400;font-size:.75rem">— fruit + glaze sugar; check personal response</span>
         </div>
-        <p class="recipe-card-desc">A bright summer spinach salad with fresh apricots, cherries, pecans, and crumbled feta, finished with a homemade balsamic glaze. Fiber and antioxidant rich, but with higher fruit sugar and spinach oxalate load than your lower-oxalate salad options. Best used as an occasional seasonal salad and paired thoughtfully with your glucose-testing workflow. <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>MTHFR fit:</strong> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+        <p>A bright summer spinach salad with fresh apricots, cherries, pecans, and crumbled feta, finished with a homemade balsamic glaze. Fiber and antioxidant rich, but with higher fruit sugar and spinach oxalate load than your lower-oxalate salad options. Best used as an occasional seasonal salad and paired thoughtfully with your glucose-testing workflow.</p>
+        <p><span class="badge badge-apoe4">APOE4</span> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly.</p>
+        <p><span class="badge badge-mthfr">MTHFR</span> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress.</p>
+        <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
       </div>
       <div class="recipe-card-footer">
         <a class="btn-recipe btn-view" href="recipes/recipe-apricot-spinach-cherry-salad.html" target="_blank">📄 Full Recipe / Import Page</a>
@@ -2541,7 +2561,13 @@
           <span class="trigger-pill"><strong>Net carbs:</strong> ~9g/serving</span>
           <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~4g/serving</span>
         </div>
-        <p class="recipe-card-desc">Massaged kale with Fuji apple, blueberries, torn fresh mozzarella, walnuts, and a lemon-EVOO dressing. Kale is chopped and rested 5 minutes before massaging (myrosinase activation for sulforaphane — same principle as broccoli). Blueberries contain pterostilbene and anthocyanins that cross the blood-brain barrier with direct amyloid-β inhibition evidence for APOE4. Apple provides quercetin (anti-inflammatory) and pectin prebiotic fibre. Fresh mozzarella is zero oxalate and adds protein — casein doesn't bind polyphenols in a cold solid salad. Walnuts at garnish quantity (7.5g/serve ≈ 5.5mg oxalate). Total ~26mg oxalate per serve. Low GI. Add a hard boiled egg or flaked salmon to make it a full meal. <strong>MTHFR fit:</strong> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress. <strong>Fatty liver fit:</strong> Designed to reduce hepatic lipid stress with lower saturated-fat load, more polyphenol-rich produce, and ingredients that support liver fat handling and metabolic recovery. <strong>DP / blood sugar fit:</strong> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern. <strong>Celiac / GF fit:</strong> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        <div class="recipe-card-desc">
+          <p>Massaged kale with Fuji apple, blueberries, torn fresh mozzarella, walnuts, and a lemon-EVOO dressing. Kale is chopped and rested 5 minutes before massaging (myrosinase activation for sulforaphane — same principle as broccoli). Blueberries contain pterostilbene and anthocyanins that cross the blood-brain barrier with direct amyloid-β inhibition evidence for APOE4. Apple provides quercetin (anti-inflammatory) and pectin prebiotic fibre. Fresh mozzarella is zero oxalate and adds protein — casein doesn't bind polyphenols in a cold solid salad. Walnuts at garnish quantity (7.5g/serve ≈ 5.5mg oxalate). Total ~26mg oxalate per serve. Low GI. Add a hard boiled egg or flaked salmon to make it a full meal.</p>
+          <p><span class="badge badge-mthfr">MTHFR</span> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress.</p>
+          <p><span class="badge badge-liver">Fatty Liver</span> Designed to reduce hepatic lipid stress with lower saturated-fat load, more polyphenol-rich produce, and ingredients that support liver fat handling and metabolic recovery.</p>
+          <p><span class="badge badge-dp">DP / Blood Sugar</span> Structured to flatten the glucose curve with low net-carb ingredients, fiber support, and a gentler insulin response pattern.</p>
+          <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-kale-fruit-salad.html">🥬 View Recipe</a>
         </div>
@@ -4609,6 +4635,63 @@ function filterRecipes(tag, btn) {
   applyAllFilters();
 }
 
+function normalizeRecipeCardFooters() {
+  document.querySelectorAll('.recipe-card').forEach((card) => {
+    let footer = card.querySelector('.recipe-card-footer');
+    const legacyActions = card.querySelector('.recipe-card-actions');
+
+    if (!footer && legacyActions) {
+      footer = legacyActions;
+      footer.classList.add('recipe-card-footer');
+      footer.classList.remove('recipe-card-actions');
+    }
+
+    if (!footer) {
+      footer = document.createElement('div');
+      footer.className = 'recipe-card-footer';
+      card.appendChild(footer);
+    }
+
+    if (footer.parentElement && footer.parentElement.classList.contains('recipe-card-body')) {
+      card.appendChild(footer);
+    }
+
+    const links = Array.from(footer.querySelectorAll('a[href]'));
+    const recipeLinks = links.filter(link => /^recipes\//i.test((link.getAttribute('href') || '').trim()));
+
+    recipeLinks.forEach((link) => {
+      link.className = 'btn-recipe btn-view';
+      link.setAttribute('target', '_blank');
+      if (recipeLinks.length === 1) {
+        link.textContent = '📄 Full Recipe / Import Page';
+      }
+    });
+
+    links
+      .filter(link => /food-response-testing\.html/i.test((link.getAttribute('href') || '').trim()))
+      .forEach((link) => {
+        link.className = 'btn-recipe btn-test';
+        link.textContent = '🍽 Log a Test';
+        link.removeAttribute('target');
+      });
+
+    if (recipeLinks.length > 1) {
+      footer.classList.add('multi-recipe-links');
+    } else {
+      footer.classList.remove('multi-recipe-links');
+    }
+
+    const hasTestLink = footer.querySelector('a[href*="food-response-testing.html"]');
+    if (!hasTestLink) {
+      const testLink = document.createElement('a');
+      testLink.className = 'btn-recipe btn-test';
+      testLink.href = 'food-response-testing.html';
+      testLink.textContent = '🍽 Log a Test';
+      footer.appendChild(testLink);
+    }
+  });
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 //  MEALBOARD
 // ═══════════════════════════════════════════════════════════════════════════
@@ -4765,6 +4848,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMenuSlideshow();
   document.getElementById('menu-fullscreen-btn')?.addEventListener('click', openMenuFullscreen);
   document.getElementById('menu-slide-image')?.addEventListener('click', openMenuFullscreen);
+  normalizeRecipeCardFooters();
   initMealboardToggles();
   addMissingMacroTriggers();
   addWaterOnlyWarnings();
