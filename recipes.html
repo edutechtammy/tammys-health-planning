@@ -81,6 +81,8 @@
     .recipe-card-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; }
     .recipe-card-ingredients { font-size: .75rem; color: var(--muted); line-height: 1.4; margin: .3rem 0 .15rem; }
     .recipe-card-trigger { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .12rem; }
+    .recipe-card-targets { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .12rem; }
+    .recipe-card-targets .trigger-pill { font-size: .66rem; }
     .trigger-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: .18rem .55rem; background: var(--green-pale); border: 1px solid var(--border); color: var(--green-dark); font-size: .68rem; font-weight: 700; }
     .trigger-pill.warning { background: #fff7ed; border-color: #fed7aa; color: #9a4d00; }
     .drink-warning { display: inline-flex; align-items: center; align-self: flex-start; border-radius: 999px; padding: .2rem .7rem; background: #fff1f2; border: 1px solid #fecdd3; color: #9f1239; font-size: .68rem; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
@@ -199,6 +201,75 @@
     .menu-planning-header h2 { font-size: 1rem; }
     .menu-planning-header p { margin-top: .3rem; font-size: .83rem; color: rgba(255,255,255,.9); }
     .menu-planning-body { padding: 1rem 1.2rem 1.1rem; }
+    .menu-planner-controls { display: flex; flex-wrap: wrap; gap: .55rem .7rem; align-items: flex-end; margin-bottom: .9rem; }
+    .menu-planner-field { display: flex; flex-direction: column; gap: .25rem; min-width: 130px; }
+    .menu-planner-field label { font-size: .71rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 700; }
+    .menu-planner-field input,
+    .menu-planner-field select { border: 1.5px solid var(--border); border-radius: 8px; padding: .42rem .55rem; font-size: .82rem; color: var(--text); background: #fff; }
+    .menu-planner-field input:focus,
+    .menu-planner-field select:focus { outline: none; border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(64,145,108,.12); }
+    .menu-planner-btn { border: 1.5px solid var(--green-mid); background: #fff; color: var(--green-dark); border-radius: 8px; padding: .44rem .8rem; font-size: .79rem; font-weight: 700; cursor: pointer; }
+    .menu-planner-btn:hover { background: var(--green-dark); color: #fff; }
+    .menu-inline-check { display: inline-flex; align-items: center; gap: .35rem; font-size: .76rem; color: var(--muted); font-weight: 600; }
+    .menu-inline-check input { accent-color: var(--green-dark); }
+    .menu-planner-hint { font-size: .79rem; color: var(--muted); margin: 0 0 .7rem; line-height: 1.45; }
+    .menu-duplicate-status { font-size: .72rem; color: var(--muted); min-height: 1.1rem; margin: 0 0 .75rem; }
+    .menu-weekly-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .6rem; margin-bottom: .85rem; }
+    .menu-weekly-card { border: 1px solid var(--border); border-radius: 10px; padding: .65rem .75rem; background: linear-gradient(180deg, #f9fffa, #f2faf5); }
+    .menu-weekly-card h4 { font-size: .8rem; color: var(--green-dark); margin-bottom: .25rem; }
+    .menu-weekly-line { font-size: .75rem; color: var(--text); margin-bottom: .34rem; }
+    .menu-weekly-bar { height: 10px; border-radius: 999px; overflow: hidden; background: #d9efe0; margin-bottom: .34rem; }
+    .menu-weekly-fill { height: 100%; background: var(--green-mid); transition: width .25s ease; }
+    .menu-weekly-fill.low { background: #dc2626; }
+    .menu-weekly-fill.mid { background: #f59e0b; }
+    .menu-weekly-foot { font-size: .72rem; color: var(--muted); }
+    .menu-export-card { border: 1px solid var(--border); border-radius: 10px; background: #fff; padding: .7rem .75rem; margin-bottom: .85rem; }
+    .menu-export-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap; margin-bottom: .45rem; }
+    .menu-export-head h4 { font-size: .82rem; color: var(--green-dark); }
+    .menu-export-actions { display: inline-flex; gap: .35rem; flex-wrap: wrap; }
+    .menu-export-btn { border: 1.5px solid var(--green-mid); background: #fff; color: var(--green-dark); border-radius: 7px; padding: .3rem .6rem; font-size: .72rem; font-weight: 700; cursor: pointer; }
+    .menu-export-btn:hover { background: var(--green-dark); color: #fff; }
+    .menu-export-status { font-size: .72rem; color: var(--muted); min-height: 1.1rem; margin-bottom: .2rem; }
+    .menu-export-text { width: 100%; min-height: 210px; border: 1px solid var(--border); border-radius: 9px; background: #f9fdf9; color: var(--text); font-size: .74rem; line-height: 1.42; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace; padding: .6rem .65rem; resize: vertical; }
+    .menu-manual-entry { border: 1px solid var(--border); border-radius: 10px; background: #f9fffa; padding: .65rem .75rem; margin-bottom: .85rem; }
+    .menu-manual-head { font-size: .8rem; color: var(--green-dark); font-weight: 800; margin-bottom: .45rem; }
+    .menu-manual-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .45rem .6rem; align-items: end; }
+    .menu-manual-wide { grid-column: span 2; }
+    .menu-manual-status { font-size: .72rem; color: var(--muted); min-height: 1.1rem; margin-top: .42rem; }
+    .menu-item-tag { display: inline-block; margin-left: .35rem; font-size: .62rem; border: 1px solid #d1fae5; background: #ecfdf5; color: #065f46; border-radius: 999px; padding: .02rem .34rem; vertical-align: middle; }
+    .menu-edit-actions { display: inline-flex; gap: .28rem; margin-left: .3rem; }
+    .menu-edit-btn { border: 1px solid #bfdbfe; background: #eff6ff; color: #1e40af; border-radius: 6px; padding: .1rem .38rem; font-size: .66rem; font-weight: 700; cursor: pointer; }
+    .menu-edit-btn:hover { background: #dbeafe; }
+    .menu-edit-panel { margin-top: .36rem; border: 1px dashed #b7ddc4; border-radius: 8px; background: #fff; padding: .35rem .4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .3rem .45rem; }
+    .menu-edit-panel label { font-size: .62rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+    .menu-edit-panel input,
+    .menu-edit-panel select { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: .2rem .3rem; font-size: .7rem; }
+    .menu-edit-row { display: flex; flex-direction: column; gap: .12rem; }
+    .menu-edit-footer { display: flex; gap: .35rem; align-items: center; }
+    .menu-edit-save { border: 1px solid #86efac; background: #ecfdf5; color: #166534; }
+    .menu-edit-cancel { border: 1px solid #fecaca; background: #fff1f2; color: #9f1239; }
+    .menu-planner-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .55rem; margin-bottom: .85rem; }
+    .menu-total-card { border: 1px solid var(--border); border-radius: 10px; background: #f8fff9; padding: .6rem .7rem; }
+    .menu-total-card h4 { font-size: .78rem; color: var(--green-dark); margin-bottom: .22rem; }
+    .menu-total-lines { font-size: .75rem; color: var(--text); line-height: 1.4; }
+    .menu-total-ok { color: #166534; font-weight: 700; }
+    .menu-total-low { color: #b91c1c; font-weight: 700; }
+    .menu-plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: .65rem; }
+    .menu-day-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; }
+    .menu-day-head { background: #f0faf2; border-bottom: 1px solid var(--border); padding: .5rem .65rem; }
+    .menu-day-head h4 { font-size: .84rem; color: var(--green-dark); }
+    .menu-day-meals { padding: .58rem .65rem .65rem; display: flex; flex-direction: column; gap: .48rem; }
+    .menu-meal-block h5 { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .16rem; }
+    .menu-meal-list { list-style: none; display: flex; flex-direction: column; gap: .22rem; }
+    .menu-meal-item { border: 1px solid #d6eadc; border-radius: 8px; background: #f9fffa; padding: .38rem .45rem; font-size: .74rem; }
+    .menu-meal-top { display: flex; justify-content: space-between; gap: .35rem; align-items: flex-start; }
+    .menu-meal-name { color: var(--text); font-weight: 600; }
+    .menu-remove-item { border: 1px solid #fecaca; background: #fff1f2; color: #9f1239; border-radius: 6px; padding: .1rem .35rem; font-size: .68rem; font-weight: 700; cursor: pointer; }
+    .menu-remove-item:hover { background: #ffe4e6; }
+    .menu-meal-sub { margin-top: .2rem; color: var(--muted); font-size: .69rem; line-height: 1.35; }
+    .menu-empty { font-size: .72rem; color: var(--muted); }
+    .btn-plan { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn-plan:hover { background: var(--green-dark); color: #fff; }
 
     /* NUTRITION TARGET PLANNER */
     .nutrition-planner-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
@@ -210,6 +281,8 @@
     .nutrition-target-card { background: linear-gradient(180deg, #f9fffa, #f2faf5); border: 1px solid var(--border); border-radius: 12px; padding: .9rem 1rem; }
     .nutrition-target-header { display: flex; align-items: center; justify-content: space-between; gap: .6rem; margin-bottom: .6rem; }
     .nutrition-target-name { font-weight: 800; color: var(--green-dark); }
+    .nutrition-target-badges { display: flex; flex-wrap: wrap; gap: .3rem; margin: -.2rem 0 .55rem; }
+    .nutrition-target-badges .badge { font-size: .66rem; }
     .nutrition-target-pill { background: var(--green-light); color: var(--green-dark); border-radius: 999px; padding: .22rem .6rem; font-size: .68rem; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
     .nutrition-target-kpi { font-size: 1.75rem; font-weight: 800; color: var(--text); line-height: 1.1; }
     .nutrition-target-meta { font-size: .79rem; color: var(--muted); margin-top: .15rem; }
@@ -356,8 +429,8 @@
   <!-- Menu Planning -->
    <section class="menu-planning-panel" aria-labelledby="menu-planning-panel">
     <div class="menu-planning-header">
-      <h2 id="menu-planning-title">📸 Menu Planning</h2>
-      <p>Menu for the week.</p>
+      <h2 id="menu-planning-title">🗓️ Menu Planning</h2>
+      <p>Phase 1: add recipe entries by day and meal, then track daily choline and omega-3 totals.</p>
     </div>
     <div class="menu-planning-body">
       <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px; background-color:rgb(251, 253, 197);">
@@ -376,145 +449,115 @@
           <p><strong>☐ <a href="/recipes/recipe-olive-cheese-bread.html">Olive Cheese Bread (2 servings left)</a></strong></p>
         </div>
       </div>
-
-      <h3 style="margin-left: 40px;">Weekly Totals</h3>
-      <div style="margin-left: 80px;">
-        <p style="color: red;"><strong>☐ Choline: ##/## (min ###)</strong></p>
-        <p style="color: red;"><strong>☐ Omega-3: ##/## (min ###)</strong></p>
-      </div>
-
-      <h3 style="margin-left: 10px; padding-top: 10px;">Sunday, Oct 11, 2026 Totals</h3>
-      <div style="margin-left: 80px;">
-        <p style="color: red;"><strong>☐ Choline: ##/1140 (min 740)</strong></p>
-        <p style="color: red;"><strong>☐ Omega-3: ##/1500 (min 800)</strong></p>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <p>Sugar Shift Yogurt - made with pastured whole cow's milk</p>
-        <div style="margin-left: 40px;">
-          <p style="color: red;"><strong>☐ Choline: 35 mg</strong></p>
-          <p style="color: red;"><strong>☐ Omega-3: 150 - 250 mg</strong></p>
-          <p>Quantity: 3 servings</p>
+      <div class="menu-planner-controls">
+        <div class="menu-planner-field">
+          <label for="menu-planner-week">Week Starting</label>
+          <input type="date" id="menu-planner-week" />
         </div>
+        <div class="menu-planner-field">
+          <label for="menu-planner-day">Default Day</label>
+          <select id="menu-planner-day"></select>
+        </div>
+        <div class="menu-planner-field">
+          <label for="menu-planner-meal">Default Meal</label>
+          <select id="menu-planner-meal"></select>
+        </div>
+        <div class="menu-planner-field">
+          <label for="menu-planner-servings">Default Servings</label>
+          <input type="number" id="menu-planner-servings" min="0.25" step="0.25" value="1" />
+        </div>
+        <button type="button" class="menu-planner-btn" id="menu-planner-clear-day">Clear Selected Day</button>
+        <div class="menu-planner-field">
+          <label for="menu-dup-from">Duplicate From</label>
+          <select id="menu-dup-from"></select>
+        </div>
+        <div class="menu-planner-field">
+          <label for="menu-dup-to">Duplicate To</label>
+          <select id="menu-dup-to"></select>
+        </div>
+        <label class="menu-inline-check" for="menu-dup-replace">
+          <input type="checkbox" id="menu-dup-replace" checked />
+          Replace target day first
+        </label>
+        <button type="button" class="menu-planner-btn" id="menu-duplicate-day">Duplicate Day</button>
+        <div class="menu-planner-field">
+          <label for="menu-dup-range-start">Duplicate Range Start</label>
+          <select id="menu-dup-range-start"></select>
+        </div>
+        <div class="menu-planner-field">
+          <label for="menu-dup-range-end">Duplicate Range End</label>
+          <select id="menu-dup-range-end"></select>
+        </div>
+        <button type="button" class="menu-planner-btn" id="menu-duplicate-range">Duplicate To Range</button>
       </div>
 
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <p>Hard Boiled Egg - Pasture raised (Vital Farms or Happy Egg)</p>
-        <div style="margin-left: 40px;">
-          <p style="color: red;"><strong>☐ Choline: 125 - 147 mg</strong></p>
-          <p style="color: red;"><strong>☐ Omega-3: 50 - 150 mg</strong></p>
-          <p>Quantity: 3 servings</p>
-        </div>
-      </div>
+      <p class="menu-planner-hint">Use the <strong>➕ Add to Day</strong> button on any recipe card. Phase 1 totals track choline and omega-3 from your selected recipe servings.</p>
+      <div class="menu-duplicate-status" id="menu-duplicate-status">Tip: use Duplicate Day for repeat structures like weekday breakfasts.</div>
 
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <p>Salmon 85g cooked (deck of cards serving)</p>
-        <div style="margin-left: 40px;">
-          <p style="color: red;"><strong>☐ Choline: 70 - 90 mg</strong></p>
-          <p style="color: red;"><strong>☐ Omega-3: 1000 - 1500 mg</strong></p>
-          <p>Quantity: 2 servings</p>
+      <div class="menu-weekly-summary" id="menu-planner-weekly-summary"></div>
+      <section class="menu-manual-entry" aria-label="Manual Menu Entry">
+        <div class="menu-manual-head">Manual Entry (Restaurant or Custom Food)</div>
+        <div class="menu-manual-grid">
+          <div class="menu-planner-field menu-manual-wide">
+            <label for="menu-manual-name">Item Name</label>
+            <input type="text" id="menu-manual-name" placeholder="Example: Texas Roadhouse Salmon Plate" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-day">Day</label>
+            <select id="menu-manual-day"></select>
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-meal">Meal</label>
+            <select id="menu-manual-meal"></select>
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-servings">Servings</label>
+            <input type="number" id="menu-manual-servings" min="0.25" step="0.25" value="1" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-choline">Choline / serving (mg)</label>
+            <input type="number" id="menu-manual-choline" min="0" step="1" value="0" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-omega3">Omega-3 / serving (mg)</label>
+            <input type="number" id="menu-manual-omega3" min="0" step="1" value="0" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-mufa">MUFAs / serving (g)</label>
+            <input type="number" id="menu-manual-mufa" min="0" step="0.1" value="0" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-folate">Folate / serving (mcg)</label>
+            <input type="number" id="menu-manual-folate" min="0" step="1" value="0" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-b12">B12 / serving (mcg)</label>
+            <input type="number" id="menu-manual-b12" min="0" step="0.1" value="0" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-viscous">Viscous Fiber / serving (g)</label>
+            <input type="number" id="menu-manual-viscous" min="0" step="0.1" value="0" />
+          </div>
+          <button type="button" class="menu-planner-btn" id="menu-manual-add">Add Manual Item</button>
         </div>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <p>1 Tbsp Extra Virgin Olive Oil</p>
-        <div style="margin-left: 40px;">
-          <p style="color: red;"><strong>☐ Choline: 0 mg</strong></p>
-          <p style="color: red;"><strong>☐ Omega-3: 100 - 140 mg</strong></p>
-          <p>Quantity: 1 serving</p>
+        <div class="menu-manual-status" id="menu-manual-status">Manual entries also flow into daily totals, weekly totals, and export.</div>
+      </section>
+      <section class="menu-export-card" aria-label="Weekly Summary Export">
+        <div class="menu-export-head">
+          <h4>Weekly Summary Export</h4>
+          <div class="menu-export-actions">
+            <button type="button" class="menu-export-btn" id="menu-export-copy">Copy Summary</button>
+            <button type="button" class="menu-export-btn" id="menu-export-print">Print</button>
+            <button type="button" class="menu-export-btn" id="menu-export-json">Export JSON</button>
+            <button type="button" class="menu-export-btn" id="menu-import-json">Import JSON</button>
+          </div>
         </div>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <h3>Monday</h3>
-        <p>We will be running significant errands today in Hope and Texarkana. We will eat out today.</p>
-        <div style="margin-left: 40px;">
-          <p><strong>Breakfast</strong></p>
-          <p style="margin-left: 40px;">Salad</p>
-          <p><strong>Lunch</strong></p>
-          <p style="margin-left: 40px;">Likely I will not be home for lunch</p>
-          <p><strong>Dinner</strong></p>
-          <p style="margin-left: 40px;">Zachary's Birthday - Texas Roadhouse in Texarkana</p>
-          <p><strong>Bedtime snack targeting overnight glucose stability, if needed</strong></p>
-        </div>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <h3>Tuesday</h3>
-        <p>Text</p>
-        <div style="margin-left: 40px;">
-          <p style="color: red;"><strong>PREP</strong></p>
-          <p style="margin-left: 40px;">☑ Make Mayo with the new immersion blender</p>
-          <p style="margin-left: 40px;">☑ Explore making a wrap</p>
-          <p><strong>Breakfast</strong></p>
-          <p style="margin-left: 40px;">Sugar shift yogurt with almond slices, Lily's Stevia sweetened chocolate chips, sugar-free cherry flavoring</p>
-          <p><strong>Lunch</strong></p>
-          <p style="margin-left: 40px;">Tuna wrap with the new wrap made earlier.</p>
-          <p><strong>Dinner</strong></p>
-          <p style="margin-left: 40px;">We are still so full from the Texas Roadhouse meal, we skipped dinner.</p>
-          <p><strong>Bedtime snack targeting overnight glucose stability, if needed</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-sugar-shift-yogurt.html">Sugar Shift Yogurt</a> with sliced almonds, Lily's Chocolate Chips, sugar-free (stevia) cherry flavoring.</p>
-        </div>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <h3>Wednesday</h3>
-        <p>Text</p>
-        <div style="margin-left: 40px;">
-          <p style="color: red;"><strong>PREP</strong></p>
-          <p style="margin-left: 40px;">☐ Make labneh.</p>
-          <p style="margin-left: 40px;">☐ Make <a href="/recipes/recipe-blueberry-labneh-cheesecake.html">Lemon Blueberry Labneh Cheesecake</a></p>
-          <p><strong>Breakfast</strong></p>
-          <p style="margin-left: 40px;">Salad</p>
-          <p><strong>Lunch</strong></p>
-          <p><strong>Dinner</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-greek-beef-kale.html">Greek-Style Beef with Kale &amp; Parmesan</a></p>
-          <p><strong>Bedtime snack targeting overnight glucose stability, if needed</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-sugar-shift-yogurt.html">Sugar Shift Yogurt</a> with sliced almonds, Lily's Chocolate Chips, sugar-free (stevia) cherry flavoring.</p>
-        </div>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <h3>Thursday</h3>
-        <p>Text</p>
-        <div style="margin-left: 40px;">
-          <p><strong>Breakfast</strong></p>
-          <p style="margin-left: 40px;">Salad</p>
-          <p><strong>Lunch</strong></p>
-          <p><strong>Dinner</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-creamy-mediterranean-red-lentil-tomato-soup.html">Creamy Mediterranean Red Lentil &amp; Tomato Soup</a></p>
-          <p><strong>Bedtime snack targeting overnight glucose stability, if needed</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-sugar-shift-yogurt.html">Sugar Shift Yogurt</a> with sliced almonds, Lily's Chocolate Chips, sugar-free (stevia) cherry flavoring.</p>
-        </div>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <h3>Friday</h3>
-        <p>Text</p>
-        <div style="margin-left: 40px;">
-          <p><strong>Breakfast</strong></p>
-          <p style="margin-left: 40px;">Salad</p>
-          <p><strong>Lunch</strong></p>
-          <p><strong>Dinner</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-kale-fruit-salad.html">Kale, Apple, Blueberry &amp; Mozzarella Salad with Lemon-EVOO Dressing</a></p>
-          <p><strong>Bedtime snack targeting overnight glucose stability, if needed</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-sugar-shift-yogurt.html">Sugar Shift Yogurt</a> with sliced almonds, Lily's Chocolate Chips, sugar-free (stevia) cherry flavoring.</p>
-        </div>
-      </div>
-
-      <div style="border: 2px solid black; border-radius: 5px; padding: 15px; margin: 10px">
-        <h3>Saturday</h3>
-        <p>Text</p>
-        <div style="margin-left: 40px;">
-          <p><strong>Breakfast</strong></p>
-          <p style="margin-left: 40px;">Salad</p>
-          <p><strong>Lunch</strong></p>
-          <p><strong>Dinner</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-ladenia.html">Ladenia</a></p>
-          <p><strong>Bedtime snack targeting overnight glucose stability, if needed</strong></p>
-          <p style="margin-left: 40px;"><a href="/recipes/recipe-sugar-shift-yogurt.html">Sugar Shift Yogurt</a> with sliced almonds, Lily's Chocolate Chips, sugar-free (stevia) cherry flavoring.</p>
-        </div>
-      </div>
+        <div class="menu-export-status" id="menu-export-status">Summary updates automatically as you add or remove items.</div>
+        <textarea id="menu-export-text" class="menu-export-text" readonly></textarea>
+        <input type="file" id="menu-import-json-file" accept="application/json,.json" style="display:none" />
+      </section>
+      <div class="menu-planner-totals" id="menu-planner-daily-totals"></div>
+      <div class="menu-plan-grid" id="menu-planner-days"></div>
     </div>
   </section>
 
@@ -4538,6 +4581,1026 @@ function addMissingMacroTriggers() {
   });
 }
 
+function estimateNutrientsPerServing(ingredientsText) {
+  const tokens = (ingredientsText || '')
+    .split('\u22c5')
+    .map(part => normIng(part))
+    .filter(Boolean);
+
+  const uniqueTokens = Array.from(new Set(tokens));
+  const totals = {
+    cholineMg: 0,
+    omega3Mg: 0,
+    mufaG: 0,
+    folateMcg: 0,
+    b12Mcg: 0,
+    viscousFiberG: 0
+  };
+
+  const has = (token, list) => list.some(term => token.includes(term));
+
+  uniqueTokens.forEach((token) => {
+    if (!token) return;
+
+    // Choline (mg)
+    if (has(token, ['liver'])) totals.cholineMg += 280;
+    else if (has(token, ['eggs', 'egg'])) totals.cholineMg += 145;
+    else if (has(token, ['salmon', 'sardine', 'mackerel', 'shrimp', 'crab', 'oyster'])) totals.cholineMg += 95;
+    else if (has(token, ['chicken', 'turkey', 'beef', 'pork'])) totals.cholineMg += 80;
+    else if (has(token, ['yogurt', 'kefir', 'milk', 'mozzarella', 'feta', 'parmesan'])) totals.cholineMg += 30;
+    else if (has(token, ['beans', 'lentils', 'broccoli'])) totals.cholineMg += 25;
+
+    // Omega-3 (mg) - marine EPA/DHA + plant ALA estimate
+    if (has(token, ['salmon'])) totals.omega3Mg += 1800;
+    else if (has(token, ['sardine', 'mackerel'])) totals.omega3Mg += 1500;
+    else if (has(token, ['oyster', 'shrimp', 'crab'])) totals.omega3Mg += 250;
+    else if (has(token, ['walnut'])) totals.omega3Mg += 650;
+    else if (has(token, ['chia'])) totals.omega3Mg += 900;
+    else if (has(token, ['flax'])) totals.omega3Mg += 700;
+    else if (has(token, ['hemp'])) totals.omega3Mg += 350;
+
+    // MUFAs (g)
+    if (has(token, ['evoo', 'olive oil', 'olive', 'almond oil', 'avocado oil'])) totals.mufaG += 8;
+    else if (has(token, ['avocado'])) totals.mufaG += 7;
+    else if (has(token, ['almond', 'walnut', 'pecan', 'macadamia'])) totals.mufaG += 3;
+
+    // Folate (mcg)
+    if (has(token, ['spinach', 'parsley', 'asparagus', 'lentils'])) totals.folateMcg += 80;
+    else if (has(token, ['kale', 'beans', 'broccoli', 'avocado'])) totals.folateMcg += 50;
+    else if (has(token, ['cabbage', 'bell pepper', 'tomatoes', 'zucchini', 'cucumber'])) totals.folateMcg += 20;
+
+    // B12 (mcg)
+    if (has(token, ['liver'])) totals.b12Mcg += 8.0;
+    else if (has(token, ['mackerel', 'sardine', 'salmon'])) totals.b12Mcg += 2.8;
+    else if (has(token, ['beef', 'shrimp', 'crab', 'oyster'])) totals.b12Mcg += 2.2;
+    else if (has(token, ['chicken', 'turkey', 'pork'])) totals.b12Mcg += 0.7;
+    else if (has(token, ['eggs', 'egg'])) totals.b12Mcg += 0.6;
+    else if (has(token, ['yogurt', 'kefir', 'milk', 'mozzarella', 'feta', 'parmesan'])) totals.b12Mcg += 0.4;
+
+    // Viscous soluble fiber (g)
+    if (has(token, ['psyllium'])) totals.viscousFiberG += 4.0;
+    else if (has(token, ['chia'])) totals.viscousFiberG += 3.5;
+    else if (has(token, ['flax'])) totals.viscousFiberG += 2.0;
+    else if (has(token, ['beans', 'lentils', 'oats', 'steel-cut oats', 'barley', 'okra'])) totals.viscousFiberG += 2.5;
+    else if (has(token, ['broccoli', 'cabbage', 'carrot', 'apple', 'berries'])) totals.viscousFiberG += 0.8;
+  });
+
+  // Keep estimates in practical per-serving bounds.
+  totals.cholineMg = Math.min(totals.cholineMg, 420);
+  totals.omega3Mg = Math.min(totals.omega3Mg, 2500);
+  totals.mufaG = Math.min(totals.mufaG, 24);
+  totals.folateMcg = Math.min(totals.folateMcg, 320);
+  totals.b12Mcg = Math.min(totals.b12Mcg, 10);
+  totals.viscousFiberG = Math.min(totals.viscousFiberG, 12);
+
+  return {
+    cholineMg: Math.round(totals.cholineMg),
+    omega3Mg: Math.round(totals.omega3Mg),
+    mufaG: Number(totals.mufaG.toFixed(1)),
+    folateMcg: Math.round(totals.folateMcg),
+    b12Mcg: Number(totals.b12Mcg.toFixed(1)),
+    viscousFiberG: Number(totals.viscousFiberG.toFixed(1))
+  };
+}
+
+function addNutrientTargetBadges() {
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    const body = card.querySelector('.recipe-card-body');
+    const ingEl = card.querySelector('.recipe-card-ingredients');
+    if (!body || !ingEl) return;
+    if (body.querySelector('.recipe-card-targets')) return;
+
+    const est = estimateNutrientsPerServing(ingEl.textContent || '');
+    card.dataset.cholineMg = String(est.cholineMg);
+    card.dataset.omega3Mg = String(est.omega3Mg);
+    card.dataset.mufaG = String(est.mufaG);
+    card.dataset.folateMcg = String(est.folateMcg);
+    card.dataset.b12Mcg = String(est.b12Mcg);
+    card.dataset.viscousFiberG = String(est.viscousFiberG);
+
+    const targets = document.createElement('div');
+    targets.className = 'recipe-card-targets';
+    targets.innerHTML =
+      '<span class="trigger-pill"><strong>Choline:</strong> ~' + est.cholineMg + ' mg</span>' +
+      '<span class="trigger-pill"><strong>Omega-3:</strong> ~' + est.omega3Mg + ' mg</span>' +
+      '<span class="trigger-pill"><strong>MUFAs:</strong> ~' + est.mufaG + ' g</span>' +
+      '<span class="trigger-pill"><strong>MTHFR:</strong> Folate ~' + est.folateMcg + ' mcg · B12 ~' + est.b12Mcg + ' mcg</span>' +
+      '<span class="trigger-pill"><strong>Viscous Fiber:</strong> ~' + est.viscousFiberG + ' g</span>';
+
+    const trigger = body.querySelector('.recipe-card-trigger');
+    const glucose = body.querySelector('.glucose-row, .glucose-strip');
+    if (trigger) {
+      trigger.insertAdjacentElement('afterend', targets);
+    } else if (glucose) {
+      glucose.insertAdjacentElement('afterend', targets);
+    } else {
+      ingEl.insertAdjacentElement('afterend', targets);
+    }
+  });
+}
+
+const MENU_PLANNER_DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const MENU_PLANNER_DAY_LABELS = {
+  monday: 'Monday',
+  tuesday: 'Tuesday',
+  wednesday: 'Wednesday',
+  thursday: 'Thursday',
+  friday: 'Friday',
+  saturday: 'Saturday',
+  sunday: 'Sunday'
+};
+const MENU_PLANNER_MEALS = [
+  { key: 'breakfast', label: 'Breakfast' },
+  { key: 'lunch', label: 'Lunch' },
+  { key: 'dinner', label: 'Dinner' },
+  { key: 'snack', label: 'Snack / Bedtime' }
+];
+const MENU_PLANNER_NUTRIENTS = [
+  { key: 'cholineMg', label: 'Choline', unit: 'mg', target: 740, decimals: 0, primary: true },
+  { key: 'omega3Mg', label: 'Omega-3', unit: 'mg', target: 800, decimals: 0, primary: true },
+  { key: 'mufaG', label: 'MUFAs', unit: 'g', target: 30, decimals: 1 },
+  { key: 'folateMcg', label: 'Folate', unit: 'mcg', target: 400, decimals: 0 },
+  { key: 'b12Mcg', label: 'B12', unit: 'mcg', target: 2.4, decimals: 1 },
+  { key: 'viscousFiberG', label: 'Viscous Fiber', unit: 'g', target: 10, decimals: 1 }
+];
+const MENU_PLANNER_STORAGE_PREFIX = 'menuPlannerV1_';
+
+let menuPlannerState = {
+  weekStart: '',
+  items: []
+};
+let menuPlannerEditingId = null;
+
+function getPlannerNutrientMeta(key) {
+  return MENU_PLANNER_NUTRIENTS.find((n) => n.key === key);
+}
+
+function formatNutrientValue(value, key) {
+  const meta = getPlannerNutrientMeta(key);
+  const decimals = meta?.decimals ?? 0;
+  const num = Number(value || 0);
+  if (!Number.isFinite(num)) return '0';
+  return decimals > 0 ? num.toFixed(decimals) : String(Math.round(num));
+}
+
+function normalizePlannerItem(rawItem) {
+  const safe = rawItem || {};
+  return {
+    id: String(safe.id || `plan_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`),
+    source: safe.source === 'manual' ? 'manual' : 'recipe',
+    day: MENU_PLANNER_DAYS.includes(String(safe.day || '')) ? String(safe.day) : 'monday',
+    meal: MENU_PLANNER_MEALS.some((m) => m.key === String(safe.meal || '')) ? String(safe.meal) : 'dinner',
+    servings: Number.isFinite(Number(safe.servings)) && Number(safe.servings) > 0 ? Number(safe.servings) : 1,
+    title: String(safe.title || 'Recipe'),
+    href: String(safe.href || ''),
+    cholineMg: Number.isFinite(Number(safe.cholineMg)) ? Number(safe.cholineMg) : 0,
+    omega3Mg: Number.isFinite(Number(safe.omega3Mg)) ? Number(safe.omega3Mg) : 0,
+    mufaG: Number.isFinite(Number(safe.mufaG)) ? Number(safe.mufaG) : 0,
+    folateMcg: Number.isFinite(Number(safe.folateMcg)) ? Number(safe.folateMcg) : 0,
+    b12Mcg: Number.isFinite(Number(safe.b12Mcg)) ? Number(safe.b12Mcg) : 0,
+    viscousFiberG: Number.isFinite(Number(safe.viscousFiberG)) ? Number(safe.viscousFiberG) : 0
+  };
+}
+
+function toIsoDate(dateObj) {
+  const y = dateObj.getFullYear();
+  const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const d = String(dateObj.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function getStartOfWeekIso(inputIso) {
+  const base = inputIso ? new Date(`${inputIso}T00:00:00`) : new Date();
+  if (!Number.isFinite(base.getTime())) return getStartOfWeekIso('');
+  const jsDay = base.getDay();
+  const mondayOffset = jsDay === 0 ? -6 : 1 - jsDay;
+  const monday = new Date(base);
+  monday.setDate(base.getDate() + mondayOffset);
+  return toIsoDate(monday);
+}
+
+function formatWeekDayLabel(weekStartIso, dayKey) {
+  const dayIndex = MENU_PLANNER_DAYS.indexOf(dayKey);
+  if (dayIndex < 0) return MENU_PLANNER_DAY_LABELS[dayKey] || dayKey;
+  const base = new Date(`${weekStartIso}T00:00:00`);
+  if (!Number.isFinite(base.getTime())) return MENU_PLANNER_DAY_LABELS[dayKey] || dayKey;
+  const d = new Date(base);
+  d.setDate(base.getDate() + dayIndex);
+  const stamp = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  return `${MENU_PLANNER_DAY_LABELS[dayKey]} - ${stamp}`;
+}
+
+function getMenuPlannerStorageKey(weekStartIso) {
+  return MENU_PLANNER_STORAGE_PREFIX + weekStartIso;
+}
+
+function loadMenuPlannerState(weekStartIso) {
+  const fallback = { weekStart: weekStartIso, items: [] };
+  try {
+    const raw = localStorage.getItem(getMenuPlannerStorageKey(weekStartIso));
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.items)) return fallback;
+    return {
+      weekStart: weekStartIso,
+      items: parsed.items.map(normalizePlannerItem)
+    };
+  } catch (err) {
+    return fallback;
+  }
+}
+
+function saveMenuPlannerState() {
+  if (!menuPlannerState.weekStart) return;
+  localStorage.setItem(
+    getMenuPlannerStorageKey(menuPlannerState.weekStart),
+    JSON.stringify({ items: menuPlannerState.items })
+  );
+}
+
+function buildDefaultSelectOptions() {
+  const daySelect = document.getElementById('menu-planner-day');
+  const mealSelect = document.getElementById('menu-planner-meal');
+  const manualDaySelect = document.getElementById('menu-manual-day');
+  const manualMealSelect = document.getElementById('menu-manual-meal');
+  const dupFromSelect = document.getElementById('menu-dup-from');
+  const dupToSelect = document.getElementById('menu-dup-to');
+  const dupRangeStartSelect = document.getElementById('menu-dup-range-start');
+  const dupRangeEndSelect = document.getElementById('menu-dup-range-end');
+
+  const dayOptions = MENU_PLANNER_DAYS
+    .map((day) => `<option value="${day}">${MENU_PLANNER_DAY_LABELS[day]}</option>`)
+    .join('');
+  const mealOptions = MENU_PLANNER_MEALS
+    .map((meal) => `<option value="${meal.key}">${meal.label}</option>`)
+    .join('');
+
+  if (daySelect) daySelect.innerHTML = dayOptions;
+  if (manualDaySelect) manualDaySelect.innerHTML = dayOptions;
+  if (dupFromSelect) dupFromSelect.innerHTML = dayOptions;
+  if (dupToSelect) dupToSelect.innerHTML = dayOptions;
+  if (dupRangeStartSelect) dupRangeStartSelect.innerHTML = dayOptions;
+  if (dupRangeEndSelect) dupRangeEndSelect.innerHTML = dayOptions;
+  if (mealSelect) mealSelect.innerHTML = mealOptions;
+  if (manualMealSelect) manualMealSelect.innerHTML = mealOptions;
+
+  if (mealSelect && !mealSelect.value) mealSelect.value = 'dinner';
+  if (manualMealSelect && !manualMealSelect.value) manualMealSelect.value = 'dinner';
+  if (dupFromSelect && !dupFromSelect.value) dupFromSelect.value = 'monday';
+  if (dupToSelect && !dupToSelect.value) dupToSelect.value = 'tuesday';
+  if (dupRangeStartSelect && !dupRangeStartSelect.value) dupRangeStartSelect.value = 'tuesday';
+  if (dupRangeEndSelect && !dupRangeEndSelect.value) dupRangeEndSelect.value = 'friday';
+}
+
+function setDuplicateStatus(message, isError) {
+  const status = document.getElementById('menu-duplicate-status');
+  if (!status) return;
+  status.textContent = message;
+  status.style.color = isError ? '#b91c1c' : 'var(--muted)';
+}
+
+function duplicatePlannerDay() {
+  const fromSelect = document.getElementById('menu-dup-from');
+  const toSelect = document.getElementById('menu-dup-to');
+  const replaceToggle = document.getElementById('menu-dup-replace');
+  const fromDay = fromSelect?.value;
+  const toDay = toSelect?.value;
+  const replaceTarget = replaceToggle instanceof HTMLInputElement ? replaceToggle.checked : true;
+
+  if (!fromDay || !toDay) {
+    setDuplicateStatus('Pick both source and target days.', true);
+    return;
+  }
+  if (fromDay === toDay) {
+    setDuplicateStatus('Source and target day must be different.', true);
+    return;
+  }
+
+  const sourceItems = menuPlannerState.items.filter((item) => item.day === fromDay);
+  if (!sourceItems.length) {
+    setDuplicateStatus('Source day has no entries to duplicate.', true);
+    return;
+  }
+
+  if (replaceTarget) {
+    menuPlannerState.items = menuPlannerState.items.filter((item) => item.day !== toDay);
+  }
+
+  const clonedItems = sourceItems.map((item) => ({
+    ...normalizePlannerItem(item),
+    id: `plan_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    day: toDay
+  }));
+
+  menuPlannerState.items.push(...clonedItems);
+  menuPlannerEditingId = null;
+  saveMenuPlannerState();
+  renderMenuPlanner();
+
+  setDuplicateStatus(
+    `Copied ${clonedItems.length} item${clonedItems.length === 1 ? '' : 's'} from ${MENU_PLANNER_DAY_LABELS[fromDay]} to ${MENU_PLANNER_DAY_LABELS[toDay]}${replaceTarget ? ' (replaced existing items).' : ' (appended to existing items).'}`,
+    false
+  );
+}
+
+function duplicatePlannerDayRange() {
+  const fromSelect = document.getElementById('menu-dup-from');
+  const startSelect = document.getElementById('menu-dup-range-start');
+  const endSelect = document.getElementById('menu-dup-range-end');
+  const replaceToggle = document.getElementById('menu-dup-replace');
+
+  const fromDay = fromSelect?.value;
+  const rangeStart = startSelect?.value;
+  const rangeEnd = endSelect?.value;
+  const replaceTarget = replaceToggle instanceof HTMLInputElement ? replaceToggle.checked : true;
+
+  if (!fromDay || !rangeStart || !rangeEnd) {
+    setDuplicateStatus('Pick source day and full destination range.', true);
+    return;
+  }
+
+  const fromIdx = MENU_PLANNER_DAYS.indexOf(fromDay);
+  const startIdx = MENU_PLANNER_DAYS.indexOf(rangeStart);
+  const endIdx = MENU_PLANNER_DAYS.indexOf(rangeEnd);
+
+  if (fromIdx < 0 || startIdx < 0 || endIdx < 0 || startIdx > endIdx) {
+    setDuplicateStatus('Range start must come before or match range end.', true);
+    return;
+  }
+
+  const targetDays = MENU_PLANNER_DAYS.slice(startIdx, endIdx + 1).filter((day) => day !== fromDay);
+  if (!targetDays.length) {
+    setDuplicateStatus('No target days selected (source day cannot duplicate into itself).', true);
+    return;
+  }
+
+  const sourceItems = menuPlannerState.items.filter((item) => item.day === fromDay);
+  if (!sourceItems.length) {
+    setDuplicateStatus('Source day has no entries to duplicate.', true);
+    return;
+  }
+
+  if (replaceTarget) {
+    const targetSet = new Set(targetDays);
+    menuPlannerState.items = menuPlannerState.items.filter((item) => !targetSet.has(item.day));
+  }
+
+  let copyCount = 0;
+  targetDays.forEach((targetDay) => {
+    sourceItems.forEach((item) => {
+      menuPlannerState.items.push({
+        ...normalizePlannerItem(item),
+        id: `plan_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        day: targetDay
+      });
+      copyCount += 1;
+    });
+  });
+
+  menuPlannerEditingId = null;
+  saveMenuPlannerState();
+  renderMenuPlanner();
+
+  setDuplicateStatus(
+    `Copied ${sourceItems.length} source item${sourceItems.length === 1 ? '' : 's'} from ${MENU_PLANNER_DAY_LABELS[fromDay]} to ${targetDays.length} day${targetDays.length === 1 ? '' : 's'} (${copyCount} new entries)${replaceTarget ? ', replacing target days first.' : ', appended to target days.'}`,
+    false
+  );
+}
+
+function getPlannerDefaults() {
+  const day = document.getElementById('menu-planner-day')?.value || 'monday';
+  const meal = document.getElementById('menu-planner-meal')?.value || 'dinner';
+  const servingsRaw = Number(document.getElementById('menu-planner-servings')?.value || 1);
+  const servings = Number.isFinite(servingsRaw) && servingsRaw > 0 ? servingsRaw : 1;
+  return { day, meal, servings };
+}
+
+function getRecipePlanPayload(card) {
+  const title = card.querySelector('.recipe-card-title')?.textContent?.trim() || 'Recipe';
+  const recipeLink = card.querySelector('.recipe-card-footer .btn-view, .recipe-card-actions .btn-view, .recipe-card-footer a, .recipe-card-actions a');
+  const href = recipeLink?.getAttribute('href') || '';
+
+  return {
+    title,
+    href,
+    nutrients: {
+      cholineMg: Number(card.dataset.cholineMg || 0),
+      omega3Mg: Number(card.dataset.omega3Mg || 0),
+      mufaG: Number(card.dataset.mufaG || 0),
+      folateMcg: Number(card.dataset.folateMcg || 0),
+      b12Mcg: Number(card.dataset.b12Mcg || 0),
+      viscousFiberG: Number(card.dataset.viscousFiberG || 0)
+    }
+  };
+}
+
+function addRecipeToPlan(card) {
+  const defaults = getPlannerDefaults();
+  const recipe = getRecipePlanPayload(card);
+
+  const item = {
+    id: `plan_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    source: 'recipe',
+    day: defaults.day,
+    meal: defaults.meal,
+    servings: Number(defaults.servings.toFixed(2)),
+    title: recipe.title,
+    href: recipe.href,
+    cholineMg: Number.isFinite(recipe.nutrients.cholineMg) ? recipe.nutrients.cholineMg : 0,
+    omega3Mg: Number.isFinite(recipe.nutrients.omega3Mg) ? recipe.nutrients.omega3Mg : 0,
+    mufaG: Number.isFinite(recipe.nutrients.mufaG) ? recipe.nutrients.mufaG : 0,
+    folateMcg: Number.isFinite(recipe.nutrients.folateMcg) ? recipe.nutrients.folateMcg : 0,
+    b12Mcg: Number.isFinite(recipe.nutrients.b12Mcg) ? recipe.nutrients.b12Mcg : 0,
+    viscousFiberG: Number.isFinite(recipe.nutrients.viscousFiberG) ? recipe.nutrients.viscousFiberG : 0
+  };
+
+  menuPlannerState.items.push(item);
+  saveMenuPlannerState();
+  renderMenuPlanner();
+}
+
+function setManualStatus(message, isError) {
+  const status = document.getElementById('menu-manual-status');
+  if (!status) return;
+  status.textContent = message;
+  status.style.color = isError ? '#b91c1c' : 'var(--muted)';
+}
+
+function addManualItemToPlan() {
+  const nameInput = document.getElementById('menu-manual-name');
+  const dayInput = document.getElementById('menu-manual-day');
+  const mealInput = document.getElementById('menu-manual-meal');
+  const servingsInput = document.getElementById('menu-manual-servings');
+  const cholineInput = document.getElementById('menu-manual-choline');
+  const omegaInput = document.getElementById('menu-manual-omega3');
+  const mufaInput = document.getElementById('menu-manual-mufa');
+  const folateInput = document.getElementById('menu-manual-folate');
+  const b12Input = document.getElementById('menu-manual-b12');
+  const viscousInput = document.getElementById('menu-manual-viscous');
+
+  const title = nameInput?.value?.trim() || '';
+  const day = dayInput?.value || 'monday';
+  const meal = mealInput?.value || 'dinner';
+  const servingsVal = Number(servingsInput?.value || 1);
+  const cholineVal = Number(cholineInput?.value || 0);
+  const omegaVal = Number(omegaInput?.value || 0);
+  const mufaVal = Number(mufaInput?.value || 0);
+  const folateVal = Number(folateInput?.value || 0);
+  const b12Val = Number(b12Input?.value || 0);
+  const viscousVal = Number(viscousInput?.value || 0);
+  const servings = Number.isFinite(servingsVal) && servingsVal > 0 ? servingsVal : 0;
+  const cholineMg = Number.isFinite(cholineVal) && cholineVal >= 0 ? cholineVal : NaN;
+  const omega3Mg = Number.isFinite(omegaVal) && omegaVal >= 0 ? omegaVal : NaN;
+  const mufaG = Number.isFinite(mufaVal) && mufaVal >= 0 ? mufaVal : NaN;
+  const folateMcg = Number.isFinite(folateVal) && folateVal >= 0 ? folateVal : NaN;
+  const b12Mcg = Number.isFinite(b12Val) && b12Val >= 0 ? b12Val : NaN;
+  const viscousFiberG = Number.isFinite(viscousVal) && viscousVal >= 0 ? viscousVal : NaN;
+
+  if (!title) {
+    setManualStatus('Enter an item name before adding manual entry.', true);
+    return;
+  }
+  if (!servings) {
+    setManualStatus('Servings must be greater than zero.', true);
+    return;
+  }
+  if (!Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
+    setManualStatus('Nutrient values must be zero or higher.', true);
+    return;
+  }
+
+  menuPlannerState.items.push({
+    id: `plan_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    source: 'manual',
+    day,
+    meal,
+    servings: Number(servings.toFixed(2)),
+    title,
+    href: '',
+    cholineMg: Number(cholineMg.toFixed(0)),
+    omega3Mg: Number(omega3Mg.toFixed(0)),
+    mufaG: Number(mufaG.toFixed(1)),
+    folateMcg: Number(folateMcg.toFixed(0)),
+    b12Mcg: Number(b12Mcg.toFixed(1)),
+    viscousFiberG: Number(viscousFiberG.toFixed(1))
+  });
+
+  saveMenuPlannerState();
+  renderMenuPlanner();
+  setManualStatus(`Added "${title}" to ${MENU_PLANNER_DAY_LABELS[day]} (${meal}).`, false);
+
+  if (nameInput) nameInput.value = '';
+  if (servingsInput) servingsInput.value = '1';
+  if (cholineInput) cholineInput.value = '0';
+  if (omegaInput) omegaInput.value = '0';
+  if (mufaInput) mufaInput.value = '0';
+  if (folateInput) folateInput.value = '0';
+  if (b12Input) b12Input.value = '0';
+  if (viscousInput) viscousInput.value = '0';
+}
+
+function attachRecipePlannerButtons() {
+  document.querySelectorAll('.recipe-card').forEach((card) => {
+    const footer = card.querySelector('.recipe-card-footer, .recipe-card-actions');
+    if (!footer) return;
+    if (footer.querySelector('.planner-add-btn')) return;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn-recipe btn-plan planner-add-btn';
+    btn.textContent = '➕ Add to Day';
+    btn.title = 'Add this recipe to the day/meal selected in Menu Planning';
+    btn.addEventListener('click', () => addRecipeToPlan(card));
+    footer.appendChild(btn);
+  });
+}
+
+function getDayTotals(dayKey) {
+  const dayItems = menuPlannerState.items.filter((item) => item.day === dayKey);
+  const seed = MENU_PLANNER_NUTRIENTS.reduce((acc, nutrient) => {
+    acc[nutrient.key] = 0;
+    return acc;
+  }, {});
+
+  return dayItems.reduce((acc, item) => {
+    const servings = Number.isFinite(item.servings) ? item.servings : 1;
+    MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
+      acc[nutrient.key] += (Number(item[nutrient.key]) || 0) * servings;
+    });
+    return acc;
+  }, seed);
+}
+
+function getWeeklyTotals() {
+  const totalsByDay = MENU_PLANNER_DAYS.map((day) => ({ day, totals: getDayTotals(day) }));
+  const seed = MENU_PLANNER_NUTRIENTS.reduce((acc, nutrient) => {
+    acc[nutrient.key] = 0;
+    return acc;
+  }, {});
+
+  const metSeed = MENU_PLANNER_NUTRIENTS.reduce((acc, nutrient) => {
+    acc[nutrient.key] = 0;
+    return acc;
+  }, {});
+
+  const weekly = totalsByDay.reduce((acc, entry) => {
+    MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
+      acc.totals[nutrient.key] += entry.totals[nutrient.key];
+      if (entry.totals[nutrient.key] >= nutrient.target) {
+        acc.metDays[nutrient.key] += 1;
+      }
+    });
+    return acc;
+  }, {
+    totals: seed,
+    metDays: metSeed
+  });
+
+  return weekly;
+}
+
+function getProgressClass(ratioPct) {
+  if (ratioPct >= 100) return '';
+  if (ratioPct >= 70) return ' mid';
+  return ' low';
+}
+
+function renderMenuPlannerWeeklySummary() {
+  const host = document.getElementById('menu-planner-weekly-summary');
+  if (!host) return;
+
+  const weekly = getWeeklyTotals();
+  host.innerHTML = MENU_PLANNER_NUTRIENTS.map((nutrient) => {
+    const weekTarget = nutrient.target * 7;
+    const total = weekly.totals[nutrient.key] || 0;
+    const pct = weekTarget ? Math.min(100, Math.round((total / weekTarget) * 100)) : 0;
+    return `
+      <section class="menu-weekly-card" aria-label="Weekly ${nutrient.label} Summary">
+        <h4>Weekly ${nutrient.label} Rollup</h4>
+        <div class="menu-weekly-line">${formatNutrientValue(total, nutrient.key)} / ${formatNutrientValue(weekTarget, nutrient.key)} ${nutrient.unit} (${pct}%)</div>
+        <div class="menu-weekly-bar"><div class="menu-weekly-fill${getProgressClass(pct)}" style="width:${pct}%"></div></div>
+        <div class="menu-weekly-foot">Daily target met on ${weekly.metDays[nutrient.key]} of 7 days</div>
+      </section>
+    `;
+  }).join('');
+}
+
+function buildMenuPlannerExportText() {
+  const weekly = getWeeklyTotals();
+  const start = new Date(`${menuPlannerState.weekStart}T00:00:00`);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 6);
+
+  const lines = [];
+  lines.push('WEEKLY MENU SUMMARY');
+  if (Number.isFinite(start.getTime()) && Number.isFinite(end.getTime())) {
+    const startLabel = start.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    const endLabel = end.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    lines.push(`Week: ${startLabel} to ${endLabel}`);
+  } else {
+    lines.push(`Week Start: ${menuPlannerState.weekStart}`);
+  }
+
+  lines.push('');
+  MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
+    const weekTarget = nutrient.target * 7;
+    lines.push(`Weekly ${nutrient.label}: ${formatNutrientValue(weekly.totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(weekTarget, nutrient.key)} ${nutrient.unit}`);
+  });
+  lines.push('');
+  MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
+    lines.push(`${nutrient.label} target met days: ${weekly.metDays[nutrient.key]}/7`);
+  });
+  lines.push('');
+
+  MENU_PLANNER_DAYS.forEach((dayKey) => {
+    const totals = getDayTotals(dayKey);
+    lines.push(`${formatWeekDayLabel(menuPlannerState.weekStart, dayKey)}`);
+    MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
+      const met = totals[nutrient.key] >= nutrient.target ? 'met' : 'below';
+      lines.push(`  ${nutrient.label}: ${formatNutrientValue(totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(nutrient.target, nutrient.key)} ${nutrient.unit} (${met})`);
+    });
+
+    MENU_PLANNER_MEALS.forEach((meal) => {
+      const items = menuPlannerState.items.filter((item) => item.day === dayKey && item.meal === meal.key);
+      if (!items.length) return;
+      lines.push(`  ${meal.label}:`);
+      items.forEach((item) => {
+        const totalsText = MENU_PLANNER_NUTRIENTS.map((nutrient) => {
+          const val = (Number(item[nutrient.key]) || 0) * item.servings;
+          return `${nutrient.label} ~${formatNutrientValue(val, nutrient.key)} ${nutrient.unit}`;
+        }).join(', ');
+        lines.push(`    - ${item.title} x ${item.servings} (${totalsText})`);
+      });
+    });
+
+    lines.push('');
+  });
+
+  return lines.join('\n').trim();
+}
+
+function renderMenuPlannerExport() {
+  const text = document.getElementById('menu-export-text');
+  const status = document.getElementById('menu-export-status');
+  if (!text) return;
+  text.value = buildMenuPlannerExportText();
+  if (status) status.textContent = 'Summary updates automatically as you add or remove items.';
+}
+
+async function copyMenuPlannerExport() {
+  const text = document.getElementById('menu-export-text');
+  const status = document.getElementById('menu-export-status');
+  if (!text) return;
+
+  try {
+    await navigator.clipboard.writeText(text.value || '');
+    if (status) status.textContent = 'Copied weekly summary to clipboard.';
+  } catch (err) {
+    text.focus();
+    text.select();
+    const copied = document.execCommand('copy');
+    if (status) {
+      status.textContent = copied
+        ? 'Copied weekly summary to clipboard.'
+        : 'Unable to copy automatically. Select text and copy manually.';
+    }
+  }
+}
+
+function buildMenuPlannerJsonPayload() {
+  return {
+    version: 2,
+    weekStart: menuPlannerState.weekStart,
+    exportedAt: new Date().toISOString(),
+    items: menuPlannerState.items.map((item) => normalizePlannerItem(item))
+  };
+}
+
+function exportMenuPlannerJson() {
+  const payload = buildMenuPlannerJsonPayload();
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = `menu-planner-${payload.weekStart || 'week'}.json`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+
+  const status = document.getElementById('menu-export-status');
+  if (status) status.textContent = 'Planner JSON exported.';
+}
+
+function importMenuPlannerJson(file) {
+  const status = document.getElementById('menu-export-status');
+  if (!file) {
+    if (status) status.textContent = 'No file selected for import.';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(String(reader.result || '{}'));
+      if (!Array.isArray(parsed.items)) {
+        throw new Error('Invalid planner file');
+      }
+
+      const importedWeek = getStartOfWeekIso(String(parsed.weekStart || menuPlannerState.weekStart || ''));
+      const importedItems = parsed.items.map(normalizePlannerItem);
+      menuPlannerState = { weekStart: importedWeek, items: importedItems };
+      menuPlannerEditingId = null;
+      saveMenuPlannerState();
+
+      const weekInput = document.getElementById('menu-planner-week');
+      if (weekInput) weekInput.value = importedWeek;
+
+      renderMenuPlanner();
+      if (status) status.textContent = `Imported ${importedItems.length} planner entries.`;
+    } catch (err) {
+      if (status) status.textContent = 'Unable to import JSON. Check file format.';
+    }
+  };
+
+  reader.onerror = () => {
+    if (status) status.textContent = 'Unable to read the selected file.';
+  };
+
+  reader.readAsText(file);
+}
+
+function savePlannerItemFromEdit(planId, panel) {
+  const item = menuPlannerState.items.find((entry) => entry.id === planId);
+  if (!item || !panel) return;
+
+  const readNumber = (field, fallback, decimals) => {
+    const el = panel.querySelector(`[data-edit-field="${field}"]`);
+    if (!(el instanceof HTMLInputElement)) return fallback;
+    const val = Number(el.value);
+    if (!Number.isFinite(val) || val < 0) return fallback;
+    return Number(val.toFixed(decimals));
+  };
+
+  const servingsEl = panel.querySelector('[data-edit-field="servings"]');
+  const dayEl = panel.querySelector('[data-edit-field="day"]');
+  const mealEl = panel.querySelector('[data-edit-field="meal"]');
+  const servingsVal = servingsEl instanceof HTMLInputElement ? Number(servingsEl.value) : item.servings;
+
+  item.servings = Number.isFinite(servingsVal) && servingsVal > 0 ? Number(servingsVal.toFixed(2)) : item.servings;
+  if (dayEl instanceof HTMLSelectElement && MENU_PLANNER_DAYS.includes(dayEl.value)) item.day = dayEl.value;
+  if (mealEl instanceof HTMLSelectElement && MENU_PLANNER_MEALS.some((m) => m.key === mealEl.value)) item.meal = mealEl.value;
+
+  if (item.source === 'manual') {
+    item.cholineMg = readNumber('cholineMg', item.cholineMg, 0);
+    item.omega3Mg = readNumber('omega3Mg', item.omega3Mg, 0);
+    item.mufaG = readNumber('mufaG', item.mufaG, 1);
+    item.folateMcg = readNumber('folateMcg', item.folateMcg, 0);
+    item.b12Mcg = readNumber('b12Mcg', item.b12Mcg, 1);
+    item.viscousFiberG = readNumber('viscousFiberG', item.viscousFiberG, 1);
+  }
+
+  menuPlannerEditingId = null;
+  saveMenuPlannerState();
+  renderMenuPlanner();
+}
+
+function renderMenuPlannerTotals() {
+  const host = document.getElementById('menu-planner-daily-totals');
+  if (!host) return;
+
+  host.innerHTML = MENU_PLANNER_DAYS.map((day) => {
+    const totals = getDayTotals(day);
+    const lineHtml = MENU_PLANNER_NUTRIENTS.map((nutrient) => {
+      const ok = totals[nutrient.key] >= nutrient.target;
+      return `<div class="${ok ? 'menu-total-ok' : 'menu-total-low'}">${nutrient.label}: ${formatNutrientValue(totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(nutrient.target, nutrient.key)} ${nutrient.unit}</div>`;
+    }).join('');
+
+    return `
+      <div class="menu-total-card">
+        <h4>${formatWeekDayLabel(menuPlannerState.weekStart, day)}</h4>
+        <div class="menu-total-lines">${lineHtml}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function buildPlannerDayOptions(selected) {
+  return MENU_PLANNER_DAYS
+    .map((day) => `<option value="${day}"${selected === day ? ' selected' : ''}>${MENU_PLANNER_DAY_LABELS[day]}</option>`)
+    .join('');
+}
+
+function buildPlannerMealOptions(selected) {
+  return MENU_PLANNER_MEALS
+    .map((meal) => `<option value="${meal.key}"${selected === meal.key ? ' selected' : ''}>${meal.label}</option>`)
+    .join('');
+}
+
+function renderMenuPlannerDays() {
+  const host = document.getElementById('menu-planner-days');
+  if (!host) return;
+
+  host.innerHTML = MENU_PLANNER_DAYS.map((day) => {
+    const mealHtml = MENU_PLANNER_MEALS.map((meal) => {
+      const items = menuPlannerState.items.filter((item) => item.day === day && item.meal === meal.key);
+      const itemHtml = items.length
+        ? items.map((item) => {
+            const cholineTotal = (item.cholineMg || 0) * item.servings;
+            const omegaTotal = (item.omega3Mg || 0) * item.servings;
+            const mufaTotal = (item.mufaG || 0) * item.servings;
+            const folateTotal = (item.folateMcg || 0) * item.servings;
+            const b12Total = (item.b12Mcg || 0) * item.servings;
+            const viscousTotal = (item.viscousFiberG || 0) * item.servings;
+            const label = item.href
+              ? `<a href="${item.href}" target="_blank" rel="noopener">${item.title}</a>`
+              : item.title;
+            const sourceTag = item.source === 'manual' ? '<span class="menu-item-tag">Manual</span>' : '';
+            const showEdit = menuPlannerEditingId === item.id;
+            const editPanel = showEdit
+              ? `
+                <div class="menu-edit-panel" data-plan-edit="${item.id}">
+                  <div class="menu-edit-row">
+                    <label>Servings</label>
+                    <input type="number" min="0.25" step="0.25" data-edit-field="servings" value="${item.servings}" />
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Day</label>
+                    <select data-edit-field="day">${buildPlannerDayOptions(item.day)}</select>
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Meal</label>
+                    <select data-edit-field="meal">${buildPlannerMealOptions(item.meal)}</select>
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Choline / serving (mg)</label>
+                    <input type="number" min="0" step="1" data-edit-field="cholineMg" value="${item.cholineMg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Omega-3 / serving (mg)</label>
+                    <input type="number" min="0" step="1" data-edit-field="omega3Mg" value="${item.omega3Mg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>MUFAs / serving (g)</label>
+                    <input type="number" min="0" step="0.1" data-edit-field="mufaG" value="${item.mufaG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Folate / serving (mcg)</label>
+                    <input type="number" min="0" step="1" data-edit-field="folateMcg" value="${item.folateMcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>B12 / serving (mcg)</label>
+                    <input type="number" min="0" step="0.1" data-edit-field="b12Mcg" value="${item.b12Mcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Viscous Fiber / serving (g)</label>
+                    <input type="number" min="0" step="0.1" data-edit-field="viscousFiberG" value="${item.viscousFiberG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-footer">
+                    <button type="button" class="menu-edit-btn menu-edit-save" data-plan-id="${item.id}">Save</button>
+                    <button type="button" class="menu-edit-btn menu-edit-cancel" data-plan-id="${item.id}">Cancel</button>
+                  </div>
+                </div>
+              `
+              : '';
+            return `
+              <li class="menu-meal-item">
+                <div class="menu-meal-top">
+                  <span class="menu-meal-name">${label}${sourceTag} x ${item.servings}</span>
+                  <span class="menu-edit-actions">
+                    <button type="button" class="menu-edit-btn menu-open-edit" data-plan-id="${item.id}">Edit</button>
+                    <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
+                  </span>
+                </div>
+                <div class="menu-meal-sub">Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
+                ${editPanel}
+              </li>
+            `;
+          }).join('')
+        : '<li class="menu-empty">No entries yet.</li>';
+
+      return `
+        <section class="menu-meal-block">
+          <h5>${meal.label}</h5>
+          <ul class="menu-meal-list">${itemHtml}</ul>
+        </section>
+      `;
+    }).join('');
+
+    return `
+      <article class="menu-day-card" data-day="${day}">
+        <div class="menu-day-head"><h4>${formatWeekDayLabel(menuPlannerState.weekStart, day)}</h4></div>
+        <div class="menu-day-meals">${mealHtml}</div>
+      </article>
+    `;
+  }).join('');
+}
+
+function renderMenuPlanner() {
+  renderMenuPlannerWeeklySummary();
+  renderMenuPlannerExport();
+  renderMenuPlannerTotals();
+  renderMenuPlannerDays();
+}
+
+function clearSelectedDay() {
+  const day = document.getElementById('menu-planner-day')?.value;
+  if (!day) return;
+  menuPlannerState.items = menuPlannerState.items.filter((item) => item.day !== day);
+  menuPlannerEditingId = null;
+  saveMenuPlannerState();
+  renderMenuPlanner();
+}
+
+function bindMenuPlannerEvents() {
+  const weekInput = document.getElementById('menu-planner-week');
+  const clearBtn = document.getElementById('menu-planner-clear-day');
+  const duplicateBtn = document.getElementById('menu-duplicate-day');
+  const duplicateRangeBtn = document.getElementById('menu-duplicate-range');
+  const daysHost = document.getElementById('menu-planner-days');
+  const manualAddBtn = document.getElementById('menu-manual-add');
+  const copyBtn = document.getElementById('menu-export-copy');
+  const printBtn = document.getElementById('menu-export-print');
+  const exportJsonBtn = document.getElementById('menu-export-json');
+  const importJsonBtn = document.getElementById('menu-import-json');
+  const importJsonFile = document.getElementById('menu-import-json-file');
+
+  weekInput?.addEventListener('change', () => {
+    const nextWeekStart = getStartOfWeekIso(weekInput.value);
+    weekInput.value = nextWeekStart;
+    menuPlannerState = loadMenuPlannerState(nextWeekStart);
+    menuPlannerEditingId = null;
+    renderMenuPlanner();
+  });
+
+  clearBtn?.addEventListener('click', clearSelectedDay);
+  duplicateBtn?.addEventListener('click', duplicatePlannerDay);
+  duplicateRangeBtn?.addEventListener('click', duplicatePlannerDayRange);
+  manualAddBtn?.addEventListener('click', addManualItemToPlan);
+  copyBtn?.addEventListener('click', copyMenuPlannerExport);
+  printBtn?.addEventListener('click', () => window.print());
+  exportJsonBtn?.addEventListener('click', exportMenuPlannerJson);
+  importJsonBtn?.addEventListener('click', () => importJsonFile?.click());
+  importJsonFile?.addEventListener('change', () => {
+    const file = importJsonFile.files?.[0];
+    importMenuPlannerJson(file);
+    importJsonFile.value = '';
+  });
+
+  daysHost?.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const removeBtn = target.closest('.menu-remove-item');
+    if (removeBtn) {
+      const planId = removeBtn.getAttribute('data-plan-id');
+      if (!planId) return;
+      menuPlannerState.items = menuPlannerState.items.filter((item) => item.id !== planId);
+      if (menuPlannerEditingId === planId) menuPlannerEditingId = null;
+      saveMenuPlannerState();
+      renderMenuPlanner();
+      return;
+    }
+
+    const openEditBtn = target.closest('.menu-open-edit');
+    if (openEditBtn) {
+      const planId = openEditBtn.getAttribute('data-plan-id');
+      if (!planId) return;
+      menuPlannerEditingId = planId;
+      renderMenuPlanner();
+      return;
+    }
+
+    const cancelBtn = target.closest('.menu-edit-cancel');
+    if (cancelBtn) {
+      menuPlannerEditingId = null;
+      renderMenuPlanner();
+      return;
+    }
+
+    const saveBtn = target.closest('.menu-edit-save');
+    if (saveBtn) {
+      const planId = saveBtn.getAttribute('data-plan-id');
+      if (!planId) return;
+      const panel = daysHost.querySelector(`[data-plan-edit="${planId}"]`);
+      savePlannerItemFromEdit(planId, panel);
+    }
+  });
+}
+
+function initMenuPlannerPhase1() {
+  const weekInput = document.getElementById('menu-planner-week');
+  if (!weekInput) return;
+
+  buildDefaultSelectOptions();
+  const weekStart = getStartOfWeekIso(weekInput.value || '');
+  weekInput.value = weekStart;
+  menuPlannerState = loadMenuPlannerState(weekStart);
+
+  bindMenuPlannerEvents();
+  renderMenuPlanner();
+  attachRecipePlannerButtons();
+}
+
 function parseSatFatGrams(text) {
   const match = (text || '').match(/([0-9]+(?:\.[0-9]+)?)/);
   return match ? Number(match[1]) : NaN;
@@ -4930,6 +5993,7 @@ const DAILY_NUTRITION_TARGETS = [
   {
     key: 'choline',
     name: 'Choline',
+    conditions: ['apoe4', 'liver'],
     unit: 'mg',
     target: '740–1,140',
     detail: 'Choline helps the liver export fats (preventing/reversing fatty liver) and supports cognitive pathways heavily stressed by the APoE4 variant.',
@@ -4945,6 +6009,7 @@ const DAILY_NUTRITION_TARGETS = [
   {
     key: 'omega3',
     name: 'Omega-3 (EPA + DHA)',
+    conditions: ['dp', 'apoe4', 'liver'],
     unit: 'mg',
     target: '800–1,500',
     detail: 'powerful tools for lowering triglycerides, improving liver fat scores, and providing vital neuroprotection against cognitive decline. Food-only target after supplement; total 2,000–3,000 mg/day',
@@ -4960,6 +6025,7 @@ const DAILY_NUTRITION_TARGETS = [
   {
     key: 'mufa',
     name: 'Monounsaturated Fatty Acids (MUFAs)',
+    conditions: ['dp', 'apoe4', 'liver'],
     unit: 'g',
     target: '30–45 g/day',
     detail: 'MUFAs are the best replacement fuel for saturated fat in APOE4/FTO risk profiles: they provide steady energy without the LDL spike, insulin load, and vascular inflammation that saturated fat triggers.',
@@ -4975,6 +6041,7 @@ const DAILY_NUTRITION_TARGETS = [
   {
     key: 'mthfr',
     name: 'MTHFR Support',
+    conditions: ['mthfr', 'liver', 'apoe4'],
     unit: 'focus',
     target: 'custom daily target',
     detail: 'Prioritize usable folate, B12, riboflavin (B2), B6 (P-5-P), magnesium, and zinc to support methylation, hepatic stress reduction, and lower inflammatory load.',
@@ -4990,6 +6057,7 @@ const DAILY_NUTRITION_TARGETS = [
   {
     key: 'viscous-fiber',
     name: 'Viscous Soluble Fiber',
+    conditions: ['dp', 'liver', 'celiac'],
     unit: 'g',
     target: '10–15 g/day',
     detail: 'Viscous soluble fiber helps slow gastric emptying, reduce post-meal glucose spikes, support satiety, and improve bile acid and gut health dynamics.',
@@ -5005,18 +6073,33 @@ const DAILY_NUTRITION_TARGETS = [
   }
 ];
 
+const NUTRITION_TARGET_CONDITION_BADGES = {
+  dp: { label: 'DP / Blood Sugar', className: 'badge badge-dp' },
+  apoe4: { label: 'APOE4', className: 'badge badge-apoe4' },
+  liver: { label: 'Fatty Liver', className: 'badge badge-liver' },
+  mthfr: { label: 'MTHFR', className: 'badge badge-mthfr' },
+  kidney: { label: 'Kidney Stone', className: 'badge badge-kidney' },
+  celiac: { label: 'Celiac / GF', className: 'badge badge-celiac' }
+};
+
 function renderNutritionTargetCards() {
   const container = document.getElementById('nutrition-target-grid');
   if (!container) return;
 
   container.innerHTML = DAILY_NUTRITION_TARGETS.map((target) => {
     const listHtml = target.items.map(item => `<li>${item}</li>`).join('');
+    const badgesHtml = (target.conditions || [])
+      .map((key) => NUTRITION_TARGET_CONDITION_BADGES[key])
+      .filter(Boolean)
+      .map((badge) => `<span class="${badge.className}">${badge.label}</span>`)
+      .join('');
     return `
       <div class="nutrition-target-card" data-target="${target.key}">
         <div class="nutrition-target-header">
           <div class="nutrition-target-name">${target.name}</div>
           <div class="nutrition-target-pill">${target.unit}</div>
         </div>
+        <div class="nutrition-target-badges">${badgesHtml}</div>
         <div class="nutrition-target-kpi">${target.target}</div>
         <div class="nutrition-target-meta">${target.detail}</div>
         <ul class="nutrition-target-list">${listHtml}</ul>
@@ -5033,6 +6116,8 @@ document.addEventListener('DOMContentLoaded', () => {
   normalizeRecipeCardFooters();
   initMealboardToggles();
   addMissingMacroTriggers();
+  addNutrientTargetBadges();
+  initMenuPlannerPhase1();
   addWaterOnlyWarnings();
   loadPantry();
   buildPantryPanel();
