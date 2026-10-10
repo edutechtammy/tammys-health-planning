@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Herb-Roasted Salmon with Cabbage &amp; Lemon Salad</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Herb-Roasted Salmon with Cabbage & Lemon Salad",
+    "description": "Roasted salmon with lemon, parsley, and a crisp cabbage salad. This recipe is built around the strongest target-supporting profile in the seafood lane: very high marine omega-3, strong choline, B12, and a low-carb EVOO-based fat strategy without avocado.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT15M",
+    "cookTime": "PT15M",
+    "totalTime": "PT30M",
+    "recipeCategory": "Seafood",
+    "recipeCuisine": "Mediterranean-inspired",
+    "keywords": "salmon, cabbage, lemon, EVOO, omega-3, choline, APOE4, fatty liver, MTHFR",
+    "recipeIngredient": [
+      "2 salmon fillets, about 5 to 6 oz each",
+      "1 tbsp cold-pressed extra virgin olive oil",
+      "1 tbsp fresh lemon juice",
+      "1 tsp dried dill or parsley",
+      "1/2 small cabbage, thinly shredded",
+      "1 cup cucumber, sliced",
+      "1 tbsp chopped parsley",
+      "1 tbsp lemon juice for the salad",
+      "Sea salt and black pepper to taste"
+    ],
+    "recipeInstructions": [
+      { "@type": "HowToStep", "name": "Prep the salad", "text": "Toss the shredded cabbage and cucumber with lemon juice, parsley, a drizzle of EVOO, and a pinch of salt. Let it sit 5 to 10 minutes while the salmon roasts." },
+      { "@type": "HowToStep", "name": "Roast the salmon", "text": "Heat the oven to 400°F (200°C). Place the salmon on a lined tray, drizzle with EVOO and lemon, and season with herbs, salt, and pepper. Roast for 12 to 15 minutes until just cooked through." },
+      { "@type": "HowToStep", "name": "Serve", "text": "Plate the salmon alongside the cabbage salad and spoon extra lemon-herb dressing over the top." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --green-dark:#1f5a40; --green-mid:#2e7d5b; --green-light:#d8f3dc; --green-pale:#f3fbf5; --border:#bfdcc8; --text:#163126; --muted:#4c695d; --shadow:0 2px 12px rgba(31,90,64,.12); }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--green-pale); color:var(--text); line-height:1.6; padding-bottom:3rem; }
+    nav { background:var(--green-dark); padding:.75rem 1.5rem; display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; opacity:.85; font-size:.95rem; }
+    nav a:hover, nav a.active { opacity:1; text-decoration:underline; }
+    .main-wrap { max-width:860px; margin:0 auto; padding:1.5rem 1rem 0; }
+    .recipe-hero { background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.5rem; }
+    .recipe-hero-emoji { background:linear-gradient(135deg, var(--green-light) 40%, #fff9e8 100%); height:120px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; letter-spacing:.35rem; }
+    .recipe-hero-body { padding:1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size:clamp(1.3rem,3vw,1.8rem); color:var(--green-dark); margin-bottom:.6rem; }
+    .recipe-hero-body p { color:var(--muted); font-size:.92rem; line-height:1.7; margin-bottom:.9rem; }
+    .meta-strip { display:flex; flex-wrap:wrap; gap:1rem; background:var(--green-light); border-radius:8px; padding:.7rem 1rem; font-size:.82rem; color:var(--green-dark); margin-bottom:.9rem; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.8rem; }
+    .badge { display:inline-block; border-radius:12px; padding:.2rem .65rem; font-size:.72rem; font-weight:700; }
+    .badge-apoe4 { background:#f3e8ff; color:#6d28d9; }
+    .badge-celiac { background:#fff3e0; color:#e65100; }
+    .badge-dp { background:#e3f2fd; color:#1565c0; }
+    .badge-liver { background:#fce4ec; color:#880e4f; }
+    .badge-mthfr { background:#e0f2fe; color:#075985; }
+    .badge-kidney { background:#ecfccb; color:#3f6212; }
+    .recipe-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.2rem; }
+    @media (max-width:640px){ .recipe-layout { grid-template-columns:1fr; } }
+    .panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .panel-header { background:var(--green-light); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--green-dark); border-bottom:1px solid var(--border); }
+    .panel-body { padding:1rem 1.2rem; }
+    .ing-list { list-style:none; }
+    .ing-item { display:flex; align-items:baseline; gap:.5rem; padding:.28rem 0; border-bottom:1px solid #e5f0e8; font-size:.85rem; }
+    .ing-item:last-child { border-bottom:none; }
+    .ing-amount { font-weight:700; color:var(--green-dark); min-width:7rem; flex-shrink:0; }
+    .step-list { list-style:none; display:flex; flex-direction:column; gap:.85rem; }
+    .step-item { display:flex; gap:.75rem; align-items:flex-start; font-size:.85rem; }
+    .step-num { background:var(--green-dark); color:#fff; border-radius:50%; width:1.6rem; height:1.6rem; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; flex-shrink:0; margin-top:.1rem; }
+    .step-name { font-weight:700; color:var(--green-dark); margin-bottom:.2rem; }
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:linear-gradient(135deg, var(--green-light) 0%, #edf9ef 100%); padding:.7rem 1rem; font-size:.82rem; font-weight:700; color:var(--green-dark); border-bottom:1px solid var(--border); }
+    .nutr-grid { display:grid; gap:.7rem; padding:1rem; }
+    .nutr-row { background:#f9fcfa; border:1px solid var(--border); border-radius:12px; padding:.7rem .8rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; gap:.6rem; align-items:center; width:100%; margin-bottom:.35rem; flex-wrap:wrap; }
+    .nutr-name { font-size:.76rem; font-weight:700; color:var(--green-dark); }
+    .nutr-amount { font-size:.8rem; font-weight:800; color:var(--green-mid); }
+    .nutr-track { width:100%; background:#eaf3ec; height:8px; border-radius:999px; overflow:hidden; }
+    .nutr-fill { height:100%; border-radius:999px; }
+    .nutr-pct { font-size:.72rem; color:var(--muted); margin-top:.35rem; }
+    .btn { padding:.48rem 1.15rem; border-radius:8px; font-size:.85rem; font-weight:600; cursor:pointer; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:.35rem; }
+    .btn-back { background:#fff; color:var(--green-dark); border:1.5px solid var(--green-mid); }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html">🏠 Home</a>
+    <a href="../health-tracker.html">📈 Health Tracker</a>
+    <a href="../lab-tracker.html">🧪 Lab Results</a>
+    <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+    <a href="../food-response-testing.html">🍽️ Food Testing</a>
+    <a href="../dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="../genetics.html">🧬 Genetics</a>
+    <a href="../health-reference.html">📋 Reference</a>
+    <a href="../supplement-timing.html">💊 Supplements</a>
+    <a href="../exercise-protocol.html">🏃 Exercise</a>
+    <a href="../cgm-tracker.html">📡 CGM</a>
+    <a href="../daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="../diet-power.html">🥣 Diet Power</a>
+  </nav>
+
+  <div class="main-wrap">
+    <div class="recipe-hero">
+      <div class="recipe-hero-emoji">🐟🥬🍋</div>
+      <div class="recipe-hero-body">
+        <h1>Herb-Roasted Salmon with Cabbage &amp; Lemon Salad</h1>
+        <p>Roasted salmon paired with a crisp lemon-cabbage salad and a little EVOO. This is the highest-value seafood option for your target list: strong marine omega-3s, high choline, B12, and a clean low-carb profile without avocado or grains.</p>
+        <div class="meta-strip">
+          <span>⏱ 30 min total</span>
+          <span>🐟 2 salmon fillets</span>
+          <span>🍽 2 servings</span>
+          <span>🌿 GF / grain-free</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nutr-panel">
+      <div class="nutr-panel-header">📊 Nutrient panel (estimated per serving)</div>
+      <div class="nutr-grid">
+        <div class="nutr-row">
+          <div class="nutr-label-row"><span class="nutr-name">Marine omega-3</span><span class="nutr-amount">~1,000–1,500 mg</span></div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:95%;background:#14b8a6"></div></div>
+          <div class="nutr-pct">Excellent source — especially useful for APOE4 and fatty-liver support</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row"><span class="nutr-name">Choline</span><span class="nutr-amount">~150–220 mg</span></div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:88%;background:#f59e0b"></div></div>
+          <div class="nutr-pct">Strong liver and brain support in a single serving</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row"><span class="nutr-name">B12</span><span class="nutr-amount">~100%+ DV</span></div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:100%;background:#15803d"></div></div>
+          <div class="nutr-pct">Helpful methylation support</div>
+        </div>
+        <div class="nutr-row">
+          <div class="nutr-label-row"><span class="nutr-name">MUFA base</span><span class="nutr-amount">~8–12 g</span></div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:60%;background:#7c3aed"></div></div>
+          <div class="nutr-pct">EVOO gives steady energy without the saturated fat tradeoff</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-layout">
+      <div class="panel">
+        <div class="panel-header">Ingredients</div>
+        <div class="panel-body">
+          <ul class="ing-list">
+            <li class="ing-item"><span class="ing-amount">2 fillets</span><span>salmon, about 5–6 oz each</span></li>
+            <li class="ing-item"><span class="ing-amount">1 tbsp</span><span>cold-pressed extra virgin olive oil</span></li>
+            <li class="ing-item"><span class="ing-amount">1 tbsp</span><span>fresh lemon juice</span></li>
+            <li class="ing-item"><span class="ing-amount">1 tsp</span><span>dried dill or parsley</span></li>
+            <li class="ing-item"><span class="ing-amount">1/2 head</span><span>cabbage, thinly shredded</span></li>
+            <li class="ing-item"><span class="ing-amount">1 cup</span><span>cucumber, sliced</span></li>
+            <li class="ing-item"><span class="ing-amount">1 tbsp</span><span>chopped parsley</span></li>
+            <li class="ing-item"><span class="ing-amount">pinch</span><span>sea salt and black pepper</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Instructions</div>
+        <div class="panel-body">
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Make the salad</div>Toss the cabbage and cucumber with lemon juice, a little EVOO, chopped parsley, and a pinch of salt. Let it sit 5–10 minutes to soften slightly.</div></li>
+            <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Roast the salmon</div>Heat the oven to 400°F (200°C). Place the salmon on a lined tray. Drizzle with EVOO and lemon, season with dill or parsley, salt, and pepper, then roast 12–15 minutes until just cooked through.</div></li>
+            <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Serve</div>Plate the salmon with the cabbage salad and spoon extra lemon-herb dressing over the top.</div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem;"><a href="../recipes.html" class="btn btn-back">← Back to Recipe Library</a></div>
+  </div>
+</body>
+</html>
