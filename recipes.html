@@ -610,6 +610,7 @@
         <option value="vegetables">Vegetables</option>
         <option value="salads">Salads</option>
         <option value="dressings-sauces">Dressings &amp; Sauces</option>
+        <option value="bread">Bread</option>
         <option value="bread-baked">Just Breads</option>
         <option value="desserts">Desserts</option>
         <option value="dairy">Dairy</option>
@@ -618,6 +619,7 @@
         <option value="omega3">Omega-3</option>
         <option value="choline">Choline</option>
         <option value="mufa">MUFAs</option>
+        <option value="folate">Folate</option>
         <option value="snacks">Snacks</option>
         <option value="beverages">Beverages</option>
         <option value="other">Other / Uncategorized</option>
@@ -3870,6 +3872,7 @@
 
   <p style="color:var(--muted);font-size:.82rem;margin-top:1.5rem;text-align:center">More recipes added as they are developed and tested. Each one is built specifically around your condition stack.</p></div><!-- /main-wrap -->
 
+<script src="recipe-nutrient-data.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════════════════
 //  PANTRY FILTER — Exclusion model · localStorage-persisted
@@ -4237,7 +4240,8 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Kale, Apple, Blueberry & Mozzarella Salad with Lemon-EVOO Dressing',
     'Ginger Carrot Slaw with Apple, Sweet Pepper & Lemon',
     'Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese',
-    'Sardine & Olive Chopped Salad'
+    'Sardine & Olive Chopped Salad',
+    'Crispy Roasted Chickpea & Feta Mediterranean Bowl'
   ],
   desserts: [
     'Lemon Blueberry Labneh Cheesecake',
@@ -4421,11 +4425,32 @@ function normalizeRecipeTitle(title) {
   return title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
+function getRecipeHref(card) {
+  const link = card.querySelector('.recipe-card-footer .btn-view, .recipe-card-actions .btn-view, .recipe-card-footer a, .recipe-card-actions a');
+  return link?.getAttribute('href') || '';
+}
+
+function getRecipeNutrientSource(card) {
+  const href = getRecipeHref(card);
+  const key = href.split('/').pop()?.split('?')[0]?.split('#')[0] || '';
+  return (window.RECIPE_PANEL_NUTRIENTS && window.RECIPE_PANEL_NUTRIENTS[key]) || null;
+}
+
+function formatNutrientBadgeValue(source, fallbackValue, fallbackUnit) {
+  if (source?.display) return source.display;
+  if (!Number.isFinite(fallbackValue) || fallbackValue <= 0) return 'see full recipe';
+  const rounded = Number.isInteger(fallbackValue) ? fallbackValue : Number(fallbackValue.toFixed(1));
+  return `~${rounded} ${fallbackUnit || 'mg'}`;
+}
+
 function getRecipeCategories(card) {
   const title = normalizeRecipeTitle(getRecipeTitle(card));
   const matches = Object.entries(EXPLICIT_CATEGORY_TITLES).flatMap(([category, titles]) => {
     return titles.some(recipeTitle => normalizeRecipeTitle(recipeTitle) === title) ? [category] : [];
   });
+  if (!matches.length && /(bread|flatbread|pita|bagel|bun|loaf)/i.test(title)) {
+    return ['bread-baked'];
+  }
   return matches.length ? matches : ['other'];
 }
 
@@ -4522,8 +4547,21 @@ function getConditionMatch(card) {
   return card.dataset.conditions.includes(activeConditionTag);
 }
 
+function getRecipeFolateEstimate(card) {
+  const stored = Number(card.dataset.folateMcg || 0);
+  if (Number.isFinite(stored) && stored > 0) return stored;
+  const source = getRecipeNutrientSource(card);
+  const sourceValue = Number(source?.folate?.value || 0);
+  if (Number.isFinite(sourceValue) && sourceValue > 0) return sourceValue;
+  const ingEl = card.querySelector('.recipe-card-ingredients');
+  if (!ingEl) return 0;
+  return estimateNutrientsPerServing(ingEl.textContent || '').folateMcg || 0;
+}
+
 function getCategoryMatch(card) {
   if (activeRecipeCategory === 'all') return true;
+  if (activeRecipeCategory === 'folate') return getRecipeFolateEstimate(card) >= 40;
+  if (activeRecipeCategory === 'bread') return getRecipeCategories(card).includes('bread-baked') || getRecipeTitle(card).toLowerCase().includes('bread') || getRecipeTitle(card).toLowerCase().includes('flatbread') || getRecipeTitle(card).toLowerCase().includes('pita');
   return getRecipeCategories(card).includes(activeRecipeCategory);
 }
 
@@ -4670,21 +4708,27 @@ function addNutrientTargetBadges() {
     if (!body || !ingEl) return;
     if (body.querySelector('.recipe-card-targets')) return;
 
+    const source = getRecipeNutrientSource(card);
     const est = estimateNutrientsPerServing(ingEl.textContent || '');
-    card.dataset.cholineMg = String(est.cholineMg);
-    card.dataset.omega3Mg = String(est.omega3Mg);
+    const cholineValue = Number(source?.choline?.value || est.cholineMg);
+    const omega3Value = Number(source?.omega3?.value || est.omega3Mg);
+    const folateValue = Number(source?.folate?.value || est.folateMcg);
+    const b12Value = Number(source?.b12?.value || est.b12Mcg);
+
+    card.dataset.cholineMg = String(Number.isFinite(cholineValue) ? cholineValue : est.cholineMg);
+    card.dataset.omega3Mg = String(Number.isFinite(omega3Value) ? omega3Value : est.omega3Mg);
     card.dataset.mufaG = String(est.mufaG);
-    card.dataset.folateMcg = String(est.folateMcg);
-    card.dataset.b12Mcg = String(est.b12Mcg);
+    card.dataset.folateMcg = String(Number.isFinite(folateValue) ? folateValue : est.folateMcg);
+    card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
     card.dataset.viscousFiberG = String(est.viscousFiberG);
 
     const targets = document.createElement('div');
     targets.className = 'recipe-card-targets';
     targets.innerHTML =
-      '<span class="trigger-pill"><strong>Choline:</strong> ~' + est.cholineMg + ' mg</span>' +
-      '<span class="trigger-pill"><strong>Omega-3:</strong> ~' + est.omega3Mg + ' mg</span>' +
+      '<span class="trigger-pill"><strong>Choline:</strong> ' + formatNutrientBadgeValue(source?.choline, est.cholineMg, 'mg') + '</span>' +
+      '<span class="trigger-pill"><strong>Omega-3:</strong> ' + formatNutrientBadgeValue(source?.omega3, est.omega3Mg, 'mg') + '</span>' +
       '<span class="trigger-pill"><strong>MUFAs:</strong> ~' + est.mufaG + ' g</span>' +
-      '<span class="trigger-pill"><strong>MTHFR:</strong> Folate ~' + est.folateMcg + ' mcg · B12 ~' + est.b12Mcg + ' mcg</span>' +
+      '<span class="trigger-pill"><strong>MTHFR:</strong> Folate ' + formatNutrientBadgeValue(source?.folate, est.folateMcg, 'mcg') + ' · B12 ' + formatNutrientBadgeValue(source?.b12, est.b12Mcg, 'mcg') + '</span>' +
       '<span class="trigger-pill"><strong>Viscous Fiber:</strong> ~' + est.viscousFiberG + ' g</span>';
 
     const trigger = body.querySelector('.recipe-card-trigger');
@@ -4762,6 +4806,43 @@ function normalizePlannerItem(rawItem) {
   };
 }
 
+function getRecipeNutrientSourceByHref(href) {
+  const key = String(href || '').split('/').pop()?.split('?')[0]?.split('#')[0] || '';
+  if (!key) return null;
+  return (window.RECIPE_PANEL_NUTRIENTS && window.RECIPE_PANEL_NUTRIENTS[key]) || null;
+}
+
+function refreshPlannerRecipeItemNutrients(item) {
+  if (!item || item.source !== 'recipe') return false;
+  const source = getRecipeNutrientSourceByHref(item.href);
+  if (!source) return false;
+
+  let changed = false;
+  const applyValue = (prop, val) => {
+    const num = Number(val);
+    if (!Number.isFinite(num)) return;
+    if (Number(item[prop]) === num) return;
+    item[prop] = num;
+    changed = true;
+  };
+
+  applyValue('cholineMg', source?.choline?.value);
+  applyValue('omega3Mg', source?.omega3?.value);
+  applyValue('folateMcg', source?.folate?.value);
+  applyValue('b12Mcg', source?.b12?.value);
+
+  return changed;
+}
+
+function refreshPlannerStateRecipeNutrients(state) {
+  if (!state || !Array.isArray(state.items)) return false;
+  let changed = false;
+  state.items.forEach((item) => {
+    if (refreshPlannerRecipeItemNutrients(item)) changed = true;
+  });
+  return changed;
+}
+
 function toIsoDate(dateObj) {
   const y = dateObj.getFullYear();
   const m = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -4801,10 +4882,14 @@ function loadMenuPlannerState(weekStartIso) {
     if (!raw) return fallback;
     const parsed = JSON.parse(raw);
     if (!parsed || !Array.isArray(parsed.items)) return fallback;
-    return {
+    const state = {
       weekStart: weekStartIso,
       items: parsed.items.map(normalizePlannerItem)
     };
+    if (refreshPlannerStateRecipeNutrients(state)) {
+      localStorage.setItem(getMenuPlannerStorageKey(weekStartIso), JSON.stringify({ items: state.items }));
+    }
+    return state;
   } catch (err) {
     return fallback;
   }
@@ -5310,6 +5395,7 @@ function importMenuPlannerJson(file) {
       const importedWeek = getStartOfWeekIso(String(parsed.weekStart || menuPlannerState.weekStart || ''));
       const importedItems = parsed.items.map(normalizePlannerItem);
       menuPlannerState = { weekStart: importedWeek, items: importedItems };
+      refreshPlannerStateRecipeNutrients(menuPlannerState);
       menuPlannerEditingId = null;
       saveMenuPlannerState();
 

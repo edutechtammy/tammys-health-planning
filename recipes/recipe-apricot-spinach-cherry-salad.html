@@ -109,6 +109,20 @@
     .notes-panel h3 { color: #9a3412; font-size: .95rem; margin-bottom: .65rem; }
     .notes-panel ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.7; color: #7c2d12; display: flex; flex-direction: column; gap: .4rem; }
 
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow: var(--shadow); overflow:hidden; margin: 0 0 1.2rem; }
+    .nutr-panel-header { background: var(--primary-light); color: var(--primary-dark); font-size:.82rem; font-weight:700; padding:.7rem 1rem; border-bottom:1px solid var(--border); }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted); }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.65rem; padding:.8rem 1rem .95rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; gap:.6rem; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:var(--text); }
+    .nutr-why { font-size:.68rem; color:var(--muted); font-style:italic; font-weight:600; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:#334155; white-space:nowrap; }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill { height:100%; border-radius:20px; }
+    .nutr-pct { font-size:.69rem; color:var(--muted); }
+    .nutr-note { font-size:.72rem; color:var(--muted); padding:.5rem 1.2rem .9rem; border-top:1px solid var(--border); line-height:1.5; }
+
     .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
     .test-bar p { font-size: .85rem; color: var(--muted); }
     .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
@@ -159,6 +173,45 @@
         <span class="badge badge-mthfr">MTHFR</span>
       </div>
     </div>
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 of 4) <span>estimates · spinach + fruit + feta + pecans</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver · MTHFR</span></span>
+          <span class="nutr-amount">~35 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:8%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">supports BHMT backup demand under methylation stress</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Omega-3 <span class="nutr-why">— supporting fatty liver + APOE4</span></span>
+          <span class="nutr-amount">~1800 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:100%;background:#2563eb"></div></div>
+        <div class="nutr-pct">primarily ALA contribution from pecans in this serving</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~105 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:26%;background:#db2777"></div></div>
+        <div class="nutr-pct">substantial folate from spinach plus supporting fruit matrix</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~0.45 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:19%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">feta is the main B12 source in this meatless salad</div>
+      </div>
+    </div>
+    <div class="nutr-note">⚠️ This is a fruit-forward seasonal salad with higher sugar and oxalate load than baseline salads. Use as an occasional tested option and pair with protein when used as a meal.</div>
   </div>
 
   <div class="section-divider">🥗 Ingredients &amp; Method</div>
@@ -221,8 +274,7 @@
 
   <section class="notes-panel">
     <h3>Nutrition Snapshot (per serving)</h3>
-          <li>Choline: supports APOE4 / Fatty Liver / MTHFR needs and the BHMT pathway during methylation stress.</li>
-<ul>
+    <ul>
       <li>Calories: 247</li>
       <li>Fat: 10g (Saturated fat: 3g)</li>
       <li>Carbohydrates: 35g (Fiber: 3g, Sugar: 29g)</li>
