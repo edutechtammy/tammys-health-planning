@@ -2432,6 +2432,43 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE 30C — SUGAR SHIFT PUMPKIN SPICE MOUSSE
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+      <div class="recipe-card-img">🎃🥣🫙✨</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Sugar Shift Pumpkin Spice Mousse</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 15 min prep + 10-15 min chill</span>
+          <span>🥣 1 large serving</span>
+          <span>🍂 Autumn / Functional Dessert</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">Sugar Shift yogurt ⋅ pumpkin ⋅ chia seeds ⋅ hemp hearts ⋅ psyllium husk ⋅ monkfruit + allulose blend ⋅ Ceylon cinnamon ⋅ ginger ⋅ nutmeg ⋅ vanilla extract</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~5.5g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~3g/serving</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>Don't let the word mousse fool you — this is a functional metabolic shield masquerading as a rich autumn dessert. Pure pumpkin folded into strained Sugar Shift yogurt, then thickened with chia, hemp hearts, and psyllium for a dense gel network that blunts any glucose spike. Low-oxalate, grain-free, gluten-free, and built around live cultures plus high viscous fiber.</p>
+          <p><span class="badge badge-apoe4">APOE4</span> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly.</p>
+          <p><span class="badge badge-mthfr">MTHFR</span> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress.</p>
+          <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by design and built around gut-friendly ingredients that fit the celiac protocol without relying on wheat or standard starch fillers.</p>
+        </div>
+        <div class="recipe-card-footer">
+          <a class="btn btn-primary" href="recipes/recipe-sugar-shift-pumpkin-spice-mousse.html">🎃 View Recipe</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE 29 — GINGER CARROT SLAW
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
@@ -3929,7 +3966,7 @@ const PANTRY_GROUPS = {
       'extra virgin olive oil','fennel','flax seed','Fuji apple','garlic','ginger','great northern beans','green split peas','herbs','hibiscus','honey',
       'lemon','lime','MCT oil','millet / millet flour','mint','olive-cheddar spread','olive cheddar spread',
       'apple cider','orange peel','pomegranate molasses','paprika','olives','onion','onion powder','oregano','parsley','peppermint',
-      'pecans','pepitas','pinto beans','pomegranate juice','potatoes','Prebio Plus','psyllium','pumpkin','pumpkin seeds','romaine','shiitake',
+      'pecans','pepitas','pinto beans','pomegranate juice','potatoes','Prebio Plus','psyllium','pumpkin','pumpkin seeds','nutmeg','romaine','shiitake',
       'red lentils','red pepper flakes','red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
       'salt','scallion','sesame oil','smoked oysters','smoked paprika','sorghum flour','steel-cut oats','sugar','sumac',
       'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme','tomato sauce','tomatoes','trail mix','turmeric',
@@ -4006,6 +4043,10 @@ const PANTRY_NORM = {
   'mint (optional)':     'mint',
   'vanilla (optional)':  'vanilla extract',
   'ceylon cinnamon (optional)': 'ceylon cinnamon',
+  'ground nutmeg':       'nutmeg',
+  'nutmeg':              'nutmeg',
+  'sugar shift yogurt':  'sugar shift probiotic',
+  'sugar shift probiotic yogurt': 'sugar shift probiotic',
   // Generic catch-all terms (normalize to empty string to bypass pantry filter)
   'spices':              '',
   'cinnamon':            'ceylon cinnamon',
@@ -4247,6 +4288,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Lemon Blueberry Labneh Cheesecake',
     'Spiced Carrot Celebration Cake with Labneh Honey Frosting',
     'Spiced Pumpkin Celebration Cake with Labneh Honey Frosting',
+    'Sugar Shift Pumpkin Spice Mousse',
     'Labneh Berry Parfait with Honey & Walnuts',
     'Bulk Brownie Base Mix for GF Flour Testing',
     'Healthier Brownie Base Mix — Monkfruit + Allulose & Almond Flour',
@@ -4260,6 +4302,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     '30-Minute Homemade Mozzarella — Marinated & Baked Sticks (GF)',
     'Sugar Shift Labneh (Strained Yogurt Cheese)',
     'Sugar Shift Probiotic Yogurt',
+    'Sugar Shift Pumpkin Spice Mousse',
     'Lemon Blueberry Labneh Cheesecake',
     'Spiced Carrot Celebration Cake with Labneh Honey Frosting',
     'Spiced Pumpkin Celebration Cake with Labneh Honey Frosting',
@@ -4356,6 +4399,7 @@ const CARD_MACROS = {
   'Rice Paper Muffin Pouches': { net: '~8g/serving', sat: '~2g/serving' },
   'Rice Paper Bagels': { net: '~5g/serving', sat: '~1g/serving' },
   'Sugar Shift Probiotic Yogurt': { net: '~5g/serving', sat: '~0g/serving' },
+  'Sugar Shift Pumpkin Spice Mousse': { net: '~5.5g/serving', sat: '~3g/serving' },
   'Therapeutic Teas — Rooibos, Chamomile, Peppermint, Ginger, Hibiscus': { net: '~0g/serving', sat: '~0g/serving' },
   'Rosemary EVOO Cassava Crackers — Low-Oxalate Almond Cracker Replacement': { net: '~9g/serving', sat: '~1g/serving' },
   'Purple Sauerkraut — Lacto-Fermented Red Cabbage': { net: '~2g/serving', sat: '~0g/serving' },

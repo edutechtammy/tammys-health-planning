@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sugar Shift Pumpkin Spice Mousse</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Sugar Shift Pumpkin Spice Mousse",
+    "description": "An autumn functional mousse made from strained Sugar Shift yogurt, pure pumpkin, chia, hemp hearts, psyllium, monkfruit-allulose sweetener, Ceylon cinnamon, ginger, nutmeg, and vanilla. Built as a low-oxalate, high-viscous-fiber dessert with live cultures and a dense gel network that slows glucose response.",
+    "recipeYield": "1 large serving",
+    "prepTime": "PT15M",
+    "cookTime": "PT0M",
+    "totalTime": "PT30M",
+    "recipeCategory": "Dessert / Functional",
+    "recipeCuisine": "American / Functional",
+    "keywords": "pumpkin spice mousse, Sugar Shift yogurt, pumpkin, chia, psyllium, hemp hearts, monkfruit allulose, gluten-free, grain-free, low oxalate, APOE4, MTHFR, blood sugar",
+    "recipeIngredient": [
+      "155g homemade Sugar Shift yogurt, strained thick",
+      "100g Libby's 100% Pure Canned Pumpkin",
+      "15g whole chia seeds",
+      "10g hemp hearts",
+      "3g whole psyllium husk",
+      "15g Lakanto monkfruit sweetener with allulose",
+      "2g Ceylon cinnamon",
+      "pinch ground ginger",
+      "pinch ground nutmeg",
+      "dash vanilla extract",
+      "optional garnish: pre-salted pepitas or extra cinnamon"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Build the base",
+        "text": "In a medium glass mixing bowl, weigh out the strained Sugar Shift yogurt and pumpkin. Whisk vigorously until the color is completely uniform and the mixture is smooth."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add sweetener and spices",
+        "text": "Add the monkfruit-allulose blend, Ceylon cinnamon, ginger, nutmeg, and vanilla. Whisk again until the sweetener is dissolved into the pumpkin matrix and the mousse smells fully spiced."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Introduce the viscous gel systems",
+        "text": "Sprinkle the chia seeds, hemp hearts, and psyllium husk over the mixture. Fold thoroughly with a silicone spatula so the fibers distribute evenly and can hydrate uniformly."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Hydrate and chill",
+        "text": "Cover the bowl and refrigerate for 10 to 15 minutes before eating. This resting period allows the chia and psyllium to fully hydrate, creating the thick, mousse-like gel that slows glucose response and improves satiety."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Garnish and serve",
+        "text": "Top with a tiny sprinkle of extra Ceylon cinnamon or a few pre-salted pepitas for a salty crunch. Serve cold as a dessert or a functional snack."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pumpkin-dark:   #92400e;
+      --pumpkin-mid:    #d97706;
+      --pumpkin-light:  #fef3c7;
+      --pumpkin-pale:   #fffbeb;
+      --pumpkin-border: #fde68a;
+      --spice:          #7c2d12;
+      --spice-light:    #fff7ed;
+      --spice-border:   #fed7aa;
+      --text:           #1c0a00;
+      --muted:          #78350f;
+      --border:         #fcd34d;
+      --shadow:         0 2px 12px rgba(146,64,14,.12);
+    }
+
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--pumpkin-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    nav { background: var(--spice); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    .main-wrap { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--pumpkin-border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--pumpkin-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3.8rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--pumpkin-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.68; margin-bottom: .9rem; }
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--pumpkin-light); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+    .celebration-badge { display: inline-flex; align-items: center; gap: .4rem; background: var(--pumpkin-light); border: 1.5px solid var(--pumpkin-mid); border-radius: 20px; padding: .25rem .85rem; font-size: .78rem; font-weight: 700; color: var(--pumpkin-dark); margin-bottom: .75rem; }
+    .gi-strip { background: #fff7ed; border: 1px solid var(--spice-border); border-radius: 8px; padding: .45rem .85rem; font-size: .8rem; color: var(--spice); display: flex; align-items: flex-start; gap: .5rem; line-height: 1.5; }
+    .gi-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pumpkin-mid); flex-shrink: 0; margin-top: .35rem; }
+    .panel { background: #fff; border: 1px solid var(--pumpkin-border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .panel-header { background: var(--pumpkin-light); padding: .65rem 1.2rem; font-size: .82rem; font-weight: 700; color: var(--pumpkin-dark); border-bottom: 1px solid var(--pumpkin-border); }
+    .panel-body { padding: 1rem 1.2rem; }
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 660px) { .recipe-layout { grid-template-columns: 1fr; } }
+    .ing-list { list-style: none; }
+    .ing-section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--pumpkin-mid); margin: .8rem 0 .3rem; border-bottom: 1px solid var(--pumpkin-border); padding-bottom: .2rem; }
+    .ing-item { display: flex; align-items: baseline; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid #fef3c7; font-size: .84rem; }
+    .ing-amount { font-weight: 700; color: var(--pumpkin-dark); min-width: 4rem; flex-shrink: 0; }
+    .ing-note { margin-left: auto; font-size: .72rem; font-weight: 600; white-space: nowrap; padding: .1rem .4rem; border-radius: 6px; }
+    .ox-zero { background: #f1f5f9; color: #475569; }
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .84rem; }
+    .step-num { background: var(--pumpkin-dark); color: #fff; border-radius: 50%; width: 1.7rem; height: 1.7rem; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--pumpkin-dark); margin-bottom: .2rem; }
+    .notes-panel { background: #fff; border: 1px solid var(--pumpkin-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.2rem; }
+    .notes-panel h3 { color: var(--pumpkin-dark); font-size: .95rem; margin-bottom: .65rem; }
+    .notes-panel ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.7; color: #334155; display: flex; flex-direction: column; gap: .4rem; }
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-primary { background: var(--pumpkin-dark); color: #fff; }
+    .btn-back    { background: #fff; color: var(--pumpkin-dark); border: 1.5px solid var(--pumpkin-mid); }
+    .btn:hover { opacity: .82; }
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:var(--nutr-head-bg,#f8f8f8); padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:var(--nutr-head-color,#333); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:var(--muted,#666); }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:.5rem; padding:1rem 1.2rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:var(--text,#222); }
+    .nutr-why  { font-size:.7rem; color:var(--muted,#666); font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:var(--nutr-amount-color,#555); white-space:nowrap; }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill  { height:100%; border-radius:20px; }
+    .nutr-pct   { font-size:.69rem; color:var(--muted,#666); margin-top:.05rem; }
+    .nutr-note  { font-size:.72rem; color:var(--muted,#666); padding:.5rem 1.2rem .9rem; border-top:1px solid var(--border); line-height:1.5; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../dawn-effect.html">🌅 Dawn Effect</a>
+  <a href="../genetics.html">🧬 Genetics</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+  <a href="../daily-weight-tracker.html">⚖️ Weight</a>
+  <a href="../diet-power.html">🥣 Diet Power</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🎃🥣🫙✨</div>
+    <div class="recipe-hero-body">
+      <div class="celebration-badge">🍂 Autumn Microbiome-Support & Metabolic Flattening Protocol</div>
+      <h1>Sugar Shift Pumpkin Spice Mousse</h1>
+      <p>Don't let the word mousse fool you. This is a functional dessert built from strained Sugar Shift yogurt, pure pumpkin, chia, hemp hearts, psyllium, and warm autumn spices. The live cultures stay active while the viscous fiber system hydrates into a dense gel that slows glucose response and makes the bowl feel far richer than its sugar load suggests. It is gluten-free, grain-free, low-oxalate, and designed to behave like a metabolic shield instead of a spike.</p>
+
+      <div class="meta-strip">
+        <span>⏱ 15 min prep + 10-15 min chill</span>
+        <span>🥣 1 large serving</span>
+        <span>🍂 Fall dessert or snack</span>
+        <span>🌱 High viscous soluble fiber</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="gi-strip"><span class="gi-dot"></span>Low GI — yogurt protein, pumpkin, and the chia/psyllium gel network blunt the glucose curve while preserving a rich mousse texture.</div>
+    </div>
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 large bowl) <span>estimates · pumpkin + Sugar Shift yogurt + chia + hemp + psyllium</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~70 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:17%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">17% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Omega-3 <span class="nutr-why">— ALA support for fatty liver; APOE4 fit is indirect</span></span>
+          <span class="nutr-amount">~2900 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:73%;background:#16a34a"></div></div>
+        <div class="nutr-pct">73% of therapeutic daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~40 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:10%;background:#db2777"></div></div>
+        <div class="nutr-pct">10% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~0.7 µg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:29%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">29% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">Viscous fiber is the key mechanism here: chia and psyllium hydrate during the rest period, turning the bowl into a thick gel that slows gastric emptying and helps flatten the glucose response. For APOE4, treat seafood DHA/EPA as the primary omega-3 target and plant ALA here as extra credit. Pumpkin contributes autumn flavor, beta-carotene, and additional soluble fiber; the yogurt keeps the cultures active and provides the choline/B12 backbone.</div>
+  </div>
+
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients — 1 large serving</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item"><span class="ing-amount">155g</span><span class="ing-name">Homemade Sugar Shift Yogurt, strained thick</span><span class="ing-note ox-zero">⬜ live culture base</span></li>
+          <li class="ing-item"><span class="ing-amount">100g</span><span class="ing-name">Libby's 100% Pure Canned Pumpkin</span><span class="ing-note ox-zero">⬜ low ox</span></li>
+          <li class="ing-item"><span class="ing-amount">15g</span><span class="ing-name">Whole Chia Seeds</span><span class="ing-note ox-zero">⬜ gel network</span></li>
+          <li class="ing-item"><span class="ing-amount">10g</span><span class="ing-name">Hemp Hearts</span><span class="ing-note ox-zero">⬜ fat texture</span></li>
+          <li class="ing-item"><span class="ing-amount">3g</span><span class="ing-name">Whole Psyllium Husk</span><span class="ing-note ox-zero">⬜ viscous fiber</span></li>
+          <li class="ing-item"><span class="ing-amount">15g</span><span class="ing-name">Lakanto Monkfruit Sweetener with Allulose</span><span class="ing-note ox-zero">⬜ sweetener</span></li>
+          <li class="ing-item"><span class="ing-amount">2g</span><span class="ing-name">Ceylon Cinnamon</span><span class="ing-note ox-zero">⬜ spice</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span class="ing-name">Ground Ginger</span><span class="ing-note ox-zero">⬜ spice</span></li>
+          <li class="ing-item"><span class="ing-amount">pinch</span><span class="ing-name">Ground Nutmeg</span><span class="ing-note ox-zero">⬜ spice</span></li>
+          <li class="ing-item"><span class="ing-amount">dash</span><span class="ing-name">Vanilla Extract</span><span class="ing-note ox-zero">⬜ aroma</span></li>
+          <li class="ing-item"><span class="ing-amount">optional</span><span class="ing-name">Pre-salted Pepitas or Extra Cinnamon</span><span class="ing-note ox-zero">⬜ garnish</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">👩‍🍳 Instructions</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Build the base</div>Combine the strained Sugar Shift yogurt and pumpkin in a medium bowl. Whisk vigorously until the color is completely uniform and the mixture is smooth.</div></li>
+          <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Add the autumn spices</div>Add the monkfruit-allulose sweetener, Ceylon cinnamon, ginger, nutmeg, and vanilla. Whisk again until the sweetener disappears into the pumpkin matrix.</div></li>
+          <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Introduce the gel network</div>Sprinkle the chia seeds, hemp hearts, and psyllium husk over the mixture. Fold with a spatula until everything is evenly distributed.</div></li>
+          <li class="step-item"><span class="step-num">4</span><div><div class="step-name">Hydrate and chill</div>Cover and refrigerate for 10 to 15 minutes. The mousse should thicken noticeably as the chia and psyllium hydrate.</div></li>
+          <li class="step-item"><span class="step-num">5</span><div><div class="step-name">Garnish and serve</div>Finish with extra cinnamon or a few salted pepitas if you want a little crunch. Serve cold.</div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-panel">
+    <h3>Why this works</h3>
+    <ul>
+      <li>Chia plus psyllium creates the viscous soluble fiber system that slows the glucose curve.</li>
+      <li>Pumpkin gives the autumn flavour without pushing the net carbs very high.</li>
+      <li>The strained Sugar Shift yogurt keeps the bowl cultured, tangy, and choline-supportive.</li>
+      <li>Chill time is not optional if you want the mousse texture to fully set.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>For CGM testing, log it as a dessert or evening snack and note whether the 10-15 minute chill changes the response compared with eating it immediately.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn btn-back" href="../recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="../food-response-testing.html">🍽 Log a Food Test</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -659,6 +659,36 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  "recipe-ginger-carrot-slaw.html": {
+    "choline": {
+      "display": "~13 mg",
+      "value": 13.0,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~30 mg",
+      "value": 30.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~24 µg",
+      "value": 24.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    }
+  },
   "recipe-kale-fruit-salad.html": {
     "choline": {
       "display": "~32 mg",
@@ -1499,36 +1529,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 55.0,
       "unit": "mcg",
       "name": "Folate",
-      "estimated": false
-    }
-  },
-  "recipe-ginger-carrot-slaw.html": {
-    "choline": {
-      "display": "~13 mg",
-      "value": 13.0,
-      "unit": "mg",
-      "name": "Choline — APOE4",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~30 mg",
-      "value": 30.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~24 µg",
-      "value": 24.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "0 µg",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
       "estimated": false
     }
   },
@@ -2547,6 +2547,36 @@ window.RECIPE_PANEL_NUTRIENTS = {
     "b12": {
       "display": "~1.3 ug",
       "value": 1.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    }
+  },
+  "recipe-sugar-shift-pumpkin-spice-mousse.html": {
+    "choline": {
+      "display": "~70 mg",
+      "value": 70.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~2900 mg",
+      "value": 2900.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~40 µg",
+      "value": 40.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.7 µg",
+      "value": 0.7,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
