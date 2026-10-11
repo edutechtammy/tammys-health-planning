@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Macadamia Nuts (28g MUFA Booster)</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Macadamia Nuts (28g MUFA Booster)",
+    "description": "A no-prep single-food MUFA booster card for menu planning. One serving is fixed at 28 grams (1 ounce).",
+    "recipeYield": "1 serving (28g)",
+    "prepTime": "PT1M",
+    "cookTime": "PT0M",
+    "totalTime": "PT1M",
+    "recipeCategory": "Snack",
+    "recipeCuisine": "Whole Food",
+    "keywords": "macadamia nuts, MUFA, monounsaturated fat, APOE4, fatty liver, low prep snack",
+    "recipeIngredient": [
+      "28g macadamia nuts",
+      "pinch sea salt (optional)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Portion",
+        "text": "Weigh 28 grams of macadamia nuts and portion into a small container."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Use",
+        "text": "Use as a standalone snack or add to a meal when your menu planner needs a MUFA boost."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --nut-dark: #4b3a1f;
+      --nut-mid: #8b6f47;
+      --nut-light: #f7ecd8;
+      --nut-pale: #fdf9f2;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #eadcc2;
+      --shadow: 0 2px 10px rgba(75,58,31,.12);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--nut-pale); color: var(--text); line-height: 1.6; padding-bottom: 3rem; }
+    nav { background: var(--nut-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+    .hero, .panel, .nutr-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); margin-bottom: 1rem; }
+    .hero { padding: 1.1rem 1.2rem; }
+    .hero h1 { color: var(--nut-dark); font-size: clamp(1.2rem, 3vw, 1.6rem); margin-bottom: .45rem; }
+    .hero p { color: var(--muted); font-size: .92rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .7rem; font-size: .82rem; color: var(--muted); }
+    .mufa-callout { background: var(--nut-light); border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .9rem; color: var(--nut-dark); font-weight: 700; margin-top: .7rem; }
+    .badge-row { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .7rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .72rem; font-weight: 700; }
+    .badge-apoe4 { background: #e8f5e9; color: #2e7d32; }
+    .badge-dp { background: #e3f2fd; color: #1565c0; }
+    .badge-liver { background: #fef3c7; color: #78350f; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-mthfr { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+
+    .panel-header, .nutr-panel-header { background: var(--nut-light); padding: .62rem 1rem; font-size: .82rem; font-weight: 700; color: var(--nut-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: .95rem 1rem; }
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .ing-item { display: flex; gap: .5rem; border-bottom: 1px solid #f3e7d1; padding-bottom: .35rem; font-size: .88rem; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { min-width: 3rem; font-weight: 700; color: var(--nut-dark); }
+
+    .nutr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: .5rem; padding: .95rem 1rem; }
+    .nutr-row { display: flex; flex-direction: column; gap: .2rem; }
+    .nutr-label-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .nutr-name { font-size: .8rem; font-weight: 700; }
+    .nutr-why { font-size: .69rem; color: var(--muted); font-style: italic; }
+    .nutr-amount { font-size: .78rem; font-weight: 700; white-space: nowrap; color: #4b5563; }
+    .nutr-track { background: #f3efe8; border-radius: 20px; height: 10px; overflow: hidden; }
+    .nutr-fill { height: 100%; border-radius: 20px; }
+    .nutr-pct { font-size: .69rem; color: var(--muted); }
+    .nutr-note { font-size: .73rem; color: var(--muted); border-top: 1px solid var(--border); padding: .55rem 1rem .9rem; }
+
+    .actions { margin-top: .9rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+    .btn { padding: .48rem 1rem; border-radius: 8px; text-decoration: none; font-size: .85rem; font-weight: 700; }
+    .btn-primary { background: var(--nut-dark); color: #fff; }
+    .btn-back { background: #fff; color: var(--nut-dark); border: 1px solid var(--nut-mid); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../health-tracker.html">Health Tracker</a>
+  <a href="../lab-tracker.html">Lab Results</a>
+  <a href="../recipes.html" class="active">Recipes</a>
+  <a href="../food-response-testing.html">Food Testing</a>
+  <a href="../dawn-effect.html">Dawn Effect</a>
+  <a href="../genetics.html">Genetics</a>
+  <a href="../health-reference.html">Reference</a>
+  <a href="../supplement-timing.html">Supplements</a>
+  <a href="../exercise-protocol.html">Exercise</a>
+  <a href="../cgm-tracker.html">CGM</a>
+  <a href="../daily-weight-tracker.html">Weight</a>
+  <a href="../diet-power.html">Diet Power</a>
+</nav>
+
+<div class="main-wrap">
+  <section class="hero">
+    <h1>Macadamia Nuts (28g MUFA Booster)</h1>
+    <p>A single-food card for faster menu planning. This is meant to close MUFA gaps without creating a full prep recipe.</p>
+    <div class="meta">
+      <span>Prep: ~1 min</span>
+      <span>Serving: 28g (1 oz)</span>
+      <span>No cook</span>
+    </div>
+    <div class="mufa-callout">MUFAs: ~17g per 28g serving</div>
+    <div class="badge-row">
+      <span class="badge badge-apoe4">APOE4</span>
+      <span class="badge badge-liver">Fatty Liver</span>
+      <span class="badge badge-dp">DP / Blood Sugar</span>
+      <span class="badge badge-celiac">Celiac / GF</span>
+      <span class="badge badge-mthfr">MTHFR</span>
+      <span class="badge badge-kidney">Kidney Stone</span>
+    </div>
+  </section>
+
+  <section class="nutr-panel">
+    <div class="nutr-panel-header">Targeted nutrients — per 28g serving <span style="font-weight:400;color:#6b7280">explicit panel values</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~2 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:1%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">~1% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Omega-3 <span class="nutr-why">— supporting fatty liver + APOE4</span></span>
+          <span class="nutr-amount">~60 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:2%;background:#16a34a"></div></div>
+        <div class="nutr-pct">~2% of therapeutic daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~2 mcg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:1%;background:#db2777"></div></div>
+        <div class="nutr-pct">~1% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">0 mcg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:0%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">0% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">Primary value is MUFA density (~17g per 28g). Choline and folate are minimal, so this is best used as a fat-quality booster rather than a micronutrient anchor.</div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">Ingredients — 1 serving</div>
+    <div class="panel-body">
+      <ul class="ing-list">
+        <li class="ing-item"><span class="ing-amount">28g</span><span>macadamia nuts</span></li>
+        <li class="ing-item"><span class="ing-amount">pinch</span><span>sea salt (optional)</span></li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-primary" href="../recipes.html">Back to Recipes</a>
+        <a class="btn btn-back" href="../food-response-testing.html">Log a Test</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

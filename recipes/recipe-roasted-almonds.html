@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Low-and-Slow Roasted Almonds (Toaster Oven)</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Low-and-Slow Roasted Almonds (Toaster Oven)",
+    "description": "A simple low-and-slow almond roasting method using bulk skin-on raw whole almonds for better control over roast profile and ingredient quality.",
+    "recipeYield": "8 servings (28g each)",
+    "prepTime": "PT2M",
+    "cookTime": "PT15M",
+    "totalTime": "PT17M",
+    "recipeCategory": "Snack / Prep",
+    "recipeCuisine": "Whole Food",
+    "keywords": "roasted almonds, toaster oven, low and slow, raw almonds, MUFA, gluten-free",
+    "recipeIngredient": [
+      "224g skin-on raw whole almonds (8 x 28g servings)",
+      "pinch sea salt (optional)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Preheat",
+        "text": "Preheat toaster oven to 250°F to 275°F (121°C to 135°C)."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Arrange almonds",
+        "text": "Spread almonds in a single layer on a small baking tray so they roast evenly."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Low-and-slow roast",
+        "text": "Roast for 10 to 15 minutes, checking at 10 minutes. Almonds are done when aromatic and lightly golden, not dark brown."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Cool and portion",
+        "text": "Cool completely before storing so steam does not soften the crunch. Portion into 28g servings for planning and tracking consistency."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --almond-dark: #5a3a22;
+      --almond-mid: #a9774a;
+      --almond-light: #f6e8d6;
+      --almond-pale: #fffaf3;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #ead9c4;
+      --shadow: 0 2px 10px rgba(90,58,34,.14);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--almond-pale); color: var(--text); line-height: 1.6; padding-bottom: 3rem; }
+    nav { background: var(--almond-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+    .hero, .panel, .nutr-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); margin-bottom: 1rem; }
+    .hero { padding: 1.1rem 1.2rem; }
+    .hero h1 { color: var(--almond-dark); font-size: clamp(1.2rem, 3vw, 1.6rem); margin-bottom: .45rem; }
+    .hero p { color: var(--muted); font-size: .92rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .7rem; font-size: .82rem; color: var(--muted); }
+    .roast-callout { background: var(--almond-light); border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; font-size: .88rem; color: var(--almond-dark); font-weight: 700; margin-top: .7rem; }
+    .badge-row { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .7rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .72rem; font-weight: 700; }
+    .badge-apoe4 { background: #e8f5e9; color: #2e7d32; }
+    .badge-dp { background: #e3f2fd; color: #1565c0; }
+    .badge-liver { background: #fef3c7; color: #78350f; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-mthfr { background: #f3e5f5; color: #6a1b9a; }
+
+    .panel-header, .nutr-panel-header { background: var(--almond-light); padding: .62rem 1rem; font-size: .82rem; font-weight: 700; color: var(--almond-dark); border-bottom: 1px solid var(--border); }
+    .panel-body { padding: .95rem 1rem; }
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .ing-item { display: flex; gap: .5rem; border-bottom: 1px solid #f4e9dc; padding-bottom: .35rem; font-size: .88rem; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { min-width: 4rem; font-weight: 700; color: var(--almond-dark); }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+    .step-item { display: flex; gap: .65rem; font-size: .88rem; }
+    .step-num { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--almond-dark); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: .74rem; font-weight: 700; flex-shrink: 0; margin-top: .08rem; }
+    .step-name { font-weight: 700; color: var(--almond-dark); margin-bottom: .1rem; }
+
+    .nutr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: .5rem; padding: .95rem 1rem; }
+    .nutr-row { display: flex; flex-direction: column; gap: .2rem; }
+    .nutr-label-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .nutr-name { font-size: .8rem; font-weight: 700; }
+    .nutr-why { font-size: .69rem; color: var(--muted); font-style: italic; }
+    .nutr-amount { font-size: .78rem; font-weight: 700; white-space: nowrap; color: #4b5563; }
+    .nutr-track { background: #f3efe8; border-radius: 20px; height: 10px; overflow: hidden; }
+    .nutr-fill { height: 100%; border-radius: 20px; }
+    .nutr-pct { font-size: .69rem; color: var(--muted); }
+    .nutr-note { font-size: .73rem; color: var(--muted); border-top: 1px solid var(--border); padding: .55rem 1rem .9rem; }
+
+    .actions { margin-top: .9rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+    .btn { padding: .48rem 1rem; border-radius: 8px; text-decoration: none; font-size: .85rem; font-weight: 700; }
+    .btn-primary { background: var(--almond-dark); color: #fff; }
+    .btn-back { background: #fff; color: var(--almond-dark); border: 1px solid var(--almond-mid); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../health-tracker.html">Health Tracker</a>
+  <a href="../lab-tracker.html">Lab Results</a>
+  <a href="../recipes.html" class="active">Recipes</a>
+  <a href="../food-response-testing.html">Food Testing</a>
+  <a href="../dawn-effect.html">Dawn Effect</a>
+  <a href="../genetics.html">Genetics</a>
+  <a href="../health-reference.html">Reference</a>
+  <a href="../supplement-timing.html">Supplements</a>
+  <a href="../exercise-protocol.html">Exercise</a>
+  <a href="../cgm-tracker.html">CGM</a>
+  <a href="../daily-weight-tracker.html">Weight</a>
+  <a href="../diet-power.html">Diet Power</a>
+</nav>
+
+<div class="main-wrap">
+  <section class="hero">
+    <h1>Low-and-Slow Roasted Almonds (Toaster Oven)</h1>
+    <p>A reference card for roasting raw skin-on whole almonds at a gentler temperature so you can control ingredient quality and avoid over-roasting.</p>
+    <div class="meta">
+      <span>Prep: ~2 min</span>
+      <span>Roast: 10 to 15 min</span>
+      <span>Temp: 250°F to 275°F (121°C to 135°C)</span>
+      <span>Serving target: 28g</span>
+    </div>
+    <div class="roast-callout">Low-and-slow profile: 250°F to 275°F for 10 to 15 minutes</div>
+    <div class="badge-row">
+      <span class="badge badge-apoe4">APOE4</span>
+      <span class="badge badge-liver">Fatty Liver</span>
+      <span class="badge badge-dp">DP / Blood Sugar</span>
+      <span class="badge badge-celiac">Celiac / GF</span>
+      <span class="badge badge-mthfr">MTHFR</span>
+    </div>
+  </section>
+
+  <section class="nutr-panel">
+    <div class="nutr-panel-header">Targeted nutrients — per 28g serving <span style="font-weight:400;color:#6b7280">explicit panel values</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~14 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:3%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">~3% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Omega-3 <span class="nutr-why">— supporting fatty liver + APOE4</span></span>
+          <span class="nutr-amount">~5 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:1%;background:#16a34a"></div></div>
+        <div class="nutr-pct">~0% of therapeutic daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~14 mcg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:4%;background:#db2777"></div></div>
+        <div class="nutr-pct">~4% of daily target</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">0 mcg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:0%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">0% of daily target</div>
+      </div>
+    </div>
+    <div class="nutr-note">Primary value is fat profile support (mostly monounsaturated fat). Use as a controlled-portion snack rather than a high-volume food.</div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">Ingredients — 8 servings</div>
+    <div class="panel-body">
+      <ul class="ing-list">
+        <li class="ing-item"><span class="ing-amount">224g</span><span>skin-on raw whole almonds</span></li>
+        <li class="ing-item"><span class="ing-amount">pinch</span><span>sea salt (optional)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">Instructions</div>
+    <div class="panel-body">
+      <ol class="step-list">
+        <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Preheat toaster oven</div>Set toaster oven to 250°F to 275°F (121°C to 135°C).</div></li>
+        <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Single layer</div>Spread almonds on a baking tray in one even layer.</div></li>
+        <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Roast gently</div>Roast 10 to 15 minutes. Check at 10 minutes and pull when aromatic and lightly golden.</div></li>
+        <li class="step-item"><span class="step-num">4</span><div><div class="step-name">Cool completely</div>Cool before storing, then portion into 28g servings for consistent planner use.</div></li>
+      </ol>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="../recipes.html">Back to Recipes</a>
+        <a class="btn btn-back" href="../food-response-testing.html">Log a Test</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

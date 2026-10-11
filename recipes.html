@@ -365,6 +365,7 @@
   <div class="intro-callout">
     <strong>📲 Mealboard import:</strong> Open a recipe's full page link in Mealboard's "Add from Web" importer. Each page uses schema.org/Recipe markup so the title, ingredients, and instructions import automatically.
     &nbsp;·&nbsp; <strong>🟢 Low GI</strong> = safe without testing &nbsp;·&nbsp; <strong>🟡 Moderate GI</strong> = monitor first few uses &nbsp;·&nbsp; <strong>🔴 Test Recommended</strong> = run T0/T30/T60/T120 before regular use.
+    &nbsp;·&nbsp; <strong>🥚 Egg default:</strong> unless a recipe says otherwise, egg-based estimates assume pasture-raised eggs for planner and fallback nutrient math.
   </div>
 
   <!-- ======================================================================= -->
@@ -649,7 +650,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE - LOW-CARB VELVET EGG DROP SOUP
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
+    <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low" data-mufa-g="3">
       <div class="recipe-card-img">🥚🍲✨</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Low-Carb Velvet Egg Drop Soup (Starch-Free)</div>
@@ -797,7 +798,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 62 — ALMOND FLOUR WAFFLES
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="celiac dp" data-oxalate="moderate">
+    <div class="recipe-card" data-conditions="celiac dp" data-oxalate="moderate" data-mufa-g="14">
       <div class="recipe-card-img">🧇🥛🌿</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Almond Flour Waffles</div>
@@ -1564,7 +1565,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 48 — LADENIA (GF GREEK ISLAND FLATBREAD)
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="">
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="" data-mufa-g="18">
       <div class="recipe-card-img">🫓🍅🫒</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Ladenia — GF Greek Island Flatbread (Kimolos-Style)</div>
@@ -2659,7 +2660,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 25 — HARD BOILED EGGS
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low" data-mufa-g="2">
       <div class="recipe-card-img">🥚🍳🧊</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Perfect Hard Boiled Eggs — No Grey Ring</div>
@@ -3236,6 +3237,79 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE 14B — MACADAMIA NUTS (28G MUFA BOOSTER)
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low" data-mufa-g="17">
+      <div class="recipe-card-img">🌰📏🥄</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Macadamia Nuts (28g MUFA Booster)</div>
+        <div class="recipe-card-meta">
+          <span>⏱ Prep 1 min</span>
+          <span>📦 1 serving = 28g</span>
+          <span>🔥 No cook</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">macadamia nuts ⋅ sea salt (optional)</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~2g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~3.5g/serving</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>A single-food menu-planning card for MUFA support. One serving is fixed at 28g (1 oz), giving about 17g MUFAs with minimal prep friction.</p>
+          <p><span class="badge badge-apoe4">APOE4</span> Useful as a simple MUFA anchor when a day is short on olive-oil-first fat quality.</p>
+          <p><span class="badge badge-liver">Fatty Liver</span> Can be used to shift fat quality toward monounsaturates while keeping serving size controlled.</p>
+        </div>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-macadamia-nuts.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 14C — LOW-AND-SLOW ROASTED ALMONDS
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr" data-oxalate="moderate" data-mufa-g="9">
+      <div class="recipe-card-img">🌰🔥⏲️</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Low-and-Slow Roasted Almonds (Toaster Oven)</div>
+        <div class="recipe-card-meta">
+          <span>⏱ Prep 2 min + roast 10-15 min</span>
+          <span>📦 8 x 28g servings</span>
+          <span>🌡️ 250°F to 275°F</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+        </div>
+        <p class="recipe-card-ingredients">raw whole almonds ⋅ sea salt (optional)</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~2.5g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~1g/serving</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>A simple reference recipe for roasting bulk skin-on raw almonds in a toaster oven. Uses a low-and-slow method (250°F to 275°F for 10 to 15 minutes) so you can control doneness and keep a consistent 28g serving size for planner tracking.</p>
+          <p><span class="badge badge-dp">DP / Blood Sugar</span> Minimal prep and controlled portioning make this an easier snack to use consistently in your weekly targets.</p>
+          <p><span class="badge badge-apoe4">APOE4</span> Adds MUFA support, but still use portion control because almonds remain energy-dense.</p>
+        </div>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-roasted-almonds.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE 13 — HERB-CRUSTED BAKED CHICKEN (GF)
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
@@ -3356,7 +3430,7 @@
     <!-- ═══════════════════════════════════════════════
          HEALTHIER BROWNIE VARIANT — MONKFRUIT + ALLULOSE & ALMOND FLOUR
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="moderate">
+    <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="moderate" data-mufa-g="10">
       <div class="recipe-card-img">🍫🌿</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Healthier Brownie Base Mix — Monkfruit + Allulose &amp; Almond Flour</div>
@@ -3387,7 +3461,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 53 — TURKISH ÇILBIR
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low" data-mufa-g="7">
       <div class="recipe-card-img">🥚🧄🫙🧈</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Turkish Çılbır — Poached Eggs on Garlic Yogurt</div>
@@ -3627,7 +3701,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 1 — OLIVE CHEESE BREAD
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr" data-oxalate="moderate">
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr" data-oxalate="moderate" data-mufa-g="13">
       <div class="recipe-card-img">🫒🧀🍞</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Olive & Cheddar Cheese Bread (GF Yeasted Mini Loaf)</div>
@@ -3827,7 +3901,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 3 — SHAKSHUKA
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="">
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="" data-mufa-g="4">
       <div class="recipe-card-img">🍅🥚🫑</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Shakshuka — Eggs in Spiced Tomato-Pepper Sauce</div>
@@ -3960,6 +4034,7 @@ const PANTRY_GROUPS = {
       'almond oil','aged smoked gouda','avocado','baking powder','balsamic vinegar','basil','bay leaf','black beans','black pepper','blueberries',
       'broth','cannellini beans','carrot','cassava flour','cheddar','crushed tomatoes','ground chia seeds','chia seeds','hemp hearts','monkfruit','monkfruit + allulose blend',
       'mixed greens','baby spinach','greens','sardines','sesame seeds','walnuts',
+      'macadamia nuts',
       'Ceylon cinnamon','chamomile','chili powder','citric acid','cocoa','coconut aminos',
       'coconut flakes','coconut sugar','coriander','cumin','dried rosemary','dried thyme',
       'dark chocolate chips','decaf coffee','dill','Dijon mustard','dried chili','dry milk powder','EVOO',
@@ -4061,6 +4136,13 @@ const PANTRY_NORM = {
   'red cabbage':         'cabbage',
   'almond butter':       'almond butter',
   'almonds':             'almonds',
+  'whole almonds':       'almonds',
+  'raw whole almonds':   'almonds',
+  'raw almonds':         'almonds',
+  'roasted almonds':     'almonds',
+  'macadamia':           'macadamia nuts',
+  'macadamias':          'macadamia nuts',
+  'macadamia nuts':      'macadamia nuts',
   'hemp hearts':         'hemp hearts',
   'psyllium husk':       'psyllium',
   'psyllium husk powder': 'psyllium',
@@ -4329,6 +4411,8 @@ const EXPLICIT_CATEGORY_TITLES = {
   ],
   snacks: [
     'Kidney-Safe Trail Mix (GF)',
+    'Macadamia Nuts (28g MUFA Booster)',
+    'Low-and-Slow Roasted Almonds (Toaster Oven)',
     'Rice Paper Potstickers',
     'Rice Paper Muffin Pouches'
   ],
@@ -4371,6 +4455,8 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Mediterranean Chop Chop Salad',
     'Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese',
     'Guacamole — Classic with Garlic & Lemon',
+    'Macadamia Nuts (28g MUFA Booster)',
+    'Low-and-Slow Roasted Almonds (Toaster Oven)',
     'Rosemary EVOO Cassava Crackers — Low-Oxalate Almond Cracker Replacement',
     'Golden Paste Salmon — Turmeric, Black Pepper & EVOO',
     'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
@@ -4409,6 +4495,8 @@ const CARD_MACROS = {
   '30-Minute Homemade Mozzarella — Marinated & Baked Sticks (GF)': { net: '~1g/serving', sat: '~4g/serving' },
   'Sugar Shift Labneh (Strained Yogurt Cheese)': { net: '~2g/serving', sat: '~3g/serving' },
   'Kidney-Safe Trail Mix (GF)': { net: '~9g/serving', sat: '~2g/serving' },
+  'Macadamia Nuts (28g MUFA Booster)': { net: '~2g/serving', sat: '~3.5g/serving' },
+  'Low-and-Slow Roasted Almonds (Toaster Oven)': { net: '~2.5g/serving', sat: '~1g/serving' },
   'Herb-Crusted Baked Chicken Breast (GF)': { net: '~3g/serving', sat: '~2g/serving' },
   'Ginger-Garlic Chicken Stir-Fry with Cabbage & Mushrooms': { net: '~6g/serving', sat: '~2g/serving' },
   'Kefir-Marinated Chicken Breast': { net: '~3g/serving', sat: '~2g/serving' },
@@ -4663,6 +4751,13 @@ function addMissingMacroTriggers() {
   });
 }
 
+const DEFAULT_EGG_PROFILE = {
+  cholineMg: 145,
+  omega3Mg: 120,
+  mufaG: 2,
+  b12Mcg: 0.6
+};
+
 function estimateNutrientsPerServing(ingredientsText) {
   const tokens = (ingredientsText || '')
     .split('\u22c5')
@@ -4686,7 +4781,7 @@ function estimateNutrientsPerServing(ingredientsText) {
 
     // Choline (mg)
     if (has(token, ['liver'])) totals.cholineMg += 280;
-    else if (has(token, ['eggs', 'egg'])) totals.cholineMg += 145;
+    else if (has(token, ['eggs', 'egg'])) totals.cholineMg += DEFAULT_EGG_PROFILE.cholineMg;
     else if (has(token, ['salmon', 'sardine', 'mackerel', 'shrimp', 'crab', 'oyster'])) totals.cholineMg += 95;
     else if (has(token, ['chicken', 'turkey', 'beef', 'pork'])) totals.cholineMg += 80;
     else if (has(token, ['yogurt', 'kefir', 'milk', 'mozzarella', 'feta', 'parmesan'])) totals.cholineMg += 30;
@@ -4696,6 +4791,7 @@ function estimateNutrientsPerServing(ingredientsText) {
     if (has(token, ['salmon'])) totals.omega3Mg += 1800;
     else if (has(token, ['sardine', 'mackerel'])) totals.omega3Mg += 1500;
     else if (has(token, ['oyster', 'shrimp', 'crab'])) totals.omega3Mg += 250;
+    else if (has(token, ['eggs', 'egg'])) totals.omega3Mg += DEFAULT_EGG_PROFILE.omega3Mg;
     else if (has(token, ['walnut'])) totals.omega3Mg += 650;
     else if (has(token, ['chia'])) totals.omega3Mg += 900;
     else if (has(token, ['flax'])) totals.omega3Mg += 700;
@@ -4703,6 +4799,7 @@ function estimateNutrientsPerServing(ingredientsText) {
 
     // MUFAs (g)
     if (has(token, ['evoo', 'olive oil', 'olive', 'almond oil', 'avocado oil'])) totals.mufaG += 8;
+    else if (has(token, ['eggs', 'egg'])) totals.mufaG += DEFAULT_EGG_PROFILE.mufaG;
     else if (has(token, ['avocado'])) totals.mufaG += 7;
     else if (has(token, ['almond', 'walnut', 'pecan', 'macadamia'])) totals.mufaG += 3;
 
@@ -4716,7 +4813,7 @@ function estimateNutrientsPerServing(ingredientsText) {
     else if (has(token, ['mackerel', 'sardine', 'salmon'])) totals.b12Mcg += 2.8;
     else if (has(token, ['beef', 'shrimp', 'crab', 'oyster'])) totals.b12Mcg += 2.2;
     else if (has(token, ['chicken', 'turkey', 'pork'])) totals.b12Mcg += 0.7;
-    else if (has(token, ['eggs', 'egg'])) totals.b12Mcg += 0.6;
+    else if (has(token, ['eggs', 'egg'])) totals.b12Mcg += DEFAULT_EGG_PROFILE.b12Mcg;
     else if (has(token, ['yogurt', 'kefir', 'milk', 'mozzarella', 'feta', 'parmesan'])) totals.b12Mcg += 0.4;
 
     // Viscous soluble fiber (g)
@@ -4761,7 +4858,8 @@ function addNutrientTargetBadges() {
 
     card.dataset.cholineMg = String(Number.isFinite(cholineValue) ? cholineValue : est.cholineMg);
     card.dataset.omega3Mg = String(Number.isFinite(omega3Value) ? omega3Value : est.omega3Mg);
-    card.dataset.mufaG = String(est.mufaG);
+    const explicitMufa = Number(card.dataset.mufaG);
+    card.dataset.mufaG = String(Number.isFinite(explicitMufa) ? explicitMufa : est.mufaG);
     card.dataset.folateMcg = String(Number.isFinite(folateValue) ? folateValue : est.folateMcg);
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
     card.dataset.viscousFiberG = String(est.viscousFiberG);
