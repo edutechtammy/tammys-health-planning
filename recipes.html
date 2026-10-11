@@ -237,7 +237,7 @@
     .menu-manual-wide { grid-column: span 2; }
     .menu-manual-status { font-size: .72rem; color: var(--muted); min-height: 1.1rem; margin-top: .42rem; }
     .menu-item-tag { display: inline-block; margin-left: .35rem; font-size: .62rem; border: 1px solid #d1fae5; background: #ecfdf5; color: #065f46; border-radius: 999px; padding: .02rem .34rem; vertical-align: middle; }
-    .menu-edit-actions { display: inline-flex; gap: .28rem; margin-left: .3rem; }
+    .menu-edit-actions { display: flex; gap: .28rem; justify-content: flex-end; width: 100%; }
     .menu-edit-btn { border: 1px solid #bfdbfe; background: #eff6ff; color: #1e40af; border-radius: 6px; padding: .1rem .38rem; font-size: .66rem; font-weight: 700; cursor: pointer; }
     .menu-edit-btn:hover { background: #dbeafe; }
     .menu-edit-panel { margin-top: .36rem; border: 1px dashed #b7ddc4; border-radius: 8px; background: #fff; padding: .35rem .4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .3rem .45rem; }
@@ -262,8 +262,9 @@
     .menu-meal-block h5 { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .16rem; }
     .menu-meal-list { list-style: none; display: flex; flex-direction: column; gap: .22rem; }
     .menu-meal-item { border: 1px solid #d6eadc; border-radius: 8px; background: #f9fffa; padding: .38rem .45rem; font-size: .74rem; }
-    .menu-meal-top { display: flex; justify-content: space-between; gap: .35rem; align-items: flex-start; }
-    .menu-meal-name { color: var(--text); font-weight: 600; }
+    .menu-meal-top { display: flex; flex-direction: column; gap: .32rem; align-items: stretch; }
+    .menu-meal-name { display: block; width: 100%; color: var(--text); font-weight: 600; line-height: 1.4; word-break: break-word; }
+    .menu-meal-meta { display: flex; align-items: center; justify-content: flex-start; gap: .35rem; color: var(--muted); font-size: .68rem; }
     .menu-remove-item { border: 1px solid #fecaca; background: #fff1f2; color: #9f1239; border-radius: 6px; padding: .1rem .35rem; font-size: .68rem; font-weight: 700; cursor: pointer; }
     .menu-remove-item:hover { background: #ffe4e6; }
     .menu-meal-sub { margin-top: .2rem; color: var(--muted); font-size: .69rem; line-height: 1.35; }
@@ -5732,7 +5733,8 @@ function renderMenuPlannerDays() {
             return `
               <li class="menu-meal-item">
                 <div class="menu-meal-top">
-                  <span class="menu-meal-name">${label}${sourceTag} x ${item.servings}</span>
+                  <span class="menu-meal-name">${label}</span>
+                  <span class="menu-meal-meta">${sourceTag} x ${item.servings}</span>
                   <span class="menu-edit-actions">
                     <button type="button" class="menu-edit-btn menu-open-edit" data-plan-id="${item.id}">Edit</button>
                     <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
