@@ -719,6 +719,66 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  "recipe-roasted-almonds.html": {
+    "choline": {
+      "display": "~14 mg",
+      "value": 14.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~5 mg",
+      "value": 5.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~14 mcg",
+      "value": 14.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 mcg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    }
+  },
+  "recipe-herb-crusted-chicken.html": {
+    "choline": {
+      "display": "~130 mg",
+      "value": 130.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~110 mg",
+      "value": 110.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 µg",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~41 µg",
+      "value": 41.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    }
+  },
   "recipe-kefir-marinated-chicken.html": {
     "choline": {
       "display": "~95 mg",
@@ -1652,36 +1712,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
-  "recipe-herb-crusted-chicken.html": {
-    "choline": {
-      "display": "~130 mg",
-      "value": 130.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~110 mg",
-      "value": 110.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.3 µg",
-      "value": 0.3,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~41 µg",
-      "value": 41.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    }
-  },
   "recipe-herb-roasted-salmon-cabbage-salad.html": {
     "omega3": {
       "display": "~1,000–1,500 mg",
@@ -1859,6 +1889,36 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 13.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
+      "estimated": false
+    }
+  },
+  "recipe-macadamia-nuts.html": {
+    "choline": {
+      "display": "~2 mg",
+      "value": 2.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~60 mg",
+      "value": 60.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 mcg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 mcg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
       "estimated": false
     }
   },
@@ -2564,7 +2624,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "display": "~2900 mg",
       "value": 2900.0,
       "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "name": "Omega-3 — ALA support for fatty liver; APOE4 fit is indirect",
       "estimated": false
     },
     "folate": {

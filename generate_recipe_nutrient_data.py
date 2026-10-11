@@ -20,6 +20,12 @@ OUTPUT_JS = ROOT / "recipe-nutrient-data.js"
 
 TARGET_KEYS = ("choline", "omega3", "folate", "b12")
 
+DEFAULT_EGG_PROFILE = {
+    "cholineMg": 145,
+    "omega3Mg": 120,
+    "b12Mcg": 0.6,
+}
+
 
 def strip_html(value: str) -> str:
     return re.sub(r"<.*?>", "", value, flags=re.S).strip()
@@ -54,7 +60,7 @@ def estimate_targets_from_ingredients(ingredients_text: str) -> dict[str, float]
         if has(token, ["liver"]):
             totals["cholineMg"] += 280
         elif has(token, ["eggs", "egg"]):
-            totals["cholineMg"] += 145
+            totals["cholineMg"] += DEFAULT_EGG_PROFILE["cholineMg"]
         elif has(token, ["salmon", "sardine", "mackerel", "shrimp", "crab", "oyster"]):
             totals["cholineMg"] += 95
         elif has(token, ["chicken", "turkey", "beef", "pork"]):
@@ -71,6 +77,8 @@ def estimate_targets_from_ingredients(ingredients_text: str) -> dict[str, float]
             totals["omega3Mg"] += 1500
         elif has(token, ["oyster", "shrimp", "crab"]):
             totals["omega3Mg"] += 250
+        elif has(token, ["eggs", "egg"]):
+            totals["omega3Mg"] += DEFAULT_EGG_PROFILE["omega3Mg"]
         elif has(token, ["walnut"]):
             totals["omega3Mg"] += 650
         elif has(token, ["chia"]):
@@ -98,7 +106,7 @@ def estimate_targets_from_ingredients(ingredients_text: str) -> dict[str, float]
         elif has(token, ["chicken", "turkey", "pork"]):
             totals["b12Mcg"] += 0.7
         elif has(token, ["eggs", "egg"]):
-            totals["b12Mcg"] += 0.6
+            totals["b12Mcg"] += DEFAULT_EGG_PROFILE["b12Mcg"]
         elif has(token, ["yogurt", "kefir", "milk", "mozzarella", "feta", "parmesan"]):
             totals["b12Mcg"] += 0.4
 
