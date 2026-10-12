@@ -3320,7 +3320,79 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
-         RECIPE 14D — LOW-AND-SLOW ROASTED ALMONDS
+         RECIPE 14D — PUMPKIN SEEDS (PEPITAS)
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-calories="160" data-oxalate="moderate" data-choline-mg="17" data-mufa-g="4" data-folate-mcg="68">
+      <div class="recipe-card-img">🌰✨</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Pumpkin Seeds (Pepitas)</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 1 min</span>
+          <span>📦 1 serving = 28g</span>
+          <span>🌿 Snack seed</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">pumpkin seeds (pepitas)</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~3g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> 2.5g/serving</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>A single-food planning card for folate support. At 28g, pumpkin seeds give you a concentrated folate hit and a low-friction way to add nutrient density when a day is short on greens, beans, or other reliable folate sources.</p>
+          <p><span class="badge badge-mthfr">MTHFR</span> A practical folate-dense snack that supports methylation-focused meal planning without requiring a full prep step.</p>
+          <p><span class="badge badge-liver">Fatty Liver</span> The fat profile stays directionally favorable while the seed adds useful micronutrients and a small amount of plant fat without a heavy saturated-fat load.</p>
+        </div>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 14E — AVOCADO HALF
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-calories="120" data-oxalate="moderate" data-choline-mg="14" data-omega3-mg="110" data-mufa-g="10" data-folate-mcg="45" data-viscous-fiber-g="1.0">
+      <div class="recipe-card-img">🥑✨</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Avocado Half</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 1 min</span>
+          <span>📦 1 serving = 1/2 avocado</span>
+          <span>🥑 Snack backup</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">avocado half</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~2g/serving</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~1.5g/serving</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>A catch-up snack when the day is short on nutrients. Half an avocado gives a dense nutrient payload without a big prep burden, and it is especially useful for boosting folate, MUFAs, and fiber when the rest of the day has been lighter on produce.</p>
+          <p><span class="badge badge-mthfr">MTHFR</span> Helpful folate support when you need a practical nutrient-dense add-on.</p>
+          <p><span class="badge badge-liver">Fatty Liver</span> Delivers unsaturated fat quality and a modest viscous-fiber bump without a heavy saturated-fat penalty.</p>
+        </div>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 14F — LOW-AND-SLOW ROASTED ALMONDS
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr" data-oxalate="moderate" data-mufa-g="9">
       <div class="recipe-card-img">🌰🔥⏲️</div>
@@ -4206,6 +4278,9 @@ const PANTRY_NORM = {
   'ground chia seeds':   'ground chia seeds',
   'chia seeds':          'ground chia seeds',
   'chia':                'ground chia seeds',
+  'pumpkin seed':        'pumpkin seeds',
+  'pepita':              'pumpkin seeds',
+  'pepitas':             'pumpkin seeds',
   'cocoa powder':        'cocoa',
   'dry chilies':         'dried chili',
   'dried chilies':       'dried chili',
@@ -4233,6 +4308,9 @@ const PANTRY_NORM = {
   'fresh baby spinach':  'spinach',
   'mixed greens':        'spinach',
   'greens':             'spinach',
+  'avocado half':        'avocado',
+  'half avocado':        'avocado',
+  'avacado half':        'avocado',
   'feta cheese':         'feta',
   'crumbled feta cheese':'feta',
   'fresh apricots':      'apricots',
@@ -4458,6 +4536,8 @@ const EXPLICIT_CATEGORY_TITLES = {
   snacks: [
     'Kidney-Safe Trail Mix (GF)',
     'Macadamia Nuts (28g MUFA Booster)',
+    'Pumpkin Seeds (Pepitas)',
+    'Avocado Half',
     'Low-and-Slow Roasted Almonds (Toaster Oven)',
     'Rice Paper Potstickers',
     'Rice Paper Muffin Pouches'
@@ -4544,6 +4624,8 @@ const CARD_MACROS = {
   'Sugar Shift Labneh (Strained Yogurt Cheese)': { net: '~2g/serving', sat: '~3g/serving' },
   'Kidney-Safe Trail Mix (GF)': { net: '~9g/serving', sat: '~2g/serving' },
   'Macadamia Nuts (28g MUFA Booster)': { net: '~2g/serving', sat: '~3.5g/serving' },
+  'Pumpkin Seeds (Pepitas)': { net: '~3g/serving', sat: '~2.5g/serving' },
+  'Avocado Half': { net: '~2g/serving', sat: '~1.5g/serving' },
   'Low-and-Slow Roasted Almonds (Toaster Oven)': { net: '~2.5g/serving', sat: '~1g/serving' },
   'Herb-Crusted Baked Chicken Breast (GF)': { net: '~3g/serving', sat: '~2g/serving' },
   'Ginger-Garlic Chicken Stir-Fry with Cabbage & Mushrooms': { net: '~6g/serving', sat: '~2g/serving' },
@@ -4921,22 +5003,41 @@ function addNutrientTargetBadges() {
     const viscousFiberEntry = resolveRecipeNutrientEntry(source, 'viscousFiberG', ['viscsolublefiber']);
 
     const caloriesValue = Number(caloriesEntry?.value ?? Number(card.dataset.calories || 0));
-    const cholineValue = Number(cholineEntry?.value ?? est.cholineMg);
-    const omega3Value = Number(omega3Entry?.value ?? est.omega3Mg);
-    const folateValue = Number(folateEntry?.value ?? est.folateMcg);
-    const b12Value = Number(b12Entry?.value ?? est.b12Mcg);
+    const explicitCholine = Number(card.dataset.cholineMg || 0);
+    const explicitOmega3 = Number(card.dataset.omega3Mg || 0);
+    const explicitFolate = Number(card.dataset.folateMcg || 0);
+    const explicitB12 = Number(card.dataset.b12Mcg || 0);
+    const explicitMufa = Number(card.dataset.mufaG || 0);
+    const explicitViscousFiber = Number(card.dataset.viscousFiberG || 0);
+
+    const cholineValue = Number.isFinite(explicitCholine) && explicitCholine > 0
+      ? explicitCholine
+      : Number(cholineEntry?.value ?? est.cholineMg);
+    const omega3Value = Number.isFinite(explicitOmega3) && explicitOmega3 > 0
+      ? explicitOmega3
+      : Number(omega3Entry?.value ?? est.omega3Mg);
+    const folateValue = Number.isFinite(explicitFolate) && explicitFolate > 0
+      ? explicitFolate
+      : Number(folateEntry?.value ?? est.folateMcg);
+    const b12Value = Number.isFinite(explicitB12) && explicitB12 > 0
+      ? explicitB12
+      : Number(b12Entry?.value ?? est.b12Mcg);
+    const defaultMufaValue = Number.isFinite(explicitMufa) && explicitMufa > 0
+      ? explicitMufa
+      : Number(mufaEntry?.value ?? est.mufaG);
+    const viscousFiberValue = Number.isFinite(explicitViscousFiber) && explicitViscousFiber > 0
+      ? explicitViscousFiber
+      : Number(viscousFiberEntry?.value ?? est.viscousFiberG);
 
     if (Number.isFinite(caloriesValue) && caloriesValue > 0) {
       card.dataset.calories = String(caloriesValue);
     }
     card.dataset.cholineMg = String(Number.isFinite(cholineValue) ? cholineValue : est.cholineMg);
     card.dataset.omega3Mg = String(Number.isFinite(omega3Value) ? omega3Value : est.omega3Mg);
-    const explicitMufa = Number(card.dataset.mufaG);
-    const defaultMufaValue = Number(mufaEntry?.value ?? est.mufaG);
-    card.dataset.mufaG = String(Number.isFinite(explicitMufa) ? explicitMufa : defaultMufaValue);
+    card.dataset.mufaG = String(Number.isFinite(defaultMufaValue) ? defaultMufaValue : est.mufaG);
     card.dataset.folateMcg = String(Number.isFinite(folateValue) ? folateValue : est.folateMcg);
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
-    card.dataset.viscousFiberG = String(Number.isFinite(Number(viscousFiberEntry?.value ?? est.viscousFiberG)) ? Number(viscousFiberEntry?.value ?? est.viscousFiberG) : est.viscousFiberG);
+    card.dataset.viscousFiberG = String(Number.isFinite(viscousFiberValue) ? viscousFiberValue : est.viscousFiberG);
 
     const caloriesDisplay = Number.isFinite(caloriesValue) && caloriesValue > 0
       ? (caloriesEntry?.display || `~${Math.round(caloriesValue)} kcal`)
