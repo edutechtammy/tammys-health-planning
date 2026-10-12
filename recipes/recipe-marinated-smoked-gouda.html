@@ -136,6 +136,22 @@
     .callout-green { background: var(--green-pale); border: 1px solid var(--border); border-radius: 12px; padding: .85rem 1.1rem; font-size: .85rem; color: var(--green-dark); line-height: 1.65; margin-bottom: 1.5rem; }
     .callout-green strong { color: var(--green-dark); }
 
+    .nutr-panel { background: #fffdf5; border: 1px solid var(--amber-border); border-radius: 14px; overflow: hidden; box-shadow: 0 1px 10px rgba(120, 53, 15, .06); margin: 0 0 1.3rem; }
+    .nutr-panel-header { background: #f8e4a9; color: var(--amber-dark); font-weight: 800; font-size: .86rem; padding: .72rem 1rem; border-bottom: 1px solid var(--amber-border); }
+    .nutr-panel-header span { font-weight: 600; color: #8a5a1d; }
+    .nutr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    @media (max-width: 640px) { .nutr-grid { grid-template-columns: 1fr; } }
+    .nutr-row { padding: .82rem 1rem; border-bottom: 1px solid #f3e6b6; }
+    .nutr-row:nth-child(odd) { border-right: 1px solid #f3e6b6; }
+    .nutr-row:last-child, .nutr-row:nth-last-child(2):not(:nth-child(odd)) { border-bottom: none; }
+    .nutr-label-row { display: flex; justify-content: space-between; align-items: baseline; gap: .7rem; margin-bottom: .35rem; }
+    .nutr-name { font-size: .88rem; font-weight: 800; color: var(--text); }
+    .nutr-why { font-size: .72rem; color: var(--amber-dark); font-weight: 700; }
+    .nutr-amount { font-size: .82rem; font-weight: 800; color: var(--green-dark); }
+    .nutr-track { width: 100%; height: 9px; background: #f0f5f1; border-radius: 999px; overflow: hidden; margin: .25rem 0 .45rem; }
+    .nutr-fill { height: 100%; border-radius: inherit; }
+    .nutr-pct { font-size: .74rem; line-height: 1.55; color: var(--muted); }
+
     .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
     .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
     .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
@@ -227,68 +243,107 @@
     <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Net carbs: ~0.5–1 g per serving</span>
     <span style="display:inline-flex; align-items:center; gap:.35rem; background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Saturated fat: ~7–9 g per serving</span>
   </div>
-  <div style="font-size:.78rem; line-height:1.6; color:#475569; margin:0 0 1rem;">This is best kept as a small mezze-style bite: the carb load is minimal, but the saturated-fat signal from the aged smoked Gouda is the piece worth respecting if you are tracking fat alongside glucose.</div>
 
-<div class="nutr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;padding:1rem 1.2rem;">
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Choline <span class="nutr-why" style="font-weight:600;color:#7c2d12;">— APOE4 · Fatty Liver · MTHFR</span></span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">~18 mg</span>
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients — per serving (1 of 4) <span>estimates · aged smoked Gouda + EVOO + chili + parsley</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Calories <span class="nutr-why">— satiety</span></span>
+          <span class="nutr-amount">~180 kcal</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">supports the BHMT pathway under methylation stress</div>
-      </div>>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Omega-3 <span class="nutr-why" style="font-weight:600;color:#7c2d12;">— supporting fatty liver + APOE4</span></span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">~90 mg</span>
-        </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Mostly from the EVOO + herb profile in a small mezze serving.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:15%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">Percentage based on 2000 daily calories; this is a rich small mezze serving, not a full entrée.</div>
       </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Folate <span class="nutr-why" style="font-weight:600;color:#7c2d12;">— MTHFR</span></span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">~10 ug</span>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">— satiety</span></span>
+          <span class="nutr-amount">~8 g</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Parsley adds a modest folate signal without changing carb load.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:22%;background:#16a34a"></div></div>
+        <div class="nutr-pct">Helpful for satiety and for reducing the post-meal glucose spike when this is served as a small bite.</div>
       </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">B12 <span class="nutr-why" style="font-weight:600;color:#7c2d12;">— MTHFR</span></span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">~0.6 ug</span>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~18 mg</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Smoked Gouda contributes a meaningful B12 amount per serving.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:8%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">Supports the BHMT pathway under methylation stress and helps with liver-fat export and membrane support.</div>
       </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Net carbs</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~0.6 µg</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Track this first for glucose-response planning.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:14%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">Helpful when methylation support is a priority, especially alongside the rest of the meal pattern.</div>
       </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Saturated fat</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">See recipe card</span>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+          <span class="nutr-amount">~10 µg</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Use with net carbs to guide beverage pairing.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:6%;background:#db2777"></div></div>
+        <div class="nutr-pct">Parsley adds a modest folate signal without changing the carb load very much.</div>
       </div>
-      <div class="nutr-row" style="display:flex;flex-direction:column;gap:.2rem;">
-        <div class="nutr-label-row" style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span class="nutr-name" style="font-size:.8rem;font-weight:700;color:#1f2937;">Protein and fiber</span>
-          <span class="nutr-amount" style="font-size:.78rem;font-weight:700;color:#334155;">Recipe-dependent</span>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Omega-3 <span class="nutr-why">— ALA type</span></span>
+          <span class="nutr-amount">~90 mg</span>
         </div>
-        <div class="nutr-pct" style="font-size:.69rem;color:#64748b;">Helpful for satiety and post-meal glucose stability.</div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:18%;background:#2563eb"></div></div>
+        <div class="nutr-pct">800: Lowers triglycerides, improves liver fat scores. APoE4 - cholesterol is hoarded inside brain helper cells reducing its delivery to neurons for myelin repair. To bypass, prioritize phospholipid-bound Marine Omega-3s (sardines/mackerel). This recipe is entirely ALA source. I can expect my body to convert about 10% to the DHA form.</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">MUFAs</span>
+          <span class="nutr-amount">~8.0 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:27%;background:#22c55e"></div></div>
+        <div class="nutr-pct">30: MUFAs are the best replacement fuel for saturated fat in APOE4/FTO risk profiles: they provide steady energy without the LDL spike, insulin load, and vascular inflammation that saturated fat triggers.</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Net carbs</span>
+          <span class="nutr-amount">~0.5–1 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:7%;background:#22c55e"></div></div>
+        <div class="nutr-pct">Track this first for glucose-response planning; the carb signal is low, but the saturated-fat load still matters.</div>
+      </div>
+
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Saturated fat</span>
+          <span class="nutr-amount">~7–9 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:38%;background:#f97316"></div></div>
+        <div class="nutr-pct">This is the main limiter in an APOE4/Fatty Liver context, so a small serving is the right move.</div>
       </div>
     </div>
   </div>
+
+
+  <div style="font-size:.78rem; line-height:1.6; color:#475569; margin:0 0 1rem;">This is best kept as a small mezze-style bite: the carb load is minimal, but the saturated-fat signal from the aged smoked Gouda is the piece worth respecting if you are tracking fat alongside glucose.</div>
+
+
 
   <div class="test-bar">
     <p>Smoked Gouda is richer and more saturated-fat dense than feta, so keep servings modest and pair it with vegetables or salad rather than bread, fruit, or crackers.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-      <a class="btn btn-back" href="recipes.html">← Recipe Library</a>
-      <a class="btn btn-primary" href="food-response-testing.html">🍽 Log a Food Test</a>
+      <a class="btn btn-back" href="../recipes.html">← Recipe Library</a>
+      <a class="btn btn-primary" href="../food-response-testing.html">🍽 Log a Food Test</a>
     </div>
   </div>
+
+  
 
   <div class="recipe-layout">
 

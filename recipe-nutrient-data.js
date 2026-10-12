@@ -366,6 +366,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-marinated-smoked-gouda.html": {
+    "calories": {
+      "display": "~180 kcal",
+      "value": 180.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~8.0 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~18 mg",
       "value": 18.0,
@@ -392,6 +406,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.6,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -816,6 +837,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-kale-fruit-salad.html": {
+    "calories": {
+      "display": "~290 kcal",
+      "value": 290.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~9 g",
+      "value": 9.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~32 mg",
       "value": 32.0,
@@ -842,6 +877,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 48.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.7 g",
+      "value": 0.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~7.7 g",
+      "value": 7.7,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -1026,6 +1075,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-tuscan-chicken.html": {
+    "calories": {
+      "display": "~650 kcal",
+      "value": 650.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~43 g",
+      "value": 43.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~110 mg",
       "value": 110.0,
@@ -1052,6 +1115,41 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.5,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "carbsG": {
+      "display": "~4 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~4 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~6 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "fiberG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~11 g",
+      "value": 11.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -2908,6 +3006,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-turkey-meatloaf.html": {
+    "calories": {
+      "display": "~250 kcal",
+      "value": 250.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~29 g",
+      "value": 29.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~185 mg",
       "value": 185.0,
@@ -2934,6 +3046,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 3.2,
       "unit": "mg",
       "name": "Zinc — immune · metabolic · wound repair",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   }
