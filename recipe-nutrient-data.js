@@ -1244,6 +1244,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-olive-cheese-bread.html": {
+    "calories": {
+      "display": "~80 kcal",
+      "value": 80.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~4.5 g",
+      "value": 4.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~58 mg",
       "value": 58.0,
@@ -1270,6 +1284,48 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 13.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "carbsG": {
+      "display": "~16 g",
+      "value": 16.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~12 g",
+      "value": 12.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "fiberG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~13 g",
+      "value": 13.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
