@@ -254,6 +254,7 @@
     .menu-total-lines { font-size: .75rem; color: var(--text); line-height: 1.4; }
     .menu-total-ok { color: #166534; font-weight: 700; }
     .menu-total-low { color: #b91c1c; font-weight: 700; }
+    .menu-total-over { color: #b45309; font-weight: 800; }
     .menu-plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: .65rem; }
     .menu-day-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; }
     .menu-day-head { background: #f0faf2; border-bottom: 1px solid var(--border); padding: .5rem .65rem; }
@@ -468,6 +469,10 @@
           <label for="menu-planner-servings">Default Servings</label>
           <input type="number" id="menu-planner-servings" min="0.25" step="0.25" value="1" />
         </div>
+        <div class="menu-planner-field">
+          <label for="menu-planner-calorie-target">Daily Calorie Target</label>
+          <input type="number" id="menu-planner-calorie-target" min="500" step="50" value="1800" />
+        </div>
         <button type="button" class="menu-planner-btn" id="menu-planner-clear-day">Clear Selected Day</button>
         <div class="menu-planner-field">
           <label for="menu-dup-from">Duplicate From</label>
@@ -515,6 +520,10 @@
           <div class="menu-planner-field">
             <label for="menu-manual-servings">Servings</label>
             <input type="number" id="menu-manual-servings" min="0.25" step="0.25" value="1" />
+          </div>
+          <div class="menu-planner-field">
+            <label for="menu-manual-calories">Calories / serving</label>
+            <input type="number" id="menu-manual-calories" min="0" step="1" value="0" />
           </div>
           <div class="menu-planner-field">
             <label for="menu-manual-choline">Choline / serving (mg)</label>
@@ -4607,6 +4616,19 @@ function getRecipeNutrientSource(card) {
   return (window.RECIPE_PANEL_NUTRIENTS && window.RECIPE_PANEL_NUTRIENTS[key]) || null;
 }
 
+function resolveRecipeNutrientEntry(source, canonicalKey, legacyKeys = []) {
+  if (!source || typeof source !== 'object') return null;
+  if (Object.prototype.hasOwnProperty.call(source, canonicalKey) && source[canonicalKey] !== undefined) {
+    return source[canonicalKey];
+  }
+  for (const legacyKey of legacyKeys) {
+    if (Object.prototype.hasOwnProperty.call(source, legacyKey) && source[legacyKey] !== undefined) {
+      return source[legacyKey];
+    }
+  }
+  return null;
+}
+
 function formatNutrientBadgeValue(source, fallbackValue, fallbackUnit) {
   if (source?.display) return source.display;
   if (!Number.isFinite(fallbackValue) || fallbackValue <= 0) return 'see full recipe';
@@ -4890,27 +4912,47 @@ function addNutrientTargetBadges() {
 
     const source = getRecipeNutrientSource(card);
     const est = estimateNutrientsPerServing(ingEl.textContent || '');
-    const cholineValue = Number(source?.choline?.value || est.cholineMg);
-    const omega3Value = Number(source?.omega3?.value || est.omega3Mg);
-    const folateValue = Number(source?.folate?.value || est.folateMcg);
-    const b12Value = Number(source?.b12?.value || est.b12Mcg);
+    const caloriesEntry = resolveRecipeNutrientEntry(source, 'calories');
+    const cholineEntry = resolveRecipeNutrientEntry(source, 'cholineMg', ['choline']);
+    const omega3Entry = resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3']);
+    const folateEntry = resolveRecipeNutrientEntry(source, 'folateMcg', ['folate']);
+    const b12Entry = resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12']);
+    const mufaEntry = resolveRecipeNutrientEntry(source, 'mufaG', ['mufas']);
+    const viscousFiberEntry = resolveRecipeNutrientEntry(source, 'viscousFiberG', ['viscsolublefiber']);
 
+    const caloriesValue = Number(caloriesEntry?.value ?? Number(card.dataset.calories || 0));
+    const cholineValue = Number(cholineEntry?.value ?? est.cholineMg);
+    const omega3Value = Number(omega3Entry?.value ?? est.omega3Mg);
+    const folateValue = Number(folateEntry?.value ?? est.folateMcg);
+    const b12Value = Number(b12Entry?.value ?? est.b12Mcg);
+
+    if (Number.isFinite(caloriesValue) && caloriesValue > 0) {
+      card.dataset.calories = String(caloriesValue);
+    }
     card.dataset.cholineMg = String(Number.isFinite(cholineValue) ? cholineValue : est.cholineMg);
     card.dataset.omega3Mg = String(Number.isFinite(omega3Value) ? omega3Value : est.omega3Mg);
     const explicitMufa = Number(card.dataset.mufaG);
-    card.dataset.mufaG = String(Number.isFinite(explicitMufa) ? explicitMufa : est.mufaG);
+    const defaultMufaValue = Number(mufaEntry?.value ?? est.mufaG);
+    card.dataset.mufaG = String(Number.isFinite(explicitMufa) ? explicitMufa : defaultMufaValue);
     card.dataset.folateMcg = String(Number.isFinite(folateValue) ? folateValue : est.folateMcg);
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
-    card.dataset.viscousFiberG = String(est.viscousFiberG);
+    card.dataset.viscousFiberG = String(Number.isFinite(Number(viscousFiberEntry?.value ?? est.viscousFiberG)) ? Number(viscousFiberEntry?.value ?? est.viscousFiberG) : est.viscousFiberG);
+
+    const caloriesDisplay = Number.isFinite(caloriesValue) && caloriesValue > 0
+      ? (caloriesEntry?.display || `~${Math.round(caloriesValue)} kcal`)
+      : 'not listed';
 
     const targets = document.createElement('div');
     targets.className = 'recipe-card-targets';
     targets.innerHTML =
-      '<span class="trigger-pill"><strong>Choline:</strong> ' + formatNutrientBadgeValue(source?.choline, est.cholineMg, 'mg') + '</span>' +
-      '<span class="trigger-pill"><strong>Omega-3:</strong> ' + formatNutrientBadgeValue(source?.omega3, est.omega3Mg, 'mg') + '</span>' +
-      '<span class="trigger-pill"><strong>MUFAs:</strong> ~' + est.mufaG + ' g</span>' +
-      '<span class="trigger-pill"><strong>MTHFR:</strong> Folate ' + formatNutrientBadgeValue(source?.folate, est.folateMcg, 'mcg') + ' · B12 ' + formatNutrientBadgeValue(source?.b12, est.b12Mcg, 'mcg') + '</span>' +
-      '<span class="trigger-pill"><strong>Viscous Fiber:</strong> ~' + est.viscousFiberG + ' g</span>';
+      (Number.isFinite(caloriesValue) && caloriesValue > 0
+        ? '<span class="trigger-pill"><strong>Calories:</strong> ' + caloriesDisplay + '</span>'
+        : '') +
+      '<span class="trigger-pill"><strong>Choline:</strong> ' + formatNutrientBadgeValue(cholineEntry, est.cholineMg, 'mg') + '</span>' +
+      '<span class="trigger-pill"><strong>Omega-3:</strong> ' + formatNutrientBadgeValue(omega3Entry, est.omega3Mg, 'mg') + '</span>' +
+      '<span class="trigger-pill"><strong>MUFAs:</strong> ~' + Number(card.dataset.mufaG || defaultMufaValue).toFixed(1) + ' g</span>' +
+      '<span class="trigger-pill"><strong>MTHFR:</strong> Folate ' + formatNutrientBadgeValue(folateEntry, est.folateMcg, 'mcg') + ' · B12 ' + formatNutrientBadgeValue(b12Entry, est.b12Mcg, 'mcg') + '</span>' +
+      '<span class="trigger-pill"><strong>Viscous Fiber:</strong> ~' + Number(card.dataset.viscousFiberG || Number(viscousFiberEntry?.value ?? est.viscousFiberG)).toFixed(1) + ' g</span>';
 
     const trigger = body.querySelector('.recipe-card-trigger');
     const glucose = body.querySelector('.glucose-row, .glucose-strip');
@@ -4948,11 +4990,13 @@ const MENU_PLANNER_NUTRIENTS = [
   { key: 'b12Mcg', label: 'B12', unit: 'mcg', target: 2.4, decimals: 1 },
   { key: 'viscousFiberG', label: 'Viscous Fiber', unit: 'g', target: 10, decimals: 1 }
 ];
+const MENU_PLANNER_CALORIE_TARGET_DEFAULT = 1800;
 const MENU_PLANNER_STORAGE_PREFIX = 'menuPlannerV1_';
 
 let menuPlannerState = {
   weekStart: '',
-  items: []
+  items: [],
+  calorieTarget: MENU_PLANNER_CALORIE_TARGET_DEFAULT
 };
 let menuPlannerEditingId = null;
 
@@ -4968,6 +5012,30 @@ function formatNutrientValue(value, key) {
   return decimals > 0 ? num.toFixed(decimals) : String(Math.round(num));
 }
 
+function formatCalorieValue(value) {
+  const num = Number(value || 0);
+  if (!Number.isFinite(num)) return '0';
+  return String(Math.round(num).toLocaleString());
+}
+
+function getCalorieTarget() {
+  const parsed = Number(menuPlannerState?.calorieTarget);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : MENU_PLANNER_CALORIE_TARGET_DEFAULT;
+}
+
+function getDayCalories(dayKey) {
+  return menuPlannerState.items
+    .filter((item) => item.day === dayKey)
+    .reduce((total, item) => total + (Number(item.calories) || 0) * (Number(item.servings) || 1), 0);
+}
+
+function formatCalorieDelta(total, target) {
+  const delta = total - target;
+  if (Math.abs(delta) < 0.5) return 'on target';
+  if (delta > 0) return `+${formatCalorieValue(delta)} over target`;
+  return `${formatCalorieValue(Math.abs(delta))} under target`;
+}
+
 function normalizePlannerItem(rawItem) {
   const safe = rawItem || {};
   return {
@@ -4978,6 +5046,7 @@ function normalizePlannerItem(rawItem) {
     servings: Number.isFinite(Number(safe.servings)) && Number(safe.servings) > 0 ? Number(safe.servings) : 1,
     title: String(safe.title || 'Recipe'),
     href: String(safe.href || ''),
+    calories: Number.isFinite(Number(safe.calories)) ? Number(safe.calories) : 0,
     cholineMg: Number.isFinite(Number(safe.cholineMg)) ? Number(safe.cholineMg) : 0,
     omega3Mg: Number.isFinite(Number(safe.omega3Mg)) ? Number(safe.omega3Mg) : 0,
     mufaG: Number.isFinite(Number(safe.mufaG)) ? Number(safe.mufaG) : 0,
@@ -5007,10 +5076,13 @@ function refreshPlannerRecipeItemNutrients(item) {
     changed = true;
   };
 
-  applyValue('cholineMg', source?.choline?.value);
-  applyValue('omega3Mg', source?.omega3?.value);
-  applyValue('folateMcg', source?.folate?.value);
-  applyValue('b12Mcg', source?.b12?.value);
+  applyValue('calories', resolveRecipeNutrientEntry(source, 'calories')?.value);
+  applyValue('cholineMg', resolveRecipeNutrientEntry(source, 'cholineMg', ['choline'])?.value);
+  applyValue('omega3Mg', resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3'])?.value);
+  applyValue('folateMcg', resolveRecipeNutrientEntry(source, 'folateMcg', ['folate'])?.value);
+  applyValue('b12Mcg', resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12'])?.value);
+  applyValue('mufaG', resolveRecipeNutrientEntry(source, 'mufaG', ['mufas'])?.value);
+  applyValue('viscousFiberG', resolveRecipeNutrientEntry(source, 'viscousFiberG', ['viscsolublefiber'])?.value);
 
   return changed;
 }
@@ -5057,7 +5129,7 @@ function getMenuPlannerStorageKey(weekStartIso) {
 }
 
 function loadMenuPlannerState(weekStartIso) {
-  const fallback = { weekStart: weekStartIso, items: [] };
+  const fallback = { weekStart: weekStartIso, items: [], calorieTarget: MENU_PLANNER_CALORIE_TARGET_DEFAULT };
   try {
     const raw = localStorage.getItem(getMenuPlannerStorageKey(weekStartIso));
     if (!raw) return fallback;
@@ -5065,10 +5137,13 @@ function loadMenuPlannerState(weekStartIso) {
     if (!parsed || !Array.isArray(parsed.items)) return fallback;
     const state = {
       weekStart: weekStartIso,
-      items: parsed.items.map(normalizePlannerItem)
+      items: parsed.items.map(normalizePlannerItem),
+      calorieTarget: Number.isFinite(Number(parsed.calorieTarget)) && Number(parsed.calorieTarget) > 0
+        ? Number(parsed.calorieTarget)
+        : MENU_PLANNER_CALORIE_TARGET_DEFAULT
     };
     if (refreshPlannerStateRecipeNutrients(state)) {
-      localStorage.setItem(getMenuPlannerStorageKey(weekStartIso), JSON.stringify({ items: state.items }));
+      localStorage.setItem(getMenuPlannerStorageKey(weekStartIso), JSON.stringify({ items: state.items, calorieTarget: state.calorieTarget }));
     }
     return state;
   } catch (err) {
@@ -5080,7 +5155,7 @@ function saveMenuPlannerState() {
   if (!menuPlannerState.weekStart) return;
   localStorage.setItem(
     getMenuPlannerStorageKey(menuPlannerState.weekStart),
-    JSON.stringify({ items: menuPlannerState.items })
+    JSON.stringify({ items: menuPlannerState.items, calorieTarget: getCalorieTarget() })
   );
 }
 
@@ -5250,6 +5325,7 @@ function getRecipePlanPayload(card) {
     title,
     href,
     nutrients: {
+      calories: Number(card.dataset.calories || 0),
       cholineMg: Number(card.dataset.cholineMg || 0),
       omega3Mg: Number(card.dataset.omega3Mg || 0),
       mufaG: Number(card.dataset.mufaG || 0),
@@ -5272,6 +5348,7 @@ function addRecipeToPlan(card) {
     servings: Number(defaults.servings.toFixed(2)),
     title: recipe.title,
     href: recipe.href,
+    calories: Number.isFinite(recipe.nutrients.calories) ? recipe.nutrients.calories : 0,
     cholineMg: Number.isFinite(recipe.nutrients.cholineMg) ? recipe.nutrients.cholineMg : 0,
     omega3Mg: Number.isFinite(recipe.nutrients.omega3Mg) ? recipe.nutrients.omega3Mg : 0,
     mufaG: Number.isFinite(recipe.nutrients.mufaG) ? recipe.nutrients.mufaG : 0,
@@ -5297,6 +5374,7 @@ function addManualItemToPlan() {
   const dayInput = document.getElementById('menu-manual-day');
   const mealInput = document.getElementById('menu-manual-meal');
   const servingsInput = document.getElementById('menu-manual-servings');
+  const caloriesInput = document.getElementById('menu-manual-calories');
   const cholineInput = document.getElementById('menu-manual-choline');
   const omegaInput = document.getElementById('menu-manual-omega3');
   const mufaInput = document.getElementById('menu-manual-mufa');
@@ -5308,6 +5386,7 @@ function addManualItemToPlan() {
   const day = dayInput?.value || 'monday';
   const meal = mealInput?.value || 'dinner';
   const servingsVal = Number(servingsInput?.value || 1);
+  const caloriesVal = Number(caloriesInput?.value || 0);
   const cholineVal = Number(cholineInput?.value || 0);
   const omegaVal = Number(omegaInput?.value || 0);
   const mufaVal = Number(mufaInput?.value || 0);
@@ -5315,6 +5394,7 @@ function addManualItemToPlan() {
   const b12Val = Number(b12Input?.value || 0);
   const viscousVal = Number(viscousInput?.value || 0);
   const servings = Number.isFinite(servingsVal) && servingsVal > 0 ? servingsVal : 0;
+  const calories = Number.isFinite(caloriesVal) && caloriesVal >= 0 ? caloriesVal : NaN;
   const cholineMg = Number.isFinite(cholineVal) && cholineVal >= 0 ? cholineVal : NaN;
   const omega3Mg = Number.isFinite(omegaVal) && omegaVal >= 0 ? omegaVal : NaN;
   const mufaG = Number.isFinite(mufaVal) && mufaVal >= 0 ? mufaVal : NaN;
@@ -5330,8 +5410,8 @@ function addManualItemToPlan() {
     setManualStatus('Servings must be greater than zero.', true);
     return;
   }
-  if (!Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
-    setManualStatus('Nutrient values must be zero or higher.', true);
+  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
+    setManualStatus('Nutrient and calorie values must be zero or higher.', true);
     return;
   }
 
@@ -5343,6 +5423,7 @@ function addManualItemToPlan() {
     servings: Number(servings.toFixed(2)),
     title,
     href: '',
+    calories: Number(calories.toFixed(0)),
     cholineMg: Number(cholineMg.toFixed(0)),
     omega3Mg: Number(omega3Mg.toFixed(0)),
     mufaG: Number(mufaG.toFixed(1)),
@@ -5357,6 +5438,7 @@ function addManualItemToPlan() {
 
   if (nameInput) nameInput.value = '';
   if (servingsInput) servingsInput.value = '1';
+  if (caloriesInput) caloriesInput.value = '0';
   if (cholineInput) cholineInput.value = '0';
   if (omegaInput) omegaInput.value = '0';
   if (mufaInput) mufaInput.value = '0';
@@ -5436,23 +5518,42 @@ function renderMenuPlannerWeeklySummary() {
   if (!host) return;
 
   const weekly = getWeeklyTotals();
-  host.innerHTML = MENU_PLANNER_NUTRIENTS.map((nutrient) => {
-    const weekTarget = nutrient.target * 7;
-    const total = weekly.totals[nutrient.key] || 0;
-    const pct = weekTarget ? Math.min(100, Math.round((total / weekTarget) * 100)) : 0;
-    return `
-      <section class="menu-weekly-card" aria-label="Weekly ${nutrient.label} Summary">
-        <h4>Weekly ${nutrient.label} Rollup</h4>
-        <div class="menu-weekly-line">${formatNutrientValue(total, nutrient.key)} / ${formatNutrientValue(weekTarget, nutrient.key)} ${nutrient.unit} (${pct}%)</div>
-        <div class="menu-weekly-bar"><div class="menu-weekly-fill${getProgressClass(pct)}" style="width:${pct}%"></div></div>
-        <div class="menu-weekly-foot">Daily target met on ${weekly.metDays[nutrient.key]} of 7 days</div>
+  const weeklyCalories = MENU_PLANNER_DAYS.reduce((total, day) => total + getDayCalories(day), 0);
+  const calorieTarget = getCalorieTarget();
+  const weeklyCalorieTarget = calorieTarget * 7;
+  const caloriePct = weeklyCalorieTarget ? Math.min(100, Math.round((weeklyCalories / weeklyCalorieTarget) * 100)) : 0;
+  const calorieClass = weeklyCalories <= weeklyCalorieTarget ? getProgressClass(caloriePct) : ' low';
+
+  const cards = [
+    `
+      <section class="menu-weekly-card" aria-label="Weekly Calorie Summary">
+        <h4>Weekly Calories</h4>
+        <div class="menu-weekly-line">${formatCalorieValue(weeklyCalories)} / ${formatCalorieValue(weeklyCalorieTarget)} kcal (${caloriePct}%)</div>
+        <div class="menu-weekly-bar"><div class="menu-weekly-fill${calorieClass}" style="width:${caloriePct}%"></div></div>
+        <div class="menu-weekly-foot">${weeklyCalories <= weeklyCalorieTarget ? 'Still within your calorie cap for the week.' : `${formatCalorieValue(weeklyCalories - weeklyCalorieTarget)} over the weekly calorie target.`}</div>
       </section>
-    `;
-  }).join('');
+    `,
+    ...MENU_PLANNER_NUTRIENTS.map((nutrient) => {
+      const weekTarget = nutrient.target * 7;
+      const total = weekly.totals[nutrient.key] || 0;
+      const pct = weekTarget ? Math.min(100, Math.round((total / weekTarget) * 100)) : 0;
+      return `
+        <section class="menu-weekly-card" aria-label="Weekly ${nutrient.label} Summary">
+          <h4>Weekly ${nutrient.label} Rollup</h4>
+          <div class="menu-weekly-line">${formatNutrientValue(total, nutrient.key)} / ${formatNutrientValue(weekTarget, nutrient.key)} ${nutrient.unit} (${pct}%)</div>
+          <div class="menu-weekly-bar"><div class="menu-weekly-fill${getProgressClass(pct)}" style="width:${pct}%"></div></div>
+          <div class="menu-weekly-foot">Daily target met on ${weekly.metDays[nutrient.key]} of 7 days</div>
+        </section>
+      `;
+    })
+  ];
+
+  host.innerHTML = cards.join('');
 }
 
 function buildMenuPlannerExportText() {
   const weekly = getWeeklyTotals();
+  const weeklyCalories = MENU_PLANNER_DAYS.reduce((total, day) => total + getDayCalories(day), 0);
   const start = new Date(`${menuPlannerState.weekStart}T00:00:00`);
   const end = new Date(start);
   end.setDate(start.getDate() + 6);
@@ -5468,6 +5569,7 @@ function buildMenuPlannerExportText() {
   }
 
   lines.push('');
+  lines.push(`Weekly calories: ${formatCalorieValue(weeklyCalories)} / ${formatCalorieValue(getCalorieTarget() * 7)} kcal`);
   MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
     const weekTarget = nutrient.target * 7;
     lines.push(`Weekly ${nutrient.label}: ${formatNutrientValue(weekly.totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(weekTarget, nutrient.key)} ${nutrient.unit}`);
@@ -5480,7 +5582,10 @@ function buildMenuPlannerExportText() {
 
   MENU_PLANNER_DAYS.forEach((dayKey) => {
     const totals = getDayTotals(dayKey);
+    const dayCalories = getDayCalories(dayKey);
+    const calorieTarget = getCalorieTarget();
     lines.push(`${formatWeekDayLabel(menuPlannerState.weekStart, dayKey)}`);
+    lines.push(`  Calories: ${formatCalorieValue(dayCalories)} / ${formatCalorieValue(calorieTarget)} kcal (${formatCalorieDelta(dayCalories, calorieTarget)})`);
     MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
       const met = totals[nutrient.key] >= nutrient.target ? 'met' : 'below';
       lines.push(`  ${nutrient.label}: ${formatNutrientValue(totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(nutrient.target, nutrient.key)} ${nutrient.unit} (${met})`);
@@ -5491,11 +5596,12 @@ function buildMenuPlannerExportText() {
       if (!items.length) return;
       lines.push(`  ${meal.label}:`);
       items.forEach((item) => {
+        const caloriesText = `Calories ~${formatCalorieValue((Number(item.calories) || 0) * item.servings)} kcal`;
         const totalsText = MENU_PLANNER_NUTRIENTS.map((nutrient) => {
           const val = (Number(item[nutrient.key]) || 0) * item.servings;
           return `${nutrient.label} ~${formatNutrientValue(val, nutrient.key)} ${nutrient.unit}`;
         }).join(', ');
-        lines.push(`    - ${item.title} x ${item.servings} (${totalsText})`);
+        lines.push(`    - ${item.title} x ${item.servings} (${caloriesText}, ${totalsText})`);
       });
     });
 
@@ -5535,9 +5641,10 @@ async function copyMenuPlannerExport() {
 
 function buildMenuPlannerJsonPayload() {
   return {
-    version: 2,
+    version: 3,
     weekStart: menuPlannerState.weekStart,
     exportedAt: new Date().toISOString(),
+    calorieTarget: getCalorieTarget(),
     items: menuPlannerState.items.map((item) => normalizePlannerItem(item))
   };
 }
@@ -5575,7 +5682,13 @@ function importMenuPlannerJson(file) {
 
       const importedWeek = getStartOfWeekIso(String(parsed.weekStart || menuPlannerState.weekStart || ''));
       const importedItems = parsed.items.map(normalizePlannerItem);
-      menuPlannerState = { weekStart: importedWeek, items: importedItems };
+      menuPlannerState = {
+        weekStart: importedWeek,
+        items: importedItems,
+        calorieTarget: Number.isFinite(Number(parsed.calorieTarget)) && Number(parsed.calorieTarget) > 0
+          ? Number(parsed.calorieTarget)
+          : MENU_PLANNER_CALORIE_TARGET_DEFAULT
+      };
       refreshPlannerStateRecipeNutrients(menuPlannerState);
       menuPlannerEditingId = null;
       saveMenuPlannerState();
@@ -5619,6 +5732,7 @@ function savePlannerItemFromEdit(planId, panel) {
   if (mealEl instanceof HTMLSelectElement && MENU_PLANNER_MEALS.some((m) => m.key === mealEl.value)) item.meal = mealEl.value;
 
   if (item.source === 'manual') {
+    item.calories = readNumber('calories', item.calories, 0);
     item.cholineMg = readNumber('cholineMg', item.cholineMg, 0);
     item.omega3Mg = readNumber('omega3Mg', item.omega3Mg, 0);
     item.mufaG = readNumber('mufaG', item.mufaG, 1);
@@ -5638,10 +5752,19 @@ function renderMenuPlannerTotals() {
 
   host.innerHTML = MENU_PLANNER_DAYS.map((day) => {
     const totals = getDayTotals(day);
-    const lineHtml = MENU_PLANNER_NUTRIENTS.map((nutrient) => {
-      const ok = totals[nutrient.key] >= nutrient.target;
-      return `<div class="${ok ? 'menu-total-ok' : 'menu-total-low'}">${nutrient.label}: ${formatNutrientValue(totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(nutrient.target, nutrient.key)} ${nutrient.unit}</div>`;
-    }).join('');
+    const dailyCalories = getDayCalories(day);
+    const calorieTarget = getCalorieTarget();
+    const calorieClass = dailyCalories <= calorieTarget ? 'menu-total-ok' : 'menu-total-over';
+    const calorieText = dailyCalories <= calorieTarget
+      ? `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal`
+      : `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal (${formatCalorieValue(dailyCalories - calorieTarget)} over)`;
+    const lineHtml = [
+      `<div class="${calorieClass}">${calorieText}</div>`,
+      ...MENU_PLANNER_NUTRIENTS.map((nutrient) => {
+        const ok = totals[nutrient.key] >= nutrient.target;
+        return `<div class="${ok ? 'menu-total-ok' : 'menu-total-low'}">${nutrient.label}: ${formatNutrientValue(totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(nutrient.target, nutrient.key)} ${nutrient.unit}</div>`;
+      })
+    ].join('');
 
     return `
       <div class="menu-total-card">
@@ -5673,6 +5796,7 @@ function renderMenuPlannerDays() {
       const items = menuPlannerState.items.filter((item) => item.day === day && item.meal === meal.key);
       const itemHtml = items.length
         ? items.map((item) => {
+            const caloriesTotal = (item.calories || 0) * item.servings;
             const cholineTotal = (item.cholineMg || 0) * item.servings;
             const omegaTotal = (item.omega3Mg || 0) * item.servings;
             const mufaTotal = (item.mufaG || 0) * item.servings;
@@ -5698,6 +5822,10 @@ function renderMenuPlannerDays() {
                   <div class="menu-edit-row">
                     <label>Meal</label>
                     <select data-edit-field="meal">${buildPlannerMealOptions(item.meal)}</select>
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Calories / serving</label>
+                    <input type="number" min="0" step="1" data-edit-field="calories" value="${item.calories || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
                   </div>
                   <div class="menu-edit-row">
                     <label>Choline / serving (mg)</label>
@@ -5740,7 +5868,7 @@ function renderMenuPlannerDays() {
                     <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
                   </span>
                 </div>
-                <div class="menu-meal-sub">Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
+                <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
                 ${editPanel}
               </li>
             `;
@@ -5782,6 +5910,7 @@ function clearSelectedDay() {
 
 function bindMenuPlannerEvents() {
   const weekInput = document.getElementById('menu-planner-week');
+  const calorieTargetInput = document.getElementById('menu-planner-calorie-target');
   const clearBtn = document.getElementById('menu-planner-clear-day');
   const duplicateBtn = document.getElementById('menu-duplicate-day');
   const duplicateRangeBtn = document.getElementById('menu-duplicate-range');
@@ -5798,6 +5927,13 @@ function bindMenuPlannerEvents() {
     weekInput.value = nextWeekStart;
     menuPlannerState = loadMenuPlannerState(nextWeekStart);
     menuPlannerEditingId = null;
+    renderMenuPlanner();
+  });
+
+  calorieTargetInput?.addEventListener('change', () => {
+    const parsed = Number(calorieTargetInput.value);
+    menuPlannerState.calorieTarget = Number.isFinite(parsed) && parsed > 0 ? parsed : MENU_PLANNER_CALORIE_TARGET_DEFAULT;
+    saveMenuPlannerState();
     renderMenuPlanner();
   });
 
@@ -5863,6 +5999,9 @@ function initMenuPlannerPhase1() {
   const weekStart = getStartOfWeekIso(weekInput.value || '');
   weekInput.value = weekStart;
   menuPlannerState = loadMenuPlannerState(weekStart);
+
+  const calorieTargetInput = document.getElementById('menu-planner-calorie-target');
+  if (calorieTargetInput) calorieTargetInput.value = String(getCalorieTarget());
 
   bindMenuPlannerEvents();
   renderMenuPlanner();
