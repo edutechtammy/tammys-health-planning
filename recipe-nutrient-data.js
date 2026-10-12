@@ -1538,6 +1538,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-chia-chocolate-pudding.html": {
+    "calories": {
+      "display": "~135 kcal",
+      "value": 135.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~7 g",
+      "value": 7.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~40 mg",
       "value": 40.0,
@@ -1564,6 +1578,27 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.9,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "fiberG": {
+      "display": "~6 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~4.3 g",
+      "value": 4.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~0.3 g",
+      "value": 0.3,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -1809,6 +1844,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-hard-boiled-eggs.html": {
+    "calories": {
+      "display": "~72 kcal",
+      "value": 72.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~147 mg",
       "value": 147.0,
