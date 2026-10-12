@@ -895,6 +895,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-roasted-almonds.html": {
+    "calories": {
+      "display": "~160 kcal",
+      "value": 160.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~6 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~14 mg",
       "value": 14.0,
@@ -921,6 +935,34 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "fiberG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~9 g",
+      "value": 9.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -1848,6 +1890,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   "recipe-doro-watt.html": {},
   "recipe-garlic-beef-broccoli-bowl.html": {
+    "calories": {
+      "display": "~340 kcal",
+      "value": 340.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~35 g",
+      "value": 35.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~165 mg",
       "value": 165.0,
@@ -1874,6 +1930,34 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 1.2,
       "unit": "mcg",
       "name": "B12",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.8 g",
+      "value": 0.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -2635,6 +2719,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-sardine-olive-chopped-salad.html": {
+    "calories": {
+      "display": "~425 kcal",
+      "value": 425.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~31 g",
+      "value": 31.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~90 mg",
       "value": 90.0,
@@ -2661,6 +2759,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 10.0,
       "unit": "mcg",
       "name": "B12",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~16 g",
+      "value": 16.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
