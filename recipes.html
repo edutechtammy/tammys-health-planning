@@ -538,6 +538,10 @@
             <input type="number" id="menu-manual-mufa" min="0" step="0.1" value="0" />
           </div>
           <div class="menu-planner-field">
+            <label for="menu-manual-satfat">Saturated Fat / serving (g)</label>
+            <input type="number" id="menu-manual-satfat" min="0" step="0.1" value="0" />
+          </div>
+          <div class="menu-planner-field">
             <label for="menu-manual-folate">Folate / serving (mcg)</label>
             <input type="number" id="menu-manual-folate" min="0" step="1" value="0" />
           </div>
@@ -4997,6 +5001,7 @@ function addNutrientTargetBadges() {
     const caloriesEntry = resolveRecipeNutrientEntry(source, 'calories');
     const cholineEntry = resolveRecipeNutrientEntry(source, 'cholineMg', ['choline']);
     const omega3Entry = resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3']);
+    const satFatEntry = resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat']);
     const folateEntry = resolveRecipeNutrientEntry(source, 'folateMcg', ['folate']);
     const b12Entry = resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12']);
     const mufaEntry = resolveRecipeNutrientEntry(source, 'mufaG', ['mufas']);
@@ -5005,6 +5010,7 @@ function addNutrientTargetBadges() {
     const caloriesValue = Number(caloriesEntry?.value ?? Number(card.dataset.calories || 0));
     const explicitCholine = Number(card.dataset.cholineMg || 0);
     const explicitOmega3 = Number(card.dataset.omega3Mg || 0);
+    const explicitSatFat = Number(card.dataset.satfatG || 0);
     const explicitFolate = Number(card.dataset.folateMcg || 0);
     const explicitB12 = Number(card.dataset.b12Mcg || 0);
     const explicitMufa = Number(card.dataset.mufaG || 0);
@@ -5016,6 +5022,9 @@ function addNutrientTargetBadges() {
     const omega3Value = Number.isFinite(explicitOmega3) && explicitOmega3 > 0
       ? explicitOmega3
       : Number(omega3Entry?.value ?? est.omega3Mg);
+    const satFatValue = Number.isFinite(explicitSatFat) && explicitSatFat > 0
+      ? explicitSatFat
+      : Number(satFatEntry?.value ?? 0);
     const folateValue = Number.isFinite(explicitFolate) && explicitFolate > 0
       ? explicitFolate
       : Number(folateEntry?.value ?? est.folateMcg);
@@ -5035,6 +5044,7 @@ function addNutrientTargetBadges() {
     card.dataset.cholineMg = String(Number.isFinite(cholineValue) ? cholineValue : est.cholineMg);
     card.dataset.omega3Mg = String(Number.isFinite(omega3Value) ? omega3Value : est.omega3Mg);
     card.dataset.mufaG = String(Number.isFinite(defaultMufaValue) ? defaultMufaValue : est.mufaG);
+    card.dataset.satfatG = String(Number.isFinite(satFatValue) ? satFatValue : 0);
     card.dataset.folateMcg = String(Number.isFinite(folateValue) ? folateValue : est.folateMcg);
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
     card.dataset.viscousFiberG = String(Number.isFinite(viscousFiberValue) ? viscousFiberValue : est.viscousFiberG);
@@ -5052,6 +5062,7 @@ function addNutrientTargetBadges() {
       '<span class="trigger-pill"><strong>Choline:</strong> ' + formatNutrientBadgeValue(cholineEntry, est.cholineMg, 'mg') + '</span>' +
       '<span class="trigger-pill"><strong>Omega-3:</strong> ' + formatNutrientBadgeValue(omega3Entry, est.omega3Mg, 'mg') + '</span>' +
       '<span class="trigger-pill"><strong>MUFAs:</strong> ~' + Number(card.dataset.mufaG || defaultMufaValue).toFixed(1) + ' g</span>' +
+      '<span class="trigger-pill warning"><strong>Saturated Fat:</strong> ' + (Number(card.dataset.satfatG || satFatValue || 0) > 0 ? '~' + Number(card.dataset.satfatG || satFatValue).toFixed(1) + ' g' : 'see full recipe') + '</span>' +
       '<span class="trigger-pill"><strong>MTHFR:</strong> Folate ' + formatNutrientBadgeValue(folateEntry, est.folateMcg, 'mcg') + ' · B12 ' + formatNutrientBadgeValue(b12Entry, est.b12Mcg, 'mcg') + '</span>' +
       '<span class="trigger-pill"><strong>Viscous Fiber:</strong> ~' + Number(card.dataset.viscousFiberG || Number(viscousFiberEntry?.value ?? est.viscousFiberG)).toFixed(1) + ' g</span>';
 
@@ -5084,6 +5095,7 @@ const MENU_PLANNER_MEALS = [
   { key: 'snack', label: 'Snack / Bedtime' }
 ];
 const MENU_PLANNER_NUTRIENTS = [
+  { key: 'satfatG', label: 'Saturated Fat', unit: 'g', target: 10, decimals: 1, limit: true },
   { key: 'cholineMg', label: 'Choline', unit: 'mg', target: 740, decimals: 0, primary: true },
   { key: 'omega3Mg', label: 'Omega-3', unit: 'mg', target: 800, decimals: 0, primary: true },
   { key: 'mufaG', label: 'MUFAs', unit: 'g', target: 30, decimals: 1 },
@@ -5151,6 +5163,7 @@ function normalizePlannerItem(rawItem) {
     cholineMg: Number.isFinite(Number(safe.cholineMg)) ? Number(safe.cholineMg) : 0,
     omega3Mg: Number.isFinite(Number(safe.omega3Mg)) ? Number(safe.omega3Mg) : 0,
     mufaG: Number.isFinite(Number(safe.mufaG)) ? Number(safe.mufaG) : 0,
+    satfatG: Number.isFinite(Number(safe.satfatG)) ? Number(safe.satfatG) : 0,
     folateMcg: Number.isFinite(Number(safe.folateMcg)) ? Number(safe.folateMcg) : 0,
     b12Mcg: Number.isFinite(Number(safe.b12Mcg)) ? Number(safe.b12Mcg) : 0,
     viscousFiberG: Number.isFinite(Number(safe.viscousFiberG)) ? Number(safe.viscousFiberG) : 0
@@ -5180,6 +5193,7 @@ function refreshPlannerRecipeItemNutrients(item) {
   applyValue('calories', resolveRecipeNutrientEntry(source, 'calories')?.value);
   applyValue('cholineMg', resolveRecipeNutrientEntry(source, 'cholineMg', ['choline'])?.value);
   applyValue('omega3Mg', resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3'])?.value);
+  applyValue('satfatG', resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat'])?.value);
   applyValue('folateMcg', resolveRecipeNutrientEntry(source, 'folateMcg', ['folate'])?.value);
   applyValue('b12Mcg', resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12'])?.value);
   applyValue('mufaG', resolveRecipeNutrientEntry(source, 'mufaG', ['mufas'])?.value);
@@ -5430,6 +5444,7 @@ function getRecipePlanPayload(card) {
       cholineMg: Number(card.dataset.cholineMg || 0),
       omega3Mg: Number(card.dataset.omega3Mg || 0),
       mufaG: Number(card.dataset.mufaG || 0),
+      satfatG: Number(card.dataset.satfatG || 0),
       folateMcg: Number(card.dataset.folateMcg || 0),
       b12Mcg: Number(card.dataset.b12Mcg || 0),
       viscousFiberG: Number(card.dataset.viscousFiberG || 0)
@@ -5453,6 +5468,7 @@ function addRecipeToPlan(card) {
     cholineMg: Number.isFinite(recipe.nutrients.cholineMg) ? recipe.nutrients.cholineMg : 0,
     omega3Mg: Number.isFinite(recipe.nutrients.omega3Mg) ? recipe.nutrients.omega3Mg : 0,
     mufaG: Number.isFinite(recipe.nutrients.mufaG) ? recipe.nutrients.mufaG : 0,
+    satfatG: Number.isFinite(recipe.nutrients.satfatG) ? recipe.nutrients.satfatG : 0,
     folateMcg: Number.isFinite(recipe.nutrients.folateMcg) ? recipe.nutrients.folateMcg : 0,
     b12Mcg: Number.isFinite(recipe.nutrients.b12Mcg) ? recipe.nutrients.b12Mcg : 0,
     viscousFiberG: Number.isFinite(recipe.nutrients.viscousFiberG) ? recipe.nutrients.viscousFiberG : 0
@@ -5479,6 +5495,7 @@ function addManualItemToPlan() {
   const cholineInput = document.getElementById('menu-manual-choline');
   const omegaInput = document.getElementById('menu-manual-omega3');
   const mufaInput = document.getElementById('menu-manual-mufa');
+  const satfatInput = document.getElementById('menu-manual-satfat');
   const folateInput = document.getElementById('menu-manual-folate');
   const b12Input = document.getElementById('menu-manual-b12');
   const viscousInput = document.getElementById('menu-manual-viscous');
@@ -5491,6 +5508,7 @@ function addManualItemToPlan() {
   const cholineVal = Number(cholineInput?.value || 0);
   const omegaVal = Number(omegaInput?.value || 0);
   const mufaVal = Number(mufaInput?.value || 0);
+  const satfatVal = Number(satfatInput?.value || 0);
   const folateVal = Number(folateInput?.value || 0);
   const b12Val = Number(b12Input?.value || 0);
   const viscousVal = Number(viscousInput?.value || 0);
@@ -5499,6 +5517,7 @@ function addManualItemToPlan() {
   const cholineMg = Number.isFinite(cholineVal) && cholineVal >= 0 ? cholineVal : NaN;
   const omega3Mg = Number.isFinite(omegaVal) && omegaVal >= 0 ? omegaVal : NaN;
   const mufaG = Number.isFinite(mufaVal) && mufaVal >= 0 ? mufaVal : NaN;
+  const satfatG = Number.isFinite(satfatVal) && satfatVal >= 0 ? satfatVal : NaN;
   const folateMcg = Number.isFinite(folateVal) && folateVal >= 0 ? folateVal : NaN;
   const b12Mcg = Number.isFinite(b12Val) && b12Val >= 0 ? b12Val : NaN;
   const viscousFiberG = Number.isFinite(viscousVal) && viscousVal >= 0 ? viscousVal : NaN;
@@ -5511,7 +5530,7 @@ function addManualItemToPlan() {
     setManualStatus('Servings must be greater than zero.', true);
     return;
   }
-  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
+  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(satfatG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
     setManualStatus('Nutrient and calorie values must be zero or higher.', true);
     return;
   }
@@ -5528,6 +5547,7 @@ function addManualItemToPlan() {
     cholineMg: Number(cholineMg.toFixed(0)),
     omega3Mg: Number(omega3Mg.toFixed(0)),
     mufaG: Number(mufaG.toFixed(1)),
+    satfatG: Number(satfatG.toFixed(1)),
     folateMcg: Number(folateMcg.toFixed(0)),
     b12Mcg: Number(b12Mcg.toFixed(1)),
     viscousFiberG: Number(viscousFiberG.toFixed(1))
@@ -5543,6 +5563,7 @@ function addManualItemToPlan() {
   if (cholineInput) cholineInput.value = '0';
   if (omegaInput) omegaInput.value = '0';
   if (mufaInput) mufaInput.value = '0';
+  if (satfatInput) satfatInput.value = '0';
   if (folateInput) folateInput.value = '0';
   if (b12Input) b12Input.value = '0';
   if (viscousInput) viscousInput.value = '0';
@@ -5595,7 +5616,8 @@ function getWeeklyTotals() {
   const weekly = totalsByDay.reduce((acc, entry) => {
     MENU_PLANNER_NUTRIENTS.forEach((nutrient) => {
       acc.totals[nutrient.key] += entry.totals[nutrient.key];
-      if (entry.totals[nutrient.key] >= nutrient.target) {
+      const meetsLimit = nutrient.limit ? entry.totals[nutrient.key] <= nutrient.target : entry.totals[nutrient.key] >= nutrient.target;
+      if (meetsLimit) {
         acc.metDays[nutrient.key] += 1;
       }
     });
@@ -5638,12 +5660,18 @@ function renderMenuPlannerWeeklySummary() {
       const weekTarget = nutrient.target * 7;
       const total = weekly.totals[nutrient.key] || 0;
       const pct = weekTarget ? Math.min(100, Math.round((total / weekTarget) * 100)) : 0;
+      const progressClass = nutrient.limit ? (total <= weekTarget ? getProgressClass(pct) : ' low') : getProgressClass(pct);
+      const footText = nutrient.limit
+        ? (total <= weekTarget
+          ? 'Still within your saturated fat cap for the week.'
+          : `${formatNutrientValue(Math.abs(total - weekTarget), nutrient.key)} over the weekly saturated fat cap.`)
+        : `Daily target met on ${weekly.metDays[nutrient.key]} of 7 days`;
       return `
         <section class="menu-weekly-card" aria-label="Weekly ${nutrient.label} Summary">
           <h4>Weekly ${nutrient.label} Rollup</h4>
           <div class="menu-weekly-line">${formatNutrientValue(total, nutrient.key)} / ${formatNutrientValue(weekTarget, nutrient.key)} ${nutrient.unit} (${pct}%)</div>
-          <div class="menu-weekly-bar"><div class="menu-weekly-fill${getProgressClass(pct)}" style="width:${pct}%"></div></div>
-          <div class="menu-weekly-foot">Daily target met on ${weekly.metDays[nutrient.key]} of 7 days</div>
+          <div class="menu-weekly-bar"><div class="menu-weekly-fill${progressClass}" style="width:${pct}%"></div></div>
+          <div class="menu-weekly-foot">${footText}</div>
         </section>
       `;
     })
@@ -5837,6 +5865,7 @@ function savePlannerItemFromEdit(planId, panel) {
     item.cholineMg = readNumber('cholineMg', item.cholineMg, 0);
     item.omega3Mg = readNumber('omega3Mg', item.omega3Mg, 0);
     item.mufaG = readNumber('mufaG', item.mufaG, 1);
+    item.satfatG = readNumber('satfatG', item.satfatG, 1);
     item.folateMcg = readNumber('folateMcg', item.folateMcg, 0);
     item.b12Mcg = readNumber('b12Mcg', item.b12Mcg, 1);
     item.viscousFiberG = readNumber('viscousFiberG', item.viscousFiberG, 1);
@@ -5862,7 +5891,7 @@ function renderMenuPlannerTotals() {
     const lineHtml = [
       `<div class="${calorieClass}">${calorieText}</div>`,
       ...MENU_PLANNER_NUTRIENTS.map((nutrient) => {
-        const ok = totals[nutrient.key] >= nutrient.target;
+        const ok = nutrient.limit ? totals[nutrient.key] <= nutrient.target : totals[nutrient.key] >= nutrient.target;
         return `<div class="${ok ? 'menu-total-ok' : 'menu-total-low'}">${nutrient.label}: ${formatNutrientValue(totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(nutrient.target, nutrient.key)} ${nutrient.unit}</div>`;
       })
     ].join('');
@@ -5900,7 +5929,8 @@ function renderMenuPlannerDays() {
             const caloriesTotal = (item.calories || 0) * item.servings;
             const cholineTotal = (item.cholineMg || 0) * item.servings;
             const omegaTotal = (item.omega3Mg || 0) * item.servings;
-            const mufaTotal = (item.mufaG || 0) * item.servings;
+              const mufaTotal = (item.mufaG || 0) * item.servings;
+            const satFatTotal = (item.satfatG || 0) * item.servings;
             const folateTotal = (item.folateMcg || 0) * item.servings;
             const b12Total = (item.b12Mcg || 0) * item.servings;
             const viscousTotal = (item.viscousFiberG || 0) * item.servings;
@@ -5941,6 +5971,10 @@ function renderMenuPlannerDays() {
                     <input type="number" min="0" step="0.1" data-edit-field="mufaG" value="${item.mufaG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
                   </div>
                   <div class="menu-edit-row">
+                    <label>Saturated Fat / serving (g)</label>
+                    <input type="number" min="0" step="0.1" data-edit-field="satfatG" value="${item.satfatG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
                     <label>Folate / serving (mcg)</label>
                     <input type="number" min="0" step="1" data-edit-field="folateMcg" value="${item.folateMcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
                   </div>
@@ -5969,7 +6003,7 @@ function renderMenuPlannerDays() {
                     <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
                   </span>
                 </div>
-                <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
+                <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Saturated Fat ~${formatNutrientValue(satFatTotal, 'satfatG')} g · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
                 ${editPanel}
               </li>
             `;
