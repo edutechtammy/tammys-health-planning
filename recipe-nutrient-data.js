@@ -1829,6 +1829,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-chop-chop-salad.html": {
+    "calories": {
+      "display": "~2o0 kcal",
+      "value": 200.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~42 mg",
       "value": 42.0,
@@ -1855,6 +1869,34 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 107.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~7 g",
+      "value": 7.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~7 g",
+      "value": 7.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~15 g",
+      "value": 15.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -2419,6 +2461,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-pan-seared-mackerel.html": {
+    "calories": {
+      "display": "~500 kcal",
+      "value": 500.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~35 g",
+      "value": 35.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~3.38 - 4.05 mg net absorbed",
       "value": 3.715,
@@ -2427,7 +2483,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     },
     "omega3Mg": {
-      "display": "~1,800–2,200 mg",
+      "display": "~2000 mg",
       "value": 2000.0,
       "unit": "mg",
       "name": "Marine omega-3 (EPA + DHA)",
@@ -2445,6 +2501,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 3715.0,
       "unit": "mcg",
       "name": "Folate",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.8 g",
+      "value": 0.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -2770,6 +2840,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-savory-chicken-shiitake-skillet.html": {
+    "calories": {
+      "display": "~250 kcal",
+      "value": 250.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~33 g",
+      "value": 33.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~160 mg",
       "value": 160.0,
@@ -2796,6 +2880,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.5,
       "unit": "mcg",
       "name": "B12",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~3 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~11 g",
+      "value": 11.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
