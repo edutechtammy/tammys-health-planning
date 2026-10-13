@@ -1790,6 +1790,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~0.5 g",
+      "value": 0.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "mufaG": {
       "display": "~0.3 g",
       "value": 0.3,
@@ -2150,6 +2157,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.6,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.8 g",
+      "value": 0.8,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
@@ -2817,6 +2831,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 (marine EPA + DHA)",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~70 µg",
       "value": 70.0,
@@ -3305,6 +3326,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 3.2,
       "unit": "mg",
       "name": "Zinc — immune · metabolic · wound repair",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "mufaG": {
