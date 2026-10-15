@@ -56,9 +56,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~875 mg",
-      "value": 875.0,
+      "display": "~8.75 mg",
+      "value": 8.75,
       "unit": "mg",
       "name": "Omega-3 (ALA) — flax contribution",
       "estimated": false
@@ -186,9 +187,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~5 mg",
-      "value": 5.0,
+      "display": "~0.5 mg",
+      "value": 0.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -253,9 +255,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~25 mg",
-      "value": 25.0,
+      "display": "~2.5 mg",
+      "value": 2.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -283,9 +286,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~20 mg",
-      "value": 20.0,
+      "display": "~2.0 mg",
+      "value": 2.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -305,6 +309,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // Note: Non-marine omega-3 adjusted / split out to prevent inflation
   "recipe-no-sugar-crunch-bar.html": {
     "cholineMg": {
       "display": "~20 mg",
@@ -313,9 +318,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~0.8–1.2 g",
-      "value": 1000.0,
+      "display": "~0.1 g",
+      "value": 0.1,
       "unit": "mg",
       "name": "ALA omega-3 — supportive only · conversion-limited",
       "estimated": false
@@ -387,9 +393,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~90 mg",
-      "value": 90.0,
+      "display": "~0.9 mg",
+      "value": 0.9,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -424,9 +431,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~180 mg",
-      "value": 180.0,
+      "display": "~18.0 mg",
+      "value": 18.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -454,9 +462,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~140 mg",
-      "value": 140.0,
+      "display": "~14.0 mg",
+      "value": 14.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -514,9 +523,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~110 mg",
-      "value": 110.0,
+      "display": "~11.0 mg",
+      "value": 11.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -544,9 +554,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~45 mg",
-      "value": 45.0,
+      "display": "~4.5 mg",
+      "value": 4.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -574,9 +585,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~60 mg",
-      "value": 60.0,
+      "display": "~6.0 mg",
+      "value": 6.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -634,9 +646,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~140 mg",
-      "value": 140.0,
+      "display": "~14.0 mg",
+      "value": 14.0,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
@@ -664,9 +677,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~125 mg",
-      "value": 125.0,
+      "display": "~12.5 mg",
+      "value": 12.5,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
@@ -694,9 +708,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~160 mg",
-      "value": 160.0,
+      "display": "~16.0 mg",
+      "value": 16.0,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
@@ -724,9 +739,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~130 mg",
-      "value": 130.0,
+      "display": "~13.0 mg",
+      "value": 13.0,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
@@ -754,9 +770,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~35 mg",
-      "value": 35.0,
+      "display": "~3.5 mg",
+      "value": 3.5,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
@@ -784,9 +801,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~30 mg",
-      "value": 30.0,
+      "display": "~3.0 mg",
+      "value": 3.0,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
@@ -814,9 +832,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~30 mg",
-      "value": 30.0,
+      "display": "~3.0 mg",
+      "value": 3.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -858,9 +877,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~1300 mg",
-      "value": 1300.0,
+      "display": "~130.0 mg",
+      "value": 130.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -916,9 +936,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~5 mg",
-      "value": 5.0,
+      "display": "~0.5 mg",
+      "value": 0.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -974,9 +995,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~110 mg",
-      "value": 110.0,
+      "display": "~11.0 mg",
+      "value": 11.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1004,9 +1026,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~105 mg",
-      "value": 105.0,
+      "display": "~10.5 mg",
+      "value": 10.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1027,9 +1050,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-brownie-base-mix-monkfruit-allulose.html": {
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~80 mg",
-      "value": 80.0,
+      "display": "~8.0 mg",
+      "value": 8.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1064,9 +1088,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · phosphatidylcholine synthesis",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~260 mg",
-      "value": 260.0,
+      "display": "~26.0 mg",
+      "value": 26.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1087,9 +1112,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-caprese-hasselback-chicken.html": {
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~95 mg",
-      "value": 95.0,
+      "display": "~9.5 mg",
+      "value": 9.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1131,9 +1157,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~110 mg",
-      "value": 110.0,
+      "display": "~11.0 mg",
+      "value": 11.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1203,9 +1230,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~120 mg",
-      "value": 120.0,
+      "display": "~12.0 mg",
+      "value": 12.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1233,9 +1261,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~105 mg",
-      "value": 105.0,
+      "display": "~10.5 mg",
+      "value": 10.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1263,9 +1292,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~35 mg",
-      "value": 35.0,
+      "display": "~3.5 mg",
+      "value": 3.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1307,9 +1337,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~45 mg",
-      "value": 45.0,
+      "display": "~4.5 mg",
+      "value": 4.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1379,9 +1410,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~55 mg",
-      "value": 55.0,
+      "display": "~5.5 mg",
+      "value": 5.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1423,6 +1455,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Folate — MTHFR",
       "estimated": false
     },
+    // Note: FULL OMEGA VALUE USED - MARINE SOURCE
     "omega3Mg": {
       "display": "~3000 mg",
       "value": 3000.0,
@@ -1469,9 +1502,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~20 mg",
-      "value": 20.0,
+      "display": "~2.0 mg",
+      "value": 2.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1499,9 +1533,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~90 mg",
-      "value": 90.0,
+      "display": "~9.0 mg",
+      "value": 9.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1529,9 +1564,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~70 mg",
-      "value": 70.0,
+      "display": "~7.0 mg",
+      "value": 7.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1560,9 +1596,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~20 mg",
-      "value": 20.0,
+      "display": "~2.0 mg",
+      "value": 2.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1650,9 +1687,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~1800 mg",
-      "value": 1800.0,
+      "display": "~180.0 mg",
+      "value": 180.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1681,9 +1719,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~55 mg",
-      "value": 55.0,
+      "display": "~5.5 mg",
+      "value": 5.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1711,9 +1750,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~35 mg",
-      "value": 35.0,
+      "display": "~3.5 mg",
+      "value": 3.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1755,9 +1795,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~1.5–2 g",
-      "value": 1750.0,
+      "display": "~0.17 g",
+      "value": 0.17,
       "unit": "mg",
       "name": "ALA omega-3 — supportive only · conversion-limited",
       "estimated": false
@@ -1827,9 +1868,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — Fatty Liver · APOE4 · hepatic fat export",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~160 mg",
-      "value": 160.0,
+      "display": "~16.0 mg",
+      "value": 16.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1857,9 +1899,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~180 mg",
-      "value": 180.0,
+      "display": "~18.0 mg",
+      "value": 18.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1960,9 +2003,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~35 mg",
-      "value": 35.0,
+      "display": "~3.5 mg",
+      "value": 3.5,
       "unit": "mg",
       "name": "Omega-3",
       "estimated": false
@@ -2025,6 +2069,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "B12",
       "estimated": false
     },
+    // Note: MARINE SOURCE SO FULL VALUE
     "omega3Mg": {
       "display": "~150–250 mg",
       "value": 200.0,
@@ -2048,9 +2093,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~115 mg",
-      "value": 115.0,
+      "display": "~11.5 mg",
+      "value": 11.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2108,9 +2154,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~120 mg",
-      "value": 120.0,
+      "display": "~12.0 mg",
+      "value": 12.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2145,9 +2192,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~80 mg",
-      "value": 80.0,
+      "display": "~8.0 mg",
+      "value": 8.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2175,6 +2223,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-herb-roasted-salmon-cabbage-salad.html": {
+    // Note: MARINE SOURCE SO FULL VALUE
     "omega3Mg": {
       "display": "~1,000–1,500 mg",
       "value": 1250.0,
@@ -2212,9 +2261,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~60 mg",
-      "value": 60.0,
+      "display": "~6.0 mg",
+      "value": 6.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2242,9 +2292,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~130 mg",
-      "value": 130.0,
+      "display": "~13.0 mg",
+      "value": 13.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2272,9 +2323,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~1700 mg",
-      "value": 1700.0,
+      "display": "~170.0 mg",
+      "value": 170.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2302,9 +2354,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~15 mg",
-      "value": 15.0,
+      "display": "~1.5 mg",
+      "value": 1.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2332,9 +2385,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~70 mg",
-      "value": 70.0,
+      "display": "~7.0 mg",
+      "value": 7.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2362,9 +2416,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~60 mg",
-      "value": 60.0,
+      "display": "~6.0 mg",
+      "value": 6.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2392,9 +2447,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~70 mg",
-      "value": 70.0,
+      "display": "~7.0 mg",
+      "value": 7.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2452,9 +2508,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~45 mg",
-      "value": 45.0,
+      "display": "~4.5 mg",
+      "value": 4.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2496,6 +2553,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    // Note: MARINE SOURCE SO FULL VALUE USED
     "omega3Mg": {
       "display": "~2000 mg",
       "value": 2000.0,
@@ -2540,9 +2598,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~45 mg",
-      "value": 45.0,
+      "display": "~4.5 mg",
+      "value": 4.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2570,9 +2629,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~5 mg",
-      "value": 5.0,
+      "display": "~0.5 mg",
+      "value": 0.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2600,9 +2660,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~10 mg",
-      "value": 10.0,
+      "display": "~1.0 mg",
+      "value": 1.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2630,9 +2691,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~230 mg",
-      "value": 230.0,
+      "display": "~23.0 mg",
+      "value": 23.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2660,9 +2722,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~130 mg",
-      "value": 130.0,
+      "display": "~13.0 mg",
+      "value": 13.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2690,9 +2753,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~95 mg",
-      "value": 95.0,
+      "display": "~9.5 mg",
+      "value": 9.50,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2720,9 +2784,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~120 mg",
-      "value": 120.0,
+      "display": "~12.0 mg",
+      "value": 12.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2750,9 +2815,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~95 mg",
-      "value": 95.0,
+      "display": "~9.5 mg",
+      "value": 9.5,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2794,6 +2860,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Folate — MTHFR",
       "estimated": false
     },
+    // Note: MARINE SOURCE _ FULL VALUE
     "omega3Mg": {
       "display": "~2500 mg",
       "value": 2500.0,
@@ -2824,6 +2891,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    // Note: MARINE SOURCE - FULL VALUE
     "omega3Mg": {
       "display": "~1,200–1,500 mg",
       "value": 1350.0,
@@ -2882,9 +2950,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~40 mg",
-      "value": 40.0,
+      "display": "~4.0 mg",
+      "value": 4.0,
       "unit": "mg",
       "name": "Omega-3",
       "estimated": false
@@ -2926,9 +2995,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~330 mg",
-      "value": 330.0,
+      "display": "~33.0 mg",
+      "value": 33.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2970,8 +3040,9 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "B12 — MTHFR · neurological",
       "estimated": false
     },
+    // Note: MARINE SOURCE SO FULL VALUE
     "omega3Mg": {
-      "display": "~0.5 g",
+      "display": "~500.0 g",
       "value": 500.0,
       "unit": "mg",
       "name": "DHA (preformed omega-3) — APOE4 · neurological · anti-inflammatory",
@@ -2986,9 +3057,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~20 mg",
-      "value": 20.0,
+      "display": "~2.0 mg",
+      "value": 2.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3016,9 +3088,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~30 mg",
-      "value": 30.0,
+      "display": "~3.0 mg",
+      "value": 3.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3046,9 +3119,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~30 mg",
-      "value": 30.0,
+      "display": "~3.0 mg",
+      "value": 3.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3076,9 +3150,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~20 mg",
-      "value": 20.0,
+      "display": "~2.0 mg",
+      "value": 2.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3106,8 +3181,9 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    // Note: MARINE, so FULL VALUE
     "omega3Mg": {
-      "display": "~400–600 mg",
+      "display": "~500 mg",
       "value": 500.0,
       "unit": "mg",
       "name": "Marine omega-3 (EPA + DHA)",
@@ -3136,9 +3212,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~140 mg",
-      "value": 140.0,
+      "display": "~14.0 mg",
+      "value": 14.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3166,9 +3243,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~2900 mg",
-      "value": 2900.0,
+      "display": "~290.0 mg",
+      "value": 290.0,
       "unit": "mg",
       "name": "Omega-3 — ALA support for fatty liver; APOE4 fit is indirect",
       "estimated": false
@@ -3203,9 +3281,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~150–250 mg",
-      "value": 200.0,
+      "display": "~20 mg",
+      "value": 20.0,
       "unit": "mg",
       "name": "Omega-3 (ALA/marine-support) — supporting fatty liver + APOE4",
       "estimated": false
@@ -3263,9 +3342,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~1400 mg",
-      "value": 1400.0,
+      "display": "~140.0 mg",
+      "value": 140.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3321,9 +3401,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Folate — MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~3.2 mg",
-      "value": 3.2,
+      "display": "~0.3 mg",
+      "value": 0.3,
       "unit": "mg",
       "name": "Zinc — immune · metabolic · wound repair",
       "estimated": false

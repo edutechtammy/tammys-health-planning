@@ -81,10 +81,22 @@
     .recipe-card-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; }
     .recipe-card-ingredients { font-size: .75rem; color: var(--muted); line-height: 1.4; margin: .3rem 0 .15rem; }
     .recipe-card-trigger { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .12rem; }
-    .recipe-card-targets { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .12rem; }
+    .recipe-card-targets { display: flex; flex-direction: column; gap: .35rem; margin-top: .15rem; }
     .recipe-card-targets .trigger-pill { font-size: .66rem; }
     .trigger-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: .18rem .55rem; background: var(--green-pale); border: 1px solid var(--border); color: var(--green-dark); font-size: .68rem; font-weight: 700; }
     .trigger-pill.warning { background: #fff7ed; border-color: #fed7aa; color: #9a4d00; }
+    .recipe-target-row { display: flex; flex-direction: column; gap: .18rem; padding: .28rem .4rem; border-radius: 8px; background: #f8fff9; border: 1px solid #dfeee2; }
+    .recipe-target-top { display: flex; justify-content: space-between; align-items: center; gap: .5rem; font-size: .67rem; line-height: 1.2; }
+    .recipe-target-label { font-weight: 800; color: var(--green-dark); }
+    .recipe-target-value { font-weight: 700; color: var(--muted); }
+    .recipe-target-value.goal-low { color: #b45309; }
+    .recipe-target-value.goal-ok { color: #166534; }
+    .recipe-target-value.goal-over { color: #b91c1c; }
+    .recipe-target-bar { height: 9px; border-radius: 999px; overflow: hidden; background: #eaf4ee; border: 1px solid #dfeee2; }
+    .recipe-target-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, #4ade80, #22c55e); }
+    .recipe-target-fill.goal-low { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+    .recipe-target-fill.goal-ok { background: linear-gradient(90deg, #4ade80, #22c55e); }
+    .recipe-target-fill.goal-over { background: linear-gradient(90deg, #fca5a5, #ef4444); }
     .drink-warning { display: inline-flex; align-items: center; align-self: flex-start; border-radius: 999px; padding: .2rem .7rem; background: #fff1f2; border: 1px solid #fecdd3; color: #9f1239; font-size: .68rem; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
     .recipe-card-footer { padding: .85rem 1.2rem; border-top: 1px solid var(--green-light); display: flex; gap: .6rem; flex-wrap: wrap; }
 
@@ -248,13 +260,20 @@
     .menu-edit-footer { display: flex; gap: .35rem; align-items: center; }
     .menu-edit-save { border: 1px solid #86efac; background: #ecfdf5; color: #166534; }
     .menu-edit-cancel { border: 1px solid #fecaca; background: #fff1f2; color: #9f1239; }
-    .menu-planner-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .55rem; margin-bottom: .85rem; }
-    .menu-total-card { border: 1px solid var(--border); border-radius: 10px; background: #f8fff9; padding: .6rem .7rem; }
-    .menu-total-card h4 { font-size: .78rem; color: var(--green-dark); margin-bottom: .22rem; }
-    .menu-total-lines { font-size: .75rem; color: var(--text); line-height: 1.4; }
+    .menu-planner-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: .7rem; margin-bottom: .85rem; }
+    .menu-total-card { border: 1px solid var(--border); border-radius: 10px; background: #f8fff9; padding: .7rem .8rem; }
+    .menu-total-card h4 { font-size: .8rem; color: var(--green-dark); margin-bottom: .4rem; }
+    .menu-total-lines { display: flex; flex-direction: column; gap: .45rem; font-size: .75rem; color: var(--text); }
+    .menu-total-row { display: flex; flex-direction: column; gap: .2rem; }
+    .menu-total-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; font-size: .72rem; }
     .menu-total-ok { color: #166534; font-weight: 700; }
     .menu-total-low { color: #b91c1c; font-weight: 700; }
     .menu-total-over { color: #b45309; font-weight: 800; }
+    .menu-total-label { font-weight: 700; }
+    .menu-total-bar { height: 11px; border-radius: 999px; overflow: hidden; background: #dfeee2; border: 1px solid #cfe0d1; }
+    .menu-total-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--green-mid), var(--green-dark)); transition: width .25s ease; }
+    .menu-total-fill.low { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    .menu-total-fill.over { background: linear-gradient(90deg, #ef4444, #b91c1c); }
     .menu-plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: .65rem; }
     .menu-day-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; }
     .menu-day-head { background: #f0faf2; border-bottom: 1px solid var(--border); padding: .5rem .65rem; }
@@ -356,7 +375,7 @@
   </ol>
   <p>Normally, a strict, high-saturated-fat ketogenic diet is used to generate ketones. However, because you carry the APOE4 and FTO genes, high amounts of saturated fats (like heavy butter, coconut oil, or fatty red meats) can cause your blood lipids and liver fat to stall metabolically.</p>
   <p>Instead, the clinical consensus is a "Clean" or Mediterranean Monounsaturated Ketosis. This leans heavily on Extra virgin olive oil (EVOO), walnuts, hemp seeds and other unsaturated fat food sources.</p>
-  <p>in a Mediterranean MIND diet, carbs are not cut back indiscriminately like you find in a KETO diet. Instead, the focus is on slow-burning, fiber-rich whole food carbohydrates. The goal is not ketosis. The goal is to protect the vascular lining and stabilize insulin response to prevent cognitive decline (APOE4). My specific adaptation is to move away from grains toward seeds. This is because my CGM data proves that I am highly reactive glycemically to all grains. Over time, all grain-based recipes will be replaced.</p>
+  <p>in a Mediterranean MIND diet, carbs are not cut back indiscriminately like you find in a KETO diet. Instead, the focus is on slow-burning, fiber-rich whole food carbohydrates. The goal is not ketosis. The goal is to protect the vascular lining and stabilize insulin response to prevent cognitive decline (APOE4). My specific adaptation is to move away from grains toward seeds. This is because my CGM data proves that I am highly reactive to all grains. Over time, all grain-based recipes will be replaced.</p>
   <p>Carbs will come in the form of leafy greens (high in natural folate), cruciferous vegetables, berries (especially those that are high in polyphenols/antioxidants), nuts, seeds, and legumes. Fiber will be incorporated via the fiber naturally in these foods and with using natural binders such a psyllium husk powder and ground seeds (chia and flax - prebiotic fiber) which protect the gut microbiome.</p>
   <p>Import any recipe into Mealboard via the View Full Recipe page link.</p>
   </div>
@@ -448,7 +467,34 @@
           <p><strong>☐ Chicken Deli Slices and Swiss Cheese</strong> that would be good on the next item</p>
         </div>
       </div>
+
+      
+
+      <!--             WEEKLY GOALS             -->
+      <!--             WEEKLY GOALS             -->
+      <!--             WEEKLY GOALS             -->
+              
+      <p><strong>Weekly Goals</strong></p>
+      <p>As you add foods/recipes into you weekly menu plan, their data for target nutrients will fill out the Daily and Weekly Goals so you can watch as you move toward your targets.</p>
+      <div class="menu-weekly-summary" id="menu-planner-weekly-summary"></div>
+
+
+      <!--             DAILY GOALS             -->
+      <!--             DAILY GOALS             -->
+      <!--             DAILY GOALS             -->
+              
+      <p><strong>Daily Goals</strong></p>
+
+      <div class="menu-planner-totals" id="menu-planner-daily-totals"></div>
+
+<!--        MENU PLANNER CONTROLS         -->
+      <!--        MENU PLANNER CONTROLS         -->
+      <!--        MENU PLANNER CONTROLS         -->
+
+      <p><strong>Menu Planner Controls</strong></p>
+      <p>Select something from the recipes listing below and use the controls directly below to control where they will be added into the weekly planner. You can edit their position or remove them within the cards that will be added.</p>
       <div class="menu-planner-controls">
+        
         <div class="menu-planner-field">
           <label for="menu-planner-week">Week Starting</label>
           <input type="date" id="menu-planner-week" />
@@ -493,11 +539,24 @@
         </div>
         <button type="button" class="menu-planner-btn" id="menu-duplicate-range">Duplicate To Range</button>
       </div>
-
       <p class="menu-planner-hint">Use the <strong>➕ Add to Day</strong> button on any recipe card. Phase 1 totals track choline and omega-3 from your selected recipe servings.</p>
-      <div class="menu-duplicate-status" id="menu-duplicate-status">Tip: use Duplicate Day for repeat structures like weekday breakfasts.</div>
+      <div class="menu-duplicate-status" id="menu-duplicate-status">Tip: use Duplicate Day for repeat structures like weekday breakfasts.</div> 
 
-      <div class="menu-weekly-summary" id="menu-planner-weekly-summary"></div>
+      <!--             DAILY PLANNER             -->
+      <!--             DAILY PLANNER             -->
+      <!--             DAILY PLANNER             -->
+              
+      <p><strong>Daily Planner</strong></p>
+      <div class="menu-plan-grid" id="menu-planner-days"></div>
+    <br>
+    
+
+      <!--             MANUAL ENTRY             -->
+      <!--             MANUAL ENTRY             -->
+      <!--             MANUAL ENTRY             -->
+              
+      <p><strong>Manual Entry of Items</strong></p>
+      <p>If you eat something that you don't have in the recipes or cards, you can do a manual entry here.</p>
       <section class="menu-manual-entry" aria-label="Manual Menu Entry">
         <div class="menu-manual-head">Manual Entry (Restaurant or Custom Food)</div>
         <div class="menu-manual-grid">
@@ -553,6 +612,13 @@
         </div>
         <div class="menu-manual-status" id="menu-manual-status">Manual entries also flow into daily totals, weekly totals, and export.</div>
       </section>
+
+      <!--             DATA EXPORT             -->
+      <!--             DATA EXPORT             -->
+      <!--             DATA EXPORT             -->
+              
+      <p><strong>Data Export</strong></p>
+      <p>Right now, what you add is remembered in your browser storage, but you can export the data and import it later if you need to. This can be tremendously useful if you developed a really excellent menu plan and want to reuse it instead of constantly rebuild it from week to week. It can also be useful if you want to template out foods that are always in the menu. You can build those in, save them, export them, and then each week start off with an import to fil the menu plan with those items. Just change the dates.</p>
       <section class="menu-export-card" aria-label="Weekly Summary Export">
         <div class="menu-export-head">
           <h4>Weekly Summary Export</h4>
@@ -567,10 +633,8 @@
         <textarea id="menu-export-text" class="menu-export-text" readonly></textarea>
         <input type="file" id="menu-import-json-file" accept="application/json,.json" style="display:none" />
       </section>
-      <div class="menu-planner-totals" id="menu-planner-daily-totals"></div>
-      <div class="menu-plan-grid" id="menu-planner-days"></div>
-    </div>
-  </section>
+    </section>
+  
 
   <!-- PANTRY FILTER -->
   <div class="pantry-panel" id="pantry-panel">
@@ -630,6 +694,7 @@
         <option value="omega3">Omega-3</option>
         <option value="choline">Choline</option>
         <option value="mufa">MUFAs</option>
+        <option value="glp1">GLP-1</option>
         <option value="folate">Folate</option>
         <option value="snacks">Snacks</option>
         <option value="beverages">Beverages</option>
@@ -4783,7 +4848,8 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Steamed Snow Crab Clusters with Garlic-Lemon EVOO & Herbs',
     'Garlic-Lemon Shrimp with Herbed Greens',
     'Herb-Roasted Salmon with Cabbage & Lemon Salad',
-    'Sardines'
+    'Sardines',
+    'Avocado Half'
   ],
   choline: [
     'Low-Carb Velvet Egg Drop Soup (Starch-Free)',
@@ -4811,10 +4877,35 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Low-and-Slow Roasted Almonds (Toaster Oven)',
     'Rosemary EVOO Cassava Crackers — Low-Oxalate Almond Cracker Replacement',
     'Golden Paste Salmon — Turmeric, Black Pepper & EVOO',
+    'Soft & Pliable Gluten-Free Gyro Pita',
     'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
     'Garlic-Lemon Shrimp with Herbed Greens',
     'Herb-Roasted Salmon with Cabbage & Lemon Salad',
-    'Steamed Snow Crab Clusters with Garlic-Lemon EVOO & Herbs'
+    'Steamed Snow Crab Clusters with Garlic-Lemon EVOO & Herbs',
+    'Avocado Half'
+  ],
+  glp1: [
+  'Golden Paste Salmon — Turmeric, Black Pepper & EVOO',  
+  'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
+    'Chia Chocolate Pudding',
+    'Creamy Mediterranean Red Lentil & Tomato Soup',
+    'Ginger-Garlic Chicken Stir-Fry with Cabbage & Mushrooms',
+    'Herb-Roasted Salmon with Cabbage & Lemon Salad',
+    'Kale, Apple, Blueberry & Mozzarella Salad with Lemon-EVOO Dressing',
+    'Kefir Overnight Grain Porridge',
+    'Labneh Berry Parfait with Honey & Walnuts',
+    'Lemon Blueberry Labneh Cheesecake',
+    'Marinated Olive Salad',
+    'Mulled ACV Cider-Style Sipper — Holiday Beverage',
+    'Ginger Carrot Slaw with Apple, Sweet Pepper & Lemon',
+    'Pan-Seared Mackerel with Roasted Cruciferous Medley',
+    'Purple Sauerkraut — Lacto-Fermented Red Cabbage',
+    'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
+    'Soft & Pliable Gluten-Free Gyro Pita',
+    'Sugar Shift Pumpkin Spice Mousse',
+    'Tuscan White Beans with Garlic, Rosemary & Olive Oil',
+    'Olive & Cheddar Cheese Bread (GF Yeasted Mini Loaf)',
+    'Avocado Half'
   ]
 };
 
@@ -5270,22 +5361,54 @@ function addNutrientTargetBadges() {
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
     card.dataset.viscousFiberG = String(Number.isFinite(viscousFiberValue) ? viscousFiberValue : est.viscousFiberG);
 
-    const caloriesDisplay = Number.isFinite(caloriesValue) && caloriesValue > 0
-      ? (caloriesEntry?.display || `~${Math.round(caloriesValue)} kcal`)
-      : 'not listed';
+    const goals = [
+      {
+        label: 'Calories', key: 'calories', value: Number.isFinite(caloriesValue) && caloriesValue > 0 ? caloriesValue : null, target: getCalorieTarget(), unit: 'kcal', limit: false
+      },
+      { label: 'Choline', key: 'cholineMg', value: Number.isFinite(cholineValue) ? cholineValue : 0, target: 740, unit: 'mg', limit: false },
+      { label: 'Omega-3', key: 'omega3Mg', value: Number.isFinite(omega3Value) ? omega3Value : 0, target: 800, unit: 'mg', limit: false },
+      { label: 'MUFAs', key: 'mufaG', value: Number.isFinite(defaultMufaValue) ? defaultMufaValue : 0, target: 30, unit: 'g', limit: false },
+      { label: 'Saturated Fat', key: 'satfatG', value: Number.isFinite(satFatValue) ? satFatValue : 0, target: 10, unit: 'g', limit: true },
+      { label: 'Folate', key: 'folateMcg', value: Number.isFinite(folateValue) ? folateValue : 0, target: 400, unit: 'mcg', limit: false },
+      { label: 'B12', key: 'b12Mcg', value: Number.isFinite(b12Value) ? b12Value : 0, target: 2.4, unit: 'mcg', limit: false },
+      { label: 'Viscous Fiber', key: 'viscousFiberG', value: Number.isFinite(viscousFiberValue) ? viscousFiberValue : 0, target: 10, unit: 'g', limit: false }
+    ].filter(goal => goal.value !== null && Number.isFinite(goal.value))
+      .map((goal) => {
+        const value = Number(goal.value || 0);
+        const target = Number(goal.target || 0);
+        const ratio = target > 0 ? Math.min((value / target) * 100, 100) : 0;
+        const isLimit = goal.limit;
+        const state = isLimit
+          ? (value <= target ? 'goal-ok' : 'goal-over')
+          : (value >= target ? 'goal-ok' : 'goal-low');
+        return { ...goal, value, target, ratio, state };
+      })
+      .sort((a, b) => b.ratio - a.ratio);
+
+    const goalHtml = goals.map((goal) => {
+      const value = Number(goal.value || 0);
+      const target = Number(goal.target || 0);
+      const ratio = target > 0 ? Math.min((value / target) * 100, 100) : 0;
+      const displayValue = goal.key === 'b12Mcg' || goal.key === 'mufaG' || goal.key === 'viscousFiberG' || goal.key === 'satfatG'
+        ? `${Number(value).toFixed(goal.unit === 'g' ? 1 : 1)} ${goal.unit}`
+        : `${Math.round(value)} ${goal.unit}`;
+
+      return `
+        <div class="recipe-target-row">
+          <div class="recipe-target-top">
+            <span class="recipe-target-label">${goal.label}</span>
+            <span class="recipe-target-value ${goal.state}">${displayValue}</span>
+          </div>
+          <div class="recipe-target-bar" aria-label="${goal.label}: ${displayValue} / ${target} ${goal.unit}">
+            <div class="recipe-target-fill ${goal.state}" style="width:${ratio}%"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
 
     const targets = document.createElement('div');
     targets.className = 'recipe-card-targets';
-    targets.innerHTML =
-      (Number.isFinite(caloriesValue) && caloriesValue > 0
-        ? '<span class="trigger-pill"><strong>Calories:</strong> ' + caloriesDisplay + '</span>'
-        : '') +
-      '<span class="trigger-pill"><strong>Choline:</strong> ' + formatNutrientBadgeValue(cholineEntry, est.cholineMg, 'mg') + '</span>' +
-      '<span class="trigger-pill"><strong>Omega-3:</strong> ' + formatNutrientBadgeValue(omega3Entry, est.omega3Mg, 'mg') + '</span>' +
-      '<span class="trigger-pill"><strong>MUFAs:</strong> ~' + Number(card.dataset.mufaG || defaultMufaValue).toFixed(1) + ' g</span>' +
-      '<span class="trigger-pill warning"><strong>Saturated Fat:</strong> ' + (Number(card.dataset.satfatG || satFatValue || 0) > 0 ? '~' + Number(card.dataset.satfatG || satFatValue).toFixed(1) + ' g' : 'see full recipe') + '</span>' +
-      '<span class="trigger-pill"><strong>MTHFR:</strong> Folate ' + formatNutrientBadgeValue(folateEntry, est.folateMcg, 'mcg') + ' · B12 ' + formatNutrientBadgeValue(b12Entry, est.b12Mcg, 'mcg') + '</span>' +
-      '<span class="trigger-pill"><strong>Viscous Fiber:</strong> ~' + Number(card.dataset.viscousFiberG || Number(viscousFiberEntry?.value ?? est.viscousFiberG)).toFixed(1) + ' g</span>';
+    targets.innerHTML = goalHtml;
 
     const trigger = body.querySelector('.recipe-card-trigger');
     const glucose = body.querySelector('.glucose-row, .glucose-strip');
@@ -6105,15 +6228,45 @@ function renderMenuPlannerTotals() {
     const totals = getDayTotals(day);
     const dailyCalories = getDayCalories(day);
     const calorieTarget = getCalorieTarget();
+    const calorieProgress = Math.min((dailyCalories / calorieTarget) * 100, 100);
     const calorieClass = dailyCalories <= calorieTarget ? 'menu-total-ok' : 'menu-total-over';
     const calorieText = dailyCalories <= calorieTarget
       ? `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal`
       : `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal (${formatCalorieValue(dailyCalories - calorieTarget)} over)`;
+
     const lineHtml = [
-      `<div class="${calorieClass}">${calorieText}</div>`,
+      `<div class="menu-total-row">
+         <div class="menu-total-head">
+           <span class="menu-total-label ${calorieClass}">Calories</span>
+           <span class="${calorieClass}">${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal</span>
+         </div>
+         <div class="menu-total-bar" aria-label="${calorieText}">
+           <div class="menu-total-fill ${dailyCalories > calorieTarget ? 'over' : 'ok'}" style="width: ${Math.min(calorieProgress, 100)}%"></div>
+         </div>
+       </div>`,
       ...MENU_PLANNER_NUTRIENTS.map((nutrient) => {
-        const ok = nutrient.limit ? totals[nutrient.key] <= nutrient.target : totals[nutrient.key] >= nutrient.target;
-        return `<div class="${ok ? 'menu-total-ok' : 'menu-total-low'}">${nutrient.label}: ${formatNutrientValue(totals[nutrient.key], nutrient.key)} / ${formatNutrientValue(nutrient.target, nutrient.key)} ${nutrient.unit}</div>`;
+        const value = Number(totals[nutrient.key] || 0);
+        const target = Number(nutrient.target || 0);
+        const percentage = target > 0 ? Math.min((value / target) * 100, 100) : 0;
+        const ok = nutrient.limit ? value <= target : value >= target;
+        const barClass = nutrient.limit
+          ? (value > target ? 'over' : 'ok')
+          : (ok ? 'ok' : 'low');
+        const textClass = nutrient.limit
+          ? (value > target ? 'menu-total-over' : 'menu-total-ok')
+          : (ok ? 'menu-total-ok' : 'menu-total-low');
+        const fillClass = nutrient.limit
+          ? (value > target ? 'over' : 'ok')
+          : (ok ? 'ok' : 'low');
+        return `<div class="menu-total-row">
+          <div class="menu-total-head">
+            <span class="menu-total-label ${textClass}">${nutrient.label}</span>
+            <span class="${textClass}">${formatNutrientValue(value, nutrient.key)} / ${formatNutrientValue(target, nutrient.key)} ${nutrient.unit}</span>
+          </div>
+          <div class="menu-total-bar" aria-label="${nutrient.label}: ${formatNutrientValue(value, nutrient.key)} / ${formatNutrientValue(target, nutrient.key)} ${nutrient.unit}">
+            <div class="menu-total-fill ${fillClass}" style="width: ${percentage}%"></div>
+          </div>
+        </div>`;
       })
     ].join('');
 
@@ -6394,7 +6547,24 @@ function addWaterOnlyWarnings() {
   });
 }
 
+function getRecipeCardSortTitle(card) {
+  return (card?.querySelector('.recipe-card-title')?.textContent || '').trim().toLowerCase();
+}
+
+function sortRecipeCardsAlphabetically() {
+  const cards = Array.from(document.querySelectorAll('.recipe-card'));
+  if (cards.length < 2) return;
+
+  const parent = cards[0].parentElement;
+  if (!parent) return;
+
+  cards.sort((a, b) => getRecipeCardSortTitle(a).localeCompare(getRecipeCardSortTitle(b)));
+  cards.forEach(card => parent.appendChild(card));
+}
+
 function applyAllFilters() {
+  sortRecipeCardsAlphabetically();
+
   let visible = 0, total = 0;
   document.querySelectorAll('.recipe-card').forEach(card => {
     total++;
