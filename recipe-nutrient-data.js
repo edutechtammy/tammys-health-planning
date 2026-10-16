@@ -1,7 +1,7 @@
 window.RECIPE_PANEL_NUTRIENTS = {
   // --------------------------------------
   // LOW CARB VELVET EGG DROP SOUP
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3, ☑  MUFAs, ☐ ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☑ carbs ☑ fiber
   // --------------------------------------
   "recipe-low-carb-velvet-egg-drop-soup.html": {
     "calories": {
@@ -273,7 +273,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // CEYLON CINNAMON MINTS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-ceylon-cinnamon-psyllium-mints.html": {
     "calories": {
@@ -758,6 +758,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GREEK LEMON HERB ROASTED POTATOES
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-greek-lemon-herb-roasted-potatoes.html": {
     "calories": {
       "display": "~195 kcal",
@@ -827,6 +831,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CASAVA PITA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-cassava-pita.html": {
     "calories": {
       "display": "~100 kcal",
@@ -864,6 +872,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // DRESSING MEDITERRANEAN CLASSIC
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-dressing-mediterranean-classic.html": {
     "calories": {
       "display": "~200 kcal",
@@ -902,6 +914,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // DRESSING ACV DOUBLE DUTY
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-dressing-acv-double-duty.html": {
     "calories": {
       "display": "~200 kcal",
@@ -940,6 +956,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // TUSCAN FRESH HERB
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-dressing-fresh-herb.html": {
     "calories": {
       "display": "~200 kcal",
@@ -978,6 +998,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // DRESSING BOLD SAVORY
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-dressing-bold-savory.html": {
     "calories": {
       "display": "~200 kcal",
@@ -1016,6 +1040,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // DRESSING CREAMY
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-dressing-creamy.html": {
     "calories": {
       "display": "~200 kcal",
@@ -1054,6 +1082,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CULTURED BUTTER
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-cultured-butter.html": {
     "cholineMg": {
       "display": "~3 mg",
@@ -1085,6 +1117,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GINGER CARROT SLAW
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-ginger-carrot-slaw.html": {
     "calories": {
       "display": "~70 kcal",
@@ -1123,6 +1159,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // KALE FRUIT SALAD
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-kale-fruit-salad.html": {
     "calories": {
       "display": "~290 kcal",
@@ -1182,6 +1222,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ROASTED ALMONDS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-roasted-almonds.html": {
     "calories": {
       "display": "~160 kcal",
@@ -1255,6 +1299,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // HERB CRUSTED CHICKEN
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-herb-crusted-chicken.html": {
     "calories": {
       "display": "~300 kcal",
@@ -1293,6 +1341,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // KEFIR MARINATED CHICKEN
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-kefir-marinated-chicken.html": {
     "calories": {
       "display": "~225 kcal",
@@ -1331,6 +1383,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // BROWNIE BASE MIX MONK FRUIT ALLULOSE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-brownie-base-mix-monkfruit-allulose.html": {
     // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "calories": {
@@ -1369,6 +1425,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // TURKISH CILBIR
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-turkish-cilbir.html": {
     "calories": {
       "display": "~290 kcal",
@@ -1407,6 +1467,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CAPRESE HASSELBACK CHICKEN
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-caprese-hasselback-chicken.html": {
     // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "calories": {
@@ -1445,6 +1509,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // TUSCAN CHICKEN
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-tuscan-chicken.html": {
     "calories": {
       "display": "~650 kcal",
@@ -1525,6 +1593,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GOLDEN PASTE CHICKEN THIGHS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-golden-paste-chicken-thighs.html": {
     "calories": {
       "display": "~400 kcal",
@@ -1563,6 +1635,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // LEMON GARLIC PAN CHICKEN
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-lemon-garlic-pan-chicken.html": {
     "calories": {
       "display": "~300 kcal",
@@ -1601,6 +1677,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ROASTED ASPARAGUS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-roasted-asparagus.html": {
     "calories": {
       "display": "~100 kcal",
@@ -1639,6 +1719,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // OLIVE CHEESE BREAD
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-olive-cheese-bread.html": {
     "calories": {
       "display": "~80 kcal",
@@ -1726,6 +1810,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GUACAMOLE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-guacamole.html": {
     "calories": {
       "display": "~320 kcal",
@@ -1764,6 +1852,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GOLDEN PASTE SALMON
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-golden-paste-salmon.html": {
     "calories": {
       "display": "~390 kcal",
@@ -1802,6 +1894,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // KEFIRE OVERNIGHT PORRIDGE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-kefir-overnight-porridge.html": {
     "calories": {
       "display": "~315 kcal",
@@ -1839,6 +1935,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // BONE BROTH SOUP BASE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-bone-broth-soup-base.html": {
     "calories": {
       "display": "~10 kcal",
@@ -1877,6 +1977,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SHAKSHUKA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-shakshuka.html": {
     "calories": {
       "display": "~355 kcal",
@@ -1915,6 +2019,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GINGER GARLIC MILLET BOWL
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-ginger-garlic-millet-bowl.html": {
     "calories": {
       "display": "~475 kcal",
@@ -1953,7 +2061,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // RECIPE TEMPLATE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "0-recipe-template.html": {},
+
+  // --------------------------------------
+  // AFTERNOON MCT COFFEE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-afternoon-mct-coffee.html": {
     "calories": {
       "display": "~0 kcal",
@@ -1992,6 +2109,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ALLULOSE COCOA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-allulose-cocoa.html": {
     "calories": {
       "display": "~98 kcal",
@@ -2029,6 +2150,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ALLULOSE LEMONADE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-allulose-lemonade.html": {
     "cholineMg": {
       "display": "~1 mg",
@@ -2059,6 +2184,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // APRICOT SPINACH CHERRY SALAD
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-apricot-spinach-cherry-salad.html": {
     "calories": {
       "display": "~247 kcal",
@@ -2098,6 +2227,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-brownie-base-mix.html": {},
+  // --------------------------------------
+  // CARROT CELEBRATION CAKE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-carrot-celebration-cake.html": {
     "calories": {
       "display": "~235 kcal",
@@ -2136,6 +2269,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CASSAVA CRACKERS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-cassava-crackers.html": {
     "calories": {
       "display": "~95 kcal",
@@ -2174,6 +2311,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CHIA CHOCOLATE PUDDING
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-chia-chocolate-pudding.html": {
     "calories": {
       "display": "~135 kcal",
@@ -2247,6 +2388,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CHICKEN LIVERS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-chicken-livers.html": {
     "calories": {
       "display": "~250 kcal",
@@ -2285,6 +2430,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CHOP CHOP SALAD
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-chop-chop-salad.html": {
     "calories": {
       "display": "~2o0 kcal",
@@ -2358,6 +2507,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CRACKER/BREAD SPREAD
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-cracker-bread-spread-alternatives.html": {
     "cholineMg": {
       "display": "~25 mg",
@@ -2388,7 +2541,15 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // DORO WATT
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-doro-watt.html": {},
+  // --------------------------------------
+  // GARLIC BEEF BROCCOLI BOWL
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-garlic-beef-broccoli-bowl.html": {
     "calories": {
       "display": "~340 kcal",
@@ -2462,6 +2623,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GARLIC LEMON SHRIMP
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-garlic-lemon-shrimp.html": {
     "calories": {
       "display": "~255 kcal",
@@ -2500,6 +2665,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GINGER GARLIC CHICKEN STIRFRY
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-ginger-garlic-chicken-stirfry.html": {
     "calories": {
       "display": "~190 kcal",
@@ -2538,6 +2707,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GINGER LIME COOLER
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-ginger-lime-cooler.html": {
     "calories": {
       "display": "~12 kcal",
@@ -2575,6 +2748,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GREEK BEEF KALE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-greek-beef-kale.html": {
     "cholineMg": {
       "display": "~380 mg",
@@ -2651,6 +2828,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // HERB ROASTED SALMON
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-herb-roasted-salmon-cabbage-salad.html": {
     "calories": {
       "display": "~360 kcal",
@@ -2689,6 +2870,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // HOMEMADE MOZZERELLA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-homemade-mozzarella.html": {
     "calories": {
       "display": "~195 kcal",
@@ -2727,6 +2912,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // KAFTA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-kafta.html": {
     "calories": {
       "display": "~215 kcal",
@@ -2765,6 +2954,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // LABNEH BERRY PARFAIT
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-labneh-berry-parfait.html": {
     "calories": {
       "display": "~210 kcal",
@@ -2803,6 +2996,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // LABNEH YOGURT CHEESE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-labneh-yogurt-cheese.html": {
     "calories": {
       "display": "~425 kcal",
@@ -2841,6 +3038,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // LEMON BLUEBERRY CHEESECAKE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-lemon-blueberry-cheesecake.html": {
     "calories": {
       "display": "~220 kcal",
@@ -2879,6 +3080,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // MACADAMIA NUTS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-macadamia-nuts.html": {
     "calories": {
       "display": "~200 kcal",
@@ -2917,6 +3122,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // MARINATED FETA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-marinated-feta.html": {
     "calories": {
       "display": "~315 kcal",
@@ -2955,6 +3164,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // MULLED ACV CIDER
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-mulled-acv-cider.html": {
     "calories": {
       "display": "~25 kcal",
@@ -2992,6 +3205,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // OLIVE SALAD
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-olive-salad.html": {
     "calories": {
       "display": "~113 kcal",
@@ -3030,6 +3247,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // PAN SEARED MACKEREL
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-pan-seared-mackerel.html": {
     "calories": {
       "display": "~500 kcal",
@@ -3089,6 +3310,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // PUMPKIN CELEBRATION CAKE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-pumpkin-celebration-cake.html": {
     "calories": {
       "display": "~235 kcal",
@@ -3127,6 +3352,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // PURPLE SAUERKRAUT
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-purple-sauerkraut.html": {
     "calories": {
       "display": "~235 kcal",
@@ -3165,6 +3394,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // RICE PAPER BAGELS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-rice-paper-bagels.html": {
     "calories": {
       "display": "~232 kcal",
@@ -3203,6 +3436,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // RICE PAPER POTSTICKERS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-rice-paper-potstickers.html": {
     "calories": {
       "display": "~125 kcal",
@@ -3241,6 +3478,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // RICE PAPER POUCHES
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-rice-paper-pouches.html": {
     "calories": {
       "display": "~290 kcal",
@@ -3279,6 +3520,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ROASTED ARTICHOKE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-roasted-artichoke.html": {
     "calories": {
       "display": "~190 kcal",
@@ -3317,6 +3562,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ROASTED BROCCOLI CHEESE SAUCE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-roasted-broccoli-cheese-sauce.html": {
     "calories": {
       "display": "~260 kcal",
@@ -3355,6 +3604,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ROASTED ZUCCHINI PARMESAN
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-roasted-zucchini-parmesan.html": {
     "calories": {
       "display": "~300 kcal",
@@ -3393,6 +3646,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SALMON RICE PAPER ROLLS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-salmon-rice-paper-rolls.html": {
     "cholineMg": {
       "display": "~420 mg",
@@ -3424,6 +3681,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SARDINES OLIVE CHOPPED SALAD
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sardine-olive-chopped-salad.html": {
     "calories": {
       "display": "~425 kcal",
@@ -3483,6 +3744,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SAVORY CHICKEN SHIITAKE SKILLET
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-savory-chicken-shiitake-skillet.html": {
     "calories": {
       "display": "~250 kcal",
@@ -3542,6 +3807,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SLOW BRAISED PORK APPLES
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-slow-braised-pork-apple.html": {
     "calories": {
       "display": "~475 kcal",
@@ -3580,6 +3849,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SMOKED OYSTER BOWL
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-smoked-oyster-bowl.html": {
     "calories": {
       "display": "~345 kcal",
@@ -3618,6 +3891,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SOUS VIDE BLACK BEANS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sous-vide-black-beans.html": {
     "calories": {
       "display": "~190 kcal",
@@ -3656,6 +3933,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SOUS VIDE PINTO BEANS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sous-vide-pinto-beans.html": {
     "calories": {
       "display": "~220 kcal",
@@ -3694,6 +3975,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SOUS VIDE SPLIT PEAS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sous-vide-split-peas.html": {
     "calories": {
       "display": "~195 kcal",
@@ -3732,6 +4017,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SOUS VIDE STEEL CUT OATS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sous-vide-steel-cut-oats.html": {
     "calories": {
       "display": "~170 kcal",
@@ -3770,6 +4059,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // STEAMED SNOW CRABS CLUSTERS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-steamed-snow-crab-clusters.html": {
     "calories": {
       "display": "~318 kcal",
@@ -3808,6 +4101,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // STUFFED PEPPERS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-stuffed-peppers.html": {
     "calories": {
       "display": "~290 kcal",
@@ -3846,6 +4143,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SUGAR SHIFT PUMPKIN SPICE MOUSSE
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sugar-shift-pumpkin-spice-mousse.html": {
     "calories": {
       "display": "~425 kcal",
@@ -3884,6 +4185,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SUGAR SHIFT YOGURT
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sugar-shift-yogurt.html": {
     "calories": {
       "display": "~80 kcal",
@@ -3922,6 +4227,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // THERAPEUTIC TEAS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-therapeutic-teas.html": {
     "cholineMg": {
       "display": "~1 mg",
@@ -3952,6 +4261,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // TRAIL MIX
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-trail-mix.html": {
     "calories": {
       "display": "~180 kcal",
@@ -3990,6 +4303,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // TURKEY MEATLOAF
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-turkey-meatloaf.html": {
     "calories": {
       "display": "~250 kcal",
