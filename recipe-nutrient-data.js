@@ -1,10 +1,71 @@
 window.RECIPE_PANEL_NUTRIENTS = {
+  // --------------------------------------
+  // LOW CARB VELVET EGG DROP SOUP
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-low-carb-velvet-egg-drop-soup.html": {
     "calories": {
       "display": "~80 kcal",
       "value": 80.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~1 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~137.5 mg",
+      "value": 137.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3Mg": {
+      "display": "~8.75 mg",
+      "value": 8.75,
+      "unit": "mg",
+      "name": "Omega-3 (ALA) — flax contribution",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~3 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~22 ug",
+      "value": 22.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0.8 ug",
+      "value": 0.8,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.4 g",
+      "value": 0.4,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "proteinG": {
@@ -27,65 +88,12 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~1 g",
-      "value": 1.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "viscousFiberG": {
-      "display": "~0.4 g",
-      "value": 0.4,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~1.5 g",
-      "value": 1.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
-      "display": "~137.5 mg",
-      "value": 137.5,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~8.75 mg",
-      "value": 8.75,
-      "unit": "mg",
-      "name": "Omega-3 (ALA) — flax contribution",
-      "estimated": false
-    },
-    "folateMcg": {
-      "display": "~22 ug",
-      "value": 22.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12Mcg": {
-      "display": "~0.8 ug",
-      "value": 0.8,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
-    "mufaG": {
-      "display": "~3 g",
-      "value": 3.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
     }
   },
+  // --------------------------------------
+  // SOFT PLIABLE GLUTEN-FREE GYRO PITA
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☑ carbs ☑ fiber
+  // --------------------------------------
   "recipe-soft-pliable-gluten-free-gyro-pita.html": {
     "calories": {
       "display": "~225 kcal",
@@ -179,6 +187,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // ALMOND OIL MAYO
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☐ fiber ☑ eMg
+  // --------------------------------------
   "recipe-almond-oil-mayo.html": {
     "calories": {
       "display": "~80 kcal",
@@ -187,18 +199,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~0.4 g",
-      "value": 0.4,
+    "satfatG": {
+      "display": "~1.2 g",
+      "value": 1.2,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
-    "eMg": {
-      "display": "~0.8 mg",
-      "value": 0.8,
-      "unit": "mg",
-      "name": "Choline — APOE4",
+    "netcarbsG": {
+      "display": "~0.1 g",
+      "value": 0.1,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -216,6 +228,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~11 g",
+      "value": 11.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~1 ug",
       "value": 1.0,
@@ -230,20 +249,52 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "B12 — MTHFR",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~11 g",
-      "value": 11.0,
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
+    "proteinG": {
+      "display": "~0.4 g",
+      "value": 0.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "eMg": {
+      "display": "~0.8 mg",
+      "value": 0.8,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    }
   },
+  // --------------------------------------
+  // CEYLON CINNAMON MINTS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-ceylon-cinnamon-psyllium-mints.html": {
     "calories": {
       "display": "~2 kcal",
       "value": 2.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -260,6 +311,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~0 ug",
       "value": 0.0,
@@ -273,8 +331,19 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
+    },
+    "viscousFiberG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
   },
+  // --------------------------------------
+  // ALMOND FLOUR WAFFLES
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-almond-flour-waffles.html": {
     "calories": {
       "display": "~380 kcal",
@@ -327,6 +396,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // GLUTEN FREE BAGEL BITES
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-gluten-free-bagel-bites.html": {
     "calories": {
       "display": "~94 kcal",
@@ -379,6 +452,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // NO SUGAR CRUNCH BAR
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-no-sugar-crunch-bar.html": {
     "calories": {
       "display": "~285 kcal",
@@ -417,6 +494,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // SOUS VIDE LENTILS
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-sous-vide-lentils.html": {
     "calories": {
       "display": "~120 kcal",
@@ -454,6 +535,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // MARINATED SMOKED GOUDA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-marinated-smoked-gouda.html": {
     "calories": {
       "display": "~180 kcal",
@@ -506,6 +591,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // LADENIA
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-ladenia.html": {
     "calories": {
       "display": "~500 kcal",
@@ -544,6 +633,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CRISPY ROASTED CHICKPEA FETA MEDITERRANEAN BOWL
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-crispy-roasted-chickpea-feta-mediterranean-bowl.html": {
     "calories": {
       "display": "~120 kcal",
@@ -582,6 +675,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // CREAMY MEDITERRANEAN RED LENTIL TOMATO SOUP
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-creamy-mediterranean-red-lentil-tomato-soup.html": {
     "calories": {
       "display": "~180 kcal",
@@ -619,6 +716,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+  // --------------------------------------
+  // TUSCAN WHITE BEANS GARLIC ROSEMARY OLIVE OIL
+  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-tuscan-white-beans-garlic-rosemary-olive-oil.html": {
     "calories": {
       "display": "~250 kcal",

@@ -647,6 +647,10 @@
             <input type="number" id="menu-manual-satfat" min="0" step="0.1" value="0" />
           </div>
           <div class="menu-planner-field">
+            <label for="menu-manual-netcarbs">Net Carbs / serving (g)</label>
+            <input type="number" id="menu-manual-netcarbs" min="0" step="0.1" value="0" />
+          </div>
+          <div class="menu-planner-field">
             <label for="menu-manual-folate">Folate / serving (mcg)</label>
             <input type="number" id="menu-manual-folate" min="0" step="1" value="0" />
           </div>
@@ -5782,10 +5786,14 @@ function addNutrientTargetBadges() {
 
     const source = getRecipeNutrientSource(card);
     const est = estimateNutrientsPerServing(ingEl.textContent || '');
+    const netCarbPill = Array.from(card.querySelectorAll('.trigger-pill'))
+      .find((pill) => /net\s*carbs?/i.test(pill.textContent || ''));
+    const triggerNetCarbsValue = parseSatFatGrams(netCarbPill?.textContent || '');
     const caloriesEntry = resolveRecipeNutrientEntry(source, 'calories');
     const cholineEntry = resolveRecipeNutrientEntry(source, 'cholineMg', ['choline']);
     const omega3Entry = resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3']);
     const satFatEntry = resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat']);
+    const netCarbsEntry = resolveRecipeNutrientEntry(source, 'netcarbsG', ['netcarbs', 'netcarb']);
     const folateEntry = resolveRecipeNutrientEntry(source, 'folateMcg', ['folate']);
     const b12Entry = resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12']);
     const mufaEntry = resolveRecipeNutrientEntry(source, 'mufaG', ['mufas']);
@@ -5795,6 +5803,7 @@ function addNutrientTargetBadges() {
     const explicitCholine = Number(card.dataset.cholineMg || 0);
     const explicitOmega3 = Number(card.dataset.omega3Mg || 0);
     const explicitSatFat = Number(card.dataset.satfatG || 0);
+    const explicitNetCarbs = Number(card.dataset.netcarbsG || 0);
     const explicitFolate = Number(card.dataset.folateMcg || 0);
     const explicitB12 = Number(card.dataset.b12Mcg || 0);
     const explicitMufa = Number(card.dataset.mufaG || 0);
@@ -5809,6 +5818,9 @@ function addNutrientTargetBadges() {
     const satFatValue = Number.isFinite(explicitSatFat) && explicitSatFat > 0
       ? explicitSatFat
       : Number(satFatEntry?.value ?? 0);
+    const netCarbsValue = Number.isFinite(explicitNetCarbs) && explicitNetCarbs > 0
+      ? explicitNetCarbs
+      : Number(netCarbsEntry?.value ?? (Number.isFinite(triggerNetCarbsValue) ? triggerNetCarbsValue : 0));
     const folateValue = Number.isFinite(explicitFolate) && explicitFolate > 0
       ? explicitFolate
       : Number(folateEntry?.value ?? est.folateMcg);
@@ -5827,6 +5839,7 @@ function addNutrientTargetBadges() {
     const hasExplicitCholine = card.hasAttribute('data-choline-mg');
     const hasExplicitOmega3 = card.hasAttribute('data-omega3-mg');
     const hasExplicitSatFat = card.hasAttribute('data-satfat-g');
+    const hasExplicitNetCarbs = card.hasAttribute('data-netcarbs-g');
     const hasExplicitFolate = card.hasAttribute('data-folate-mcg');
     const hasExplicitB12 = card.hasAttribute('data-b12-mcg');
     const hasExplicitMufa = card.hasAttribute('data-mufa-g');
@@ -5835,6 +5848,7 @@ function addNutrientTargetBadges() {
     const hasCholineSource = Number.isFinite(Number(cholineEntry?.value));
     const hasOmega3Source = Number.isFinite(Number(omega3Entry?.value));
     const hasSatFatSource = Number.isFinite(Number(satFatEntry?.value));
+    const hasNetCarbsSource = Number.isFinite(Number(netCarbsEntry?.value)) || Number.isFinite(triggerNetCarbsValue);
     const hasFolateSource = Number.isFinite(Number(folateEntry?.value));
     const hasB12Source = Number.isFinite(Number(b12Entry?.value));
     const hasMufaSource = Number.isFinite(Number(mufaEntry?.value));
@@ -5854,6 +5868,7 @@ function addNutrientTargetBadges() {
     card.dataset.omega3Mg = String(Number.isFinite(omega3Value) ? omega3Value : est.omega3Mg);
     card.dataset.mufaG = String(Number.isFinite(defaultMufaValue) ? defaultMufaValue : est.mufaG);
     card.dataset.satfatG = String(Number.isFinite(satFatValue) ? satFatValue : 0);
+    card.dataset.netcarbsG = String(Number.isFinite(netCarbsValue) ? netCarbsValue : 0);
     card.dataset.folateMcg = String(Number.isFinite(folateValue) ? folateValue : est.folateMcg);
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
     card.dataset.viscousFiberG = String(Number.isFinite(viscousFiberValue) ? viscousFiberValue : est.viscousFiberG);
@@ -5866,6 +5881,7 @@ function addNutrientTargetBadges() {
       { label: 'Omega-3', key: 'omega3Mg', value: Number.isFinite(omega3Value) ? omega3Value : 0, target: 800, unit: 'mg', limit: false, missing: !(hasExplicitOmega3 || hasOmega3Source || hasOmega3Estimate) },
       { label: 'MUFAs', key: 'mufaG', value: Number.isFinite(defaultMufaValue) ? defaultMufaValue : 0, target: 30, unit: 'g', limit: false, missing: !(hasExplicitMufa || hasMufaSource || hasMufaEstimate) },
       { label: 'Saturated Fat', key: 'satfatG', value: Number.isFinite(satFatValue) ? satFatValue : 0, target: 10, unit: 'g', limit: true, missing: !(hasExplicitSatFat || hasSatFatSource) },
+      { label: 'Net Carbs', key: 'netcarbsG', value: Number.isFinite(netCarbsValue) ? netCarbsValue : 0, target: 50, unit: 'g', limit: true, missing: !(hasExplicitNetCarbs || hasNetCarbsSource) },
       { label: 'Folate', key: 'folateMcg', value: Number.isFinite(folateValue) ? folateValue : 0, target: 400, unit: 'mcg', limit: false, missing: !(hasExplicitFolate || hasFolateSource || hasFolateEstimate) },
       { label: 'B12', key: 'b12Mcg', value: Number.isFinite(b12Value) ? b12Value : 0, target: 2.4, unit: 'mcg', limit: false, missing: !(hasExplicitB12 || hasB12Source || hasB12Estimate) },
       { label: 'Viscous Fiber', key: 'viscousFiberG', value: Number.isFinite(viscousFiberValue) ? viscousFiberValue : 0, target: 10, unit: 'g', limit: false, missing: !(hasExplicitViscousFiber || hasViscousFiberSource || hasViscousFiberEstimate) }
@@ -5890,7 +5906,7 @@ function addNutrientTargetBadges() {
       const ratio = goal.missing ? 0 : (target > 0 ? Math.min((value / target) * 100, 100) : 0);
       const displayValue = goal.missing
         ? 'Missing'
-        : goal.key === 'b12Mcg' || goal.key === 'mufaG' || goal.key === 'viscousFiberG' || goal.key === 'satfatG'
+        : goal.key === 'b12Mcg' || goal.key === 'mufaG' || goal.key === 'viscousFiberG' || goal.key === 'satfatG' || goal.key === 'netcarbsG'
         ? `${Number(value).toFixed(goal.unit === 'g' ? 1 : 1)} ${goal.unit}`
         : `${Math.round(value)} ${goal.unit}`;
 
@@ -5943,6 +5959,7 @@ const MENU_PLANNER_MEALS = [
 ];
 const MENU_PLANNER_NUTRIENTS = [
   { key: 'satfatG', label: 'Saturated Fat', unit: 'g', target: 10, decimals: 1, limit: true },
+  { key: 'netcarbsG', label: 'Net Carbs', unit: 'g', target: 50, decimals: 1, limit: true },
   { key: 'cholineMg', label: 'Choline', unit: 'mg', target: 740, decimals: 0, primary: true },
   { key: 'omega3Mg', label: 'Omega-3', unit: 'mg', target: 800, decimals: 0, primary: true },
   { key: 'mufaG', label: 'MUFAs', unit: 'g', target: 30, decimals: 1 },
@@ -6013,6 +6030,7 @@ function normalizePlannerItem(rawItem) {
     omega3Mg: Number.isFinite(Number(safe.omega3Mg)) ? Number(safe.omega3Mg) : 0,
     mufaG: Number.isFinite(Number(safe.mufaG)) ? Number(safe.mufaG) : 0,
     satfatG: Number.isFinite(Number(safe.satfatG)) ? Number(safe.satfatG) : 0,
+    netcarbsG: Number.isFinite(Number(safe.netcarbsG)) ? Number(safe.netcarbsG) : 0,
     folateMcg: Number.isFinite(Number(safe.folateMcg)) ? Number(safe.folateMcg) : 0,
     b12Mcg: Number.isFinite(Number(safe.b12Mcg)) ? Number(safe.b12Mcg) : 0,
     viscousFiberG: Number.isFinite(Number(safe.viscousFiberG)) ? Number(safe.viscousFiberG) : 0
@@ -6043,6 +6061,7 @@ function refreshPlannerRecipeItemNutrients(item) {
   applyValue('cholineMg', resolveRecipeNutrientEntry(source, 'cholineMg', ['choline'])?.value);
   applyValue('omega3Mg', resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3'])?.value);
   applyValue('satfatG', resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat'])?.value);
+  applyValue('netcarbsG', resolveRecipeNutrientEntry(source, 'netcarbsG', ['netcarbs', 'netcarb'])?.value);
   applyValue('folateMcg', resolveRecipeNutrientEntry(source, 'folateMcg', ['folate'])?.value);
   applyValue('b12Mcg', resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12'])?.value);
   applyValue('mufaG', resolveRecipeNutrientEntry(source, 'mufaG', ['mufas'])?.value);
@@ -6302,6 +6321,7 @@ function getRecipePlanPayload(card) {
       omega3Mg: Number(card.dataset.omega3Mg || 0),
       mufaG: Number(card.dataset.mufaG || 0),
       satfatG: Number(card.dataset.satfatG || 0),
+      netcarbsG: Number(card.dataset.netcarbsG || 0),
       folateMcg: Number(card.dataset.folateMcg || 0),
       b12Mcg: Number(card.dataset.b12Mcg || 0),
       viscousFiberG: Number(card.dataset.viscousFiberG || 0)
@@ -6327,6 +6347,7 @@ function addRecipeToPlan(card) {
     omega3Mg: Number.isFinite(recipe.nutrients.omega3Mg) ? recipe.nutrients.omega3Mg : 0,
     mufaG: Number.isFinite(recipe.nutrients.mufaG) ? recipe.nutrients.mufaG : 0,
     satfatG: Number.isFinite(recipe.nutrients.satfatG) ? recipe.nutrients.satfatG : 0,
+    netcarbsG: Number.isFinite(recipe.nutrients.netcarbsG) ? recipe.nutrients.netcarbsG : 0,
     folateMcg: Number.isFinite(recipe.nutrients.folateMcg) ? recipe.nutrients.folateMcg : 0,
     b12Mcg: Number.isFinite(recipe.nutrients.b12Mcg) ? recipe.nutrients.b12Mcg : 0,
     viscousFiberG: Number.isFinite(recipe.nutrients.viscousFiberG) ? recipe.nutrients.viscousFiberG : 0
@@ -6354,6 +6375,7 @@ function addManualItemToPlan() {
   const omegaInput = document.getElementById('menu-manual-omega3');
   const mufaInput = document.getElementById('menu-manual-mufa');
   const satfatInput = document.getElementById('menu-manual-satfat');
+  const netcarbsInput = document.getElementById('menu-manual-netcarbs');
   const folateInput = document.getElementById('menu-manual-folate');
   const b12Input = document.getElementById('menu-manual-b12');
   const viscousInput = document.getElementById('menu-manual-viscous');
@@ -6367,6 +6389,7 @@ function addManualItemToPlan() {
   const omegaVal = Number(omegaInput?.value || 0);
   const mufaVal = Number(mufaInput?.value || 0);
   const satfatVal = Number(satfatInput?.value || 0);
+  const netcarbsVal = Number(netcarbsInput?.value || 0);
   const folateVal = Number(folateInput?.value || 0);
   const b12Val = Number(b12Input?.value || 0);
   const viscousVal = Number(viscousInput?.value || 0);
@@ -6376,6 +6399,7 @@ function addManualItemToPlan() {
   const omega3Mg = Number.isFinite(omegaVal) && omegaVal >= 0 ? omegaVal : NaN;
   const mufaG = Number.isFinite(mufaVal) && mufaVal >= 0 ? mufaVal : NaN;
   const satfatG = Number.isFinite(satfatVal) && satfatVal >= 0 ? satfatVal : NaN;
+  const netcarbsG = Number.isFinite(netcarbsVal) && netcarbsVal >= 0 ? netcarbsVal : NaN;
   const folateMcg = Number.isFinite(folateVal) && folateVal >= 0 ? folateVal : NaN;
   const b12Mcg = Number.isFinite(b12Val) && b12Val >= 0 ? b12Val : NaN;
   const viscousFiberG = Number.isFinite(viscousVal) && viscousVal >= 0 ? viscousVal : NaN;
@@ -6388,7 +6412,7 @@ function addManualItemToPlan() {
     setManualStatus('Servings must be greater than zero.', true);
     return;
   }
-  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(satfatG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
+  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(satfatG) || !Number.isFinite(netcarbsG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
     setManualStatus('Nutrient and calorie values must be zero or higher.', true);
     return;
   }
@@ -6407,6 +6431,7 @@ function addManualItemToPlan() {
     omega3Mg: Number(omega3Mg.toFixed(0)),
     mufaG: Number(mufaG.toFixed(1)),
     satfatG: Number(satfatG.toFixed(1)),
+    netcarbsG: Number(netcarbsG.toFixed(1)),
     folateMcg: Number(folateMcg.toFixed(0)),
     b12Mcg: Number(b12Mcg.toFixed(1)),
     viscousFiberG: Number(viscousFiberG.toFixed(1))
@@ -6425,6 +6450,7 @@ function addManualItemToPlan() {
   if (omegaInput) omegaInput.value = '0';
   if (mufaInput) mufaInput.value = '0';
   if (satfatInput) satfatInput.value = '0';
+  if (netcarbsInput) netcarbsInput.value = '0';
   if (folateInput) folateInput.value = '0';
   if (b12Input) b12Input.value = '0';
   if (viscousInput) viscousInput.value = '0';
@@ -6451,6 +6477,7 @@ const PLANNER_NUTRIENT_SOURCE_MAP = {
   cholineMg: { key: 'cholineMg', aliases: ['choline'] },
   omega3Mg: { key: 'omega3Mg', aliases: ['omega3'] },
   satfatG: { key: 'satfatG', aliases: ['satfat', 'saturatedfat'] },
+  netcarbsG: { key: 'netcarbsG', aliases: ['netcarbs', 'netcarb'] },
   folateMcg: { key: 'folateMcg', aliases: ['folate'] },
   b12Mcg: { key: 'b12Mcg', aliases: ['b12'] },
   mufaG: { key: 'mufaG', aliases: ['mufas'] },
@@ -6605,8 +6632,8 @@ function renderMenuPlannerWeeklySummary() {
         ? 'Missing nutrient data for planned items this week.'
         : nutrient.limit
         ? (total <= weekTarget
-          ? 'Still within your saturated fat cap for the week.'
-          : `${formatNutrientValue(Math.abs(total - weekTarget), nutrient.key)} over the weekly saturated fat cap.`)
+          ? `Still within your weekly ${nutrient.label.toLowerCase()} cap.`
+          : `${formatNutrientValue(Math.abs(total - weekTarget), nutrient.key)} over the weekly ${nutrient.label.toLowerCase()} cap.`)
         : `Daily target met on ${weekly.metDays[nutrient.key]} of ${weekly.availableDays[nutrient.key]} tracked days`;
       const lineText = missing
         ? `Missing / ${formatNutrientValue(weekTarget, nutrient.key)} ${nutrient.unit}`
@@ -6830,6 +6857,7 @@ function savePlannerItemFromEdit(planId, panel) {
     item.omega3Mg = readNumber('omega3Mg', item.omega3Mg, 0);
     item.mufaG = readNumber('mufaG', item.mufaG, 1);
     item.satfatG = readNumber('satfatG', item.satfatG, 1);
+    item.netcarbsG = readNumber('netcarbsG', item.netcarbsG, 1);
     item.folateMcg = readNumber('folateMcg', item.folateMcg, 0);
     item.b12Mcg = readNumber('b12Mcg', item.b12Mcg, 1);
     item.viscousFiberG = readNumber('viscousFiberG', item.viscousFiberG, 1);
@@ -6939,9 +6967,13 @@ function renderMenuPlannerDays() {
             const omegaTotal = (item.omega3Mg || 0) * item.servings;
               const mufaTotal = (item.mufaG || 0) * item.servings;
             const satFatTotal = (item.satfatG || 0) * item.servings;
+            const netCarbsTotal = (item.netcarbsG || 0) * item.servings;
             const folateTotal = (item.folateMcg || 0) * item.servings;
             const b12Total = (item.b12Mcg || 0) * item.servings;
             const viscousTotal = (item.viscousFiberG || 0) * item.servings;
+            const netCarbsDisplay = plannerItemHasKnownNutrient(item, 'netcarbsG')
+              ? `~${formatNutrientValue(netCarbsTotal, 'netcarbsG')} g`
+              : '~Missing';
             const label = item.href
               ? `<a href="${item.href}" target="_blank" rel="noopener">${item.title}</a>`
               : item.title;
@@ -6983,6 +7015,10 @@ function renderMenuPlannerDays() {
                     <input type="number" min="0" step="0.1" data-edit-field="satfatG" value="${item.satfatG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
                   </div>
                   <div class="menu-edit-row">
+                    <label>Net Carbs / serving (g)</label>
+                    <input type="number" min="0" step="0.1" data-edit-field="netcarbsG" value="${item.netcarbsG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
                     <label>Folate / serving (mcg)</label>
                     <input type="number" min="0" step="1" data-edit-field="folateMcg" value="${item.folateMcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
                   </div>
@@ -7011,7 +7047,7 @@ function renderMenuPlannerDays() {
                     <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
                   </span>
                 </div>
-                <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Saturated Fat ~${formatNutrientValue(satFatTotal, 'satfatG')} g · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
+                <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Saturated Fat ~${formatNutrientValue(satFatTotal, 'satfatG')} g · Net Carbs ${netCarbsDisplay} · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
                 ${editPanel}
               </li>
             `;
