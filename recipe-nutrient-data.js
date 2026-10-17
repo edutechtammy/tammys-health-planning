@@ -342,7 +342,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // ALMOND FLOUR WAFFLES
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-almond-flour-waffles.html": {
     "calories": {
@@ -350,6 +350,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 380.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~7 g",
+      "value": 7.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -367,25 +381,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~14.0 g",
+      "value": 14.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~22 ug",
       "value": 22.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~7 g",
-      "value": 7.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~4 g",
-      "value": 4.0,
-      "unit": "g",
-      "name": "grams — per serving",
       "estimated": false
     },
     "b12Mcg": {
@@ -394,11 +401,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // GLUTEN FREE BAGEL BITES
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-gluten-free-bagel-bites.html": {
     "calories": {
@@ -406,13 +420,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 94.0,
       "unit": "kcal",
       "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
-      "display": "~8 mg",
-      "value": 8.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
     // Note: Non-marine omega-3 adjusted / split out to prevent inflation
@@ -423,16 +430,9 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
-      "display": "~6 ug",
-      "value": 6.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~2.0 g",
-      "value": 2.0,
+    "mufaG": {
+      "display": "~3.0 g",
+      "value": 3.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -444,17 +444,45 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "netcarbsG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~6 ug",
+      "value": 6.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~8 mg",
+      "value": 8.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "b12Mcg": {
       "display": "~0.1 ug",
       "value": 0.1,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // NO SUGAR CRUNCH BAR
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-no-sugar-crunch-bar.html": {
     "calories": {
@@ -462,6 +490,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 285.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -479,6 +521,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "ALA omega-3 — supportive only · conversion-limited",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~6.0 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~30 ug",
       "value": 30.0,
@@ -492,11 +541,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~6.0 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // SOUS VIDE LENTILS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-sous-vide-lentils.html": {
     "calories": {
@@ -504,6 +560,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 120.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~13.5 g",
+      "value": 13.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -520,6 +590,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~4.5 g",
+      "value": 4.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~180 mcg",
       "value": 180.0,
@@ -533,11 +610,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~1.7 g",
+      "value": 1.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // MARINATED SMOKED GOUDA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☑ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-marinated-smoked-gouda.html": {
     "calories": {
@@ -547,9 +631,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
+    "satfatG": {
       "display": "~8.0 g",
       "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~0.7 g",
+      "value": 0.7,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -569,6 +660,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~10 ug",
       "value": 10.0,
@@ -583,8 +681,15 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "B12 — MTHFR",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~8 g",
+    "viscousFiberG": {
+      "display": "~1.7 g",
+      "value": 1.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~8.0 g",
       "value": 8.0,
       "unit": "g",
       "name": "grams — per serving",
@@ -593,7 +698,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // LADENIA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-ladenia.html": {
     "calories": {
@@ -601,6 +706,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 500.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~7.0 g",
+      "value": 7.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~14.0 g",
+      "value": 14.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -618,6 +737,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~18 g",
+      "value": 18.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~70 ug",
       "value": 70.0,
@@ -631,11 +757,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~1.7 g",
+      "value": 1.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // CRISPY ROASTED CHICKPEA FETA MEDITERRANEAN BOWL
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-crispy-roasted-chickpea-feta-mediterranean-bowl.html": {
     "calories": {
@@ -643,6 +776,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 120.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~12.0 g",
+      "value": 12.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -660,6 +807,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~145 ug",
       "value": 145.0,
@@ -672,6 +826,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.3,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~4.5 g",
+      "value": 4.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
