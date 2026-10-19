@@ -146,6 +146,84 @@
       cursor:pointer;
     }
 
+    .gl-predictive-card {
+      margin:.35rem 0 .95rem;
+      border:1px solid #cfdcf4;
+      border-radius:12px;
+      background:#f7faff;
+      padding:.8rem 1rem;
+    }
+    .gl-predictive-title {
+      font-size:.82rem;
+      font-weight:800;
+      color:#1f3f8f;
+      letter-spacing:.02em;
+      margin-bottom:.25rem;
+    }
+    .gl-predictive-sub {
+      font-size:.78rem;
+      color:var(--muted);
+      margin-bottom:.55rem;
+    }
+    .gl-predictive-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:.55rem;
+      margin-bottom:.6rem;
+    }
+    .gl-predictive-kpi {
+      background:#fff;
+      border:1px solid #d9e3f6;
+      border-radius:10px;
+      padding:.55rem .65rem;
+      font-size:.78rem;
+      color:var(--muted);
+      line-height:1.45;
+    }
+    .gl-predictive-kpi strong {
+      display:block;
+      color:#1f3f8f;
+      font-size:1.05rem;
+      line-height:1.2;
+      margin-top:.12rem;
+    }
+    .gl-band-table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:.78rem;
+      background:#fff;
+      border:1px solid #d9e3f6;
+      border-radius:10px;
+      overflow:hidden;
+    }
+    .gl-band-table th {
+      text-align:left;
+      padding:.42rem .58rem;
+      background:#eef4ff;
+      color:#1f3f8f;
+      border-bottom:1px solid #d9e3f6;
+    }
+    .gl-band-table td {
+      padding:.4rem .58rem;
+      border-bottom:1px solid #edf2fb;
+      color:#334155;
+    }
+    .gl-band-table tr:last-child td { border-bottom:none; }
+    .gl-band-chip {
+      display:inline-flex;
+      align-items:center;
+      padding:.1rem .45rem;
+      border-radius:999px;
+      border:1px solid #c7d8ff;
+      background:#f3f7ff;
+      color:#1f3f8f;
+      font-weight:700;
+      font-size:.72rem;
+    }
+    @media (max-width:760px) {
+      .gl-predictive-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
     /* RESULTS GRID */
     .results-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem; }
 
@@ -224,6 +302,7 @@
       font-weight:800;
     }
     .metric-pill.carbs { background:#f0f8ff; border-color:#b6d8f2; color:#1a5276; }
+    .metric-pill.gl { background:#eef4ff; border-color:#c7d8ff; color:#1f3f8f; }
     .metric-pill.fiber { background:#eefaf0; border-color:#bfe5c7; color:#1f7a3d; }
     .metric-pill.fat { background:#f9f1ff; border-color:#d8bee9; color:#6c3483; }
     .metric-pill.protein { background:#eef6ff; border-color:#c8dcff; color:#1e3a8a; }
@@ -1065,6 +1144,10 @@
         <input type="number" id="f-net-carbs" step="0.1" min="0" placeholder="e.g. 18.5" />
       </div>
       <div class="field">
+        <label>Glycemic Load (GL) optional</label>
+        <input type="number" id="f-glycemic-load" step="0.1" min="0" placeholder="e.g. 9.5" />
+      </div>
+      <div class="field">
         <label>Fiber (g) optional</label>
         <input type="number" id="f-fiber" step="0.1" min="0" placeholder="e.g. 4.2" />
       </div>
@@ -1185,6 +1268,7 @@
       <button class="btn-sort-auc" id="satfat-filter-btn" type="button" onclick="toggleSatFatHighFilter()">High Sat Fat only is off</button>
       <button class="btn-sort-auc" id="combo-sort-btn" type="button" onclick="toggleComboFilter()">5g/15g combo is off</button>
       <button class="btn-sort-auc" id="longtail-sort-btn" type="button" onclick="toggleLongTailSort()">Long tail is off</button>
+      <button class="btn-sort-auc" id="gl-predictive-btn" type="button" onclick="toggleGlPredictiveView()">GL predictive view is off</button>
       <div class="threshold-controls">
         <span class="threshold-label">Long tail thresholds</span>
         <label>Min peak +
@@ -1208,6 +1292,8 @@
 
   <p class="risk-summary" id="satfat-risk-summary">Visible high sat fat tests (>=5 g): 0 of 0</p>
   <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph. Soft green cards mark foods or serving sizes that still fit alongside a serving of <strong>skim milk</strong> inside the current 5g sat fat / 15g net carb limits. Soft red cards mark foods that would push that pairing outside the limit. The skim-milk tint does not remove entries from the graph.</p>
+
+  <div id="gl-predictive-card" class="gl-predictive-card" style="display:none"></div>
 
   <div class="pinned-calorie-summary" id="pinned-calorie-summary" style="display:none"></div>
 
@@ -1275,6 +1361,7 @@
             <th>5g/15g</th>
             <th>Long Tail</th>
             <th>Net Carbs</th>
+            <th>GL</th>
             <th>Fiber</th>
             <th>Sat Fat</th>
             <th>Protein</th>
@@ -1372,7 +1459,7 @@ function exportCSV(){
   if(!tests.length){ alert('No tests to export yet.'); return; }
   const headers = [
     'Date', 'Food / Combination Tested', 'Category', 'Portion / Quantity',
-    'Net Carbs (g)', 'Fiber (g)', 'Saturated Fat (g)', 'Protein (g)', 'Total Fat (g)', 'Calories (kcal)',
+    'Net Carbs (g)', 'Glycemic Load (GL)', 'Fiber (g)', 'Saturated Fat (g)', 'Protein (g)', 'Total Fat (g)', 'Calories (kcal)',
     'Baseline (T=0)', 'Baseline Time of Day (AM/PM)', '+30 min', '+60 min', '+120 min', '+180 min (optional)', 'Return to Baseline Minute (if >120)',
     'Berberine', 'ACV', 'Walk', 'Activity', 'Notes'
   ];
@@ -1385,6 +1472,7 @@ function exportCSV(){
       t.cat || '',
       t.portion || '',
       t.netCarbs ?? '',
+      t.glycemicLoad ?? '',
       t.fiber ?? '',
       t.satFat ?? '',
       t.protein ?? '',
@@ -1480,18 +1568,19 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const midFallback = fallbackMode && row.length === 15;
   const newFallback = fallbackMode && row.length >= 18 && row.length < 21;
   const latestFallback = fallbackMode && row.length >= 21 && row.length < 22;
-  const latestWithFiberFallback = fallbackMode && row.length >= 22;
+  const latestWithFiberFallback = fallbackMode && row.length >= 22 && row.length < 23;
+  const latestWithGlFallback = fallbackMode && row.length >= 23;
   const idx = {
-    t30: latestWithFiberFallback ? 12 : (latestFallback ? 11 : (newFallback ? 8 : (oldFallback ? 5 : 6))),
-    t60: latestWithFiberFallback ? 13 : (latestFallback ? 12 : (newFallback ? 9 : (oldFallback ? 6 : 7))),
-    t120: latestWithFiberFallback ? 14 : (latestFallback ? 13 : (newFallback ? 10 : (oldFallback ? 7 : 8))),
-    t180: latestWithFiberFallback ? 15 : (latestFallback ? 14 : (newFallback ? 11 : (oldFallback ? -1 : 9))),
-    ret: latestWithFiberFallback ? 16 : (latestFallback ? 15 : (newFallback ? 12 : (oldFallback ? 8 : (midFallback ? 9 : 10)))),
-    berberine: latestWithFiberFallback ? 17 : (latestFallback ? 16 : (newFallback ? 13 : (oldFallback ? 9 : (midFallback ? 10 : 11)))),
-    acv: latestWithFiberFallback ? 18 : (latestFallback ? 17 : (newFallback ? 14 : (oldFallback ? 10 : (midFallback ? 11 : 12)))),
-    walk: latestWithFiberFallback ? 19 : (latestFallback ? 18 : (newFallback ? 15 : (oldFallback ? 11 : (midFallback ? 12 : 13)))),
-    activity: latestWithFiberFallback ? 20 : (latestFallback ? 19 : (newFallback ? 16 : (oldFallback ? 12 : (midFallback ? 13 : 14)))),
-    notes: latestWithFiberFallback ? 21 : (latestFallback ? 20 : (newFallback ? 17 : (oldFallback ? 13 : (midFallback ? 14 : 15))))
+    t30: latestWithGlFallback ? 13 : (latestWithFiberFallback ? 12 : (latestFallback ? 11 : (newFallback ? 8 : (oldFallback ? 5 : 6)))),
+    t60: latestWithGlFallback ? 14 : (latestWithFiberFallback ? 13 : (latestFallback ? 12 : (newFallback ? 9 : (oldFallback ? 6 : 7)))),
+    t120: latestWithGlFallback ? 15 : (latestWithFiberFallback ? 14 : (latestFallback ? 13 : (newFallback ? 10 : (oldFallback ? 7 : 8)))),
+    t180: latestWithGlFallback ? 16 : (latestWithFiberFallback ? 15 : (latestFallback ? 14 : (newFallback ? 11 : (oldFallback ? -1 : 9)))),
+    ret: latestWithGlFallback ? 17 : (latestWithFiberFallback ? 16 : (latestFallback ? 15 : (newFallback ? 12 : (oldFallback ? 8 : (midFallback ? 9 : 10))))),
+    berberine: latestWithGlFallback ? 18 : (latestWithFiberFallback ? 17 : (latestFallback ? 16 : (newFallback ? 13 : (oldFallback ? 9 : (midFallback ? 10 : 11))))),
+    acv: latestWithGlFallback ? 19 : (latestWithFiberFallback ? 18 : (latestFallback ? 17 : (newFallback ? 14 : (oldFallback ? 10 : (midFallback ? 11 : 12))))),
+    walk: latestWithGlFallback ? 20 : (latestWithFiberFallback ? 19 : (latestFallback ? 18 : (newFallback ? 15 : (oldFallback ? 11 : (midFallback ? 12 : 13))))),
+    activity: latestWithGlFallback ? 21 : (latestWithFiberFallback ? 20 : (latestFallback ? 19 : (newFallback ? 16 : (oldFallback ? 12 : (midFallback ? 13 : 14))))),
+    notes: latestWithGlFallback ? 22 : (latestWithFiberFallback ? 21 : (latestFallback ? 20 : (newFallback ? 17 : (oldFallback ? 13 : (midFallback ? 14 : 15)))))
   };
 
   const read = (aliases, fallbackIndex) => {
@@ -1505,14 +1594,15 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const food = String(read(['food', 'foodcombinationtested', 'foodcombination', 'combinationtested', 'combination', 'foodname'], 1) || '').trim();
   const catRaw = String(read(['category', 'cat'], 2) || '').trim();
   const portion = String(read(['portion', 'quantity'], 3) || '').trim();
-  const netCarbs = parseNumberish(read(['netcarbs', 'netcarb', 'netcarbsg'], (newFallback || latestFallback || latestWithFiberFallback) ? 4 : -1));
-  const fiber = parseNumberish(read(['fiber', 'fiberg', 'fiber(g)', 'dietaryfiber', 'dietaryfiberg'], latestWithFiberFallback ? 5 : -1));
-  const satFat = parseNumberish(read(['saturatedfat', 'satfat', 'saturatedfatg'], latestWithFiberFallback ? 6 : ((newFallback || latestFallback) ? 5 : -1)));
-  const protein = parseNumberish(read(['protein', 'proteing', 'protein(g)'], latestWithFiberFallback ? 7 : (latestFallback ? 6 : -1)));
-  const totalFat = parseNumberish(read(['totalfat', 'fat', 'totalfatg', 'fatg', 'totalfat(g)'], latestWithFiberFallback ? 8 : (latestFallback ? 7 : -1)));
-  const calories = parseNumberish(read(['calories', 'kcal', 'energy', 'calorieskcal'], latestWithFiberFallback ? 9 : (latestFallback ? 8 : -1)));
-  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], latestWithFiberFallback ? 10 : (latestFallback ? 9 : (newFallback ? 6 : 4))));
-  const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], latestWithFiberFallback ? 11 : (latestFallback ? 10 : (newFallback ? 7 : (oldFallback ? -1 : 5)))));
+  const netCarbs = parseNumberish(read(['netcarbs', 'netcarb', 'netcarbsg'], (newFallback || latestFallback || latestWithFiberFallback || latestWithGlFallback) ? 4 : -1));
+  const glycemicLoad = parseNumberish(read(['glycemicload', 'glycemicloadgl', 'gl', 'glycemicload(g)', 'mealgl'], latestWithGlFallback ? 5 : -1));
+  const fiber = parseNumberish(read(['fiber', 'fiberg', 'fiber(g)', 'dietaryfiber', 'dietaryfiberg'], latestWithGlFallback ? 6 : (latestWithFiberFallback ? 5 : -1)));
+  const satFat = parseNumberish(read(['saturatedfat', 'satfat', 'saturatedfatg'], latestWithGlFallback ? 7 : (latestWithFiberFallback ? 6 : ((newFallback || latestFallback) ? 5 : -1))));
+  const protein = parseNumberish(read(['protein', 'proteing', 'protein(g)'], latestWithGlFallback ? 8 : (latestWithFiberFallback ? 7 : (latestFallback ? 6 : -1))));
+  const totalFat = parseNumberish(read(['totalfat', 'fat', 'totalfatg', 'fatg', 'totalfat(g)'], latestWithGlFallback ? 9 : (latestWithFiberFallback ? 8 : (latestFallback ? 7 : -1))));
+  const calories = parseNumberish(read(['calories', 'kcal', 'energy', 'calorieskcal'], latestWithGlFallback ? 10 : (latestWithFiberFallback ? 9 : (latestFallback ? 8 : -1))));
+  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], latestWithGlFallback ? 11 : (latestWithFiberFallback ? 10 : (latestFallback ? 9 : (newFallback ? 6 : 4)))));
+  const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], latestWithGlFallback ? 12 : (latestWithFiberFallback ? 11 : (latestFallback ? 10 : (newFallback ? 7 : (oldFallback ? -1 : 5))))));
   const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], idx.t30));
   const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], idx.t60));
   const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], idx.t120));
@@ -1536,13 +1626,13 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
 
   const cat = normalizeCategory(catRaw);
 
-  return { id, date, food, cat, portion, netCarbs, fiber, satFat, protein, totalFat, calories, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
+  return { id, date, food, cat, portion, netCarbs, glycemicLoad, fiber, satFat, protein, totalFat, calories, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
 }
 
 function makeTestFingerprint(test){
   return [
     test.date || '', test.food || '', test.cat || '', test.portion || '',
-    test.netCarbs ?? '', test.fiber ?? '', test.satFat ?? '', test.protein ?? '', test.totalFat ?? '', test.calories ?? '',
+    test.netCarbs ?? '', test.glycemicLoad ?? '', test.fiber ?? '', test.satFat ?? '', test.protein ?? '', test.totalFat ?? '', test.calories ?? '',
     test.t0 ?? '', test.baselineTime || '', test.t30 ?? '', test.t60 ?? '', test.t120 ?? '', test.t180 ?? '',
     test.returnBaselineMin ?? '',
     test.berberine || '', test.acv || '', test.walk || '', test.activity || '', test.notes || ''
@@ -1602,7 +1692,7 @@ function importCSV(input){
       if(rows.length < 2){ alert('CSV appears empty or invalid.'); return; }
 
       const firstRow = rows[0].map(normalizeCSVHeader);
-      const headerLike = firstRow.some(h => ['date', 'food', 'foodcombinationtested', 'category', 'portion', 'netcarbs', 'saturatedfat', 'baseline', 'baselinefasting', 't0'].includes(h));
+      const headerLike = firstRow.some(h => ['date', 'food', 'foodcombinationtested', 'category', 'portion', 'netcarbs', 'glycemicload', 'glycemicloadgl', 'gl', 'saturatedfat', 'baseline', 'baselinefasting', 't0'].includes(h));
       const headerMap = new Map();
       let dataRows = rows;
 
@@ -1736,6 +1826,7 @@ let sortByLongTail=false;
 let filterAmOnly=false;
 let filterComboOnly=false;
 let filterSatFatHighOnly=false;
+let showGlPredictiveView=false;
 let longTailMinSpikeAboveBaseline=15;
 let longTailMin180Delta=10;
 const SKIM_MILK_PAIRING_NET_CARBS=13;
@@ -1846,6 +1937,27 @@ function toggleSatFatHighFilter(){
   render();
 }
 
+function toggleGlPredictiveView(){
+  showGlPredictiveView=!showGlPredictiveView;
+  render();
+}
+
+function classifyGlBand(glValue){
+  const gl=Number(glValue);
+  if(!Number.isFinite(gl) || gl < 0) return null;
+  if(gl < 10) return 'Low';
+  if(gl < 20) return 'Moderate';
+  return 'High';
+}
+
+function classifySpikeBand(spikeAbs){
+  const spike=Number(spikeAbs);
+  if(!Number.isFinite(spike)) return null;
+  if(spike <= 20) return 'Low';
+  if(spike <= 40) return 'Moderate';
+  return 'High';
+}
+
 function formatDate(iso){
   if(!iso)return'';
   const[y,m,d]=iso.split('-');
@@ -1859,7 +1971,7 @@ let editingId=null;
 function clearForm(){
   editingId=null;
   document.getElementById('f-date').value=todayISO();
-  ['f-food','f-portion','f-net-carbs','f-fiber','f-sat-fat','f-protein','f-total-fat','f-calories','f-notes','f-t0','f-baseline-time','f-t30','f-t60','f-t120','f-t180','f-ret-min'].forEach(id=>document.getElementById(id).value='');
+  ['f-food','f-portion','f-net-carbs','f-glycemic-load','f-fiber','f-sat-fat','f-protein','f-total-fat','f-calories','f-notes','f-t0','f-baseline-time','f-t30','f-t60','f-t120','f-t180','f-ret-min'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-cat').value='grain';
   document.getElementById('f-berberine').value='';
   document.getElementById('f-acv').value='';
@@ -1879,6 +1991,7 @@ function editTest(id){
   document.getElementById('f-cat').value=t.cat||'grain';
   document.getElementById('f-portion').value=t.portion||'';
   document.getElementById('f-net-carbs').value=t.netCarbs!=null?t.netCarbs:'';
+  document.getElementById('f-glycemic-load').value=t.glycemicLoad!=null?t.glycemicLoad:'';
   document.getElementById('f-fiber').value=t.fiber!=null?t.fiber:'';
   document.getElementById('f-sat-fat').value=t.satFat!=null?t.satFat:'';
   document.getElementById('f-protein').value=t.protein!=null?t.protein:'';
@@ -1908,6 +2021,7 @@ function saveTest(){
   const cat    = normalizeCategory(document.getElementById('f-cat').value);
   const portion= document.getElementById('f-portion').value.trim();
   const netCarbs = parseNumberish(document.getElementById('f-net-carbs').value);
+  const glycemicLoad = parseNumberish(document.getElementById('f-glycemic-load').value);
   const fiber = parseNumberish(document.getElementById('f-fiber').value);
   const satFat = parseNumberish(document.getElementById('f-sat-fat').value);
   const protein = parseNumberish(document.getElementById('f-protein').value);
@@ -1951,11 +2065,11 @@ function saveTest(){
   let savedId=editingId;
   if(editingId){
     delete curveVisibilityOverrides[editingId];
-    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,netCarbs,fiber,satFat,protein,totalFat,calories,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
+    tests=tests.map(x=>String(x.id)===String(editingId)?{...x,date,food,cat,portion,netCarbs,glycemicLoad,fiber,satFat,protein,totalFat,calories,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes}:x);
   } else {
     const id=Date.now().toString();
     savedId=id;
-    tests.push({id,date,food,cat,portion,netCarbs,fiber,satFat,protein,totalFat,calories,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
+    tests.push({id,date,food,cat,portion,netCarbs,glycemicLoad,fiber,satFat,protein,totalFat,calories,t0,baselineTime,t30,t60,t120,t180,returnBaselineMin,berberine,acv,walk,activity,notes});
   }
   if(savedId){ delete curveVisibilityOverrides[savedId]; }
   tests.sort((a,b)=>b.date.localeCompare(a.date));
@@ -2657,6 +2771,11 @@ function render(){
     longTailSortBtn.classList.toggle('on',sortByLongTail);
     longTailSortBtn.textContent=`Long tail is ${sortByLongTail?'on':'off'}`;
   }
+  const glPredictiveBtn=document.getElementById('gl-predictive-btn');
+  if(glPredictiveBtn){
+    glPredictiveBtn.classList.toggle('on',showGlPredictiveView);
+    glPredictiveBtn.textContent=`GL predictive view is ${showGlPredictiveView?'on':'off'}`;
+  }
   const pinnedSet = new Set(pinnedTestIds);
   const pinnedItems = all.filter(t => pinnedSet.has(String(t.id)));
   const pinnedSummaryEl=document.getElementById('pinned-calorie-summary');
@@ -2768,6 +2887,72 @@ function render(){
     selectionStatusEl.textContent=`Selected for Diet Power: ${selectedForDietPower.size}`;
   }
 
+  const glPredictiveCard=document.getElementById('gl-predictive-card');
+  if(glPredictiveCard){
+    if(!showGlPredictiveView){
+      glPredictiveCard.style.display='none';
+      glPredictiveCard.innerHTML='';
+    } else {
+      const predictiveRows=filtered
+        .map(t=>{
+          const analysis=spikeAnalysis(t.t0,t.t30,t.t60,t.t120,t.t180);
+          const glBand=classifyGlBand(t.glycemicLoad);
+          const spikeBand=analysis ? classifySpikeBand(analysis.spikeAbs) : null;
+          if(!glBand || !spikeBand || !analysis) return null;
+          return { glBand, spikeBand };
+        })
+        .filter(Boolean);
+
+      const totalPredictive=predictiveRows.length;
+      const alignedCount=predictiveRows.filter(row=>row.glBand===row.spikeBand).length;
+      const mismatchCount=totalPredictive-alignedCount;
+      const agreementPct=totalPredictive ? Math.round((alignedCount/totalPredictive)*100) : 0;
+
+      const glCounts={ Low:0, Moderate:0, High:0 };
+      predictiveRows.forEach(row=>{ glCounts[row.glBand]=(glCounts[row.glBand]||0)+1; });
+
+      glPredictiveCard.style.display='block';
+      glPredictiveCard.innerHTML=`
+        <div class="gl-predictive-title">GL Predictive Snapshot (optional view)</div>
+        <div class="gl-predictive-sub">Compares GL bands to measured spike bands for currently visible tests. Use this to judge trend usefulness, not as an absolute rule.</div>
+        <div class="gl-predictive-grid">
+          <div class="gl-predictive-kpi">Eligible tests<strong>${totalPredictive}</strong></div>
+          <div class="gl-predictive-kpi">Band agreement<strong>${agreementPct}%</strong></div>
+          <div class="gl-predictive-kpi">Aligned bands<strong>${alignedCount}</strong></div>
+          <div class="gl-predictive-kpi">Mismatched bands<strong>${mismatchCount}</strong></div>
+        </div>
+        ${totalPredictive ? `
+          <table class="gl-band-table" role="table" aria-label="GL band coverage among visible tests">
+            <thead>
+              <tr>
+                <th>GL band</th>
+                <th>Visible tests</th>
+                <th>Heuristic expectation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="gl-band-chip">Low (&lt;10)</span></td>
+                <td>${glCounts.Low}</td>
+                <td>Often lower spike behavior</td>
+              </tr>
+              <tr>
+                <td><span class="gl-band-chip">Moderate (10-19.9)</span></td>
+                <td>${glCounts.Moderate}</td>
+                <td>Mixed outcomes depending on context</td>
+              </tr>
+              <tr>
+                <td><span class="gl-band-chip">High (20+)</span></td>
+                <td>${glCounts.High}</td>
+                <td>Often higher spike behavior</td>
+              </tr>
+            </tbody>
+          </table>`
+          : '<div class="gl-predictive-sub" style="margin-bottom:0">No visible tests currently have both GL and enough glucose data to evaluate predictive agreement.</div>'}
+      `;
+    }
+  }
+
   const grid=document.getElementById('results-grid');
   const empty=document.getElementById('empty-msg');
 
@@ -2785,6 +2970,7 @@ function render(){
       const hasCalories = t.calories != null && String(t.calories).trim() !== '' && Number.isFinite(Number(t.calories)) && Number(t.calories) >= 0;
       const metricBits=[
         t.netCarbs!=null?`<span class="metric-pill carbs" title="Net carbs">Net carbs <span class="metric-val">${t.netCarbs}</span> g</span>`:'',
+        t.glycemicLoad!=null?`<span class="metric-pill gl" title="Estimated glycemic load for this test">GL <span class="metric-val">${t.glycemicLoad}</span></span>`:'',
         t.fiber!=null?`<span class="metric-pill fiber" title="Fiber">Fiber <span class="metric-val">${t.fiber}</span> g</span>`:'',
         t.satFat!=null?`<span class="metric-pill fat" title="Saturated fat">Sat fat <span class="metric-val">${t.satFat}</span> g</span>`:'',
         t.protein!=null?`<span class="metric-pill protein" title="Protein">Protein <span class="metric-val">${t.protein}</span> g</span>`:'',
@@ -2915,6 +3101,7 @@ function render(){
       <td>${hasComboThreshold(t)?'<span class="spike-badge spike-high">Yes</span>':'—'}</td>
       <td>${getLongTailStatus(t)==='yes'?'<span class="spike-badge spike-moderate">Yes</span>':getLongTailStatus(t)==='no'?'<span class="spike-badge spike-flat">No</span>':'<span class="spike-badge" style="background:#f4f6f7;color:#5d6d7e">Need data</span>'}</td>
       <td>${t.netCarbs!=null?t.netCarbs:'—'}</td>
+      <td>${t.glycemicLoad!=null?t.glycemicLoad:'—'}</td>
       <td>${t.fiber!=null?t.fiber:'—'}</td>
       <td>${t.satFat!=null?t.satFat:'—'}</td>
       <td>${t.protein!=null?t.protein:'—'}</td>
