@@ -1,8 +1,32 @@
 {
     "images": [
         {
+            "file": "00-why.jpg",
+            "caption": "Weighted Crunches"
+        },
+        {
+            "file": "01-bentover-dumbbell-row.jpg",
+            "caption": "Bentover Dumbbell Row"
+        },
+        {
+            "file": "01-dumbbell-goblet-squat.jpg",
+            "caption": "Dumbbell Goblet Squat."
+        },
+        {
+            "file": "01-russian-twist.jpg",
+            "caption": "Russian Twist"
+        },
+        {
+            "file": "01-weighted-crunches.jpg",
+            "caption": "Weighted Crunches"
+        },
+        {
             "file": "cgm-night-before-walk.png",
             "caption": "Data from exercising the night before"
+        },
+        {
+            "file": "02-weighted-vest.jpg",
+            "caption": "Weighted Vest"
         },
         {
             "file": "cgm-morning-walk.png",
