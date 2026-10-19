@@ -165,7 +165,7 @@
             <li>Fasting triglycerides + HDL (metabolic syndrome markers)</li>
             <li>Uric acid — elevated in stone and pre-diabetes</li>
           </ul>
-          <p class="labs-ref-cat">MTHFR / Methylation</p>
+          <p class="labs-ref-cat">Methylation</p>
           <ul>
             <li>Homocysteine — target &lt;8 µmol/L (ideally &lt;7)</li>
             <li>RBC folate (not serum) — better marker of tissue stores</li>
@@ -190,7 +190,7 @@
           <ul>
             <li>ALT (Alanine Aminotransferase) — primary hepatocyte damage marker; trends down as liver fat clears</li>
             <li>AST (Aspartate Aminotransferase) — secondary liver marker; AST/ALT ratio &gt;1 suggests advancing disease</li>
-            <li>GGT (Gamma-glutamyl transferase) — most sensitive early stress marker; also tracks hepatic glutathione status (MTHFR link)</li>
+            <li>GGT (Gamma-glutamyl transferase) — most sensitive early stress marker; also tracks hepatic glutathione status and oxidative load</li>
             <li>ALP (Alkaline Phosphatase) — general liver/bile duct health</li>
             <li>Liver ultrasound — qualitative finding every 6–12 months; echogenicity tracks fat reduction progress</li>
             <li>Fasting triglycerides + HOMA-IR — already in Metabolic panel; also the primary hepatic fat export and IR markers</li>
@@ -298,17 +298,17 @@ const TESTS = [
     target:'<5.0 mg/dL optimal · 5.0–6.0 borderline · >6.0 elevated — Note: lab portals flag >6.0 mg/dL as high for women (population range). The tracker uses <5.0 as optimal because uric acid above 5.5 increases calcium oxalate stone risk — this is a kidney stone prevention goal, not just a gout cutoff.',
     status: v => +v <= 5.0 ? 'green' : +v <= 6.0 ? 'yellow' : 'red' },
 
-  // MTHFR / Methylation
-  { id:'homocysteine',    name:'Homocysteine',         cat:'MTHFR / Methylation', unit:'µmol/L',
-    target:'<7 µmol/L optimal · 7–10 borderline · >10 elevated (MTHFR risk zone) — Note: lab portals use <15 µmol/L as the normal cutoff. With MTHFR C677T, the tracker targets <7 because homocysteine in the 8–12 range — portal "normal" — is associated with increased cardiovascular and neurological risk when methylation is impaired. This is the biggest gap between portal and tracker on this panel.',
+  // Methylation
+  { id:'homocysteine',    name:'Homocysteine',         cat:'Methylation', unit:'µmol/L',
+    target:'<7 µmol/L optimal · 7–10 borderline · >10 elevated — Note: lab portals use <15 µmol/L as the normal cutoff. The tracker targets <7 because homocysteine in the 8–12 range — portal "normal" — can still reflect suboptimal methylation and cardiovascular risk in susceptible individuals. This is the biggest gap between portal and tracker on this panel.',
     status: v => +v < 7 ? 'green' : +v <= 10 ? 'yellow' : 'red' },
-  { id:'rbc-folate',      name:'RBC Folate',           cat:'MTHFR / Methylation', unit:'nmol/L',
+  { id:'rbc-folate',      name:'RBC Folate',           cat:'Methylation', unit:'nmol/L',
     target:'>800 optimal · 563–800 acceptable · <563 deficient',
     status: v => +v >= 800 ? 'green' : +v >= 563 ? 'yellow' : 'red' },
-  { id:'serum-b12',       name:'Serum B12',            cat:'MTHFR / Methylation', unit:'pg/mL',
-    target:'>600 pg/mL optimal · 400–600 acceptable · <400 deficient — Note: lab portals flag <200 pg/mL as deficient (population range). With MTHFR and Celiac, functional B12 deficiency can occur even at 300–400 pg/mL — the tracker uses >600 as optimal because neurological symptoms and methylation insufficiency can appear well before the portal flags anything. Use MMA alongside this for the full picture.',
+  { id:'serum-b12',       name:'Serum B12',            cat:'Methylation', unit:'pg/mL',
+    target:'>600 pg/mL optimal · 400–600 acceptable · <400 deficient — Note: standard reference portals often flag <200 pg/mL as deficient. However, functional sub-optimal status can sometimes appear higher. This tracker uses >600 pg/mL as an optimal target to ensure robust tissue levels, keeping in mind that B12 status reflects dietary intake, absorption, and age-related factors rather than direct MTHFR genetic influence. Consider checking MMA (Methylmalonic Acid) alongside B12 for a complete functional picture.',
     status: v => +v >= 600 ? 'green' : +v >= 400 ? 'yellow' : 'red' },
-  { id:'mma',             name:'MMA (Methylmalonic Acid)', cat:'MTHFR / Methylation', unit:'µmol/L',
+  { id:'mma',             name:'MMA (Methylmalonic Acid)', cat:'Methylation', unit:'µmol/L',
     target:'<0.20 optimal · 0.20–0.40 borderline · >0.40 functional B12 deficiency',
     status: v => +v < 0.20 ? 'green' : +v <= 0.40 ? 'yellow' : 'red' },
 
@@ -386,7 +386,7 @@ const TESTS = [
     target:'<0.8 typical in NAFLD/MASLD (fatty liver) · 0.8–1.0 borderline · >1.0 evaluate for advanced fibrosis or other causes — Calculate: AST ÷ ALT. A ratio under 0.8 is the expected pattern in simple steatosis (fat without major fibrosis). Rising ratio toward or above 1.0 warrants follow-up.',
     status: v => +v < 0.8 ? 'green' : +v <= 1.0 ? 'yellow' : 'red' },
   { id:'ggt',             name:'GGT (Gamma-glutamyl transferase)', cat:'Fatty Liver / Hepatic Health', unit:'U/L',
-    target:'<20 U/L optimal (women) · 20–30 borderline · >30 elevated — Note: GGT is the most sensitive early marker of hepatic stress — it rises before ALT in many cases. Also directly relevant for MTHFR: GGT reflects hepatic glutathione status and oxidative load. GGT trending down alongside ALT is confirmation the liver protocol is working from two different angles.',
+    target:'<20 U/L optimal (women) · 20–30 borderline · >30 elevated — Note: GGT is the most sensitive early marker of hepatic stress — it rises before ALT in many cases. It also reflects hepatic glutathione status and oxidative load, and GGT trending down alongside ALT is confirmation the liver protocol is working from two different angles.',
     status: v => +v < 20 ? 'green' : +v <= 30 ? 'yellow' : 'red' },
   { id:'alp',             name:'ALP (Alkaline Phosphatase)', cat:'Fatty Liver / Hepatic Health', unit:'U/L',
     target:'44–98 U/L normal range · <44 low (less concerning) · >98 elevated — ALP elevation in fatty liver is less common than ALT/GGT elevation but persistently high ALP warrants evaluation for bile duct involvement. Track alongside ALT for a full hepatic picture.',
