@@ -838,7 +838,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // CREAMY MEDITERRANEAN RED LENTIL TOMATO SOUP
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-creamy-mediterranean-red-lentil-tomato-soup.html": {
     "calories": {
@@ -848,6 +848,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Calories — per serving",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~11.0 g",
+      "value": 11.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~40 mg",
       "value": 40.0,
@@ -855,11 +869,19 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~90 mg",
-      "value": 90.0,
+      "display": "~9 mg",
+      "value": 9.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
@@ -875,11 +897,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~3.3 g",
+      "value": 3.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // TUSCAN WHITE BEANS GARLIC ROSEMARY OLIVE OIL
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-tuscan-white-beans-garlic-rosemary-olive-oil.html": {
     "calories": {
@@ -887,6 +916,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 250.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~9.0 g",
+      "value": 9.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -904,6 +947,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~170 ug",
       "value": 170.0,
@@ -917,11 +967,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // GREEK LEMON HERB ROASTED POTATOES
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-greek-lemon-herb-roasted-potatoes.html": {
     "calories": {
@@ -929,6 +986,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 195.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~17.5 g",
+      "value": 17.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -946,6 +1017,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~30 µg",
       "value": 30.0,
@@ -959,9 +1037,41 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~3.3 g",
+      "value": 3.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
+  // --------------------------------------
+  // TZATZIKI
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // --------------------------------------
   "recipe-tzatziki.html": {
+    "calories": {
+      "display": "~125 kcal",
+      "value": 125.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~30 mg",
       "value": 30.0,
@@ -977,6 +1087,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~25 µg",
       "value": 25.0,
@@ -990,11 +1107,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // CASAVA PITA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-cassava-pita.html": {
     "calories": {
@@ -1002,6 +1126,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 100.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~9.0 g",
+      "value": 9.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -1018,6 +1156,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~24 µg",
       "value": 24.0,
@@ -1031,11 +1176,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.4 g",
+      "value": 0.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // DRESSING MEDITERRANEAN CLASSIC
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-dressing-mediterranean-classic.html": {
     "calories": {
@@ -1077,7 +1229,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // DRESSING ACV DOUBLE DUTY
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐  MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-dressing-acv-double-duty.html": {
     "calories": {
@@ -1119,7 +1271,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // TUSCAN FRESH HERB
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-dressing-fresh-herb.html": {
     "calories": {
@@ -1161,7 +1313,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // DRESSING BOLD SAVORY
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-dressing-bold-savory.html": {
     "calories": {
@@ -1203,7 +1355,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // DRESSING CREAMY
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-dressing-creamy.html": {
     "calories": {
@@ -1385,7 +1537,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // ROASTED ALMONDS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☑ fiber
   // --------------------------------------
   "recipe-roasted-almonds.html": {
     "calories": {
@@ -1395,9 +1547,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~6 g",
-      "value": 6.0,
+    "satfatG": {
+      "display": "~1 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~2.5 g",
+      "value": 2.5,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -1417,6 +1576,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~9 g",
+      "value": 9.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~14 mcg",
       "value": 14.0,
@@ -1431,9 +1597,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "B12 — MTHFR",
       "estimated": false
     },
-    "satfatG": {
-      "display": "~1 g",
-      "value": 1.0,
+    "viscousFiberG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~6 g",
+      "value": 6.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -1444,25 +1617,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
-    },
-    "viscousFiberG": {
-      "display": "~3.5 g",
-      "value": 3.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "mufaG": {
-      "display": "~9 g",
-      "value": 9.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
     }
   },
   // --------------------------------------
   // HERB CRUSTED CHICKEN
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☐  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-herb-crusted-chicken.html": {
     "calories": {
@@ -1470,6 +1629,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 300.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~6 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -1487,11 +1660,25 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "b12Mcg": {
       "display": "~0.3 µg",
       "value": 0.3,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.5 g",
+      "value": 0.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
@@ -2474,7 +2661,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // CHIA CHOCOLATE PUDDING
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☑ fiber
   // --------------------------------------
   "recipe-chia-chocolate-pudding.html": {
     "calories": {
@@ -2484,7 +2671,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
+    "satfatG": {
+      "display": "~0.5 g",
+      "value": 0.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
       "display": "~7 g",
       "value": 7.0,
       "unit": "g",
@@ -2506,6 +2700,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "ALA omega-3 — supportive only · conversion-limited",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~0.3 g",
+      "value": 0.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~24 µg",
       "value": 24.0,
@@ -2520,13 +2721,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "B12 — MTHFR",
       "estimated": false
     },
-    "fiberG": {
-      "display": "~6 g",
-      "value": 6.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
     "viscousFiberG": {
       "display": "~4.3 g",
       "value": 4.3,
@@ -2534,20 +2728,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
-    "satfatG": {
-      "display": "~0.5 g",
-      "value": 0.5,
+    "proteinG": {
+      "display": "~7 g",
+      "value": 7.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~0.3 g",
-      "value": 0.3,
+    "fiberG": {
+      "display": "~6 g",
+      "value": 6.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
-    }
+    },
   },
   // --------------------------------------
   // CHICKEN LIVERS
@@ -3201,7 +3395,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // LEMON BLUEBERRY CHEESECAKE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-lemon-blueberry-cheesecake.html": {
     "calories": {
@@ -3209,6 +3403,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 220.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~13.0 g",
+      "value": 13.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -3226,11 +3434,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "b12Mcg": {
-      "display": "~0.43 µg",
-      "value": 0.43,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
+    "mufaG": {
+      "display": "~10 g",
+      "value": 10.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
@@ -3238,6 +3446,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 13.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0.43 µg",
+      "value": 0.43,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.8 g",
+      "value": 0.8,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
@@ -3428,8 +3650,8 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     },
     "cholineMg": {
-      "display": "~3.38 - 4.05 mg net absorbed",
-      "value": 3.715,
+      "display": "~80 mg net absorbed",
+      "value": 80,
       "unit": "mg",
       "name": "Choline",
       "estimated": false
@@ -3443,15 +3665,15 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     },
     "b12Mcg": {
-      "display": "~3.38 - 4.05 mg net absorbed",
-      "value": 3715.0,
+      "display": "~12 mcg",
+      "value": 1.02,
       "unit": "mcg",
       "name": "B12",
       "estimated": false
     },
     "folateMcg": {
-      "display": "~3.38 - 4.05 mg net absorbed",
-      "value": 3715.0,
+      "display": "~85 mg net absorbed",
+      "value": 85.0,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
@@ -3809,9 +4031,30 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // SALMON RICE PAPER ROLLS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☐ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-salmon-rice-paper-rolls.html": {
+    "calories": {
+      "display": "~320 kcal",
+      "value": 320.0,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~10.0 g",
+      "value": 10.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~420 mg",
       "value": 420.0,
@@ -3819,11 +4062,19 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    "b12Mcg": {
-      "display": "~3.1 µg",
-      "value": 3.1,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
+    // Note: MARINE SOURCE _ FULL VALUE
+    "omega3Mg": {
+      "display": "~2500 mg",
+      "value": 2500.0,
+      "unit": "mg",
+      "name": "Omega-3 (EPA+DHA) — APOE4 · cardiovascular · anti-inflammatory",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~2500 mg",
+      "value": 2500,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
@@ -3833,12 +4084,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    // Note: MARINE SOURCE _ FULL VALUE
-    "omega3Mg": {
-      "display": "~2500 mg",
-      "value": 2500.0,
-      "unit": "mg",
-      "name": "Omega-3 (EPA+DHA) — APOE4 · cardiovascular · anti-inflammatory",
+    "b12Mcg": {
+      "display": "~3.1 µg",
+      "value": 3.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~1.6 g",
+      "value": 1.6,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     }
   },
