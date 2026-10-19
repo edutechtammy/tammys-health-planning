@@ -90,8 +90,23 @@
     .filter-bar label { font-size:.8rem; font-weight:600; color:var(--muted); margin-right:.3rem; }
     .filter-chip { padding:.28rem .75rem; border-radius:20px; font-size:.8rem; font-weight:600; cursor:pointer; border:1.5px solid var(--border); background:#f9fdf9; color:var(--muted); user-select:none; transition:background .15s,color .15s; }
     .filter-chip.on { background:var(--green-light); color:var(--green-dark); border-color:var(--green-mid); }
-    .search-box { border:1px solid var(--border); border-radius:8px; padding:.35rem .75rem; font-size:.85rem; background:#fff; color:var(--text); min-width:180px; }
-    .search-sort-wrap { display:flex; flex-direction:column; gap:.45rem; align-items:flex-start; }
+    .search-box { border:1px solid var(--border); border-radius:8px; padding:.35rem .75rem; font-size:.85rem; background:#fff; color:var(--text); min-width:180px; width:min(100%, 420px); }
+    .search-sort-wrap {
+      display:flex;
+      flex-direction:column;
+      gap:.45rem;
+      align-items:flex-start;
+      width:100%;
+      margin-top:.15rem;
+    }
+    .gl-filter-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+      align-items:center;
+      width:fit-content;
+      max-width:100%;
+    }
     .btn-sort-auc { background:#eef6fb; color:#1a5276; border:1px solid #aed6f1; padding:.38rem .85rem; border-radius:8px; font-size:.8rem; font-weight:700; cursor:pointer; }
     .btn-sort-auc.on { background:#d6ecfb; border-color:#5dade2; color:#154360; }
     .risk-summary {
@@ -312,6 +327,22 @@
     .metric-pill.tail-yes { background:#fff5e6; border-color:#f6d29a; color:#9a6000; }
     .metric-pill.tail-no { background:#e8f8ef; border-color:#bde5cb; color:#1e8449; }
     .metric-pill.tail-unknown { background:#f4f6f7; border-color:#d5dbdb; color:#5d6d7e; }
+    .gl-reliability {
+      display:inline-flex;
+      align-items:center;
+      gap:.3rem;
+      padding:.18rem .55rem;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-size:.74rem;
+      font-weight:800;
+      line-height:1;
+      letter-spacing:.01em;
+    }
+    .gl-reliability.aligned { background:#e8f8ef; border-color:#bde5cb; color:#1e8449; }
+    .gl-reliability.near-miss { background:#fff5e6; border-color:#f6d29a; color:#9a6000; }
+    .gl-reliability.mismatch { background:#fdeeee; border-color:#efb0a8; color:#c0392b; }
+    .gl-reliability.unknown { background:#f4f6f7; border-color:#d5dbdb; color:#5d6d7e; }
     .pinned-calorie-summary {
       margin: .2rem 0 .9rem;
       border:1px solid var(--border);
@@ -1259,6 +1290,12 @@
     <span class="filter-chip"   data-cat="test" onclick="setFilter('test')">🧪 Test</span>
     <span class="filter-chip"   data-cat="other"   onclick="setFilter('other')">🍽 Meal</span>
     <div class="search-sort-wrap">
+      <div class="gl-filter-row">
+        <button class="btn-sort-auc" id="gl-filter-btn" type="button" onclick="cycleGlFilter()">GL filter is all</button>
+        <button class="btn-sort-auc" id="gl-filter-aligned-btn" type="button" data-gl-filter="aligned" onclick="setGlFilter('aligned')">Aligned</button>
+        <button class="btn-sort-auc" id="gl-filter-mismatch-btn" type="button" data-gl-filter="mismatch" onclick="setGlFilter('mismatch')">Mismatch</button>
+        <button class="btn-sort-auc" id="gl-filter-missing-btn" type="button" data-gl-filter="missing" onclick="setGlFilter('missing')">No GL</button>
+      </div>
       <input class="search-box" id="search-box" type="text" placeholder="Search food name…" oninput="render()" />
       <button class="btn-sort-auc" id="auc-sort-btn" type="button" onclick="toggleAucSort()">Order by AUC is off</button>
       <button class="btn-sort-auc" id="peak-sort-btn" type="button" onclick="togglePeakSort()">Peak is off</button>
@@ -1827,6 +1864,7 @@ let filterAmOnly=false;
 let filterComboOnly=false;
 let filterSatFatHighOnly=false;
 let showGlPredictiveView=false;
+let glFilterMode='all';
 let longTailMinSpikeAboveBaseline=15;
 let longTailMin180Delta=10;
 const SKIM_MILK_PAIRING_NET_CARBS=13;
@@ -1942,6 +1980,18 @@ function toggleGlPredictiveView(){
   render();
 }
 
+function setGlFilter(mode){
+  glFilterMode = glFilterMode === mode ? 'all' : mode;
+  render();
+}
+
+function cycleGlFilter(){
+  const order=['all','aligned','mismatch','missing'];
+  const idx = order.indexOf(glFilterMode);
+  glFilterMode = order[(idx + 1) % order.length];
+  render();
+}
+
 function classifyGlBand(glValue){
   const gl=Number(glValue);
   if(!Number.isFinite(gl) || gl < 0) return null;
@@ -1956,6 +2006,41 @@ function classifySpikeBand(spikeAbs){
   if(spike <= 20) return 'Low';
   if(spike <= 40) return 'Moderate';
   return 'High';
+}
+
+function getGlReliabilityStatus(test){
+  if(test == null || test.glycemicLoad == null || Number.isNaN(Number(test.glycemicLoad))) {
+    return { label: 'GL data missing', className: 'unknown', glBand: null, spikeBand: null };
+  }
+  const a = spikeAnalysis(test.t0, test.t30, test.t60, test.t120, test.t180);
+  if(!a) {
+    return { label: 'Need glucose data', className: 'unknown', glBand: classifyGlBand(test.glycemicLoad), spikeBand: null };
+  }
+  const glBand = classifyGlBand(test.glycemicLoad);
+  const spikeBand = classifySpikeBand(a.spikeAbs);
+  if(!glBand || !spikeBand) {
+    return { label: 'GL status unknown', className: 'unknown', glBand: glBand || null, spikeBand: spikeBand || null };
+  }
+  const bandOrder = ['Low', 'Moderate', 'High'];
+  const glIndex = bandOrder.indexOf(glBand);
+  const spikeIndex = bandOrder.indexOf(spikeBand);
+  const diff = Math.abs(glIndex - spikeIndex);
+  if(diff === 0) {
+    return { label: 'GL aligned', className: 'aligned', glBand, spikeBand };
+  }
+  if(diff === 1) {
+    return { label: 'GL near miss', className: 'near-miss', glBand, spikeBand };
+  }
+  return { label: 'GL mismatch', className: 'mismatch', glBand, spikeBand };
+}
+
+function glMatchesFilter(test){
+  const status = getGlReliabilityStatus(test);
+  if(glFilterMode === 'all') return true;
+  if(glFilterMode === 'aligned') return status.className === 'aligned';
+  if(glFilterMode === 'mismatch') return status.className === 'mismatch' || status.className === 'near-miss';
+  if(glFilterMode === 'missing') return status.className === 'unknown';
+  return true;
 }
 
 function formatDate(iso){
@@ -2776,6 +2861,17 @@ function render(){
     glPredictiveBtn.classList.toggle('on',showGlPredictiveView);
     glPredictiveBtn.textContent=`GL predictive view is ${showGlPredictiveView?'on':'off'}`;
   }
+  const glFilterBtn=document.getElementById('gl-filter-btn');
+  if(glFilterBtn){
+    glFilterBtn.classList.toggle('on',glFilterMode !== 'all');
+    glFilterBtn.textContent=`GL filter is ${glFilterMode === 'all' ? 'all' : glFilterMode}`;
+  }
+  ['aligned','mismatch','missing'].forEach(mode => {
+    const btn = document.getElementById(`gl-filter-${mode}-btn`);
+    if(btn){
+      btn.classList.toggle('on', glFilterMode === mode);
+    }
+  });
   const pinnedSet = new Set(pinnedTestIds);
   const pinnedItems = all.filter(t => pinnedSet.has(String(t.id)));
   const pinnedSummaryEl=document.getElementById('pinned-calorie-summary');
@@ -2830,7 +2926,9 @@ function render(){
       const comboOk = isPinned || !filterComboOnly || hasComboThreshold(t);
       const satFatHighOnlyOk = isPinned || !filterSatFatHighOnly || Number(t.satFat) >= 5;
       const longTailOk = isPinned || !sortByLongTail || getLongTailStatus(t)==='yes';
-      return catOk&&searchOk&&amOk&&comboOk&&satFatHighOnlyOk&&longTailOk;
+      const glOk = isPinned || glMatchesFilter(t);
+      const predictiveGlOnlyOk = !showGlPredictiveView || (t.glycemicLoad != null && String(t.glycemicLoad).trim() !== '' && Number.isFinite(Number(t.glycemicLoad)));
+      return catOk&&searchOk&&amOk&&comboOk&&satFatHighOnlyOk&&longTailOk&&glOk&&predictiveGlOnlyOk;
     })
     .sort((a,b)=>{
       if(sortByAuc){
@@ -3021,6 +3119,7 @@ function render(){
       const satFatClass=satFatHigh ? ' satfat-high' : '';
       const selectedForTransfer=selectedForDietPower.has(String(t.id));
       const hasSummaryContent = Boolean(a || metricBits || analysisBits || contextBits);
+      const glReliability = getGlReliabilityStatus(t);
       return `
       <div class="test-card${cardClass}${satFatClass}${isPinned ? ' pinned-card' : ''}">
         <div class="test-card-header">
@@ -3047,6 +3146,7 @@ function render(){
             Peak above baseline <span class="peak-val">+${a.spikeAbs}</span> mg/dL
           </span>
           <span style="font-size:.8rem;color:var(--muted)">Absolute peak: ${a.peak} mg/dL</span>`:''}
+          ${glReliability ? `<span class="gl-reliability ${glReliability.className}" title="GL band ${glReliability.glBand || 'n/a'} vs observed spike band ${glReliability.spikeBand || 'n/a'}">${glReliability.label}</span>` : ''}
           ${analysisBits}
           ${a && a.ret120!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret120)<=20?'#27ae60':'#e67e22'}">120-min: ${a.ret120>=0?'+':''}${a.ret120} from base</span>`:''}
           ${a && a.ret180!=null?`<span style="font-size:.78rem;color:${Math.abs(a.ret180)<=20?'#27ae60':'#e67e22'}">180-min: ${a.ret180>=0?'+':''}${a.ret180} from base</span>`:''}
@@ -3128,8 +3228,10 @@ function render(){
       const comboOk = isPinned || !filterComboOnly || hasComboThreshold(t);
       const satFatOk = isPinned || !filterSatFatHighOnly || Number(t.satFat) >= 5;
       const longTailOk = isPinned || !sortByLongTail || getLongTailStatus(t)==='yes';
+      const glOk = isPinned || glMatchesFilter(t);
+      const predictiveGlOnlyOk = !showGlPredictiveView || (t.glycemicLoad != null && String(t.glycemicLoad).trim() !== '' && Number.isFinite(Number(t.glycemicLoad)));
       const baselineOk = isBaselineEligibleForGraph(t.t0);
-      return catOk && searchOk && amOk && comboOk && satFatOk && longTailOk && baselineOk;
+      return catOk && searchOk && amOk && comboOk && satFatOk && longTailOk && glOk && predictiveGlOnlyOk && baselineOk;
     })
     .slice()
     .sort((a, b) => (a.food || '').localeCompare(b.food || '', undefined, { sensitivity: 'base' }));
