@@ -126,6 +126,44 @@
     .pantry-item-note { font-size: .67rem; color: var(--muted); display: block; }
     @media (max-width: 600px) { .pantry-checkboxes { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); } }
 
+    /* RECIPE SANDBOX */
+    .recipe-sandbox-toggle-wrap { margin: 0 0 1rem; display: flex; justify-content: flex-start; }
+    .recipe-sandbox-toggle { border: none; border-radius: 999px; background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); color: #fff; font-size: .83rem; font-weight: 800; padding: .72rem 1.1rem; cursor: pointer; box-shadow: var(--shadow); }
+    .recipe-sandbox-toggle:hover { filter: brightness(1.03); }
+    .recipe-sandbox-panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+    .recipe-sandbox-header { background: linear-gradient(135deg, #eafaf3, #dff7eb); border-bottom: 1px solid var(--border); padding: .9rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
+    .recipe-sandbox-header h3 { font-size: 1rem; color: var(--green-dark); }
+    .recipe-sandbox-header p { font-size: .78rem; color: var(--muted); }
+    .recipe-sandbox-close { border: 1px solid var(--green-mid); background: #fff; color: var(--green-dark); border-radius: 8px; padding: .35rem .7rem; font-size: .75rem; font-weight: 700; cursor: pointer; }
+    .recipe-sandbox-body { padding: 1rem 1.2rem 1.2rem; display: grid; grid-template-columns: 1.3fr .9fr; gap: 1.1rem; }
+    .recipe-sandbox-controls { display: flex; flex-wrap: wrap; gap: .65rem; align-items: flex-end; margin-bottom: .9rem; }
+    .recipe-sandbox-select, .recipe-sandbox-qty { border: 1.5px solid var(--border); border-radius: 10px; padding: .7rem .8rem; font-size: .9rem; background: #fff; color: var(--text); }
+    .recipe-sandbox-select { min-width: 210px; flex: 1; }
+    .recipe-sandbox-qty-wrap { display: flex; flex-direction: column; gap: .32rem; }
+    .recipe-sandbox-qty-label { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 800; }
+    .recipe-sandbox-qty { width: 90px; }
+    .recipe-sandbox-add, .recipe-sandbox-clear { padding: .7rem .9rem; border: 1px solid var(--green-mid); border-radius: 10px; cursor: pointer; font-weight: 700; }
+    .recipe-sandbox-add { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+    .recipe-sandbox-clear { background: #fff; color: var(--green-dark); }
+    .recipe-sandbox-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: .7rem; }
+    .recipe-sandbox-metric-card { background: var(--green-pale); border: 1px solid var(--border); border-radius: 12px; padding: .7rem .8rem; display: flex; flex-direction: column; gap: .2rem; }
+    .recipe-sandbox-metric-card .metric-label { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 800; }
+    .metric-value { font-size: 1.15rem; font-weight: 800; color: var(--green-dark); }
+    .metric-status { font-size: .68rem; color: var(--muted); }
+    .metric-status.low { color: #166534; }
+    .metric-status.mod { color: #9a4d00; }
+    .metric-status.high { color: #991b1b; }
+    .recipe-sandbox-list-wrap { margin-top: .9rem; }
+    .recipe-sandbox-list-header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .45rem; }
+    .recipe-sandbox-list { display: flex; flex-direction: column; gap: .5rem; }
+    .recipe-sandbox-row { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .55rem .7rem; border: 1px solid var(--border); border-radius: 10px; background: #fbfffc; }
+    .recipe-sandbox-name { font-size: .83rem; color: var(--text); font-weight: 600; }
+    .recipe-sandbox-row-controls { display: flex; align-items: center; gap: .45rem; }
+    .recipe-sandbox-row input[type="number"] { width: 74px; border: 1px solid var(--border); border-radius: 8px; padding: .35rem .4rem; font-size: .8rem; }
+    .recipe-sandbox-remove { border: none; background: #fff1f2; color: #9f1239; font-weight: 700; border-radius: 8px; padding: .35rem .5rem; cursor: pointer; }
+    .recipe-sandbox-empty { padding: 1rem; border: 1px dashed var(--border); border-radius: 12px; color: var(--muted); background: #fafdfb; font-size: .84rem; }
+    @media (max-width: 760px) { .recipe-sandbox-body { grid-template-columns: 1fr; } }
+
     /* SEARCH PANEL */
     .search-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; padding: .9rem 1.2rem; }
     .search-label { display: block; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .45rem; }
@@ -397,7 +435,7 @@
   <!-- ======================================================================= -->
   <!-- MARK: PANTRY FILTER -->
   <!-- ======================================================================= -->
-  
+
   <div class="filter-bar">
     <label>Filter:</label>
     <button class="filter-btn active" onclick="filterRecipes('all', this)">All</button>
@@ -723,6 +761,76 @@
   </div>
 
   <div class="restriction-note">Saturated Fat Restriction: 10-13 g per day.</div>
+
+  <div class="recipe-sandbox-toggle-wrap">
+    <button id="recipe-sandbox-toggle" class="recipe-sandbox-toggle" type="button" aria-expanded="false">🧪 Recipe Sandbox</button>
+  </div>
+
+  <section id="recipe-sandbox-panel" class="recipe-sandbox-panel" aria-live="polite" style="display:none;">
+    <div class="recipe-sandbox-header">
+      <div>
+        <h3>🧪 Recipe Sandbox</h3>
+        <p>Test ingredients and quantities without changing your pantry or recipe list.</p>
+      </div>
+      <button id="recipe-sandbox-close" class="recipe-sandbox-close" type="button">Hide</button>
+    </div>
+    <div class="recipe-sandbox-body">
+      <div>
+        <div class="recipe-sandbox-controls">
+          <select id="recipe-sandbox-select" class="recipe-sandbox-select" aria-label="Choose ingredient to test"></select>
+          <div class="recipe-sandbox-qty-wrap">
+            <label class="recipe-sandbox-qty-label" for="recipe-sandbox-qty">Amount / scale</label>
+            <input id="recipe-sandbox-qty" class="recipe-sandbox-qty" type="number" min="0.25" step="0.25" value="1" aria-label="Ingredient amount or scaling factor" />
+          </div>
+          <button id="recipe-sandbox-add" class="recipe-sandbox-add" type="button">Add Ingredient</button>
+        </div>
+        <div class="recipe-sandbox-list-wrap">
+          <div class="recipe-sandbox-list-header">
+            <span>Draft ingredients</span>
+            <button id="recipe-sandbox-clear" class="recipe-sandbox-clear" type="button">Clear all</button>
+          </div>
+          <div id="recipe-sandbox-list" class="recipe-sandbox-list"></div>
+        </div>
+      </div>
+      <div class="recipe-sandbox-summary">
+        <div class="recipe-sandbox-metric-card">
+          <span class="metric-label">GL</span>
+          <span id="sandbox-gl-value" class="metric-value">--</span>
+          <span id="sandbox-gl-status" class="metric-status">No ingredients yet</span>
+        </div>
+        <div class="recipe-sandbox-metric-card">
+          <span class="metric-label">Choline</span>
+          <span id="sandbox-choline" class="metric-value">0 mg</span>
+          <span class="metric-status">Target 740 mg</span>
+        </div>
+        <div class="recipe-sandbox-metric-card">
+          <span class="metric-label">Omega-3</span>
+          <span id="sandbox-omega3" class="metric-value">0 mg</span>
+          <span class="metric-status">Target 800 mg</span>
+        </div>
+        <div class="recipe-sandbox-metric-card">
+          <span class="metric-label">MUFAs</span>
+          <span id="sandbox-mufa" class="metric-value">0 g</span>
+          <span class="metric-status">Target 30 g</span>
+        </div>
+        <div class="recipe-sandbox-metric-card">
+          <span class="metric-label">Folate</span>
+          <span id="sandbox-folate" class="metric-value">0 mcg</span>
+          <span class="metric-status">Target 400 mcg</span>
+        </div>
+        <div class="recipe-sandbox-metric-card">
+          <span class="metric-label">B12</span>
+          <span id="sandbox-b12" class="metric-value">0 mcg</span>
+          <span class="metric-status">Target 2.4 mcg</span>
+        </div>
+        <div class="recipe-sandbox-metric-card">
+          <span class="metric-label">Viscous fiber</span>
+          <span id="sandbox-fiber" class="metric-value">0 g</span>
+          <span class="metric-status">Target 10 g</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div class="search-panel">
     <div class="category-row">
@@ -7536,8 +7644,260 @@ function normalizeRecipeCardFooters() {
       testLink.textContent = '🍽 Log a Test';
       footer.appendChild(testLink);
     }
+
+    card.style.display = card.style.display === 'none' ? 'none' : '';
   });
 }
+
+const RECIPE_SANDBOX_LS_KEY = 'tammy_recipe_sandbox_v1';
+
+function getRecipeSandboxOptions() {
+  const items = [];
+  Object.values(PANTRY_GROUPS || {}).forEach((group) => {
+    if (!group || !Array.isArray(group.items)) return;
+    group.items.forEach((item) => {
+      const trimmed = String(item || '').trim();
+      if (!trimmed) return;
+      items.push(trimmed);
+    });
+  });
+  return [...new Set(items)].sort((a, b) => a.localeCompare(b));
+}
+
+function loadRecipeSandboxDraft() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(RECIPE_SANDBOX_LS_KEY) || '[]');
+    if (!Array.isArray(saved)) return [];
+    return saved
+      .filter(entry => entry && typeof entry.name === 'string' && Number(entry.qty) > 0)
+      .map(entry => ({ name: entry.name.trim(), qty: Number(entry.qty) || 1 }));
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveRecipeSandboxDraft() {
+  localStorage.setItem(RECIPE_SANDBOX_LS_KEY, JSON.stringify(recipeSandboxDraft));
+}
+
+function getSandboxIngredientEstimate(name, qty = 1) {
+  const estimate = estimateNutrientsPerServing(name || '');
+  return {
+    cholineMg: (Number(estimate.cholineMg) || 0) * qty,
+    omega3Mg: (Number(estimate.omega3Mg) || 0) * qty,
+    mufaG: (Number(estimate.mufaG) || 0) * qty,
+    folateMcg: (Number(estimate.folateMcg) || 0) * qty,
+    b12Mcg: (Number(estimate.b12Mcg) || 0) * qty,
+    viscousFiberG: (Number(estimate.viscousFiberG) || 0) * qty
+  };
+}
+
+function getSandboxNetCarbsEstimate() {
+  return recipeSandboxDraft.reduce((total, entry) => {
+    const name = String(entry.name || '').trim();
+    if (!name) return total;
+    const qty = Number(entry.qty) || 1;
+    const key = (normIng(name) || name).toLowerCase();
+
+    const veryLowCarbGreens = ['spinach', 'kale', 'broccoli', 'cauliflower', 'cabbage', 'romaine', 'greens', 'mixed greens', 'cucumber', 'zucchini', 'celery', 'bell pepper', 'asparagus', 'mushrooms', 'garlic', 'onion', 'tomatoes'];
+    const lowCarbProteinFat = ['salmon', 'mackerel', 'sardines', 'eggs', 'egg', 'feta', 'olives', 'olive-cheddar spread', 'olive cheddar spread', 'avocado', 'evoo', 'olive oil', 'almond oil', 'pork shoulder', 'chicken'];
+    const moderateCarbItems = ['berries', 'apple', 'carrot', 'bean', 'lentil', 'steel-cut oats', 'whole-grain bread', 'almond flour', 'cassava flour', 'potatoes'];
+
+    if (veryLowCarbGreens.includes(key)) return total + (0.5 * qty);
+    if (lowCarbProteinFat.includes(key)) return total + (0.8 * qty);
+    if (moderateCarbItems.some(item => key.includes(item))) return total + (7 * qty);
+    if (key.includes('bean') || key.includes('lentil') || key.includes('oat')) return total + (9 * qty);
+    return total + (4.5 * qty);
+  }, 0);
+}
+
+function getSandboxGlStatus() {
+  const netCarbs = getSandboxNetCarbsEstimate();
+  const fiber = recipeSandboxDraft.reduce((total, entry) => {
+    const estimate = getSandboxIngredientEstimate(entry.name, entry.qty);
+    return total + (Number(estimate.viscousFiberG) || 0);
+  }, 0);
+  const glScore = Math.max(0, Math.round((netCarbs * 1.1) - (fiber * 2.1)));
+
+  if (!recipeSandboxDraft.length) {
+    return { label: 'No ingredients yet', className: 'neutral', note: 'Add ingredients to estimate a draft meal.', value: '--' };
+  }
+  if (glScore <= 5) return { label: 'Low GL forecast', className: 'low', note: 'Leafy greens and fiber keep this draft low.', value: glScore };
+  if (glScore <= 12) return { label: 'Moderate GL forecast', className: 'mod', note: 'Some fruit or starch is lifting the load.', value: glScore };
+  return { label: 'High GL forecast', className: 'high', note: 'Starches or sweet ingredients are pushing this meal up.', value: glScore };
+}
+
+function renderRecipeSandboxMetrics() {
+  const tally = recipeSandboxDraft.reduce((totals, entry) => {
+    const estimate = getSandboxIngredientEstimate(entry.name, entry.qty);
+    Object.keys(estimate).forEach((key) => {
+      totals[key] = (totals[key] || 0) + (Number(estimate[key]) || 0);
+    });
+    return totals;
+  }, {
+    cholineMg: 0,
+    omega3Mg: 0,
+    mufaG: 0,
+    folateMcg: 0,
+    b12Mcg: 0,
+    viscousFiberG: 0
+  });
+
+  const metrics = [
+    ['sandbox-choline', 'cholineMg', 'mg'],
+    ['sandbox-omega3', 'omega3Mg', 'mg'],
+    ['sandbox-mufa', 'mufaG', 'g'],
+    ['sandbox-folate', 'folateMcg', 'mcg'],
+    ['sandbox-b12', 'b12Mcg', 'mcg'],
+    ['sandbox-fiber', 'viscousFiberG', 'g']
+  ];
+
+  metrics.forEach(([id, key, unit]) => {
+    const node = document.getElementById(id);
+    const value = Number(tally[key] || 0);
+    if (!node) return;
+    node.textContent = value === 0 ? '0 ' + unit : value.toFixed(value < 10 && unit !== 'mg' ? 1 : 0) + ' ' + unit;
+  });
+
+  const glStatus = getSandboxGlStatus();
+  const glValue = document.getElementById('sandbox-gl-value');
+  const glStatusEl = document.getElementById('sandbox-gl-status');
+  if (glValue) glValue.textContent = glStatus.value === '--' ? '--' : String(glStatus.value);
+  if (glStatusEl) {
+    const helperText = glStatus.note ? glStatus.label + ' • ' + glStatus.note : glStatus.label;
+    glStatusEl.textContent = helperText;
+    glStatusEl.className = 'metric-status ' + glStatus.className;
+  }
+}
+
+function renderRecipeSandboxList() {
+  const list = document.getElementById('recipe-sandbox-list');
+  if (!list) return;
+
+  if (!recipeSandboxDraft.length) {
+    list.innerHTML = '<div class="recipe-sandbox-empty">No ingredients added yet. Pick a pantry item to start exploring a draft recipe.</div>';
+    renderRecipeSandboxMetrics();
+    return;
+  }
+
+  list.innerHTML = recipeSandboxDraft.map((entry, index) => `
+    <div class="recipe-sandbox-row">
+      <div class="recipe-sandbox-name">${entry.name}</div>
+      <div class="recipe-sandbox-row-controls">
+        <input type="number" min="0.25" step="0.25" value="${entry.qty}" data-sandbox-index="${index}" aria-label="Adjust ${entry.name} quantity" />
+        <button type="button" class="recipe-sandbox-remove" data-sandbox-remove="${index}" aria-label="Remove ${entry.name}">Remove</button>
+      </div>
+    </div>
+  `).join('');
+
+  renderRecipeSandboxMetrics();
+}
+
+function addRecipeSandboxIngredient(name, qty = 1) {
+  const itemName = String(name || '').trim();
+  if (!itemName) return;
+  const amount = Number(qty) || 1;
+  const existing = recipeSandboxDraft.find(entry => entry.name.toLowerCase() === itemName.toLowerCase());
+  if (existing) {
+    existing.qty = Number(existing.qty) + amount;
+  } else {
+    recipeSandboxDraft.push({ name: itemName, qty: amount });
+  }
+  saveRecipeSandboxDraft();
+  renderRecipeSandboxList();
+}
+
+function updateRecipeSandboxIngredient(index, qty) {
+  const nextQty = Number(qty) || 0;
+  if (!recipeSandboxDraft[index]) return;
+  if (nextQty <= 0) {
+    recipeSandboxDraft.splice(index, 1);
+  } else {
+    recipeSandboxDraft[index].qty = nextQty;
+  }
+  saveRecipeSandboxDraft();
+  renderRecipeSandboxList();
+}
+
+function clearRecipeSandbox() {
+  recipeSandboxDraft = [];
+  localStorage.removeItem(RECIPE_SANDBOX_LS_KEY);
+  renderRecipeSandboxList();
+}
+
+function toggleRecipeSandbox(open) {
+  const panel = document.getElementById('recipe-sandbox-panel');
+  const toggle = document.getElementById('recipe-sandbox-toggle');
+  if (!panel || !toggle) return;
+  const shouldOpen = typeof open === 'boolean' ? open : panel.style.display === 'none';
+  panel.style.display = shouldOpen ? '' : 'none';
+  toggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+  toggle.textContent = shouldOpen ? '🧪 Recipe Sandbox Open' : '🧪 Recipe Sandbox';
+}
+
+function initRecipeSandbox() {
+  const select = document.getElementById('recipe-sandbox-select');
+  const addBtn = document.getElementById('recipe-sandbox-add');
+  const clearBtn = document.getElementById('recipe-sandbox-clear');
+  const toggleBtn = document.getElementById('recipe-sandbox-toggle');
+  const closeBtn = document.getElementById('recipe-sandbox-close');
+  const list = document.getElementById('recipe-sandbox-list');
+
+  if (!select || !addBtn || !clearBtn || !toggleBtn || !closeBtn || !list) return;
+
+  const options = getRecipeSandboxOptions();
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = 'Select ingredient...';
+  select.innerHTML = '';
+  select.appendChild(placeholder);
+  options.forEach((item) => {
+    const option = document.createElement('option');
+    option.value = item;
+    option.textContent = item;
+    select.appendChild(option);
+  });
+
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = document.getElementById('recipe-sandbox-panel')?.style.display !== 'none';
+    toggleRecipeSandbox(!isOpen);
+  });
+
+  closeBtn.addEventListener('click', () => toggleRecipeSandbox(false));
+
+  addBtn.addEventListener('click', () => {
+    const item = select.value;
+    const qty = Number(document.getElementById('recipe-sandbox-qty')?.value || 1);
+    addRecipeSandboxIngredient(item, qty);
+    select.selectedIndex = 0;
+    document.getElementById('recipe-sandbox-qty').value = '1';
+  });
+
+  clearBtn.addEventListener('click', () => clearRecipeSandbox());
+
+  list.addEventListener('input', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement)) return;
+    const index = Number(target.dataset.sandboxIndex);
+    if (Number.isInteger(index)) updateRecipeSandboxIngredient(index, target.value);
+  });
+
+  list.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const removeIndex = target.dataset.sandboxRemove;
+    if (removeIndex !== undefined) {
+      recipeSandboxDraft.splice(Number(removeIndex), 1);
+      saveRecipeSandboxDraft();
+      renderRecipeSandboxList();
+    }
+  });
+
+  recipeSandboxDraft = loadRecipeSandboxDraft();
+  renderRecipeSandboxList();
+}
+
+let recipeSandboxDraft = [];
 
 // ═══════════════════════════════════════════════════════════════════════════
 //  MEALBOARD
@@ -7723,6 +8083,7 @@ document.addEventListener('DOMContentLoaded', () => {
   addWaterOnlyWarnings();
   loadPantry();
   buildPantryPanel();
+  initRecipeSandbox();
   applyAllFilters();
 });
 </script>
