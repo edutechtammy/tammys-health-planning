@@ -1,33 +1,5 @@
 window.RECIPE_PANEL_NUTRIENTS = {
   "recipe-low-carb-velvet-egg-drop-soup.html": {
-    "choline": {
-      "display": "~125–150 mg",
-      "value": 137.5,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~750–1,000 mg",
-      "value": 875.0,
-      "unit": "mg",
-      "name": "Omega-3 (ALA) — flax contribution",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~22 ug",
-      "value": 22.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.6 ug",
-      "value": 0.6,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~80 kcal",
       "value": 80,
@@ -150,34 +122,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-soft-pliable-gluten-free-gyro-pita.html": {
-    "choline": {
-      "display": "~18 mg",
-      "value": 18.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~20 mg",
-      "value": 20.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~24 ug",
-      "value": 24.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~225 kcal",
       "value": 225,
@@ -307,34 +251,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-almond-oil-mayo.html": {
-    "choline": {
-      "display": "~6 mg",
-      "value": 6.0,
-      "unit": "mg",
-      "name": "Choline — APOE4",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~5 mg",
-      "value": 5.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~1 ug",
-      "value": 1.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~80 kcal",
       "value": 80,
@@ -450,34 +366,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-ceylon-cinnamon-psyllium-mints.html": {
-    "choline": {
-      "display": "~0 mg",
-      "value": 0.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~0 mg",
-      "value": 0.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~2 kcal",
       "value": 2,
@@ -543,34 +431,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-almond-flour-waffles.html": {
-    "choline": {
-      "display": "~130–150 mg",
-      "value": 140.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~25 mg",
-      "value": 25.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~22 ug",
-      "value": 22.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.5 ug",
-      "value": 0.5,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~380 kcal",
       "value": 380,
@@ -672,34 +532,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-gluten-free-bagel-bites.html": {
-    "choline": {
-      "display": "~8 mg",
-      "value": 8.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~20 mg",
-      "value": 20.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~6 ug",
-      "value": 6.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.1 ug",
-      "value": 0.1,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~94 kcal",
       "value": 94,
@@ -801,34 +633,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-no-sugar-crunch-bar.html": {
-    "choline": {
-      "display": "~20 mg",
-      "value": 20.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~0.8–1.2 g",
-      "value": 1000.0,
-      "unit": "mg",
-      "name": "ALA omega-3 — supportive only · conversion-limited",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~30 ug",
-      "value": 30.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~285 kcal",
       "value": 285,
@@ -930,34 +734,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-sous-vide-lentils.html": {
-    "choline": {
-      "display": "~75 mg",
-      "value": 75.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~0 mg",
-      "value": 0.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~180 mcg",
-      "value": 180.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~120 kcal",
       "value": 120,
@@ -1059,34 +835,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-marinated-smoked-gouda.html": {
-    "choline": {
-      "display": "~18 mg",
-      "value": 18.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.6 µg",
-      "value": 0.6,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~10 µg",
-      "value": 10.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~90 mg",
-      "value": 90.0,
-      "unit": "mg",
-      "name": "Omega-3 — ALA type",
-      "estimated": false
-    },
     "calories": {
       "display": "~180 kcal",
       "value": 180,
@@ -1195,34 +943,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-ladenia.html": {
-    "choline": {
-      "display": "~130 mg",
-      "value": 130.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~180 mg",
-      "value": 180.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~70 ug",
-      "value": 70.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.7 ug",
-      "value": 0.7,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~500 kcal",
       "value": 500,
@@ -1324,34 +1044,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-crispy-roasted-chickpea-feta-mediterranean-bowl.html": {
-    "choline": {
-      "display": "~55 mg",
-      "value": 55.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~140 mg",
-      "value": 140.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~145 ug",
-      "value": 145.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.3 ug",
-      "value": 0.3,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~120 kcal",
       "value": 120,
@@ -9917,34 +9609,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-trail-mix.html": {
-    "choline": {
-      "display": "~21 mg",
-      "value": 21.0,
-      "unit": "mg",
-      "name": "Choline — APOE4",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~1400 mg",
-      "value": 1400.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~26.5 µg",
-      "value": 26.5,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "0 µg",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~190 kcal",
       "value": 190,
@@ -10053,34 +9717,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-turkey-meatloaf.html": {
-    "choline": {
-      "display": "~185 mg",
-      "value": 185.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~1.1 µg",
-      "value": 1.1,
-      "unit": "mcg",
-      "name": "Vitamin B12 — MTHFR",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~22 µg DFE",
-      "value": 22.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~3.2 mg",
-      "value": 3.2,
-      "unit": "mg",
-      "name": "Zinc — immune · metabolic · wound repair",
-      "estimated": false
-    },
     "calories": {
       "display": "~250 kcal",
       "value": 250,
@@ -10137,13 +9773,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Vitamin B12 — MTHFR",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~29 g",
-      "value": 29,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
     "viscousFiberG": {
       "display": "~0.0 g",
       "value": 0,
@@ -10151,9 +9780,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "proteinG": {
+      "display": "~29 g",
+      "value": 29,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "glycemic": {
       "gl": {
-        "display": "",
+        "display": "0",
         "value": 0,
         "unit": "GL",
         "name": "Glycemic Load — per serving",
@@ -10169,22 +9805,22 @@ window.RECIPE_PANEL_NUTRIENTS = {
           },
           {
             "minute": 30,
-            "delta": 0
+            "delta": 26
           },
           {
             "minute": 60,
-            "delta": 0
+            "delta": 5
           },
           {
             "minute": 120,
-            "delta": 0
+            "delta": 1
           },
           {
             "minute": 180,
-            "delta": 0
+            "delta": -2
           }
         ],
-        "notes": ""
+        "notes": "I used the meatloaf run with broccoli and cauliflower from May 28, 2026. The GL is truly 0. Omega-3 Turkey does have real omega-3. Viscous fiber is truly 0."
       }
     }
   }

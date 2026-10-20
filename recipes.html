@@ -518,12 +518,12 @@
         <div style="margin-left: 40px;">
           <p><strong>☑ Friday</strong> - Make Labneh from the Sugar Shift yogurt.</p>
           <p><strong>☑ Saturday</strong> - Make the Sugar Shift Pumpkin Spice Mousse and refrigerate it for serving for Sunday's lunch.</p>
-          <p><strong>☐ Sunday - Sugar Shift Yogurt</strong> - Ferment and drain to labneh (Greek yogurt) - Ran out of A2 milk and cream which has delayed this one to Sunday after grocery haul.</p>
+          <p><strong>☑ Sunday - Sugar Shift Yogurt</strong> - Ferment and drain to labneh (Greek yogurt) - Ran out of A2 milk and cream which has delayed this one to Sunday after grocery haul.</p>
           </div>
         <p>Continuous Ferments</p>
         <div style="margin-left: 40px;">
           <p><strong>☐ Kombucha</strong> - Keep up with John's one bottle a day love for this.</p>
-          <p><strong>☐ Tepache</strong> - Antioxidants and flavonoids (phenolic compounds) not only help the conditions in the stack it also acts like GLP-1. Colorful fruit are often considered too high in carbs to eat them (berries excluded), but if you ferment the juice (tepache) so that the microbes consume the carbs what you are left with is a cocktail of short chain fatty acids, the antioxidants, and flavonoids from the fruit. It will NOT taste sweet, so don't set your mind to that. It will be tart and if you do the F2 second ferment in a bottle it will be effervescent (carbonated).</p>
+          <p><strong>☐ Tepache</strong> - (Waiting for the pineapple to ripen) Antioxidants and flavonoids (phenolic compounds) not only help the conditions in the stack it also acts like GLP-1. Colorful fruit are often considered too high in carbs to eat them (berries excluded), but if you ferment the juice (tepache) so that the microbes consume the carbs what you are left with is a cocktail of short chain fatty acids, the antioxidants, and flavonoids from the fruit. It will NOT taste sweet, so don't set your mind to that. It will be tart and if you do the F2 second ferment in a bottle it will be effervescent (carbonated).</p>
           </div>
         </br>
 
@@ -543,8 +543,8 @@
         <div style="margin-left: 40px;">
           <p><strong>☑ Blueberries</strong> - Use them to make <a href="/recipes/recipe-blueberry-labneh-cheesecake.html">Lemon Blueberry Labneh Cheesecake</a> once the yogurt is made to have Labneh.</p>
           <p><strong>☑ Broccoli</strong> - raw and ready to be roasted or steamed</p>
-          <p><strong>☐ Red (purple) Cabbage</strong> - nearly a whole head to find a recipe for</p>
-          <p><strong>☐ Chicken Deli Slices and Swiss Cheese</strong> that would be good on the next item</p>
+          <p><strong>☐ Red (purple) Cabbage</strong> - Adding a portion of it into daily salads.</p>
+          <p><strong>☑ Chicken Deli Slices and Swiss Cheese</strong> that would be good on the next item</p>
           </br>
         </div>
       </div>
@@ -846,6 +846,7 @@
         <option value="vegetables">Vegetables</option>
         <option value="fruit">Fruit</option>
         <option value="salads">Salads</option>
+        <option value="appetizers">Appetizers</option>
         <option value="dressings-sauces">Dressings &amp; Sauces</option>
         <option value="bread">Bread</option>
         <option value="bread-baked">Just Breads</option>
@@ -5364,6 +5365,29 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Sardine & Olive Chopped Salad',
     'Crispy Roasted Chickpea & Feta Mediterranean Bowl'
   ],
+  appetizers: [
+    'Marinated Olive Salad',
+    'Cracker & Bread Spread Alternatives — 5 Low-Saturated-Fat Picks',
+    'Ceylon Cinnamon and Psyllium Mints',
+    'Soft & Pliable Gluten-Free Gyro Pita',
+    'Cassava Flour Pita Bread (GF) — Blood Sugar Test Item',
+    'Marinated Feta in Chili & Herb EVOO',
+    'Marinated Smoked Gouda in Chili & Herb EVOO',
+    'Sugar Shift Labneh (Strained Yogurt Cheese)',
+    '30-Minute Homemade Mozzarella — Marinated & Baked Sticks (GF)',
+    'Tzatziki — Greek Yogurt, Cucumber & Garlic Dip',
+    'Guacamole — Classic with Garlic & Lemon',
+    'Mediterranean Chop Chop Salad',
+    'Purple Sauerkraut — Lacto-Fermented Red Cabbage',
+    'Roasted Whole Artichoke with Garlic EVOO Dipping Sauce',
+    'Rosemary EVOO Cassava Crackers — Low-Oxalate Almond Cracker Replacement',
+    'Rice Paper Bagels',
+    'Salmon Rice Paper Rolls — Avocado, Carrot, Purple Cabbage',
+    'Rice Paper Potstickers',
+    'Rice Paper Muffin Pouches',
+    'Allulose Lemonade — Endocrine-Active Lemonade',
+    'Mulled ACV Cider-Style Sipper — Holiday Beverage'
+  ],
   desserts: [
     'Lemon Blueberry Labneh Cheesecake',
     'Spiced Carrot Celebration Cake with Labneh Honey Frosting',
@@ -5414,9 +5438,10 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Pumpkin Seeds (Pepitas)',
     'Avocado Half',
     'Low-and-Slow Roasted Almonds (Toaster Oven)',
-    'Rice Paper Potstickers',
-    'Rice Paper Muffin Pouches',
-    'Chia Chocolate Pudding'
+    'No-Sugar Crunch Bar',
+    'Lily\'s Milk Chocolate Chips — Sugar-Free',
+    'Chia Chocolate Pudding',
+    'Cantaloupe with Daisy 4% Cottage Cheese'
   ],
   beverages: [
     'Ginger-Lime Cooler — Allulose Ginger Drink',
@@ -6067,6 +6092,7 @@ const MENU_PLANNER_DAY_LABELS = {
 const MENU_PLANNER_MEALS = [
   { key: 'breakfast', label: 'Breakfast' },
   { key: 'lunch', label: 'Lunch' },
+  { key: 'appetizer', label: 'Appetizer / Pre-Meal' },
   { key: 'dinner', label: 'Dinner' },
   { key: 'snack', label: 'Snack / Bedtime' }
 ];

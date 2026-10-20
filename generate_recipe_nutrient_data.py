@@ -28,6 +28,54 @@ DEFAULT_EGG_PROFILE = {
 }
 
 
+def extract_comment_notes_from_js(text: str) -> dict[str, dict[str, str]]:
+    """Extract // comments and attach them to the next field key per recipe entry.
+
+    Comments are returned as a map of:
+      recipe_file -> { field_key: note_text }
+    and are later stored under each recipe's `_notes` key so they survive JSON rewrites.
+    """
+    notes: dict[str, dict[str, str]] = {}
+    current_recipe: str | None = None
+    pending_comments: list[str] = []
+
+    recipe_line = re.compile(r'^\s*"([^"\\]+\.html)"\s*:\s*\{\s*$')
+    key_line = re.compile(r'^\s*"([^"\\]+)"\s*:\s*')
+
+    for raw_line in text.splitlines():
+        line = raw_line.rstrip("\n")
+        stripped = line.strip()
+
+        recipe_match = recipe_line.match(line)
+        if recipe_match:
+            current_recipe = recipe_match.group(1)
+            pending_comments = []
+            continue
+
+        if stripped.startswith("//"):
+            if current_recipe:
+                comment_text = stripped[2:].strip()
+                if comment_text:
+                    pending_comments.append(comment_text)
+            continue
+
+        key_match = key_line.match(line)
+        if key_match and current_recipe and pending_comments:
+            field_key = key_match.group(1)
+            recipe_notes = notes.setdefault(current_recipe, {})
+            existing_note = recipe_notes.get(field_key)
+            merged_note = " | ".join(pending_comments)
+            recipe_notes[field_key] = f"{existing_note} | {merged_note}" if existing_note else merged_note
+            pending_comments = []
+            continue
+
+        # Any other non-empty line breaks comment->field pairing.
+        if stripped:
+            pending_comments = []
+
+    return notes
+
+
 def load_existing_output_map() -> dict[str, dict[str, object]]:
     if not OUTPUT_JS.exists():
         return {}
@@ -74,6 +122,12 @@ process.stdout.write(JSON.stringify(out));
         pass
 
     return {}
+
+
+def load_existing_comment_notes() -> dict[str, dict[str, str]]:
+    if not OUTPUT_JS.exists():
+        return {}
+    return extract_comment_notes_from_js(OUTPUT_JS.read_text())
 
 
 def strip_html(value: str) -> str:
@@ -300,6 +354,26 @@ def build_entry_with_backfill(panel_entry: dict[str, dict[str, object]], estimat
 def main() -> None:
     recipes_html_text = RECIPES_HTML.read_text()
     existing_map = load_existing_output_map()
+    existing_comment_notes = load_existing_comment_notes()
+
+    # Migrate legacy // comments into persistent data so future rewrites keep notes.
+    for file_name, note_map in existing_comment_notes.items():
+        if not note_map:
+            continue
+        entry = existing_map.setdefault(file_name, {})
+        if not isinstance(entry, dict):
+            continue
+        existing_notes_obj = entry.get("_notes")
+        if isinstance(existing_notes_obj, dict):
+            notes_obj = existing_notes_obj
+        else:
+            notes_obj = {}
+            entry["_notes"] = notes_obj
+        for field_key, note_text in note_map.items():
+            if not note_text:
+                continue
+            if field_key not in notes_obj:
+                notes_obj[field_key] = note_text
 
     # 1) Parse panel data from each recipe page.
     panel_map: dict[str, dict[str, dict[str, object]]] = {}
@@ -353,6 +427,12 @@ def main() -> None:
     print(f"Card-linked recipes: {card_count}")
     print(f"Card-linked recipes with all 4 targets: {all4_count}")
     print(f"Estimated target backfills applied: {estimated_backfills}")
+    migrated_note_count = sum(
+        1
+        for entry in final_map.values()
+        if isinstance(entry, dict) and isinstance(entry.get("_notes"), dict) and entry.get("_notes")
+    )
+    print(f"Recipes with preserved _notes metadata: {migrated_note_count}")
 
 
 if __name__ == "__main__":
