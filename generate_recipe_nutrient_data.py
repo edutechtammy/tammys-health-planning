@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 from pathlib import Path
 
 
@@ -25,6 +26,54 @@ DEFAULT_EGG_PROFILE = {
     "omega3Mg": 120,
     "b12Mcg": 0.6,
 }
+
+
+def load_existing_output_map() -> dict[str, dict[str, object]]:
+    if not OUTPUT_JS.exists():
+        return {}
+
+    text = OUTPUT_JS.read_text()
+
+    # Fast path: parse JSON-style payload directly when possible.
+    match = re.search(r"window\.RECIPE_PANEL_NUTRIENTS\s*=\s*(\{[\s\S]*\})\s*;?\s*$", text)
+    if match:
+        try:
+            parsed = json.loads(match.group(1))
+            if isinstance(parsed, dict):
+                return parsed
+        except json.JSONDecodeError:
+            pass
+
+    # Fallback: evaluate JS object literal via Node so comment-bearing files can still load.
+    node_script = """
+const fs = require('fs');
+const vm = require('vm');
+const sourcePath = process.argv[1];
+const src = fs.readFileSync(sourcePath, 'utf8');
+const sandbox = { window: {} };
+vm.createContext(sandbox);
+vm.runInContext(src, sandbox, { timeout: 2000 });
+const out = sandbox.window && sandbox.window.RECIPE_PANEL_NUTRIENTS;
+if (!out || typeof out !== 'object') {
+  process.exit(2);
+}
+process.stdout.write(JSON.stringify(out));
+""".strip()
+
+    try:
+        proc = subprocess.run(
+            ["node", "-e", node_script, str(OUTPUT_JS)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        parsed = json.loads(proc.stdout)
+        if isinstance(parsed, dict):
+            return parsed
+    except (subprocess.CalledProcessError, FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    return {}
 
 
 def strip_html(value: str) -> str:
@@ -250,6 +299,7 @@ def build_entry_with_backfill(panel_entry: dict[str, dict[str, object]], estimat
 
 def main() -> None:
     recipes_html_text = RECIPES_HTML.read_text()
+    existing_map = load_existing_output_map()
 
     # 1) Parse panel data from each recipe page.
     panel_map: dict[str, dict[str, dict[str, object]]] = {}
@@ -266,12 +316,25 @@ def main() -> None:
         base_panel = panel_map.get(file_name, {})
         est = estimate_targets_from_ingredients(card["ingredients"])
         merged = build_entry_with_backfill(base_panel, est)
+        existing_entry = existing_map.get(file_name)
+        if isinstance(existing_entry, dict):
+            for key, value in existing_entry.items():
+                if key not in merged:
+                    merged[key] = value
         estimated_backfills += sum(1 for key in TARGET_KEYS if merged[key].get("estimated"))
         final_map[file_name] = merged
 
     # 3) Preserve parsed nutrient data for recipe files that are not card-linked.
     for file_name, nutrients in panel_map.items():
-        final_map.setdefault(file_name, nutrients)
+        existing_entry = existing_map.get(file_name)
+        if isinstance(existing_entry, dict):
+            merged = dict(nutrients)
+            for key, value in existing_entry.items():
+                if key not in merged:
+                    merged[key] = value
+            final_map.setdefault(file_name, merged)
+        else:
+            final_map.setdefault(file_name, nutrients)
 
     js = "window.RECIPE_PANEL_NUTRIENTS = " + json.dumps(final_map, indent=2, ensure_ascii=False) + ";\n"
     OUTPUT_JS.write_text(js)

@@ -1,12 +1,36 @@
 window.RECIPE_PANEL_NUTRIENTS = {
-  // --------------------------------------
-  // LOW CARB VELVET EGG DROP SOUP
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3, ☑  MUFAs, ☐ ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☑ carbs ☑ fiber
-  // --------------------------------------
   "recipe-low-carb-velvet-egg-drop-soup.html": {
+    "choline": {
+      "display": "~125–150 mg",
+      "value": 137.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~750–1,000 mg",
+      "value": 875.0,
+      "unit": "mg",
+      "name": "Omega-3 (ALA) — flax contribution",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~22 ug",
+      "value": 22.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.6 ug",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~80 kcal",
-      "value": 80.0,
+      "value": 80,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -20,7 +44,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~1 g",
-      "value": 1.0,
+      "value": 1,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -32,7 +56,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~8.75 mg",
       "value": 8.75,
@@ -42,14 +65,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~3 g",
-      "value": 3.0,
+      "value": 3,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~22 ug",
-      "value": 22.0,
+      "value": 22,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -70,14 +93,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "proteinG": {
       "display": "~11 g",
-      "value": 11.0,
+      "value": 11,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "carbsG": {
       "display": "~2 g",
-      "value": 2.0,
+      "value": 2,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -88,16 +111,76 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SOFT PLIABLE GLUTEN-FREE GYRO PITA
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☑ carbs ☑ fiber
-  // --------------------------------------
   "recipe-soft-pliable-gluten-free-gyro-pita.html": {
+    "choline": {
+      "display": "~18 mg",
+      "value": 18.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~20 mg",
+      "value": 20.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~24 ug",
+      "value": 24.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0 ug",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~225 kcal",
-      "value": 225.0,
+      "value": 225,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -111,28 +194,28 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~18 mg",
-      "value": 18.0,
+      "value": 18,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
     "omega3Mg": {
       "display": "~20 mg",
-      "value": 20.0,
+      "value": 20,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~24 ug",
-      "value": 24.0,
+      "value": 24,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "~0 ug",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
@@ -160,7 +243,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~9 g",
-      "value": 9.0,
+      "value": 9,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -174,27 +257,87 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~11 g",
-      "value": 11.0,
+      "value": 11,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "potassiumMg": {
       "display": "~75 mg",
-      "value": 75.0,
+      "value": 75,
       "unit": "mg",
       "name": "miligrams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // ALMOND OIL MAYO
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☐ fiber ☑ eMg
-  // --------------------------------------
   "recipe-almond-oil-mayo.html": {
+    "choline": {
+      "display": "~6 mg",
+      "value": 6.0,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~5 mg",
+      "value": 5.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~1 ug",
+      "value": 1.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0 ug",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~80 kcal",
-      "value": 80.0,
+      "value": 80,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -215,12 +358,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~6 mg",
-      "value": 6.0,
+      "value": 6,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~0.5 mg",
       "value": 0.5,
@@ -230,28 +372,28 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~11 g",
-      "value": 11.0,
+      "value": 11,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~1 ug",
-      "value": 1.0,
+      "value": 1,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "~0 ug",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
     },
     "viscousFiberG": {
       "display": "~0.0 g",
-      "value": 0.0,
+      "value": 0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -269,111 +411,194 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CEYLON CINNAMON MINTS
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-ceylon-cinnamon-psyllium-mints.html": {
-    "calories": {
-      "display": "~2 kcal",
-      "value": 2.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~0.0 g",
-      "value": 0.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~0.0 g",
-      "value": 0.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~0 mg",
       "value": 0.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "~0 mg",
       "value": 0.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~0.0 g",
-      "value": 0.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "folateMcg": {
+    "folate": {
       "display": "~0 ug",
       "value": 0.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~0 ug",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
     },
-    "viscousFiberG": {
-      "display": "~4.0 g",
-      "value": 4.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-  },
-  // --------------------------------------
-  // ALMOND FLOUR WAFFLES
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-almond-flour-waffles.html": {
     "calories": {
-      "display": "~380 kcal",
-      "value": 380.0,
+      "display": "~2 kcal",
+      "value": 2,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "satfatG": {
-      "display": "~4 g",
-      "value": 4.0,
+      "display": "~0.0 g",
+      "value": 0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "netcarbsG": {
-      "display": "~7 g",
-      "value": 7.0,
+      "display": "~0.0 g",
+      "value": 0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~0 mg",
+      "value": 0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~0 mg",
+      "value": 0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~0 ug",
+      "value": 0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0 ug",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~4.0 g",
+      "value": 4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-almond-flour-waffles.html": {
+    "choline": {
       "display": "~130–150 mg",
       "value": 140.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~25 mg",
+      "value": 25.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~22 ug",
+      "value": 22.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.5 ug",
+      "value": 0.5,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~380 kcal",
+      "value": 380,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4 g",
+      "value": 4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~7 g",
+      "value": 7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~130–150 mg",
+      "value": 140,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~2.5 mg",
       "value": 2.5,
@@ -383,14 +608,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~14.0 g",
-      "value": 14.0,
+      "value": 14,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~22 ug",
-      "value": 22.0,
+      "value": 22,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -404,35 +629,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "viscousFiberG": {
       "display": "~2.0 g",
-      "value": 2.0,
+      "value": 2,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GLUTEN FREE BAGEL BITES
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-gluten-free-bagel-bites.html": {
+    "choline": {
+      "display": "~8 mg",
+      "value": 8.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~20 mg",
+      "value": 20.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~6 ug",
+      "value": 6.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.1 ug",
+      "value": 0.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~94 kcal",
-      "value": 94.0,
+      "value": 94,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~2.0 mg",
-      "value": 2.0,
+      "value": 2,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "mufaG": {
       "display": "~3.0 g",
-      "value": 3.0,
+      "value": 3,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -446,21 +730,21 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~2.0 g",
-      "value": 2.0,
+      "value": 2,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~6 ug",
-      "value": 6.0,
+      "value": 6,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "cholineMg": {
       "display": "~8 mg",
-      "value": 8.0,
+      "value": 8,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
@@ -474,20 +758,80 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "viscousFiberG": {
       "display": "~0.0 g",
-      "value": 0.0,
+      "value": 0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // NO SUGAR CRUNCH BAR
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-no-sugar-crunch-bar.html": {
+    "choline": {
+      "display": "~20 mg",
+      "value": 20.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~0.8–1.2 g",
+      "value": 1000.0,
+      "unit": "mg",
+      "name": "ALA omega-3 — supportive only · conversion-limited",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~30 ug",
+      "value": 30.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0 ug",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~285 kcal",
-      "value": 285.0,
+      "value": 285,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -508,12 +852,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~20 mg",
-      "value": 20.0,
+      "value": 20,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~0.1 g",
       "value": 0.1,
@@ -523,41 +866,101 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~6.0 g",
-      "value": 6.0,
+      "value": 6,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~30 ug",
-      "value": 30.0,
+      "value": 30,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "~0 ug",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
     },
     "viscousFiberG": {
       "display": "~6.0 g",
-      "value": 6.0,
+      "value": 6,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SOUS VIDE LENTILS
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-sous-vide-lentils.html": {
+    "choline": {
+      "display": "~75 mg",
+      "value": 75.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~0 mg",
+      "value": 0.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~180 mcg",
+      "value": 180.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0 ug",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~120 kcal",
-      "value": 120.0,
+      "value": 120,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -578,14 +981,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~75 mg",
-      "value": 75.0,
+      "value": 75,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
     "omega3Mg": {
       "display": "~0 mg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -599,14 +1002,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~180 mcg",
-      "value": 180.0,
+      "value": 180,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "~0 ug",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
@@ -617,23 +1020,83 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // MARINATED SMOKED GOUDA
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☑ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-marinated-smoked-gouda.html": {
+    "choline": {
+      "display": "~18 mg",
+      "value": 18.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.6 µg",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~10 µg",
+      "value": 10.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~90 mg",
+      "value": 90.0,
+      "unit": "mg",
+      "name": "Omega-3 — ALA type",
+      "estimated": false
+    },
     "calories": {
       "display": "~180 kcal",
-      "value": 180.0,
+      "value": 180,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "satfatG": {
       "display": "~8.0 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -647,12 +1110,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~18 mg",
-      "value": 18.0,
+      "value": 18,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~0.9 mg",
       "value": 0.9,
@@ -662,14 +1124,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~8 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~10 ug",
-      "value": 10.0,
+      "value": 10,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -690,63 +1152,122 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "proteinG": {
       "display": "~8.0 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // LADENIA
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-ladenia.html": {
-    "calories": {
-      "display": "~500 kcal",
-      "value": 500.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~7.0 g",
-      "value": 7.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~14.0 g",
-      "value": 14.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~130 mg",
       "value": 130.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~180 mg",
+      "value": 180.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~70 ug",
+      "value": 70.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.7 ug",
+      "value": 0.7,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~500 kcal",
+      "value": 500,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~7.0 g",
+      "value": 7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~14.0 g",
+      "value": 14,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~130 mg",
+      "value": 130,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~18.0 mg",
-      "value": 18.0,
+      "value": 18,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "mufaG": {
       "display": "~18 g",
-      "value": 18.0,
+      "value": 18,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~70 ug",
-      "value": 70.0,
+      "value": 70,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -764,59 +1285,118 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CRISPY ROASTED CHICKPEA FETA MEDITERRANEAN BOWL
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-crispy-roasted-chickpea-feta-mediterranean-bowl.html": {
-    "calories": {
-      "display": "~120 kcal",
-      "value": 120.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~5.0 g",
-      "value": 5.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~12.0 g",
-      "value": 12.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~55 mg",
       "value": 55.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~140 mg",
+      "value": 140.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~145 ug",
+      "value": 145.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 ug",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~120 kcal",
+      "value": 120,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~12.0 g",
+      "value": 12,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~55 mg",
+      "value": 55,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~14.0 mg",
-      "value": 14.0,
+      "value": 14,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "mufaG": {
       "display": "~8 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~145 ug",
-      "value": 145.0,
+      "value": 145,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -834,66 +1414,125 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CREAMY MEDITERRANEAN RED LENTIL TOMATO SOUP
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-creamy-mediterranean-red-lentil-tomato-soup.html": {
-    "calories": {
-      "display": "~180 kcal",
-      "value": 180.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~3.0 g",
-      "value": 3.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~11.0 g",
-      "value": 11.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~40 mg",
       "value": 40.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~9 mg",
-      "value": 9.0,
+    "omega3": {
+      "display": "~90 mg",
+      "value": 90.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~8 g",
-      "value": 8.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "folateMcg": {
+    "folate": {
       "display": "~130 ug",
       "value": 130.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~0 ug",
       "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~180 kcal",
+      "value": 180,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~11.0 g",
+      "value": 11,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~40 mg",
+      "value": 40,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~9 mg",
+      "value": 9,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~130 ug",
+      "value": 130,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0 ug",
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
@@ -904,66 +1543,125 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // TUSCAN WHITE BEANS GARLIC ROSEMARY OLIVE OIL
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-tuscan-white-beans-garlic-rosemary-olive-oil.html": {
-    "calories": {
-      "display": "~250 kcal",
-      "value": 250.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~4.0 g",
-      "value": 4.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~9.0 g",
-      "value": 9.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~45 mg",
       "value": 45.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~11.0 mg",
-      "value": 11.0,
+    "omega3": {
+      "display": "~110 mg",
+      "value": 110.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~8 g",
-      "value": 8.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "folateMcg": {
+    "folate": {
       "display": "~170 ug",
       "value": 170.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~0 ug",
       "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~250 kcal",
+      "value": 250,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~9.0 g",
+      "value": 9,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~45 mg",
+      "value": 45,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~11.0 mg",
+      "value": 11,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~170 ug",
+      "value": 170,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0 ug",
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
@@ -974,16 +1672,76 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GREEK LEMON HERB ROASTED POTATOES
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-greek-lemon-herb-roasted-potatoes.html": {
+    "choline": {
+      "display": "~20 mg",
+      "value": 20.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~45 mg",
+      "value": 45.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~30 µg",
+      "value": 30.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~195 kcal",
-      "value": 195.0,
+      "value": 195,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -1004,12 +1762,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~20 mg",
-      "value": 20.0,
+      "value": 20,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~4.5 mg",
       "value": 4.5,
@@ -1019,21 +1776,21 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~8 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~30 µg",
-      "value": 30.0,
+      "value": 30,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "~0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
@@ -1044,59 +1801,118 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // TZATZIKI
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-tzatziki.html": {
-    "calories": {
-      "display": "~125 kcal",
-      "value": 125.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~2.0 g",
-      "value": 2.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~2.0 g",
-      "value": 2.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~30 mg",
       "value": 30.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~60 mg",
+      "value": 60.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~25 µg",
+      "value": 25.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.8 µg",
+      "value": 0.8,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~125 kcal",
+      "value": 125,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~2.0 g",
+      "value": 2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~30 mg",
+      "value": 30,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~6.0 mg",
-      "value": 6.0,
+      "value": 6,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "mufaG": {
       "display": "~8 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~25 µg",
-      "value": 25.0,
+      "value": 25,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -1110,20 +1926,80 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "viscousFiberG": {
       "display": "~0.0 g",
-      "value": 0.0,
+      "value": 0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CASAVA PITA
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-cassava-pita.html": {
+    "choline": {
+      "display": "~6 mg",
+      "value": 6.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~10 mg",
+      "value": 10.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~24 µg",
+      "value": 24.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
     "calories": {
       "display": "~100 kcal",
-      "value": 100.0,
+      "value": 100,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -1137,42 +2013,42 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~9.0 g",
-      "value": 9.0,
+      "value": 9,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
       "display": "~6 mg",
-      "value": 6.0,
+      "value": 6,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
     "omega3Mg": {
       "display": "~10 mg",
-      "value": 10.0,
+      "value": 10,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
     },
     "mufaG": {
       "display": "~8 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~24 µg",
-      "value": 24.0,
+      "value": 24,
       "unit": "mcg",
       "name": "Folate — methylation support",
       "estimated": false
     },
     "b12Mcg": {
       "display": "0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
@@ -1183,58 +2059,76 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // DRESSING MEDITERRANEAN CLASSIC
-  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-dressing-mediterranean-classic.html": {
-    "calories": {
-      "display": "~200 kcal",
-      "value": 200.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~0.5 mg",
       "value": 0.5,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~14.0 mg",
-      "value": 14.0,
+    "omega3": {
+      "display": "~140 mg",
+      "value": 140.0,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~2 µg",
       "value": 2.0,
       "unit": "mcg",
       "name": "Folate — methylation support",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // DRESSING ACV DOUBLE DUTY
-  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐  MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-dressing-acv-double-duty.html": {
+    },
     "calories": {
       "display": "~200 kcal",
-      "value": 200.0,
+      "value": 200,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -1246,7 +2140,107 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3Mg": {
+      "display": "~14.0 mg",
+      "value": 14,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~2 µg",
+      "value": 2,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-dressing-acv-double-duty.html": {
+    "choline": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~125 mg",
+      "value": 125.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~200 kcal",
+      "value": 200,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~12.5 mg",
       "value": 12.5,
@@ -1256,69 +2250,87 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~2 µg",
-      "value": 2.0,
+      "value": 2,
       "unit": "mcg",
       "name": "Folate — methylation support",
       "estimated": false
     },
     "b12Mcg": {
       "display": "0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // TUSCAN FRESH HERB
-  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-dressing-fresh-herb.html": {
-    "calories": {
-      "display": "~200 kcal",
-      "value": 200.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~0.5 mg",
       "value": 0.5,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~16.0 mg",
-      "value": 16.0,
+    "omega3": {
+      "display": "~160 mg",
+      "value": 160.0,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~3 µg",
       "value": 3.0,
       "unit": "mcg",
       "name": "Folate — methylation support",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // DRESSING BOLD SAVORY
-  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-dressing-bold-savory.html": {
+    },
     "calories": {
       "display": "~200 kcal",
-      "value": 200.0,
+      "value": 200,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -1330,49 +2342,208 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~13.0 mg",
-      "value": 13.0,
+      "display": "~16.0 mg",
+      "value": 16,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
     },
     "folateMcg": {
-      "display": "~2 µg",
-      "value": 2.0,
+      "display": "~3 µg",
+      "value": 3,
       "unit": "mcg",
       "name": "Folate — methylation support",
       "estimated": false
     },
     "b12Mcg": {
       "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-dressing-bold-savory.html": {
+    "choline": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~130 mg",
+      "value": 130.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // DRESSING CREAMY
-  // ☑ cal, ☐ sat fat, ☐ net carbs ☑ choline, ☑ Omega-3 ☐ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-dressing-creamy.html": {
+    },
     "calories": {
       "display": "~200 kcal",
-      "value": 200.0,
+      "value": 200,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~13.0 mg",
+      "value": 13,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~2 µg",
+      "value": 2,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-dressing-creamy.html": {
+    "choline": {
       "display": "~6 mg",
       "value": 6.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~35 mg",
+      "value": 35.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.2 µg",
+      "value": 0.2,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~200 kcal",
+      "value": 200,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~6 mg",
+      "value": 6,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~3.5 mg",
       "value": 3.5,
@@ -1382,7 +2553,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~2 µg",
-      "value": 2.0,
+      "value": 2,
       "unit": "mcg",
       "name": "Folate — methylation support",
       "estimated": false
@@ -1393,31 +2564,90 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CULTURED BUTTER
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-cultured-butter.html": {
-    "cholineMg": {
+    "choline": {
       "display": "~3 mg",
       "value": 3.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~30 mg",
+      "value": 30.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.1 µg",
+      "value": 0.1,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~3 mg",
+      "value": 3,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~3.0 mg",
-      "value": 3.0,
+      "value": 3,
       "unit": "mg",
       "name": "Omega-3 — anti-inflammatory baseline",
       "estimated": false
     },
     "folateMcg": {
       "display": "0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "Folate — methylation support",
       "estimated": false
@@ -1428,80 +2658,198 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — methyl donor cofactor",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GINGER CARROT SLAW
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-ginger-carrot-slaw.html": {
-    "calories": {
-      "display": "~70 kcal",
-      "value": 70.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~13 mg",
       "value": 13.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~3.0 mg",
-      "value": 3.0,
+    "omega3": {
+      "display": "~30 mg",
+      "value": 30.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~24 µg",
       "value": 24.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // KALE FRUIT SALAD
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-kale-fruit-salad.html": {
+    },
     "calories": {
-      "display": "~290 kcal",
-      "value": 290.0,
+      "display": "~70 kcal",
+      "value": 70,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~9 g",
-      "value": 9.0,
-      "unit": "g",
-      "name": "grams — per serving",
+    "cholineMg": {
+      "display": "~13 mg",
+      "value": 13,
+      "unit": "mg",
+      "name": "Choline — APOE4",
       "estimated": false
     },
-    "cholineMg": {
+    "omega3Mg": {
+      "display": "~3.0 mg",
+      "value": 3,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~24 µg",
+      "value": 24,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-kale-fruit-salad.html": {
+    "choline": {
       "display": "~32 mg",
       "value": 32.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~1300 mg",
+      "value": 1300.0,
+      "unit": "mg",
+      "name": "Omega-3 (ALA only - so only ~10% toward goal)— supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.4 µg",
+      "value": 0.4,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~48 µg",
+      "value": 48.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~290 kcal",
+      "value": 290,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~9 g",
+      "value": 9,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~32 mg",
+      "value": 32,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~130.0 mg",
-      "value": 130.0,
+      "value": 130,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1515,7 +2863,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~48 µg",
-      "value": 48.0,
+      "value": 48,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -1533,182 +2881,87 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // ROASTED ALMONDS
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☑ fiber
-  // --------------------------------------
-  "recipe-roasted-almonds.html": {
-    "calories": {
-      "display": "~160 kcal",
-      "value": 160.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~1 g",
-      "value": 1.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~2.5 g",
-      "value": 2.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
-      "display": "~14 mg",
-      "value": 14.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~0.5 mg",
-      "value": 0.5,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "mufaG": {
-      "display": "~9 g",
-      "value": 9.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "folateMcg": {
-      "display": "~14 mcg",
-      "value": 14.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12Mcg": {
-      "display": "0 mcg",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
-    "viscousFiberG": {
-      "display": "~3.5 g",
-      "value": 3.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "proteinG": {
-      "display": "~6 g",
-      "value": 6.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "fiberG": {
-      "display": "~3.5 g",
-      "value": 3.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    }
-  },
-  // --------------------------------------
-  // HERB CRUSTED CHICKEN
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☐  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-herb-crusted-chicken.html": {
-    "calories": {
-      "display": "~300 kcal",
-      "value": 300.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~6 g",
-      "value": 6.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~4.0 g",
-      "value": 4.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
-      "display": "~130 mg",
-      "value": 130.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~11.0 mg",
-      "value": 11.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "mufaG": {
-      "display": "~8 g",
-      "value": 8.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "b12Mcg": {
-      "display": "~0.3 µg",
-      "value": 0.3,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
-    "viscousFiberG": {
-      "display": "~0.5 g",
-      "value": 0.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "folateMcg": {
-      "display": "~41 µg",
-      "value": 41.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    }
-  },
-  // --------------------------------------
-  // KEFIR MARINATED CHICKEN
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-kefir-marinated-chicken.html": {
-    "calories": {
-      "display": "~225 kcal",
-      "value": 225.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~95 mg",
       "value": 95.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~105 mg",
+      "value": 105.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.5 µg",
+      "value": 0.5,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~6 µg",
+      "value": 6.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~225 kcal",
+      "value": 225,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~95 mg",
+      "value": 95,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~10.5 mg",
       "value": 10.5,
@@ -1725,84 +2978,202 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~6 µg",
-      "value": 6.0,
+      "value": 6,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // BROWNIE BASE MIX MONK FRUIT ALLULOSE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-brownie-base-mix-monkfruit-allulose.html": {
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "calories": {
-      "display": "~80 kcal",
+    "omega3": {
+      "display": "~80 mg",
       "value": 80.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "omega3Mg": {
-      "display": "~8.0 mg",
-      "value": 8.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "cholineMg": {
+    "choline": {
       "display": "~120–180 mg",
       "value": 150.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~50 µg",
       "value": 50.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~1.0 µg",
       "value": 1.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // TURKISH CILBIR
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-turkish-cilbir.html": {
+    },
     "calories": {
-      "display": "~290 kcal",
-      "value": 290.0,
+      "display": "~80 kcal",
+      "value": 80,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
+    "omega3Mg": {
+      "display": "~8.0 mg",
+      "value": 8,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
     "cholineMg": {
+      "display": "~120–180 mg",
+      "value": 150,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~50 µg",
+      "value": 50,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~1.0 µg",
+      "value": 1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-turkish-cilbir.html": {
+    "choline": {
       "display": "~250 mg",
       "value": 250.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · phosphatidylcholine synthesis",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~260 mg",
+      "value": 260.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~45 µg",
+      "value": 45.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.5 µg",
+      "value": 1.5,
+      "unit": "mcg",
+      "name": "Vitamin B12 — MTHFR methylation · neurological",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~290 kcal",
+      "value": 290,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~250 mg",
+      "value": 250,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · phosphatidylcholine synthesis",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~26.0 mg",
-      "value": 26.0,
+      "value": 26,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~45 µg",
-      "value": 45.0,
+      "value": 45,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -1813,17 +3184,76 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "Vitamin B12 — MTHFR methylation · neurological",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CAPRESE HASSELBACK CHICKEN
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-caprese-hasselback-chicken.html": {
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~95 mg",
+      "value": 95.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "choline": {
+      "display": "~100 mg",
+      "value": 100.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~35 µg",
+      "value": 35.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.6 µg",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~350 kcal",
-      "value": 350.0,
+      "value": 350,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -1837,14 +3267,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~100 mg",
-      "value": 100.0,
+      "value": 100,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
     "folateMcg": {
       "display": "~35 µg",
-      "value": 35.0,
+      "value": 35,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -1855,45 +3285,104 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // TUSCAN CHICKEN
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-tuscan-chicken.html": {
-    "calories": {
-      "display": "~650 kcal",
-      "value": 650.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
+    "choline": {
+      "display": "~100 mg",
+      "value": 100.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~43 g",
-      "value": 43.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~11.0 mg",
-      "value": 11.0,
+    "omega3": {
+      "display": "~110 mg",
+      "value": 110.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~30 µg",
       "value": 30.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
+    "b12": {
+      "display": "~0.5 µg",
+      "value": 0.5,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~650 kcal",
+      "value": 650,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~43 g",
+      "value": 43,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~11.0 mg",
+      "value": 11,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~30 µg",
+      "value": 30,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
     "cholineMg": {
       "display": "~100 mg",
-      "value": 100.0,
+      "value": 100,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
@@ -1907,21 +3396,21 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "carbsG": {
       "display": "~4 g",
-      "value": 4.0,
+      "value": 4,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "netcarbsG": {
       "display": "~4 g",
-      "value": 4.0,
+      "value": 4,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "satfatG": {
       "display": "~6 g",
-      "value": 6.0,
+      "value": 6,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -1935,35 +3424,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~11 g",
-      "value": 11.0,
+      "value": 11,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GOLDEN PASTE CHICKEN THIGHS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-golden-paste-chicken-thighs.html": {
-    "calories": {
-      "display": "~400 kcal",
-      "value": 400.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~100 mg",
       "value": 100.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~120 mg",
+      "value": 120.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.4 µg",
+      "value": 0.4,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~8 µg",
+      "value": 8.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~400 kcal",
+      "value": 400,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~100 mg",
+      "value": 100,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~12.0 mg",
-      "value": 12.0,
+      "value": 12,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -1977,32 +3525,91 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~8 µg",
-      "value": 8.0,
+      "value": 8,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // LEMON GARLIC PAN CHICKEN
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-lemon-garlic-pan-chicken.html": {
-    "calories": {
-      "display": "~300 kcal",
-      "value": 300.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~92 mg",
       "value": 92.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~105 mg",
+      "value": 105.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 µg",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~6 µg",
+      "value": 6.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~300 kcal",
+      "value": 300,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~92 mg",
+      "value": 92,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~10.5 mg",
       "value": 10.5,
@@ -2019,32 +3626,91 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~6 µg",
-      "value": 6.0,
+      "value": 6,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // ROASTED ASPARAGUS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-roasted-asparagus.html": {
-    "calories": {
-      "display": "~100 kcal",
-      "value": 100.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~36 mg",
       "value": 36.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~35 mg",
+      "value": 35.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.4 µg",
+      "value": 0.4,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~88 µg",
+      "value": 88.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~100 kcal",
+      "value": 100,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~36 mg",
+      "value": 36,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~3.5 mg",
       "value": 3.5,
@@ -2061,20 +3727,80 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~88 µg",
-      "value": 88.0,
+      "value": 88,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // OLIVE CHEESE BREAD
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-olive-cheese-bread.html": {
+    "choline": {
+      "display": "~58 mg",
+      "value": 58.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~45 mg",
+      "value": 45.0,
+      "unit": "mg",
+      "name": "Omega-3 — APA, 10% conversion to DHA, not as good as marine",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.65 µg",
+      "value": 0.65,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~13 µg",
+      "value": 13.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~80 kcal",
-      "value": 80.0,
+      "value": 80,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -2088,12 +3814,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "cholineMg": {
       "display": "~58 mg",
-      "value": 58.0,
+      "value": 58,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~4.5 mg",
       "value": 4.5,
@@ -2110,74 +3835,133 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~13 µg",
-      "value": 13.0,
+      "value": 13,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "carbsG": {
       "display": "~16 g",
-      "value": 16.0,
+      "value": 16,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "netcarbsG": {
       "display": "~12 g",
-      "value": 12.0,
+      "value": 12,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "satfatG": {
       "display": "~4 g",
-      "value": 4.0,
+      "value": 4,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "fiberG": {
       "display": "~4.0 g",
-      "value": 4.0,
+      "value": 4,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "viscousFiberG": {
       "display": "~4.0 g",
-      "value": 4.0,
+      "value": 4,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "mufaG": {
       "display": "~13 g",
-      "value": 13.0,
+      "value": 13,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GUACAMOLE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-guacamole.html": {
-    "calories": {
-      "display": "~320 kcal",
-      "value": 320.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~25 mg",
       "value": 25.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~55 mg",
+      "value": 55.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~45 µg",
+      "value": 45.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~320 kcal",
+      "value": 320,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~25 mg",
+      "value": 25,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~5.5 mg",
       "value": 5.5,
@@ -2187,34 +3971,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~45 µg",
-      "value": 45.0,
+      "value": 45,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GOLDEN PASTE SALMON
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-golden-paste-salmon.html": {
+    "choline": {
+      "display": "~130 mg",
+      "value": 130.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~3.8 µg",
+      "value": 3.8,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~28 µg",
+      "value": 28.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~3000 mg",
+      "value": 3000.0,
+      "unit": "mg",
+      "name": "Omega-3 (EPA+DHA) — APOE4 · cardiovascular · anti-inflammatory",
+      "estimated": false
+    },
     "calories": {
       "display": "~390 kcal",
-      "value": 390.0,
+      "value": 390,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
       "display": "~130 mg",
-      "value": 130.0,
+      "value": 130,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
@@ -2228,42 +4072,101 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~28 µg",
-      "value": 28.0,
+      "value": 28,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    // Note: FULL OMEGA VALUE USED - MARINE SOURCE
     "omega3Mg": {
       "display": "~3000 mg",
-      "value": 3000.0,
+      "value": 3000,
       "unit": "mg",
       "name": "Omega-3 (EPA+DHA) — APOE4 · cardiovascular · anti-inflammatory",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // KEFIRE OVERNIGHT PORRIDGE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-kefir-overnight-porridge.html": {
-    "calories": {
-      "display": "~315 kcal",
-      "value": 315.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~35 mg",
       "value": 35.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "~95 mg",
       "value": 95.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.9 µg",
+      "value": 0.9,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~30 µg",
+      "value": 30.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~315 kcal",
+      "value": 315,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~35 mg",
+      "value": 35,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~95 mg",
+      "value": 95,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2277,35 +4180,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~30 µg",
-      "value": 30.0,
+      "value": 30,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // BONE BROTH SOUP BASE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-bone-broth-soup-base.html": {
-    "calories": {
-      "display": "~10 kcal",
-      "value": 110.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~15 mg",
       "value": 15.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~20 mg",
+      "value": 20.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 µg",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~5 µg",
+      "value": 5.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~10 kcal",
+      "value": 110,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~15 mg",
+      "value": 15,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~2.0 mg",
-      "value": 2.0,
+      "value": 2,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2319,35 +4281,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~5 µg",
-      "value": 5.0,
+      "value": 5,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SHAKSHUKA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-shakshuka.html": {
-    "calories": {
-      "display": "~355 kcal",
-      "value": 355.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~329 mg",
       "value": 329.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~90 mg",
+      "value": 90.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~2.2 µg",
+      "value": 2.2,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~89 µg",
+      "value": 89.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~355 kcal",
+      "value": 355,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~329 mg",
+      "value": 329,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~9.0 mg",
-      "value": 9.0,
+      "value": 9,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2361,35 +4382,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~89 µg",
-      "value": 89.0,
+      "value": 89,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GINGER GARLIC MILLET BOWL
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-ginger-garlic-millet-bowl.html": {
-    "calories": {
-      "display": "~475 kcal",
-      "value": 475.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~68 mg",
       "value": 68.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~70 mg",
+      "value": 70.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.2 µg",
+      "value": 0.2,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~55 µg",
+      "value": 55.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~475 kcal",
+      "value": 475,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~68 mg",
+      "value": 68,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~7.0 mg",
-      "value": 7.0,
+      "value": 7,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2403,89 +4483,447 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~55 µg",
-      "value": 55.0,
+      "value": 55,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // RECIPE TEMPLATE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "0-recipe-template.html": {},
-
-  // --------------------------------------
-  // AFTERNOON MCT COFFEE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-afternoon-mct-coffee.html": {
-    "calories": {
-      "display": "~0 kcal",
+  "recipe-macadamia-nuts.html": {
+    "choline": {
+      "display": "~2 mg",
+      "value": 2.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~60 mg",
+      "value": 60.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 mcg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 mcg",
       "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~200 kcal",
+      "value": 200,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~2 mg",
+      "value": 2,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~6.0 mg",
+      "value": 6,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~2 mcg",
+      "value": 2,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 mcg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-roasted-almonds.html": {
+    "choline": {
+      "display": "~14 mg",
+      "value": 14.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~5 mg",
+      "value": 5.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~14 mcg",
+      "value": 14.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.0 mcg (estimated)",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 (estimated)",
+      "estimated": true
+    },
+    "calories": {
+      "display": "~160 kcal",
+      "value": 160,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1 g",
+      "value": 1,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~14 mg",
+      "value": 14,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~9 g",
+      "value": 9,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~14 mcg",
+      "value": 14,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 mcg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~6 g",
+      "value": 6,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "fiberG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "0-recipe-template.html": {},
+  "recipe-afternoon-mct-coffee.html": {
+    "choline": {
       "display": "~7 mg",
       "value": 7.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~2.0 mg",
-      "value": 2.0,
+    "omega3": {
+      "display": "~20 mg",
+      "value": 20.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~5 µg",
       "value": 5.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // ALLULOSE COCOA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-allulose-cocoa.html": {
+    },
     "calories": {
-      "display": "~98 kcal",
-      "value": 98.0,
+      "display": "~0 kcal",
+      "value": 0,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~7 mg",
+      "value": 7,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~2.0 mg",
+      "value": 2,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~5 µg",
+      "value": 5,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-allulose-cocoa.html": {
+    "choline": {
       "display": "~18 mg",
       "value": 18.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "~40 mg",
       "value": 40.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~8 µg",
       "value": 8.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.2 µg",
+      "value": 1.2,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~98 kcal",
+      "value": 98,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~18 mg",
+      "value": 18,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~40 mg",
+      "value": 40,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~8 µg",
+      "value": 8,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -2496,72 +4934,191 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // ALLULOSE LEMONADE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-allulose-lemonade.html": {
-    "cholineMg": {
+    "choline": {
       "display": "~1 mg",
       "value": 1.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "0 mg",
       "value": 0.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~5 µg",
       "value": 5.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // APRICOT SPINACH CHERRY SALAD
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-apricot-spinach-cherry-salad.html": {
-    "calories": {
-      "display": "~247 kcal",
-      "value": 247.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
     },
     "cholineMg": {
+      "display": "~1 mg",
+      "value": 1,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "0 mg",
+      "value": 0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~5 µg",
+      "value": 5,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-apricot-spinach-cherry-salad.html": {
+    "choline": {
       "display": "~35 mg",
       "value": 35.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~1800 mg",
+      "value": 1800.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~105 µg",
+      "value": 105.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.45 µg",
+      "value": 0.45,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~247 kcal",
+      "value": 247,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~35 mg",
+      "value": 35,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~180.0 mg",
-      "value": 180.0,
+      "value": 180,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~105 µg",
-      "value": 105.0,
+      "value": 105,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -2572,29 +5129,88 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
   "recipe-brownie-base-mix.html": {},
-  // --------------------------------------
-  // CARROT CELEBRATION CAKE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-carrot-celebration-cake.html": {
-    "calories": {
-      "display": "~235 kcal",
-      "value": 235.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~50 mg",
       "value": 50.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~55 mg",
+      "value": 55.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.1 µg",
+      "value": 0.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~18 µg",
+      "value": 18.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~235 kcal",
+      "value": 235,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~50 mg",
+      "value": 50,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~5.5 mg",
       "value": 5.5,
@@ -2611,32 +5227,91 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~18 µg",
-      "value": 18.0,
+      "value": 18,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CASSAVA CRACKERS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-cassava-crackers.html": {
-    "calories": {
-      "display": "~95 kcal",
-      "value": 95.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~2 mg",
       "value": 2.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~35 mg",
+      "value": 35.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~5 µg",
+      "value": 5.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~95 kcal",
+      "value": 95,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~2 mg",
+      "value": 2,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~3.5 mg",
       "value": 3.5,
@@ -2646,27 +5321,87 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~5 µg",
-      "value": 5.0,
+      "value": 5,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CHIA CHOCOLATE PUDDING
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☑ fiber
-  // --------------------------------------
   "recipe-chia-chocolate-pudding.html": {
+    "choline": {
+      "display": "~40 mg",
+      "value": 40.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~1.5–2 g",
+      "value": 1750.0,
+      "unit": "mg",
+      "name": "ALA omega-3 — supportive only · conversion-limited",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~24 µg",
+      "value": 24.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.9 µg",
+      "value": 0.9,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~135 kcal",
-      "value": 135.0,
+      "value": 135,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -2680,19 +5415,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~7 g",
-      "value": 7.0,
+      "value": 7,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
       "display": "~40 mg",
-      "value": 40.0,
+      "value": 40,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~0.17 g",
       "value": 0.17,
@@ -2709,7 +5443,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~24 µg",
-      "value": 24.0,
+      "value": 24,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -2730,91 +5464,173 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "proteinG": {
       "display": "~7 g",
-      "value": 7.0,
+      "value": 7,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "fiberG": {
       "display": "~6 g",
-      "value": 6.0,
+      "value": 6,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
-    },
+    }
   },
-  // --------------------------------------
-  // CHICKEN LIVERS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-chicken-livers.html": {
-    "calories": {
-      "display": "~250 kcal",
-      "value": 250.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "b12Mcg": {
+    "b12": {
       "display": "~105 µg",
       "value": 105.0,
       "unit": "mcg",
       "name": "B12 — MTHFR · neurological · homocysteine",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~435 µg",
       "value": 435.0,
       "unit": "mcg",
       "name": "Folate (natural) — MTHFR · bypasses conversion problem",
       "estimated": false
     },
-    "cholineMg": {
+    "choline": {
       "display": "~495 mg",
       "value": 495.0,
       "unit": "mg",
       "name": "Choline — Fatty Liver · APOE4 · hepatic fat export",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~16.0 mg",
-      "value": 16.0,
+    "omega3": {
+      "display": "~160 mg",
+      "value": 160.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // CHOP CHOP SALAD
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-chop-chop-salad.html": {
+    },
     "calories": {
-      "display": "~2o0 kcal",
-      "value": 200.0,
+      "display": "~250 kcal",
+      "value": 250,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~8 g",
-      "value": 8.0,
-      "unit": "g",
-      "name": "grams — per serving",
+    "b12Mcg": {
+      "display": "~105 µg",
+      "value": 105,
+      "unit": "mcg",
+      "name": "B12 — MTHFR · neurological · homocysteine",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~435 µg",
+      "value": 435,
+      "unit": "mcg",
+      "name": "Folate (natural) — MTHFR · bypasses conversion problem",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~495 mg",
+      "value": 495,
+      "unit": "mg",
+      "name": "Choline — Fatty Liver · APOE4 · hepatic fat export",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~16.0 mg",
+      "value": 16,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-chop-chop-salad.html": {
+    "choline": {
       "display": "~42 mg",
       "value": 42.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~180 mg",
+      "value": 180.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.5 µg",
+      "value": 0.5,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~107 µg",
+      "value": 107.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~2o0 kcal",
+      "value": 200,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~8 g",
+      "value": 8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~42 mg",
+      "value": 42,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~18.0 mg",
-      "value": 18.0,
+      "value": 18,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -2828,62 +5644,122 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~107 µg",
-      "value": 107.0,
+      "value": 107,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "netcarbsG": {
       "display": "~7 g",
-      "value": 7.0,
+      "value": 7,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "satfatG": {
       "display": "~7 g",
-      "value": 7.0,
+      "value": 7,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "viscousFiberG": {
       "display": "~1.0 g",
-      "value": 1.0,
+      "value": 1,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "mufaG": {
       "display": "~15 g",
-      "value": 15.0,
+      "value": 15,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // CRACKER/BREAD SPREAD
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-cracker-bread-spread-alternatives.html": {
-    "cholineMg": {
+    "choline": {
       "display": "~25 mg",
       "value": 25.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "~220 mg",
       "value": 220.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~35 ug",
       "value": 35.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.6 ug",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~25 mg",
+      "value": 25,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~220 mg",
+      "value": 220,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~35 ug",
+      "value": 35,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -2894,40 +5770,95 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // DORO WATT
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-doro-watt.html": {},
-  // --------------------------------------
-  // GARLIC BEEF BROCCOLI BOWL
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-garlic-beef-broccoli-bowl.html": {
-    "calories": {
-      "display": "~340 kcal",
-      "value": 340.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "proteinG": {
-      "display": "~35 g",
-      "value": 35.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~165 mg",
       "value": 165.0,
       "unit": "mg",
       "name": "Choline",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~35 mg",
+      "value": 35.0,
+      "unit": "mg",
+      "name": "Omega-3",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~45 µg",
+      "value": 45.0,
+      "unit": "mcg",
+      "name": "Folate",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.2 µg",
+      "value": 1.2,
+      "unit": "mcg",
+      "name": "B12",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~340 kcal",
+      "value": 340,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~35 g",
+      "value": 35,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~165 mg",
+      "value": 165,
+      "unit": "mg",
+      "name": "Choline",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~3.5 mg",
       "value": 3.5,
@@ -2937,7 +5868,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~45 µg",
-      "value": 45.0,
+      "value": 45,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
@@ -2965,81 +5896,199 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "satfatG": {
       "display": "~4.0 g",
-      "value": 4.0,
+      "value": 4,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "mufaG": {
       "display": "~8 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GARLIC LEMON SHRIMP
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-garlic-lemon-shrimp.html": {
-    "calories": {
-      "display": "~255 kcal",
-      "value": 255.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~180–220 mg",
       "value": 200.0,
       "unit": "mg",
       "name": "Choline",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~100%+ DV",
       "value": 100.0,
       "unit": "mcg",
       "name": "B12",
       "estimated": false
     },
-    // Note: MARINE SOURCE SO FULL VALUE
-    "omega3Mg": {
+    "omega3": {
       "display": "~150–250 mg",
       "value": 200.0,
       "unit": "mg",
       "name": "Omega-3 (marine)",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~55 µg",
       "value": 55.0,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // GINGER GARLIC CHICKEN STIRFRY
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-ginger-garlic-chicken-stirfry.html": {
+    },
     "calories": {
-      "display": "~190 kcal",
-      "value": 190.0,
+      "display": "~255 kcal",
+      "value": 255,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~180–220 mg",
+      "value": 200,
+      "unit": "mg",
+      "name": "Choline",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~100%+ DV",
+      "value": 100,
+      "unit": "mcg",
+      "name": "B12",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~150–250 mg",
+      "value": 200,
+      "unit": "mg",
+      "name": "Omega-3 (marine)",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~55 µg",
+      "value": 55,
+      "unit": "mcg",
+      "name": "Folate",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-ginger-garlic-chicken-stirfry.html": {
+    "choline": {
       "display": "~111 mg",
       "value": 111.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~115 mg",
+      "value": 115.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 µg",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~50 µg",
+      "value": 50.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~190 kcal",
+      "value": 190,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~111 mg",
+      "value": 111,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~11.5 mg",
       "value": 11.5,
@@ -3056,76 +6105,195 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~50 µg",
-      "value": 50.0,
+      "value": 50,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // GINGER LIME COOLER
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-ginger-lime-cooler.html": {
-    "calories": {
-      "display": "~12 kcal",
-      "value": 12.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~2 mg",
       "value": 2.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "0 mg",
       "value": 0.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~6 µg",
       "value": 6.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // GREEK BEEF KALE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-greek-beef-kale.html": {
+    },
+    "calories": {
+      "display": "~12 kcal",
+      "value": 12,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
     "cholineMg": {
-      "display": "~380 mg",
-      "value": 380.0,
+      "display": "~2 mg",
+      "value": 2,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3Mg": {
+      "display": "0 mg",
+      "value": 0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~6 µg",
+      "value": 6,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-greek-beef-kale.html": {
+    "choline": {
+      "display": "~120 mg",
+      "value": 120.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~120 mg",
+      "value": 120.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~95 ug",
+      "value": 95.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.1 ug",
+      "value": 1.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~380 mg",
+      "value": 380,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~12.0 mg",
-      "value": 12.0,
+      "value": 12,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~95 ug",
-      "value": 95.0,
+      "value": 95,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -3136,27 +6304,90 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
   "recipe-hard-boiled-eggs.html": {
-    "calories": {
-      "display": "~72 kcal",
-      "value": 72.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~147 mg",
       "value": 147.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~80 mg",
+      "value": 80.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.6 µg",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~22 µg",
+      "value": 22.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~72 kcal",
+      "value": 72,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~147 mg",
+      "value": 147,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~8.0 mg",
-      "value": 8.0,
+      "value": 8,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3177,77 +6408,324 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~22 µg",
-      "value": 22.0,
+      "value": 22,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // HERB ROASTED SALMON
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-herb-roasted-salmon-cabbage-salad.html": {
+  "recipe-herb-crusted-chicken.html": {
+    "choline": {
+      "display": "~130 mg",
+      "value": 130.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~110 mg",
+      "value": 110.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 µg",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~41 µg",
+      "value": 41.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
     "calories": {
-      "display": "~360 kcal",
-      "value": 360.0,
+      "display": "~300 kcal",
+      "value": 300,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
-    // Note: MARINE SOURCE SO FULL VALUE
+    "satfatG": {
+      "display": "~6 g",
+      "value": 6,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~4.0 g",
+      "value": 4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~130 mg",
+      "value": 130,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
+      "display": "~11.0 mg",
+      "value": 11,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8 g",
+      "value": 8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0.3 µg",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.5 g",
+      "value": 0.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~41 µg",
+      "value": 41,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-herb-roasted-salmon-cabbage-salad.html": {
+    "omega3": {
       "display": "~1,000–1,500 mg",
       "value": 1250.0,
       "unit": "mg",
       "name": "Marine omega-3",
       "estimated": false
     },
-    "cholineMg": {
+    "choline": {
       "display": "~150–220 mg",
       "value": 185.0,
       "unit": "mg",
       "name": "Choline",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~100%+ DV",
       "value": 100.0,
       "unit": "mcg",
       "name": "B12",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~65 µg",
       "value": 65.0,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // HOMEMADE MOZZERELLA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-homemade-mozzarella.html": {
+    },
     "calories": {
-      "display": "~195 kcal",
-      "value": 195.0,
+      "display": "~360 kcal",
+      "value": 360,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
+    "omega3Mg": {
+      "display": "~1,000–1,500 mg",
+      "value": 1250,
+      "unit": "mg",
+      "name": "Marine omega-3",
+      "estimated": false
+    },
     "cholineMg": {
+      "display": "~150–220 mg",
+      "value": 185,
+      "unit": "mg",
+      "name": "Choline",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~100%+ DV",
+      "value": 100,
+      "unit": "mcg",
+      "name": "B12",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~65 µg",
+      "value": 65,
+      "unit": "mcg",
+      "name": "Folate",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-homemade-mozzarella.html": {
+    "choline": {
       "display": "~40 mg",
       "value": 40.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~60 mg",
+      "value": 60.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.1 µg",
+      "value": 1.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~12 µg",
+      "value": 12.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~195 kcal",
+      "value": 195,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~40 mg",
+      "value": 40,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~6.0 mg",
-      "value": 6.0,
+      "value": 6,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3261,42 +6739,101 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~12 µg",
-      "value": 12.0,
+      "value": 12,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // KAFTA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-kafta.html": {
-    "calories": {
-      "display": "~215 kcal",
-      "value": 215.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~135 mg",
       "value": 135.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~130 mg",
+      "value": 130.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~115 ug",
+      "value": 115.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.4 ug",
+      "value": 1.4,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~215 kcal",
+      "value": 215,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~135 mg",
+      "value": 135,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~13.0 mg",
-      "value": 13.0,
+      "value": 13,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~115 ug",
-      "value": 115.0,
+      "value": 115,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -3307,31 +6844,90 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // LABNEH BERRY PARFAIT
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-labneh-berry-parfait.html": {
-    "calories": {
-      "display": "~210 kcal",
-      "value": 210.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~35 mg",
       "value": 35.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~1700 mg",
+      "value": 1700.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.4 µg",
+      "value": 0.4,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~24 µg",
+      "value": 24.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~210 kcal",
+      "value": 210,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~35 mg",
+      "value": 35,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~170.0 mg",
-      "value": 170.0,
+      "value": 170,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3345,32 +6941,91 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~24 µg",
-      "value": 24.0,
+      "value": 24,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // LABNEH YOGURT CHEESE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-labneh-yogurt-cheese.html": {
-    "calories": {
-      "display": "~425 kcal",
-      "value": 425.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~5 mg",
       "value": 5.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~15 mg",
+      "value": 15.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.1 µg",
+      "value": 0.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~425 kcal",
+      "value": 425,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~5 mg",
+      "value": 5,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~1.5 mg",
       "value": 1.5,
@@ -3387,63 +7042,122 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~2 µg",
-      "value": 2.0,
+      "value": 2,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // LEMON BLUEBERRY CHEESECAKE
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-lemon-blueberry-cheesecake.html": {
-    "calories": {
-      "display": "~220 kcal",
-      "value": 220.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "satfatG": {
-      "display": "~5.0 g",
-      "value": 5.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~13.0 g",
-      "value": 13.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~57 mg",
       "value": 57.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~70 mg",
+      "value": 70.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.43 µg",
+      "value": 0.43,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~13 µg",
+      "value": 13.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~220 kcal",
+      "value": 220,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~13.0 g",
+      "value": 13,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~57 mg",
+      "value": 57,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~7.0 mg",
-      "value": 7.0,
+      "value": 7,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "mufaG": {
       "display": "~10 g",
-      "value": 10.0,
+      "value": 10,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~13 µg",
-      "value": 13.0,
+      "value": 13,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -3461,80 +7175,97 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // MACADAMIA NUTS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-macadamia-nuts.html": {
-    "calories": {
-      "display": "~200 kcal",
-      "value": 200.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
-      "display": "~2 mg",
-      "value": 2.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~6.0 mg",
-      "value": 6.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folateMcg": {
-      "display": "~2 mcg",
-      "value": 2.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12Mcg": {
-      "display": "0 mcg",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    }
-  },
-  // --------------------------------------
-  // MARINATED FETA
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-marinated-feta.html": {
-    "calories": {
-      "display": "~315 kcal",
-      "value": 315.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~25 mg",
       "value": 25.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~70 mg",
+      "value": 70.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~18 µg",
+      "value": 18.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.9 µg",
+      "value": 0.9,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~315 kcal",
+      "value": 315,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~25 mg",
+      "value": 25,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~7.0 mg",
-      "value": 7.0,
+      "value": 7,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~18 µg",
-      "value": 18.0,
+      "value": 18,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -3545,69 +7276,188 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // MULLED ACV CIDER
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-mulled-acv-cider.html": {
-    "calories": {
-      "display": "~25 kcal",
-      "value": 25.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~3 mg",
       "value": 3.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "0 mg",
       "value": 0.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~4 µg",
       "value": 4.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // OLIVE SALAD
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-olive-salad.html": {
+    },
     "calories": {
-      "display": "~113 kcal",
-      "value": 113.0,
+      "display": "~25 kcal",
+      "value": 25,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~3 mg",
+      "value": 3,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "0 mg",
+      "value": 0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~4 µg",
+      "value": 4,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-olive-salad.html": {
+    "choline": {
       "display": "~18 mg",
       "value": 18.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~45 mg",
+      "value": 45.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~22 ug",
+      "value": 22.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0 ug",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~113 kcal",
+      "value": 113,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~18 mg",
+      "value": 18,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~4.5 mg",
       "value": 4.5,
@@ -3617,34 +7467,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~22 ug",
-      "value": 22.0,
+      "value": 22,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "~0 ug",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // PAN SEARED MACKEREL
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-pan-seared-mackerel.html": {
+    "choline": {
+      "display": "~80 mg net absorbed",
+      "value": 80.0,
+      "unit": "mg",
+      "name": "Choline",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~1,800–2,200 mg",
+      "value": 2000.0,
+      "unit": "mg",
+      "name": "Marine omega-3 (EPA + DHA)",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~13 mcg net absorbed",
+      "value": 13.0,
+      "unit": "mcg",
+      "name": "B12",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~85 mcg net absorbed",
+      "value": 85.0,
+      "unit": "mcg",
+      "name": "Folate",
+      "estimated": false
+    },
     "calories": {
       "display": "~500 kcal",
-      "value": 500.0,
+      "value": 500,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "proteinG": {
       "display": "~35 g",
-      "value": 35.0,
+      "value": 35,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -3656,10 +7566,9 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
-    // Note: MARINE SOURCE SO FULL VALUE USED
     "omega3Mg": {
       "display": "~2000 mg",
-      "value": 2000.0,
+      "value": 2000,
       "unit": "mg",
       "name": "Marine omega-3 (EPA + DHA)",
       "estimated": false
@@ -3673,7 +7582,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~85 mg net absorbed",
-      "value": 85.0,
+      "value": 85,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
@@ -3687,32 +7596,91 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~8 g",
-      "value": 8.0,
+      "value": 8,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // PUMPKIN CELEBRATION CAKE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-pumpkin-celebration-cake.html": {
-    "calories": {
-      "display": "~235 kcal",
-      "value": 235.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~52 mg",
       "value": 52.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~45 mg",
+      "value": 45.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 µg",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~13 µg",
+      "value": 13.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~235 kcal",
+      "value": 235,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~52 mg",
+      "value": 52,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~4.5 mg",
       "value": 4.5,
@@ -3729,32 +7697,91 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~13 µg",
-      "value": 13.0,
+      "value": 13,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // PURPLE SAUERKRAUT
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-purple-sauerkraut.html": {
-    "calories": {
-      "display": "~235 kcal",
-      "value": 235.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~5 mg",
       "value": 5.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~5 mg",
+      "value": 5.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~19 µg",
+      "value": 19.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~235 kcal",
+      "value": 235,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~5 mg",
+      "value": 5,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~0.5 mg",
       "value": 0.5,
@@ -3764,84 +7791,202 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~19 µg",
-      "value": 19.0,
+      "value": 19,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // RICE PAPER BAGELS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-rice-paper-bagels.html": {
-    "calories": {
-      "display": "~232 kcal",
-      "value": 232.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~2 mg",
       "value": 2.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~1.0 mg",
-      "value": 1.0,
+    "omega3": {
+      "display": "~10 mg",
+      "value": 10.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~1 µg",
       "value": 1.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // RICE PAPER POTSTICKERS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-rice-paper-potstickers.html": {
+    },
     "calories": {
-      "display": "~125 kcal",
-      "value": 125.0,
+      "display": "~232 kcal",
+      "value": 232,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~2 mg",
+      "value": 2,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~1.0 mg",
+      "value": 1,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~1 µg",
+      "value": 1,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-rice-paper-potstickers.html": {
+    "choline": {
       "display": "~64 mg",
       "value": 64.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~230 mg",
+      "value": 230.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.1 µg",
+      "value": 1.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~19 µg",
+      "value": 19.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~125 kcal",
+      "value": 125,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~64 mg",
+      "value": 64,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~23.0 mg",
-      "value": 23.0,
+      "value": 23,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3855,35 +8000,94 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~19 µg",
-      "value": 19.0,
+      "value": 19,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // RICE PAPER POUCHES
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-rice-paper-pouches.html": {
-    "calories": {
-      "display": "~290 kcal",
-      "value": 290.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~87 mg",
       "value": 87.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~130 mg",
+      "value": 130.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.6 µg",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~28 µg",
+      "value": 28.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~290 kcal",
+      "value": 290,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~87 mg",
+      "value": 87,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~13.0 mg",
-      "value": 13.0,
+      "value": 13,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3897,77 +8101,195 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~28 µg",
-      "value": 28.0,
+      "value": 28,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // ROASTED ARTICHOKE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-roasted-artichoke.html": {
-    "calories": {
-      "display": "~190 kcal",
-      "value": 190.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~54 mg",
       "value": 54.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~9.5 mg",
-      "value": 9.50,
+    "omega3": {
+      "display": "~95 mg",
+      "value": 95.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~68 µg",
       "value": 68.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // ROASTED BROCCOLI CHEESE SAUCE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-roasted-broccoli-cheese-sauce.html": {
+    },
     "calories": {
-      "display": "~260 kcal",
-      "value": 260.0,
+      "display": "~190 kcal",
+      "value": 190,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~54 mg",
+      "value": 54,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~9.5 mg",
+      "value": 9.5,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~68 µg",
+      "value": 68,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-roasted-broccoli-cheese-sauce.html": {
+    "choline": {
       "display": "~71 mg",
       "value": 71.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~120 mg",
+      "value": 120.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.6 µg",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~100 µg",
+      "value": 100.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~260 kcal",
+      "value": 260,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~71 mg",
+      "value": 71,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~12.0 mg",
-      "value": 12.0,
+      "value": 12,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -3981,32 +8303,91 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~100 µg",
-      "value": 100.0,
+      "value": 100,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // ROASTED ZUCCHINI PARMESAN
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-roasted-zucchini-parmesan.html": {
-    "calories": {
-      "display": "~300 kcal",
-      "value": 300.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~14 mg",
       "value": 14.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~95 mg",
+      "value": 95.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.5 µg",
+      "value": 0.5,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~28 µg",
+      "value": 28.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~300 kcal",
+      "value": 300,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~14 mg",
+      "value": 14,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~9.5 mg",
       "value": 9.5,
@@ -4023,51 +8404,103 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~28 µg",
-      "value": 28.0,
+      "value": 28,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SALMON RICE PAPER ROLLS
-  // ☐ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑ MUFAs, ☑ folate, ☑ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-salmon-rice-paper-rolls.html": {
+    "omega3": {
+      "display": "~2500 mg",
+      "value": 2500.0,
+      "unit": "mg",
+      "name": "Omega-3 (EPA+DHA) — APOE4 · cardiovascular · anti-inflammatory",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~3.1 µg",
+      "value": 3.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~87 µg",
+      "value": 87.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "choline": {
+      "display": "~122 mg",
+      "value": 122.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "calories": {
       "display": "~320 kcal",
-      "value": 320.0,
+      "value": 320,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "satfatG": {
       "display": "~4.0 g",
-      "value": 4.0,
+      "value": 4,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "netcarbsG": {
       "display": "~10.0 g",
-      "value": 10.0,
+      "value": 10,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
       "display": "~420 mg",
-      "value": 420.0,
+      "value": 420,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
-      "estimated": false
-    },
-    // Note: MARINE SOURCE _ FULL VALUE
-    "omega3Mg": {
-      "display": "~2500 mg",
-      "value": 2500.0,
-      "unit": "mg",
-      "name": "Omega-3 (EPA+DHA) — APOE4 · cardiovascular · anti-inflammatory",
       "estimated": false
     },
     "omega3Mg": {
@@ -4079,7 +8512,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~87 µg",
-      "value": 87.0,
+      "value": 87,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -4097,108 +8530,226 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SARDINES OLIVE CHOPPED SALAD
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-sardine-olive-chopped-salad.html": {
-    "calories": {
-      "display": "~425 kcal",
-      "value": 425.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "proteinG": {
-      "display": "~31 g",
-      "value": 31.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~90 mg",
       "value": 90.0,
       "unit": "mg",
       "name": "Choline",
       "estimated": false
     },
-    // Note: MARINE SOURCE - FULL VALUE
-    "omega3Mg": {
+    "omega3": {
       "display": "~1,200–1,500 mg",
       "value": 1350.0,
       "unit": "mg",
       "name": "Omega-3 (marine EPA + DHA)",
       "estimated": false
     },
-    "satfatG": {
-      "display": "~2.0 g",
-      "value": 2.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "folateMcg": {
+    "folate": {
       "display": "~70 µg",
       "value": 70.0,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~10 µg",
       "value": 10.0,
       "unit": "mcg",
       "name": "B12",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~16 g",
-      "value": 16.0,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    }
-  },
-  // --------------------------------------
-  // SAVORY CHICKEN SHIITAKE SKILLET
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-savory-chicken-shiitake-skillet.html": {
     "calories": {
-      "display": "~250 kcal",
-      "value": 250.0,
+      "display": "~425 kcal",
+      "value": 425,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "proteinG": {
-      "display": "~33 g",
-      "value": 33.0,
+      "display": "~31 g",
+      "value": 31,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~90 mg",
+      "value": 90,
+      "unit": "mg",
+      "name": "Choline",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~1,200–1,500 mg",
+      "value": 1350,
+      "unit": "mg",
+      "name": "Omega-3 (marine EPA + DHA)",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~70 µg",
+      "value": 70,
+      "unit": "mcg",
+      "name": "Folate",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~10 µg",
+      "value": 10,
+      "unit": "mcg",
+      "name": "B12",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~16 g",
+      "value": 16,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-savory-chicken-shiitake-skillet.html": {
+    "choline": {
       "display": "~160 mg",
       "value": 160.0,
       "unit": "mg",
       "name": "Choline",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~40 mg",
+      "value": 40.0,
+      "unit": "mg",
+      "name": "Omega-3",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~22 µg",
+      "value": 22.0,
+      "unit": "mcg",
+      "name": "Folate",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.5 µg",
+      "value": 0.5,
+      "unit": "mcg",
+      "name": "B12",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~250 kcal",
+      "value": 250,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~33 g",
+      "value": 33,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~160 mg",
+      "value": 160,
+      "unit": "mg",
+      "name": "Choline",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~4.0 mg",
-      "value": 4.0,
+      "value": 4,
       "unit": "mg",
       "name": "Omega-3",
       "estimated": false
     },
     "folateMcg": {
       "display": "~22 µg",
-      "value": 22.0,
+      "value": 22,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
@@ -4212,42 +8763,101 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~3 g",
-      "value": 3.0,
+      "value": 3,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "mufaG": {
       "display": "~11 g",
-      "value": 11.0,
+      "value": 11,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SLOW BRAISED PORK APPLES
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-slow-braised-pork-apple.html": {
-    "calories": {
-      "display": "~475 kcal",
-      "value": 475.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~127 mg",
       "value": 127.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~330 mg",
+      "value": 330.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.3 µg",
+      "value": 1.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~25 µg",
+      "value": 25.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~475 kcal",
+      "value": 475,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~127 mg",
+      "value": 127,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~33.0 mg",
-      "value": 33.0,
+      "value": 33,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -4261,168 +8871,404 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "folateMcg": {
       "display": "~25 µg",
-      "value": 25.0,
+      "value": 25,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SMOKED OYSTER BOWL
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-smoked-oyster-bowl.html": {
-    "calories": {
-      "display": "~345 kcal",
-      "value": 345.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~125 mg",
       "value": 125.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~80 µg",
       "value": 80.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~16 µg",
       "value": 16.0,
       "unit": "mcg",
       "name": "B12 — MTHFR · neurological",
       "estimated": false
     },
-    // Note: MARINE SOURCE SO FULL VALUE
-    "omega3Mg": {
-      "display": "~500.0 g",
+    "omega3": {
+      "display": "~0.5 g",
       "value": 500.0,
       "unit": "mg",
       "name": "DHA (preformed omega-3) — APOE4 · neurological · anti-inflammatory",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // SOUS VIDE BLACK BEANS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-sous-vide-black-beans.html": {
+    },
     "calories": {
-      "display": "~190 kcal",
-      "value": 190.0,
+      "display": "~345 kcal",
+      "value": 345,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~125 mg",
+      "value": 125,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~80 µg",
+      "value": 80,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~16 µg",
+      "value": 16,
+      "unit": "mcg",
+      "name": "B12 — MTHFR · neurological",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~500.0 g",
+      "value": 500,
+      "unit": "mg",
+      "name": "DHA (preformed omega-3) — APOE4 · neurological · anti-inflammatory",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-sous-vide-black-beans.html": {
+    "choline": {
       "display": "~35 mg",
       "value": 35.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~2.0 mg",
-      "value": 2.0,
+    "omega3": {
+      "display": "~20 mg",
+      "value": 20.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~130 ug",
       "value": 130.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~0 ug",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // SOUS VIDE PINTO BEANS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-sous-vide-pinto-beans.html": {
+    },
     "calories": {
-      "display": "~220 kcal",
-      "value": 220.0,
+      "display": "~190 kcal",
+      "value": 190,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
       "display": "~35 mg",
-      "value": 35.0,
+      "value": 35,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
-      "display": "~3.0 mg",
-      "value": 3.0,
+      "display": "~2.0 mg",
+      "value": 2,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
-      "display": "~140 ug",
-      "value": 140.0,
+      "display": "~130 ug",
+      "value": 130,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
     "b12Mcg": {
       "display": "~0 ug",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-sous-vide-pinto-beans.html": {
+    "choline": {
+      "display": "~35 mg",
+      "value": 35.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~30 mg",
+      "value": 30.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~140 ug",
+      "value": 140.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0 ug",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // SOUS VIDE SPLIT PEAS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-sous-vide-split-peas.html": {
+    },
     "calories": {
-      "display": "~195 kcal",
-      "value": 195.0,
+      "display": "~220 kcal",
+      "value": 220,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~35 mg",
+      "value": 35,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~3.0 mg",
+      "value": 3,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~140 ug",
+      "value": 140,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0 ug",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-sous-vide-split-peas.html": {
+    "choline": {
       "display": "~40 mg",
       "value": 40.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~30 mg",
+      "value": 30.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~150 ug",
+      "value": 150.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.3 ug",
+      "value": 0.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~195 kcal",
+      "value": 195,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~40 mg",
+      "value": 40,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~3.0 mg",
-      "value": 3.0,
+      "value": 3,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~150 ug",
-      "value": 150.0,
+      "value": 150,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -4433,122 +9279,299 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SOUS VIDE STEEL CUT OATS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-sous-vide-steel-cut-oats.html": {
-    "calories": {
-      "display": "~170 kcal",
-      "value": 170.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~15 mg",
       "value": 15.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~2.0 mg",
-      "value": 2.0,
+    "omega3": {
+      "display": "~20 mg",
+      "value": 20.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~12 ug",
       "value": 12.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~0 ug",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // STEAMED SNOW CRABS CLUSTERS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-steamed-snow-crab-clusters.html": {
+    },
     "calories": {
-      "display": "~318 kcal",
-      "value": 318.0,
+      "display": "~170 kcal",
+      "value": 170,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~15 mg",
+      "value": 15,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~2.0 mg",
+      "value": 2,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~12 ug",
+      "value": 12,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0 ug",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-steamed-snow-crab-clusters.html": {
+    "choline": {
       "display": "~120–140 mg",
       "value": 130.0,
       "unit": "mg",
       "name": "Choline",
       "estimated": false
     },
-    // Note: MARINE, so FULL VALUE
-    "omega3Mg": {
-      "display": "~500 mg",
+    "omega3": {
+      "display": "~400–600 mg",
       "value": 500.0,
       "unit": "mg",
       "name": "Marine omega-3 (EPA + DHA)",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "~100%+ DV",
       "value": 100.0,
       "unit": "mcg",
       "name": "Vitamin B12",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~25 µg",
       "value": 25.0,
       "unit": "mcg",
       "name": "Folate",
       "estimated": false
-    }
-  },
-  // --------------------------------------
-  // STUFFED PEPPERS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
-  "recipe-stuffed-peppers.html": {
+    },
     "calories": {
-      "display": "~290 kcal",
-      "value": 290.0,
+      "display": "~318 kcal",
+      "value": 318,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
     },
     "cholineMg": {
+      "display": "~120–140 mg",
+      "value": 130,
+      "unit": "mg",
+      "name": "Choline",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~500 mg",
+      "value": 500,
+      "unit": "mg",
+      "name": "Marine omega-3 (EPA + DHA)",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~100%+ DV",
+      "value": 100,
+      "unit": "mcg",
+      "name": "Vitamin B12",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~25 µg",
+      "value": 25,
+      "unit": "mcg",
+      "name": "Folate",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "recipe-stuffed-peppers.html": {
+    "choline": {
       "display": "~130 mg",
       "value": 130.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~140 mg",
+      "value": 140.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~105 ug",
+      "value": 105.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.3 ug",
+      "value": 1.3,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~290 kcal",
+      "value": 290,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~130 mg",
+      "value": 130,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~14.0 mg",
-      "value": 14.0,
+      "value": 14,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~105 ug",
-      "value": 105.0,
+      "value": 105,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -4559,38 +9582,97 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SUGAR SHIFT PUMPKIN SPICE MOUSSE
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-sugar-shift-pumpkin-spice-mousse.html": {
-    "calories": {
-      "display": "~425 kcal",
-      "value": 425.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~70 mg",
       "value": 70.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~2900 mg",
+      "value": 2900.0,
+      "unit": "mg",
+      "name": "Omega-3 — ALA support for fatty liver; APOE4 fit is indirect",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~40 µg",
+      "value": 40.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.7 µg",
+      "value": 0.7,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~425 kcal",
+      "value": 425,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~70 mg",
+      "value": 70,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~290.0 mg",
-      "value": 290.0,
+      "value": 290,
       "unit": "mg",
       "name": "Omega-3 — ALA support for fatty liver; APOE4 fit is indirect",
       "estimated": false
     },
     "folateMcg": {
       "display": "~40 µg",
-      "value": 40.0,
+      "value": 40,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -4601,38 +9683,97 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // SUGAR SHIFT YOGURT
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-sugar-shift-yogurt.html": {
-    "calories": {
-      "display": "~80 kcal",
-      "value": 80.0,
-      "unit": "kcal",
-      "name": "Calories — per serving",
-      "estimated": false
-    },
-    "cholineMg": {
+    "choline": {
       "display": "~35 mg",
       "value": 35.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3": {
+      "display": "~150–250 mg",
+      "value": 200.0,
+      "unit": "mg",
+      "name": "Omega-3 (ALA/marine-support) — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~12 µg",
+      "value": 12.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.1 ug",
+      "value": 1.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~80 kcal",
+      "value": 80,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~35 mg",
+      "value": 35,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
     "omega3Mg": {
       "display": "~20 mg",
-      "value": 20.0,
+      "value": 20,
       "unit": "mg",
       "name": "Omega-3 (ALA/marine-support) — supporting fatty liver + APOE4",
       "estimated": false
     },
     "folateMcg": {
       "display": "~12 µg",
-      "value": 12.0,
+      "value": 12,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -4643,50 +9784,170 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // THERAPEUTIC TEAS
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-therapeutic-teas.html": {
-    "cholineMg": {
+    "choline": {
       "display": "~1 mg",
       "value": 1.0,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    "omega3Mg": {
+    "omega3": {
       "display": "0 mg",
       "value": 0.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
-    "folateMcg": {
+    "folate": {
       "display": "~5 µg",
       "value": 5.0,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    "b12Mcg": {
+    "b12": {
       "display": "0 µg",
       "value": 0.0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "cholineMg": {
+      "display": "~1 mg",
+      "value": 1,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "0 mg",
+      "value": 0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~5 µg",
+      "value": 5,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // TRAIL MIX
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-trail-mix.html": {
+    "choline": {
+      "display": "~21 mg",
+      "value": 21.0,
+      "unit": "mg",
+      "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~1400 mg",
+      "value": 1400.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~26.5 µg",
+      "value": 26.5,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
     "calories": {
       "display": "~190 kcal",
-      "value": 190.0,
+      "value": 190,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -4700,22 +9961,21 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~5.0 g",
-      "value": 5.0,
+      "value": 5,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
       "display": "~21 mg",
-      "value": 21.0,
+      "value": 21,
       "unit": "mg",
       "name": "Choline — APOE4",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~140.0 mg",
-      "value": 140.0,
+      "value": 140,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
@@ -4736,7 +9996,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "b12Mcg": {
       "display": "0 µg",
-      "value": 0.0,
+      "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
@@ -4754,16 +10014,76 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   },
-  // --------------------------------------
-  // TURKEY MEATLOAF
-  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☐ fiber
-  // --------------------------------------
   "recipe-turkey-meatloaf.html": {
+    "choline": {
+      "display": "~185 mg",
+      "value": 185.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~1.1 µg",
+      "value": 1.1,
+      "unit": "mcg",
+      "name": "Vitamin B12 — MTHFR",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~22 µg DFE",
+      "value": 22.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~3.2 mg",
+      "value": 3.2,
+      "unit": "mg",
+      "name": "Zinc — immune · metabolic · wound repair",
+      "estimated": false
+    },
     "calories": {
       "display": "~250 kcal",
-      "value": 250.0,
+      "value": 250,
       "unit": "kcal",
       "name": "Calories — per serving",
       "estimated": false
@@ -4777,19 +10097,18 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "netcarbsG": {
       "display": "~6.0 g",
-      "value": 6.0,
+      "value": 6,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
       "display": "~185 mg",
-      "value": 185.0,
+      "value": 185,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
     "omega3Mg": {
       "display": "~0.3 mg",
       "value": 0.3,
@@ -4799,14 +10118,14 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "mufaG": {
       "display": "~2.0 g",
-      "value": 2.0,
+      "value": 2,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
       "display": "~22 µg DFE",
-      "value": 22.0,
+      "value": 22,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -4820,17 +10139,53 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "proteinG": {
       "display": "~29 g",
-      "value": 29.0,
+      "value": 29,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
     "viscousFiberG": {
       "display": "~0.0 g",
-      "value": 0.0,
+      "value": 0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
     }
   }
 };
