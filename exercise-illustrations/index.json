@@ -17,8 +17,16 @@
             "caption": "Russian Twist"
         },
         {
+            "file": "01-stage-1.jpg",
+            "caption": "Arm training but with back protection."
+        },
+        {
             "file": "01-weighted-crunches.jpg",
             "caption": "Weighted Crunches"
+        },
+        {
+            "file": "adipocyte-adiponectin.jpg",
+            "caption": "adipocyte-adiponectin - hormone that helps with weight control that gets messed up with too much viscerel fat."
         },
         {
             "file": "cgm-night-before-walk.png",
@@ -67,6 +75,14 @@
         {
             "file": "weekly-schedule.jpg",
             "caption": "Weekly exercise schedule visual."
+        },
+        {
+            "file": "weight-calculation.png",
+            "caption": "Method to set the weight that is targeted."
+        },
+        {
+            "file": "weight-pace.png",
+            "caption": "Pace for onboarding your muscle. ligament, and tendons to weights."
         },
         {
             "file": "cgm-Dawn-Effect-Walk guide.png",
