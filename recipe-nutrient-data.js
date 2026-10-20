@@ -4681,14 +4681,28 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
   // --------------------------------------
   // TRAIL MIX
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-trail-mix.html": {
     "calories": {
-      "display": "~180 kcal",
-      "value": 180.0,
+      "display": "~190 kcal",
+      "value": 190.0,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.9 g",
+      "value": 2.9,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -4706,9 +4720,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~5.4 g",
+      "value": 5.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
-      "display": "~11 µg",
-      "value": 11.0,
+      "display": "~26.5 µg",
+      "value": 26.5,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
@@ -4719,11 +4740,25 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "B12 — MTHFR",
       "estimated": false
+    },
+    "proteinG": {
+      "display": "~7.8 g",
+      "value": 7.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~5.3 g",
+      "value": 5.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   // --------------------------------------
   // TURKEY MEATLOAF
-  // ☐ cal, ☐ sat fat, ☐ net carbs ☐ choline, ☐ Omega-3 ☐  MUFAs, ☐ folate, ☐ b12, ☐ viscous fiber ☐ prot ☐ carbs ☐ fiber
+  // ☑ cal, ☑ sat fat, ☑ net carbs ☑ choline, ☑ Omega-3 ☑  MUFAs, ☑ folate, ☑ b12, ☑ viscous fiber ☑ prot ☐ carbs ☐ fiber
   // --------------------------------------
   "recipe-turkey-meatloaf.html": {
     "calories": {
@@ -4733,9 +4768,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~29 g",
-      "value": 29.0,
+    "satfatG": {
+      "display": "~3.4 g",
+      "value": 3.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~6.0 g",
+      "value": 6.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -4747,11 +4789,19 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
-    "b12Mcg": {
-      "display": "~1.1 µg",
-      "value": 1.1,
-      "unit": "mcg",
-      "name": "Vitamin B12 — MTHFR",
+    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
+    "omega3Mg": {
+      "display": "~0.3 mg",
+      "value": 0.3,
+      "unit": "mg",
+      "name": "Zinc — immune · metabolic · wound repair",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
@@ -4761,24 +4811,23 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Folate — MTHFR",
       "estimated": false
     },
-    // Note: Non-marine omega-3 adjusted / split out to prevent inflation
-    "omega3Mg": {
-      "display": "~0.3 mg",
-      "value": 0.3,
-      "unit": "mg",
-      "name": "Zinc — immune · metabolic · wound repair",
+    "b12Mcg": {
+      "display": "~1.1 µg",
+      "value": 1.1,
+      "unit": "mcg",
+      "name": "Vitamin B12 — MTHFR",
       "estimated": false
     },
-    "satfatG": {
-      "display": "~2.5 g",
-      "value": 2.5,
+    "proteinG": {
+      "display": "~29 g",
+      "value": 29.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
     },
-    "mufaG": {
-      "display": "~2.0 g",
-      "value": 2.0,
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0.0,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
