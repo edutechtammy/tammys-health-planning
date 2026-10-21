@@ -676,6 +676,10 @@
             <input type="number" id="menu-manual-omega3" min="0" step="1" value="0" />
           </div>
           <div class="menu-planner-field">
+            <label for="menu-manual-protein">Protein / serving (g)</label>
+            <input type="number" id="menu-manual-protein" min="0" step="0.1" value="0" />
+          </div>
+          <div class="menu-planner-field">
             <label for="menu-manual-mufa">MUFAs / serving (g)</label>
             <input type="number" id="menu-manual-mufa" min="0" step="0.1" value="0" />
           </div>
@@ -5841,6 +5845,7 @@ function estimateNutrientsPerServing(ingredientsText) {
   const totals = {
     cholineMg: 0,
     omega3Mg: 0,
+    proteinG: 0,
     mufaG: 0,
     folateMcg: 0,
     b12Mcg: 0,
@@ -5869,6 +5874,12 @@ function estimateNutrientsPerServing(ingredientsText) {
     else if (has(token, ['chia'])) totals.omega3Mg += 900;
     else if (has(token, ['flax'])) totals.omega3Mg += 700;
     else if (has(token, ['hemp'])) totals.omega3Mg += 350;
+
+    // Protein (g)
+    if (has(token, ['liver'])) totals.proteinG += 18;
+    else if (has(token, ['salmon', 'sardine', 'mackerel', 'shrimp', 'crab', 'oyster', 'chicken', 'turkey', 'beef', 'pork', 'eggs', 'egg'])) totals.proteinG += 12;
+    else if (has(token, ['yogurt', 'kefir', 'milk', 'mozzarella', 'feta', 'parmesan', 'beans', 'lentils'])) totals.proteinG += 6;
+    else if (has(token, ['chia', 'hemp', 'flax'])) totals.proteinG += 3;
 
     // MUFAs (g)
     if (has(token, ['evoo', 'olive oil', 'olive', 'almond oil', 'avocado oil'])) totals.mufaG += 8;
@@ -5900,6 +5911,7 @@ function estimateNutrientsPerServing(ingredientsText) {
   // Keep estimates in practical per-serving bounds.
   totals.cholineMg = Math.min(totals.cholineMg, 420);
   totals.omega3Mg = Math.min(totals.omega3Mg, 2500);
+  totals.proteinG = Math.min(totals.proteinG, 60);
   totals.mufaG = Math.min(totals.mufaG, 24);
   totals.folateMcg = Math.min(totals.folateMcg, 320);
   totals.b12Mcg = Math.min(totals.b12Mcg, 10);
@@ -5908,6 +5920,7 @@ function estimateNutrientsPerServing(ingredientsText) {
   return {
     cholineMg: Math.round(totals.cholineMg),
     omega3Mg: Math.round(totals.omega3Mg),
+    proteinG: Number(totals.proteinG.toFixed(1)),
     mufaG: Number(totals.mufaG.toFixed(1)),
     folateMcg: Math.round(totals.folateMcg),
     b12Mcg: Number(totals.b12Mcg.toFixed(1)),
@@ -5928,6 +5941,7 @@ function addNutrientTargetBadges() {
       .find((pill) => /net\s*carbs?/i.test(pill.textContent || ''));
     const triggerNetCarbsValue = parseSatFatGrams(netCarbPill?.textContent || '');
     const caloriesEntry = resolveRecipeNutrientEntry(source, 'calories');
+    const proteinEntry = resolveRecipeNutrientEntry(source, 'proteinG', ['protein']);
     const cholineEntry = resolveRecipeNutrientEntry(source, 'cholineMg', ['choline']);
     const omega3Entry = resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3']);
     const satFatEntry = resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat']);
@@ -5938,6 +5952,7 @@ function addNutrientTargetBadges() {
     const viscousFiberEntry = resolveRecipeNutrientEntry(source, 'viscousFiberG', ['viscsolublefiber']);
 
     const caloriesValue = Number(caloriesEntry?.value ?? Number(card.dataset.calories || 0));
+    const explicitProtein = Number(card.dataset.proteinG || 0);
     const explicitCholine = Number(card.dataset.cholineMg || 0);
     const explicitOmega3 = Number(card.dataset.omega3Mg || 0);
     const explicitSatFat = Number(card.dataset.satfatG || 0);
@@ -5947,6 +5962,9 @@ function addNutrientTargetBadges() {
     const explicitMufa = Number(card.dataset.mufaG || 0);
     const explicitViscousFiber = Number(card.dataset.viscousFiberG || 0);
 
+    const proteinValue = Number.isFinite(explicitProtein) && explicitProtein > 0
+      ? explicitProtein
+      : Number(proteinEntry?.value ?? est.proteinG);
     const cholineValue = Number.isFinite(explicitCholine) && explicitCholine > 0
       ? explicitCholine
       : Number(cholineEntry?.value ?? est.cholineMg);
@@ -5974,6 +5992,7 @@ function addNutrientTargetBadges() {
 
     const hasExplicitCalories = card.hasAttribute('data-calories') && Number.isFinite(Number(card.dataset.calories)) && Number(card.dataset.calories) > 0;
     const hasCaloriesSource = Number.isFinite(Number(caloriesEntry?.value)) && Number(caloriesEntry?.value) > 0;
+    const hasExplicitProtein = card.hasAttribute('data-protein-g');
     const hasExplicitCholine = card.hasAttribute('data-choline-mg');
     const hasExplicitOmega3 = card.hasAttribute('data-omega3-mg');
     const hasExplicitSatFat = card.hasAttribute('data-satfat-g');
@@ -5983,6 +6002,7 @@ function addNutrientTargetBadges() {
     const hasExplicitMufa = card.hasAttribute('data-mufa-g');
     const hasExplicitViscousFiber = card.hasAttribute('data-viscous-fiber-g');
 
+    const hasProteinSource = Number.isFinite(Number(proteinEntry?.value));
     const hasCholineSource = Number.isFinite(Number(cholineEntry?.value));
     const hasOmega3Source = Number.isFinite(Number(omega3Entry?.value));
     const hasSatFatSource = Number.isFinite(Number(satFatEntry?.value));
@@ -5992,6 +6012,7 @@ function addNutrientTargetBadges() {
     const hasMufaSource = Number.isFinite(Number(mufaEntry?.value));
     const hasViscousFiberSource = Number.isFinite(Number(viscousFiberEntry?.value));
 
+    const hasProteinEstimate = Number.isFinite(Number(est.proteinG)) && Number(est.proteinG) > 0;
     const hasCholineEstimate = Number.isFinite(Number(est.cholineMg)) && Number(est.cholineMg) > 0;
     const hasOmega3Estimate = Number.isFinite(Number(est.omega3Mg)) && Number(est.omega3Mg) > 0;
     const hasFolateEstimate = Number.isFinite(Number(est.folateMcg)) && Number(est.folateMcg) > 0;
@@ -6002,6 +6023,7 @@ function addNutrientTargetBadges() {
     if (Number.isFinite(caloriesValue) && caloriesValue > 0) {
       card.dataset.calories = String(caloriesValue);
     }
+    card.dataset.proteinG = String(Number.isFinite(proteinValue) ? proteinValue : est.proteinG);
     card.dataset.cholineMg = String(Number.isFinite(cholineValue) ? cholineValue : est.cholineMg);
     card.dataset.omega3Mg = String(Number.isFinite(omega3Value) ? omega3Value : est.omega3Mg);
     card.dataset.mufaG = String(Number.isFinite(defaultMufaValue) ? defaultMufaValue : est.mufaG);
@@ -6017,6 +6039,7 @@ function addNutrientTargetBadges() {
       },
       { label: 'Choline', key: 'cholineMg', value: Number.isFinite(cholineValue) ? cholineValue : 0, target: 740, unit: 'mg', limit: false, missing: !(hasExplicitCholine || hasCholineSource || hasCholineEstimate) },
       { label: 'Omega-3', key: 'omega3Mg', value: Number.isFinite(omega3Value) ? omega3Value : 0, target: 800, unit: 'mg', limit: false, missing: !(hasExplicitOmega3 || hasOmega3Source || hasOmega3Estimate) },
+      { label: 'Protein', key: 'proteinG', value: Number.isFinite(proteinValue) ? proteinValue : 0, target: 135, unit: 'g', limit: false, missing: !(hasExplicitProtein || hasProteinSource || hasProteinEstimate) },
       { label: 'MUFAs', key: 'mufaG', value: Number.isFinite(defaultMufaValue) ? defaultMufaValue : 0, target: 30, unit: 'g', limit: false, missing: !(hasExplicitMufa || hasMufaSource || hasMufaEstimate) },
       { label: 'Saturated Fat', key: 'satfatG', value: Number.isFinite(satFatValue) ? satFatValue : 0, target: 10, unit: 'g', limit: true, missing: !(hasExplicitSatFat || hasSatFatSource) },
       { label: 'Net Carbs', key: 'netcarbsG', value: Number.isFinite(netCarbsValue) ? netCarbsValue : 0, target: 50, unit: 'g', limit: true, missing: !(hasExplicitNetCarbs || hasNetCarbsSource) },
@@ -6044,7 +6067,7 @@ function addNutrientTargetBadges() {
       const ratio = goal.missing ? 0 : (target > 0 ? Math.min((value / target) * 100, 100) : 0);
       const displayValue = goal.missing
         ? 'Missing'
-        : goal.key === 'b12Mcg' || goal.key === 'mufaG' || goal.key === 'viscousFiberG' || goal.key === 'satfatG' || goal.key === 'netcarbsG'
+        : goal.key === 'proteinG' || goal.key === 'b12Mcg' || goal.key === 'mufaG' || goal.key === 'viscousFiberG' || goal.key === 'satfatG' || goal.key === 'netcarbsG'
         ? `${Number(value).toFixed(goal.unit === 'g' ? 1 : 1)} ${goal.unit}`
         : `${Math.round(value)} ${goal.unit}`;
 
@@ -6101,6 +6124,7 @@ const MENU_PLANNER_NUTRIENTS = [
   { key: 'netcarbsG', label: 'Net Carbs', unit: 'g', target: 50, decimals: 1, limit: true },
   { key: 'cholineMg', label: 'Choline', unit: 'mg', target: 740, decimals: 0, primary: true },
   { key: 'omega3Mg', label: 'Omega-3', unit: 'mg', target: 800, decimals: 0, primary: true },
+  { key: 'proteinG', label: 'Protein', unit: 'g', target: 135, decimals: 1 },
   { key: 'mufaG', label: 'MUFAs', unit: 'g', target: 30, decimals: 1 },
   { key: 'folateMcg', label: 'Folate', unit: 'mcg', target: 400, decimals: 0 },
   { key: 'b12Mcg', label: 'B12', unit: 'mcg', target: 2.4, decimals: 1 },
@@ -6167,6 +6191,7 @@ function normalizePlannerItem(rawItem) {
     calories: Number.isFinite(Number(safe.calories)) ? Number(safe.calories) : 0,
     cholineMg: Number.isFinite(Number(safe.cholineMg)) ? Number(safe.cholineMg) : 0,
     omega3Mg: Number.isFinite(Number(safe.omega3Mg)) ? Number(safe.omega3Mg) : 0,
+    proteinG: Number.isFinite(Number(safe.proteinG)) ? Number(safe.proteinG) : 0,
     mufaG: Number.isFinite(Number(safe.mufaG)) ? Number(safe.mufaG) : 0,
     satfatG: Number.isFinite(Number(safe.satfatG)) ? Number(safe.satfatG) : 0,
     netcarbsG: Number.isFinite(Number(safe.netcarbsG)) ? Number(safe.netcarbsG) : 0,
@@ -6199,6 +6224,7 @@ function refreshPlannerRecipeItemNutrients(item) {
   applyValue('calories', resolveRecipeNutrientEntry(source, 'calories')?.value);
   applyValue('cholineMg', resolveRecipeNutrientEntry(source, 'cholineMg', ['choline'])?.value);
   applyValue('omega3Mg', resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3'])?.value);
+  applyValue('proteinG', resolveRecipeNutrientEntry(source, 'proteinG', ['protein'])?.value);
   applyValue('satfatG', resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat'])?.value);
   applyValue('netcarbsG', resolveRecipeNutrientEntry(source, 'netcarbsG', ['netcarbs', 'netcarb'])?.value);
   applyValue('folateMcg', resolveRecipeNutrientEntry(source, 'folateMcg', ['folate'])?.value);
@@ -6458,6 +6484,7 @@ function getRecipePlanPayload(card) {
       calories: Number(card.dataset.calories || 0),
       cholineMg: Number(card.dataset.cholineMg || 0),
       omega3Mg: Number(card.dataset.omega3Mg || 0),
+      proteinG: Number(card.dataset.proteinG || 0),
       mufaG: Number(card.dataset.mufaG || 0),
       satfatG: Number(card.dataset.satfatG || 0),
       netcarbsG: Number(card.dataset.netcarbsG || 0),
@@ -6484,6 +6511,7 @@ function addRecipeToPlan(card) {
     calories: Number.isFinite(recipe.nutrients.calories) ? recipe.nutrients.calories : 0,
     cholineMg: Number.isFinite(recipe.nutrients.cholineMg) ? recipe.nutrients.cholineMg : 0,
     omega3Mg: Number.isFinite(recipe.nutrients.omega3Mg) ? recipe.nutrients.omega3Mg : 0,
+    proteinG: Number.isFinite(recipe.nutrients.proteinG) ? recipe.nutrients.proteinG : 0,
     mufaG: Number.isFinite(recipe.nutrients.mufaG) ? recipe.nutrients.mufaG : 0,
     satfatG: Number.isFinite(recipe.nutrients.satfatG) ? recipe.nutrients.satfatG : 0,
     netcarbsG: Number.isFinite(recipe.nutrients.netcarbsG) ? recipe.nutrients.netcarbsG : 0,
@@ -6512,6 +6540,7 @@ function addManualItemToPlan() {
   const caloriesInput = document.getElementById('menu-manual-calories');
   const cholineInput = document.getElementById('menu-manual-choline');
   const omegaInput = document.getElementById('menu-manual-omega3');
+  const proteinInput = document.getElementById('menu-manual-protein');
   const mufaInput = document.getElementById('menu-manual-mufa');
   const satfatInput = document.getElementById('menu-manual-satfat');
   const netcarbsInput = document.getElementById('menu-manual-netcarbs');
@@ -6526,6 +6555,7 @@ function addManualItemToPlan() {
   const caloriesVal = Number(caloriesInput?.value || 0);
   const cholineVal = Number(cholineInput?.value || 0);
   const omegaVal = Number(omegaInput?.value || 0);
+  const proteinVal = Number(proteinInput?.value || 0);
   const mufaVal = Number(mufaInput?.value || 0);
   const satfatVal = Number(satfatInput?.value || 0);
   const netcarbsVal = Number(netcarbsInput?.value || 0);
@@ -6536,6 +6566,7 @@ function addManualItemToPlan() {
   const calories = Number.isFinite(caloriesVal) && caloriesVal >= 0 ? caloriesVal : NaN;
   const cholineMg = Number.isFinite(cholineVal) && cholineVal >= 0 ? cholineVal : NaN;
   const omega3Mg = Number.isFinite(omegaVal) && omegaVal >= 0 ? omegaVal : NaN;
+  const proteinG = Number.isFinite(proteinVal) && proteinVal >= 0 ? proteinVal : NaN;
   const mufaG = Number.isFinite(mufaVal) && mufaVal >= 0 ? mufaVal : NaN;
   const satfatG = Number.isFinite(satfatVal) && satfatVal >= 0 ? satfatVal : NaN;
   const netcarbsG = Number.isFinite(netcarbsVal) && netcarbsVal >= 0 ? netcarbsVal : NaN;
@@ -6551,7 +6582,7 @@ function addManualItemToPlan() {
     setManualStatus('Servings must be greater than zero.', true);
     return;
   }
-  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(mufaG) || !Number.isFinite(satfatG) || !Number.isFinite(netcarbsG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
+  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(proteinG) || !Number.isFinite(mufaG) || !Number.isFinite(satfatG) || !Number.isFinite(netcarbsG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
     setManualStatus('Nutrient and calorie values must be zero or higher.', true);
     return;
   }
@@ -6568,6 +6599,7 @@ function addManualItemToPlan() {
     calories: Number(calories.toFixed(0)),
     cholineMg: Number(cholineMg.toFixed(0)),
     omega3Mg: Number(omega3Mg.toFixed(0)),
+    proteinG: Number(proteinG.toFixed(1)),
     mufaG: Number(mufaG.toFixed(1)),
     satfatG: Number(satfatG.toFixed(1)),
     netcarbsG: Number(netcarbsG.toFixed(1)),
@@ -6587,6 +6619,7 @@ function addManualItemToPlan() {
   if (caloriesInput) caloriesInput.value = '0';
   if (cholineInput) cholineInput.value = '0';
   if (omegaInput) omegaInput.value = '0';
+  if (proteinInput) proteinInput.value = '0';
   if (mufaInput) mufaInput.value = '0';
   if (satfatInput) satfatInput.value = '0';
   if (netcarbsInput) netcarbsInput.value = '0';
@@ -6615,10 +6648,7 @@ const PLANNER_NUTRIENT_SOURCE_MAP = {
   calories: { key: 'calories', aliases: [] },
   cholineMg: { key: 'cholineMg', aliases: ['choline'] },
   omega3Mg: { key: 'omega3Mg', aliases: ['omega3'] },
-  satfatG: { key: 'satfatG', aliases: ['satfat', 'saturatedfat'] },
-  netcarbsG: { key: 'netcarbsG', aliases: ['netcarbs', 'netcarb'] },
-  folateMcg: { key: 'folateMcg', aliases: ['folate'] },
-  b12Mcg: { key: 'b12Mcg', aliases: ['b12'] },
+  proteinG: { key: 'proteinG', aliases: ['protein'] },
   mufaG: { key: 'mufaG', aliases: ['mufas'] },
   viscousFiberG: { key: 'viscousFiberG', aliases: ['viscsolublefiber'] }
 };
@@ -6994,6 +7024,7 @@ function savePlannerItemFromEdit(planId, panel) {
     item.calories = readNumber('calories', item.calories, 0);
     item.cholineMg = readNumber('cholineMg', item.cholineMg, 0);
     item.omega3Mg = readNumber('omega3Mg', item.omega3Mg, 0);
+    item.proteinG = readNumber('proteinG', item.proteinG, 1);
     item.mufaG = readNumber('mufaG', item.mufaG, 1);
     item.satfatG = readNumber('satfatG', item.satfatG, 1);
     item.netcarbsG = readNumber('netcarbsG', item.netcarbsG, 1);
@@ -7104,7 +7135,8 @@ function renderMenuPlannerDays() {
             const caloriesTotal = (item.calories || 0) * item.servings;
             const cholineTotal = (item.cholineMg || 0) * item.servings;
             const omegaTotal = (item.omega3Mg || 0) * item.servings;
-              const mufaTotal = (item.mufaG || 0) * item.servings;
+            const proteinTotal = (item.proteinG || 0) * item.servings;
+            const mufaTotal = (item.mufaG || 0) * item.servings;
             const satFatTotal = (item.satfatG || 0) * item.servings;
             const netCarbsTotal = (item.netcarbsG || 0) * item.servings;
             const folateTotal = (item.folateMcg || 0) * item.servings;
@@ -7144,6 +7176,10 @@ function renderMenuPlannerDays() {
                   <div class="menu-edit-row">
                     <label>Omega-3 / serving (mg)</label>
                     <input type="number" min="0" step="1" data-edit-field="omega3Mg" value="${item.omega3Mg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                  </div>
+                  <div class="menu-edit-row">
+                    <label>Protein / serving (g)</label>
+                    <input type="number" min="0" step="0.1" data-edit-field="proteinG" value="${item.proteinG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
                   </div>
                   <div class="menu-edit-row">
                     <label>MUFAs / serving (g)</label>
@@ -7186,7 +7222,7 @@ function renderMenuPlannerDays() {
                     <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
                   </span>
                 </div>
-                <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Saturated Fat ~${formatNutrientValue(satFatTotal, 'satfatG')} g · Net Carbs ${netCarbsDisplay} · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
+                <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · Protein ~${formatNutrientValue(proteinTotal, 'proteinG')} g · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Saturated Fat ~${formatNutrientValue(satFatTotal, 'satfatG')} g · Net Carbs ${netCarbsDisplay} · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
                 ${editPanel}
               </li>
             `;
@@ -8014,6 +8050,22 @@ const DAILY_NUTRITION_TARGETS = [
       'Food-only shortfall = 800–1,500 mg/day from seafood',
       'Total target = 2,000–3,000 mg/day EPA + DHA with supplement',
       'Anchor foods: salmon, sardines, mackerel, oysters, mussels'
+    ]
+  },
+  {
+    key: 'protein',
+    name: 'Protein',
+    conditions: ['dp', 'apoe4', 'liver', 'mthfr'],
+    unit: 'g',
+    target: '135 g/day',
+    detail: 'Protein is needed to build muscle mass through weight training, improve insulin handling, and protect brain health during aging. Higher protein also supports satiety and helps retain lean mass during a more active lifestyle.',
+    items: [
+      'Target: 135 g/day while building muscle and increasing training volume',
+      'Use the protein target as a daily anchor for meals and snacks, especially around training sessions',
+      'Lean protein sources like chicken, turkey, fish, eggs, yogurt, and beef help preserve lean mass and improve insulin sensitivity',
+      'Protein also supports brain health during aging by supporting neurotransmitter balance, muscle retention, and better metabolic resilience',
+      'This target is a training-support number, not just a general RDA recommendation',
+      'Anchor foods: chicken, turkey, salmon, shrimp, eggs, Greek yogurt, lean beef, and tofu'
     ]
   },
   {
