@@ -86,12 +86,40 @@
 
     .test-card-target { padding: .4rem 1rem; font-size: .75rem; color: var(--muted); background: var(--green-pale); border-bottom: 1px solid var(--border); line-height: 1.4; }
 
+    .trend-chart-wrap { padding: .55rem .9rem .45rem; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, #fbfefb 0%, #f5fcf7 100%); }
+    .trend-chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: .25rem; gap: .5rem; }
+    .trend-chart-title { font-size: .69rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 700; }
+    .trend-chart-meta { font-size: .69rem; color: var(--green-dark); font-weight: 700; white-space: nowrap; }
+    .trend-chart-meta-wrap { display: flex; align-items: center; gap: .45rem; }
+    .trend-chart-toggle { border: 1px solid var(--border); background: #fff; color: var(--green-dark); border-radius: 999px; padding: .16rem .52rem; font-size: .66rem; font-weight: 700; cursor: pointer; }
+    .trend-chart-toggle:hover { background: var(--green-light); }
+    .trend-chart-svg { width: 100%; height: 72px; display: block; }
+    .trend-chart-svg.full { height: 300px; margin-top: .2rem; }
+    .trend-chart-dates { display: flex; justify-content: space-between; gap: .5rem; margin-top: .22rem; font-size: .68rem; color: var(--muted); }
+    .trend-chart-detail-note { margin-top: .25rem; font-size: .72rem; color: var(--green-dark); }
+    .trend-chart-empty { font-size: .76rem; color: var(--muted); padding: .2rem 0; }
+
+    /* FULL CHART MODAL */
+    .trend-modal { position: fixed; inset: 0; background: rgba(12, 35, 22, .52); display: flex; align-items: center; justify-content: center; padding: 1.2rem; z-index: 1200; }
+    .trend-modal[hidden] { display: none; }
+    .trend-modal-panel { width: min(980px, 96vw); max-height: 92vh; overflow: auto; background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+    .trend-modal-head { display: flex; align-items: center; gap: .8rem; justify-content: space-between; padding: .85rem 1rem; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, #f4fbf6 0%, #edf8f1 100%); }
+    .trend-modal-title { font-size: 1rem; font-weight: 700; color: var(--green-dark); }
+    .trend-modal-close { border: 1px solid var(--border); background: #fff; color: var(--green-dark); border-radius: 999px; padding: .2rem .7rem; font-size: .78rem; font-weight: 700; cursor: pointer; }
+    .trend-modal-close:hover { background: var(--green-light); }
+    .trend-modal-body { padding: .85rem 1rem 1rem; }
+    .trend-modal-sub { color: var(--muted); font-size: .8rem; margin-bottom: .45rem; }
+    .trend-modal-note { margin-top: .35rem; font-size: .8rem; color: var(--green-dark); }
+    .trend-modal-hover-note { margin-top: .45rem; font-size: .82rem; color: var(--text); background: var(--green-pale); border: 1px solid var(--border); border-radius: 8px; padding: .5rem .6rem; min-height: 2.2rem; }
+
     .test-history { padding: .5rem .3rem; }
     .history-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
     .history-table th { padding: .25rem .55rem; text-align: left; color: var(--muted); font-weight: 600; font-size: .7rem; text-transform: uppercase; letter-spacing: .03em; }
     .history-table td { padding: .32rem .55rem; border-top: 1px solid #f0f5f1; vertical-align: top; }
     .history-table tr:first-child td { border-top: none; }
 
+    .btn-edit { background: none; border: none; color: var(--green-mid); cursor: pointer; font-size: .78rem; padding: 0 .2rem; line-height: 1; }
+    .btn-edit:hover { color: var(--green-dark); }
     .btn-del { background: none; border: none; color: #ccc; cursor: pointer; font-size: .78rem; padding: 0 .2rem; line-height: 1; }
     .btn-del:hover { color: #c0392b; }
 
@@ -223,7 +251,7 @@
     <div class="entry-card-header">
       <span>➕</span> Log a Lab Result
     </div>
-    <div class="entry-form">
+    <div class="entry-form" id="entry-form">
       <div class="field">
         <label>Date</label>
         <input type="date" id="f-date" />
@@ -250,7 +278,8 @@
         <textarea id="f-notes" placeholder="e.g. fasting 12 hrs · well hydrated · no illness past 2 wks · no alcohol 72 hrs · draw conditions: Quest lab"></textarea>
       </div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="saveEntry()">💾 Save Result</button>
+        <button class="btn btn-primary" id="save-btn" onclick="saveEntry()">💾 Save Result</button>
+        <button class="btn btn-clear" id="cancel-edit-btn" onclick="cancelEdit()" style="display:none">↺ Cancel Edit</button>
         <button class="btn btn-clear"   onclick="clearForm()">✕ Clear</button>
         <button class="btn btn-export"  onclick="exportCSV()">📥 Export CSV</button>
         <button class="btn btn-export"  onclick="exportJSON()">📥 Export JSON</button>
@@ -268,6 +297,16 @@
 </div>
 
 <div id="toast">Saved!</div>
+
+<div id="trend-modal" class="trend-modal" hidden>
+  <div class="trend-modal-panel" role="dialog" aria-modal="true" aria-labelledby="trend-modal-title">
+    <div class="trend-modal-head">
+      <div id="trend-modal-title" class="trend-modal-title">Full Trend</div>
+      <button type="button" class="trend-modal-close" onclick="closeTrendModal()">Close</button>
+    </div>
+    <div id="trend-modal-body" class="trend-modal-body"></div>
+  </div>
+</div>
 
 <script>
 // ── TEST DEFINITIONS ──────────────────────────────────────────────────────
@@ -406,6 +445,7 @@ const TESTS = [
 
 const CATEGORIES = [...new Set(TESTS.map(t => t.cat))];
 const STORAGE_KEY = 'tammys-lab-log';
+let editingEntryId = null;
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -416,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('f-cat').appendChild(o);
   });
   populateTestDropdown('');
+  updateEditUI();
   renderResults();
 });
 
@@ -460,11 +501,21 @@ function saveEntry() {
   const notes  = document.getElementById('f-notes').value.trim();
   if (!date || !testId || !value) { alert('Please fill in Date, Test, and Result.'); return; }
   const entries = loadEntries();
-  entries.push({ id: Date.now().toString(), date, testId, value, notes });
+  const isEditing = Boolean(editingEntryId);
+
+  if (editingEntryId) {
+    const idx = entries.findIndex(e => e.id === editingEntryId);
+    if (idx >= 0) {
+      entries[idx] = { ...entries[idx], date, testId, value, notes };
+    }
+  } else {
+    entries.push({ id: Date.now().toString(), date, testId, value, notes });
+  }
+
   saveEntries(entries);
   clearForm();
   renderResults();
-  showToast('Lab result saved ✓');
+  showToast(isEditing ? 'Lab result updated ✓' : 'Lab result saved ✓');
 }
 
 function deleteEntry(id) {
@@ -479,6 +530,45 @@ function clearForm() {
   filterTests();
   document.getElementById('f-value').value = '';
   document.getElementById('f-notes').value = '';
+  editingEntryId = null;
+  updateEditUI();
+}
+
+function updateEditUI() {
+  const saveBtn = document.getElementById('save-btn');
+  const cancelBtn = document.getElementById('cancel-edit-btn');
+  if (!saveBtn || !cancelBtn) return;
+
+  if (editingEntryId) {
+    saveBtn.textContent = '💾 Update Result';
+    cancelBtn.style.display = 'inline-block';
+  } else {
+    saveBtn.textContent = '💾 Save Result';
+    cancelBtn.style.display = 'none';
+  }
+}
+
+function startEditEntry(id) {
+  const entry = loadEntries().find(e => e.id === id);
+  if (!entry) return;
+
+  editingEntryId = id;
+  const test = TESTS.find(t => t.id === entry.testId);
+  document.getElementById('f-date').value = entry.date;
+  document.getElementById('f-cat').value = test ? test.cat : '';
+  filterTests();
+  document.getElementById('f-test').value = entry.testId;
+  showTarget();
+  document.getElementById('f-value').value = entry.value;
+  document.getElementById('f-notes').value = entry.notes || '';
+  updateEditUI();
+  document.getElementById('entry-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.getElementById('f-value')?.focus();
+}
+
+function cancelEdit() {
+  clearForm();
+  showToast('Edit canceled');
 }
 
 function normalizeDateInput(value) {
@@ -723,6 +813,242 @@ function trendHtml(entries, test) {
   return '<span class="trend trend-same" title="Unchanged">→</span>';
 }
 
+function parseNumericValue(raw) {
+  const text = String(raw || '').replace(/,/g, '').trim();
+  if (!text) return null;
+  const match = text.match(/-?\d*\.?\d+/);
+  if (!match) return null;
+  const value = Number.parseFloat(match[0]);
+  return Number.isFinite(value) ? value : null;
+}
+
+function statusToZone(status) {
+  if (status === 'green') return 'optimal';
+  if (status === 'yellow') return 'normal';
+  if (status === 'red') return 'risk';
+  return null;
+}
+
+function yForValue(value, minV, span, height, padY) {
+  const normalized = (value - minV) / span;
+  return height - padY - normalized * (height - padY * 2);
+}
+
+function buildZoneOverlays(test, minV, maxV, width, height, padX, padY) {
+  const span = Math.max(maxV - minV, 0.0001);
+  const sampleCount = 180;
+  const sampled = [];
+
+  for (let i = 0; i <= sampleCount; i += 1) {
+    const value = minV + (span * i) / sampleCount;
+    const zone = statusToZone(test.status(String(value)));
+    sampled.push({ value, zone });
+  }
+
+  const segments = [];
+  let current = null;
+  for (let i = 0; i < sampled.length; i += 1) {
+    const s = sampled[i];
+    if (!s.zone) continue;
+    if (!current || current.zone !== s.zone) {
+      if (current) current.end = sampled[i - 1].value;
+      current = { zone: s.zone, start: s.value, end: s.value };
+      segments.push(current);
+    } else {
+      current.end = s.value;
+    }
+  }
+
+  const colors = {
+    risk: 'rgba(231, 76, 60, 0.10)',
+    normal: 'rgba(243, 156, 18, 0.10)',
+    optimal: 'rgba(39, 174, 96, 0.10)'
+  };
+
+  return segments.map(seg => {
+    const yTop = yForValue(seg.end, minV, span, height, padY);
+    const yBottom = yForValue(seg.start, minV, span, height, padY);
+    const y = Math.min(yTop, yBottom);
+    const h = Math.max(0.8, Math.abs(yBottom - yTop));
+    return `<rect x="${padX}" y="${y.toFixed(2)}" width="${(width - padX * 2).toFixed(2)}" height="${h.toFixed(2)}" fill="${colors[seg.zone]}"></rect>`;
+  }).join('');
+}
+
+function formatDelta(delta) {
+  if (!Number.isFinite(delta)) return '0';
+  if (delta > 0) return `+${delta.toFixed(2)}`;
+  return delta.toFixed(2);
+}
+
+function formatDateLabel(dateText) {
+  const date = new Date(String(dateText || ''));
+  if (Number.isNaN(date.getTime())) return String(dateText || '');
+  return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function escapeHtmlAttr(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function showTrendPointDetails(circleEl) {
+  const target = document.getElementById('trend-modal-point-note');
+  if (!target || !circleEl) return;
+
+  const date = circleEl.dataset.date || '';
+  const value = circleEl.dataset.value || '';
+  const notes = circleEl.dataset.notes || 'No notes recorded for this point.';
+  const unit = circleEl.dataset.unit || '';
+
+  target.textContent = `${date} · ${value}${unit ? ' ' + unit : ''} · Notes: ${notes}`;
+}
+
+function openTrendModal(testId) {
+  const test = TESTS.find(t => t.id === testId);
+  if (!test) return;
+
+  const entries = loadEntries().filter(e => e.testId === testId).sort((a, b) => a.date.localeCompare(b.date));
+  const points = entries
+    .map(e => ({
+      date: e.date,
+      value: parseNumericValue(e.value),
+      rawValue: String(e.value || '').trim(),
+      notes: String(e.notes || '').trim()
+    }))
+    .filter(p => p.value !== null);
+
+  if (points.length < 2) {
+    alert('Need at least 2 numeric values for a full trend chart.');
+    return;
+  }
+
+  const minV = Math.min(...points.map(p => p.value));
+  const maxV = Math.max(...points.map(p => p.value));
+  const span = Math.max(maxV - minV, 0.0001);
+  const fullWidth = 900;
+  const fullHeight = 360;
+  const fullPadX = 70;
+  const fullPadY = 26;
+
+  const fullCoords = points.map((p, idx) => {
+    const x = fullPadX + ((fullWidth - fullPadX * 2) * idx) / (points.length - 1);
+    const y = yForValue(p.value, minV, span, fullHeight, fullPadY);
+    return { ...p, x, y };
+  });
+
+  const zoneRectsFull = buildZoneOverlays(test, minV, maxV, fullWidth, fullHeight, fullPadX, fullPadY);
+  const fullLinePoints = fullCoords.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+  const fullAreaPoints = `${fullCoords[0].x.toFixed(2)},${(fullHeight - fullPadY).toFixed(2)} ${fullLinePoints} ${fullCoords[fullCoords.length - 1].x.toFixed(2)},${(fullHeight - fullPadY).toFixed(2)}`;
+  const fullCircles = fullCoords.map((p, idx) => `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="${idx === fullCoords.length - 1 ? '5.2' : '3.4'}" fill="${idx === fullCoords.length - 1 ? '#2d6a4f' : '#40916c'}" data-date="${escapeHtmlAttr(formatDateLabel(p.date))}" data-value="${escapeHtmlAttr(p.rawValue)}" data-notes="${escapeHtmlAttr(p.notes || 'No notes recorded for this point.')}" data-unit="${escapeHtmlAttr(test.unit)}" onmouseenter="showTrendPointDetails(this)" onfocus="showTrendPointDetails(this)"></circle>`).join('');
+
+  const legendTop = yForValue(maxV, minV, span, fullHeight, fullPadY);
+  const legendMid = yForValue((minV + maxV) / 2, minV, span, fullHeight, fullPadY);
+  const legendBottom = yForValue(minV, minV, span, fullHeight, fullPadY);
+  const firstDateLabel = formatDateLabel(points[0].date);
+  const lastDateLabel = formatDateLabel(points[points.length - 1].date);
+  const first = points[0].value;
+  const last = points[points.length - 1].value;
+  const delta = last - first;
+
+  document.getElementById('trend-modal-title').textContent = `${test.name} Full Trend`;
+  document.getElementById('trend-modal-body').innerHTML = `
+    <div class="trend-modal-sub">${points.length} points · ${firstDateLabel} to ${lastDateLabel} · Δ ${formatDelta(delta)}${test.unit ? ' ' + test.unit : ''}</div>
+    <svg class="trend-chart-svg full" viewBox="0 0 ${fullWidth} ${fullHeight}" preserveAspectRatio="none" role="img" aria-label="${test.name} full trend graph with date labels and zones">
+      ${zoneRectsFull}
+      <line x1="${fullPadX}" y1="${fullHeight - fullPadY}" x2="${fullWidth - fullPadX}" y2="${fullHeight - fullPadY}" stroke="#cfe5d6" stroke-width="1"></line>
+      <line x1="${fullPadX}" y1="${fullPadY}" x2="${fullPadX}" y2="${fullHeight - fullPadY}" stroke="#cfe5d6" stroke-width="1"></line>
+      <polyline points="${fullAreaPoints}" fill="rgba(64,145,108,0.16)" stroke="none"></polyline>
+      <polyline points="${fullLinePoints}" fill="none" stroke="#2d6a4f" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      ${fullCircles}
+      <text x="14" y="${legendTop.toFixed(2)}" fill="#2d6a4f" font-size="12">${maxV.toFixed(2)}</text>
+      <text x="14" y="${legendMid.toFixed(2)}" fill="#557467" font-size="12">${((minV + maxV) / 2).toFixed(2)}</text>
+      <text x="14" y="${legendBottom.toFixed(2)}" fill="#557467" font-size="12">${minV.toFixed(2)}</text>
+      <text x="${fullPadX}" y="${(fullHeight - 7).toFixed(2)}" fill="#557467" font-size="12">${firstDateLabel}</text>
+      <text x="${(fullWidth - fullPadX).toFixed(2)}" y="${(fullHeight - 7).toFixed(2)}" text-anchor="end" fill="#557467" font-size="12">${lastDateLabel}</text>
+    </svg>
+    <div class="trend-chart-dates"><span>First: ${firstDateLabel}</span><span>Latest: ${lastDateLabel}</span></div>
+    <div id="trend-modal-point-note" class="trend-modal-hover-note">Hover over a data point to view its notes.</div>
+    <div class="trend-modal-note">Zones: red = risk, amber = normal watch-zone, green = optimal. Latest reading is the larger point.</div>
+  `;
+
+  const modal = document.getElementById('trend-modal');
+  modal.hidden = false;
+}
+
+function closeTrendModal() {
+  const modal = document.getElementById('trend-modal');
+  if (modal) modal.hidden = true;
+}
+
+function buildTrendChartHtml(entries, test) {
+  const chron = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+  const points = chron
+    .map(e => ({ date: e.date, value: parseNumericValue(e.value) }))
+    .filter(p => p.value !== null);
+
+  if (points.length < 2) {
+    return `
+      <div class="trend-chart-wrap">
+        <div class="trend-chart-head">
+          <span class="trend-chart-title">Trend</span>
+          <span class="trend-chart-meta">Need 2+ numeric values</span>
+        </div>
+        <div class="trend-chart-empty">This card will show a graph once two numeric results are logged.</div>
+      </div>`;
+  }
+
+  const width = 260;
+  const height = 72;
+  const padX = 10;
+  const padY = 8;
+  const minV = Math.min(...points.map(p => p.value));
+  const maxV = Math.max(...points.map(p => p.value));
+  const span = Math.max(maxV - minV, 0.0001);
+
+  const coords = points.map((p, idx) => {
+    const x = padX + ((width - padX * 2) * idx) / (points.length - 1);
+    const y = yForValue(p.value, minV, span, height, padY);
+    return { ...p, x, y };
+  });
+
+  const zoneRectsMini = buildZoneOverlays(test, minV, maxV, width, height, padX, padY);
+  const linePoints = coords.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+  const areaPoints = `${coords[0].x.toFixed(2)},${(height - padY).toFixed(2)} ${linePoints} ${coords[coords.length - 1].x.toFixed(2)},${(height - padY).toFixed(2)}`;
+  const circles = coords.map((p, idx) => `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="${idx === coords.length - 1 ? '3.2' : '2.2'}" fill="${idx === coords.length - 1 ? '#2d6a4f' : '#40916c'}"></circle>`).join('');
+
+  const first = points[0].value;
+  const last = points[points.length - 1].value;
+  const delta = last - first;
+  const rank = { green: 2, yellow: 1, red: 0, neutral: 1 };
+  const firstRank = rank[test.status(String(first))] ?? 1;
+  const lastRank = rank[test.status(String(last))] ?? 1;
+  const statusDelta = lastRank - firstRank;
+  const statusArrow = statusDelta > 0 ? '▲' : statusDelta < 0 ? '▼' : '→';
+  const statusWord = statusDelta > 0 ? 'better' : statusDelta < 0 ? 'worse' : 'steady';
+  const deltaLabel = formatDelta(delta);
+
+  return `
+    <div class="trend-chart-wrap">
+      <div class="trend-chart-head">
+        <span class="trend-chart-title">Trend (${points.length} points)</span>
+        <span class="trend-chart-meta-wrap">
+          <span class="trend-chart-meta">${statusArrow} ${statusWord} · Δ ${deltaLabel}${test.unit ? ' ' + test.unit : ''}</span>
+          <button type="button" class="trend-chart-toggle" onclick="openTrendModal('${test.id}')">Open Full Chart</button>
+        </span>
+      </div>
+      <svg class="trend-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="${test.name} trend graph">
+        ${zoneRectsMini}
+        <line x1="${padX}" y1="${height - padY}" x2="${width - padX}" y2="${height - padY}" stroke="#d5eadd" stroke-width="1"></line>
+        <polyline points="${areaPoints}" fill="rgba(64,145,108,0.14)" stroke="none"></polyline>
+        <polyline points="${linePoints}" fill="none" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        ${circles}
+      </svg>
+    </div>`;
+}
+
 function renderResults() {
   const entries = loadEntries();
   const wrap = document.getElementById('results-wrap');
@@ -761,7 +1087,10 @@ function renderResults() {
           <td>${e.date}</td>
           <td>${dotHtml(test.status(e.value))} <strong>${e.value}</strong>${test.unit ? ' <span style="color:var(--muted);font-size:.72rem">' + test.unit + '</span>' : ''}</td>
           <td style="color:var(--muted)">${e.notes || '—'}</td>
-          <td><button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">✕</button></td>
+          <td>
+            <button class="btn-edit" onclick="startEditEntry('${e.id}')" title="Edit">✎</button>
+            <button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">✕</button>
+          </td>
         </tr>`).join('');
 
       const card = document.createElement('div');
@@ -775,6 +1104,7 @@ function renderResults() {
           ${trendHtml(testEntries, test)}
         </div>
         <div class="test-card-target">${test.target}</div>
+        ${buildTrendChartHtml(testEntries, test)}
         <div class="test-history">
           <table class="history-table">
             <thead><tr><th>Date</th><th>Result</th><th>Notes</th><th></th></tr></thead>
@@ -844,6 +1174,14 @@ document.getElementById('import-csv-file')?.addEventListener('change', event => 
 document.getElementById('import-json-file')?.addEventListener('change', event => {
   importJSONFile(event.target.files && event.target.files[0]);
   event.target.value = '';
+});
+
+document.getElementById('trend-modal')?.addEventListener('click', event => {
+  if (event.target.id === 'trend-modal') closeTrendModal();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeTrendModal();
 });
 </script>
 
