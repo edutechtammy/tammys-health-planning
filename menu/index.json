@@ -16,6 +16,11 @@
             "description": "Almonds and Lily's Stevia sweetened chocolate chips cause very little glucose response. Mix the two for a sweet treat. Don't forget the white chocolate option as well."
         },
         {
+            "file": "appetizer.jpg",
+            "caption": "Appetizer",
+            "description": "ACV in water (acetic acid alpha-glucosidase inhibition), raw nuts (CCK-driven gastric emptying delay), and green salad with olive oil (fiber gel formation and food sequence effect) consumed 10 to 15 minutes before the largest meal produces additive post-meal glucose spike reduction approaching 25 to 35 percent. The pre-meal window is the most underused pharmacological opportunity in the diabetic dietary day."
+        },
+        {
             "file": "antioxidant.png",
             "caption": "Best Antioxidant Foods",
             "description": "Top 8 foods for antioxidants"
@@ -201,6 +206,11 @@
             "description": "This was very good - worth getting weekly."
         },
         {
+            "file": "magnesium.jpg",
+            "caption": "Magnesium",
+            "description": "Magnesium deficiency in 48 percent of Type 2 diabetics directly impairs insulin receptor tyrosine kinase function, beta cell membrane excitability, GLUT4 expression, and neuropathic pain threshold simultaneously. Cooked spinach, pumpkin seeds, dark chocolate, and almonds provide the highest dietary magnesium per serving. Adequate magnesium status is as important as adequate vitamin D for functional insulin signaling"
+        },
+        {
             "file": "marinated-olive-salad.jpg",
             "caption": "Marinated Olive Salad",
             "description": "Close-up of the marinated olive salad to highlight the chopped texture and oil-based finish."
@@ -239,6 +249,11 @@
             "file": "microbiome.jpg",
             "caption": "SCFA (short chain fatty acids) - Colon Health",
             "description": "This image provides the why, but if you go to the Supplements page and look for the Food As Supplement section, you will find the what."
+        },
+        {
+            "file": "oils-fats.jpg",
+            "caption": "Cooking Oils",
+            "description": "Linoleic Acid is what you do NOT want to consume. I figured olive oil would be better than that."
         },
         {
             "file": "no-sugar-crunch-bar.png",
