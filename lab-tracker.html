@@ -336,6 +336,9 @@ const TESTS = [
   { id:'hba1c',           name:'HbA1c',               cat:'Metabolic & Pre-diabetes', unit:'%',
     target:'<5.7% optimal · 5.7–6.4% pre-diabetes · ≥6.5% diabetes',
     status: v => +v < 5.7 ? 'green' : +v < 6.5 ? 'yellow' : 'red' },
+  { id:'mch',             name:'MCH (Mean Corpuscular Hemoglobin)', cat:'Metabolic & Pre-diabetes', unit:'pg',
+    target:'27.0–31.0 pg normal range · 26.0–26.9 or 31.1–32.0 pg watch zone · <26.0 or >32.0 elevated concern — Track alongside HbA1c for context when RBC traits can skew glycation interpretation (ANK1, HK1 TMPRSS6), which may contribute to falsely higher HbA1c readings by roughly ~0.5% versus average-MCH assumptions.',
+    status: v => +v >= 27 && +v <= 31 ? 'green' : (+v >= 26 && +v <= 32 ? 'yellow' : 'red') },
   { id:'fasting-glucose', name:'Fasting Glucose',      cat:'Metabolic & Pre-diabetes', unit:'mg/dL',
     target:'<100 mg/dL optimal · 100–125 pre-diabetes · ≥126 diabetes',
     status: v => +v < 100 ? 'green' : +v < 126 ? 'yellow' : 'red' },
@@ -1094,53 +1097,63 @@ function renderResults() {
     const grid = document.createElement('div');
     grid.className = 'test-grid';
 
-    const pairedVitalsIds = ['heart-rate', 'oxygen-saturation'];
-    const hasPairedVitals = cat === 'Metabolic & Pre-diabetes' && pairedVitalsIds.every(id => testedIds.has(id));
+    const pairedMetricSets = [
+      ['heart-rate', 'oxygen-saturation'],
+      ['hba1c', 'mch']
+    ];
+    const renderedPairedIds = new Set();
 
-    if (hasPairedVitals) {
-      const pairedCard = document.createElement('div');
-      pairedCard.className = 'test-card paired-vitals-card';
-      const pairedStack = pairedVitalsIds.map(testId => {
-        const test = TESTS.find(t => t.id === testId);
-        const testEntries = byTest[testId];
-        const latest = testEntries[0];
-        const status = test.status(latest.value);
-        const rows = testEntries.map(e => `
-          <tr>
-            <td>${e.date}</td>
-            <td>${dotHtml(test.status(e.value))} <strong>${e.value}</strong>${test.unit ? ' <span style="color:var(--muted);font-size:.72rem">' + test.unit + '</span>' : ''}</td>
-            <td style="color:var(--muted)">${e.notes || '—'}</td>
-            <td>
-              <button class="btn-edit" onclick="startEditEntry('${e.id}')" title="Edit">✎</button>
-              <button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">✕</button>
-            </td>
-          </tr>`).join('');
+    if (cat === 'Metabolic & Pre-diabetes') {
+      pairedMetricSets.forEach(pairIds => {
+        const hasPairedSet = pairIds.every(id => testedIds.has(id));
+        if (!hasPairedSet) return;
 
-        return `
-          <div class="paired-vitals-metric">
-            <div class="test-card-header">
-              ${dotHtml(status)}
-              <span class="test-name">${test.name}</span>
-              <span class="latest-val">${latest.value}</span>
-              <span class="latest-unit">${test.unit}</span>
-              ${trendHtml(testEntries, test)}
-            </div>
-            <div class="test-card-target">${test.target}</div>
-            ${buildTrendChartHtml(testEntries, test)}
-            <div class="test-history">
-              <table class="history-table">
-                <thead><tr><th>Date</th><th>Result</th><th>Notes</th><th></th></tr></thead>
-                <tbody>${rows}</tbody>
-              </table>
-            </div>
-          </div>`;
-      }).join('');
-      pairedCard.innerHTML = `<div class="paired-vitals-stack">${pairedStack}</div>`;
-      grid.appendChild(pairedCard);
+        pairIds.forEach(id => renderedPairedIds.add(id));
+
+        const pairedCard = document.createElement('div');
+        pairedCard.className = 'test-card paired-vitals-card';
+        const pairedStack = pairIds.map(testId => {
+          const test = TESTS.find(t => t.id === testId);
+          const testEntries = byTest[testId];
+          const latest = testEntries[0];
+          const status = test.status(latest.value);
+          const rows = testEntries.map(e => `
+            <tr>
+              <td>${e.date}</td>
+              <td>${dotHtml(test.status(e.value))} <strong>${e.value}</strong>${test.unit ? ' <span style="color:var(--muted);font-size:.72rem">' + test.unit + '</span>' : ''}</td>
+              <td style="color:var(--muted)">${e.notes || '—'}</td>
+              <td>
+                <button class="btn-edit" onclick="startEditEntry('${e.id}')" title="Edit">✎</button>
+                <button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">✕</button>
+              </td>
+            </tr>`).join('');
+
+          return `
+            <div class="paired-vitals-metric">
+              <div class="test-card-header">
+                ${dotHtml(status)}
+                <span class="test-name">${test.name}</span>
+                <span class="latest-val">${latest.value}</span>
+                <span class="latest-unit">${test.unit}</span>
+                ${trendHtml(testEntries, test)}
+              </div>
+              <div class="test-card-target">${test.target}</div>
+              ${buildTrendChartHtml(testEntries, test)}
+              <div class="test-history">
+                <table class="history-table">
+                  <thead><tr><th>Date</th><th>Result</th><th>Notes</th><th></th></tr></thead>
+                  <tbody>${rows}</tbody>
+                </table>
+              </div>
+            </div>`;
+        }).join('');
+        pairedCard.innerHTML = `<div class="paired-vitals-stack">${pairedStack}</div>`;
+        grid.appendChild(pairedCard);
+      });
     }
 
     catTests.forEach(test => {
-      if (pairedVitalsIds.includes(test.id)) return;
+      if (renderedPairedIds.has(test.id)) return;
       const testEntries = byTest[test.id];
       const latest = testEntries[0];
       const status = test.status(latest.value);
