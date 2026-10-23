@@ -312,6 +312,20 @@
 // ── TEST DEFINITIONS ──────────────────────────────────────────────────────
 const TESTS = [
   // Metabolic & Pre-diabetes
+  { id:'weight',          name:'Weight',               cat:'Metabolic & Pre-diabetes', unit:'lb',
+    target:'≤160 lb healthy for this tracker · 161–170 lb caution zone · >170 lb elevated — This custom range reflects your personal best health range, not the population BMI cutoffs. For your frame and history, 160 lb and below is the healthiest range, and feeling best in the 160s remains a meaningful benchmark.',
+    status: v => +v <= 160 ? 'green' : +v <= 170 ? 'yellow' : 'red' },
+  { id:'blood-pressure',  name:'Blood Pressure',       cat:'Metabolic & Pre-diabetes', unit:'mmHg',
+    target:'Systolic/Diastolic target: ≤120/80 green · 121–129/81–84 yellow · ≥130/85 red — This tracker is intentionally personal and clinically relevant to your pattern. Values in the ~108/68–120/80 range reflect your best baseline, while the 130s/80s during acute illness or inflammation are important context markers rather than a “normal” baseline. Tracking both systolic and diastolic with the same series allows you to see vascular response during infection, stress, and metabolic spikes.',
+    status: v => {
+      const s = Number(String(v).split('/')[0]);
+      const d = Number(String(v).split('/')[1]);
+      if (Number.isNaN(s) || Number.isNaN(d)) return 'neutral';
+      return s <= 120 && d <= 80 ? 'green' : s <= 129 && d <= 84 ? 'yellow' : 'red';
+    } },
+  { id:'heart-rate',      name:'Heart Rate (office resting)', cat:'Metabolic & Pre-diabetes', unit:'bpm',
+    target:'≤72 bpm green · 73–84 bpm caution · >84 bpm elevated — This custom zone reflects your observed office-resting pattern, where values in the low 70s are the healthiest baseline, while rises into the 80s–90s during illness, dehydration, or inflammatory stress are meaningful markers of physiological load.',
+    status: v => +v <= 72 ? 'green' : +v <= 84 ? 'yellow' : 'red' },
   { id:'hba1c',           name:'HbA1c',               cat:'Metabolic & Pre-diabetes', unit:'%',
     target:'<5.7% optimal · 5.7–6.4% pre-diabetes · ≥6.5% diabetes',
     status: v => +v < 5.7 ? 'green' : +v < 6.5 ? 'yellow' : 'red' },
