@@ -86,6 +86,10 @@
 
     .test-card-target { padding: .4rem 1rem; font-size: .75rem; color: var(--muted); background: var(--green-pale); border-bottom: 1px solid var(--border); line-height: 1.4; }
 
+    .paired-vitals-card { padding: 0; }
+    .paired-vitals-stack { display: grid; grid-template-columns: 1fr; }
+    .paired-vitals-metric + .paired-vitals-metric { border-top: 1px solid var(--border); }
+
     .trend-chart-wrap { padding: .55rem .9rem .45rem; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, #fbfefb 0%, #f5fcf7 100%); }
     .trend-chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: .25rem; gap: .5rem; }
     .trend-chart-title { font-size: .69rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 700; }
@@ -315,6 +319,12 @@ const TESTS = [
   { id:'weight',          name:'Weight',               cat:'Metabolic & Pre-diabetes', unit:'lb',
     target:'≤160 lb healthy for this tracker · 161–170 lb caution zone · >170 lb elevated — This custom range reflects your personal best health range, not the population BMI cutoffs. For your frame and history, 160 lb and below is the healthiest range, and feeling best in the 160s remains a meaningful benchmark.',
     status: v => +v <= 160 ? 'green' : +v <= 170 ? 'yellow' : 'red' },
+  { id:'heart-rate',      name:'Heart Rate (office resting)', cat:'Metabolic & Pre-diabetes', unit:'bpm',
+    target:'≤72 bpm green · 73–84 bpm caution · >84 bpm elevated — This custom zone reflects your observed office-resting pattern, where values in the low 70s are the healthiest baseline, while rises into the 80s–90s during illness, dehydration, or inflammatory stress are meaningful markers of physiological load.',
+    status: v => +v <= 72 ? 'green' : +v <= 84 ? 'yellow' : 'red' },
+  { id:'oxygen-saturation', name:'Oxygen Saturation (SpO₂)', cat:'Metabolic & Pre-diabetes', unit:'%',
+    target:'≥96% green · 94–95% caution · <94% elevated — Office pulse-ox values are highly informative when viewed with resting heart rate. A drop in saturation paired with rising heart rate often signals inflammation, respiratory stress, or systemic load even before other labs rise.',
+    status: v => +v >= 96 ? 'green' : +v >= 94 ? 'yellow' : 'red' },
   { id:'blood-pressure',  name:'Blood Pressure',       cat:'Metabolic & Pre-diabetes', unit:'mmHg',
     target:'Systolic/Diastolic target: ≤120/80 green · 121–129/81–84 yellow · ≥130/85 red — This tracker is intentionally personal and clinically relevant to your pattern. Values in the ~108/68–120/80 range reflect your best baseline, while the 130s/80s during acute illness or inflammation are important context markers rather than a “normal” baseline. Tracking both systolic and diastolic with the same series allows you to see vascular response during infection, stress, and metabolic spikes.',
     status: v => {
@@ -323,9 +333,6 @@ const TESTS = [
       if (Number.isNaN(s) || Number.isNaN(d)) return 'neutral';
       return s <= 120 && d <= 80 ? 'green' : s <= 129 && d <= 84 ? 'yellow' : 'red';
     } },
-  { id:'heart-rate',      name:'Heart Rate (office resting)', cat:'Metabolic & Pre-diabetes', unit:'bpm',
-    target:'≤72 bpm green · 73–84 bpm caution · >84 bpm elevated — This custom zone reflects your observed office-resting pattern, where values in the low 70s are the healthiest baseline, while rises into the 80s–90s during illness, dehydration, or inflammatory stress are meaningful markers of physiological load.',
-    status: v => +v <= 72 ? 'green' : +v <= 84 ? 'yellow' : 'red' },
   { id:'hba1c',           name:'HbA1c',               cat:'Metabolic & Pre-diabetes', unit:'%',
     target:'<5.7% optimal · 5.7–6.4% pre-diabetes · ≥6.5% diabetes',
     status: v => +v < 5.7 ? 'green' : +v < 6.5 ? 'yellow' : 'red' },
@@ -1087,7 +1094,53 @@ function renderResults() {
     const grid = document.createElement('div');
     grid.className = 'test-grid';
 
+    const pairedVitalsIds = ['heart-rate', 'oxygen-saturation'];
+    const hasPairedVitals = cat === 'Metabolic & Pre-diabetes' && pairedVitalsIds.every(id => testedIds.has(id));
+
+    if (hasPairedVitals) {
+      const pairedCard = document.createElement('div');
+      pairedCard.className = 'test-card paired-vitals-card';
+      const pairedStack = pairedVitalsIds.map(testId => {
+        const test = TESTS.find(t => t.id === testId);
+        const testEntries = byTest[testId];
+        const latest = testEntries[0];
+        const status = test.status(latest.value);
+        const rows = testEntries.map(e => `
+          <tr>
+            <td>${e.date}</td>
+            <td>${dotHtml(test.status(e.value))} <strong>${e.value}</strong>${test.unit ? ' <span style="color:var(--muted);font-size:.72rem">' + test.unit + '</span>' : ''}</td>
+            <td style="color:var(--muted)">${e.notes || '—'}</td>
+            <td>
+              <button class="btn-edit" onclick="startEditEntry('${e.id}')" title="Edit">✎</button>
+              <button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">✕</button>
+            </td>
+          </tr>`).join('');
+
+        return `
+          <div class="paired-vitals-metric">
+            <div class="test-card-header">
+              ${dotHtml(status)}
+              <span class="test-name">${test.name}</span>
+              <span class="latest-val">${latest.value}</span>
+              <span class="latest-unit">${test.unit}</span>
+              ${trendHtml(testEntries, test)}
+            </div>
+            <div class="test-card-target">${test.target}</div>
+            ${buildTrendChartHtml(testEntries, test)}
+            <div class="test-history">
+              <table class="history-table">
+                <thead><tr><th>Date</th><th>Result</th><th>Notes</th><th></th></tr></thead>
+                <tbody>${rows}</tbody>
+              </table>
+            </div>
+          </div>`;
+      }).join('');
+      pairedCard.innerHTML = `<div class="paired-vitals-stack">${pairedStack}</div>`;
+      grid.appendChild(pairedCard);
+    }
+
     catTests.forEach(test => {
+      if (pairedVitalsIds.includes(test.id)) return;
       const testEntries = byTest[test.id];
       const latest = testEntries[0];
       const status = test.status(latest.value);
