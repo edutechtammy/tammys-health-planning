@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Protocol · Resistance</title>
+  <style>
+    :root {
+      --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;--green-pale:#d8f3dc;
+      --amber:#e9c46a;--amber-dark:#f4a261;--sky:#90e0ef;--sky-dark:#0077b6;
+      --purple:#c77dff;--purple-dark:#7b2d8b;--red:#e63946;--red-pale:#fde8ea;
+      --border:#d1e8d5;--text:#1a1a2e;--muted:#6c757d;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);line-height:1.6;font-size:17px}
+    nav{background:var(--green-dark);padding:.75rem 1.5rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+    nav a{color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;opacity:.85;transition:opacity .2s;white-space:nowrap}
+    nav a:hover, nav a.active{opacity:1;text-decoration:underline}
+    header{background:linear-gradient(135deg,var(--green-dark),#1d4d7a);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center}
+    header h1{font-size:2rem;margin-bottom:.4rem}
+    header p{max-width:760px;margin:0 auto;font-size:1rem;opacity:.9}
+    main{max-width:1000px;margin:0 auto;padding:2rem 1.2rem 4rem}
+    .callout{padding:.9rem 1rem;border-left:4px solid var(--amber-dark);background:#fff8e1;border-radius:10px;margin:0 0 1rem}
+    .callout strong{display:block;margin-bottom:.3rem}
+    .panel{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:1.2rem}
+    .panel-header{padding:1rem 1.2rem;background:#f6fbf7;border-bottom:1px solid var(--border);font-weight:800;color:var(--green-dark)}
+    .panel-body{padding:1rem 1.2rem}
+    .intake{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0}
+    .meta{background:#f7fbf8;border:1px solid var(--border);border-radius:10px;padding:.75rem .8rem}
+    .meta label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+    .meta p,.meta span{font-size:.9rem;line-height:1.5}
+    .exercise-list{display:grid;gap:1rem}
+    .exercise-card{display:grid;grid-template-columns:minmax(180px, 260px) 1fr;gap:1rem;border:1px solid var(--border);border-radius:12px;background:#fff;overflow:hidden}
+    .exercise-visual{position:relative;min-height:220px;background:linear-gradient(135deg,#eafaf1,#d7f2e2);display:flex;align-items:flex-end;padding:1rem;border-right:1px solid var(--border)}
+    .exercise-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+    .exercise-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.55), transparent 32%), linear-gradient(180deg, rgba(255,255,255,.08), rgba(45,106,79,.12));z-index:1}
+    .exercise-visual-label{position:relative;z-index:2;background:rgba(255,255,255,.8);padding:.45rem .8rem;border-radius:999px;border:1px solid rgba(45,106,79,.2);font-size:.8rem;font-weight:700;color:var(--green-dark);letter-spacing:.04em;text-transform:uppercase}
+    .exercise-body{padding:1rem}
+    .exercise-header{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:.8rem}
+    .exercise-name{font-size:1.08rem;font-weight:800;color:var(--green-dark)}
+    .exercise-chip{display:inline-block;background:#e0f7fa;color:var(--sky-dark);padding:.2rem .55rem;border-radius:999px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+    .exercise-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+    .exercise-meta .meta{background:#f7fbf8}
+    .exercise-meta .meta .muscle{display:block;color:var(--sky-dark);font-weight:700}
+    .btn-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+    .btn{padding:.55rem .9rem;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green-dark);font:inherit;font-weight:700;text-decoration:none}
+    .btn.primary{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
+    @media(max-width:760px){.exercise-card{grid-template-columns:1fr}.exercise-meta{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html">🍽️ Food Testing</a>
+    <a href="dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="genetics.html">🧬 Genetics</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="cardio.html">🏃 Cardio</a>
+    <a href="resistance.html" class="active">💪 Resistance</a>
+    <a href="cgm-tracker.html">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="diet-power.html">🥣 Diet Power</a>
+  </nav>
+
+  <header>
+    <h1>💪 Resistance — Building the Metabolic Sink</h1>
+    <p>Use this page for the strength work that builds the muscle needed to store and burn more glucose and triglyceride-derived fuel.</p>
+  </header>
+
+  <main>
+    <div class="callout">
+      <strong>The principle</strong>
+      More muscle mass creates a larger metabolic sink, and that matters for fatty liver, post-meal glucose, and triglyceride handling. Resistance work is the structural fix that supports everything else.
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Frequency and structure</div>
+      <div class="panel-body">
+        <div class="intake">
+          <div class="meta"><label>Frequency</label><p>2–3 days per week, not consecutive days.</p></div>
+          <div class="meta"><label>Reps</label><p>10–15 per set at a challenging but controlled effort.</p></div>
+          <div class="meta"><label>Sets</label><p>3 sets per exercise.</p></div>
+          <div class="meta"><label>Rest</label><p>60–90 seconds between sets.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Option A — Bodyweight protocol</div>
+      <div class="panel-body">
+        <div class="exercise-list">
+          <article class="exercise-card">
+            <div class="exercise-visual" aria-label="Chair Squat visual">
+              <img src="exercise-illustrations/chair-squats.png" alt="Chair Squat" />
+              <span class="exercise-visual-label">Chair Squat</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Chair Squat</h3>
+                <span class="exercise-chip">Bodyweight</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Quads · Glutes · Hamstrings</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 12–15</p></div>
+                <div class="meta"><label>Starting version</label><p>Stand in front of a chair, sit down slowly, stand back up without using your hands.</p></div>
+                <div class="meta"><label>Progression</label><p>Pause squat → full squat → single-leg squat.</p></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card">
+            <div class="exercise-visual" aria-label="Glute Bridge visual">
+              <img src="exercise-illustrations/glute-bridge.png" alt="Glute Bridge" />
+              <span class="exercise-visual-label">Glute Bridge</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Glute Bridge</h3>
+                <span class="exercise-chip">Bodyweight</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Glutes · Hamstrings · Core</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 15–20</p></div>
+                <div class="meta"><label>Starting version</label><p>Lie on back, knees bent, feet flat. Drive hips up and lower slowly.</p></div>
+                <div class="meta"><label>Progression</label><p>Hold at top → single-leg bridge → elevate feet.</p></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card">
+            <div class="exercise-visual" aria-label="Step-Up visual">
+              <img src="exercise-illustrations/step-up.png" alt="Step-Up" />
+              <span class="exercise-visual-label">Step-Up</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Step-Up</h3>
+                <span class="exercise-chip">Bodyweight</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Quads · Glutes · Balance</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 10 each side</p></div>
+                <div class="meta"><label>Starting version</label><p>Step up onto a low step and alternate leading leg.</p></div>
+                <div class="meta"><label>Progression</label><p>Slow lowering phase → higher step → light backpack.</p></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card">
+            <div class="exercise-visual" aria-label="Resistance Band Row visual">
+              <img src="exercise-illustrations/resistance-band-row.png" alt="Resistance Band Row" />
+              <span class="exercise-visual-label">Resistance Band Row</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Resistance Band Row</h3>
+                <span class="exercise-chip">Highly recommended</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Back · Biceps</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 12–15</p></div>
+                <div class="meta"><label>Starting version</label><p>Anchor band at waist height, step back, and pull elbows toward ribs.</p></div>
+                <div class="meta"><label>Progression</label><p>Heavier band → single-arm row → incline row.</p></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Option B — With a weight system</div>
+      <div class="panel-body">
+        <div class="exercise-list">
+          <article class="exercise-card">
+            <div class="exercise-visual" aria-label="Goblet Squat visual">
+              <img src="exercise-illustrations/01-dumbbell-goblet-squat.jpg" alt="Goblet Squat" />
+              <span class="exercise-visual-label">Goblet Squat</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Goblet Squat or Leg Press</h3>
+                <span class="exercise-chip">Compound</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Primary muscles</label><span class="muscle">Quads · Glutes · Hamstrings</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+                <div class="meta"><label>Notes</label><p>One of the most valuable lower-body movements for fatty liver and triglyceride control.</p></div>
+                <div class="meta"><label>Focus</label><p>Build the largest muscle sink while preserving joint-friendly form.</p></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card">
+            <div class="exercise-visual" aria-label="Romanian Deadlift visual">
+              <img src="exercise-illustrations/01-bentover-dumbbell-row.jpg" alt="Romanian Deadlift" />
+              <span class="exercise-visual-label">Romanian Deadlift</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Romanian Deadlift</h3>
+                <span class="exercise-chip">Compound</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Primary muscles</label><span class="muscle">Hamstrings · Glutes · Lower back</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+                <div class="meta"><label>Notes</label><p>Hinge at the hips and lower the weight while keeping the spine neutral.</p></div>
+                <div class="meta"><label>Focus</label><p>Posterior-chain strength and lower-body metabolic load.</p></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn primary" href="cardio.html">Go to Cardio page →</a>
+      <a class="btn" href="exercise-protocol.html">Back to Exercise hub</a>
+    </div>
+  </main>
+</body>
+</html>

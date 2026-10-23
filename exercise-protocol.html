@@ -78,13 +78,25 @@
   .speed-table .highlight td{background:#d8f3dc;font-weight:600}
   .speed-table .zone2{color:var(--green-dark);font-weight:700}
 
-  /* EXERCISE TABLE */
-  .ex-table{width:100%;border-collapse:collapse;font-size:.87rem;margin:.75rem 0}
-  .ex-table th{background:var(--green-dark);color:#fff;padding:.45rem .75rem;text-align:left;font-size:.82rem}
-  .ex-table td{padding:.42rem .75rem;border-bottom:1px solid var(--border);vertical-align:top}
-  .ex-table tr:nth-child(even) td{background:#f7fbf8}
-  .ex-table .muscle{color:var(--sky-dark);font-size:.78rem;font-weight:600}
-  .ex-table .prog{color:var(--muted);font-size:.78rem;font-style:italic}
+  /* EXERCISE CARDS */
+  .exercise-card-list{display:grid;gap:1rem;margin:1rem 0}
+  .exercise-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(45,106,79,.06)}
+  .exercise-visual{position:relative;min-height:220px;height:900px;display:flex;align-items:flex-end;padding:1rem;overflow:hidden;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#eafaf1,#d7f2e2)}
+  .exercise-visual img{position:absolute;inset:0;width: 100%;height:100%;object-fit: cover;display:block;z-index:0;cursor:zoom-in}
+  .exercise-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.58), transparent 32%), linear-gradient(180deg, rgba(255,255,255,.08), rgba(45,106,79,.12));z-index:1}
+  .exercise-visual-label{position:relative;z-index:2;background:rgba(255,255,255,.8);backdrop-filter:blur(2px);border:1px solid rgba(45,106,79,.2);color:var(--green-dark);padding:.45rem .8rem;border-radius:999px;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .exercise-card-body{padding:1rem}
+  .exercise-header{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:.8rem;flex-wrap:wrap}
+  .exercise-name{font-size:1.05rem;font-weight:800;color:var(--green-dark);margin:0}
+  .exercise-chip{display:inline-block;background:#e0f7fa;color:var(--sky-dark);border-radius:999px;padding:.2rem .55rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .exercise-meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+  .exercise-meta-col{background:#f7fbf8;border:1px solid var(--border);border-radius:10px;padding:.7rem .8rem}
+  .exercise-meta-col label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+  .exercise-meta-col p{font-size:.88rem;line-height:1.5;color:var(--text)}
+  .exercise-meta-col .muscle{display:block;color:var(--sky-dark);font-weight:700;font-size:.78rem}
+  .exercise-meta-col .prog{color:var(--muted);font-style:italic}
+  @media(max-width:760px){.exercise-meta-grid{grid-template-columns:1fr 1fr}.exercise-visual{min-height:120px}}
+  @media(max-width:520px){.exercise-meta-grid{grid-template-columns:1fr}}
 
   /* WEEK GRID */
   .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;margin:.75rem 0}
@@ -288,7 +300,8 @@
   <a href="genetics.html">🧬 Genetics</a>
   <a href="health-reference.html">📋 Reference</a>
   <a href="supplement-timing.html">💊 Supplements</a>
-  <a href="exercise-protocol.html" class="active">🏃 Exercise</a>
+  <a href="cardio.html" class="active">🏃 Cardio</a>
+  <a href="resistance.html">💪 Resistance</a>
   <a href="cgm-tracker.html">📡 CGM</a>
   <a href="daily-weight-tracker.html">⚖️ Weight</a>
   <a href="diet-power.html">🥣 Diet Power</a>
@@ -783,69 +796,176 @@
       <h3 style="margin:1.2rem 0 .75rem;font-size:1rem;color:#78350f">🪑 Option A — Bodyweight Protocol (No Equipment Required)</h3>
       <p style="font-size:.9rem;margin-bottom:.75rem">All of the exercises below use body weight as resistance. The key is progressive difficulty — as exercises become easy, the listed progression increases the challenge without needing equipment. A set of inexpensive resistance bands (~$20) unlocks rowing movements for the back muscles, which are the only group that is genuinely difficult to target without any equipment.</p>
 
-      <table class="ex-table">
-        <thead>
-          <tr><th>Exercise</th><th>Muscle group</th><th>Starting version</th><th>Sets × Reps</th><th>Progression</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Chair Squat</strong></td>
-            <td><span class="muscle">Quads · Glutes · Hamstrings</span></td>
-            <td>Stand in front of a chair, sit down slowly, stand back up without using your hands. Keep knees tracking over toes.</td>
-            <td>3 × 12–15</td>
-            <td class="prog">→ Pause squat (3 sec at bottom) → Full squat without chair → Single-leg squat to chair</td>
-          </tr>
-          <tr>
-            <td><strong>Glute Bridge</strong></td>
-            <td><span class="muscle">Glutes · Hamstrings · Core</span></td>
-            <td>Lie on back, knees bent, feet flat on floor. Drive hips up until body is straight from shoulder to knee. Hold 2 sec, lower slowly.</td>
-            <td>3 × 15–20</td>
-            <td class="prog">→ Hold at top for 5 sec → Single-leg bridge → Elevate feet on chair</td>
-          </tr>
-          <tr>
-            <td><strong>Step-Up</strong></td>
-            <td><span class="muscle">Quads · Glutes · Balance</span></td>
-            <td>Use the bottom stair. Step up with one foot, bring the other foot up, step down. Alternate leading leg.</td>
-            <td>3 × 10 each side</td>
-            <td class="prog">→ Slow the lowering phase (3 sec down) → Use a higher step → Add light backpack</td>
-          </tr>
-          <tr>
-            <td><strong>Wall Push-Up</strong></td>
-            <td><span class="muscle">Chest · Shoulders · Triceps</span></td>
-            <td>Stand arm's length from wall, hands at shoulder height. Lower chest toward wall, push back. Keep body straight.</td>
-            <td>3 × 10–12</td>
-            <td class="prog">→ Incline push-up (hands on countertop) → Floor push-up on knees → Full floor push-up</td>
-          </tr>
-          <tr>
-            <td><strong>Hip Hinge</strong></td>
-            <td><span class="muscle">Hamstrings · Glutes · Lower back</span></td>
-            <td>Stand with feet hip-width, soft knees. Push hips back (as if closing a car door with your glutes), hinge forward until you feel hamstring tension, stand back up. Keep spine neutral — not rounded.</td>
-            <td>3 × 12</td>
-            <td class="prog">→ Hold a filled water bottle → Add resistance band anchored under feet → Learn Romanian deadlift with weights</td>
-          </tr>
-          <tr>
-            <td><strong>Calf Raise</strong></td>
-            <td><span class="muscle">Calves · Ankle stability</span></td>
-            <td>Stand with feet hip-width, hold wall for balance. Rise onto toes, hold 1 sec, lower slowly. Do both feet together to start.</td>
-            <td>3 × 20</td>
-            <td class="prog">→ Single-leg calf raise → Do on a step edge for full range of motion</td>
-          </tr>
-          <tr>
-            <td><strong>Resistance Band Row</strong><br><span style="font-size:.75rem;color:var(--muted)">⭐ Highly recommended add</span></td>
-            <td><span class="muscle">Back (lats, rhomboids) · Biceps</span></td>
-            <td>Anchor band to door handle or post at waist height. Hold both ends, step back, pull hands to sides of ribs, squeeze shoulder blades. Slow release.</td>
-            <td>3 × 12–15</td>
-            <td class="prog">→ Heavier band → Single-arm row → Incline row (anchor lower, lean back more)</td>
-          </tr>
-          <tr>
-            <td><strong>Dead Bug</strong></td>
-            <td><span class="muscle">Core (deep stabilisers)</span></td>
-            <td>Lie on back, arms pointing to ceiling, knees bent at 90° lifted. Slowly lower opposite arm and leg toward floor (without touching), return. Alternate sides.</td>
-            <td>3 × 8 each side</td>
-            <td class="prog">→ Slower tempo → Extend leg further from body → Hold light weight in extended arm</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="exercise-card-list">
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Chair Squat visual">
+            <img src="exercise-illustrations/chair-squats.png" alt="Chair Squat illustration" />
+            <span class="exercise-visual-label">Chair Squat</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Chair Squat</h4>
+              <span class="exercise-chip">Bodyweight</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Quads · Glutes · Hamstrings</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Stand in front of a chair, sit down slowly, stand back up without using your hands. Keep knees tracking over toes.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 12–15</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Pause squat (3 sec at bottom) → Full squat without chair → Single-leg squat to chair</p></div>
+            </div>
+          </div>
+        </article>
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Glute Bridge visual">
+            <img src="exercise-illustrations/glute-bridge.png" alt="Glute Bridge illustration" />
+            <span class="exercise-visual-label">Glute Bridge</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Glute Bridge</h4>
+              <span class="exercise-chip">Bodyweight</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Glutes · Hamstrings · Core</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Lie on back, knees bent, feet flat on floor. Drive hips up until body is straight from shoulder to knee. Hold 2 sec, lower slowly.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 15–20</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Hold at top for 5 sec → Single-leg bridge → Elevate feet on chair</p></div>
+            </div>
+          </div>
+        </article>
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Step-Up visual">
+            <img src="exercise-illustrations/step-up.png" alt="Step-Up illustration" />
+            <span class="exercise-visual-label">Step-Up</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Step-Up</h4>
+              <span class="exercise-chip">Bodyweight</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Quads · Glutes · Balance</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Use the bottom stair. Step up with one foot, bring the other foot up, step down. Alternate leading leg.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10 each side</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Slow the lowering phase (3 sec down) → Use a higher step → Add light backpack</p></div>
+            </div>
+          </div>
+        </article>
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Wall Push-Up visual">
+            <img src="exercise-illustrations/wall-push-ups.png" alt="Wall Push-Up illustration" />
+            <span class="exercise-visual-label">Wall Push-Up</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Wall Push-Up</h4>
+              <span class="exercise-chip">Bodyweight</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Chest · Shoulders · Triceps</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Stand arm's length from wall, hands at shoulder height. Lower chest toward wall, push back. Keep body straight.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Incline push-up (hands on countertop) → Floor push-up on knees → Full floor push-up</p></div>
+            </div>
+          </div>
+        </article>
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Hip Hinge visual">
+            <img src="exercise-illustrations/hip-hinge.png" alt="Hip Hinge illustration" />
+            <span class="exercise-visual-label">Hip Hinge</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Hip Hinge</h4>
+              <span class="exercise-chip">Bodyweight</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Hamstrings · Glutes · Lower back</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Stand with feet hip-width, soft knees. Push hips back, hinge forward until you feel hamstring tension, stand back up. Keep spine neutral — not rounded.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 12</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Hold a filled water bottle → Add resistance band anchored under feet → Learn Romanian deadlift with weights</p></div>
+            </div>
+          </div>
+        </article>
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Calf Raise visual">
+            <img src="exercise-illustrations/calf-raise.png" alt="Calf Raise illustration" />
+            <span class="exercise-visual-label">Calf Raise</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Calf Raise</h4>
+              <span class="exercise-chip">Bodyweight</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Calves · Ankle stability</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Stand with feet hip-width, hold wall for balance. Rise onto toes, hold 1 sec, lower slowly. Do both feet together to start.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 20</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Single-leg calf raise → Do on a step edge for full range of motion</p></div>
+            </div>
+          </div>
+        </article>
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Resistance Band Row visual">
+            <img src="exercise-illustrations/resistance-band-row.png" alt="Resistance Band Row illustration" />
+            <span class="exercise-visual-label">Resistance Band Row</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Resistance Band Row</h4>
+              <span class="exercise-chip">Highly recommended</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Back (lats, rhomboids) · Biceps</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Anchor band to door handle or post at waist height. Hold both ends, step back, pull hands to sides of ribs, squeeze shoulder blades. Slow release.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 12–15</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Heavier band → Single-arm row → Incline row (anchor lower, lean back more)</p></div>
+            </div>
+          </div>
+        </article>
+
+        </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Dead Bug visual">
+            <img src="exercise-illustrations/dead-bug.png" alt="Dead Bug illustration" />
+            <span class="exercise-visual-label">Dead Bug</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Dead Bug</h4>
+              <span class="exercise-chip">Core</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Muscle group</label><span class="muscle">Core (deep stabilisers)</span></div>
+              <div class="exercise-meta-col"><label>Starting version</label><p>Lie on back, arms pointing to ceiling, knees bent at 90° lifted. Slowly lower opposite arm and leg toward floor (without touching), return. Alternate sides.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 8 each side</p></div>
+              <div class="exercise-meta-col"><label>Progression</label><p class="prog">→ Slower tempo → Extend leg further from body → Hold light weight in extended arm</p></div>
+            </div>
+          </div>
+        </article>
+      </div>
 
       <div class="callout callout-sky" style="margin-top:.75rem">
         <strong>💡 Resistance bands — the $20–25 upgrade that changes everything</strong>
@@ -855,49 +975,124 @@
       <h3 style="margin:1.2rem 0 .75rem;font-size:1rem;color:#78350f">🏋️ Option B — With a Weight Training System</h3>
       <p style="font-size:.9rem;margin-bottom:.75rem">If your mother's weight system becomes available, use compound movements — exercises that work multiple large muscle groups simultaneously. These give the most metabolic benefit per session by triggering the most total muscle fibre recruitment and the highest post-exercise AMPK activation.</p>
 
-      <table class="ex-table">
-        <thead>
-          <tr><th>Exercise</th><th>Primary muscles</th><th>Notes</th><th>Sets × Reps</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Goblet Squat or Leg Press</strong></td>
-            <td><span class="muscle">Quads · Glutes · Hamstrings</span></td>
-            <td>Start with a light dumbbell held at chest. Full squat or leg press machine. These are the most important exercises in the session for the fatty liver / triglyceride goal.</td>
-            <td>3 × 10–12</td>
-          </tr>
-          <tr>
-            <td><strong>Romanian Deadlift</strong></td>
-            <td><span class="muscle">Hamstrings · Glutes · Lower back</span></td>
-            <td>Hold dumbbells or barbell in front, hinge at hips pushing them backward, lower weight along legs until strong hamstring tension, drive hips forward to stand. The hip hinge pattern you practised in Option A is the same movement.</td>
-            <td>3 × 10–12</td>
-          </tr>
-          <tr>
-            <td><strong>Dumbbell Row</strong></td>
-            <td><span class="muscle">Back · Biceps · Rear shoulder</span></td>
-            <td>One knee and hand on bench, hold dumbbell in free hand, pull it to hip. The back exercises directly upregulate fat oxidation in the upper body's large muscle mass.</td>
-            <td>3 × 10 each side</td>
-          </tr>
-          <tr>
-            <td><strong>Dumbbell Chest Press</strong></td>
-            <td><span class="muscle">Chest · Shoulders · Triceps</span></td>
-            <td>Lie on a bench or the floor. Drive dumbbells from chest level to arms extended. The floor variation is completely effective and safer for home use.</td>
-            <td>3 × 10–12</td>
-          </tr>
-          <tr>
-            <td><strong>Dumbbell Lunge</strong></td>
-            <td><span class="muscle">Quads · Glutes · Hip stabilisers</span></td>
-            <td>Hold a dumbbell in each hand. Step forward, lower back knee toward floor, push through front heel to stand. Alternating legs. The unilateral loading also challenges balance.</td>
-            <td>3 × 10 each leg</td>
-          </tr>
-          <tr>
-            <td><strong>Overhead Press</strong></td>
-            <td><span class="muscle">Shoulders · Triceps · Core</span></td>
-            <td>Seated or standing. Press dumbbells from shoulder height to overhead, lower slowly. Keep core braced throughout.</td>
-            <td>3 × 10–12</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="exercise-card-list">
+        </br>
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Goblet Squat or Leg Press visual">
+            <img src="exercise-illustrations/01-dumbbell-goblet-squat.jpg" alt="Goblet Squat illustration" />
+            <span class="exercise-visual-label">Goblet Squat</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Goblet Squat or Leg Press</h4>
+              <span class="exercise-chip">Compound</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Primary muscles</label><span class="muscle">Quads · Glutes · Hamstrings</span></div>
+              <div class="exercise-meta-col"><label>Notes</label><p>Start with a light dumbbell held at chest. Full squat or leg press machine. These are the most important exercises in the session for the fatty liver / triglyceride goal.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+              <div class="exercise-meta-col"><label>Focus</label><p class="prog">Most important fat-burning lower-body movement.</p></div>
+            </div>
+          </div>
+        </article>
+
+      </br>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Romanian Deadlift visual">
+            <img src="exercise-illustrations/01-bentover-dumbbell-row.jpg" alt="Romanian Deadlift illustration" />
+            <span class="exercise-visual-label">Romanian Deadlift</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Romanian Deadlift</h4>
+              <span class="exercise-chip">Compound</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Primary muscles</label><span class="muscle">Hamstrings · Glutes · Lower back</span></div>
+              <div class="exercise-meta-col"><label>Notes</label><p>Hold dumbbells or barbell in front, hinge at hips pushing them backward, lower weight along legs until strong hamstring tension, drive hips forward to stand. The hip hinge pattern you practised in Option A is the same movement.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+              <div class="exercise-meta-col"><label>Focus</label><p class="prog">Builds posterior chain strength and metabolic load.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Dumbbell Row visual">
+            <img src="exercise-illustrations/01-bentover-dumbbell-row.jpg" alt="Dumbbell Row illustration" />
+            <span class="exercise-visual-label">Dumbbell Row</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Dumbbell Row</h4>
+              <span class="exercise-chip">Compound</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Primary muscles</label><span class="muscle">Back · Biceps · Rear shoulder</span></div>
+              <div class="exercise-meta-col"><label>Notes</label><p>One knee and hand on bench, hold dumbbell in free hand, pull it to hip. The back exercises directly upregulate fat oxidation in the upper body's large muscle mass.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10 each side</p></div>
+              <div class="exercise-meta-col"><label>Focus</label><p class="prog">Upper-body metabolic sink and posture support.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Dumbbell Chest Press visual">
+            <img src="exercise-illustrations/01-stage-1.png" alt="Dumbbell Chest Press illustration" />
+            <span class="exercise-visual-label">Dumbbell Chest Press</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Dumbbell Chest Press</h4>
+              <span class="exercise-chip">Compound</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Primary muscles</label><span class="muscle">Chest · Shoulders · Triceps</span></div>
+              <div class="exercise-meta-col"><label>Notes</label><p>Lie on a bench or the floor. Drive dumbbells from chest level to arms extended. The floor variation is completely effective and safer for home use.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+              <div class="exercise-meta-col"><label>Focus</label><p class="prog">Upper-body pressing strength with safe home setup.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Dumbbell Lunge visual">
+            <img src="exercise-illustrations/01-dumbbell-lunge.jpg" alt="Dumbbell Lunge illustration" />
+            <span class="exercise-visual-label">Dumbbell Lunge</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Dumbbell Lunge</h4>
+              <span class="exercise-chip">Compound</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Primary muscles</label><span class="muscle">Quads · Glutes · Hip stabilisers</span></div>
+              <div class="exercise-meta-col"><label>Notes</label><p>Hold a dumbbell in each hand. Step forward, lower back knee toward floor, push through front heel to stand. Alternating legs. The unilateral loading also challenges balance.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10 each leg</p></div>
+              <div class="exercise-meta-col"><label>Focus</label><p class="prog">Unilateral leg strength and balance development.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="exercise-card">
+          <div class="exercise-visual" aria-label="Overhead Press visual">
+            <img src="exercise-illustrations/overhead-press.jpg" alt="Overhead Press illustration" />
+            <span class="exercise-visual-label">Overhead Press</span>
+          </div>
+          <div class="exercise-card-body">
+            <div class="exercise-header">
+              <h4 class="exercise-name">Overhead Press</h4>
+              <span class="exercise-chip">Compound</span>
+            </div>
+            <div class="exercise-meta-grid">
+              <div class="exercise-meta-col"><label>Primary muscles</label><span class="muscle">Shoulders · Triceps · Core</span></div>
+              <div class="exercise-meta-col"><label>Notes</label><p>Seated or standing. Press dumbbells from shoulder height to overhead, lower slowly. Keep core braced throughout.</p></div>
+              <div class="exercise-meta-col"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+              <div class="exercise-meta-col"><label>Focus</label><p class="prog">Shoulder stability and full-body bracing.</p></div>
+            </div>
+          </div>
+        </article>
+      </div>
 
       <div class="callout callout-amber" style="margin-top:.75rem">
         <strong>Weight progression — the two-rep rule</strong>
@@ -2233,10 +2428,20 @@ function updateExerciseFullscreenContent(){
   modal.meta.textContent=`${exerciseSlideIndex+1}/${EXERCISE_SLIDES.length} · ${current.caption||current.fileName}`;
 }
 
-function openExerciseFullscreen(){
+function openExerciseFullscreen(customSrc, customCaption){
+  const modal=ensureExerciseFullscreenModal();
+  const isExplicitImage = typeof customSrc === 'string' && customSrc.trim() !== '' && !customSrc.startsWith('[');
+
+  if(isExplicitImage){
+    modal.overlay.classList.add('visible');
+    modal.image.src=customSrc;
+    modal.image.alt=customCaption||'Exercise illustration';
+    modal.meta.textContent=customCaption||'Exercise illustration';
+    return;
+  }
+
   const current=getCurrentExerciseSlide();
   if(!current) return;
-  const modal=ensureExerciseFullscreenModal();
   modal.overlay.classList.add('visible');
   updateExerciseFullscreenContent();
 }
@@ -2298,8 +2503,16 @@ document.getElementById('exercise-notes-import-file').addEventListener('change',
   importExerciseSlideNotes(event.target.files && event.target.files[0]);
   event.target.value='';
 });
-document.getElementById('exercise-fullscreen-btn').addEventListener('click',openExerciseFullscreen);
-document.getElementById('exercise-slide-image').addEventListener('click',openExerciseFullscreen);
+document.getElementById('exercise-fullscreen-btn').addEventListener('click',()=>openExerciseFullscreen());
+document.getElementById('exercise-slide-image').addEventListener('click',()=>openExerciseFullscreen());
+document.querySelectorAll('.exercise-visual img').forEach(img=>{
+  img.addEventListener('click',event=>{
+    event.stopPropagation();
+    const visual=img.closest('.exercise-visual');
+    const title=visual?.querySelector('.exercise-visual-label')?.textContent?.trim()||img.alt||'Exercise illustration';
+    openExerciseFullscreen(img.currentSrc || img.src, title);
+  });
+});
 
 applyReadyChecklistState(loadReadyChecklist());
 if(document.getElementById('calc-speed')&&document.getElementById('calc-duration')) initializeTreadmillCalculator();

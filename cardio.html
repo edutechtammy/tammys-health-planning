@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Protocol · Cardio</title>
+  <style>
+    :root {
+      --green-dark:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;--green-pale:#d8f3dc;
+      --amber:#e9c46a;--amber-dark:#f4a261;--sky:#90e0ef;--sky-dark:#0077b6;
+      --purple:#c77dff;--purple-dark:#7b2d8b;--red:#e63946;--red-pale:#fde8ea;
+      --border:#d1e8d5;--text:#1a1a2e;--muted:#6c757d;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f7f2;color:var(--text);line-height:1.6;font-size:17px}
+    nav{background:var(--green-dark);padding:.75rem 1.5rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+    nav a{color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;opacity:.85;transition:opacity .2s;white-space:nowrap}
+    nav a:hover, nav a.active{opacity:1;text-decoration:underline}
+    header{background:linear-gradient(135deg,var(--green-dark),#0f766e);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center}
+    header h1{font-size:2rem;margin-bottom:.4rem}
+    header p{max-width:760px;margin:0 auto;font-size:1rem;opacity:.9}
+    main{max-width:1000px;margin:0 auto;padding:2rem 1.2rem 4rem}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1rem 0 2rem}
+    .panel{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+    .panel-header{padding:1rem 1.2rem;background:var(--green-pale);border-bottom:1px solid var(--border);font-weight:800;color:var(--green-dark)}
+    .panel-body{padding:1rem 1.2rem}
+    .callout{padding:.9rem 1rem;border-left:4px solid var(--green-mid);background:var(--green-pale);border-radius:10px;margin:0 0 1rem}
+    .callout strong{display:block;margin-bottom:.3rem}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    ul.ref{padding-left:1.3rem;margin:.8rem 0}
+    ul.ref li{margin:.35rem 0;font-size:.96rem}
+    .chip-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+    .chip{display:inline-block;padding:.2rem .6rem;border-radius:999px;background:#e0f7fa;color:var(--sky-dark);font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+    th,td{padding:.6rem .75rem;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+    th{background:var(--green-dark);color:#fff}
+    tr:nth-child(even) td{background:#f7fbf8}
+    .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.5rem;margin:1rem 0}
+    .day-card{padding:.7rem .45rem;border-radius:10px;text-align:center;font-size:.76rem;border:1px solid var(--border);line-height:1.4}
+    .day-cardio{background:#d8f3dc;border-color:var(--green-light)}
+    .day-resist{background:#e0f7fa;border-color:var(--sky)}
+    .day-both{background:#fff8e1;border-color:var(--amber)}
+    .day-rest{background:#f8f9fa;border-color:#dfe3e8;color:var(--muted)}
+    .btn-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+    .btn{padding:.55rem .9rem;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green-dark);font:inherit;font-weight:700;text-decoration:none}
+    .btn.primary{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
+    @media(max-width:700px){.two-col{grid-template-columns:1fr}.week-grid{grid-template-columns:repeat(4,1fr)}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html">🍽️ Food Testing</a>
+    <a href="dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="genetics.html">🧬 Genetics</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="cardio.html" class="active">🏃 Cardio</a>
+    <a href="resistance.html">💪 Resistance</a>
+    <a href="cgm-tracker.html">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="diet-power.html">🥣 Diet Power</a>
+  </nav>
+
+  <header>
+    <h1>🏃 Cardio — Zone 2 Metabolic Recovery</h1>
+    <p>Use this page for the treadmill and walking protocol that improves fatty liver, insulin sensitivity, and day-long glucose handling without overloading the body.</p>
+  </header>
+
+  <main>
+    <div class="callout">
+      <strong>Core idea</strong>
+      Zone 2 cardio creates the metabolic signal that helps muscle absorb and burn excess glucose and fat. It is not “cardio for fitness” in the usual sense — it is a recovery and metabolic reset tool that supports the liver and insulin-resistant tissues.
+    </div>
+
+    <div class="card-grid">
+      <div class="panel">
+        <div class="panel-header">Why this matters</div>
+        <div class="panel-body">
+          <ul class="ref">
+            <li>Raises AMPK in muscle, which supports GLUT4 movement without needing insulin.</li>
+            <li>Increases mitochondrial density and fat oxidation capacity.</li>
+            <li>Improves fasting glucose and reduces post-meal glucose spikes over time.</li>
+            <li>Supports the liver by lowering triglyceride load and reducing fatty liver pressure.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Session structure</div>
+        <div class="panel-body">
+          <ul class="ref">
+            <li><strong>4–5 days per week</strong> at a sustainable Zone 2 effort.</li>
+            <li><strong>25–40 minutes</strong> per session depending on recovery and goals.</li>
+            <li>Use a pace where conversation is possible but you are breathing harder than at rest.</li>
+            <li>Short post-dinner walks can be layered in without replacing the main session.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Treadmill ready checklist</div>
+      <div class="panel-body">
+        <ul class="ref">
+          <li>Water bottle filled and within reach.</li>
+          <li>Phone or secondary device ready.</li>
+          <li>Work tasks queued up or audio prepared.</li>
+          <li>Bathroom break taken before starting.</li>
+        </ul>
+        <div class="chip-row">
+          <span class="chip">Recovery / walk</span>
+          <span class="chip">Zone 2 cardio</span>
+          <span class="chip">Dawn Phenomenon walk</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Zone 2 programming</div>
+      <div class="panel-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Session</th>
+                <th>Intensity</th>
+                <th>Duration</th>
+                <th>Goal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Recovery walk</td>
+                <td>Easy</td>
+                <td>10–20 min</td>
+                <td>Post-meal glucose control and steady recovery.</td>
+              </tr>
+              <tr>
+                <td>Zone 2 cardio</td>
+                <td>Steady</td>
+                <td>25–40 min</td>
+                <td>Metabolic signal, fatty liver support, and mitochondrial adaptation.</td>
+              </tr>
+              <tr>
+                <td>Morning walk</td>
+                <td>Easy to moderate</td>
+                <td>15–30 min</td>
+                <td>Lower fasting glucose and reduce Dawn Phenomenon pressure.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Sample weekly rhythm</div>
+      <div class="panel-body">
+        <div class="week-grid">
+          <div class="day-card day-cardio"><strong>Mon</strong><br>Zone 2</div>
+          <div class="day-card day-rest"><strong>Tue</strong><br>Recovery</div>
+          <div class="day-card day-both"><strong>Wed</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Thu</strong><br>Rest</div>
+          <div class="day-card day-cardio"><strong>Fri</strong><br>Zone 2</div>
+          <div class="day-card day-both"><strong>Sat</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Sun</strong><br>Walk / recovery</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Mechanism summary</div>
+      <div class="panel-body">
+        <div class="two-col">
+          <div>
+            <p>Exercise activates a separate pathway for GLUT4 translocation than insulin. This means glucose can be pulled into muscle even when insulin signaling is impaired.</p>
+            <p>It also lowers the liver's glucose release and improves triglyceride processing through repeated muscle contraction and mitochondrial activation.</p>
+          </div>
+          <div>
+            <p>For fatty liver, the benefit is not just “calories burned.” It is the cumulative effect of better muscle uptake, improved beta-oxidation, and lower hepatic triglyceride packaging.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn primary" href="resistance.html">Go to Resistance page →</a>
+      <a class="btn" href="exercise-protocol.html">Back to Exercise hub</a>
+    </div>
+  </main>
+</body>
+</html>
