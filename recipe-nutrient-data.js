@@ -1,4 +1,7 @@
 window.RECIPE_PANEL_NUTRIENTS = {
+  
+  // -------------------------------------------------------
+  
   "recipe-low-carb-velvet-egg-drop-soup.html": {
     "calories": {
       "display": "~80 kcal",
@@ -86,8 +89,8 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "glycemic": {
       "gl": {
-        "display": "",
-        "value": 0,
+        "display": "0.05",
+        "value": 0.05,
         "unit": "GL",
         "name": "Glycemic Load — per serving",
         "estimated": false
@@ -121,6 +124,9 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // ---------------------------------------------
+
   "recipe-soft-pliable-gluten-free-gyro-pita.html": {
     "calories": {
       "display": "~225 kcal",
@@ -129,9 +135,16 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Calories — per serving",
       "estimated": false
     },
-    "proteinG": {
-      "display": "~3.5 g",
-      "value": 3.5,
+    "satfatG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~9 g",
+      "value": 9,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -150,18 +163,39 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~11 g",
+      "value": 11,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~24 ug",
       "value": 24,
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
-    },
+      },
     "b12Mcg": {
       "display": "~0 ug",
       "value": 0,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+    "display": "~2.5 g",
+    "value": 2.5,
+    "unit": "g",
+    "name": "grams — per serving",
+    "estimated": false
+    },
+    "proteinG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "carbsG": {
@@ -171,37 +205,9 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
-    "satfatG": {
-      "display": "~1.5 g",
-      "value": 1.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
     "fiberG": {
       "display": "~2.5 g",
       "value": 2.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "netcarbsG": {
-      "display": "~9 g",
-      "value": 9,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "viscousFiberG": {
-      "display": "~2.5 g",
-      "value": 2.5,
-      "unit": "g",
-      "name": "grams — per serving",
-      "estimated": false
-    },
-    "mufaG": {
-      "display": "~11 g",
-      "value": 11,
       "unit": "g",
       "name": "grams — per serving",
       "estimated": false
@@ -215,8 +221,8 @@ window.RECIPE_PANEL_NUTRIENTS = {
     },
     "glycemic": {
       "gl": {
-        "display": "",
-        "value": 0,
+        "display": "9",
+        "value": 9,
         "unit": "GL",
         "name": "Glycemic Load — per serving",
         "estimated": false
@@ -250,6 +256,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+
+  // --
+
+
   "recipe-almond-oil-mayo.html": {
     "calories": {
       "display": "~80 kcal",
@@ -365,6 +376,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // ---
+
+
   "recipe-ceylon-cinnamon-psyllium-mints.html": {
     "calories": {
       "display": "~2 kcal",
@@ -430,6 +445,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     }
   },
+
+  // ---------------------------------------------
+
+
   "recipe-almond-flour-waffles.html": {
     "calories": {
       "display": "~380 kcal",
@@ -453,7 +472,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     },
     "cholineMg": {
-      "display": "~130–150 mg",
+      "display": "~140 mg",
       "value": 140,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
@@ -494,10 +513,17 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "proteinG": {
+      "display": "~18.0 g",
+      "value": 18.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "glycemic": {
       "gl": {
-        "display": "",
-        "value": 0,
+        "display": "2.45",
+        "value": 2.45,
         "unit": "GL",
         "name": "Glycemic Load — per serving",
         "estimated": false
@@ -531,6 +557,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // ------------------------------------
+
+
   "recipe-gluten-free-bagel-bites.html": {
     "calories": {
       "display": "~94 kcal",
@@ -632,6 +662,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // --------------------------------------
+
+
   "recipe-no-sugar-crunch-bar.html": {
     "calories": {
       "display": "~285 kcal",
@@ -733,6 +767,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // ------------------------------------
+
+
   "recipe-sous-vide-lentils.html": {
     "calories": {
       "display": "~120 kcal",
@@ -834,6 +872,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // ------------------------------------
+
+
   "recipe-marinated-smoked-gouda.html": {
     "calories": {
       "display": "~180 kcal",
@@ -942,6 +984,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+// ------------------------------------
+
+
   "recipe-ladenia.html": {
     "calories": {
       "display": "~500 kcal",
@@ -1043,6 +1089,10 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+// ------------------------------------
+
+
   "recipe-crispy-roasted-chickpea-feta-mediterranean-bowl.html": {
     "calories": {
       "display": "~120 kcal",
@@ -1144,6 +1194,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+
+// ------------------------------------
+
+
   "recipe-creamy-mediterranean-red-lentil-tomato-soup.html": {
     "choline": {
       "display": "~40 mg",
@@ -1273,35 +1328,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+// ------------------------------------
+
+
   "recipe-tuscan-white-beans-garlic-rosemary-olive-oil.html": {
-    "choline": {
-      "display": "~45 mg",
-      "value": 45.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~110 mg",
-      "value": 110.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~170 ug",
-      "value": 170.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~250 kcal",
       "value": 250,
@@ -1365,6 +1396,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "proteinG": {
+      "display": "~15.0 g",
+      "value": 15.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "glycemic": {
       "gl": {
         "display": "",
@@ -1402,35 +1440,12 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+
+// -------------------------------------------------
+
+
   "recipe-greek-lemon-herb-roasted-potatoes.html": {
-    "choline": {
-      "display": "~20 mg",
-      "value": 20.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~45 mg",
-      "value": 45.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~30 µg",
-      "value": 30.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 µg",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~195 kcal",
       "value": 195,
@@ -1494,6 +1509,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "proteinG": {
+      "display": "~3.7 g",
+      "value": 3.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "glycemic": {
       "gl": {
         "display": "",
@@ -1531,35 +1553,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // -----------------------------------------
+
+
   "recipe-tzatziki.html": {
-    "choline": {
-      "display": "~30 mg",
-      "value": 30.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~60 mg",
-      "value": 60.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~25 µg",
-      "value": 25.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0.8 µg",
-      "value": 0.8,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~125 kcal",
       "value": 125,
@@ -1623,6 +1621,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "proteinG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "glycemic": {
       "gl": {
         "display": "",
@@ -1660,35 +1665,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+  // ------------------------------------------------
+
+
   "recipe-cassava-pita.html": {
-    "choline": {
-      "display": "~6 mg",
-      "value": 6.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~10 mg",
-      "value": 10.0,
-      "unit": "mg",
-      "name": "Omega-3 — anti-inflammatory baseline",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~24 µg",
-      "value": 24.0,
-      "unit": "mcg",
-      "name": "Folate — methylation support",
-      "estimated": false
-    },
-    "b12": {
-      "display": "0 µg",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — methyl donor cofactor",
-      "estimated": false
-    },
     "calories": {
       "display": "~100 kcal",
       "value": 100,
@@ -1752,6 +1733,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "grams — per serving",
       "estimated": false
     },
+    "proteinG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "glycemic": {
       "gl": {
         "display": "",
@@ -1789,6 +1777,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+
+
+  // ---
+
+  
   "recipe-dressing-mediterranean-classic.html": {
     "choline": {
       "display": "~0.5 mg",
