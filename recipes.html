@@ -325,6 +325,12 @@
     .menu-meal-block h5 { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .16rem; }
     .menu-meal-list { list-style: none; display: flex; flex-direction: column; gap: .22rem; }
     .menu-meal-item { border: 1px solid #d6eadc; border-radius: 8px; background: #f9fffa; padding: .38rem .45rem; font-size: .74rem; }
+    .menu-meal-item.combo-risk { border-color: #efb0a8; background: #fff1f2; }
+    .menu-meal-item.combo-near { border-color: #f5d58a; background: #fffbeb; }
+    .menu-meal-block.combo-risk h5 { color: #9f1239; }
+    .menu-meal-block.combo-near h5 { color: #9a4d00; }
+    .menu-combo-alert { margin: .14rem 0 .24rem; padding: .24rem .4rem; border-radius: 7px; border: 1px solid #fecaca; background: #fff1f2; color: #9f1239; font-size: .66rem; line-height: 1.35; font-weight: 700; }
+    .menu-combo-alert.near { border-color: #fcd49f; background: #fff7ed; color: #9a4d00; }
     .menu-meal-top { display: flex; flex-direction: column; gap: .32rem; align-items: stretch; }
     .menu-meal-name { display: block; width: 100%; color: var(--text); font-weight: 600; line-height: 1.4; word-break: break-word; }
     .menu-meal-meta { display: flex; align-items: center; justify-content: flex-start; gap: .35rem; color: var(--muted); font-size: .68rem; }
@@ -6274,6 +6280,13 @@ const MENU_PLANNER_MEALS = [
   { key: 'dinner', label: 'Dinner' },
   { key: 'snack', label: 'Snack / Bedtime' }
 ];
+const MENU_COMBO_NET_CARB_LIMIT_G = 15;
+const MENU_COMBO_SAT_FAT_LIMIT_G = 5;
+const MENU_COMBO_NEAR_RATIO = 0.8;
+const MENU_COMBO_GROUPS = {
+  appetizer: ['appetizer', 'dinner'],
+  dinner: ['appetizer', 'dinner']
+};
 const MENU_PLANNER_NUTRIENTS = [
   { key: 'satfatG', label: 'Saturated Fat', unit: 'g', target: 10, decimals: 1, limit: true },
   { key: 'netcarbsG', label: 'Net Carbs', unit: 'g', target: 50, decimals: 1, limit: true },
@@ -6861,6 +6874,37 @@ function getDayTotals(dayKey) {
   return getDayAggregate(dayKey).totals;
 }
 
+function getPlannerItemsForDayMeal(dayKey, mealKey) {
+  return menuPlannerState.items.filter((item) => (item.day === dayKey || item.day === 'everyday') && item.meal === mealKey);
+}
+
+function getMealComboStatus(dayKey, mealKey, itemsByMeal) {
+  const mealKeys = MENU_COMBO_GROUPS[mealKey] || [mealKey];
+  const groupItems = mealKeys.flatMap((key) => itemsByMeal[key] || []);
+  let totalNetCarbs = 0;
+  let totalSatFat = 0;
+  let hasNetCarbsData = false;
+  let hasSatFatData = false;
+
+  groupItems.forEach((item) => {
+    const servings = Number.isFinite(item.servings) ? item.servings : 1;
+    totalNetCarbs += (Number(item.netcarbsG) || 0) * servings;
+    totalSatFat += (Number(item.satfatG) || 0) * servings;
+
+    if (!hasNetCarbsData && plannerItemHasKnownNutrient(item, 'netcarbsG')) hasNetCarbsData = true;
+    if (!hasSatFatData && plannerItemHasKnownNutrient(item, 'satfatG')) hasSatFatData = true;
+  });
+
+  const hasData = hasNetCarbsData && hasSatFatData;
+  const exceeds = hasData && totalNetCarbs > MENU_COMBO_NET_CARB_LIMIT_G && totalSatFat > MENU_COMBO_SAT_FAT_LIMIT_G;
+  const nearNetCarbs = MENU_COMBO_NET_CARB_LIMIT_G * MENU_COMBO_NEAR_RATIO;
+  const nearSatFat = MENU_COMBO_SAT_FAT_LIMIT_G * MENU_COMBO_NEAR_RATIO;
+  const near = hasData && !exceeds && totalNetCarbs >= nearNetCarbs && totalSatFat >= nearSatFat;
+  const scopeLabel = mealKeys.length > 1 ? 'Appetizer + Dinner combined' : (MENU_PLANNER_MEALS.find((meal) => meal.key === mealKey)?.label || mealKey);
+
+  return { hasData, exceeds, near, totalNetCarbs, totalSatFat, scopeLabel };
+}
+
 function getWeeklyTotals() {
   const totalsByDay = MENU_PLANNER_DAYS.map((day) => ({ day, ...getDayAggregate(day) }));
   const seed = MENU_PLANNER_NUTRIENTS.reduce((acc, nutrient) => {
@@ -7283,8 +7327,22 @@ function renderMenuPlannerDays() {
   if (!host) return;
 
   host.innerHTML = MENU_PLANNER_DAYS.map((day) => {
+    const itemsByMeal = Object.fromEntries(
+      MENU_PLANNER_MEALS.map((meal) => [meal.key, getPlannerItemsForDayMeal(day, meal.key)])
+    );
+
     const mealHtml = MENU_PLANNER_MEALS.map((meal) => {
-      const items = menuPlannerState.items.filter((item) => (item.day === day || item.day === 'everyday') && item.meal === meal.key);
+      const items = itemsByMeal[meal.key] || [];
+      const comboStatus = getMealComboStatus(day, meal.key, itemsByMeal);
+      const mealBlockClass = comboStatus.exceeds
+        ? 'menu-meal-block combo-risk'
+        : (comboStatus.near ? 'menu-meal-block combo-near' : 'menu-meal-block');
+      const comboAlert = comboStatus.exceeds
+        ? `<div class="menu-combo-alert">⚠ Combo limit crossed (${comboStatus.scopeLabel}): Net carbs ${formatNutrientValue(comboStatus.totalNetCarbs, 'netcarbsG')} g and saturated fat ${formatNutrientValue(comboStatus.totalSatFat, 'satfatG')} g (limit is >${MENU_COMBO_NET_CARB_LIMIT_G} g with >${MENU_COMBO_SAT_FAT_LIMIT_G} g).</div>`
+        : (comboStatus.near
+          ? `<div class="menu-combo-alert near">⚠ Approaching combo limit (${comboStatus.scopeLabel}): Net carbs ${formatNutrientValue(comboStatus.totalNetCarbs, 'netcarbsG')} g and saturated fat ${formatNutrientValue(comboStatus.totalSatFat, 'satfatG')} g (near zone starts at ${formatNutrientValue(MENU_COMBO_NET_CARB_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'netcarbsG')} g + ${formatNutrientValue(MENU_COMBO_SAT_FAT_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'satfatG')} g).</div>`
+          : '')
+        : '';
       const itemHtml = items.length
         ? items.map((item) => {
             const caloriesTotal = (item.calories || 0) * item.servings;
@@ -7368,7 +7426,7 @@ function renderMenuPlannerDays() {
               `
               : '';
             return `
-              <li class="menu-meal-item">
+              <li class="menu-meal-item${comboStatus.exceeds ? ' combo-risk' : (comboStatus.near ? ' combo-near' : '')}">
                 <div class="menu-meal-top">
                   <span class="menu-meal-name">${label}</span>
                   <span class="menu-meal-meta">${sourceTag} x ${item.servings}</span>
@@ -7385,8 +7443,9 @@ function renderMenuPlannerDays() {
         : '<li class="menu-empty">No entries yet.</li>';
 
       return `
-        <section class="menu-meal-block">
+        <section class="${mealBlockClass}">
           <h5>${meal.label}</h5>
+          ${comboAlert}
           <ul class="menu-meal-list">${itemHtml}</ul>
         </section>
       `;
