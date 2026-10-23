@@ -941,7 +941,6 @@ function openTrendModal(testId) {
 
   const zoneRectsFull = buildZoneOverlays(test, minV, maxV, fullWidth, fullHeight, fullPadX, fullPadY);
   const fullLinePoints = fullCoords.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
-  const fullAreaPoints = `${fullCoords[0].x.toFixed(2)},${(fullHeight - fullPadY).toFixed(2)} ${fullLinePoints} ${fullCoords[fullCoords.length - 1].x.toFixed(2)},${(fullHeight - fullPadY).toFixed(2)}`;
   const fullCircles = fullCoords.map((p, idx) => `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="${idx === fullCoords.length - 1 ? '5.2' : '3.4'}" fill="${idx === fullCoords.length - 1 ? '#2d6a4f' : '#40916c'}" data-date="${escapeHtmlAttr(formatDateLabel(p.date))}" data-value="${escapeHtmlAttr(p.rawValue)}" data-notes="${escapeHtmlAttr(p.notes || 'No notes recorded for this point.')}" data-unit="${escapeHtmlAttr(test.unit)}" onmouseenter="showTrendPointDetails(this)" onfocus="showTrendPointDetails(this)"></circle>`).join('');
 
   const legendTop = yForValue(maxV, minV, span, fullHeight, fullPadY);
@@ -960,7 +959,6 @@ function openTrendModal(testId) {
       ${zoneRectsFull}
       <line x1="${fullPadX}" y1="${fullHeight - fullPadY}" x2="${fullWidth - fullPadX}" y2="${fullHeight - fullPadY}" stroke="#cfe5d6" stroke-width="1"></line>
       <line x1="${fullPadX}" y1="${fullPadY}" x2="${fullPadX}" y2="${fullHeight - fullPadY}" stroke="#cfe5d6" stroke-width="1"></line>
-      <polyline points="${fullAreaPoints}" fill="rgba(64,145,108,0.16)" stroke="none"></polyline>
       <polyline points="${fullLinePoints}" fill="none" stroke="#2d6a4f" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"></polyline>
       ${fullCircles}
       <text x="14" y="${legendTop.toFixed(2)}" fill="#2d6a4f" font-size="12">${maxV.toFixed(2)}</text>
@@ -1016,7 +1014,6 @@ function buildTrendChartHtml(entries, test) {
 
   const zoneRectsMini = buildZoneOverlays(test, minV, maxV, width, height, padX, padY);
   const linePoints = coords.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
-  const areaPoints = `${coords[0].x.toFixed(2)},${(height - padY).toFixed(2)} ${linePoints} ${coords[coords.length - 1].x.toFixed(2)},${(height - padY).toFixed(2)}`;
   const circles = coords.map((p, idx) => `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="${idx === coords.length - 1 ? '3.2' : '2.2'}" fill="${idx === coords.length - 1 ? '#2d6a4f' : '#40916c'}"></circle>`).join('');
 
   const first = points[0].value;
@@ -1042,7 +1039,6 @@ function buildTrendChartHtml(entries, test) {
       <svg class="trend-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="${test.name} trend graph">
         ${zoneRectsMini}
         <line x1="${padX}" y1="${height - padY}" x2="${width - padX}" y2="${height - padY}" stroke="#d5eadd" stroke-width="1"></line>
-        <polyline points="${areaPoints}" fill="rgba(64,145,108,0.14)" stroke="none"></polyline>
         <polyline points="${linePoints}" fill="none" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
         ${circles}
       </svg>
