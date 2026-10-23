@@ -7341,8 +7341,7 @@ function renderMenuPlannerDays() {
         ? `<div class="menu-combo-alert">⚠ Combo limit crossed (${comboStatus.scopeLabel}): Net carbs ${formatNutrientValue(comboStatus.totalNetCarbs, 'netcarbsG')} g and saturated fat ${formatNutrientValue(comboStatus.totalSatFat, 'satfatG')} g (limit is >${MENU_COMBO_NET_CARB_LIMIT_G} g with >${MENU_COMBO_SAT_FAT_LIMIT_G} g).</div>`
         : (comboStatus.near
           ? `<div class="menu-combo-alert near">⚠ Approaching combo limit (${comboStatus.scopeLabel}): Net carbs ${formatNutrientValue(comboStatus.totalNetCarbs, 'netcarbsG')} g and saturated fat ${formatNutrientValue(comboStatus.totalSatFat, 'satfatG')} g (near zone starts at ${formatNutrientValue(MENU_COMBO_NET_CARB_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'netcarbsG')} g + ${formatNutrientValue(MENU_COMBO_SAT_FAT_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'satfatG')} g).</div>`
-          : '')
-        : '';
+          : '');
       const itemHtml = items.length
         ? items.map((item) => {
             const caloriesTotal = (item.calories || 0) * item.servings;
