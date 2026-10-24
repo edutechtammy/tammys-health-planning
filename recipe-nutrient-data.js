@@ -1,7 +1,7 @@
 window.RECIPE_PANEL_NUTRIENTS = {
-  
+
   // -------------------------------------------------------
-  
+
   "recipe-low-carb-velvet-egg-drop-soup.html": {
     "calories": {
       "display": "~80 kcal",
@@ -176,7 +176,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "unit": "mcg",
       "name": "Folate — MTHFR",
       "estimated": false
-      },
+    },
     "b12Mcg": {
       "display": "~0 ug",
       "value": 0,
@@ -185,11 +185,11 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "estimated": false
     },
     "viscousFiberG": {
-    "display": "~2.5 g",
-    "value": 2.5,
-    "unit": "g",
-    "name": "grams — per serving",
-    "estimated": false
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     },
     "proteinG": {
       "display": "~3.5 g",
@@ -985,7 +985,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
 
-// ------------------------------------
+  // ------------------------------------
 
 
   "recipe-ladenia.html": {
@@ -1090,7 +1090,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
 
-// ------------------------------------
+  // ------------------------------------
 
 
   "recipe-crispy-roasted-chickpea-feta-mediterranean-bowl.html": {
@@ -1196,7 +1196,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
 
 
-// ------------------------------------
+  // ------------------------------------
 
 
   "recipe-creamy-mediterranean-red-lentil-tomato-soup.html": {
@@ -1329,7 +1329,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
 
-// ------------------------------------
+  // ------------------------------------
 
 
   "recipe-tuscan-white-beans-garlic-rosemary-olive-oil.html": {
@@ -1442,7 +1442,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
   },
 
 
-// -------------------------------------------------
+  // -------------------------------------------------
 
 
   "recipe-greek-lemon-herb-roasted-potatoes.html": {
@@ -1781,7 +1781,7 @@ window.RECIPE_PANEL_NUTRIENTS = {
 
   // ---
 
-  
+
   "recipe-dressing-mediterranean-classic.html": {
     "choline": {
       "display": "~0.5 mg",
@@ -9407,39 +9407,25 @@ window.RECIPE_PANEL_NUTRIENTS = {
     }
   },
   "recipe-sugar-shift-yogurt.html": {
-    "choline": {
-      "display": "~35 mg",
-      "value": 35.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~150–250 mg",
-      "value": 200.0,
-      "unit": "mg",
-      "name": "Omega-3 (ALA/marine-support) — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~12 µg",
-      "value": 12.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~1.1 ug",
-      "value": 1.1,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
-      "display": "~80 kcal",
-      "value": 80,
+      "display": "~85 kcal",
+      "value": 85,
       "unit": "kcal",
       "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~3.3 g",
+      "value": 3.3,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "cholineMg": {
@@ -9456,6 +9442,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Omega-3 (ALA/marine-support) — supporting fatty liver + APOE4",
       "estimated": false
     },
+    "mufaG": {
+      "display": "~0.7 g",
+      "value": 0.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "folateMcg": {
       "display": "~12 µg",
       "value": 12,
@@ -9468,6 +9461,20 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 1.1,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~8.3 g",
+      "value": 8.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "glycemic": {
