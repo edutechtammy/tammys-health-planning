@@ -1,0 +1,80 @@
+{
+    "images": [
+        {
+            "file": "00-why.jpg",
+            "caption": "Weighted Crunches"
+        },
+        {
+            "file": "01-bentover-dumbbell-row.jpg",
+            "caption": "Bentover Dumbbell Row"
+        },
+        {
+            "file": "01-dumbbell-goblet-squat.jpg",
+            "caption": "Dumbbell Goblet Squat."
+        },
+        {
+            "file": "01-russian-twist.jpg",
+            "caption": "Russian Twist"
+        },
+        {
+            "file": "01-stage-1.png",
+            "caption": "Arm training but with back protection."
+        },
+        {
+            "file": "01-weighted-crunches.jpg",
+            "caption": "Weighted Crunches"
+        },
+        {
+            "file": "02-weighted-vest.jpeg",
+            "caption": "Weighted Vest"
+        },
+        {
+            "file": "chair-squats.png",
+            "caption": "Chair squat form guide."
+        },
+        {
+            "file": "glute-bridge.png",
+            "caption": "Glute bridge setup and movement pattern."
+        },
+        {
+            "file": "step-up.png",
+            "caption": "Step-up movement for legs and balance."
+        },
+        {
+            "file": "wall-push-ups.png",
+            "caption": "Wall push-up positioning and progression."
+        },
+        {
+            "file": "hip-hinge.png",
+            "caption": "Hip hinge mechanics for posterior-chain training."
+        },
+        {
+            "file": "calf-raise.png",
+            "caption": "Calf raise movement for ankle and lower-leg strength."
+        },
+        {
+            "file": "resistance-band-row.png",
+            "caption": "Resistance band row for back-muscle recruitment."
+        },
+        {
+            "file": "dead-bug.png",
+            "caption": "Dead bug core-stability pattern."
+        },
+        {
+            "file": "weekly-schedule.jpg",
+            "caption": "Weekly exercise schedule visual."
+        },
+        {
+            "file": "weight-calculation.png",
+            "caption": "Method to set the weight that is targeted."
+        },
+        {
+            "file": "weight-pace.png",
+            "caption": "Pace for onboarding your muscle. ligament, and tendons to weights."
+        },
+        {
+            "file": "03-weighted-vest.jpg",
+            "caption": "Effects of weighted vest on glucose and muscle mass."
+        }
+    ]
+}

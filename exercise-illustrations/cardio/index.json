@@ -1,0 +1,33 @@
+{
+    "images": [
+        {
+            "file": "activity-to-muscle.jpg",
+            "caption": "Study results measuring activity to muscle (not counting breakdown)."
+        },
+        {
+            "file": "cgm-Dawn-Effect-Walk guide.png",
+            "caption": "Dawn effect walking guide visual."
+        },
+        {
+            "file": "cgm-night-before-walk.png",
+            "caption": "Data from exercising the night before"
+        },
+        {
+            "file": "cgm-morning-walk.png",
+            "caption": "Data from no food but walking in the morning test on the Dawn Phenomenon"
+        },
+        {
+            "file": "sun-vs-indoor.jpg",
+            "caption": "A randomized crossover study comparing the blood glucose effects of equivalent walks - same duration, same pace, same individual - in a natural environment (tree coverage dependent) versus on a treadmill in an indoor gym setting found that the nature walk produced significantly greater reductions in blood glucose (23%), cortisol, and diabetes distress scores than the treadmill walk at identical physical exertion, confirming that the natural environment adds a measurable biological benefit beyond the exercise itself. One nature walk weekly in a park or woodland with tree coverage substituted for one standard exercise session adds this cortisol suppression benefit to the standard exercise benefit."
+        },
+        {
+            "file": "treadmill-glucose.png",
+            "caption": "Walking speed to glucose burn for 30-minutes duration."
+        },
+        {
+            "file": "walk-speed-glucose-burn.jpg",
+            "caption": "Walking speed to glucose burn for 30-minutes duration."
+        }
+        
+    ]
+}
