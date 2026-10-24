@@ -1200,34 +1200,6 @@ window.RECIPE_PANEL_NUTRIENTS = {
 
 
   "recipe-creamy-mediterranean-red-lentil-tomato-soup.html": {
-    "choline": {
-      "display": "~40 mg",
-      "value": 40.0,
-      "unit": "mg",
-      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
-      "estimated": false
-    },
-    "omega3": {
-      "display": "~90 mg",
-      "value": 90.0,
-      "unit": "mg",
-      "name": "Omega-3 — supporting fatty liver + APOE4",
-      "estimated": false
-    },
-    "folate": {
-      "display": "~130 ug",
-      "value": 130.0,
-      "unit": "mcg",
-      "name": "Folate — MTHFR",
-      "estimated": false
-    },
-    "b12": {
-      "display": "~0 ug",
-      "value": 0.0,
-      "unit": "mcg",
-      "name": "B12 — MTHFR",
-      "estimated": false
-    },
     "calories": {
       "display": "~180 kcal",
       "value": 180,
