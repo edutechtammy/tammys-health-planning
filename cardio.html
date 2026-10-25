@@ -21,21 +21,30 @@
     header p{max-width:760px;margin:0 auto;font-size:1rem;opacity:.9}
     main{max-width:1000px;margin:0 auto;padding:2rem 1.2rem 4rem}
     .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1rem 0 2rem}
+
     .panel{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+
     .panel-header{padding:1rem 1.2rem;background:var(--green-pale);border-bottom:1px solid var(--border);font-weight:800;color:var(--green-dark)}
+
     .panel-body{padding:1rem 1.2rem}
+
     .callout{padding:.9rem 1rem;border-left:4px solid var(--green-mid);background:var(--green-pale);border-radius:10px;margin:0 0 1rem}
+
     .callout strong{display:block;margin-bottom:.3rem}
+
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
     ul.ref{padding-left:1.3rem;margin:.8rem 0}
     ul.ref li{margin:.35rem 0;font-size:.96rem}
+
     .chip-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
     .chip{display:inline-block;padding:.2rem .6rem;border-radius:999px;background:#e0f7fa;color:var(--sky-dark);font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
     .table-wrap{overflow-x:auto}
+
     table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
     th,td{padding:.6rem .75rem;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
     th{background:var(--green-dark);color:#fff}
     tr:nth-child(even) td{background:#f7fbf8}
+
     .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.5rem;margin:1rem 0}
     .day-card{padding:.7rem .45rem;border-radius:10px;text-align:center;font-size:.76rem;border:1px solid var(--border);line-height:1.4}
     .day-cardio{background:#d8f3dc;border-color:var(--green-light)}
@@ -157,6 +166,105 @@
   </header>
 
   <main>
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Sample weekly rhythm</div>
+      <div class="panel-body">
+        <div class="week-grid">
+          <div class="day-card day-cardio"><strong>Mon</strong><br>Zone 2</div>
+          <div class="day-card day-rest"><strong>Tue</strong><br>Recovery</div>
+          <div class="day-card day-both"><strong>Wed</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Thu</strong><br>Rest</div>
+          <div class="day-card day-cardio"><strong>Fri</strong><br>Zone 2</div>
+          <div class="day-card day-both"><strong>Sat</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Sun</strong><br>Walk / recovery</div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- ======================================================================= -->
+  <!-- MARK:                    WEEKLY SCHEDULE                                -->
+  <!-- ======================================================================= -->
+  
+  
+  <!-- WEEKLY SCHEDULE -->
+  <div class="section band-purple" id="sec-schedule">
+    <div class="section-header" onclick="toggle('sec-schedule')">
+      <span class="icon">📅</span>
+      <h2>Weekly Schedule Template</h2>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <p style="margin-bottom:.85rem;font-size:.93rem">This template combines Zone 2 cardio 4–5 days/week with resistance training 3 days/week. Resistance and Zone 2 can be done in the same session (cardio first, resistance after) or split morning/evening. The after-dinner walk is in addition to the main sessions and can be as simple as a 10-minute neighborhood walk.</p>
+
+      <div class="week-grid">
+        <div class="day-card day-both">
+          <div class="day-label">Mon</div>
+          <strong>Zone 2</strong><br>25–30 min<br>+<br><strong>Resistance</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:#78350f">After dinner: 10 min walk</div>
+        </div>
+        <div class="day-card day-cardio">
+          <div class="day-label">Tue</div>
+          <strong>Zone 2</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:var(--green-dark)">After dinner: 10–15 min walk</div>
+        </div>
+        <div class="day-card day-both">
+          <div class="day-label">Wed</div>
+          <strong>Zone 2</strong><br>25–30 min<br>+<br><strong>Resistance</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:#78350f">After dinner: 10 min walk</div>
+        </div>
+        <div class="day-card day-rest">
+          <div class="day-label">Thu</div>
+          <strong>Rest</strong><br>or gentle<br>walk only
+        </div>
+        <div class="day-card day-both">
+          <div class="day-label">Fri</div>
+          <strong>Zone 2</strong><br>25–30 min<br>+<br><strong>Resistance</strong><br>25–30 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:#78350f">After dinner: 10 min walk</div>
+        </div>
+        <div class="day-card day-cardio">
+          <div class="day-label">Sat</div>
+          <strong>Zone 2</strong><br>30–40 min<br>
+          <div style="font-size:.7rem;margin-top:.3rem;color:var(--green-dark)">After dinner: 15 min walk</div>
+        </div>
+        <div class="day-card day-rest">
+          <div class="day-label">Sun</div>
+          <strong>Rest</strong><br>or gentle<br>walk only
+        </div>
+      </div>
+      
+      <br>
+      <p>-------------------------------------------------</p>
+      <br>
+
+
+      <div class="two-col" style="margin-top:1rem">
+        <div class="callout callout-green">
+          <strong>Week 1–2 — lower volume version</strong>
+          Zone 2: 15–20 min only.<br>
+          Resistance: 2 days only (Mon + Fri).<br>
+          After-dinner walk: every day.<br>
+          Priority: establishing the habit and finding your Zone 2 speed. Do not push duration until form and breathing feel natural.
+        </div>
+        <div class="callout callout-amber">
+          <strong>When the weight system is not yet available</strong>
+          Run the full bodyweight protocol on the 3 resistance days. Add the resistance band row as a priority — it covers the back muscles that bodyweight cannot reach. Once the weight system arrives, slot in the dumbbell exercises using the same day structure.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <p>-------------------------------------------------</p>
+  <br>
+
+  <img src="exercise-illustrations/weekly-schedule.jpg" alt="Weekly Schedule" />
+  
+  <br>
+  <p>-------------------------------------------------</p>
+  <br>
+
     <div class="callout">
       <strong>Core idea</strong>
       Zone 2 cardio creates the metabolic signal that helps muscle absorb and burn excess glucose and fat. It is not “cardio for fitness” in the usual sense — it is a recovery and metabolic reset tool that supports the liver and insulin-resistant tissues.
@@ -243,20 +351,7 @@
       </div>
     </div>
 
-    <div class="panel" style="margin-top:1.5rem">
-      <div class="panel-header">Sample weekly rhythm</div>
-      <div class="panel-body">
-        <div class="week-grid">
-          <div class="day-card day-cardio"><strong>Mon</strong><br>Zone 2</div>
-          <div class="day-card day-rest"><strong>Tue</strong><br>Recovery</div>
-          <div class="day-card day-both"><strong>Wed</strong><br>Zone 2 + Resistance</div>
-          <div class="day-card day-rest"><strong>Thu</strong><br>Rest</div>
-          <div class="day-card day-cardio"><strong>Fri</strong><br>Zone 2</div>
-          <div class="day-card day-both"><strong>Sat</strong><br>Zone 2 + Resistance</div>
-          <div class="day-card day-rest"><strong>Sun</strong><br>Walk / recovery</div>
-        </div>
-      </div>
-    </div>
+    
 
     <div class="panel" style="margin-top:1.5rem">
       <div class="panel-header">Mechanism summary</div>

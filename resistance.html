@@ -72,6 +72,22 @@
     .btn{padding:.55rem .9rem;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green-dark);font:inherit;font-weight:700;text-decoration:none}
     .btn.primary{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
     @media(max-width:760px){.exercise-meta{grid-template-columns:1fr}}
+
+
+    .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.5rem;margin:1rem 0}
+    .day-card{padding:.7rem .45rem;border-radius:10px;text-align:center;font-size:.76rem;border:1px solid var(--border);line-height:1.4}
+    .day-cardio{background:#d8f3dc;border-color:var(--green-light)}
+    .day-resist{background:#e0f7fa;border-color:var(--sky)}
+    .day-both{background:#fff8e1;border-color:var(--amber)}
+    .day-rest{background:#f8f9fa;border-color:#dfe3e8;color:var(--muted)}
+    .btn-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+    .btn{padding:.55rem .9rem;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green-dark);font:inherit;font-weight:700;text-decoration:none}
+    .btn.primary{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
+    @media(max-width:700px){.two-col{grid-template-columns:1fr}.week-grid{grid-template-columns:repeat(4,1fr)}}
+
+
+
+
   </style>
 </head>
 <body>
@@ -98,6 +114,24 @@
   </header>
 
   <main>
+
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Sample weekly rhythm</div>
+      <div class="panel-body">
+        <div class="week-grid">
+          <div class="day-card day-cardio"><strong>Mon</strong><br>Zone 2</div>
+          <div class="day-card day-rest"><strong>Tue</strong><br>Recovery</div>
+          <div class="day-card day-both"><strong>Wed</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Thu</strong><br>Rest</div>
+          <div class="day-card day-cardio"><strong>Fri</strong><br>Zone 2</div>
+          <div class="day-card day-both"><strong>Sat</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Sun</strong><br>Walk / recovery</div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
     <div class="callout">
       <strong>The principle</strong>
       More muscle mass creates a larger metabolic sink, and that matters for fatty liver, post-meal glucose, and triglyceride handling. Resistance work is the structural fix that supports everything else.
