@@ -317,9 +317,11 @@
     .menu-total-fill.low { background: linear-gradient(90deg, #f59e0b, #d97706); }
     .menu-total-fill.over { background: linear-gradient(90deg, #ef4444, #b91c1c); }
     .menu-total-fill.missing { background: linear-gradient(90deg, #d1d5db, #9ca3af); }
-    .menu-plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: .65rem; }
-    .menu-day-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; }
+    .menu-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+    @media (max-width: 760px) { .menu-plan-grid { grid-template-columns: 1fr; } }
+    .menu-day-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
     .menu-day-head { background: #f0faf2; border-bottom: 1px solid var(--border); padding: .5rem .65rem; }
+    .menu-day-summary { margin: .65rem .65rem .25rem; }
     .menu-day-head h4 { font-size: .84rem; color: var(--green-dark); }
     .menu-day-meals { padding: .58rem .65rem .65rem; display: flex; flex-direction: column; gap: .48rem; }
     .menu-meal-block h5 { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .16rem; }
@@ -577,10 +579,6 @@
       <!--             DAILY GOALS             -->
       <!--             DAILY GOALS             -->
               
-      <p><strong>Daily Goals</strong></p>
-
-      <div class="menu-planner-totals" id="menu-planner-daily-totals"></div>
-
 <!--        MENU PLANNER CONTROLS         -->
       <!--        MENU PLANNER CONTROLS         -->
       <!--        MENU PLANNER CONTROLS         -->
@@ -7272,77 +7270,79 @@ function savePlannerItemFromEdit(planId, panel) {
   renderMenuPlanner();
 }
 
+function buildDayTotalsMarkup(day) {
+  const dayAggregate = getDayAggregate(day);
+  const totals = dayAggregate.totals;
+  const dailyCalories = dayAggregate.caloriesTotal;
+  const hasCalorieData = dayAggregate.hasData.calories;
+  const calorieTarget = getCalorieTarget();
+  const calorieProgress = Math.min((dailyCalories / calorieTarget) * 100, 100);
+  const calorieClass = !hasCalorieData
+    ? 'menu-total-missing'
+    : (dailyCalories <= calorieTarget ? 'menu-total-ok' : 'menu-total-over');
+  const calorieText = !hasCalorieData
+    ? `Calories: Missing / ${formatCalorieValue(calorieTarget)} kcal`
+    : dailyCalories <= calorieTarget
+    ? `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal`
+    : `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal (${formatCalorieValue(dailyCalories - calorieTarget)} over)`;
+  const calorieDisplay = !hasCalorieData
+    ? `Missing / ${formatCalorieValue(calorieTarget)} kcal`
+    : `${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal`;
+
+  const lineHtml = [
+    `<div class="menu-total-row">
+       <div class="menu-total-head">
+         <span class="menu-total-label ${calorieClass}">Calories</span>
+         <span class="${calorieClass}">${calorieDisplay}</span>
+       </div>
+       <div class="menu-total-bar" aria-label="${calorieText}">
+         <div class="menu-total-fill ${!hasCalorieData ? 'missing' : (dailyCalories > calorieTarget ? 'over' : 'ok')}" style="width: ${!hasCalorieData ? 0 : Math.min(calorieProgress, 100)}%"></div>
+       </div>
+     </div>`,
+    ...MENU_PLANNER_NUTRIENTS.map((nutrient) => {
+      const value = Number(totals[nutrient.key] || 0);
+      const target = Number(nutrient.target || 0);
+      const percentage = target > 0 ? Math.min((value / target) * 100, 100) : 0;
+      const hasData = dayAggregate.hasData[nutrient.key];
+      const ok = nutrient.limit ? value <= target : value >= target;
+      const textClass = !hasData
+        ? 'menu-total-missing'
+        : nutrient.limit
+        ? (value > target ? 'menu-total-over' : 'menu-total-ok')
+        : (ok ? 'menu-total-ok' : 'menu-total-low');
+      const fillClass = !hasData
+        ? 'missing'
+        : nutrient.limit
+        ? (value > target ? 'over' : 'ok')
+        : (ok ? 'ok' : 'low');
+      const displayValue = hasData
+        ? `${formatNutrientValue(value, nutrient.key)} / ${formatNutrientValue(target, nutrient.key)} ${nutrient.unit}`
+        : `Missing / ${formatNutrientValue(target, nutrient.key)} ${nutrient.unit}`;
+      return `<div class="menu-total-row">
+        <div class="menu-total-head">
+          <span class="menu-total-label ${textClass}">${nutrient.label}</span>
+          <span class="${textClass}">${displayValue}</span>
+        </div>
+        <div class="menu-total-bar" aria-label="${nutrient.label}: ${displayValue}">
+          <div class="menu-total-fill ${fillClass}" style="width: ${hasData ? percentage : 0}%"></div>
+        </div>
+      </div>`;
+    })
+  ].join('');
+
+  return `
+    <div class="menu-total-card menu-day-summary">
+      <h4>Daily Goals</h4>
+      <div class="menu-total-lines">${lineHtml}</div>
+    </div>
+  `;
+}
+
 function renderMenuPlannerTotals() {
   const host = document.getElementById('menu-planner-daily-totals');
   if (!host) return;
 
-  host.innerHTML = MENU_PLANNER_DAYS.map((day) => {
-    const dayAggregate = getDayAggregate(day);
-    const totals = dayAggregate.totals;
-    const dailyCalories = dayAggregate.caloriesTotal;
-    const hasCalorieData = dayAggregate.hasData.calories;
-    const calorieTarget = getCalorieTarget();
-    const calorieProgress = Math.min((dailyCalories / calorieTarget) * 100, 100);
-    const calorieClass = !hasCalorieData
-      ? 'menu-total-missing'
-      : (dailyCalories <= calorieTarget ? 'menu-total-ok' : 'menu-total-over');
-    const calorieText = !hasCalorieData
-      ? `Calories: Missing / ${formatCalorieValue(calorieTarget)} kcal`
-      : dailyCalories <= calorieTarget
-      ? `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal`
-      : `Calories: ${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal (${formatCalorieValue(dailyCalories - calorieTarget)} over)`;
-    const calorieDisplay = !hasCalorieData
-      ? `Missing / ${formatCalorieValue(calorieTarget)} kcal`
-      : `${formatCalorieValue(dailyCalories)} / ${formatCalorieValue(calorieTarget)} kcal`;
-
-    const lineHtml = [
-      `<div class="menu-total-row">
-         <div class="menu-total-head">
-           <span class="menu-total-label ${calorieClass}">Calories</span>
-           <span class="${calorieClass}">${calorieDisplay}</span>
-         </div>
-         <div class="menu-total-bar" aria-label="${calorieText}">
-           <div class="menu-total-fill ${!hasCalorieData ? 'missing' : (dailyCalories > calorieTarget ? 'over' : 'ok')}" style="width: ${!hasCalorieData ? 0 : Math.min(calorieProgress, 100)}%"></div>
-         </div>
-       </div>`,
-      ...MENU_PLANNER_NUTRIENTS.map((nutrient) => {
-        const value = Number(totals[nutrient.key] || 0);
-        const target = Number(nutrient.target || 0);
-        const percentage = target > 0 ? Math.min((value / target) * 100, 100) : 0;
-        const hasData = dayAggregate.hasData[nutrient.key];
-        const ok = nutrient.limit ? value <= target : value >= target;
-        const textClass = !hasData
-          ? 'menu-total-missing'
-          : nutrient.limit
-          ? (value > target ? 'menu-total-over' : 'menu-total-ok')
-          : (ok ? 'menu-total-ok' : 'menu-total-low');
-        const fillClass = !hasData
-          ? 'missing'
-          : nutrient.limit
-          ? (value > target ? 'over' : 'ok')
-          : (ok ? 'ok' : 'low');
-        const displayValue = hasData
-          ? `${formatNutrientValue(value, nutrient.key)} / ${formatNutrientValue(target, nutrient.key)} ${nutrient.unit}`
-          : `Missing / ${formatNutrientValue(target, nutrient.key)} ${nutrient.unit}`;
-        return `<div class="menu-total-row">
-          <div class="menu-total-head">
-            <span class="menu-total-label ${textClass}">${nutrient.label}</span>
-            <span class="${textClass}">${displayValue}</span>
-          </div>
-          <div class="menu-total-bar" aria-label="${nutrient.label}: ${displayValue}">
-            <div class="menu-total-fill ${fillClass}" style="width: ${hasData ? percentage : 0}%"></div>
-          </div>
-        </div>`;
-      })
-    ].join('');
-
-    return `
-      <div class="menu-total-card">
-        <h4>${formatWeekDayLabel(menuPlannerState.weekStart, day)}</h4>
-        <div class="menu-total-lines">${lineHtml}</div>
-      </div>
-    `;
-  }).join('');
+  host.innerHTML = MENU_PLANNER_DAYS.map((day) => buildDayTotalsMarkup(day)).join('');
 }
 
 function buildPlannerDayOptions(selected) {
@@ -7488,6 +7488,7 @@ function renderMenuPlannerDays() {
     return `
       <article class="menu-day-card" data-day="${day}">
         <div class="menu-day-head"><h4>${formatWeekDayLabel(menuPlannerState.weekStart, day)}</h4></div>
+        ${buildDayTotalsMarkup(day)}
         <div class="menu-day-meals">${mealHtml}</div>
       </article>
     `;
