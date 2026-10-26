@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulator Development</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #2d6a4f;
+      --green-mid: #40916c;
+      --green-light: #d8f3dc;
+      --green-pale: #f0faf2;
+      --border: #b7ddc4;
+      --text: #1e2d24;
+      --muted: #5a7263;
+      --card-shadow: 0 2px 14px rgba(45,106,79,.11);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--green-pale);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 4rem;
+    }
+
+    nav {
+      background: var(--green-dark);
+      padding: .75rem 1.5rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      opacity: .85;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+
+    nav a:hover,
+    nav a.active {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1.2rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      color: var(--green-dark);
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: .45rem;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .page {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h2 {
+      color: var(--green-dark);
+      font-size: 1.05rem;
+      margin-bottom: .65rem;
+    }
+
+    .video-wrap {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-wrap video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 72vh;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="health-tracker.html">📈 Health Tracker</a>
+  <a href="lab-tracker.html">🧪 Lab Results</a>
+  <a href="recipes.html">👩‍🍳 Recipes</a>
+  <a href="food-response-testing.html">🍽️ Food Testing</a>
+  <a href="dawn-effect.html">🌅 Dawn Effect</a>
+  <a href="genetics.html">🧬 Genetics</a>
+  <a href="health-reference.html">📋 Reference</a>
+  <a href="supplement-timing.html">💊 Supplements</a>
+  <a href="cardio.html">🏃 Cardio</a>
+  <a href="resistance.html">💪 Resistance</a>
+  <a href="cgm-tracker.html">📡 CGM</a>
+  <a href="daily-weight-tracker.html">⚖️ Weight</a>
+  <a href="diet-power.html">🥣 Diet Power</a>
+  <a href="simulator-development.html" class="active">🧪 Simulator Development</a>
+</nav>
+
+<header>
+  <h1>🧪 Simulator Development</h1>
+  <p>Temporary sandbox for designing an interactive visual model where glucose test outcomes can be adjusted by physiological factors, including adding or subtracting the liver dawn-phenomenon influence.</p>
+</header>
+
+<main class="page">
+  <section class="card">
+    <h2>Inspiration Video</h2>
+    <div class="video-wrap">
+      <video controls preload="metadata">
+        <source src="simulation-media/blood%20sugar%20simulator.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Purpose (Temporary)</h2>
+    <p>
+      This page is a focused working area to prototype an interactive simulation experience.
+      The goal is to visually manipulate food test data by applying variable offsets, such as the
+      liver dawn phenomenon, so we can test design ideas before integrating them into the main trackers.
+    </p>
+  </section>
+</main>
+<script>
+/**
+* Calculates the estimated hepatic baseline (dawn phenomenon drift) 
+ * for a given time of day, based on fasting observations (peaking around 11:00 AM).
+ * 
+ * @param {string} timeString - Time in format like "7:46 AM" or "1:30 PM"
+ * @returns {number} Estimated hepatic glucose contribution (mg/dL)
+ */
+function getHepaticBaseline(timeString) {
+    // 1. Convert time string to decimal hours from midnight (e.g., 7:46 AM -> 7.76)
+    const [time, modifier] = timeString.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    
+    if (modifier === 'PM' && hours < 12) hours += 12;
+    if (modifier === 'AM' && hours === 12) hours = 0;
+    
+    const decimalHours = hours + (minutes / 60.0);
+    
+    // 2. Model the dawn phenomenon drift curve
+    // Rising phase from 4:00 AM (4.0) to 11:00 AM (11.0)
+    if (decimalHours >= 4.0 && decimalHours <= 11.0) {
+        let progress = (decimalHours - 4.0) / 7.0;
+        // Smooth-step curve rising from 60 mg/dL baseline up to 123 mg/dL peak
+        return 60 + 63 * (3 * Math.pow(progress, 2) - 2 * Math.pow(progress, 3));
+    } 
+    // Descending phase after 11:00 AM peak
+    else if (decimalHours > 11.0 && decimalHours < 20.0) {
+        let hoursPast = decimalHours - 11.0;
+        return Math.max(80, 123 - (hoursPast * 4.0));
+    } 
+    // Nighttime baseline
+    else {
+        return 60;
+    }
+}
+
+/**
+ * Calculates the net food response by subtracting the estimated hepatic vector
+ * from the actual CGM readings at each time point.
+ * 
+ * @param {string} baselineTimeStr - e.g., "7:46 AM"
+ * @param {Object} readings - { baseline: 111, t30: 118, t60: 131, t120: 114 }
+ * @returns {Object} Net corrected spikes above the liver's current
+ */
+function calculateNetFoodResponse(baselineTimeStr, readings) {
+    const hepaticBaseline = getHepaticBaseline(baselineTimeStr);
+    
+    // Net impact removes the background liver drift
+    return {
+        hepaticVector: Math.round(hepaticBaseline),
+        netBaseline: Math.max(0, readings.baseline - hepaticBaseline),
+        netT30: readings.t30 ? Math.max(0, readings.t30 - (hepaticBaseline + 5)) : null,   // small time progression offset
+        netT60: readings.t60 ? Math.max(0, readings.t60 - (hepaticBaseline + 10)) : null, // small time progression offset
+        netT120: readings.t120 ? Math.max(0, readings.t120 - (hepaticBaseline + 15)) : null
+    };
+}</script>
+</body>
+</html>
