@@ -101,6 +101,10 @@
     .recipe-target-fill.goal-missing { background: linear-gradient(90deg, #d1d5db, #9ca3af); }
     .drink-warning { display: inline-flex; align-items: center; align-self: flex-start; border-radius: 999px; padding: .2rem .7rem; background: #fff1f2; border: 1px solid #fecdd3; color: #9f1239; font-size: .68rem; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
     .recipe-card-footer { padding: .85rem 1.2rem; border-top: 1px solid var(--green-light); display: flex; gap: .6rem; flex-wrap: wrap; }
+    .recipe-pin-btn { border: 1.5px solid var(--green-mid); background: #fff; color: var(--green-dark); border-radius: 8px; padding: .42rem .75rem; font-size: .8rem; font-weight: 700; cursor: pointer; transition: all .15s; }
+    .recipe-pin-btn:hover { background: var(--green-pale); }
+    .recipe-pin-btn.pinned { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+    .recipe-card[data-pinned="true"] { border-color: var(--green-mid); box-shadow: 0 4px 16px rgba(45,106,79,.18); }
 
     /* PANTRY FILTER PANEL */
     .pantry-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
@@ -248,13 +252,13 @@
     .mb-progress-fill { height: 100%; background: var(--green-dark); border-radius: 20px; transition: width .3s ease; }
 
     /* MENU Planning */
-    .menu-planning-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
-    .menu-planning-header { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); color: #fff; padding: .9rem 1.2rem; }
+    .menu-planning-panel { background: #fdfee7; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 2.2rem; overflow: hidden; }
+    .menu-planning-header { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); color: #fff; padding: 2rem 2rem; }
     .menu-planning-header h2 { font-size: 1rem; }
-    .menu-planning-header p { margin-top: .3rem; font-size: .83rem; color: rgba(255,255,255,.9); }
-    .menu-planning-body { padding: 1rem 1.2rem 1.1rem; }
-    .menu-planner-controls { display: flex; flex-wrap: wrap; gap: .55rem .7rem; align-items: flex-end; margin-bottom: .9rem; }
-    .menu-planner-field { display: flex; flex-direction: column; gap: .25rem; min-width: 130px; }
+    .menu-planning-header p { margin-top: 1rem; font-size: 1rem; color: rgba(255,255,255,.9); }
+    .menu-planning-body { padding: 2rem 2rem 2rem; }
+    .menu-planner-controls { display: flex; flex-wrap: wrap; gap: .55rem .7rem; align-items: flex-end; margin-bottom: 2rem; }
+    .menu-planner-field { display: flex; flex-direction: column; gap: 2rem; min-width: 130px; }
     .menu-planner-field label { font-size: .71rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 700; }
     .menu-planner-field input,
     .menu-planner-field select { border: 1.5px solid var(--border); border-radius: 8px; padding: .42rem .55rem; font-size: .82rem; color: var(--text); background: #fff; }
@@ -267,10 +271,10 @@
     .menu-planner-hint { font-size: .79rem; color: var(--muted); margin: 0 0 .7rem; line-height: 1.45; }
     .menu-duplicate-status { font-size: .72rem; color: var(--muted); min-height: 1.1rem; margin: 0 0 .75rem; }
     .menu-weekly-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .6rem; margin-bottom: .85rem; }
-    .menu-weekly-card { border: 1px solid var(--border); border-radius: 10px; padding: .65rem .75rem; background: linear-gradient(180deg, #f9fffa, #f2faf5); }
+    .menu-weekly-card { border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1rem; background: linear-gradient(180deg, #f9fffa, #f2faf5); }
     .menu-weekly-card h4 { font-size: .8rem; color: var(--green-dark); margin-bottom: .25rem; }
-    .menu-weekly-line { font-size: .75rem; color: var(--text); margin-bottom: .34rem; }
-    .menu-weekly-bar { height: 10px; border-radius: 999px; overflow: hidden; background: #d9efe0; margin-bottom: .34rem; }
+    .menu-weekly-line { font-size: .75rem; color: var(--text); margin-bottom: 1rem; }
+    .menu-weekly-bar { height: 10px; border-radius: 999px; overflow: hidden; background: #e1f8dd; margin-bottom: .34rem; }
     .menu-weekly-fill { height: 100%; background: var(--green-mid); transition: width .25s ease; }
     .menu-weekly-fill.low { background: #dc2626; }
     .menu-weekly-fill.mid { background: #f59e0b; }
@@ -317,21 +321,36 @@
     .menu-total-fill.low { background: linear-gradient(90deg, #f59e0b, #d97706); }
     .menu-total-fill.over { background: linear-gradient(90deg, #ef4444, #b91c1c); }
     .menu-total-fill.missing { background: linear-gradient(90deg, #d1d5db, #9ca3af); }
-    .menu-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+    .menu-plan-grid { display: grid; grid-template-columns: 1fr; gap: .65rem; }
     @media (max-width: 760px) { .menu-plan-grid { grid-template-columns: 1fr; } }
     .menu-day-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
     .menu-day-head { background: #f0faf2; border-bottom: 1px solid var(--border); padding: .5rem .65rem; }
     .menu-day-summary { margin: .65rem .65rem .25rem; }
     .menu-day-head h4 { font-size: .84rem; color: var(--green-dark); }
-    .menu-day-meals { padding: .58rem .65rem .65rem; display: flex; flex-direction: column; gap: .48rem; }
+    .menu-day-meals { padding: .58rem .65rem .65rem; display: flex; flex-direction: column; gap: 1rem; }
+    .menu-meal-block { border: 1px solid #dfeee2; border-radius: 12px; background: linear-gradient(180deg, #ffffff 0%, #f5faf7 100%); padding: .52rem; display: flex; flex-direction: column; gap: 1; box-shadow: 0 2px 8px rgba(22, 72, 44, 0.05); }
+    .menu-meal-block.combo-risk { border-color: #efb0a8; background: linear-gradient(180deg, #fff9f9 0%, #fff2f2 100%); }
+    .menu-meal-block.combo-near { border-color: #f5d58a; background: linear-gradient(180deg, #fffdf8 0%, #fff7eb 100%); }
     .menu-meal-block h5 { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: .16rem; }
+    .menu-meal-progress { margin: .18rem 0 .38rem; padding: .42rem .5rem; border-radius: 8px; background: #f8fbf9; border: 1px solid #dfeee2; }
+    .menu-meal-progress-row + .menu-meal-progress-row { margin-top: .36rem; }
+    .menu-meal-progress-label { display: flex; justify-content: space-between; align-items: center; gap: .5rem; font-size: .64rem; color: var(--muted); font-weight: 700; letter-spacing: .02em; text-transform: uppercase; margin-bottom: .18rem; }
+    .menu-meal-progress-label strong { color: var(--text); font-size: .66rem; letter-spacing: normal; text-transform: none; }
+    .menu-meal-progress-track { height: 8px; border-radius: 999px; overflow: hidden; background: #e7efe9; border: 1px solid #dfeee2; }
+    .menu-meal-progress-fill { height: 100%; border-radius: inherit; transition: width .2s ease; }
+    .menu-meal-progress-fill.ok { background: linear-gradient(90deg, #4ade80, #22c55e); }
+    .menu-meal-progress-fill.near { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+    .menu-meal-progress-fill.risk { background: linear-gradient(90deg, #fca5a5, #ef4444); }
+    .menu-meal-pair-group { border: 2px solid #cfe7d6; border-radius: 12px; background: linear-gradient(180deg, #f5fff8 0%, #edf9f0 100%); padding: .6rem; display: flex; flex-direction: column; gap: .48rem; box-shadow: 0 4px 12px rgba(24, 88, 57, 0.08), inset 0 1px 0 rgba(255,255,255,.8); }
+    .menu-meal-pair-header { display: flex; justify-content: space-between; align-items: center; font-size: .7rem; color: var(--green-dark); letter-spacing: .06em; text-transform: uppercase; font-weight: 800; padding: .12rem .2rem .1rem; }
+    .menu-meal-pair-body { display: flex; flex-direction: column; gap: .42rem; }
     .menu-meal-list { list-style: none; display: flex; flex-direction: column; gap: .22rem; }
     .menu-meal-item { border: 1px solid #d6eadc; border-radius: 8px; background: #f9fffa; padding: .38rem .45rem; font-size: .74rem; }
     .menu-meal-item.combo-risk { border-color: #efb0a8; background: #fff1f2; }
     .menu-meal-item.combo-near { border-color: #f5d58a; background: #fffbeb; }
     .menu-meal-block.combo-risk h5 { color: #9f1239; }
     .menu-meal-block.combo-near h5 { color: #9a4d00; }
-    .menu-combo-alert { margin: .14rem 0 .24rem; padding: .24rem .4rem; border-radius: 7px; border: 1px solid #fecaca; background: #fff1f2; color: #9f1239; font-size: .66rem; line-height: 1.35; font-weight: 700; }
+    .menu-combo-alert { margin: 0; padding: .3rem .44rem; border-radius: 8px; border: 1px solid #fecaca; background: #fff1f2; color: #9f1239; font-size: .66rem; line-height: 1.35; font-weight: 700; }
     .menu-combo-alert.near { border-color: #fcd49f; background: #fff7ed; color: #9a4d00; }
     .menu-meal-top { display: flex; flex-direction: column; gap: .32rem; align-items: stretch; }
     .menu-meal-name { display: block; width: 100%; color: var(--text); font-weight: 600; line-height: 1.4; word-break: break-word; }
@@ -5540,6 +5559,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Roasted Asparagus — EVOO, Garlic & Lemon',
     'Marinated Olive Salad',
     'Mediterranean Chop Chop Salad',
+    'Spinach (10g fresh/raw serving)',
     'Greek Lemon Herb Roasted Potatoes (Patates Lemonates)'
   ],
   fruit: [
@@ -5624,7 +5644,8 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Bone Broth Soup Base — Master Recipe',
     'Low-Carb Velvet Egg Drop Soup (Starch-Free)',
     'Creamy Mediterranean Red Lentil & Tomato Soup',
-    'Tuscan White Beans with Garlic, Rosemary & Olive Oil'
+    'Tuscan White Beans with Garlic, Rosemary & Olive Oil',
+    'Campbell\'s Mediterranean Lentil Soup'
   ],
   snacks: [
     'Kidney-Safe Trail Mix (GF)',
@@ -7366,9 +7387,289 @@ function renderMenuPlannerDays() {
       MENU_PLANNER_MEALS.map((meal) => [meal.key, getPlannerItemsForDayMeal(day, meal.key)])
     );
 
+    const hasPairedAppetizerDinner = (itemsByMeal.appetizer || []).length > 0 && (itemsByMeal.dinner || []).length > 0;
+
+    if (hasPairedAppetizerDinner) {
+      const pairStatus = getMealComboStatus(day, 'appetizer', itemsByMeal);
+      const pairAlert = pairStatus.exceeds
+        ? `<div class="menu-combo-alert">⚠ Combo limit crossed (${pairStatus.scopeLabel}): Net carbs ${formatNutrientValue(pairStatus.totalNetCarbs, 'netcarbsG')} g and saturated fat ${formatNutrientValue(pairStatus.totalSatFat, 'satfatG')} g (limit is >${MENU_COMBO_NET_CARB_LIMIT_G} g with >${MENU_COMBO_SAT_FAT_LIMIT_G} g).</div>`
+        : (pairStatus.near
+          ? `<div class="menu-combo-alert near">⚠ Approaching combo limit (${pairStatus.scopeLabel}): Net carbs ${formatNutrientValue(pairStatus.totalNetCarbs, 'netcarbsG')} g and saturated fat ${formatNutrientValue(pairStatus.totalSatFat, 'satfatG')} g (near zone starts at ${formatNutrientValue(MENU_COMBO_NET_CARB_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'netcarbsG')} g + ${formatNutrientValue(MENU_COMBO_SAT_FAT_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'satfatG')} g).</div>`
+          : '');
+      const satBarWidth = pairStatus.hasData ? Math.min((pairStatus.totalSatFat / MENU_COMBO_SAT_FAT_LIMIT_G) * 100, 100) : 0;
+      const carbBarWidth = pairStatus.hasData ? Math.min((pairStatus.totalNetCarbs / MENU_COMBO_NET_CARB_LIMIT_G) * 100, 100) : 0;
+      const satBarTone = pairStatus.exceeds ? 'risk' : (pairStatus.near ? 'near' : 'ok');
+      const carbBarTone = pairStatus.exceeds ? 'risk' : (pairStatus.near ? 'near' : 'ok');
+      const pairProgress = `
+        <div class="menu-meal-progress">
+          <div class="menu-meal-progress-row">
+            <div class="menu-meal-progress-label">
+              <span>Saturated Fat</span>
+              <strong>${formatNutrientValue(pairStatus.totalSatFat, 'satfatG')} / ${MENU_COMBO_SAT_FAT_LIMIT_G} g</strong>
+            </div>
+            <div class="menu-meal-progress-track">
+              <div class="menu-meal-progress-fill ${satBarTone}" style="width: ${satBarWidth}%"></div>
+            </div>
+          </div>
+          <div class="menu-meal-progress-row">
+            <div class="menu-meal-progress-label">
+              <span>Net Carbs</span>
+              <strong>${formatNutrientValue(pairStatus.totalNetCarbs, 'netcarbsG')} / ${MENU_COMBO_NET_CARB_LIMIT_G} g</strong>
+            </div>
+            <div class="menu-meal-progress-track">
+              <div class="menu-meal-progress-fill ${carbBarTone}" style="width: ${carbBarWidth}%"></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const pairedSections = ['appetizer', 'dinner'].map((mealKey) => {
+        const meal = MENU_PLANNER_MEALS.find((entry) => entry.key === mealKey);
+        if (!meal) return '';
+        const items = itemsByMeal[mealKey] || [];
+        const mealBlockClass = pairStatus.exceeds
+          ? 'menu-meal-block combo-risk'
+          : (pairStatus.near ? 'menu-meal-block combo-near' : 'menu-meal-block');
+
+        const itemHtml = items.length
+          ? items.map((item) => {
+              const caloriesTotal = (item.calories || 0) * item.servings;
+              const cholineTotal = (item.cholineMg || 0) * item.servings;
+              const omegaTotal = (item.omega3Mg || 0) * item.servings;
+              const proteinTotal = (item.proteinG || 0) * item.servings;
+              const mufaTotal = (item.mufaG || 0) * item.servings;
+              const satFatTotal = (item.satfatG || 0) * item.servings;
+              const netCarbsTotal = (item.netcarbsG || 0) * item.servings;
+              const folateTotal = (item.folateMcg || 0) * item.servings;
+              const b12Total = (item.b12Mcg || 0) * item.servings;
+              const viscousTotal = (item.viscousFiberG || 0) * item.servings;
+              const netCarbsDisplay = plannerItemHasKnownNutrient(item, 'netcarbsG')
+                ? `~${formatNutrientValue(netCarbsTotal, 'netcarbsG')} g`
+                : '~Missing';
+              const label = item.href
+                ? `<a href="${item.href}" target="_blank" rel="noopener">${item.title}</a>`
+                : item.title;
+              const sourceTag = item.source === 'manual' ? '<span class="menu-item-tag">Manual</span>' : '';
+              const showEdit = menuPlannerEditingId === item.id;
+              const editPanel = showEdit
+                ? `
+                  <div class="menu-edit-panel" data-plan-edit="${item.id}">
+                    <div class="menu-edit-row">
+                      <label>Servings</label>
+                      <input type="number" min="0.25" step="0.25" data-edit-field="servings" value="${item.servings}" />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Day</label>
+                      <select data-edit-field="day">${buildPlannerDayOptions(item.day)}</select>
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Meal</label>
+                      <select data-edit-field="meal">${buildPlannerMealOptions(item.meal)}</select>
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Calories / serving</label>
+                      <input type="number" min="0" step="1" data-edit-field="calories" value="${item.calories || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Choline / serving (mg)</label>
+                      <input type="number" min="0" step="1" data-edit-field="cholineMg" value="${item.cholineMg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Omega-3 / serving (mg)</label>
+                      <input type="number" min="0" step="1" data-edit-field="omega3Mg" value="${item.omega3Mg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Protein / serving (g)</label>
+                      <input type="number" min="0" step="0.1" data-edit-field="proteinG" value="${item.proteinG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>MUFAs / serving (g)</label>
+                      <input type="number" min="0" step="0.1" data-edit-field="mufaG" value="${item.mufaG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Saturated Fat / serving (g)</label>
+                      <input type="number" min="0" step="0.1" data-edit-field="satfatG" value="${item.satfatG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Net Carbs / serving (g)</label>
+                      <input type="number" min="0" step="0.1" data-edit-field="netcarbsG" value="${item.netcarbsG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Folate / serving (mcg)</label>
+                      <input type="number" min="0" step="1" data-edit-field="folateMcg" value="${item.folateMcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>B12 / serving (mcg)</label>
+                      <input type="number" min="0" step="0.1" data-edit-field="b12Mcg" value="${item.b12Mcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-row">
+                      <label>Viscous Fiber / serving (g)</label>
+                      <input type="number" min="0" step="0.1" data-edit-field="viscousFiberG" value="${item.viscousFiberG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                    </div>
+                    <div class="menu-edit-footer">
+                      <button type="button" class="menu-edit-btn menu-edit-save" data-plan-id="${item.id}">Save</button>
+                      <button type="button" class="menu-edit-btn menu-edit-cancel" data-plan-id="${item.id}">Cancel</button>
+                    </div>
+                  </div>
+                `
+                : '';
+              return `
+                <li class="menu-meal-item${pairStatus.exceeds ? ' combo-risk' : (pairStatus.near ? ' combo-near' : '')}">
+                  <div class="menu-meal-top">
+                    <span class="menu-meal-name">${label}</span>
+                    <span class="menu-meal-meta">${sourceTag} x ${item.servings}</span>
+                    <span class="menu-edit-actions">
+                      <button type="button" class="menu-edit-btn menu-open-edit" data-plan-id="${item.id}">Edit</button>
+                      <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
+                    </span>
+                  </div>
+                  <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · Protein ~${formatNutrientValue(proteinTotal, 'proteinG')} g · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Saturated Fat ~${formatNutrientValue(satFatTotal, 'satfatG')} g · Net Carbs ${netCarbsDisplay} · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
+                  ${editPanel}
+                </li>
+              `;
+            }).join('')
+          : '<li class="menu-empty">No entries yet.</li>';
+
+        return `
+          <section class="${mealBlockClass}">
+            <h5>${meal.label}</h5>
+            <ul class="menu-meal-list">${itemHtml}</ul>
+          </section>
+        `;
+      }).join('');
+
+      const regularMealHtml = ['breakfast', 'lunch', 'snack']
+        .map((mealKey) => {
+          const meal = MENU_PLANNER_MEALS.find((entry) => entry.key === mealKey);
+          if (!meal) return '';
+          const items = itemsByMeal[mealKey] || [];
+          const itemHtml = items.length
+            ? items.map((item) => {
+                const caloriesTotal = (item.calories || 0) * item.servings;
+                const cholineTotal = (item.cholineMg || 0) * item.servings;
+                const omegaTotal = (item.omega3Mg || 0) * item.servings;
+                const proteinTotal = (item.proteinG || 0) * item.servings;
+                const mufaTotal = (item.mufaG || 0) * item.servings;
+                const satFatTotal = (item.satfatG || 0) * item.servings;
+                const netCarbsTotal = (item.netcarbsG || 0) * item.servings;
+                const folateTotal = (item.folateMcg || 0) * item.servings;
+                const b12Total = (item.b12Mcg || 0) * item.servings;
+                const viscousTotal = (item.viscousFiberG || 0) * item.servings;
+                const netCarbsDisplay = plannerItemHasKnownNutrient(item, 'netcarbsG')
+                  ? `~${formatNutrientValue(netCarbsTotal, 'netcarbsG')} g`
+                  : '~Missing';
+                const label = item.href ? `<a href="${item.href}" target="_blank" rel="noopener">${item.title}</a>` : item.title;
+                const sourceTag = item.source === 'manual' ? '<span class="menu-item-tag">Manual</span>' : '';
+                const showEdit = menuPlannerEditingId === item.id;
+                const editPanel = showEdit
+                  ? `
+                    <div class="menu-edit-panel" data-plan-edit="${item.id}">
+                      <div class="menu-edit-row">
+                        <label>Servings</label>
+                        <input type="number" min="0.25" step="0.25" data-edit-field="servings" value="${item.servings}" />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Day</label>
+                        <select data-edit-field="day">${buildPlannerDayOptions(item.day)}</select>
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Meal</label>
+                        <select data-edit-field="meal">${buildPlannerMealOptions(item.meal)}</select>
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Calories / serving</label>
+                        <input type="number" min="0" step="1" data-edit-field="calories" value="${item.calories || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Choline / serving (mg)</label>
+                        <input type="number" min="0" step="1" data-edit-field="cholineMg" value="${item.cholineMg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Omega-3 / serving (mg)</label>
+                        <input type="number" min="0" step="1" data-edit-field="omega3Mg" value="${item.omega3Mg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Protein / serving (g)</label>
+                        <input type="number" min="0" step="0.1" data-edit-field="proteinG" value="${item.proteinG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>MUFAs / serving (g)</label>
+                        <input type="number" min="0" step="0.1" data-edit-field="mufaG" value="${item.mufaG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Saturated Fat / serving (g)</label>
+                        <input type="number" min="0" step="0.1" data-edit-field="satfatG" value="${item.satfatG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Net Carbs / serving (g)</label>
+                        <input type="number" min="0" step="0.1" data-edit-field="netcarbsG" value="${item.netcarbsG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Folate / serving (mcg)</label>
+                        <input type="number" min="0" step="1" data-edit-field="folateMcg" value="${item.folateMcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>B12 / serving (mcg)</label>
+                        <input type="number" min="0" step="0.1" data-edit-field="b12Mcg" value="${item.b12Mcg || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-row">
+                        <label>Viscous Fiber / serving (g)</label>
+                        <input type="number" min="0" step="0.1" data-edit-field="viscousFiberG" value="${item.viscousFiberG || 0}" ${item.source === 'manual' ? '' : 'disabled'} />
+                      </div>
+                      <div class="menu-edit-footer">
+                        <button type="button" class="menu-edit-btn menu-edit-save" data-plan-id="${item.id}">Save</button>
+                        <button type="button" class="menu-edit-btn menu-edit-cancel" data-plan-id="${item.id}">Cancel</button>
+                      </div>
+                    </div>
+                  `
+                  : '';
+                return `
+                  <li class="menu-meal-item">
+                    <div class="menu-meal-top">
+                      <span class="menu-meal-name">${label}</span>
+                      <span class="menu-meal-meta">${sourceTag} x ${item.servings}</span>
+                      <span class="menu-edit-actions">
+                        <button type="button" class="menu-edit-btn menu-open-edit" data-plan-id="${item.id}">Edit</button>
+                        <button type="button" class="menu-remove-item" data-plan-id="${item.id}" aria-label="Remove item">Remove</button>
+                      </span>
+                    </div>
+                    <div class="menu-meal-sub">Calories ~${formatCalorieValue(caloriesTotal)} kcal · Choline ~${formatNutrientValue(cholineTotal, 'cholineMg')} mg · Omega-3 ~${formatNutrientValue(omegaTotal, 'omega3Mg')} mg · Protein ~${formatNutrientValue(proteinTotal, 'proteinG')} g · MUFAs ~${formatNutrientValue(mufaTotal, 'mufaG')} g · Saturated Fat ~${formatNutrientValue(satFatTotal, 'satfatG')} g · Net Carbs ${netCarbsDisplay} · Folate ~${formatNutrientValue(folateTotal, 'folateMcg')} mcg · B12 ~${formatNutrientValue(b12Total, 'b12Mcg')} mcg · Viscous Fiber ~${formatNutrientValue(viscousTotal, 'viscousFiberG')} g</div>
+                    ${editPanel}
+                  </li>
+                `;
+              }).join('')
+            : '<li class="menu-empty">No entries yet.</li>';
+
+          return `
+            <section class="menu-meal-block">
+              <h5>${meal.label}</h5>
+              <ul class="menu-meal-list">${itemHtml}</ul>
+            </section>
+          `;
+        }).join('');
+
+      return `
+        <article class="menu-day-card" data-day="${day}">
+          <div class="menu-day-head"><h4>${formatWeekDayLabel(menuPlannerState.weekStart, day)}</h4></div>
+          ${buildDayTotalsMarkup(day)}
+          <div class="menu-day-meals">
+            ${regularMealHtml}
+            <div class="menu-meal-pair-group">
+              <div class="menu-meal-pair-header">Appetizer + Dinner Pair</div>
+              ${pairAlert}
+              ${pairProgress}
+              <div class="menu-meal-pair-body">${pairedSections}</div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
     const mealHtml = MENU_PLANNER_MEALS.map((meal) => {
       const items = itemsByMeal[meal.key] || [];
       const comboStatus = getMealComboStatus(day, meal.key, itemsByMeal);
+      const showCombinedLabel = meal.key === 'dinner' && (itemsByMeal.appetizer || []).length > 0;
+      const mealLabel = showCombinedLabel ? 'Dinner + Appetizer Pair' : meal.label;
       const mealBlockClass = comboStatus.exceeds
         ? 'menu-meal-block combo-risk'
         : (comboStatus.near ? 'menu-meal-block combo-near' : 'menu-meal-block');
@@ -7377,6 +7678,33 @@ function renderMenuPlannerDays() {
         : (comboStatus.near
           ? `<div class="menu-combo-alert near">⚠ Approaching combo limit (${comboStatus.scopeLabel}): Net carbs ${formatNutrientValue(comboStatus.totalNetCarbs, 'netcarbsG')} g and saturated fat ${formatNutrientValue(comboStatus.totalSatFat, 'satfatG')} g (near zone starts at ${formatNutrientValue(MENU_COMBO_NET_CARB_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'netcarbsG')} g + ${formatNutrientValue(MENU_COMBO_SAT_FAT_LIMIT_G * MENU_COMBO_NEAR_RATIO, 'satfatG')} g).</div>`
           : '');
+      const satBarWidth = comboStatus.hasData ? Math.min((comboStatus.totalSatFat / MENU_COMBO_SAT_FAT_LIMIT_G) * 100, 100) : 0;
+      const carbBarWidth = comboStatus.hasData ? Math.min((comboStatus.totalNetCarbs / MENU_COMBO_NET_CARB_LIMIT_G) * 100, 100) : 0;
+      const satBarTone = comboStatus.exceeds ? 'risk' : (comboStatus.near ? 'near' : 'ok');
+      const carbBarTone = comboStatus.exceeds ? 'risk' : (comboStatus.near ? 'near' : 'ok');
+      const showCombinedProgress = meal.key === 'dinner' || (meal.key === 'appetizer' && !itemsByMeal.dinner?.length);
+      const progressHtml = showCombinedProgress ? `
+        <div class="menu-meal-progress">
+          <div class="menu-meal-progress-row">
+            <div class="menu-meal-progress-label">
+              <span>Saturated Fat</span>
+              <strong>${formatNutrientValue(comboStatus.totalSatFat, 'satfatG')} / ${MENU_COMBO_SAT_FAT_LIMIT_G} g</strong>
+            </div>
+            <div class="menu-meal-progress-track">
+              <div class="menu-meal-progress-fill ${satBarTone}" style="width: ${satBarWidth}%"></div>
+            </div>
+          </div>
+          <div class="menu-meal-progress-row">
+            <div class="menu-meal-progress-label">
+              <span>Net Carbs</span>
+              <strong>${formatNutrientValue(comboStatus.totalNetCarbs, 'netcarbsG')} / ${MENU_COMBO_NET_CARB_LIMIT_G} g</strong>
+            </div>
+            <div class="menu-meal-progress-track">
+              <div class="menu-meal-progress-fill ${carbBarTone}" style="width: ${carbBarWidth}%"></div>
+            </div>
+          </div>
+        </div>
+      ` : '';
       const itemHtml = items.length
         ? items.map((item) => {
             const caloriesTotal = (item.calories || 0) * item.servings;
@@ -7478,8 +7806,9 @@ function renderMenuPlannerDays() {
 
       return `
         <section class="${mealBlockClass}">
-          <h5>${meal.label}</h5>
+          <h5>${mealLabel}</h5>
           ${comboAlert}
+          ${progressHtml}
           <ul class="menu-meal-list">${itemHtml}</ul>
         </section>
       `;
@@ -7641,6 +7970,83 @@ function addWaterOnlyWarnings() {
   });
 }
 
+const RECIPE_PIN_LS_KEY = 'tammy_recipe_pins_v1';
+
+function getPinnedRecipeKeys() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(RECIPE_PIN_LS_KEY) || '[]');
+    if (!Array.isArray(saved)) return [];
+    return saved.filter((value) => typeof value === 'string' && value.trim()).map((value) => value.trim());
+  } catch (error) {
+    return [];
+  }
+}
+
+function savePinnedRecipeKeys(keys) {
+  localStorage.setItem(RECIPE_PIN_LS_KEY, JSON.stringify([...new Set(keys.filter(Boolean))]));
+}
+
+function getRecipePinKey(card) {
+  const title = (card?.querySelector('.recipe-card-title')?.textContent || '').trim();
+  if (title) return title;
+  const href = (card?.querySelector('a[href]')?.getAttribute('href') || '').trim();
+  return href;
+}
+
+function isRecipeCardPinned(card) {
+  const key = getRecipePinKey(card);
+  if (!key) return false;
+  return getPinnedRecipeKeys().includes(key);
+}
+
+function syncPinnedRecipeButton(card) {
+  const button = card?.querySelector('.recipe-pin-btn');
+  if (!button) return;
+  const key = getRecipePinKey(card);
+  const pinned = !!key && getPinnedRecipeKeys().includes(key);
+  button.classList.toggle('pinned', pinned);
+  button.setAttribute('aria-pressed', pinned ? 'true' : 'false');
+  button.textContent = pinned ? '📌 Pinned' : '📍 Pin card';
+  button.title = pinned ? 'Remove this pin so it only shows in matching categories.' : 'Pin this card so it stays visible across categories.';
+  card.dataset.pinned = pinned ? 'true' : 'false';
+}
+
+function toggleRecipePin(card) {
+  const key = getRecipePinKey(card);
+  if (!key) return;
+  const current = getPinnedRecipeKeys();
+  const next = current.includes(key)
+    ? current.filter((value) => value !== key)
+    : [...current, key];
+  savePinnedRecipeKeys(next);
+  syncPinnedRecipeButton(card);
+  applyAllFilters();
+}
+
+function ensureRecipePinButton(card) {
+  if (card.querySelector('.recipe-pin-btn')) {
+    syncPinnedRecipeButton(card);
+    return;
+  }
+
+  const footer = card.querySelector('.recipe-card-footer, .recipe-card-actions');
+  if (!footer) return;
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'recipe-pin-btn';
+  button.setAttribute('aria-pressed', 'false');
+  button.textContent = '📍 Pin card';
+  button.title = 'Pin this card so it stays visible across categories.';
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleRecipePin(card);
+  });
+
+  footer.appendChild(button);
+  syncPinnedRecipeButton(card);
+}
+
 function getRecipeCardSortTitle(card) {
   return (card?.querySelector('.recipe-card-title')?.textContent || '').trim().toLowerCase();
 }
@@ -7652,7 +8058,12 @@ function sortRecipeCardsAlphabetically() {
   const parent = cards[0].parentElement;
   if (!parent) return;
 
-  cards.sort((a, b) => getRecipeCardSortTitle(a).localeCompare(getRecipeCardSortTitle(b)));
+  cards.sort((a, b) => {
+    const pinDiff = Number(isRecipeCardPinned(b)) - Number(isRecipeCardPinned(a));
+    if (pinDiff !== 0) return pinDiff;
+    return getRecipeCardSortTitle(a).localeCompare(getRecipeCardSortTitle(b));
+  });
+
   cards.forEach(card => parent.appendChild(card));
 }
 
@@ -7662,9 +8073,14 @@ function applyAllFilters() {
   let visible = 0, total = 0;
   document.querySelectorAll('.recipe-card').forEach(card => {
     total++;
-    const show = getConditionMatch(card) && getCategoryMatch(card) && getPantryMatch(card) && getSearchMatch(card);
+    const pinned = isRecipeCardPinned(card);
+    const categoryMatch = pinned || getCategoryMatch(card);
+    const pantryMatch = pinned || getPantryMatch(card);
+    const show = getConditionMatch(card) && categoryMatch && pantryMatch && getSearchMatch(card);
     card.style.display = show ? '' : 'none';
     if (show) visible++;
+    card.dataset.pinned = pinned ? 'true' : 'false';
+    syncPinnedRecipeButton(card);
   });
   const el = document.getElementById('pantry-count');
   if (el) el.textContent = visible + ' of ' + total + ' recipes available';
@@ -7962,6 +8378,7 @@ function normalizeRecipeCardFooters() {
       footer.appendChild(testLink);
     }
 
+    ensureRecipePinButton(card);
     card.style.display = card.style.display === 'none' ? 'none' : '';
   });
 }
