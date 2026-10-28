@@ -25,6 +25,11 @@
     .panel{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:1.2rem}
     .panel-header{padding:1rem 1.2rem;background:#f6fbf7;border-bottom:1px solid var(--border);font-weight:800;color:var(--green-dark)}
     .panel-body{padding:1rem 1.2rem}
+    .training-notes-wrap{display:grid;gap:.55rem}
+    .training-notes-label{font-size:.74rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+    .training-notes-field{width:100%;min-height:140px;border:1px solid var(--border);border-radius:10px;padding:.65rem .75rem;font:inherit;font-size:.9rem;line-height:1.45;color:#334155;background:#fff;resize:vertical}
+    .training-notes-field:focus{outline:2px solid var(--green-mid);outline-offset:1px}
+    .training-notes-help{font-size:.78rem;color:var(--muted)}
     .intake{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0}
     .meta{background:#f7fbf8;border:1px solid var(--border);border-radius:10px;padding:.75rem .8rem}
     .meta label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
@@ -42,6 +47,23 @@
     .exercise-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
     .exercise-meta .meta{background:#f7fbf8}
     .exercise-meta .meta .muscle{display:block;color:var(--sky-dark);font-weight:700}
+    .exercise-load-control{margin-top:.75rem;display:grid;gap:.35rem}
+    .exercise-load-control label{font-size:.73rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+    .exercise-load-input-row{display:flex;align-items:center;gap:.45rem}
+    .exercise-load-input{width:120px;padding:.42rem .55rem;border:1px solid var(--border);border-radius:8px;background:#fff;color:#1f2937;font:inherit;font-size:.86rem;font-weight:600}
+    .exercise-load-input:focus{outline:2px solid var(--green-mid);outline-offset:1px}
+    .exercise-load-unit{font-size:.8rem;color:var(--muted);font-weight:700}
+    .exercise-load-help{font-size:.74rem;color:var(--muted)}
+    .exercise-actions{margin-top:.8rem;display:flex;justify-content:flex-end}
+    .add-day-btn{font-size:.82rem;padding:.42rem .68rem}
+    .add-day-btn{transition:background .18s ease,color .18s ease,border-color .18s ease,transform .12s ease}
+    .add-day-btn.is-added{background:#d8f3dc;border-color:#74c69d;color:#1f513c;transform:translateY(-1px)}
+    .exercise-filter{display:flex;gap:.65rem;align-items:center;flex-wrap:wrap;margin:0 0 .95rem}
+    .exercise-filter label{font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+    .exercise-filter select{padding:.45rem .65rem;border:1px solid var(--border);border-radius:8px;background:#fff;color:#1f2937;font:inherit;font-size:.9rem;font-weight:600}
+    .exercise-filter input[type="search"]{padding:.45rem .65rem;border:1px solid var(--border);border-radius:8px;background:#fff;color:#1f2937;font:inherit;font-size:.9rem;font-weight:500;min-width:240px}
+    .exercise-filter input[type="search"]:focus{outline:2px solid var(--green-mid);outline-offset:1px}
+    .exercise-filter-note{font-size:.8rem;color:var(--muted)}
     .exercise-slideshow{border:1px solid var(--border);border-radius:12px;background:#f8fdf9;padding:.8rem;margin-top:1rem}
     .exercise-slide-header{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:.55rem}
     .exercise-slide-count{font-size:.82rem;color:var(--muted);font-weight:600}
@@ -73,6 +95,41 @@
     .btn.primary{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
     @media(max-width:760px){.exercise-meta{grid-template-columns:1fr}}
 
+    .muscle-map-intro{font-size:.9rem;color:#415463;margin-bottom:.9rem}
+    .muscle-map-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .muscle-map-card{border:1px solid var(--border);border-radius:12px;background:#fbfefb;padding:.85rem}
+    .muscle-map-card h4{font-size:.9rem;color:var(--green-dark);margin-bottom:.55rem;letter-spacing:.03em;text-transform:uppercase}
+    .muscle-svg{width:100%;height:auto;background:radial-gradient(circle at 20% 10%, #ffffff, #eef9f2 70%);border:1px solid #deefe2;border-radius:10px;padding:.6rem}
+    .muscle-outline{fill:none;stroke:#abcdb8;stroke-width:1.3}
+    .muscle-region{fill:#edf2ef;stroke:#a9c8b4;stroke-width:1;transition:fill .35s ease,stroke .35s ease}
+    .muscle-controls{margin-top:1rem;border:1px solid var(--border);border-radius:12px;padding:.85rem;background:#f8fcf9}
+    .muscle-controls h4{font-size:.9rem;color:var(--green-dark);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.03em}
+    .week-log-header{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-bottom:.7rem}
+    .week-label{font-size:.86rem;font-weight:700;color:#284b3d}
+    .week-nav{display:flex;gap:.45rem;flex-wrap:wrap}
+    .week-nav button{padding:.44rem .68rem;border-radius:8px;border:1px solid #cde4d2;background:#fff;color:#245d47;font:inherit;font-size:.8rem;font-weight:700;cursor:pointer}
+    .week-day-switches{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.42rem;margin-bottom:.75rem}
+    .week-day-btn{padding:.42rem .3rem;border-radius:8px;border:1px solid #cde4d2;background:#fff;color:#245d47;font:inherit;font-size:.78rem;font-weight:800;letter-spacing:.02em;cursor:pointer}
+    .week-day-btn.active{background:#dcf4e4;border-color:#7dc89b;color:#1f513c}
+    .week-day-panels{display:grid;gap:.55rem}
+    .week-day-panel{border:1px solid #d5e9da;border-radius:10px;background:#fff;padding:.55rem .65rem}
+    .week-day-panel.active{border-color:#74c69d;box-shadow:0 0 0 2px rgba(116,198,157,.2)}
+    .week-day-panel-title{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-size:.8rem;font-weight:800;color:#2a5e49;margin-bottom:.35rem}
+    .week-day-list{list-style:none;display:grid;gap:.33rem}
+    .week-day-item{display:flex;align-items:center;justify-content:space-between;gap:.45rem;font-size:.82rem;color:#32414b;background:#f8fcf9;border:1px solid #e1eee6;border-radius:8px;padding:.35rem .45rem}
+    .week-day-item-meta{display:flex;align-items:center;gap:.45rem}
+    .week-day-item-load{font-size:.72rem;font-weight:800;color:#245d47;background:#e4f6ea;border:1px solid #cde4d2;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
+    .week-day-item-time{font-size:.72rem;color:#6b7280;white-space:nowrap}
+    .week-day-item-remove{padding:.22rem .5rem;border-radius:7px;border:1px solid #cde4d2;background:#fff;color:#7f1d1d;font:inherit;font-size:.72rem;font-weight:700;cursor:pointer}
+    .week-day-item-remove:hover{background:#fee2e2;border-color:#fecaca}
+    .week-day-empty{font-size:.78rem;color:#75848f;padding:.2rem 0}
+    .muscle-toolbar{margin-top:.6rem;display:flex;flex-wrap:wrap;gap:.45rem}
+    .muscle-toolbar button{padding:.5rem .7rem;border-radius:8px;border:1px solid #cde4d2;background:#fff;color:#245d47;font:inherit;font-weight:700;cursor:pointer}
+    .muscle-toolbar button:hover{background:#f0fbf4}
+    .muscle-legend{margin-top:.75rem;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;font-size:.78rem;color:#4a5b66}
+    .muscle-legend-bar{height:.7rem;width:170px;border-radius:999px;background:linear-gradient(90deg,#edf2ef,#9fe7b6,#6fd693,#36b36f,#1a7f47)}
+    .muscle-summary{margin-top:.65rem;font-size:.84rem;color:#2f4652}
+
 
     .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.5rem;margin:1rem 0}
     .day-card{padding:.7rem .45rem;border-radius:10px;text-align:center;font-size:.76rem;border:1px solid var(--border);line-height:1.4}
@@ -84,6 +141,8 @@
     .btn{padding:.55rem .9rem;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green-dark);font:inherit;font-weight:700;text-decoration:none}
     .btn.primary{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
     @media(max-width:700px){.two-col{grid-template-columns:1fr}.week-grid{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:860px){.muscle-map-grid{grid-template-columns:1fr}}
+    @media(max-width:860px){.week-day-switches{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
 
 
@@ -116,6 +175,38 @@
   <main>
 
     <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Exercise Illustration Slideshow</div>
+      <div class="panel-body">
+        <p style="margin-bottom:.75rem;font-size:.9rem">Use this slideshow to quickly review form visuals from the <strong>exercise-illustrations</strong> folder while planning or logging sessions.</p>
+        <div class="exercise-slideshow">
+          <div class="exercise-slide-header">
+            <div class="exercise-slide-count" id="exercise-slide-count">0 images</div>
+          </div>
+          <div class="exercise-slide-stage">
+            <button class="exercise-slide-nav prev" id="exercise-slide-prev" type="button" aria-label="Previous image">‹</button>
+            <img id="exercise-slide-image" class="exercise-slide-img" alt="Exercise illustration" style="display:none" />
+            <div id="exercise-slide-empty" class="exercise-slide-empty">No images available yet.</div>
+            <button class="exercise-slide-nav next" id="exercise-slide-next" type="button" aria-label="Next image">›</button>
+          </div>
+          <div class="exercise-slide-meta">
+            <div class="exercise-slide-caption" id="exercise-slide-caption">Loading images...</div>
+            <button class="btn btn-outline" id="exercise-fullscreen-btn" type="button" style="margin-top:.45rem">⛶ Expand</button>
+          </div>
+          <div class="exercise-slide-note-wrap">
+            <label class="exercise-slide-note-label" for="exercise-slide-note">Slide Notes (editable)</label>
+            <textarea id="exercise-slide-note" class="exercise-slide-note" placeholder="Add notes for this slide..."></textarea>
+            <div class="exercise-slide-note-actions">
+              <button class="btn btn-export" type="button" id="exercise-notes-export-btn">Export Slide Notes</button>
+              <button class="btn btn-import-wrap" type="button" id="exercise-notes-import-btn">Import Slide Notes</button>
+              <input id="exercise-notes-import-file" type="file" accept=".json,application/json" hidden />
+            </div>
+            <div class="exercise-slide-note-help">Saved automatically in this browser for each image.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
       <div class="panel-header">Sample weekly rhythm</div>
       <div class="panel-body">
         <div class="week-grid">
@@ -150,10 +241,151 @@
     </div>
 
     <div class="panel">
+      <div class="panel-header">Training Notes</div>
+      <div class="panel-body">
+        <div class="training-notes-wrap">
+          <label class="training-notes-label" for="resistance-training-notes">Your progression notes</label>
+          <textarea id="resistance-training-notes" class="training-notes-field" placeholder="Example: Keep this routine for 6 weeks, then progress to level 2.\nTrack if rep range feels easy for 2 workouts in a row before increasing difficulty."></textarea>
+          <div class="training-notes-help">Autosaves in this browser as you type.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Interactive Muscle Map (Prototype)</div>
+      <div class="panel-body">
+        <p class="muscle-map-intro">Tap an exercise button to paint the front and back muscle maps. Repeating an exercise deepens color intensity to represent cumulative training load.</p>
+
+        <div class="muscle-legend">
+          <span>Low</span>
+          <span class="muscle-legend-bar" aria-hidden="true"></span>
+          <span>High stimulus</span>
+        </div>
+
+        <div class="muscle-summary" id="muscle-map-summary">No exercise load applied yet.</div>
+
+        <div class="muscle-map-grid">
+          <div class="muscle-map-card">
+            <h4>Front View</h4>
+            <svg class="muscle-svg" viewBox="0 0 260 520" aria-label="Front muscle map">
+              <ellipse class="muscle-outline" cx="130" cy="42" rx="28" ry="27"></ellipse>
+              <rect class="muscle-outline" x="93" y="70" width="74" height="120" rx="30"></rect>
+              <rect class="muscle-outline" x="96" y="190" width="68" height="72" rx="22"></rect>
+              <rect class="muscle-outline" x="79" y="261" width="34" height="160" rx="17"></rect>
+              <rect class="muscle-outline" x="147" y="261" width="34" height="160" rx="17"></rect>
+              <rect class="muscle-outline" x="52" y="84" width="35" height="148" rx="17"></rect>
+              <rect class="muscle-outline" x="173" y="84" width="35" height="148" rx="17"></rect>
+
+              <ellipse class="muscle-region" data-muscle="front_delts" cx="95" cy="95" rx="17" ry="15"></ellipse>
+              <ellipse class="muscle-region" data-muscle="front_delts" cx="165" cy="95" rx="17" ry="15"></ellipse>
+              <ellipse class="muscle-region" data-muscle="pecs" cx="108" cy="122" rx="17" ry="20"></ellipse>
+              <ellipse class="muscle-region" data-muscle="pecs" cx="152" cy="122" rx="17" ry="20"></ellipse>
+              <ellipse class="muscle-region" data-muscle="biceps" cx="65" cy="138" rx="11" ry="25"></ellipse>
+              <ellipse class="muscle-region" data-muscle="biceps" cx="195" cy="138" rx="11" ry="25"></ellipse>
+              <rect class="muscle-region" data-muscle="abs" x="112" y="150" width="36" height="78" rx="16"></rect>
+              <rect class="muscle-region" data-muscle="hip_flexors" x="106" y="230" width="48" height="28" rx="10"></rect>
+              <rect class="muscle-region" data-muscle="quads" x="84" y="262" width="24" height="122" rx="11"></rect>
+              <rect class="muscle-region" data-muscle="quads" x="152" y="262" width="24" height="122" rx="11"></rect>
+              <rect class="muscle-region" data-muscle="adductors" x="112" y="262" width="16" height="122" rx="8"></rect>
+              <rect class="muscle-region" data-muscle="adductors" x="132" y="262" width="16" height="122" rx="8"></rect>
+              <rect class="muscle-region" data-muscle="calves" x="86" y="386" width="20" height="74" rx="9"></rect>
+              <rect class="muscle-region" data-muscle="calves" x="154" y="386" width="20" height="74" rx="9"></rect>
+            </svg>
+          </div>
+
+          <div class="muscle-map-card">
+            <h4>Back View</h4>
+            <svg class="muscle-svg" viewBox="0 0 260 520" aria-label="Back muscle map">
+              <ellipse class="muscle-outline" cx="130" cy="42" rx="28" ry="27"></ellipse>
+              <rect class="muscle-outline" x="93" y="70" width="74" height="120" rx="30"></rect>
+              <rect class="muscle-outline" x="96" y="190" width="68" height="72" rx="22"></rect>
+              <rect class="muscle-outline" x="79" y="261" width="34" height="160" rx="17"></rect>
+              <rect class="muscle-outline" x="147" y="261" width="34" height="160" rx="17"></rect>
+              <rect class="muscle-outline" x="52" y="84" width="35" height="148" rx="17"></rect>
+              <rect class="muscle-outline" x="173" y="84" width="35" height="148" rx="17"></rect>
+
+              <ellipse class="muscle-region" data-muscle="rear_delts" cx="95" cy="97" rx="17" ry="15"></ellipse>
+              <ellipse class="muscle-region" data-muscle="rear_delts" cx="165" cy="97" rx="17" ry="15"></ellipse>
+              <ellipse class="muscle-region" data-muscle="traps" cx="130" cy="106" rx="21" ry="18"></ellipse>
+              <rect class="muscle-region" data-muscle="lats" x="98" y="116" width="24" height="82" rx="10"></rect>
+              <rect class="muscle-region" data-muscle="lats" x="138" y="116" width="24" height="82" rx="10"></rect>
+              <rect class="muscle-region" data-muscle="triceps" x="62" y="138" width="10" height="58" rx="5"></rect>
+              <rect class="muscle-region" data-muscle="triceps" x="188" y="138" width="10" height="58" rx="5"></rect>
+              <rect class="muscle-region" data-muscle="erectors" x="120" y="132" width="20" height="110" rx="8"></rect>
+              <rect class="muscle-region" data-muscle="glutes" x="108" y="220" width="44" height="44" rx="15"></rect>
+              <rect class="muscle-region" data-muscle="hamstrings" x="84" y="264" width="24" height="120" rx="10"></rect>
+              <rect class="muscle-region" data-muscle="hamstrings" x="152" y="264" width="24" height="120" rx="10"></rect>
+              <rect class="muscle-region" data-muscle="calves" x="86" y="386" width="20" height="74" rx="9"></rect>
+              <rect class="muscle-region" data-muscle="calves" x="154" y="386" width="20" height="74" rx="9"></rect>
+            </svg>
+          </div>
+        </div>
+
+        <div class="muscle-controls">
+          <h4>Apply exercise stimulus</h4>
+          <div class="week-log-header">
+            <div class="week-label" id="week-log-label">Week</div>
+            <div class="week-nav">
+              <button type="button" id="week-log-prev">← Previous Week</button>
+              <button type="button" id="week-log-today">Current Week</button>
+              <button type="button" id="week-log-next">Next Week →</button>
+              <button type="button" id="week-log-clear-day">Clear Active Day</button>
+            </div>
+          </div>
+
+          <div class="week-day-switches" id="week-day-switches">
+            <button class="week-day-btn" type="button" data-day="mon">Mon</button>
+            <button class="week-day-btn" type="button" data-day="tue">Tue</button>
+            <button class="week-day-btn" type="button" data-day="wed">Wed</button>
+            <button class="week-day-btn" type="button" data-day="thu">Thu</button>
+            <button class="week-day-btn" type="button" data-day="fri">Fri</button>
+            <button class="week-day-btn" type="button" data-day="sat">Sat</button>
+            <button class="week-day-btn" type="button" data-day="sun">Sun</button>
+          </div>
+
+          <div class="week-day-panels" id="week-day-panels">
+            <div class="week-day-panel" data-day-panel="mon"><div class="week-day-panel-title"><span>Monday</span></div><ul class="week-day-list" data-day-list="mon"></ul></div>
+            <div class="week-day-panel" data-day-panel="tue"><div class="week-day-panel-title"><span>Tuesday</span></div><ul class="week-day-list" data-day-list="tue"></ul></div>
+            <div class="week-day-panel" data-day-panel="wed"><div class="week-day-panel-title"><span>Wednesday</span></div><ul class="week-day-list" data-day-list="wed"></ul></div>
+            <div class="week-day-panel" data-day-panel="thu"><div class="week-day-panel-title"><span>Thursday</span></div><ul class="week-day-list" data-day-list="thu"></ul></div>
+            <div class="week-day-panel" data-day-panel="fri"><div class="week-day-panel-title"><span>Friday</span></div><ul class="week-day-list" data-day-list="fri"></ul></div>
+            <div class="week-day-panel" data-day-panel="sat"><div class="week-day-panel-title"><span>Saturday</span></div><ul class="week-day-list" data-day-list="sat"></ul></div>
+            <div class="week-day-panel" data-day-panel="sun"><div class="week-day-panel-title"><span>Sunday</span></div><ul class="week-day-list" data-day-list="sun"></ul></div>
+          </div>
+
+          <div class="muscle-toolbar">
+            <button type="button" id="muscle-map-reset">Reset map</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="exercise-filter">
+      <label for="exercise-category-filter">Exercise category</label>
+      <select id="exercise-category-filter" aria-label="Filter exercises by category">
+        <option value="all">All Exercises</option>
+        <option value="bodyweight">No Special Equipment</option>
+        <option value="dumbbell">Dumbbells</option>
+        <option value="band">Resistance Bands</option>
+        <option value="recovery">Recovery Day</option>
+      </select>
+      <label for="exercise-load-unit">Load unit</label>
+      <select id="exercise-load-unit" aria-label="Dumbbell load unit">
+        <option value="lb">lb</option>
+        <option value="kg">kg</option>
+      </select>
+      <label for="exercise-name-search">Search by name</label>
+      <input id="exercise-name-search" type="search" placeholder="Type exercise name..." aria-label="Search exercise cards by name" />
+      <div class="exercise-filter-note">Category and name search can be used together.</div>
+    </div>
+
+    <div class="panel exercise-category-panel" data-panel="bodyweight">
       <div class="panel-header">Option A — Bodyweight protocol</div>
       <div class="panel-body">
         <div class="exercise-list">
-          <article class="exercise-card">
+          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="chair_squat">
             <div class="exercise-visual" aria-label="Chair Squat visual">
               <img src="exercise-illustrations/resistance/chair-squats.png" alt="Chair Squat" />
               <span class="exercise-visual-label">Chair Squat</span>
@@ -169,10 +401,13 @@
                 <div class="meta"><label>Starting version</label><p>Stand in front of a chair, sit down slowly, stand back up without using your hands.</p></div>
                 <div class="meta"><label>Progression</label><p>Pause squat → full squat → single-leg squat.</p></div>
               </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="chair_squat">+ Add to Day</button>
+              </div>
             </div>
           </article>
 
-          <article class="exercise-card">
+          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="glute_bridge">
             <div class="exercise-visual" aria-label="Glute Bridge visual">
               <img src="exercise-illustrations/resistance/glute-bridge.png" alt="Glute Bridge" />
               <span class="exercise-visual-label">Glute Bridge</span>
@@ -188,10 +423,13 @@
                 <div class="meta"><label>Starting version</label><p>Lie on back, knees bent, feet flat. Drive hips up and lower slowly.</p></div>
                 <div class="meta"><label>Progression</label><p>Hold at top → single-leg bridge → elevate feet.</p></div>
               </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="glute_bridge">+ Add to Day</button>
+              </div>
             </div>
           </article>
 
-          <article class="exercise-card">
+          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="step_up">
             <div class="exercise-visual" aria-label="Step-Up visual">
               <img src="exercise-illustrations/resistance/step-up.png" alt="Step-Up" />
               <span class="exercise-visual-label">Step-Up</span>
@@ -207,36 +445,21 @@
                 <div class="meta"><label>Starting version</label><p>Step up onto a low step and alternate leading leg.</p></div>
                 <div class="meta"><label>Progression</label><p>Slow lowering phase → higher step → light backpack.</p></div>
               </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="step_up">+ Add to Day</button>
+              </div>
             </div>
           </article>
 
-          <article class="exercise-card">
-            <div class="exercise-visual" aria-label="Resistance Band Row visual">
-              <img src="exercise-illustrations/resistance/resistance-band-row.png" alt="Resistance Band Row" />
-              <span class="exercise-visual-label">Resistance Band Row</span>
-            </div>
-            <div class="exercise-body">
-              <div class="exercise-header">
-                <h3 class="exercise-name">Resistance Band Row</h3>
-                <span class="exercise-chip">Highly recommended</span>
-              </div>
-              <div class="exercise-meta">
-                <div class="meta"><label>Muscle group</label><span class="muscle">Back · Biceps</span></div>
-                <div class="meta"><label>Sets × Reps</label><p>3 × 12–15</p></div>
-                <div class="meta"><label>Starting version</label><p>Anchor band at waist height, step back, and pull elbows toward ribs.</p></div>
-                <div class="meta"><label>Progression</label><p>Heavier band → single-arm row → incline row.</p></div>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel exercise-category-panel" data-panel="dumbbell">
       <div class="panel-header">Option B — With a weight system</div>
       <div class="panel-body">
         <div class="exercise-list">
-          <article class="exercise-card">
+          <article class="exercise-card" data-category="dumbbell" data-equipment="dumbbell" data-exercise-id="goblet_squat">
             <div class="exercise-visual" aria-label="Goblet Squat visual">
               <img src="exercise-illustrations/resistance/01-dumbbell-goblet-squat.jpg" alt="Goblet Squat" />
               <span class="exercise-visual-label">Goblet Squat</span>
@@ -252,12 +475,15 @@
                 <div class="meta"><label>Notes</label><p>One of the most valuable lower-body movements for fatty liver and triglyceride control.</p></div>
                 <div class="meta"><label>Focus</label><p>Build the largest muscle sink while preserving joint-friendly form.</p></div>
               </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="goblet_squat">+ Add to Day</button>
+              </div>
             </div>
           </article>
 
-          <article class="exercise-card">
+          <article class="exercise-card" data-category="dumbbell" data-equipment="dumbbell" data-exercise-id="romanian_deadlift">
             <div class="exercise-visual" aria-label="Romanian Deadlift visual">
-              <img src="exercise-illustrations/resistance/01-bentover-dumbbell-row.jpg" alt="Romanian Deadlift" />
+              <img src="exercise-illustrations/resistance/romanian-deadlift.png" alt="Romanian Deadlift" />
               <span class="exercise-visual-label">Romanian Deadlift</span>
             </div>
             <div class="exercise-body">
@@ -271,40 +497,223 @@
                 <div class="meta"><label>Notes</label><p>Hinge at the hips and lower the weight while keeping the spine neutral.</p></div>
                 <div class="meta"><label>Focus</label><p>Posterior-chain strength and lower-body metabolic load.</p></div>
               </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="romanian_deadlift">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="dumbbell" data-equipment="dumbbell" data-exercise-id="dumbbell_floor_press">
+            <div class="exercise-visual" aria-label="Dumbbell Floor Press visual">
+              <img src="exercise-illustrations/resistance/dumbbell-floor-press.jpg" alt="Dumbbell Floor Press" />
+              <span class="exercise-visual-label">Dumbbell Floor Press</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Dumbbell Floor Press (or Push-ups)</h3>
+                <span class="exercise-chip">Upper body press</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Targets</label><span class="muscle">Chest · Shoulders · Triceps</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+                <div class="meta"><label>Why</label><p>Since you are training at home, the floor press is a safe, shoulder-friendly bench-press alternative that lets you push challenging dumbbell loads with control.</p></div>
+                <div class="meta"><label>Alternative</label><p>If no dumbbells are available, use push-ups with the same set and rep structure.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="dumbbell_floor_press">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="dumbbell" data-equipment="dumbbell" data-exercise-id="bentover_dumbbell_row">
+            <div class="exercise-visual" aria-label="Bent-Over Dumbbell Row visual">
+              <img src="exercise-illustrations/resistance/bentover-dumbbell-row.jpg" alt="Bent-Over Dumbbell Row" />
+              <span class="exercise-visual-label">Bent-Over Row</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Bent-Over Dumbbell Row (Dumbbells)</h3>
+                <span class="exercise-chip">Upper back pull</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Targets</label><span class="muscle">Upper Back · Lats · Biceps</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+                <div class="meta"><label>Why</label><p>Balances out all pressing work, helping protect posture and pull the shoulders back.</p></div>
+                <div class="meta"><label>Form focus</label><p>Hinge at the hips, keep the torso stable, and drive elbows back without shrugging.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="bentover_dumbbell_row">+ Add to Day</button>
+              </div>
             </div>
           </article>
         </div>
       </div>
     </div>
 
-    <div class="panel">
-      <div class="panel-header">Exercise Illustration Slideshow</div>
+    <div class="panel exercise-category-panel" data-panel="band">
+      <div class="panel-header">Option C — Resistance band protocol</div>
       <div class="panel-body">
-        <p style="margin-bottom:.75rem;font-size:.9rem">Use this slideshow to quickly review form visuals from the <strong>exercise-illustrations</strong> folder while planning or logging sessions.</p>
-        <div class="exercise-slideshow">
-          <div class="exercise-slide-header">
-            <div class="exercise-slide-count" id="exercise-slide-count">0 images</div>
-          </div>
-          <div class="exercise-slide-stage">
-            <button class="exercise-slide-nav prev" id="exercise-slide-prev" type="button" aria-label="Previous image">‹</button>
-            <img id="exercise-slide-image" class="exercise-slide-img" alt="Exercise illustration" style="display:none" />
-            <div id="exercise-slide-empty" class="exercise-slide-empty">No images available yet.</div>
-            <button class="exercise-slide-nav next" id="exercise-slide-next" type="button" aria-label="Next image">›</button>
-          </div>
-          <div class="exercise-slide-meta">
-            <div class="exercise-slide-caption" id="exercise-slide-caption">Loading images...</div>
-            <button class="btn btn-outline" id="exercise-fullscreen-btn" type="button" style="margin-top:.45rem">⛶ Expand</button>
-          </div>
-          <div class="exercise-slide-note-wrap">
-            <label class="exercise-slide-note-label" for="exercise-slide-note">Slide Notes (editable)</label>
-            <textarea id="exercise-slide-note" class="exercise-slide-note" placeholder="Add notes for this slide..."></textarea>
-            <div class="exercise-slide-note-actions">
-              <button class="btn btn-export" type="button" id="exercise-notes-export-btn">Export Slide Notes</button>
-              <button class="btn btn-import-wrap" type="button" id="exercise-notes-import-btn">Import Slide Notes</button>
-              <input id="exercise-notes-import-file" type="file" accept=".json,application/json" hidden />
+        <div class="exercise-list">
+          <article class="exercise-card" data-category="band" data-equipment="band" data-exercise-id="monster_walk">
+            <div class="exercise-visual" aria-label="Monster Walk visual">
+              <img src="exercise-illustrations/resistance/monster-walk.png" alt="Monster Walk" />
+              <span class="exercise-visual-label">Monster Walk</span>
             </div>
-            <div class="exercise-slide-note-help">Saved automatically in this browser for each image.</div>
-          </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Monster Walk</h3>
+                <span class="exercise-chip">Resistance band</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Targets</label><span class="muscle">Glute medius · Hip stability · Lower body</span></div>
+                <div class="meta"><label>Sets × Steps</label><p>3 × 10–14 steps each direction</p></div>
+                <div class="meta"><label>Why</label><p>Builds a stronger lower-body metabolic sink while training side-hip control for better movement stability.</p></div>
+                <div class="meta"><label>Target form</label><p>Use lateral side-to-side monster walk steps with the band around the ankles.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="monster_walk">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="band" data-equipment="band" data-exercise-id="resistance_band_row">
+            <div class="exercise-visual" aria-label="Resistance Band Row visual">
+              <img src="exercise-illustrations/resistance/resistance-band-row.png" alt="Resistance Band Row" />
+              <span class="exercise-visual-label">Resistance Band Row</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Resistance Band Row</h3>
+                <span class="exercise-chip">Highly recommended</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Back · Biceps</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 12–15</p></div>
+                <div class="meta"><label>Starting version</label><p>Anchor band at waist height, step back, and pull elbows toward ribs.</p></div>
+                <div class="meta"><label>Progression</label><p>Heavier band → single-arm row → incline row.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="resistance_band_row">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel exercise-category-panel" data-panel="recovery">
+      <div class="panel-header">Option D — Recovery day protocol</div>
+      <div class="panel-body">
+        <div class="exercise-list">
+          <article class="exercise-card" data-category="recovery" data-equipment="none" data-exercise-id="gentle_walk">
+            <div class="exercise-visual" aria-label="Gentle Walk visual">
+              <img src="exercise-illustrations/recovery-day/gentle-walk.png" alt="Gentle Walk" />
+              <span class="exercise-visual-label">Gentle Walk</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Gentle Walk</h3>
+                <span class="exercise-chip">Recovery day</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Goal</label><span class="muscle">Recovery · Circulation · Mobility</span></div>
+                <div class="meta"><label>Duration</label><p>15-30 minutes, comfortable pace</p></div>
+                <div class="meta"><label>Why</label><p>Keeps your body moving on recovery days while still supporting metabolic health and consistency.</p></div>
+                <div class="meta"><label>Form focus</label><p>Relaxed posture, easy nasal breathing, and a pace where conversation stays comfortable.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="gentle_walk">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="recovery" data-equipment="none" data-exercise-id="stretches">
+            <div class="exercise-visual" aria-label="Stretches visual">
+              <img src="exercise-illustrations/recovery-day/stretches.jpg" alt="Stretches" />
+              <span class="exercise-visual-label">Stretches</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Stretches</h3>
+                <span class="exercise-chip">Recovery day</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Goal</label><span class="muscle">Mobility · Recovery · Joint comfort</span></div>
+                <div class="meta"><label>Duration</label><p>10-20 minutes of gentle full-body stretching</p></div>
+                <div class="meta"><label>Why</label><p>Supports tissue recovery, eases stiffness, and helps maintain range of motion between training days.</p></div>
+                <div class="meta"><label>Form focus</label><p>Move slowly, breathe steadily, and stop short of pain while holding each stretch with control.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="stretches">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="recovery" data-equipment="none" data-exercise-id="bike_ride">
+            <div class="exercise-visual" aria-label="Bike Ride visual">
+              <img src="exercise-illustrations/recovery-day/bike-ride.jpg" alt="Bike Ride" />
+              <span class="exercise-visual-label">Bike Ride</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Bike Ride</h3>
+                <span class="exercise-chip">Recovery day</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Goal</label><span class="muscle">Blood flow · Recovery · Lower-body flush</span></div>
+                <div class="meta"><label>Duration</label><p>15-35 minutes, flat and easy pace</p></div>
+                <div class="meta"><label>Why</label><p>Can add variety on recovery days and keep a steady movement habit when you want a change of pace.</p></div>
+                <div class="meta"><label>Leisurely cycling</label><p>A very light, flat bike ride at a conversational pace, just enough to turn the pedals and flush blood through your quads without feeling resistance.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="bike_ride">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="recovery" data-equipment="none" data-exercise-id="aquatic_center_recreation">
+            <div class="exercise-visual" aria-label="Aquatic Center Recreation visual">
+              <img src="exercise-illustrations/recovery-day/hope-aquatic-center.png" alt="Aquatic Center Recreation" />
+              <span class="exercise-visual-label">Aquatic Center Recreation</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Aquatic Center Recreation</h3>
+                <span class="exercise-chip">Recovery day</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Goal</label><span class="muscle">Joint-friendly cardio · Recovery · Full-body relief</span></div>
+                <div class="meta"><label>Duration</label><p>15-30 minutes, relaxed effort</p></div>
+                <div class="meta"><label>Why</label><p>A future change-of-pace option that can make recovery days feel more enjoyable and sustainable.</p></div>
+                <div class="meta"><label>Swimming or water walking</label><p>Water provides wonderful buoyancy that unloads your joints entirely while offering gentle resistance and a soothing cooldown for sore muscles.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="aquatic_center_recreation">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="recovery" data-equipment="none" data-exercise-id="gardening">
+            <div class="exercise-visual" aria-label="Gardening visual">
+              <img src="exercise-illustrations/recovery-day/gardening.png" alt="Gardening" />
+              <span class="exercise-visual-label">Gardening</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Gardening</h3>
+                <span class="exercise-chip">Recovery day</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Goal</label><span class="muscle">Gentle movement · Recovery · Upright activity</span></div>
+                <div class="meta"><label>Duration</label><p>15-40 minutes at easy pace</p></div>
+                <div class="meta"><label>Why</label><p>A practical way to stay active on lower-intensity days while avoiding hard training stress.</p></div>
+                <div class="meta"><label>Light gardening or housework</label><p>Simple, low-intensity tasks in the yard that keep you moving upright without heavy lifting or strenuous exertion.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="gardening">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </div>
@@ -317,9 +726,66 @@
 
   <script>
     const EXERCISE_SLIDE_NOTES_KEY = 'resistance-exercise-illustration-slide-notes';
+    const RESISTANCE_TRAINING_NOTES_KEY = 'resistance-training-notes-v1';
+    const RESISTANCE_DUMBBELL_LOADS_KEY = 'resistance-dumbbell-loads-v1';
+    const RESISTANCE_LOAD_UNIT_KEY = 'resistance-load-unit-v1';
+    const MUSCLE_MAP_LOADS_KEY = 'resistance-muscle-map-loads-v1';
+    const EXERCISE_WEEKLY_LOG_KEY = 'resistance-weekly-exercise-log-v1';
     let EXERCISE_SLIDES = [];
     let exerciseSlideIndex = 0;
     let exerciseFullscreenModal = null;
+    let weekOffset = 0;
+    const DAY_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    const DAY_LABELS = {
+      mon: 'Monday',
+      tue: 'Tuesday',
+      wed: 'Wednesday',
+      thu: 'Thursday',
+      fri: 'Friday',
+      sat: 'Saturday',
+      sun: 'Sunday'
+    };
+
+    const BASE_MUSCLE_LOADS = {
+      front_delts: 0,
+      rear_delts: 0,
+      pecs: 0,
+      biceps: 0,
+      triceps: 0,
+      abs: 0,
+      hip_flexors: 0,
+      quads: 0,
+      adductors: 0,
+      glutes: 0,
+      hamstrings: 0,
+      calves: 0,
+      traps: 0,
+      lats: 0,
+      erectors: 0
+    };
+
+    const EXERCISE_TO_MUSCLES = {
+      chair_squat: { quads: 18, glutes: 14, hamstrings: 10, calves: 5, abs: 4, adductors: 8 },
+      glute_bridge: { glutes: 19, hamstrings: 13, erectors: 6, abs: 5 },
+      step_up: { quads: 15, glutes: 12, hamstrings: 8, calves: 9, adductors: 6, abs: 4 },
+      resistance_band_row: { lats: 18, traps: 12, rear_delts: 10, biceps: 11, erectors: 5 },
+      monster_walk: { glutes: 18, adductors: 10, quads: 7, calves: 8, abs: 4, hip_flexors: 5 },
+      gentle_walk: { calves: 6, quads: 5, glutes: 4, hip_flexors: 3, abs: 2 },
+      stretches: { hamstrings: 3, glutes: 2, calves: 2, lats: 2, traps: 2, abs: 2 },
+      bike_ride: { quads: 8, calves: 7, glutes: 5, hamstrings: 4, hip_flexors: 3, abs: 2 },
+      aquatic_center_recreation: { quads: 5, hamstrings: 4, glutes: 4, calves: 3, lats: 3, abs: 2 },
+      gardening: { quads: 4, glutes: 4, hamstrings: 3, calves: 3, abs: 2, erectors: 2 },
+      goblet_squat: { quads: 20, glutes: 16, hamstrings: 11, calves: 7, abs: 5, adductors: 9 },
+      romanian_deadlift: { hamstrings: 18, glutes: 16, erectors: 14, traps: 5, calves: 4 },
+      dumbbell_floor_press: { pecs: 20, front_delts: 13, triceps: 16, abs: 4 },
+      bentover_dumbbell_row: { lats: 19, traps: 12, rear_delts: 9, biceps: 13, erectors: 5 }
+    };
+
+    let muscleLoads = loadMuscleMapLoads();
+    let activeDay = getDayKey(new Date());
+    let weeklyExerciseLog = loadWeeklyExerciseLog();
+    let dumbbellLoads = loadDumbbellLoads();
+    let currentLoadUnit = loadPreferredLoadUnit();
 
     function todayISO() {
       return new Date().toLocaleDateString('en-CA');
@@ -337,6 +803,453 @@
 
     function saveExerciseSlideNotes(notesMap) {
       localStorage.setItem(EXERCISE_SLIDE_NOTES_KEY, JSON.stringify(notesMap));
+    }
+
+    function loadDumbbellLoads() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(RESISTANCE_DUMBBELL_LOADS_KEY));
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+        return parsed;
+      } catch {
+        return {};
+      }
+    }
+
+    function saveDumbbellLoads(loadsMap) {
+      localStorage.setItem(RESISTANCE_DUMBBELL_LOADS_KEY, JSON.stringify(loadsMap));
+    }
+
+    function loadPreferredLoadUnit() {
+      const saved = localStorage.getItem(RESISTANCE_LOAD_UNIT_KEY);
+      return saved === 'kg' ? 'kg' : 'lb';
+    }
+
+    function savePreferredLoadUnit(unit) {
+      localStorage.setItem(RESISTANCE_LOAD_UNIT_KEY, unit === 'kg' ? 'kg' : 'lb');
+    }
+
+    function loadResistanceTrainingNotes() {
+      const saved = localStorage.getItem(RESISTANCE_TRAINING_NOTES_KEY);
+      return typeof saved === 'string' ? saved : '';
+    }
+
+    function saveResistanceTrainingNotes(value) {
+      localStorage.setItem(RESISTANCE_TRAINING_NOTES_KEY, value);
+    }
+
+    function initResistanceTrainingNotes() {
+      const notesField = document.getElementById('resistance-training-notes');
+      if (!notesField) return;
+      notesField.value = loadResistanceTrainingNotes();
+      notesField.addEventListener('input', () => {
+        saveResistanceTrainingNotes(notesField.value);
+      });
+    }
+
+    function loadMuscleMapLoads() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(MUSCLE_MAP_LOADS_KEY));
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return { ...BASE_MUSCLE_LOADS };
+        const safe = { ...BASE_MUSCLE_LOADS };
+        for (const key of Object.keys(BASE_MUSCLE_LOADS)) {
+          const value = Number(parsed[key]);
+          safe[key] = Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0;
+        }
+        return safe;
+      } catch {
+        return { ...BASE_MUSCLE_LOADS };
+      }
+    }
+
+    function saveMuscleMapLoads() {
+      localStorage.setItem(MUSCLE_MAP_LOADS_KEY, JSON.stringify(muscleLoads));
+    }
+
+    function getDayKey(date) {
+      const index = (date.getDay() + 6) % 7;
+      return DAY_ORDER[index];
+    }
+
+    function getISOWeekInfo(dateInput) {
+      const date = new Date(dateInput.getTime());
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+      const weekOne = new Date(date.getFullYear(), 0, 4);
+      const weekNumber = 1 + Math.round(((date.getTime() - weekOne.getTime()) / 86400000 - 3 + ((weekOne.getDay() + 6) % 7)) / 7);
+      return { year: date.getFullYear(), week: weekNumber };
+    }
+
+    function getWeekStart(dateInput) {
+      const date = new Date(dateInput.getTime());
+      const day = (date.getDay() + 6) % 7;
+      date.setDate(date.getDate() - day);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+
+    function getCurrentWeekDate() {
+      const date = new Date();
+      date.setDate(date.getDate() + weekOffset * 7);
+      return date;
+    }
+
+    function getCurrentWeekKey() {
+      const info = getISOWeekInfo(getCurrentWeekDate());
+      return `${info.year}-W${String(info.week).padStart(2, '0')}`;
+    }
+
+    function loadWeeklyExerciseLog() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(EXERCISE_WEEKLY_LOG_KEY));
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+        return parsed;
+      } catch {
+        return {};
+      }
+    }
+
+    function saveWeeklyExerciseLog() {
+      localStorage.setItem(EXERCISE_WEEKLY_LOG_KEY, JSON.stringify(weeklyExerciseLog));
+    }
+
+    function ensureWeekLog(weekKey) {
+      if (!weeklyExerciseLog[weekKey] || typeof weeklyExerciseLog[weekKey] !== 'object') {
+        weeklyExerciseLog[weekKey] = {};
+      }
+      DAY_ORDER.forEach(day => {
+        if (!Array.isArray(weeklyExerciseLog[weekKey][day])) {
+          weeklyExerciseLog[weekKey][day] = [];
+        }
+      });
+      return weeklyExerciseLog[weekKey];
+    }
+
+    function getExerciseLabel(exerciseId) {
+      const card = document.querySelector(`.exercise-card[data-exercise-id="${exerciseId}"]`);
+      const title = card?.querySelector('.exercise-name')?.textContent?.trim();
+      return title || exerciseId;
+    }
+
+    function formatEntryTime(isoString) {
+      const date = new Date(isoString);
+      if (Number.isNaN(date.getTime())) return '';
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function formatLoadValue(value) {
+      if (!Number.isFinite(value) || value <= 0) return '';
+      return Number.isInteger(value) ? String(value) : value.toFixed(1);
+    }
+
+    function lbToKg(valueLb) {
+      return valueLb * 0.45359237;
+    }
+
+    function kgToLb(valueKg) {
+      return valueKg / 0.45359237;
+    }
+
+    function toDisplayLoad(valueLb) {
+      return currentLoadUnit === 'kg' ? lbToKg(valueLb) : valueLb;
+    }
+
+    function toStoredLoad(valueInCurrentUnit) {
+      return currentLoadUnit === 'kg' ? kgToLb(valueInCurrentUnit) : valueInCurrentUnit;
+    }
+
+    function formatLoadForDisplay(valueLb) {
+      const display = toDisplayLoad(valueLb);
+      const formatted = formatLoadValue(display);
+      return formatted ? `${formatted} ${currentLoadUnit}` : '';
+    }
+
+    function getCardLoadValue(exerciseId) {
+      const card = document.querySelector(`.exercise-card[data-exercise-id="${exerciseId}"]`);
+      const input = card?.querySelector('.exercise-load-input');
+      if (!input) return null;
+      const value = Number(input.value);
+      if (!Number.isFinite(value) || value <= 0) return null;
+      return toStoredLoad(value);
+    }
+
+    function renderDumbbellLoadInputs() {
+      document.querySelectorAll('.exercise-card[data-category="dumbbell"][data-exercise-id]').forEach(card => {
+        const exerciseId = card.dataset.exerciseId;
+        if (!exerciseId) return;
+        const input = card.querySelector('.exercise-load-input');
+        const unit = card.querySelector('.exercise-load-unit');
+        if (!input || !unit) return;
+
+        const savedLb = Number(dumbbellLoads[exerciseId]);
+        if (Number.isFinite(savedLb) && savedLb > 0) {
+          input.value = formatLoadValue(toDisplayLoad(savedLb));
+        } else {
+          input.value = '';
+        }
+        input.step = currentLoadUnit === 'kg' ? '0.25' : '0.5';
+        input.placeholder = currentLoadUnit === 'kg' ? 'e.g. 10' : 'e.g. 20';
+        unit.textContent = currentLoadUnit;
+      });
+    }
+
+    function initDumbbellLoadInputs() {
+      document.querySelectorAll('.exercise-card[data-category="dumbbell"][data-exercise-id]').forEach(card => {
+        const exerciseId = card.dataset.exerciseId;
+        if (!exerciseId) return;
+        const actions = card.querySelector('.exercise-actions');
+        if (!actions || card.querySelector('.exercise-load-control')) return;
+
+        const control = document.createElement('div');
+        control.className = 'exercise-load-control';
+
+        const label = document.createElement('label');
+        const inputId = `exercise-load-${exerciseId}`;
+        label.setAttribute('for', inputId);
+        label.textContent = 'Current weight';
+
+        const inputRow = document.createElement('div');
+        inputRow.className = 'exercise-load-input-row';
+
+        const input = document.createElement('input');
+        input.id = inputId;
+        input.className = 'exercise-load-input';
+        input.type = 'number';
+        input.min = '0';
+        input.step = '0.5';
+        input.placeholder = 'e.g. 20';
+
+        const unit = document.createElement('span');
+        unit.className = 'exercise-load-unit';
+        unit.textContent = currentLoadUnit;
+
+        const help = document.createElement('div');
+        help.className = 'exercise-load-help';
+        help.textContent = 'Use a load where the last 2-3 reps are hard with clean form.';
+
+        input.addEventListener('input', () => {
+          const value = Number(input.value);
+          if (Number.isFinite(value) && value > 0) {
+            dumbbellLoads[exerciseId] = toStoredLoad(value);
+          } else {
+            delete dumbbellLoads[exerciseId];
+          }
+          saveDumbbellLoads(dumbbellLoads);
+        });
+
+        inputRow.appendChild(input);
+        inputRow.appendChild(unit);
+        control.appendChild(label);
+        control.appendChild(inputRow);
+        control.appendChild(help);
+        actions.parentNode.insertBefore(control, actions);
+      });
+
+      renderDumbbellLoadInputs();
+    }
+
+    function renderWeeklyExerciseLog() {
+      const weekKey = getCurrentWeekKey();
+      const weekData = ensureWeekLog(weekKey);
+      saveWeeklyExerciseLog();
+
+      const currentWeekDate = getCurrentWeekDate();
+      const weekStart = getWeekStart(currentWeekDate);
+      const weekEnd = new Date(weekStart.getTime());
+      weekEnd.setDate(weekStart.getDate() + 6);
+
+      const weekLabel = document.getElementById('week-log-label');
+      if (weekLabel) {
+        weekLabel.textContent = `${weekKey} · ${weekStart.toLocaleDateString()} to ${weekEnd.toLocaleDateString()}`;
+      }
+
+      document.querySelectorAll('.week-day-btn[data-day]').forEach(button => {
+        const day = button.dataset.day;
+        const isActive = day === activeDay;
+        button.classList.toggle('active', isActive);
+      });
+
+      DAY_ORDER.forEach(day => {
+        const panel = document.querySelector(`.week-day-panel[data-day-panel="${day}"]`);
+        const list = document.querySelector(`.week-day-list[data-day-list="${day}"]`);
+        if (!panel || !list) return;
+        panel.classList.toggle('active', day === activeDay);
+        list.innerHTML = '';
+
+        const entries = weekData[day] || [];
+        if (!entries.length) {
+          const empty = document.createElement('li');
+          empty.className = 'week-day-empty';
+          empty.textContent = 'No exercises logged yet.';
+          list.appendChild(empty);
+          return;
+        }
+
+        entries.forEach(entry => {
+          const item = document.createElement('li');
+          item.className = 'week-day-item';
+
+          const name = document.createElement('span');
+          name.textContent = entry.name || entry.exerciseId;
+
+          const meta = document.createElement('div');
+          meta.className = 'week-day-item-meta';
+
+          const time = document.createElement('span');
+          time.className = 'week-day-item-time';
+          time.textContent = formatEntryTime(entry.addedAt);
+
+          if (Number.isFinite(entry.load) && entry.load > 0) {
+            const load = document.createElement('span');
+            load.className = 'week-day-item-load';
+            load.textContent = formatLoadForDisplay(entry.load);
+            meta.appendChild(load);
+          }
+
+          const removeButton = document.createElement('button');
+          removeButton.type = 'button';
+          removeButton.className = 'week-day-item-remove';
+          removeButton.textContent = 'Remove';
+          removeButton.addEventListener('click', () => removeExerciseEntry(day, entry.id));
+
+          meta.appendChild(time);
+          meta.appendChild(removeButton);
+          item.appendChild(name);
+          item.appendChild(meta);
+          list.appendChild(item);
+        });
+      });
+    }
+
+    function removeExerciseEntry(day, entryId) {
+      const weekKey = getCurrentWeekKey();
+      const weekData = ensureWeekLog(weekKey);
+      weekData[day] = (weekData[day] || []).filter(entry => entry.id !== entryId);
+      saveWeeklyExerciseLog();
+      renderWeeklyExerciseLog();
+    }
+
+    function clearActiveDayEntries() {
+      const weekKey = getCurrentWeekKey();
+      const weekData = ensureWeekLog(weekKey);
+      if (!weekData[activeDay] || !weekData[activeDay].length) return;
+      weekData[activeDay] = [];
+      saveWeeklyExerciseLog();
+      renderWeeklyExerciseLog();
+    }
+
+    function addExerciseToActiveDay(exerciseId) {
+      const weekKey = getCurrentWeekKey();
+      const weekData = ensureWeekLog(weekKey);
+      const load = getCardLoadValue(exerciseId);
+      weekData[activeDay].push({
+        id: `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
+        exerciseId,
+        name: getExerciseLabel(exerciseId),
+        load,
+        addedAt: new Date().toISOString()
+      });
+      saveWeeklyExerciseLog();
+      renderWeeklyExerciseLog();
+      applyExerciseToMuscleMap(exerciseId);
+    }
+
+    function lerp(a, b, t) {
+      return Math.round(a + (b - a) * t);
+    }
+
+    function colorForLoad(load) {
+      const t = Math.max(0, Math.min(1, load / 100));
+      const low = { r: 237, g: 242, b: 239 };
+      const high = { r: 26, g: 127, b: 71 };
+      const mid = { r: 111, g: 214, b: 147 };
+      if (t < 0.5) {
+        const p = t / 0.5;
+        return `rgb(${lerp(low.r, mid.r, p)}, ${lerp(low.g, mid.g, p)}, ${lerp(low.b, mid.b, p)})`;
+      }
+      const p = (t - 0.5) / 0.5;
+      return `rgb(${lerp(mid.r, high.r, p)}, ${lerp(mid.g, high.g, p)}, ${lerp(mid.b, high.b, p)})`;
+    }
+
+    function renderMuscleMap() {
+      const regions = document.querySelectorAll('.muscle-region[data-muscle]');
+      regions.forEach(region => {
+        const key = region.dataset.muscle;
+        const load = Number(muscleLoads[key] || 0);
+        region.style.fill = colorForLoad(load);
+      });
+
+      const sorted = Object.entries(muscleLoads)
+        .sort((a, b) => b[1] - a[1])
+        .filter(([, value]) => value > 0)
+        .slice(0, 4);
+      const summary = document.getElementById('muscle-map-summary');
+      if (!summary) return;
+      if (!sorted.length) {
+        summary.textContent = 'No exercise load applied yet.';
+        return;
+      }
+      const names = {
+        front_delts: 'Front delts',
+        rear_delts: 'Rear delts',
+        pecs: 'Chest',
+        biceps: 'Biceps',
+        triceps: 'Triceps',
+        abs: 'Core',
+        hip_flexors: 'Hip flexors',
+        quads: 'Quads',
+        adductors: 'Adductors',
+        glutes: 'Glutes',
+        hamstrings: 'Hamstrings',
+        calves: 'Calves',
+        traps: 'Traps',
+        lats: 'Lats',
+        erectors: 'Spinal erectors'
+      };
+      summary.textContent = `Highest stimulus: ${sorted.map(([name, value]) => `${names[name] || name} (${Math.round(value)})`).join(' · ')}`;
+    }
+
+    function applyExerciseToMuscleMap(exerciseKey) {
+      const profile = EXERCISE_TO_MUSCLES[exerciseKey];
+      if (!profile) return;
+      Object.entries(profile).forEach(([muscle, increase]) => {
+        const current = Number(muscleLoads[muscle] || 0);
+        muscleLoads[muscle] = Math.min(100, current + increase);
+      });
+      saveMuscleMapLoads();
+      renderMuscleMap();
+    }
+
+    function decayMuscleMapLoads(step) {
+      Object.keys(BASE_MUSCLE_LOADS).forEach(muscle => {
+        muscleLoads[muscle] = Math.max(0, Number(muscleLoads[muscle] || 0) - step);
+      });
+      saveMuscleMapLoads();
+      renderMuscleMap();
+    }
+
+    function resetMuscleMapLoads() {
+      muscleLoads = { ...BASE_MUSCLE_LOADS };
+      saveMuscleMapLoads();
+      renderMuscleMap();
+    }
+
+    function applyExerciseFilters(selectedCategory, searchTerm) {
+      const cards = document.querySelectorAll('.exercise-card[data-category]');
+      const normalizedSearch = String(searchTerm || '').trim().toLowerCase();
+
+      cards.forEach(card => {
+        const categoryMatch = selectedCategory === 'all' || card.dataset.category === selectedCategory;
+        const cardName = card.querySelector('.exercise-name')?.textContent?.trim().toLowerCase() || '';
+        const searchMatch = !normalizedSearch || cardName.includes(normalizedSearch);
+        const showCard = categoryMatch && searchMatch;
+        card.style.display = showCard ? '' : 'none';
+      });
+
+      const panels = document.querySelectorAll('.exercise-category-panel');
+      panels.forEach(panel => {
+        const visibleCards = panel.querySelectorAll('.exercise-card[data-category]:not([style*="display: none"])');
+        panel.style.display = visibleCards.length ? '' : 'none';
+      });
     }
 
     const exerciseSlideNotes = loadExerciseSlideNotes();
@@ -398,6 +1311,9 @@
         { file: 'glute-bridge.png', caption: 'Glute bridge setup and movement pattern' },
         { file: 'step-up.png', caption: 'Step-up movement for legs and balance' },
         { file: 'resistance-band-row.png', caption: 'Resistance band row for back-muscle recruitment' },
+        { file: 'monster-walk.png', caption: 'Lateral monster walk with ankle band placement' },
+        { file: 'dumbbell-floor-press.jpg', caption: 'Dumbbell floor press setup and pressing path' },
+        { file: 'bentover-dumbbell-row.jpg', caption: 'Bent-over dumbbell row setup and pull path' },
         { file: 'dead-bug.png', caption: 'Dead bug core-stability pattern' },
         { file: 'hip-hinge.png', caption: 'Hip hinge mechanics for posterior-chain training' },
         { file: 'calf-raise.png', caption: 'Calf raise movement for ankle and lower-leg strength' }
@@ -592,6 +1508,70 @@
       reader.readAsText(file);
       event.target.value = '';
     });
+
+    document.querySelectorAll('.add-day-btn[data-add-exercise]').forEach(button => {
+      button.addEventListener('click', () => {
+        addExerciseToActiveDay(button.dataset.addExercise);
+        const originalLabel = button.dataset.originalLabel || button.textContent;
+        button.dataset.originalLabel = originalLabel;
+        button.classList.add('is-added');
+        button.textContent = 'Added!';
+        clearTimeout(Number(button.dataset.feedbackTimer || 0));
+        const timerId = window.setTimeout(() => {
+          button.classList.remove('is-added');
+          button.textContent = button.dataset.originalLabel || '+ Add to Day';
+          delete button.dataset.feedbackTimer;
+        }, 950);
+        button.dataset.feedbackTimer = String(timerId);
+      });
+    });
+    document.getElementById('muscle-map-reset')?.addEventListener('click', resetMuscleMapLoads);
+
+    document.querySelectorAll('.week-day-btn[data-day]').forEach(button => {
+      button.addEventListener('click', () => {
+        activeDay = button.dataset.day;
+        renderWeeklyExerciseLog();
+      });
+    });
+    document.getElementById('week-log-prev')?.addEventListener('click', () => {
+      weekOffset -= 1;
+      renderWeeklyExerciseLog();
+    });
+    document.getElementById('week-log-next')?.addEventListener('click', () => {
+      weekOffset += 1;
+      renderWeeklyExerciseLog();
+    });
+    document.getElementById('week-log-today')?.addEventListener('click', () => {
+      weekOffset = 0;
+      activeDay = getDayKey(new Date());
+      renderWeeklyExerciseLog();
+    });
+    document.getElementById('week-log-clear-day')?.addEventListener('click', clearActiveDayEntries);
+
+    const exerciseCategoryFilter = document.getElementById('exercise-category-filter');
+    const exerciseLoadUnit = document.getElementById('exercise-load-unit');
+    const exerciseNameSearch = document.getElementById('exercise-name-search');
+    function refreshExerciseFilters() {
+      applyExerciseFilters(exerciseCategoryFilter?.value || 'all', exerciseNameSearch?.value || '');
+    }
+
+    exerciseCategoryFilter?.addEventListener('change', refreshExerciseFilters);
+    if (exerciseLoadUnit) {
+      exerciseLoadUnit.value = currentLoadUnit;
+      exerciseLoadUnit.addEventListener('change', () => {
+        currentLoadUnit = exerciseLoadUnit.value === 'kg' ? 'kg' : 'lb';
+        savePreferredLoadUnit(currentLoadUnit);
+        renderDumbbellLoadInputs();
+        renderWeeklyExerciseLog();
+      });
+    }
+    exerciseNameSearch?.addEventListener('input', refreshExerciseFilters);
+
+    initResistanceTrainingNotes();
+    initDumbbellLoadInputs();
+    renderMuscleMap();
+    renderWeeklyExerciseLog();
+    refreshExerciseFilters();
 
     loadExerciseSlides()
       .then(() => renderExerciseSlide())
