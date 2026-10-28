@@ -50,8 +50,8 @@
     .exercise-load-control{margin-top:.75rem;display:grid;gap:.35rem}
     .exercise-load-control label{font-size:.73rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
     .exercise-load-input-row{display:flex;align-items:center;gap:.45rem}
-    .exercise-load-input{width:120px;padding:.42rem .55rem;border:1px solid var(--border);border-radius:8px;background:#fff;color:#1f2937;font:inherit;font-size:.86rem;font-weight:600}
-    .exercise-load-input:focus{outline:2px solid var(--green-mid);outline-offset:1px}
+    .exercise-load-input,.walk-distance-input{width:120px;padding:.42rem .55rem;border:1px solid var(--border);border-radius:8px;background:#fff;color:#1f2937;font:inherit;font-size:.86rem;font-weight:600}
+    .exercise-load-input:focus,.walk-distance-input:focus{outline:2px solid var(--green-mid);outline-offset:1px}
     .exercise-load-unit{font-size:.8rem;color:var(--muted);font-weight:700}
     .exercise-load-help{font-size:.74rem;color:var(--muted)}
     .exercise-actions{margin-top:.8rem;display:flex;justify-content:flex-end}
@@ -119,6 +119,10 @@
     .week-day-item{display:flex;align-items:center;justify-content:space-between;gap:.45rem;font-size:.82rem;color:#32414b;background:#f8fcf9;border:1px solid #e1eee6;border-radius:8px;padding:.35rem .45rem}
     .week-day-item-meta{display:flex;align-items:center;gap:.45rem}
     .week-day-item-load{font-size:.72rem;font-weight:800;color:#245d47;background:#e4f6ea;border:1px solid #cde4d2;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
+    .week-day-item-distance{font-size:.72rem;font-weight:800;color:#0e5b6e;background:#e0f7fa;border:1px solid #b2ebf2;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
+    .walk-vest-row{display:flex;align-items:center;gap:.5rem;margin-top:.45rem}
+    .walk-vest-checkbox{width:1.05rem;height:1.05rem;accent-color:var(--green-mid);cursor:pointer;flex-shrink:0}
+    .walk-vest-label{font-size:.8rem;font-weight:700;color:#1f2937;cursor:pointer;user-select:none}
     .week-day-item-time{font-size:.72rem;color:#6b7280;white-space:nowrap}
     .week-day-item-remove{padding:.22rem .5rem;border-radius:7px;border:1px solid #cde4d2;background:#fff;color:#7f1d1d;font:inherit;font-size:.72rem;font-weight:700;cursor:pointer}
     .week-day-item-remove:hover{background:#fee2e2;border-color:#fecaca}
@@ -206,26 +210,24 @@
       </div>
     </div>
 
-    <div class="panel">
-      <div class="panel-header">Sample weekly rhythm</div>
-      <div class="panel-body">
-        <div class="week-grid">
-          <div class="day-card day-cardio"><strong>Mon</strong><br>Zone 2</div>
-          <div class="day-card day-rest"><strong>Tue</strong><br>Recovery</div>
-          <div class="day-card day-both"><strong>Wed</strong><br>Zone 2 + Resistance</div>
-          <div class="day-card day-rest"><strong>Thu</strong><br>Rest</div>
-          <div class="day-card day-cardio"><strong>Fri</strong><br>Zone 2</div>
-          <div class="day-card day-both"><strong>Sat</strong><br>Zone 2 + Resistance</div>
-          <div class="day-card day-rest"><strong>Sun</strong><br>Walk / recovery</div>
-        </div>
-      </div>
-    </div>
+    
 
     <br>
 
     <div class="callout">
       <strong>The principle</strong>
       More muscle mass creates a larger metabolic sink, and that matters for fatty liver, post-meal glucose, and triglyceride handling. Resistance work is the structural fix that supports everything else.
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Training Notes</div>
+      <div class="panel-body">
+        <div class="training-notes-wrap">
+          <label class="training-notes-label" for="resistance-training-notes">Your progression notes</label>
+          <textarea id="resistance-training-notes" class="training-notes-field" placeholder="Example: Keep this routine for 6 weeks, then progress to level 2.\nTrack if rep range feels easy for 2 workouts in a row before increasing difficulty."></textarea>
+          <div class="training-notes-help">Autosaves in this browser as you type.</div>
+        </div>
+      </div>
     </div>
 
     <div class="panel">
@@ -240,13 +242,19 @@
       </div>
     </div>
 
+    
+
     <div class="panel">
-      <div class="panel-header">Training Notes</div>
+      <div class="panel-header">Sample weekly rhythm</div>
       <div class="panel-body">
-        <div class="training-notes-wrap">
-          <label class="training-notes-label" for="resistance-training-notes">Your progression notes</label>
-          <textarea id="resistance-training-notes" class="training-notes-field" placeholder="Example: Keep this routine for 6 weeks, then progress to level 2.\nTrack if rep range feels easy for 2 workouts in a row before increasing difficulty."></textarea>
-          <div class="training-notes-help">Autosaves in this browser as you type.</div>
+        <div class="week-grid">
+          <div class="day-card day-cardio"><strong>Mon</strong><br>Zone 2</div>
+          <div class="day-card day-rest"><strong>Tue</strong><br>Recovery</div>
+          <div class="day-card day-both"><strong>Wed</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Thu</strong><br>Rest</div>
+          <div class="day-card day-cardio"><strong>Fri</strong><br>Zone 2</div>
+          <div class="day-card day-both"><strong>Sat</strong><br>Zone 2 + Resistance</div>
+          <div class="day-card day-rest"><strong>Sun</strong><br>Walk / recovery</div>
         </div>
       </div>
     </div>
@@ -731,6 +739,7 @@
     const RESISTANCE_LOAD_UNIT_KEY = 'resistance-load-unit-v1';
     const MUSCLE_MAP_LOADS_KEY = 'resistance-muscle-map-loads-v1';
     const EXERCISE_WEEKLY_LOG_KEY = 'resistance-weekly-exercise-log-v1';
+    const WALK_DISTANCE_UNIT_KEY = 'resistance-walk-distance-unit-v1';
     let EXERCISE_SLIDES = [];
     let exerciseSlideIndex = 0;
     let exerciseFullscreenModal = null;
@@ -771,6 +780,8 @@
       resistance_band_row: { lats: 18, traps: 12, rear_delts: 10, biceps: 11, erectors: 5 },
       monster_walk: { glutes: 18, adductors: 10, quads: 7, calves: 8, abs: 4, hip_flexors: 5 },
       gentle_walk: { calves: 6, quads: 5, glutes: 4, hip_flexors: 3, abs: 2 },
+      // extra stimulus from carrying vest weight; stacks on top of base gentle_walk
+      gentle_walk_vest: { calves: 3, quads: 2, glutes: 2, hip_flexors: 1, abs: 2, erectors: 2 },
       stretches: { hamstrings: 3, glutes: 2, calves: 2, lats: 2, traps: 2, abs: 2 },
       bike_ride: { quads: 8, calves: 7, glutes: 5, hamstrings: 4, hip_flexors: 3, abs: 2 },
       aquatic_center_recreation: { quads: 5, hamstrings: 4, glutes: 4, calves: 3, lats: 3, abs: 2 },
@@ -786,6 +797,7 @@
     let weeklyExerciseLog = loadWeeklyExerciseLog();
     let dumbbellLoads = loadDumbbellLoads();
     let currentLoadUnit = loadPreferredLoadUnit();
+    let walkDistanceUnit = loadWalkDistanceUnit();
 
     function todayISO() {
       return new Date().toLocaleDateString('en-CA');
@@ -826,6 +838,28 @@
 
     function savePreferredLoadUnit(unit) {
       localStorage.setItem(RESISTANCE_LOAD_UNIT_KEY, unit === 'kg' ? 'kg' : 'lb');
+    }
+
+    function loadWalkDistanceUnit() {
+      const saved = localStorage.getItem(WALK_DISTANCE_UNIT_KEY);
+      return saved === 'km' ? 'km' : 'mi';
+    }
+
+    function saveWalkDistanceUnit(unit) {
+      localStorage.setItem(WALK_DISTANCE_UNIT_KEY, unit === 'km' ? 'km' : 'mi');
+    }
+
+    function getCardWalkDistance() {
+      const input = document.getElementById('gentle-walk-distance-input');
+      if (!input) return null;
+      const value = Number(input.value);
+      if (!Number.isFinite(value) || value <= 0) return null;
+      return value;
+    }
+
+    function getCardWalkVest() {
+      const cb = document.getElementById('gentle-walk-vest-checkbox');
+      return cb ? cb.checked : false;
     }
 
     function loadResistanceTrainingNotes() {
@@ -1105,6 +1139,13 @@
             meta.appendChild(load);
           }
 
+          if (Number.isFinite(entry.distance) && entry.distance > 0) {
+            const dist = document.createElement('span');
+            dist.className = 'week-day-item-distance';
+            dist.textContent = `${entry.distance} ${entry.distanceUnit || 'mi'}`;
+            meta.appendChild(dist);
+          }
+
           const removeButton = document.createElement('button');
           removeButton.type = 'button';
           removeButton.className = 'week-day-item-remove';
@@ -1141,16 +1182,29 @@
       const weekKey = getCurrentWeekKey();
       const weekData = ensureWeekLog(weekKey);
       const load = getCardLoadValue(exerciseId);
-      weekData[activeDay].push({
+      const entry = {
         id: `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
         exerciseId,
         name: getExerciseLabel(exerciseId),
         load,
         addedAt: new Date().toISOString()
-      });
+      };
+      if (exerciseId === 'gentle_walk') {
+        const dist = getCardWalkDistance();
+        if (dist !== null) {
+          entry.distance = dist;
+          entry.distanceUnit = walkDistanceUnit;
+        }
+        // Vest weight stored in lb, same convention as dumbbell loads
+        if (getCardWalkVest()) entry.load = 20;
+      }
+      weekData[activeDay].push(entry);
       saveWeeklyExerciseLog();
       renderWeeklyExerciseLog();
       applyExerciseToMuscleMap(exerciseId);
+      if (exerciseId === 'gentle_walk' && entry.load === 20) {
+        applyExerciseToMuscleMap('gentle_walk_vest');
+      }
     }
 
     function lerp(a, b, t) {
@@ -1567,8 +1621,79 @@
     }
     exerciseNameSearch?.addEventListener('input', refreshExerciseFilters);
 
+    function initWalkDistanceControl() {
+      const card = document.querySelector('.exercise-card[data-exercise-id="gentle_walk"]');
+      if (!card || card.querySelector('.walk-distance-control')) return;
+      const actions = card.querySelector('.exercise-actions');
+      if (!actions) return;
+
+      const control = document.createElement('div');
+      control.className = 'exercise-load-control walk-distance-control';
+
+      const label = document.createElement('label');
+      label.setAttribute('for', 'gentle-walk-distance-input');
+      label.textContent = 'Distance walked';
+
+      const inputRow = document.createElement('div');
+      inputRow.className = 'exercise-load-input-row';
+
+      const input = document.createElement('input');
+      input.id = 'gentle-walk-distance-input';
+      input.className = 'walk-distance-input';
+      input.type = 'number';
+      input.min = '0';
+      input.step = '0.1';
+      input.placeholder = walkDistanceUnit === 'km' ? 'e.g. 2.5' : 'e.g. 1.5';
+
+      const unitSelect = document.createElement('select');
+      unitSelect.className = 'exercise-load-unit';
+      unitSelect.style.cssText = 'padding:.32rem .45rem;border:1px solid var(--border);border-radius:7px;background:#fff;font:inherit;font-size:.8rem;font-weight:700;color:var(--muted);cursor:pointer';
+      ['mi', 'km'].forEach(u => {
+        const opt = document.createElement('option');
+        opt.value = u;
+        opt.textContent = u;
+        unitSelect.appendChild(opt);
+      });
+      unitSelect.value = walkDistanceUnit;
+
+      unitSelect.addEventListener('change', () => {
+        walkDistanceUnit = unitSelect.value === 'km' ? 'km' : 'mi';
+        saveWalkDistanceUnit(walkDistanceUnit);
+        input.placeholder = walkDistanceUnit === 'km' ? 'e.g. 2.5' : 'e.g. 1.5';
+      });
+
+      const help = document.createElement('div');
+      help.className = 'exercise-load-help';
+      help.textContent = 'Enter your walk distance before tapping Add to Day.';
+
+      const vestRow = document.createElement('div');
+      vestRow.className = 'walk-vest-row';
+
+      const vestCheckbox = document.createElement('input');
+      vestCheckbox.type = 'checkbox';
+      vestCheckbox.id = 'gentle-walk-vest-checkbox';
+      vestCheckbox.className = 'walk-vest-checkbox';
+
+      const vestLabel = document.createElement('label');
+      vestLabel.setAttribute('for', 'gentle-walk-vest-checkbox');
+      vestLabel.className = 'walk-vest-label';
+      vestLabel.textContent = 'Wore 20 lb weighted vest';
+
+      vestRow.appendChild(vestCheckbox);
+      vestRow.appendChild(vestLabel);
+
+      inputRow.appendChild(input);
+      inputRow.appendChild(unitSelect);
+      control.appendChild(label);
+      control.appendChild(inputRow);
+      control.appendChild(help);
+      control.appendChild(vestRow);
+      actions.parentNode.insertBefore(control, actions);
+    }
+
     initResistanceTrainingNotes();
     initDumbbellLoadInputs();
+    initWalkDistanceControl();
     renderMuscleMap();
     renderWeeklyExerciseLog();
     refreshExerciseFilters();
