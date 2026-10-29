@@ -111,6 +111,7 @@
     .week-day-switches{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.42rem;margin-bottom:.75rem}
     .week-day-btn{padding:.42rem .3rem;border-radius:8px;border:1px solid #cde4d2;background:#fff;color:#245d47;font:inherit;font-size:.78rem;font-weight:800;letter-spacing:.02em;cursor:pointer}
     .week-day-btn.active{background:#dcf4e4;border-color:#7dc89b;color:#1f513c}
+    .week-day-btn[data-day="tue"]:not(.active),.week-day-btn[data-day="thu"]:not(.active),.week-day-btn[data-day="sun"]:not(.active){background:#f3f4f6;border-color:#d1d5db;color:#6b7280}
     .week-day-panels{display:grid;gap:.55rem}
     .week-day-panel{border:1px solid #d5e9da;border-radius:10px;background:#fff;padding:.55rem .65rem}
     .week-day-panel.active{border-color:#74c69d;box-shadow:0 0 0 2px rgba(116,198,157,.2)}
@@ -459,6 +460,28 @@
             </div>
           </article>
 
+          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="dead_bug">
+            <div class="exercise-visual" aria-label="Dead Bug visual">
+              <img src="exercise-illustrations/resistance/dead-bug.png" alt="Dead Bug" />
+              <span class="exercise-visual-label">Dead Bug</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Dead Bug</h3>
+                <span class="exercise-chip">Bodyweight</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Core · Hip flexors · Spinal erectors</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 6–8 each side</p></div>
+                <div class="meta"><label>How to do it</label><p>Lie on your back, knees bent at 90° floating above your hips, arms extended toward the ceiling. Slowly lower your right arm overhead while straightening your left leg just above the surface — only as low as your lower back stays pressed down. Return to center and switch sides.</p></div>
+                <div class="meta"><label>Why it helps</label><p>Safely teaches your core to brace while your limbs move, with no neck strain. The back-to-mattress cue keeps the movement within a safe range.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="dead_bug">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </div>
@@ -782,6 +805,7 @@
       gentle_walk: { calves: 6, quads: 5, glutes: 4, hip_flexors: 3, abs: 2 },
       // extra stimulus from carrying vest weight; stacks on top of base gentle_walk
       gentle_walk_vest: { calves: 3, quads: 2, glutes: 2, hip_flexors: 1, abs: 2, erectors: 2 },
+      dead_bug: { abs: 16, hip_flexors: 8, erectors: 6 },
       stretches: { hamstrings: 3, glutes: 2, calves: 2, lats: 2, traps: 2, abs: 2 },
       bike_ride: { quads: 8, calves: 7, glutes: 5, hamstrings: 4, hip_flexors: 3, abs: 2 },
       aquatic_center_recreation: { quads: 5, hamstrings: 4, glutes: 4, calves: 3, lats: 3, abs: 2 },
