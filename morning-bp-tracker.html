@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morning Blood Pressure Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #2d6a4f;
+      --green-mid: #40916c;
+      --green-light: #d8f3dc;
+      --green-pale: #f0faf2;
+      --border: #b7ddc4;
+      --text: #1e2d24;
+      --muted: #5a7263;
+      --shadow: 0 2px 12px rgba(45, 106, 79, .12);
+      --sys: #b02a37;
+      --dia: #1d6fa5;
+      --bpm: #5b3a8f;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--green-pale);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 4rem;
+    }
+
+    nav {
+      background: var(--green-dark);
+      padding: .75rem 1.5rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .88rem;
+      opacity: .82;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+
+    nav a:hover,
+    nav a.active {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1.4rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.55rem, 4vw, 2.25rem);
+      color: var(--green-dark);
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: .35rem;
+      font-size: .95rem;
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .main-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 1.2rem 1.3rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .card h2 {
+      color: var(--green-dark);
+      font-size: 1.03rem;
+      margin-bottom: .85rem;
+    }
+
+    .helper {
+      color: var(--muted);
+      font-size: .82rem;
+      margin-top: .55rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: .8rem;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: .28rem;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: .76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .5rem .7rem;
+      font-size: .92rem;
+      color: var(--text);
+      background: #f8fcf9;
+      font-family: inherit;
+    }
+
+    .field textarea {
+      min-height: 66px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      outline: 2px solid var(--green-mid);
+      background: #fff;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: .62rem;
+      flex-wrap: wrap;
+      margin-top: .95rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: .52rem 1.05rem;
+      font-size: .89rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+
+    .btn:hover { opacity: .86; }
+
+    .btn-primary {
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--green-dark);
+      border: 1.5px solid var(--green-mid);
+    }
+
+    .btn-muted {
+      background: #edf5f0;
+      color: #2f5f45;
+      border: 1px solid #d6e9dd;
+    }
+
+    .btn-export {
+      background: #e8f4fb;
+      color: #1a5276;
+      border: 1px solid #b8d8ea;
+    }
+
+    .btn-import {
+      background: #f3ecfb;
+      color: #5b2c6f;
+      border: 1px solid #d7bde2;
+    }
+
+    .save-state {
+      margin-top: .55rem;
+      min-height: 1.2rem;
+      font-size: .82rem;
+      font-weight: 700;
+      color: #1f6a4d;
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: .7rem;
+      margin-bottom: .92rem;
+    }
+
+    .stat-box {
+      border: 1px solid #d8eadf;
+      background: #f7fcf9;
+      border-radius: 10px;
+      padding: .6rem .7rem;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: .73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-top: .1rem;
+    }
+
+    .week-nav {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: .7rem;
+    }
+
+    .week-pill {
+      background: #f4fbf6;
+      border: 1px solid #d5e9db;
+      border-radius: 999px;
+      padding: .34rem .82rem;
+      font-size: .84rem;
+      font-weight: 700;
+      color: #2f5f45;
+    }
+
+    .week-summary {
+      font-size: .83rem;
+      color: var(--muted);
+      margin-bottom: .7rem;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .85rem;
+    }
+
+    .chart-card {
+      border: 1px solid #daebe0;
+      border-radius: 12px;
+      padding: .72rem;
+      background: #fbfefc;
+    }
+
+    .chart-title {
+      font-size: .84rem;
+      font-weight: 700;
+      margin-bottom: .45rem;
+    }
+
+    .chart-wrap {
+      position: relative;
+      height: 210px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .86rem;
+    }
+
+    thead tr { background: var(--green-light); }
+
+    th, td {
+      text-align: left;
+      white-space: nowrap;
+      padding: .5rem .65rem;
+      border-bottom: 1px solid #e5f0e8;
+      vertical-align: middle;
+    }
+
+    tbody tr:nth-child(2n) { background: #f9fdfa; }
+
+    .empty-msg {
+      display: none;
+      margin-top: .6rem;
+      font-size: .83rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .action-btn {
+      border: 1px solid #cce3d5;
+      background: #fff;
+      color: var(--green-dark);
+      border-radius: 7px;
+      font-size: .78rem;
+      font-weight: 700;
+      padding: .28rem .58rem;
+      cursor: pointer;
+      margin-right: .3rem;
+    }
+
+    .action-btn.delete {
+      color: #8f1d1d;
+      border-color: #efc4c4;
+      background: #fff7f7;
+      margin-right: 0;
+    }
+
+    @media (max-width: 740px) {
+      .chart-wrap { height: 195px; }
+      th, td { font-size: .8rem; }
+      .week-nav { gap: .42rem; }
+      .btn { font-size: .83rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html">🍽️ Food Testing</a>
+    <a href="dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="genetics.html">🧬 Genetics</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="cardio.html">🏃 Cardio</a>
+    <a href="resistance.html">💪 Resistance</a>
+    <a href="cgm-tracker.html">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="morning-bp-tracker.html" class="active">🩺 BP</a>
+    <a href="diet-power.html">🥣 Diet Power</a>
+  </nav>
+
+  <header>
+    <h1>🩺 Morning Blood Pressure Tracker</h1>
+    <p>Track morning systolic, diastolic, and pulse by date, review one week at a time, and quickly jump across sparse historical data using data-week navigation.</p>
+  </header>
+
+  <main class="main-wrap">
+    <section class="card">
+      <h2>Add or Update Morning Reading</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label for="bp-date">Date</label>
+          <input id="bp-date" type="date" />
+        </div>
+        <div class="field">
+          <label for="bp-systolic">Systolic (mmHg)</label>
+          <input id="bp-systolic" type="number" min="70" max="260" step="1" placeholder="e.g. 122" />
+        </div>
+        <div class="field">
+          <label for="bp-diastolic">Diastolic (mmHg)</label>
+          <input id="bp-diastolic" type="number" min="40" max="160" step="1" placeholder="e.g. 78" />
+        </div>
+        <div class="field">
+          <label for="bp-bpm">Pulse (BPM)</label>
+          <input id="bp-bpm" type="number" min="30" max="220" step="1" placeholder="e.g. 64" />
+        </div>
+        <div class="field full">
+          <label for="bp-notes">Notes (optional)</label>
+          <textarea id="bp-notes" placeholder="Optional context (sleep, stress, medication timing, etc.)"></textarea>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="save-btn" type="button">Save Reading</button>
+        <button class="btn btn-outline" id="clear-btn" type="button">Clear Form</button>
+        <button class="btn btn-export" id="export-btn" type="button">Export CSV</button>
+        <button class="btn btn-import" id="import-btn" type="button">Import CSV</button>
+        <input type="file" id="import-file" accept=".csv,text/csv" style="display:none" />
+      </div>
+      <div class="save-state" id="save-state"></div>
+      <p class="helper">CSV columns expected: Date, Systolic, Diastolic, BPM, Notes (optional). Duplicate dates are updated on import.</p>
+    </section>
+
+    <section class="card">
+      <h2>Weekly Trend View</h2>
+        <p>Generic Healthy range: 120/80, <br>Sedentary 62 yr old: 130 - 139 mmHg. <br>Age in 60s at 160 lbs with active cardio and resistance training continuing: 120/60-79 with a heart rate of 60 to 70.</p>
+        <br>
+      <div class="quick-stats" id="quick-stats"></div>
+
+      <div class="week-nav">
+        <button class="btn btn-muted" id="prev-week-btn" type="button">◀ Week</button>
+        <button class="btn btn-muted" id="next-week-btn" type="button">Week ▶</button>
+        <button class="btn btn-outline" id="prev-data-week-btn" type="button">◀◀ Data Week</button>
+        <button class="btn btn-outline" id="next-data-week-btn" type="button">Data Week ▶▶</button>
+        <button class="btn btn-outline" id="today-week-btn" type="button">Today</button>
+        <button class="btn btn-outline" id="latest-week-btn" type="button">Latest Data Week</button>
+        <span class="week-pill" id="week-label"></span>
+      </div>
+      <p class="week-summary" id="week-summary"></p>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="chart-title" style="color:var(--sys)">Systolic (mmHg)</div>
+          <div class="chart-wrap"><canvas id="chart-systolic"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="color:var(--dia)">Diastolic (mmHg)</div>
+          <div class="chart-wrap"><canvas id="chart-diastolic"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="color:var(--bpm)">Pulse (BPM)</div>
+          <div class="chart-wrap"><canvas id="chart-bpm"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Entries In Visible Week</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Systolic</th>
+              <th>Diastolic</th>
+              <th>Pulse</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="week-entries-body"></tbody>
+        </table>
+        <p id="week-empty-msg" class="empty-msg">No readings in this week yet.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>All Saved Readings</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Systolic</th>
+              <th>Diastolic</th>
+              <th>Pulse</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="all-entries-body"></tbody>
+        </table>
+        <p id="all-empty-msg" class="empty-msg">No readings saved yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'tammys_morning_bp_tracker_v1';
+
+    const dateInput = document.getElementById('bp-date');
+    const systolicInput = document.getElementById('bp-systolic');
+    const diastolicInput = document.getElementById('bp-diastolic');
+    const bpmInput = document.getElementById('bp-bpm');
+    const notesInput = document.getElementById('bp-notes');
+    const saveState = document.getElementById('save-state');
+
+    const quickStatsEl = document.getElementById('quick-stats');
+    const weekLabelEl = document.getElementById('week-label');
+    const weekSummaryEl = document.getElementById('week-summary');
+    const weekEntriesBody = document.getElementById('week-entries-body');
+    const weekEmptyMsg = document.getElementById('week-empty-msg');
+    const allEntriesBody = document.getElementById('all-entries-body');
+    const allEmptyMsg = document.getElementById('all-empty-msg');
+
+    let chartSystolic = null;
+    let chartDiastolic = null;
+    let chartBpm = null;
+    let editingDate = null;
+    let currentWeekStart = getStartOfWeek(todayISO());
+
+    function todayISO() {
+      const now = new Date();
+      const tzOffsetMs = now.getTimezoneOffset() * 60000;
+      return new Date(now.getTime() - tzOffsetMs).toISOString().slice(0, 10);
+    }
+
+    function normalizeDateOnly(value) {
+      const raw = String(value || '').trim();
+      if (!raw) return '';
+      const candidate = raw.includes('T') ? raw.slice(0, 10) : raw;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(candidate)) return '';
+      const [year, month, day] = candidate.split('-').map(Number);
+      const check = new Date(Date.UTC(year, month - 1, day));
+      if (check.getUTCFullYear() !== year || check.getUTCMonth() !== month - 1 || check.getUTCDate() !== day) {
+        return '';
+      }
+      return candidate;
+    }
+
+    function getStartOfWeek(dateLike) {
+      const normalized = normalizeDateOnly(dateLike);
+      const date = normalized ? new Date(normalized + 'T12:00:00') : new Date();
+      const day = date.getDay();
+      const diff = day === 0 ? -6 : 1 - day;
+      date.setDate(date.getDate() + diff);
+      return date.toLocaleDateString('en-CA');
+    }
+
+    function addDays(isoDate, days) {
+      const normalized = normalizeDateOnly(isoDate);
+      if (!normalized) return '';
+      const date = new Date(normalized + 'T12:00:00');
+      date.setDate(date.getDate() + days);
+      return date.toLocaleDateString('en-CA');
+    }
+
+    function formatDate(isoDate) {
+      const normalized = normalizeDateOnly(isoDate);
+      if (!normalized) return '';
+      const [y, m, d] = normalized.split('-').map(Number);
+      return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+        year: 'numeric', month: 'short', day: 'numeric'
+      });
+    }
+
+    function formatDateShort(isoDate) {
+      const normalized = normalizeDateOnly(isoDate);
+      if (!normalized) return '';
+      const [y, m, d] = normalized.split('-');
+      return m + '/' + d;
+    }
+
+    function escapeHtml(text) {
+      return String(text || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function showState(message) {
+      saveState.textContent = message;
+      setTimeout(() => {
+        if (saveState.textContent === message) saveState.textContent = '';
+      }, 2200);
+    }
+
+    function loadEntries() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        if (!Array.isArray(parsed)) return [];
+        return parsed
+          .map(item => normalizeEntry(item))
+          .filter(Boolean);
+      } catch {
+        return [];
+      }
+    }
+
+    function saveEntries(entries) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+
+    function normalizeEntry(item) {
+      if (!item || typeof item !== 'object') return null;
+      const date = normalizeDateOnly(item.date);
+      if (!date) return null;
+
+      const systolic = Number(item.systolic);
+      const diastolic = Number(item.diastolic);
+      const bpm = Number(item.bpm);
+
+      if (!Number.isFinite(systolic) || !Number.isFinite(diastolic) || !Number.isFinite(bpm)) return null;
+      if (systolic <= 0 || diastolic <= 0 || bpm <= 0) return null;
+
+      return {
+        date,
+        systolic,
+        diastolic,
+        bpm,
+        notes: String(item.notes || '').trim(),
+        updatedAt: String(item.updatedAt || new Date().toISOString())
+      };
+    }
+
+    function sortDesc(entries) {
+      return [...entries].sort((a, b) => b.date.localeCompare(a.date));
+    }
+
+    function sortAsc(entries) {
+      return [...entries].sort((a, b) => a.date.localeCompare(b.date));
+    }
+
+    function weekRangeLabel(weekStart) {
+      const end = addDays(weekStart, 6);
+      return formatDate(weekStart) + ' - ' + formatDate(end);
+    }
+
+    function getEntriesInWeek(entries, weekStart) {
+      const weekEnd = addDays(weekStart, 6);
+      return sortAsc(entries).filter(entry => entry.date >= weekStart && entry.date <= weekEnd);
+    }
+
+    function weekHasData(entries, weekStart) {
+      return getEntriesInWeek(entries, weekStart).length > 0;
+    }
+
+    function findWeekWithData(entries, direction) {
+      if (!entries.length) return null;
+      const step = direction >= 0 ? 1 : -1;
+      let pointer = currentWeekStart;
+
+      // Search up to 20 years in weekly steps.
+      for (let i = 0; i < 1040; i += 1) {
+        pointer = addDays(pointer, step * 7);
+        if (weekHasData(entries, pointer)) {
+          return pointer;
+        }
+      }
+      return null;
+    }
+
+    function jumpToLatestDataWeek(entries) {
+      const sorted = sortDesc(entries);
+      if (!sorted.length) return false;
+      currentWeekStart = getStartOfWeek(sorted[0].date);
+      return true;
+    }
+
+    function clearForm() {
+      editingDate = null;
+      dateInput.value = todayISO();
+      systolicInput.value = '';
+      diastolicInput.value = '';
+      bpmInput.value = '';
+      notesInput.value = '';
+      document.getElementById('save-btn').textContent = 'Save Reading';
+      systolicInput.focus();
+    }
+
+    function startEdit(date) {
+      const entries = loadEntries();
+      const item = entries.find(row => row.date === date);
+      if (!item) {
+        showState('Reading not found.');
+        return;
+      }
+      editingDate = item.date;
+      dateInput.value = item.date;
+      systolicInput.value = String(item.systolic);
+      diastolicInput.value = String(item.diastolic);
+      bpmInput.value = String(item.bpm);
+      notesInput.value = item.notes || '';
+      document.getElementById('save-btn').textContent = 'Update Reading';
+      showState('Editing ' + formatDate(item.date));
+      systolicInput.focus();
+    }
+
+    function deleteEntry(date) {
+      const entries = loadEntries();
+      const existing = entries.find(row => row.date === date);
+      if (!existing) {
+        showState('Reading not found.');
+        return;
+      }
+      if (!window.confirm('Delete reading for ' + formatDate(date) + '?')) return;
+
+      const filtered = entries.filter(row => row.date !== date);
+      saveEntries(filtered);
+
+      if (editingDate === date) {
+        clearForm();
+      }
+
+      if (filtered.length && !weekHasData(filtered, currentWeekStart)) {
+        jumpToLatestDataWeek(filtered);
+      }
+
+      render();
+      showState('Reading deleted.');
+    }
+
+    function saveEntry() {
+      const date = normalizeDateOnly(dateInput.value);
+      const systolic = Number(systolicInput.value);
+      const diastolic = Number(diastolicInput.value);
+      const bpm = Number(bpmInput.value);
+      const notes = notesInput.value.trim();
+
+      if (!date) {
+        showState('Choose a valid date.');
+        return;
+      }
+      if (!Number.isFinite(systolic) || systolic <= 0) {
+        showState('Enter a valid systolic value.');
+        return;
+      }
+      if (!Number.isFinite(diastolic) || diastolic <= 0) {
+        showState('Enter a valid diastolic value.');
+        return;
+      }
+      if (!Number.isFinite(bpm) || bpm <= 0) {
+        showState('Enter a valid pulse (BPM).');
+        return;
+      }
+      if (diastolic >= systolic) {
+        showState('Diastolic should usually be lower than systolic.');
+        return;
+      }
+
+      const entries = loadEntries();
+      const item = {
+        date,
+        systolic,
+        diastolic,
+        bpm,
+        notes,
+        updatedAt: new Date().toISOString()
+      };
+
+      const replaceKey = editingDate || date;
+      const existingIndex = entries.findIndex(row => row.date === replaceKey);
+
+      if (existingIndex >= 0) {
+        entries[existingIndex] = item;
+      } else {
+        const sameDateIndex = entries.findIndex(row => row.date === date);
+        if (sameDateIndex >= 0) {
+          entries[sameDateIndex] = item;
+        } else {
+          entries.push(item);
+        }
+      }
+
+      saveEntries(entries);
+      currentWeekStart = getStartOfWeek(date);
+      render();
+      clearForm();
+      showState('Reading saved.');
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let value = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i += 1) {
+        const ch = text[i];
+
+        if (ch === '"') {
+          if (inQuotes && text[i + 1] === '"') {
+            value += '"';
+            i += 1;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (ch === ',' && !inQuotes) {
+          row.push(value);
+          value = '';
+        } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+          if (ch === '\r' && text[i + 1] === '\n') i += 1;
+          row.push(value);
+          rows.push(row);
+          row = [];
+          value = '';
+        } else {
+          value += ch;
+        }
+      }
+
+      row.push(value);
+      if (row.length > 1 || String(row[0] || '').trim()) rows.push(row);
+      return rows;
+    }
+
+    function normalizeHeader(text) {
+      return String(text || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
+    }
+
+    function exportCSV() {
+      const entries = sortAsc(loadEntries());
+      if (!entries.length) {
+        showState('No readings to export yet.');
+        return;
+      }
+
+      const rows = [[
+        'Date',
+        'Systolic',
+        'Diastolic',
+        'BPM',
+        'Notes'
+      ]];
+
+      entries.forEach(item => {
+        rows.push([
+          item.date,
+          item.systolic,
+          item.diastolic,
+          item.bpm,
+          item.notes || ''
+        ]);
+      });
+
+      const csv = rows
+        .map(row => row.map(cell => '"' + String(cell ?? '').replace(/"/g, '""') + '"').join(','))
+        .join('\n');
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'morning-bp-' + todayISO() + '.csv';
+      link.click();
+      URL.revokeObjectURL(url);
+      showState('CSV exported.');
+    }
+
+    function importCSVFile(file) {
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = event => {
+        try {
+          const text = String(event.target?.result || '').trim();
+          if (!text) {
+            showState('CSV file is empty.');
+            return;
+          }
+
+          const rows = parseCSV(text);
+          if (rows.length < 2) {
+            showState('CSV needs a header and at least one row.');
+            return;
+          }
+
+          const headers = rows[0].map(normalizeHeader);
+          const headerIndex = new Map(headers.map((header, index) => [header, index]));
+
+          const idxDate = headerIndex.get('date');
+          const idxSys = headerIndex.get('systolic');
+          const idxDia = headerIndex.get('diastolic');
+          const idxBpm = headerIndex.get('bpm');
+          const idxNotes = headerIndex.get('notes');
+
+          if (idxDate == null || idxSys == null || idxDia == null || idxBpm == null) {
+            showState('CSV is missing required columns.');
+            return;
+          }
+
+          const imported = [];
+          rows.slice(1).forEach(cols => {
+            const date = normalizeDateOnly(cols[idxDate]);
+            const systolic = Number(cols[idxSys]);
+            const diastolic = Number(cols[idxDia]);
+            const bpm = Number(cols[idxBpm]);
+            const notes = idxNotes == null ? '' : String(cols[idxNotes] || '').trim();
+
+            if (!date) return;
+            if (!Number.isFinite(systolic) || !Number.isFinite(diastolic) || !Number.isFinite(bpm)) return;
+            if (systolic <= 0 || diastolic <= 0 || bpm <= 0) return;
+            if (diastolic >= systolic) return;
+
+            imported.push({
+              date,
+              systolic,
+              diastolic,
+              bpm,
+              notes,
+              updatedAt: new Date().toISOString()
+            });
+          });
+
+          if (!imported.length) {
+            showState('No valid rows found in CSV.');
+            return;
+          }
+
+          const existing = loadEntries();
+          const byDate = new Map(existing.map(item => [item.date, item]));
+          imported.forEach(item => byDate.set(item.date, item));
+          const merged = Array.from(byDate.values());
+
+          saveEntries(merged);
+          jumpToLatestDataWeek(merged);
+          render();
+          showState('Imported ' + imported.length + ' valid row(s).');
+        } catch {
+          showState('Could not read that CSV file.');
+        }
+      };
+
+      reader.onerror = () => {
+        showState('Could not read that CSV file.');
+      };
+
+      reader.readAsText(file);
+    }
+
+    function average(values) {
+      const numeric = values.filter(v => Number.isFinite(v));
+      if (!numeric.length) return null;
+      return numeric.reduce((sum, v) => sum + v, 0) / numeric.length;
+    }
+
+    function fmt(value, digits = 0) {
+      return Number.isFinite(value) ? Number(value).toFixed(digits) : '—';
+    }
+
+    function getWeekSeries(entries, weekStart) {
+      const labels = [];
+      const systolicSeries = [];
+      const diastolicSeries = [];
+      const bpmSeries = [];
+
+      const byDate = new Map(getEntriesInWeek(entries, weekStart).map(item => [item.date, item]));
+
+      for (let i = 0; i < 7; i += 1) {
+        const day = addDays(weekStart, i);
+        const dayLabel = new Date(day + 'T12:00:00').toLocaleDateString(undefined, {
+          weekday: 'short'
+        });
+
+        labels.push(dayLabel + ' ' + formatDateShort(day));
+
+        const reading = byDate.get(day);
+        systolicSeries.push(reading ? reading.systolic : null);
+        diastolicSeries.push(reading ? reading.diastolic : null);
+        bpmSeries.push(reading ? reading.bpm : null);
+      }
+
+      return { labels, systolicSeries, diastolicSeries, bpmSeries };
+    }
+
+    function yRange(values, fallbackMin, fallbackMax, pad) {
+      const numeric = values.filter(v => Number.isFinite(v));
+      if (!numeric.length) {
+        return { min: fallbackMin, max: fallbackMax };
+      }
+      const min = Math.min(...numeric);
+      const max = Math.max(...numeric);
+      return {
+        min: Math.floor(Math.min(fallbackMin, min - pad)),
+        max: Math.ceil(Math.max(fallbackMax, max + pad))
+      };
+    }
+
+    function upsertLineChart(existingChart, canvasId, label, color, labels, data, unit, fallbackMin, fallbackMax, pad) {
+      if (existingChart) existingChart.destroy();
+
+      const range = yRange(data, fallbackMin, fallbackMax, pad);
+
+      return new Chart(document.getElementById(canvasId), {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label,
+            data,
+            borderColor: color,
+            backgroundColor: color + '22',
+            borderWidth: 2.4,
+            pointRadius: 4,
+            pointHoverRadius: 5,
+            pointBackgroundColor: color,
+            tension: .33,
+            spanGaps: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label(context) {
+                  if (!Number.isFinite(context.parsed.y)) return 'No reading';
+                  return label + ': ' + context.parsed.y + ' ' + unit;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { font: { size: 10 }, maxRotation: 0 },
+              grid: { color: '#edf5f1' }
+            },
+            y: {
+              min: range.min,
+              max: range.max,
+              ticks: {
+                font: { size: 10 },
+                callback(value) { return value + ' ' + unit; }
+              },
+              grid: { color: '#e7f1ec' }
+            }
+          }
+        }
+      });
+    }
+
+    function renderQuickStats(entries, weekEntries) {
+      const allSysAvg = average(entries.map(item => item.systolic));
+      const allDiaAvg = average(entries.map(item => item.diastolic));
+      const allBpmAvg = average(entries.map(item => item.bpm));
+
+      const weekSysAvg = average(weekEntries.map(item => item.systolic));
+      const weekDiaAvg = average(weekEntries.map(item => item.diastolic));
+      const weekBpmAvg = average(weekEntries.map(item => item.bpm));
+
+      quickStatsEl.innerHTML = [
+        {
+          label: 'All-Time Avg BP',
+          value: Number.isFinite(allSysAvg) && Number.isFinite(allDiaAvg)
+            ? fmt(allSysAvg, 0) + '/' + fmt(allDiaAvg, 0)
+            : '—'
+        },
+        {
+          label: 'All-Time Avg BPM',
+          value: Number.isFinite(allBpmAvg) ? fmt(allBpmAvg, 0) : '—'
+        },
+        {
+          label: 'This Week Avg BP',
+          value: Number.isFinite(weekSysAvg) && Number.isFinite(weekDiaAvg)
+            ? fmt(weekSysAvg, 0) + '/' + fmt(weekDiaAvg, 0)
+            : '—'
+        },
+        {
+          label: 'This Week Avg BPM',
+          value: Number.isFinite(weekBpmAvg) ? fmt(weekBpmAvg, 0) : '—'
+        }
+      ].map(item => {
+        return '<div class="stat-box"><div class="stat-label">' + item.label + '</div><div class="stat-value">' + item.value + '</div></div>';
+      }).join('');
+    }
+
+    function renderWeekTable(weekEntries) {
+      if (!weekEntries.length) {
+        weekEntriesBody.innerHTML = '';
+        weekEmptyMsg.style.display = 'block';
+        return;
+      }
+
+      weekEmptyMsg.style.display = 'none';
+      weekEntriesBody.innerHTML = sortAsc(weekEntries).map(item => {
+        return '<tr>' +
+          '<td>' + escapeHtml(formatDate(item.date)) + '</td>' +
+          '<td>' + escapeHtml(String(item.systolic)) + '</td>' +
+          '<td>' + escapeHtml(String(item.diastolic)) + '</td>' +
+          '<td>' + escapeHtml(String(item.bpm)) + '</td>' +
+          '<td style="white-space:normal;min-width:200px">' + escapeHtml(item.notes || '') + '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function renderAllTable(entries) {
+      if (!entries.length) {
+        allEntriesBody.innerHTML = '';
+        allEmptyMsg.style.display = 'block';
+        return;
+      }
+
+      allEmptyMsg.style.display = 'none';
+      allEntriesBody.innerHTML = sortDesc(entries).map(item => {
+        return '<tr>' +
+          '<td>' + escapeHtml(formatDate(item.date)) + '</td>' +
+          '<td>' + escapeHtml(String(item.systolic)) + '</td>' +
+          '<td>' + escapeHtml(String(item.diastolic)) + '</td>' +
+          '<td>' + escapeHtml(String(item.bpm)) + '</td>' +
+          '<td style="white-space:normal;min-width:220px">' + escapeHtml(item.notes || '') + '</td>' +
+          '<td>' +
+            '<button class="action-btn" type="button" onclick="startEdit(\'' + escapeHtml(item.date) + '\')">Edit</button>' +
+            '<button class="action-btn delete" type="button" onclick="deleteEntry(\'' + escapeHtml(item.date) + '\')">Delete</button>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function renderCharts(entries) {
+      const weekEntries = getEntriesInWeek(entries, currentWeekStart);
+      const weekEnd = addDays(currentWeekStart, 6);
+
+      weekLabelEl.textContent = 'Week of ' + formatDate(currentWeekStart);
+      weekSummaryEl.textContent = weekEntries.length
+        ? (weekEntries.length + ' reading(s) in this week: ' + formatDate(currentWeekStart) + ' - ' + formatDate(weekEnd))
+        : ('No readings this week (' + weekRangeLabel(currentWeekStart) + '). Use Data Week buttons to jump to weeks with entries.');
+
+      const series = getWeekSeries(entries, currentWeekStart);
+      chartSystolic = upsertLineChart(chartSystolic, 'chart-systolic', 'Systolic', '#b02a37', series.labels, series.systolicSeries, 'mmHg', 95, 140, 6);
+      chartDiastolic = upsertLineChart(chartDiastolic, 'chart-diastolic', 'Diastolic', '#1d6fa5', series.labels, series.diastolicSeries, 'mmHg', 60, 95, 5);
+      chartBpm = upsertLineChart(chartBpm, 'chart-bpm', 'Pulse', '#5b3a8f', series.labels, series.bpmSeries, 'bpm', 50, 95, 6);
+
+      renderQuickStats(entries, weekEntries);
+      renderWeekTable(weekEntries);
+    }
+
+    function render() {
+      const entries = loadEntries();
+
+      if (!entries.length) {
+        currentWeekStart = getStartOfWeek(todayISO());
+      }
+
+      renderCharts(entries);
+      renderAllTable(entries);
+    }
+
+    function shiftWeek(direction) {
+      currentWeekStart = addDays(currentWeekStart, direction * 7);
+      render();
+    }
+
+    function shiftDataWeek(direction) {
+      const entries = loadEntries();
+      if (!entries.length) {
+        showState('No readings saved yet.');
+        return;
+      }
+
+      const target = findWeekWithData(entries, direction);
+      if (!target) {
+        showState(direction > 0 ? 'No later data week found.' : 'No earlier data week found.');
+        return;
+      }
+
+      currentWeekStart = target;
+      render();
+    }
+
+    document.getElementById('save-btn').addEventListener('click', saveEntry);
+    document.getElementById('clear-btn').addEventListener('click', clearForm);
+    document.getElementById('export-btn').addEventListener('click', exportCSV);
+    document.getElementById('import-btn').addEventListener('click', () => {
+      document.getElementById('import-file').click();
+    });
+
+    document.getElementById('import-file').addEventListener('change', event => {
+      const file = event.target.files && event.target.files[0];
+      importCSVFile(file);
+      event.target.value = '';
+    });
+
+    document.getElementById('prev-week-btn').addEventListener('click', () => shiftWeek(-1));
+    document.getElementById('next-week-btn').addEventListener('click', () => shiftWeek(1));
+    document.getElementById('prev-data-week-btn').addEventListener('click', () => shiftDataWeek(-1));
+    document.getElementById('next-data-week-btn').addEventListener('click', () => shiftDataWeek(1));
+
+    document.getElementById('today-week-btn').addEventListener('click', () => {
+      currentWeekStart = getStartOfWeek(todayISO());
+      render();
+    });
+
+    document.getElementById('latest-week-btn').addEventListener('click', () => {
+      const entries = loadEntries();
+      if (!entries.length) {
+        showState('No readings saved yet.');
+        return;
+      }
+      jumpToLatestDataWeek(entries);
+      render();
+    });
+
+    clearForm();
+    render();
+
+    window.startEdit = startEdit;
+    window.deleteEntry = deleteEntry;
+  </script>
+</body>
+</html>
