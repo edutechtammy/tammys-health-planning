@@ -377,7 +377,7 @@
         <span>days</span>
       </div>
     </div>
-    <p class="chart-helper">The trendline shows your overall weight direction, while the target line stays fixed at 160 lbs. The y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months.</p>
+    <p class="chart-helper">The trendline shows your overall weight direction, while the target line stays fixed at 160 lbs. The y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months. The blue marker indicates the official start of the muscle/endurance and weight-loss effort on November 2, 2026.</p>
   </section>
 
   <section class="card">
@@ -604,6 +604,51 @@
         ctx.fillText(labelText, textX - padX, labelY);
       }
 
+      ctx.restore();
+    }
+  };
+
+  const officialStartDateLinePlugin = {
+    id: 'officialStartDateLine',
+    afterDatasetsDraw(chart) {
+      const { ctx, chartArea, scales } = chart;
+      const xScale = scales.x;
+      if (!ctx || !chartArea || !xScale) {
+        return;
+      }
+
+      const officialStartStamp = dateToStamp('2026-11-02');
+      if (!Number.isFinite(officialStartStamp)) {
+        return;
+      }
+
+      const xPixel = xScale.getPixelForValue(officialStartStamp);
+      if (!Number.isFinite(xPixel)) {
+        return;
+      }
+
+      if (xPixel < chartArea.left || xPixel > chartArea.right) {
+        return;
+      }
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(xPixel, chartArea.top);
+      ctx.lineTo(xPixel, chartArea.bottom);
+      ctx.setLineDash([6, 5]);
+      ctx.strokeStyle = 'rgba(30, 99, 235, 0.95)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const label = 'Nov 2, 2026';
+      const labelX = Math.min(xPixel + 8, chartArea.right - 90);
+      const labelY = chartArea.top + 12;
+      ctx.font = '600 10px Segoe UI, system-ui, sans-serif';
+      ctx.fillStyle = 'rgba(30, 99, 235, 0.97)';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(label, labelX, labelY);
       ctx.restore();
     }
   };
@@ -885,6 +930,7 @@
 
     weightChart = new Chart(weightChartCanvas, {
       type: 'line',
+      plugins: [officialStartDateLinePlugin],
       data: {
         datasets: [
           {
@@ -1033,7 +1079,7 @@
 
     waistChart = new Chart(waistChartCanvas, {
       type: 'line',
-      plugins: [waistMilestoneBandsPlugin],
+      plugins: [officialStartDateLinePlugin, waistMilestoneBandsPlugin],
       data: {
         datasets: [
           {
