@@ -119,6 +119,8 @@
     .week-day-list{list-style:none;display:grid;gap:.33rem}
     .week-day-item{display:flex;align-items:center;justify-content:space-between;gap:.45rem;font-size:.82rem;color:#32414b;background:#f8fcf9;border:1px solid #e1eee6;border-radius:8px;padding:.35rem .45rem}
     .week-day-item-meta{display:flex;align-items:center;gap:.45rem}
+    .week-day-item-toggle{display:inline-flex;align-items:center;gap:.22rem;padding:.12rem .32rem;border-radius:999px;border:1px solid #d9e8dd;background:#fff;color:#2f5a47;font-size:.66rem;font-weight:800;line-height:1}
+    .week-day-item-toggle input{accent-color:#2d6a4f}
     .week-day-item-load{font-size:.72rem;font-weight:800;color:#245d47;background:#e4f6ea;border:1px solid #cde4d2;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
     .week-day-item-distance{font-size:.72rem;font-weight:800;color:#0e5b6e;background:#e0f7fa;border:1px solid #b2ebf2;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
     .walk-vest-row{display:flex;align-items:center;gap:.5rem;margin-top:.45rem}
@@ -1112,9 +1114,9 @@
       forearm_curl: { forearm: 14, biceps: 8 }
     };
 
-    let muscleLoads = loadMuscleMapLoads();
     let activeDay = getDayKey(new Date());
     let weeklyExerciseLog = loadWeeklyExerciseLog();
+    let muscleLoads = { ...BASE_MUSCLE_LOADS };
     let dumbbellLoads = loadDumbbellLoads();
     let currentLoadUnit = loadPreferredLoadUnit();
     let walkDistanceUnit = loadWalkDistanceUnit();
@@ -1401,10 +1403,47 @@
       renderDumbbellLoadInputs();
     }
 
+    function getExerciseMuscleProfile(entry) {
+      if (!entry || typeof entry !== 'object') return {};
+      const profile = EXERCISE_TO_MUSCLES[entry.exerciseId];
+      if (!profile) return {};
+
+      const combined = { ...profile };
+      if (entry.exerciseId === 'gentle_walk' && Number(entry.load) === 20 && EXERCISE_TO_MUSCLES.gentle_walk_vest) {
+        Object.entries(EXERCISE_TO_MUSCLES.gentle_walk_vest).forEach(([muscle, increase]) => {
+          combined[muscle] = (combined[muscle] || 0) + increase;
+        });
+      }
+      return combined;
+    }
+
+    function rebuildMuscleMapFromLog() {
+      const nextLoads = { ...BASE_MUSCLE_LOADS };
+
+      Object.values(weeklyExerciseLog || {}).forEach(weekData => {
+        if (!weekData || typeof weekData !== 'object') return;
+        Object.values(weekData).forEach(dayEntries => {
+          if (!Array.isArray(dayEntries)) return;
+          dayEntries.forEach(entry => {
+            if (!entry || entry.affectsMuscleMap === false) return;
+            const profile = getExerciseMuscleProfile(entry);
+            Object.entries(profile).forEach(([muscle, increase]) => {
+              nextLoads[muscle] = Math.min(100, (Number(nextLoads[muscle]) || 0) + Number(increase || 0));
+            });
+          });
+        });
+      });
+
+      muscleLoads = nextLoads;
+      saveMuscleMapLoads();
+      renderMuscleMap();
+    }
+
     function renderWeeklyExerciseLog() {
       const weekKey = getCurrentWeekKey();
       const weekData = ensureWeekLog(weekKey);
       saveWeeklyExerciseLog();
+      rebuildMuscleMapFromLog();
 
       const currentWeekDate = getCurrentWeekDate();
       const weekStart = getWeekStart(currentWeekDate);
@@ -1466,6 +1505,22 @@
             meta.appendChild(dist);
           }
 
+          const mapToggle = document.createElement('label');
+          mapToggle.className = 'week-day-item-toggle';
+          const mapCheckbox = document.createElement('input');
+          mapCheckbox.type = 'checkbox';
+          mapCheckbox.checked = entry.affectsMuscleMap !== false;
+          mapCheckbox.title = 'Include this entry in the muscle map';
+          mapCheckbox.addEventListener('change', () => {
+            entry.affectsMuscleMap = mapCheckbox.checked;
+            saveWeeklyExerciseLog();
+            rebuildMuscleMapFromLog();
+          });
+          const mapToggleLabel = document.createElement('span');
+          mapToggleLabel.textContent = 'Map';
+          mapToggle.appendChild(mapCheckbox);
+          mapToggle.appendChild(mapToggleLabel);
+
           const removeButton = document.createElement('button');
           removeButton.type = 'button';
           removeButton.className = 'week-day-item-remove';
@@ -1473,6 +1528,7 @@
           removeButton.addEventListener('click', () => removeExerciseEntry(day, entry.id));
 
           meta.appendChild(time);
+          meta.appendChild(mapToggle);
           meta.appendChild(removeButton);
           item.appendChild(name);
           item.appendChild(meta);
@@ -1507,6 +1563,7 @@
         exerciseId,
         name: getExerciseLabel(exerciseId),
         load,
+        affectsMuscleMap: true,
         addedAt: new Date().toISOString()
       };
       if (exerciseId === 'gentle_walk') {
@@ -1521,10 +1578,6 @@
       weekData[activeDay].push(entry);
       saveWeeklyExerciseLog();
       renderWeeklyExerciseLog();
-      applyExerciseToMuscleMap(exerciseId);
-      if (exerciseId === 'gentle_walk' && entry.load === 20) {
-        applyExerciseToMuscleMap('gentle_walk_vest');
-      }
     }
 
     function lerp(a, b, t) {
@@ -1604,9 +1657,15 @@
     }
 
     function resetMuscleMapLoads() {
-      muscleLoads = { ...BASE_MUSCLE_LOADS };
-      saveMuscleMapLoads();
-      renderMuscleMap();
+      Object.values(weeklyExerciseLog || {}).forEach(weekData => {
+        if (!weekData || typeof weekData !== 'object') return;
+        Object.keys(weekData).forEach(day => {
+          if (!Array.isArray(weekData[day])) return;
+          weekData[day] = weekData[day].map(entry => ({ ...entry, affectsMuscleMap: false }));
+        });
+      });
+      saveWeeklyExerciseLog();
+      rebuildMuscleMapFromLog();
     }
 
     function applyExerciseFilters(selectedCategory, selectedLevel, searchTerm) {
@@ -2021,7 +2080,7 @@
     initResistanceTrainingNotes();
     initDumbbellLoadInputs();
     initWalkDistanceControl();
-    renderMuscleMap();
+    rebuildMuscleMapFromLog();
     renderWeeklyExerciseLog();
     refreshExerciseFilters();
 
