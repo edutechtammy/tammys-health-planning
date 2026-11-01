@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Morning Blood Pressure Tracker</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -358,7 +359,7 @@
 
   <header>
     <h1>🩺 Morning Blood Pressure Tracker</h1>
-    <p>Track morning systolic, diastolic, and pulse by date, review one week at a time, and quickly jump across sparse historical data using data-week navigation.</p>
+    <p>Track morning systolic, diastolic, and pulse over time, with the chart tied to real dates so sparse historical gaps remain readable without being artificially chopped into weekly blocks.</p>
   </header>
 
   <main class="main-wrap">
@@ -398,7 +399,7 @@
     </section>
 
     <section class="card">
-      <h2>Weekly Trend View</h2>
+      <h2>Trend View</h2>
         <p>Generic Healthy range: 120/80, <br>Sedentary 62 yr old: 130 - 139 mmHg. <br>Age in 60s at 160 lbs with active cardio and resistance training continuing: 120/60-79 with a heart rate of 60 to 70.</p>
         <br>
       <div class="quick-stats" id="quick-stats"></div>
@@ -431,7 +432,7 @@
     </section>
 
     <section class="card">
-      <h2>Entries In Visible Week</h2>
+      <h2>Entries In Current Week</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -963,15 +964,21 @@
       };
     }
 
-    function upsertLineChart(existingChart, canvasId, label, color, labels, data, unit, fallbackMin, fallbackMax, pad) {
+    function buildContinuousSeries(entries, key) {
+      return sortAsc(entries).map(item => ({
+        x: new Date(item.date + 'T12:00:00'),
+        y: Number(item[key])
+      }));
+    }
+
+    function upsertTimeSeriesChart(existingChart, canvasId, label, color, data, unit, fallbackMin, fallbackMax, pad) {
       if (existingChart) existingChart.destroy();
 
-      const range = yRange(data, fallbackMin, fallbackMax, pad);
+      const range = yRange(data.map(point => point.y), fallbackMin, fallbackMax, pad);
 
       return new Chart(document.getElementById(canvasId), {
         type: 'line',
         data: {
-          labels,
           datasets: [{
             label,
             data,
@@ -988,10 +995,19 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          interaction: {
+            mode: 'nearest',
+            intersect: false
+          },
           plugins: {
             legend: { display: false },
             tooltip: {
               callbacks: {
+                title(context) {
+                  const point = context[0];
+                  if (!point || !point.raw || !point.raw.x) return '';
+                  return formatDate(point.raw.x.toISOString().slice(0, 10));
+                },
                 label(context) {
                   if (!Number.isFinite(context.parsed.y)) return 'No reading';
                   return label + ': ' + context.parsed.y + ' ' + unit;
@@ -1001,7 +1017,21 @@
           },
           scales: {
             x: {
-              ticks: { font: { size: 10 }, maxRotation: 0 },
+              type: 'time',
+              time: {
+                unit: 'day',
+                tooltipFormat: 'MMM d, yyyy',
+                displayFormats: {
+                  day: 'MMM d',
+                  week: 'MMM d',
+                  month: 'MMM yyyy'
+                }
+              },
+              ticks: {
+                autoSkip: true,
+                maxRotation: 0,
+                font: { size: 10 }
+              },
               grid: { color: '#edf5f1' }
             },
             y: {
@@ -1096,18 +1126,27 @@
     }
 
     function renderCharts(entries) {
+      const sortedEntries = sortAsc(entries);
       const weekEntries = getEntriesInWeek(entries, currentWeekStart);
       const weekEnd = addDays(currentWeekStart, 6);
+      const earliestDate = sortedEntries.length ? sortedEntries[0].date : '';
+      const latestDate = sortedEntries.length ? sortedEntries[sortedEntries.length - 1].date : '';
 
-      weekLabelEl.textContent = 'Week of ' + formatDate(currentWeekStart);
-      weekSummaryEl.textContent = weekEntries.length
-        ? (weekEntries.length + ' reading(s) in this week: ' + formatDate(currentWeekStart) + ' - ' + formatDate(weekEnd))
-        : ('No readings this week (' + weekRangeLabel(currentWeekStart) + '). Use Data Week buttons to jump to weeks with entries.');
+      weekLabelEl.textContent = sortedEntries.length
+        ? ('Timeline: ' + formatDate(earliestDate) + ' - ' + formatDate(latestDate))
+        : 'No readings yet';
 
-      const series = getWeekSeries(entries, currentWeekStart);
-      chartSystolic = upsertLineChart(chartSystolic, 'chart-systolic', 'Systolic', '#b02a37', series.labels, series.systolicSeries, 'mmHg', 95, 140, 6);
-      chartDiastolic = upsertLineChart(chartDiastolic, 'chart-diastolic', 'Diastolic', '#1d6fa5', series.labels, series.diastolicSeries, 'mmHg', 60, 95, 5);
-      chartBpm = upsertLineChart(chartBpm, 'chart-bpm', 'Pulse', '#5b3a8f', series.labels, series.bpmSeries, 'bpm', 50, 95, 6);
+      weekSummaryEl.textContent = sortedEntries.length
+        ? (sortedEntries.length + ' reading(s) across the full date range from ' + formatDate(earliestDate) + ' to ' + formatDate(latestDate) + '. Long gaps are displayed on a continuous time axis.')
+        : ('No readings yet for this date range. Use the date navigation buttons to jump to saved data.');
+
+      const systolicSeries = buildContinuousSeries(sortedEntries, 'systolic');
+      const diastolicSeries = buildContinuousSeries(entries, 'diastolic');
+      const bpmSeries = buildContinuousSeries(entries, 'bpm');
+
+      chartSystolic = upsertTimeSeriesChart(chartSystolic, 'chart-systolic', 'Systolic', '#b02a37', systolicSeries, 'mmHg', 95, 140, 6);
+      chartDiastolic = upsertTimeSeriesChart(chartDiastolic, 'chart-diastolic', 'Diastolic', '#1d6fa5', diastolicSeries, 'mmHg', 60, 95, 5);
+      chartBpm = upsertTimeSeriesChart(chartBpm, 'chart-bpm', 'Pulse', '#5b3a8f', bpmSeries, 'bpm', 50, 95, 6);
 
       renderQuickStats(entries, weekEntries);
       renderWeekTable(weekEntries);
