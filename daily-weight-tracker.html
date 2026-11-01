@@ -203,6 +203,97 @@
       color: var(--muted);
     }
 
+    .bmi-panel {
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, rgba(232, 245, 235, 0.72), rgba(255,255,255,0.92));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .bmi-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem;
+      padding: .8rem 1rem .5rem;
+    }
+
+    .bmi-panel-title {
+      color: var(--green-dark);
+      font-size: .82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .bmi-panel-status {
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .bmi-image-frame {
+      background: var(--band-color, rgba(45,106,79,.12));
+      border-top: 1px solid rgba(45,106,79,.16);
+      border-bottom: 1px solid rgba(45,106,79,.16);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bmi-image-frame img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      background: #edf6ef;
+    }
+
+    .bmi-meta {
+      padding: .9rem 1rem 1rem;
+    }
+
+    .bmi-meta-text {
+      color: var(--text);
+      font-size: .9rem;
+      line-height: 1.5;
+      margin-bottom: .8rem;
+    }
+
+    .bmi-meta-text strong {
+      color: var(--green-dark);
+    }
+
+    .bmi-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: .6rem;
+      flex-wrap: wrap;
+    }
+
+    .bmi-nav-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--green-dark);
+      border-radius: 8px;
+      padding: .52rem .85rem;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .bmi-nav-btn:disabled {
+      opacity: .42;
+      cursor: not-allowed;
+    }
+
     .milestone-info {
       margin-top: .8rem;
       background: #f7fbf8;
@@ -368,6 +459,24 @@
 <div class="main-wrap">
   <section class="card">
     <h2>Weight Trend Over Time</h2>
+
+    <div class="bmi-panel" aria-live="polite">
+      <div class="bmi-panel-header">
+        <div class="bmi-panel-title">BMI Milestone</div>
+        <div class="bmi-panel-status" id="bmi-panel-status">Latest weight</div>
+      </div>
+      <div class="bmi-image-frame" id="bmi-image-frame">
+        <img id="bmi-slideshow-image" src="" alt="BMI milestone illustration" />
+      </div>
+      <div class="bmi-meta">
+        <div class="bmi-meta-text" id="bmi-meta-text"></div>
+        <div class="bmi-actions">
+          <button type="button" class="bmi-nav-btn" id="bmi-prev-btn">Previous</button>
+          <button type="button" class="bmi-nav-btn" id="bmi-next-btn">Next</button>
+        </div>
+      </div>
+    </div>
+
     <div class="chart-wrap">
       <canvas id="weight-chart"></canvas>
     </div>
@@ -494,9 +603,79 @@
     }
   ];
   const DEFAULT_GAP_COMPRESSION_DAYS = 30;
+  const BMI_CATEGORY_COLORS = {
+    normal: 'rgba(70, 156, 99, 0.20)',
+    overweight: 'rgba(214, 151, 58, 0.22)',
+    'obese-I': 'rgba(200, 107, 58, 0.22)',
+    'obese-II': 'rgba(166, 46, 44, 0.22)'
+  };
+  const BMI_IMAGE_FILES = [
+    'bmi/136-8._bmi20-5_normal.webp',
+    'bmi/143-4_bmi21-5_mormal.webp',
+    'bmi/150-1_bmi22.5_normal.webp',
+    'bmi/156-8_bmi23-5_normal.webp',
+    'bmi/170-1_bmi25-5_overweight.webp',
+    'bmi/176-8_bmi25-5_overweight.webp',
+    'bmi/183-5_bmi27-5_overweight.webp',
+    'bmi/190-2_bmi28-5_overweight.webp',
+    'bmi/196-8_bmi29-5_overweight.webp',
+    'bmi/203-5_bmi30-5_obese-I.webp',
+    'bmi/210-2_bmi31-5_obese-I.webp',
+    'bmi/216-9_bmi32-5_obese-I.webp',
+    'bmi/223-5_bmi33-5_obese-I.webp',
+    'bmi/230-3_bmi34-5_obese-I.webp',
+    'bmi/237-0_bmi35-5_obese-II.webp'
+  ];
+
+  function parseBmiWeightValue(raw) {
+    const cleaned = String(raw).trim().replace(/\.$/, '');
+    return Number(cleaned.includes('-') ? cleaned.replace(/-/g, '.') : cleaned);
+  }
+
+  function parseBmiNumber(raw) {
+    const cleaned = String(raw).trim().replace(/\.$/, '');
+    return Number(cleaned.includes('-') ? cleaned.replace(/-/g, '.') : cleaned);
+  }
+
+  function titleCasePhrase(value) {
+    return String(value || '')
+      .replace(/mormal/i, 'normal')
+      .replace(/-/g, ' ')
+      .toLowerCase()
+      .replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  const BMI_IMAGE_SPECS = BMI_IMAGE_FILES
+    .map(file => {
+      const fileName = file.split('/').pop();
+      const match = fileName.match(/^([0-9][0-9.-]+)\.?_bmi([0-9][0-9.-]+)_([A-Za-z-]+)\.webp$/i);
+      if (!match) {
+        return null;
+      }
+
+      const weightValue = parseBmiWeightValue(match[1]);
+      const bmiValue = parseBmiNumber(match[2]);
+      const classification = (match[3] || '').toLowerCase();
+      const normalizedClass = classification === 'mormal' ? 'normal' : classification;
+
+      return {
+        file,
+        filename: fileName,
+        weight: weightValue,
+        bmi: bmiValue,
+        classification: normalizedClass,
+        label: titleCasePhrase(normalizedClass),
+        bandColor: BMI_CATEGORY_COLORS[normalizedClass] || 'rgba(45,106,79,.18)'
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.weight - a.weight);
+
   let entries = [];
   let weightChart = null;
   let waistChart = null;
+  let bmiSelectedIndex = 0;
+  let bmiSelectionMode = 'latest';
 
   const gapThresholdInput = document.getElementById('gap-threshold-days');
   const dateInput = document.getElementById('w-date');
@@ -512,7 +691,110 @@
   const waistChartEmpty = document.getElementById('waist-chart-empty');
   const addEntryBtn = document.getElementById('add-entry');
   const editState = document.getElementById('edit-state');
+  const bmiImageEl = document.getElementById('bmi-slideshow-image');
+  const bmiMetaTextEl = document.getElementById('bmi-meta-text');
+  const bmiStatusEl = document.getElementById('bmi-panel-status');
+  const bmiPrevBtn = document.getElementById('bmi-prev-btn');
+  const bmiNextBtn = document.getElementById('bmi-next-btn');
+  const bmiImageFrame = document.getElementById('bmi-image-frame');
   let editingDate = null;
+
+  function getLatestEntryWeight() {
+    if (!entries.length) {
+      return null;
+    }
+
+    const latest = [...entries].sort((a, b) => b.date.localeCompare(a.date))[0];
+    return Number.isFinite(Number(latest.weight)) ? Number(latest.weight) : null;
+  }
+
+  function findNearestBmiIndex(weightValue) {
+    if (!BMI_IMAGE_SPECS.length) {
+      return 0;
+    }
+
+    let bestIndex = 0;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    BMI_IMAGE_SPECS.forEach((item, index) => {
+      const distance = Math.abs(weightValue - item.weight);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestIndex = index;
+      }
+    });
+
+    return bestIndex;
+  }
+
+  function setBmiSelectionByIndex(index, mode = 'manual') {
+    if (!BMI_IMAGE_SPECS.length) {
+      return;
+    }
+
+    const safeIndex = Math.max(0, Math.min(index, BMI_IMAGE_SPECS.length - 1));
+    const selected = BMI_IMAGE_SPECS[safeIndex];
+    const previous = BMI_IMAGE_SPECS[safeIndex - 1] || null;
+    const next = BMI_IMAGE_SPECS[safeIndex + 1] || null;
+
+    bmiSelectedIndex = safeIndex;
+    bmiSelectionMode = mode;
+
+    bmiImageEl.src = selected.file;
+    bmiImageEl.alt = `${selected.label} BMI milestone at ${selected.weight} pounds`;
+    bmiImageFrame.style.setProperty('--band-color', selected.bandColor);
+
+    const weightInfo = selected.weight.toFixed(1) + ' lb';
+    const bmiText = selected.bmi.toFixed(1);
+    const relativeText = previous && next
+      ? 'You are moving through the BMI transition path.'
+      : previous
+        ? 'This is the next higher historical threshold.'
+        : next
+          ? 'This is the next lower BMI threshold.'
+          : 'This is the current BMI milestone.';
+
+    bmiMetaTextEl.innerHTML = '<strong>' + weightInfo + '</strong> • BMI ' + bmiText + ' • ' + selected.label + '<br>' + relativeText + '<br><span style="color: var(--muted);">Threshold weight: ' + selected.weight.toFixed(1) + ' lb | BMI: ' + selected.bmi.toFixed(1) + ' | Category: ' + selected.label + '</span>';
+
+    const statusText = mode === 'latest'
+      ? 'Latest weight'
+      : mode === 'chart'
+        ? 'Hovered point'
+        : 'Manual browse';
+    bmiStatusEl.textContent = statusText;
+
+    bmiPrevBtn.disabled = safeIndex <= 0;
+    bmiNextBtn.disabled = safeIndex >= BMI_IMAGE_SPECS.length - 1;
+  }
+
+  function syncBmiImageForWeight(weightValue, mode = 'chart') {
+    if (!Number.isFinite(weightValue) || !BMI_IMAGE_SPECS.length) {
+      return;
+    }
+
+    const nearestIndex = findNearestBmiIndex(weightValue);
+    setBmiSelectionByIndex(nearestIndex, mode);
+  }
+
+  function applyLatestBmiImage() {
+    const latestWeight = getLatestEntryWeight();
+    if (latestWeight === null) {
+      setBmiSelectionByIndex(0, 'latest');
+      return;
+    }
+    syncBmiImageForWeight(latestWeight, 'latest');
+  }
+
+  function moveBmiSelection(delta) {
+    const targetIndex = bmiSelectedIndex + delta;
+    if (targetIndex < 0 || targetIndex >= BMI_IMAGE_SPECS.length) {
+      return;
+    }
+    setBmiSelectionByIndex(targetIndex, 'manual');
+  }
+
+  bmiPrevBtn.addEventListener('click', () => moveBmiSelection(-1));
+  bmiNextBtn.addEventListener('click', () => moveBmiSelection(1));
 
   const waistMilestoneBandsPlugin = {
     id: 'waistMilestoneBands',
@@ -977,6 +1259,36 @@
         maintainAspectRatio: false,
         animation: false,
         normalized: true,
+        onHover: (_event, activeElements) => {
+          if (!activeElements || !activeElements.length) {
+            return;
+          }
+
+          const element = activeElements[0];
+          if (element.datasetIndex !== 0) {
+            return;
+          }
+
+          const point = weightChart.data.datasets[element.datasetIndex].data[element.index];
+          if (point && Number.isFinite(Number(point.y))) {
+            syncBmiImageForWeight(Number(point.y), 'chart');
+          }
+        },
+        onClick: (_event, activeElements) => {
+          if (!activeElements || !activeElements.length) {
+            return;
+          }
+
+          const element = activeElements[0];
+          if (element.datasetIndex !== 0) {
+            return;
+          }
+
+          const point = weightChart.data.datasets[element.datasetIndex].data[element.index];
+          if (point && Number.isFinite(Number(point.y))) {
+            syncBmiImageForWeight(Number(point.y), 'chart');
+          }
+        },
         plugins: {
           legend: {
             position: 'top',
@@ -1194,6 +1506,9 @@
   function renderEntries() {
     renderWeightChart();
     renderWaistChart();
+    if (bmiSelectionMode !== 'manual') {
+      applyLatestBmiImage();
+    }
     sortEntriesNewestFirst();
     entriesBody.innerHTML = '';
 
