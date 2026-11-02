@@ -717,6 +717,10 @@
             <input type="number" id="menu-manual-netcarbs" min="0" step="0.1" value="0" />
           </div>
           <div class="menu-planner-field">
+            <label for="menu-manual-fluids">Fluids / serving (cups)</label>
+            <input type="number" id="menu-manual-fluids" min="0" step="0.25" value="0" />
+          </div>
+          <div class="menu-planner-field">
             <label for="menu-manual-folate">Folate / serving (mcg)</label>
             <input type="number" id="menu-manual-folate" min="0" step="1" value="0" />
           </div>
@@ -3185,7 +3189,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 65 — GINGER-LIME COOLER
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="celiac dp liver" data-oxalate="low">
+    <div class="recipe-card" data-conditions="celiac dp liver" data-oxalate="low" data-fluids-cups="2">
       <div class="recipe-card-img">🫚🍋🧊</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Ginger-Lime Cooler — Allulose Ginger Drink</div>
@@ -3220,7 +3224,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 64 — ALLULOSE COCOA
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="celiac dp liver" data-oxalate="moderate">
+    <div class="recipe-card" data-conditions="celiac dp liver" data-oxalate="moderate" data-fluids-cups="1">
       <div class="recipe-card-img">🍫☕🧊</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Allulose Cocoa — Hot or Iced Chocolate Drink</div>
@@ -3254,7 +3258,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 63 — ALLULOSE LEMONADE
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="celiac dp liver kidney" data-oxalate="low">
+    <div class="recipe-card" data-conditions="celiac dp liver kidney" data-oxalate="low" data-fluids-cups="2">
       <div class="recipe-card-img">🍋🧊✨</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Allulose Lemonade — Endocrine-Active Lemonade</div>
@@ -3290,7 +3294,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 62 — MULLED ACV CIDER-STYLE SIPPER
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="celiac dp liver kidney" data-oxalate="low">
+    <div class="recipe-card" data-conditions="celiac dp liver kidney" data-oxalate="low" data-fluids-cups="2">
       <div class="recipe-card-img">🍎🔥🍊</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Mulled ACV Cider-Style Sipper — Holiday Beverage</div>
@@ -3327,7 +3331,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 22 — THERAPEUTIC TEAS
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low">
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low" data-fluids-cups="1">
       <div class="recipe-card-img">🍵🌿🫖</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Therapeutic Teas — Rooibos, Chamomile, Peppermint, Ginger, Hibiscus</div>
@@ -3348,6 +3352,42 @@
         <p class="recipe-card-desc">Five teas selected for specific benefits across all six conditions, with exact preparation details that change how much of the active compound ends up in the cup. Chamomile apigenin is volatile — cover the cup or lose it to steam. Rooibos aspalathin extraction increases with steep time — go the full 7 minutes. Ginger should be simmered 10 minutes to convert gingerols to the more potent shogaols. Hibiscus is cold-brew only for kidney stone history — hot steeping extracts significantly more oxalate. Peppermint after meals for Celiac gut motility and rosmarinic acid anti-inflammation. Includes a quick-reference table and general rules applying to all teas (no milk — casein binds polyphenols; filtered water; lemon-at-finish for urinary citrate). <strong>APOE4 fit:</strong> Built around the APOE4 pattern: olive-oil-first fats, lower saturated-fat load, and liver-friendly ingredients that reduce vascular and glucose stress while keeping the meal more brain- and metabolism-friendly. <strong>MTHFR fit:</strong> Supports the MTHFR pattern with methylation-friendly folate, B-vitamin density, and low-oxidative ingredients that help buffer homocysteine and inflammatory stress.</p>
         <div class="recipe-card-actions">
           <a class="btn btn-primary" href="recipes/recipe-therapeutic-teas.html">🍵 Full Guide</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 21A — WATER BOTTLE REFILL (3 CUPS)
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-oxalate="low" data-fluids-cups="3" data-calories="0" data-choline-mg="0" data-omega3-mg="0" data-mufa-g="0" data-satfat-g="0" data-folate-mcg="0" data-b12-mcg="0" data-viscous-fiber-g="0" data-netcarbs-g="0" data-protein-g="0">
+      <div class="recipe-card-img">💧🚰</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Water Bottle Refill (3 cups)</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 1 min</span>
+          <span>💧 3 cups</span>
+          <span>🚰 Refill trigger</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-kidney">Kidney Stone</span>
+        </div>
+        <p class="recipe-card-ingredients">water</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Fluids:</strong> 3 cups / bottle refill</span>
+          <span class="trigger-pill"><strong>Net carbs:</strong> 0g</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>One refill of the bottle counts as a single water card. This keeps the hydration goal simple and tracks the actual trigger you use in real life: a full bottle emptied and refilled.</p>
+          <p><span class="badge badge-kidney">Kidney Stone</span> Supports hydration without adding oxalate or sugar.</p>
+          <p><span class="badge badge-dp">DP / Blood Sugar</span> Zero carb load, zero glycemic stress, and easy to repeat without affecting the rest of the meal plan.</p>
+        </div>
+        <div class="recipe-card-actions">
+          <a class="btn btn-primary" href="recipes/recipe-water-bottle-refill.html">💧 View Water</a>
         </div>
       </div>
     </div>
@@ -3470,7 +3510,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 18 — AFTERNOON MCT COFFEE
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 dp liver mthfr kidney" data-oxalate="low">
+    <div class="recipe-card" data-conditions="apoe4 dp liver mthfr kidney" data-oxalate="low" data-fluids-cups="1">
       <div class="recipe-card-img">☕🫙🌿</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Afternoon MCT Coffee — Decaf Arabica, Ceylon Cinnamon, MCT Oil</div>
@@ -4612,7 +4652,7 @@
     <!-- ═══════════════════════════════════════════════
          RECIPE 14H — SKIM MILK DRINK (1.5 CUP SERVING)
     ═══════════════════════════════════════════════ -->
-    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-calories="120" data-oxalate="low" data-choline-mg="55" data-omega3-mg="0" data-mufa-g="0" data-satfat-g="0.3" data-folate-mcg="18" data-b12-mcg="1.8" data-viscous-fiber-g="0" data-netcarbs-g="18.4" 
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr kidney" data-calories="120" data-oxalate="low" data-choline-mg="55" data-omega3-mg="0" data-mufa-g="0" data-satfat-g="0.3" data-folate-mcg="18" data-b12-mcg="1.8" data-viscous-fiber-g="0" data-netcarbs-g="18.4" data-fluids-cups="1.5"
     data-protein-g="12.5">
       <div class="recipe-card-img">🥛✨</div>
       <div class="recipe-card-body">
@@ -5261,7 +5301,7 @@ const PANTRY_GROUPS = {
       'red lentils','red pepper flakes','red wine vinegar','rice paper','rice vinegar','rooibos','rosemary','sage',
       'salt','scallion','sesame oil','smoked oysters','smoked paprika','sorghum flour','steel-cut oats','sugar','sumac',
       'Sugar Shift probiotic','sunflower seeds','tapioca starch','thyme','tomato sauce','tomatoes','trail mix','turmeric',
-      'everything bagel seasoning',
+      'everything bagel seasoning','water',
       'vanilla extract','vegetable broth','walnuts','whole-grain bread','white beans','yeast','apricots','cherries','chickpeas','raspberries','strawberries','daisy pure and natural cottage cheese','daisy pure & natural cottage cheese','daisy pure and natural 4% cottage cheese','daisy pure & natural 4% cottage cheese','daisy cottage cheese','cottage cheese'
     ]
   }
@@ -5307,10 +5347,14 @@ const PANTRY_NORM = {
   'thin-sliced ginger':  'ginger',
   'raw honey':           'honey',
   'skim milk':           'milk',
-  'warm water':          '',
-  'lukewarm water':      '',
-  'hot water':           '',
-  'water':               '',
+  'warm water':          'water',
+  'lukewarm water':      'water',
+  'hot water':           'water',
+  'water':               'water',
+  'cold water':          'water',
+  'sparkling water':     'water',
+  'water or sparkling water': 'water',
+  'cold water or sparkling water': 'water',
   'lemon juice':         'lemon',
   'lime juice':          'lime',
   'apple cider vinegar': 'acv',
@@ -5334,11 +5378,11 @@ const PANTRY_NORM = {
   '2 eggs':              'eggs',
   '3 eggs':              'eggs',
   'egg':                 'eggs',
-  'water':               '',
-  'cold water':          '',
-  'sparkling water':     '',
-  'water or sparkling water': '',
-  'cold water or sparkling water': '',
+  'water':               'water',
+  'cold water':          'water',
+  'sparkling water':     'water',
+  'water or sparkling water': 'water',
+  'cold water or sparkling water': 'water',
   'mint (optional)':     'mint',
   'vanilla (optional)':  'vanilla extract',
   'ceylon cinnamon (optional)': 'ceylon cinnamon',
@@ -5717,7 +5761,8 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Mulled ACV Cider-Style Sipper — Holiday Beverage',
     'Therapeutic Teas — Rooibos, Chamomile, Peppermint, Ginger, Hibiscus',
     'Afternoon MCT Coffee — Decaf Arabica, Ceylon Cinnamon, MCT Oil',
-    'Skim Milk Drink (1.5 cup serving)'
+    'Skim Milk Drink (1.5 cup serving)',
+    'Water Bottle Refill (3 cups)'
   ],
   omega3: [
     'Low-Carb Velvet Egg Drop Soup (Starch-Free)',
@@ -6217,6 +6262,7 @@ function addNutrientTargetBadges() {
     const b12Entry = resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12']);
     const mufaEntry = resolveRecipeNutrientEntry(source, 'mufaG', ['mufas']);
     const viscousFiberEntry = resolveRecipeNutrientEntry(source, 'viscousFiberG', ['viscsolublefiber']);
+    const fluidsEntry = resolveRecipeNutrientEntry(source, 'fluidsCups', ['fluid']);
 
     const caloriesValue = Number(caloriesEntry?.value ?? Number(card.dataset.calories || 0));
     const explicitProtein = Number(card.dataset.proteinG || 0);
@@ -6228,6 +6274,7 @@ function addNutrientTargetBadges() {
     const explicitB12 = Number(card.dataset.b12Mcg || 0);
     const explicitMufa = Number(card.dataset.mufaG || 0);
     const explicitViscousFiber = Number(card.dataset.viscousFiberG || 0);
+    const explicitFluids = Number(card.dataset.fluidsCups || 0);
 
     const proteinValue = Number.isFinite(explicitProtein) && explicitProtein > 0
       ? explicitProtein
@@ -6256,6 +6303,9 @@ function addNutrientTargetBadges() {
     const viscousFiberValue = Number.isFinite(explicitViscousFiber) && explicitViscousFiber > 0
       ? explicitViscousFiber
       : Number(viscousFiberEntry?.value ?? est.viscousFiberG);
+    const fluidsValue = Number.isFinite(explicitFluids) && explicitFluids > 0
+      ? explicitFluids
+      : Number(fluidsEntry?.value ?? 0);
 
     const hasExplicitCalories = card.hasAttribute('data-calories') && Number.isFinite(Number(card.dataset.calories)) && Number(card.dataset.calories) > 0;
     const hasCaloriesSource = Number.isFinite(Number(caloriesEntry?.value)) && Number(caloriesEntry?.value) > 0;
@@ -6268,6 +6318,7 @@ function addNutrientTargetBadges() {
     const hasExplicitB12 = card.hasAttribute('data-b12-mcg');
     const hasExplicitMufa = card.hasAttribute('data-mufa-g');
     const hasExplicitViscousFiber = card.hasAttribute('data-viscous-fiber-g');
+    const hasExplicitFluids = card.hasAttribute('data-fluids-cups');
 
     const hasProteinSource = Number.isFinite(Number(proteinEntry?.value));
     const hasCholineSource = Number.isFinite(Number(cholineEntry?.value));
@@ -6299,6 +6350,7 @@ function addNutrientTargetBadges() {
     card.dataset.folateMcg = String(Number.isFinite(folateValue) ? folateValue : est.folateMcg);
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
     card.dataset.viscousFiberG = String(Number.isFinite(viscousFiberValue) ? viscousFiberValue : est.viscousFiberG);
+    card.dataset.fluidsCups = String(Number.isFinite(fluidsValue) ? fluidsValue : 0);
 
     const goals = [
       {
@@ -6312,6 +6364,7 @@ function addNutrientTargetBadges() {
       { label: 'Net Carbs', key: 'netcarbsG', value: Number.isFinite(netCarbsValue) ? netCarbsValue : 0, target: 50, unit: 'g', limit: true, missing: !(hasExplicitNetCarbs || hasNetCarbsSource) },
       { label: 'Folate', key: 'folateMcg', value: Number.isFinite(folateValue) ? folateValue : 0, target: 400, unit: 'mcg', limit: false, missing: !(hasExplicitFolate || hasFolateSource || hasFolateEstimate) },
       { label: 'B12', key: 'b12Mcg', value: Number.isFinite(b12Value) ? b12Value : 0, target: 2.4, unit: 'mcg', limit: false, missing: !(hasExplicitB12 || hasB12Source || hasB12Estimate) },
+      { label: 'Fluids', key: 'fluidsCups', value: Number.isFinite(fluidsValue) ? fluidsValue : 0, target: 9, unit: 'cups', limit: false, missing: !(hasExplicitFluids || Number.isFinite(Number(fluidsEntry?.value))) },
       { label: 'Viscous Fiber', key: 'viscousFiberG', value: Number.isFinite(viscousFiberValue) ? viscousFiberValue : 0, target: 10, unit: 'g', limit: false, missing: !(hasExplicitViscousFiber || hasViscousFiberSource || hasViscousFiberEstimate) }
     ].filter(goal => goal.value !== null && Number.isFinite(goal.value))
       .map((goal) => {
@@ -6334,8 +6387,8 @@ function addNutrientTargetBadges() {
       const ratio = goal.missing ? 0 : (target > 0 ? Math.min((value / target) * 100, 100) : 0);
       const displayValue = goal.missing
         ? 'Missing'
-        : goal.key === 'proteinG' || goal.key === 'b12Mcg' || goal.key === 'mufaG' || goal.key === 'viscousFiberG' || goal.key === 'satfatG' || goal.key === 'netcarbsG'
-        ? `${Number(value).toFixed(goal.unit === 'g' ? 1 : 1)} ${goal.unit}`
+        : goal.key === 'proteinG' || goal.key === 'b12Mcg' || goal.key === 'mufaG' || goal.key === 'viscousFiberG' || goal.key === 'satfatG' || goal.key === 'netcarbsG' || goal.key === 'fluidsCups'
+        ? `${Number(value).toFixed(1)} ${goal.unit}`
         : `${Math.round(value)} ${goal.unit}`;
 
       return `
@@ -6402,6 +6455,7 @@ const MENU_PLANNER_NUTRIENTS = [
   { key: 'mufaG', label: 'MUFAs', unit: 'g', target: 30, decimals: 1 },
   { key: 'folateMcg', label: 'Folate', unit: 'mcg', target: 400, decimals: 0 },
   { key: 'b12Mcg', label: 'B12', unit: 'mcg', target: 2.4, decimals: 1 },
+  { key: 'fluidsCups', label: 'Fluids', unit: 'cups', target: 9, decimals: 1 },
   { key: 'viscousFiberG', label: 'Viscous Fiber', unit: 'g', target: 10, decimals: 1 }
 ];
 const MENU_PLANNER_CALORIE_TARGET_DEFAULT = 1800;
@@ -6764,6 +6818,7 @@ function getRecipePlanPayload(card) {
       netcarbsG: Number(card.dataset.netcarbsG || 0),
       folateMcg: Number(card.dataset.folateMcg || 0),
       b12Mcg: Number(card.dataset.b12Mcg || 0),
+      fluidsCups: Number(card.dataset.fluidsCups || 0),
       viscousFiberG: Number(card.dataset.viscousFiberG || 0)
     }
   };
@@ -6791,6 +6846,7 @@ function addRecipeToPlan(card) {
     netcarbsG: Number.isFinite(recipe.nutrients.netcarbsG) ? recipe.nutrients.netcarbsG : 0,
     folateMcg: Number.isFinite(recipe.nutrients.folateMcg) ? recipe.nutrients.folateMcg : 0,
     b12Mcg: Number.isFinite(recipe.nutrients.b12Mcg) ? recipe.nutrients.b12Mcg : 0,
+    fluidsCups: Number.isFinite(recipe.nutrients.fluidsCups) ? recipe.nutrients.fluidsCups : 0,
     viscousFiberG: Number.isFinite(recipe.nutrients.viscousFiberG) ? recipe.nutrients.viscousFiberG : 0
   }));
 
@@ -6818,6 +6874,7 @@ function addManualItemToPlan() {
   const mufaInput = document.getElementById('menu-manual-mufa');
   const satfatInput = document.getElementById('menu-manual-satfat');
   const netcarbsInput = document.getElementById('menu-manual-netcarbs');
+  const fluidsInput = document.getElementById('menu-manual-fluids');
   const folateInput = document.getElementById('menu-manual-folate');
   const b12Input = document.getElementById('menu-manual-b12');
   const viscousInput = document.getElementById('menu-manual-viscous');
@@ -6833,6 +6890,7 @@ function addManualItemToPlan() {
   const mufaVal = Number(mufaInput?.value || 0);
   const satfatVal = Number(satfatInput?.value || 0);
   const netcarbsVal = Number(netcarbsInput?.value || 0);
+  const fluidsVal = Number(fluidsInput?.value || 0);
   const folateVal = Number(folateInput?.value || 0);
   const b12Val = Number(b12Input?.value || 0);
   const viscousVal = Number(viscousInput?.value || 0);
@@ -6844,6 +6902,7 @@ function addManualItemToPlan() {
   const mufaG = Number.isFinite(mufaVal) && mufaVal >= 0 ? mufaVal : NaN;
   const satfatG = Number.isFinite(satfatVal) && satfatVal >= 0 ? satfatVal : NaN;
   const netcarbsG = Number.isFinite(netcarbsVal) && netcarbsVal >= 0 ? netcarbsVal : NaN;
+  const fluidsCups = Number.isFinite(fluidsVal) && fluidsVal >= 0 ? fluidsVal : NaN;
   const folateMcg = Number.isFinite(folateVal) && folateVal >= 0 ? folateVal : NaN;
   const b12Mcg = Number.isFinite(b12Val) && b12Val >= 0 ? b12Val : NaN;
   const viscousFiberG = Number.isFinite(viscousVal) && viscousVal >= 0 ? viscousVal : NaN;
@@ -6856,7 +6915,7 @@ function addManualItemToPlan() {
     setManualStatus('Servings must be greater than zero.', true);
     return;
   }
-  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(proteinG) || !Number.isFinite(mufaG) || !Number.isFinite(satfatG) || !Number.isFinite(netcarbsG) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
+  if (!Number.isFinite(calories) || !Number.isFinite(cholineMg) || !Number.isFinite(omega3Mg) || !Number.isFinite(proteinG) || !Number.isFinite(mufaG) || !Number.isFinite(satfatG) || !Number.isFinite(netcarbsG) || !Number.isFinite(fluidsCups) || !Number.isFinite(folateMcg) || !Number.isFinite(b12Mcg) || !Number.isFinite(viscousFiberG)) {
     setManualStatus('Nutrient and calorie values must be zero or higher.', true);
     return;
   }
@@ -6877,6 +6936,7 @@ function addManualItemToPlan() {
     mufaG: Number(mufaG.toFixed(1)),
     satfatG: Number(satfatG.toFixed(1)),
     netcarbsG: Number(netcarbsG.toFixed(1)),
+    fluidsCups: Number(fluidsCups.toFixed(1)),
     folateMcg: Number(folateMcg.toFixed(0)),
     b12Mcg: Number(b12Mcg.toFixed(1)),
     viscousFiberG: Number(viscousFiberG.toFixed(1))
@@ -6897,6 +6957,7 @@ function addManualItemToPlan() {
   if (mufaInput) mufaInput.value = '0';
   if (satfatInput) satfatInput.value = '0';
   if (netcarbsInput) netcarbsInput.value = '0';
+  if (fluidsInput) fluidsInput.value = '0';
   if (folateInput) folateInput.value = '0';
   if (b12Input) b12Input.value = '0';
   if (viscousInput) viscousInput.value = '0';
@@ -6924,6 +6985,7 @@ const PLANNER_NUTRIENT_SOURCE_MAP = {
   omega3Mg: { key: 'omega3Mg', aliases: ['omega3'] },
   proteinG: { key: 'proteinG', aliases: ['protein'] },
   mufaG: { key: 'mufaG', aliases: ['mufas'] },
+  fluidsCups: { key: 'fluidsCups', aliases: ['fluids', 'fluid'] },
   viscousFiberG: { key: 'viscousFiberG', aliases: ['viscsolublefiber'] }
 };
 
