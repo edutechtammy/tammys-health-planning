@@ -6524,6 +6524,7 @@ function normalizePlannerItem(rawItem) {
     mufaG: Number.isFinite(Number(safe.mufaG)) ? Number(safe.mufaG) : 0,
     satfatG: Number.isFinite(Number(safe.satfatG)) ? Number(safe.satfatG) : 0,
     netcarbsG: Number.isFinite(Number(safe.netcarbsG)) ? Number(safe.netcarbsG) : 0,
+    fluidsCups: Number.isFinite(Number(safe.fluidsCups)) ? Number(safe.fluidsCups) : 0,
     folateMcg: Number.isFinite(Number(safe.folateMcg)) ? Number(safe.folateMcg) : 0,
     b12Mcg: Number.isFinite(Number(safe.b12Mcg)) ? Number(safe.b12Mcg) : 0,
     viscousFiberG: Number.isFinite(Number(safe.viscousFiberG)) ? Number(safe.viscousFiberG) : 0
@@ -6556,6 +6557,7 @@ function refreshPlannerRecipeItemNutrients(item) {
   applyValue('proteinG', resolveRecipeNutrientEntry(source, 'proteinG', ['protein'])?.value);
   applyValue('satfatG', resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat'])?.value);
   applyValue('netcarbsG', resolveRecipeNutrientEntry(source, 'netcarbsG', ['netcarbs', 'netcarb'])?.value);
+  applyValue('fluidsCups', resolveRecipeNutrientEntry(source, 'fluidsCups', ['fluids', 'fluid'])?.value);
   applyValue('folateMcg', resolveRecipeNutrientEntry(source, 'folateMcg', ['folate'])?.value);
   applyValue('b12Mcg', resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12'])?.value);
   applyValue('mufaG', resolveRecipeNutrientEntry(source, 'mufaG', ['mufas'])?.value);
