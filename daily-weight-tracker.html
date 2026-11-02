@@ -238,12 +238,13 @@
 
     .bmi-image-frame {
       background: var(--band-color, rgba(45,106,79,.12));
-      border-top: 1px solid rgba(45,106,79,.16);
-      border-bottom: 1px solid rgba(45,106,79,.16);
+      border-top: 3px solid rgba(255,255,255,.7);
+      border-bottom: 3px solid rgba(255,255,255,.7);
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
     }
 
     .bmi-image-frame img {
@@ -253,7 +254,8 @@
       height: auto;
       aspect-ratio: 1 / 1;
       object-fit: contain;
-      background: #edf6ef;
+      background: rgba(255,255,255,.18);
+      filter: saturate(0.96) contrast(1.05);
     }
 
     .bmi-meta {
@@ -604,10 +606,10 @@
   ];
   const DEFAULT_GAP_COMPRESSION_DAYS = 30;
   const BMI_CATEGORY_COLORS = {
-    normal: 'rgba(70, 156, 99, 0.20)',
-    overweight: 'rgba(214, 151, 58, 0.22)',
-    'obese-I': 'rgba(200, 107, 58, 0.22)',
-    'obese-II': 'rgba(166, 46, 44, 0.22)'
+    normal: 'rgba(60, 150, 90, 0.72)',
+    overweight: 'rgba(214, 160, 54, 0.70)',
+    'obese-I': 'rgba(206, 110, 52, 0.76)',
+    'obese-II': 'rgba(167, 44, 42, 0.80)'
   };
   const BMI_IMAGE_FILES = [
     'bmi/136-8._bmi20-5_normal.webp',
