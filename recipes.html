@@ -908,6 +908,7 @@
         autocomplete="off"
       />
       <button class="pantry-btn search-clear" type="button" onclick="clearRecipeSearch()">Clear</button>
+      <button class="pantry-btn search-clear" type="button" onclick="resetRecipeFilters()">Reset filters</button>
     </div>
     <p class="search-help">Category, search, pantry, and condition filters all work together, so you can narrow recipes with any combination of them.</p>
   </div>
@@ -8214,6 +8215,25 @@ function clearRecipeSearch() {
   const input = document.getElementById('recipe-search');
   if (input) input.value = '';
   activeRecipeSearch = '';
+  applyAllFilters();
+}
+
+function resetRecipeFilters() {
+  activeConditionTag = 'all';
+  activeRecipeCategory = 'all';
+  activeRecipeSearch = '';
+
+  const categorySelect = document.getElementById('recipe-category');
+  if (categorySelect) categorySelect.value = 'all';
+
+  const searchInput = document.getElementById('recipe-search');
+  if (searchInput) searchInput.value = '';
+
+  document.querySelectorAll('.filter-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.textContent.trim() === 'All');
+  });
+
+  setAllPantry(true);
   applyAllFilters();
 }
 
