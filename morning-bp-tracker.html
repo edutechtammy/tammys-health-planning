@@ -212,6 +212,77 @@
       margin-bottom: .92rem;
     }
 
+    .bp-status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin: 0 0 .9rem;
+      border-radius: 12px;
+      border: 1px solid #dfeee3;
+      background: #f7fcf9;
+      padding: .72rem .9rem;
+      color: var(--text);
+      font-size: .88rem;
+    }
+
+    .bp-status-banner.healthy {
+      border-color: #bfe0c9;
+      background: #edf9f1;
+      color: #1b5c3d;
+    }
+
+    .bp-status-banner.low {
+      border-color: #d9d2f2;
+      background: #f7f3ff;
+      color: #4d2c87;
+    }
+
+    .bp-status-banner.high {
+      border-color: #f0c7c7;
+      background: #fff5f5;
+      color: #8a1d1d;
+    }
+
+    .bp-status-banner.neutral {
+      border-color: #d9e7dc;
+      background: #f7faf8;
+      color: var(--muted);
+    }
+
+    .bp-status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: .18rem .62rem;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    .bp-status-pill.healthy {
+      background: #dff7e8;
+      color: #1d6a43;
+    }
+
+    .bp-status-pill.low {
+      background: #efe7ff;
+      color: #553299;
+    }
+
+    .bp-status-pill.high {
+      background: #ffe0e0;
+      color: #a32626;
+    }
+
+    .bp-status-pill.neutral {
+      background: #edf2ee;
+      color: var(--muted);
+    }
+
     .stat-box {
       border: 1px solid #d8eadf;
       background: #f7fcf9;
@@ -400,9 +471,10 @@
 
     <section class="card">
       <h2>Trend View</h2>
-        <p>Generic Healthy range: 120/80, <br>Sedentary 62 yr old: 130 - 139 mmHg. <br>Age in 60s at 160 lbs with active cardio and resistance training continuing: 120/60-79 with a heart rate of 60 to 70.</p>
+        <p><strong>Personal target range for this phase:</strong> around 120/60–79 is a strong goal for a 62-year-old woman moving from sedentary to a more active cardio/resistance routine. <br><strong>Watch closely:</strong> 130–139 systolic or 80–89 diastolic. <br><strong>Too high:</strong> 140/90 or higher. <br><strong>Too low:</strong> below 90/60.</p>
         <br>
       <div class="quick-stats" id="quick-stats"></div>
+      <div class="bp-status-banner neutral" id="bp-status-banner"></div>
 
       <div class="week-nav">
         <button class="btn btn-muted" id="prev-week-btn" type="button">◀ Week</button>
@@ -441,6 +513,7 @@
               <th>Systolic</th>
               <th>Diastolic</th>
               <th>Pulse</th>
+              <th>Status</th>
               <th>Notes</th>
             </tr>
           </thead>
@@ -460,6 +533,7 @@
               <th>Systolic</th>
               <th>Diastolic</th>
               <th>Pulse</th>
+              <th>Status</th>
               <th>Notes</th>
               <th>Actions</th>
             </tr>
@@ -926,6 +1000,38 @@
       return Number.isFinite(value) ? Number(value).toFixed(digits) : '—';
     }
 
+    function getBloodPressureStatus(systolic, diastolic) {
+      const sys = Number(systolic);
+      const dia = Number(diastolic);
+
+      if (!Number.isFinite(sys) || !Number.isFinite(dia)) {
+        return { label: 'No reading', tone: 'neutral', detail: 'Enter both values to assess.' };
+      }
+
+      if (sys < 90 || dia < 60) {
+        return { label: 'Too low', tone: 'low', detail: 'Below the target range for your current phase.' };
+      }
+
+      if (sys >= 140 || dia >= 90) {
+        return { label: 'Too high', tone: 'high', detail: 'A stronger concern; consider rest, hydration, and follow-up.' };
+      }
+
+      if (sys >= 130 || dia >= 80) {
+        return { label: 'Too high', tone: 'high', detail: 'Above the personal target range; watch and retest.' };
+      }
+
+      return {
+        label: 'Healthy range',
+        tone: 'healthy',
+        detail: 'Within the personal target range for your age and activity phase.'
+      };
+    }
+
+    function renderStatusBadge(item) {
+      const status = getBloodPressureStatus(item.systolic, item.diastolic);
+      return '<span class="bp-status-pill ' + status.tone + '">' + escapeHtml(status.label) + '</span>';
+    }
+
     function getWeekSeries(entries, weekStart) {
       const labels = [];
       const systolicSeries = [];
@@ -1057,6 +1163,9 @@
       const weekDiaAvg = average(weekEntries.map(item => item.diastolic));
       const weekBpmAvg = average(weekEntries.map(item => item.bpm));
 
+      const latestReading = sortDesc(entries)[0];
+      const latestStatus = latestReading ? getBloodPressureStatus(latestReading.systolic, latestReading.diastolic) : { label: 'No reading', tone: 'neutral' };
+
       quickStatsEl.innerHTML = [
         {
           label: 'All-Time Avg BP',
@@ -1075,12 +1184,22 @@
             : '—'
         },
         {
-          label: 'This Week Avg BPM',
-          value: Number.isFinite(weekBpmAvg) ? fmt(weekBpmAvg, 0) : '—'
+          label: 'Latest BP Status',
+          value: latestReading ? latestStatus.label : '—'
         }
       ].map(item => {
         return '<div class="stat-box"><div class="stat-label">' + item.label + '</div><div class="stat-value">' + item.value + '</div></div>';
       }).join('');
+
+      const banner = document.getElementById('bp-status-banner');
+      if (!latestReading) {
+        banner.textContent = 'No readings yet. Add a morning reading to see a healthy/low/high interpretation.';
+        banner.className = 'bp-status-banner neutral';
+        return;
+      }
+
+      banner.className = 'bp-status-banner ' + latestStatus.tone;
+      banner.innerHTML = '<strong>Latest reading:</strong> ' + escapeHtml(latestReading.systolic + '/' + latestReading.diastolic + ' mmHg') + ' — ' + escapeHtml(latestStatus.label) + ' (' + escapeHtml(latestStatus.detail) + ')';
     }
 
     function renderWeekTable(weekEntries) {
@@ -1097,6 +1216,7 @@
           '<td>' + escapeHtml(String(item.systolic)) + '</td>' +
           '<td>' + escapeHtml(String(item.diastolic)) + '</td>' +
           '<td>' + escapeHtml(String(item.bpm)) + '</td>' +
+          '<td>' + renderStatusBadge(item) + '</td>' +
           '<td style="white-space:normal;min-width:200px">' + escapeHtml(item.notes || '') + '</td>' +
         '</tr>';
       }).join('');
@@ -1116,6 +1236,7 @@
           '<td>' + escapeHtml(String(item.systolic)) + '</td>' +
           '<td>' + escapeHtml(String(item.diastolic)) + '</td>' +
           '<td>' + escapeHtml(String(item.bpm)) + '</td>' +
+          '<td>' + renderStatusBadge(item) + '</td>' +
           '<td style="white-space:normal;min-width:220px">' + escapeHtml(item.notes || '') + '</td>' +
           '<td>' +
             '<button class="action-btn" type="button" onclick="startEdit(\'' + escapeHtml(item.date) + '\')">Edit</button>' +
