@@ -353,6 +353,10 @@
             <input id="cardio-date" type="date" />
           </div>
           <div class="tracker-field">
+            <label for="cardio-time">Session Time (optional)</label>
+            <input id="cardio-time" type="time" />
+          </div>
+          <div class="tracker-field">
             <label for="cardio-name">Session Name</label>
             <input id="cardio-name" type="text" value="Recovery Walk" placeholder="Example: Recovery Walk" />
           </div>
@@ -420,7 +424,7 @@
               <table class="micro-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th>Date/Time</th>
                     <th>Work Median</th>
                     <th>Peak</th>
                     <th>Drift</th>
@@ -439,7 +443,7 @@
               <table class="micro-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th>Date/Time</th>
                     <th>Load</th>
                     <th>Start</th>
                     <th>Intervals</th>
@@ -566,6 +570,17 @@
       return candidate;
     }
 
+    function normalizeTimeOnly(value){
+      const raw=String(value||'').trim();
+      if(!raw) return '';
+      const match=raw.match(/^(\d{2}):(\d{2})$/);
+      if(!match) return '';
+      const hh=Number(match[1]);
+      const mm=Number(match[2]);
+      if(hh<0||hh>23||mm<0||mm>59) return '';
+      return String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0');
+    }
+
     function parseMinuteBpmText(text){
       const lines=String(text||'').split(/\r?\n/);
       const out=[];
@@ -672,6 +687,24 @@
       return Number.isFinite(value)?Math.round(value*10)/10:null;
     }
 
+    function sessionSortKey(session){
+      const time=normalizeTimeOnly(session.sessionTime)||'23:59';
+      return session.date+'T'+time;
+    }
+
+    function compareSessionsAsc(a,b){
+      const byDateTime=sessionSortKey(a).localeCompare(sessionSortKey(b));
+      if(byDateTime!==0) return byDateTime;
+      const byUpdated=String(a.updatedAt||'').localeCompare(String(b.updatedAt||''));
+      if(byUpdated!==0) return byUpdated;
+      return String(a.id||'').localeCompare(String(b.id||''));
+    }
+
+    function displayDateTime(session){
+      const time=normalizeTimeOnly(session.sessionTime);
+      return time?session.date+' '+time:session.date;
+    }
+
     function fmtNum(value,digits=0){
       return Number.isFinite(value)?Number(value).toFixed(digits):'—';
     }
@@ -711,6 +744,7 @@
       const inclinePct=asNumber(item.inclinePct);
       const durationMin=asNumber(item.durationMin);
       const startHr=asNumber(item.startHr);
+      const sessionTime=normalizeTimeOnly(item.sessionTime);
       if(!Number.isFinite(speedMph)||!Number.isFinite(inclinePct)||!Number.isFinite(durationMin)||!Number.isFinite(startHr)) return null;
       if(speedMph<0||inclinePct<0||durationMin<=0||startHr<=0) return null;
 
@@ -736,6 +770,7 @@
         speedMph:round1(speedMph),
         inclinePct:round1(inclinePct),
         durationMin:Math.round(durationMin),
+        sessionTime,
         startHr:Math.round(startHr),
         intervals:normIntervals,
         postStop:normPost,
@@ -748,7 +783,7 @@
       try{
         const parsed=JSON.parse(localStorage.getItem(CARDIO_TRACKER_STORAGE_KEY)||'[]');
         if(!Array.isArray(parsed)) return [];
-        return parsed.map(normalizeSession).filter(Boolean).sort((a,b)=>a.date.localeCompare(b.date));
+        return parsed.map(normalizeSession).filter(Boolean).sort(compareSessionsAsc);
       }catch{
         return [];
       }
@@ -761,6 +796,7 @@
     function formToSession(){
       const date=normalizeDateOnly(document.getElementById('cardio-date')?.value);
       const name=String(document.getElementById('cardio-name')?.value||'').trim()||'Recovery Walk';
+      const sessionTime=normalizeTimeOnly(document.getElementById('cardio-time')?.value);
       const speedMph=asNumber(document.getElementById('cardio-speed')?.value);
       const inclinePct=asNumber(document.getElementById('cardio-incline')?.value);
       const durationMin=asNumber(document.getElementById('cardio-duration')?.value);
@@ -781,6 +817,7 @@
           id:cardioEditingId||('session-'+Date.now()),
           date,
           name,
+          sessionTime,
           speedMph,
           inclinePct,
           durationMin,
@@ -801,6 +838,8 @@
       if(dateEl) dateEl.value=trackerTodayISO();
       const nameEl=document.getElementById('cardio-name');
       if(nameEl) nameEl.value='Recovery Walk';
+      const timeEl=document.getElementById('cardio-time');
+      if(timeEl) timeEl.value='';
       const speedEl=document.getElementById('cardio-speed');
       if(speedEl) speedEl.value='1.6';
       const inclineEl=document.getElementById('cardio-incline');
@@ -825,13 +864,13 @@
       }
       const session=parsed.value;
       const sessions=loadCardioSessions();
-      const idx=sessions.findIndex(item=>item.id===session.id||item.date===session.date&&toLoadKey(item)===toLoadKey(session));
+      const idx=sessions.findIndex(item=>item.id===session.id);
       if(idx>=0){
         sessions[idx]=session;
       }else{
         sessions.push(session);
       }
-      sessions.sort((a,b)=>a.date.localeCompare(b.date));
+      sessions.sort(compareSessionsAsc);
       saveCardioSessions(sessions);
       renderCardioTracker();
       clearCardioForm();
@@ -845,11 +884,12 @@
         return;
       }
       const rows=[[
-        'Date','Session Name','Speed mph','Incline %','Duration min','Start HR bpm','Intervals','Post Stop','Notes'
+        'Date','Session Time','Session Name','Speed mph','Incline %','Duration min','Start HR bpm','Intervals','Post Stop','Notes'
       ]];
       sessions.forEach(item=>{
         rows.push([
           item.date,
+          normalizeTimeOnly(item.sessionTime),
           item.name,
           item.speedMph,
           item.inclinePct,
@@ -874,11 +914,10 @@
     function seedStarterSessions(){
       if(!window.confirm('Load starter sessions for Nov 2 and Nov 3, 2026? Existing sessions with the same date and load will be replaced.')) return;
       const sessions=loadCardioSessions();
-      const map=new Map(sessions.map(item=>[item.date+'|'+toLoadKey(item),item]));
-      CARDIO_SAMPLE_SESSIONS.map(normalizeSession).forEach(sample=>{
-        map.set(sample.date+'|'+toLoadKey(sample),sample);
-      });
-      const merged=Array.from(map.values()).sort((a,b)=>a.date.localeCompare(b.date));
+      const samples=CARDIO_SAMPLE_SESSIONS.map(normalizeSession).filter(Boolean);
+      const sampleKeys=new Set(samples.map(item=>item.date+'|'+toLoadKey(item)));
+      const remaining=sessions.filter(item=>!sampleKeys.has(item.date+'|'+toLoadKey(item)));
+      const merged=remaining.concat(samples).sort(compareSessionsAsc);
       saveCardioSessions(merged);
       localStorage.setItem(CARDIO_STARTER_STORAGE_KEY,'1');
       renderCardioTracker();
@@ -1002,7 +1041,7 @@
         const metrics=getMetricPack(item);
         const cue=getCueForSession(item,filteredSessions);
         return '<tr>'+
-          '<td>'+item.date+'</td>'+
+          '<td>'+displayDateTime(item)+'</td>'+
           '<td>'+fmtNum(metrics.workingMedian,0)+'</td>'+
           '<td>'+fmtNum(metrics.peak,0)+'</td>'+
           '<td>'+fmtNum(metrics.drift,1)+'</td>'+
@@ -1022,9 +1061,9 @@
         return;
       }
       empty.style.display='none';
-      body.innerHTML=sessions.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(item=>{
+      body.innerHTML=sessions.slice().sort((a,b)=>compareSessionsAsc(b,a)).map(item=>{
         return '<tr>'+
-          '<td>'+item.date+'</td>'+
+          '<td>'+displayDateTime(item)+'</td>'+
           '<td>'+toLoadLabel(item)+'</td>'+
           '<td>'+fmtNum(item.startHr,0)+'</td>'+
           '<td>'+formatMinuteBpmList(item.intervals)+'</td>'+
