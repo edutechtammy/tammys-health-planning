@@ -6192,12 +6192,26 @@ function normalizeRecipeTitle(title) {
 }
 
 function getRecipeHref(card) {
-  const link = card.querySelector('.recipe-card-footer .btn-view, .recipe-card-actions .btn-view, .recipe-card-footer a, .recipe-card-actions a');
-  return link?.getAttribute('href') || '';
+  const viewLink = card.querySelector('.recipe-card-footer .btn-view, .recipe-card-actions .btn-view');
+  return viewLink?.getAttribute('href') || '';
+}
+
+function normalizeRecipeNutrientKey(rawKey) {
+  const key = String(rawKey || '').trim();
+  if (!key) return '';
+  if (/food-response-testing\.html$/i.test(key)) return '';
+  if (window.RECIPE_PANEL_NUTRIENTS && Object.prototype.hasOwnProperty.call(window.RECIPE_PANEL_NUTRIENTS, key)) {
+    return key;
+  }
+  if (/^recipe-[a-z0-9-]+\.html$/i.test(key)) {
+    return key;
+  }
+  return '';
 }
 
 function getRecipeNutrientKeyFromHref(href) {
-  return String(href || '').split('/').pop()?.split('?')[0]?.split('#')[0] || '';
+  const key = String(href || '').split('/').pop()?.split('?')[0]?.split('#')[0] || '';
+  return normalizeRecipeNutrientKey(key);
 }
 
 function buildPlannerKey(value) {
@@ -6218,7 +6232,7 @@ function getRecipePlannerKey(card) {
 }
 
 function getRecipeNutrientKey(card) {
-  const explicit = String(card?.dataset?.nutrientKey || '').trim();
+  const explicit = normalizeRecipeNutrientKey(String(card?.dataset?.nutrientKey || '').trim());
   if (explicit) return explicit;
   return getRecipeNutrientKeyFromHref(getRecipeHref(card));
 }
@@ -6799,11 +6813,13 @@ function normalizePlannerItem(rawItem) {
   const validDay = MENU_PLANNER_DAY_OPTIONS.includes(rawDay) ? rawDay : 'monday';
   const title = String(safe.title || 'Recipe');
   const href = String(safe.href || '');
-  const explicitNutrientKey = String(safe.nutrientKey || '');
+  const explicitNutrientKey = normalizeRecipeNutrientKey(String(safe.nutrientKey || ''));
   const nutrientKey = explicitNutrientKey || getRecipeNutrientKeyFromHref(href);
   const explicitPlannerKey = String(safe.plannerKey || '');
-  const plannerKey = explicitPlannerKey
-    || (nutrientKey ? `nk:${nutrientKey}` : `title:${buildPlannerKey(title)}`);
+  const hasValidExplicitPlannerKey = explicitPlannerKey && !(explicitPlannerKey.startsWith('nk:') && !nutrientKey);
+  const plannerKey = hasValidExplicitPlannerKey
+    ? explicitPlannerKey
+    : (nutrientKey ? `nk:${nutrientKey}` : `title:${buildPlannerKey(title)}`);
   return {
     id: String(safe.id || `plan_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`),
     source: safe.source === 'manual' ? 'manual' : 'recipe',
@@ -6843,16 +6859,28 @@ function getRecipeCardByPlannerKey(plannerKey) {
 
 function refreshPlannerRecipeItemNutrients(item) {
   if (!item || item.source !== 'recipe') return false;
-  if (!item.nutrientKey) {
-    item.nutrientKey = getRecipeNutrientKeyFromHref(item.href);
+  let changed = false;
+
+  const normalizedStoredKey = normalizeRecipeNutrientKey(item.nutrientKey);
+  if (normalizedStoredKey !== String(item.nutrientKey || '')) {
+    item.nutrientKey = normalizedStoredKey;
+    changed = true;
   }
-  if (!item.plannerKey) {
-    item.plannerKey = item.nutrientKey ? `nk:${item.nutrientKey}` : `title:${buildPlannerKey(item.title)}`;
+  if (!item.nutrientKey) {
+    const hrefKey = getRecipeNutrientKeyFromHref(item.href);
+    if (hrefKey !== item.nutrientKey) {
+      item.nutrientKey = hrefKey;
+      changed = true;
+    }
+  }
+  const expectedPlannerKey = item.nutrientKey ? `nk:${item.nutrientKey}` : `title:${buildPlannerKey(item.title)}`;
+  if (item.plannerKey !== expectedPlannerKey) {
+    item.plannerKey = expectedPlannerKey;
+    changed = true;
   }
   const source = getRecipeNutrientSourceByKey(item.nutrientKey) || getRecipeNutrientSourceByHref(item.href);
   const cardFallback = getRecipeCardByPlannerKey(item.plannerKey);
 
-  let changed = false;
   const applyValue = (prop, val) => {
     const num = Number(val);
     if (!Number.isFinite(num)) return;
@@ -6953,9 +6981,13 @@ function loadMenuPlannerState(weekStartIso) {
     const needsKeyMigration = parsed.items.some((item) => {
       if (!item || typeof item !== 'object') return false;
       if (item.source !== 'recipe') return false;
+      const title = String(item.title || 'Recipe');
+      const href = String(item.href || '');
       const plannerKey = String(item.plannerKey || '').trim();
-      const nutrientKey = String(item.nutrientKey || '').trim();
-      return !plannerKey || !nutrientKey;
+      const nutrientKey = normalizeRecipeNutrientKey(String(item.nutrientKey || '').trim());
+      const derivedNutrientKey = nutrientKey || getRecipeNutrientKeyFromHref(href);
+      const expectedPlannerKey = derivedNutrientKey ? `nk:${derivedNutrientKey}` : `title:${buildPlannerKey(title)}`;
+      return !plannerKey || plannerKey !== expectedPlannerKey;
     });
 
     const didRefreshNutrients = refreshPlannerStateRecipeNutrients(state);
@@ -7152,8 +7184,7 @@ function getPlannerDefaults() {
 
 function getRecipePlanPayload(card) {
   const title = card.querySelector('.recipe-card-title')?.textContent?.trim() || 'Recipe';
-  const recipeLink = card.querySelector('.recipe-card-footer .btn-view, .recipe-card-actions .btn-view, .recipe-card-footer a, .recipe-card-actions a');
-  const href = recipeLink?.getAttribute('href') || '';
+  const href = getRecipeHref(card);
   const plannerKey = getRecipePlannerKey(card);
   const nutrientKey = getRecipeNutrientKey(card);
 
