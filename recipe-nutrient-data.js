@@ -1855,6 +1855,706 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+  "week1-dressing-greek-red-wine": {
+    "choline": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~140 mg",
+      "value": 140.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~180 kcal",
+      "value": 180,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.8 g",
+      "value": 2.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~0.2 g",
+      "value": 0.2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~14.7 g",
+      "value": 14.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~14.0 mg",
+      "value": 14,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~2 µg",
+      "value": 2,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "week1-dressing-lemon-oregano": {
+    "choline": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~140 mg",
+      "value": 140.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~181 kcal",
+      "value": 181,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.8 g",
+      "value": 2.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~0.6 g",
+      "value": 0.6,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~14.7 g",
+      "value": 14.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~14.0 mg",
+      "value": 14,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~2 µg",
+      "value": 2,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "week1-dressing-italian-herb-acv": {
+    "choline": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~125 mg",
+      "value": 125.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~160 kcal",
+      "value": 160,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~0.2 g",
+      "value": 0.2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~13.1 g",
+      "value": 13.1,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~12.5 mg",
+      "value": 12.5,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~2 µg",
+      "value": 2,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "week1-dressing-balsamic-dijon-thyme": {
+    "choline": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~140 mg",
+      "value": 140.0,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~2 µg",
+      "value": 2.0,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12": {
+      "display": "0 µg",
+      "value": 0.0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~185 kcal",
+      "value": 185,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.8 g",
+      "value": 2.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~1.0 g",
+      "value": 1,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~14.7 g",
+      "value": 14.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~0.5 mg",
+      "value": 0.5,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~14.0 mg",
+      "value": 14,
+      "unit": "mg",
+      "name": "Omega-3 — anti-inflammatory baseline",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~2 µg",
+      "value": 2,
+      "unit": "mcg",
+      "name": "Folate — methylation support",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "0 µg",
+      "value": 0,
+      "unit": "mcg",
+      "name": "B12 — methyl donor cofactor",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "week2-dressing-honey-mustard-acv": {
+    "calories": { "display": "~188 kcal", "value": 188, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~1.4 g", "value": 1.4, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~14.0 mg", "value": 14, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~2 µg", "value": 2, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week2-dressing-acv-dill": {
+    "calories": { "display": "~180 kcal", "value": 180, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~0.3 g", "value": 0.3, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~14.0 mg", "value": 14, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~2 µg", "value": 2, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week2-dressing-golden-anti-inflammatory": {
+    "calories": { "display": "~190 kcal", "value": 190, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~1.0 g", "value": 1.0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~14.0 mg", "value": 14, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~2 µg", "value": 2, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.1 g", "value": 0.1, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week3-dressing-fresh-dill-lemon": {
+    "calories": { "display": "~180 kcal", "value": 180, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~0.5 g", "value": 0.5, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~16.0 mg", "value": 16, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~3 µg", "value": 3, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week3-dressing-parsley-red-wine": {
+    "calories": { "display": "~180 kcal", "value": 180, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~0.3 g", "value": 0.3, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~16.0 mg", "value": 16, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~3 µg", "value": 3, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week3-dressing-basil-lemon-garlic": {
+    "calories": { "display": "~181 kcal", "value": 181, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~0.6 g", "value": 0.6, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~16.0 mg", "value": 16, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~3 µg", "value": 3, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week3-dressing-greek-taverna": {
+    "calories": { "display": "~182 kcal", "value": 182, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~0.7 g", "value": 0.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~16.0 mg", "value": 16, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~3 µg", "value": 3, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week4-dressing-asian-ginger-lime": {
+    "calories": { "display": "~172 kcal", "value": 172, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.7 g", "value": 2.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~1.0 g", "value": 1.0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~13.0 mg", "value": 13, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.1 g", "value": 14.1, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~2 µg", "value": 2, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.1 g", "value": 0.1, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week4-dressing-zaatar-lemon": {
+    "calories": { "display": "~180 kcal", "value": 180, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~0.6 g", "value": 0.6, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~13.0 mg", "value": 13, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~2 µg", "value": 2, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week4-dressing-pomegranate-mint": {
+    "calories": { "display": "~186 kcal", "value": 186, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~1.6 g", "value": 1.6, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~0.5 mg", "value": 0.5, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~13.0 mg", "value": 13, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~14.7 g", "value": 14.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~2 µg", "value": 2, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week5-dressing-creamy-dill-yogurt": {
+    "calories": { "display": "~95 kcal", "value": 95, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~1.2 g", "value": 1.2, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~2.4 g", "value": 2.4, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~6 mg", "value": 6, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~3.5 mg", "value": 3.5, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~6.8 g", "value": 6.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~2 µg", "value": 2, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "~0.2 µg", "value": 0.2, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~2.2 g", "value": 2.2, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.0 g", "value": 0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
+  "week5-dressing-creamy-avocado-lime": {
+    "calories": { "display": "~130 kcal", "value": 130, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~1.3 g", "value": 1.3, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~1.8 g", "value": 1.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~4 mg", "value": 4, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~95 mg", "value": 95, "unit": "mg", "name": "Omega-3 — anti-inflammatory baseline", "estimated": false },
+    "mufaG": { "display": "~10.0 g", "value": 10, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "folateMcg": { "display": "~16 µg", "value": 16, "unit": "mcg", "name": "Folate — methylation support", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — methyl donor cofactor", "estimated": false },
+    "proteinG": { "display": "~1.0 g", "value": 1, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.5 g", "value": 0.5, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false } }
+  },
   "recipe-dressing-acv-double-duty.html": {
     "choline": {
       "display": "~0.5 mg",
