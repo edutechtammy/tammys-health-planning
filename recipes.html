@@ -5989,10 +5989,41 @@ function getRecipeHref(card) {
   return link?.getAttribute('href') || '';
 }
 
+function getRecipeNutrientKeyFromHref(href) {
+  return String(href || '').split('/').pop()?.split('?')[0]?.split('#')[0] || '';
+}
+
+function buildPlannerKey(value) {
+  const normalized = normalizeRecipeTitle(String(value || ''));
+  return normalized
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 120);
+}
+
+function getRecipePlannerKey(card) {
+  if (!card) return '';
+  const explicit = String(card.dataset.plannerKey || '').trim();
+  if (explicit) return explicit;
+  const nutrientKey = getRecipeNutrientKeyFromHref(getRecipeHref(card));
+  if (nutrientKey) return `nk:${nutrientKey}`;
+  return `title:${buildPlannerKey(getRecipeTitle(card))}`;
+}
+
+function getRecipeNutrientKey(card) {
+  const explicit = String(card?.dataset?.nutrientKey || '').trim();
+  if (explicit) return explicit;
+  return getRecipeNutrientKeyFromHref(getRecipeHref(card));
+}
+
+function getRecipeNutrientSourceByKey(key) {
+  const safeKey = String(key || '').trim();
+  if (!safeKey) return null;
+  return (window.RECIPE_PANEL_NUTRIENTS && window.RECIPE_PANEL_NUTRIENTS[safeKey]) || null;
+}
+
 function getRecipeNutrientSource(card) {
-  const href = getRecipeHref(card);
-  const key = href.split('/').pop()?.split('?')[0]?.split('#')[0] || '';
-  return (window.RECIPE_PANEL_NUTRIENTS && window.RECIPE_PANEL_NUTRIENTS[key]) || null;
+  return getRecipeNutrientSourceByKey(getRecipeNutrientKey(card));
 }
 
 function resolveRecipeNutrientEntry(source, canonicalKey, legacyKeys = []) {
@@ -6559,14 +6590,23 @@ function normalizePlannerItem(rawItem) {
   const safe = rawItem || {};
   const rawDay = String(safe.day || '');
   const validDay = MENU_PLANNER_DAY_OPTIONS.includes(rawDay) ? rawDay : 'monday';
+  const title = String(safe.title || 'Recipe');
+  const href = String(safe.href || '');
+  const explicitNutrientKey = String(safe.nutrientKey || '');
+  const nutrientKey = explicitNutrientKey || getRecipeNutrientKeyFromHref(href);
+  const explicitPlannerKey = String(safe.plannerKey || '');
+  const plannerKey = explicitPlannerKey
+    || (nutrientKey ? `nk:${nutrientKey}` : `title:${buildPlannerKey(title)}`);
   return {
     id: String(safe.id || `plan_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`),
     source: safe.source === 'manual' ? 'manual' : 'recipe',
     day: validDay,
     meal: MENU_PLANNER_MEALS.some((m) => m.key === String(safe.meal || '')) ? String(safe.meal) : 'dinner',
     servings: Number.isFinite(Number(safe.servings)) && Number(safe.servings) > 0 ? Number(safe.servings) : 1,
-    title: String(safe.title || 'Recipe'),
-    href: String(safe.href || ''),
+    title,
+    href,
+    plannerKey,
+    nutrientKey,
     calories: Number.isFinite(Number(safe.calories)) ? Number(safe.calories) : 0,
     cholineMg: Number.isFinite(Number(safe.cholineMg)) ? Number(safe.cholineMg) : 0,
     omega3Mg: Number.isFinite(Number(safe.omega3Mg)) ? Number(safe.omega3Mg) : 0,
@@ -6582,15 +6622,28 @@ function normalizePlannerItem(rawItem) {
 }
 
 function getRecipeNutrientSourceByHref(href) {
-  const key = String(href || '').split('/').pop()?.split('?')[0]?.split('#')[0] || '';
+  const key = getRecipeNutrientKeyFromHref(href);
   if (!key) return null;
-  return (window.RECIPE_PANEL_NUTRIENTS && window.RECIPE_PANEL_NUTRIENTS[key]) || null;
+  return getRecipeNutrientSourceByKey(key);
+}
+
+function getRecipeCardByPlannerKey(plannerKey) {
+  const safeKey = String(plannerKey || '').trim();
+  if (!safeKey) return null;
+  const cards = Array.from(document.querySelectorAll('.recipe-card'));
+  return cards.find((card) => getRecipePlannerKey(card) === safeKey) || null;
 }
 
 function refreshPlannerRecipeItemNutrients(item) {
   if (!item || item.source !== 'recipe') return false;
-  const source = getRecipeNutrientSourceByHref(item.href);
-  if (!source) return false;
+  if (!item.nutrientKey) {
+    item.nutrientKey = getRecipeNutrientKeyFromHref(item.href);
+  }
+  if (!item.plannerKey) {
+    item.plannerKey = item.nutrientKey ? `nk:${item.nutrientKey}` : `title:${buildPlannerKey(item.title)}`;
+  }
+  const source = getRecipeNutrientSourceByKey(item.nutrientKey) || getRecipeNutrientSourceByHref(item.href);
+  const cardFallback = getRecipeCardByPlannerKey(item.plannerKey);
 
   let changed = false;
   const applyValue = (prop, val) => {
@@ -6601,13 +6654,30 @@ function refreshPlannerRecipeItemNutrients(item) {
     changed = true;
   };
 
+  const applyFluidsFallback = () => {
+    const fallbackFluids = Number(cardFallback?.dataset?.fluidsCups);
+    if (Number.isFinite(fallbackFluids) && fallbackFluids >= 0) {
+      applyValue('fluidsCups', fallbackFluids);
+    }
+  };
+
+  if (!source) {
+    applyFluidsFallback();
+    return changed;
+  }
+
   applyValue('calories', resolveRecipeNutrientEntry(source, 'calories')?.value);
   applyValue('cholineMg', resolveRecipeNutrientEntry(source, 'cholineMg', ['choline'])?.value);
   applyValue('omega3Mg', resolveRecipeNutrientEntry(source, 'omega3Mg', ['omega3'])?.value);
   applyValue('proteinG', resolveRecipeNutrientEntry(source, 'proteinG', ['protein'])?.value);
   applyValue('satfatG', resolveRecipeNutrientEntry(source, 'satfatG', ['satfat', 'saturatedfat'])?.value);
   applyValue('netcarbsG', resolveRecipeNutrientEntry(source, 'netcarbsG', ['netcarbs', 'netcarb'])?.value);
-  applyValue('fluidsCups', resolveRecipeNutrientEntry(source, 'fluidsCups', ['fluids', 'fluid'])?.value);
+  const sourceFluids = resolveRecipeNutrientEntry(source, 'fluidsCups', ['fluids', 'fluid'])?.value;
+  if (Number.isFinite(Number(sourceFluids))) {
+    applyValue('fluidsCups', sourceFluids);
+  } else {
+    applyFluidsFallback();
+  }
   applyValue('folateMcg', resolveRecipeNutrientEntry(source, 'folateMcg', ['folate'])?.value);
   applyValue('b12Mcg', resolveRecipeNutrientEntry(source, 'b12Mcg', ['b12'])?.value);
   applyValue('mufaG', resolveRecipeNutrientEntry(source, 'mufaG', ['mufas'])?.value);
@@ -6671,7 +6741,18 @@ function loadMenuPlannerState(weekStartIso) {
         ? Number(parsed.calorieTarget)
         : MENU_PLANNER_CALORIE_TARGET_DEFAULT
     };
-    if (refreshPlannerStateRecipeNutrients(state)) {
+
+    // One-time migration: persist stable keys for legacy recipe entries.
+    const needsKeyMigration = parsed.items.some((item) => {
+      if (!item || typeof item !== 'object') return false;
+      if (item.source !== 'recipe') return false;
+      const plannerKey = String(item.plannerKey || '').trim();
+      const nutrientKey = String(item.nutrientKey || '').trim();
+      return !plannerKey || !nutrientKey;
+    });
+
+    const didRefreshNutrients = refreshPlannerStateRecipeNutrients(state);
+    if (needsKeyMigration || didRefreshNutrients) {
       localStorage.setItem(getMenuPlannerStorageKey(weekStartIso), JSON.stringify({ items: state.items, calorieTarget: state.calorieTarget }));
     }
     return state;
@@ -6857,10 +6938,14 @@ function getRecipePlanPayload(card) {
   const title = card.querySelector('.recipe-card-title')?.textContent?.trim() || 'Recipe';
   const recipeLink = card.querySelector('.recipe-card-footer .btn-view, .recipe-card-actions .btn-view, .recipe-card-footer a, .recipe-card-actions a');
   const href = recipeLink?.getAttribute('href') || '';
+  const plannerKey = getRecipePlannerKey(card);
+  const nutrientKey = getRecipeNutrientKey(card);
 
   return {
     title,
     href,
+    plannerKey,
+    nutrientKey,
     nutrients: {
       calories: Number(card.dataset.calories || 0),
       cholineMg: Number(card.dataset.cholineMg || 0),
@@ -6890,6 +6975,8 @@ function addRecipeToPlan(card) {
     servings: Number(defaults.servings.toFixed(2)),
     title: recipe.title,
     href: recipe.href,
+    plannerKey: recipe.plannerKey,
+    nutrientKey: recipe.nutrientKey,
     calories: Number.isFinite(recipe.nutrients.calories) ? recipe.nutrients.calories : 0,
     cholineMg: Number.isFinite(recipe.nutrients.cholineMg) ? recipe.nutrients.cholineMg : 0,
     omega3Mg: Number.isFinite(recipe.nutrients.omega3Mg) ? recipe.nutrients.omega3Mg : 0,
