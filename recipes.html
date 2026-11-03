@@ -6769,6 +6769,11 @@ function saveMenuPlannerState() {
   );
 }
 
+function getTodayDayKey() {
+  const dayKeys = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  return dayKeys[new Date().getDay()] || 'monday';
+}
+
 function buildDefaultSelectOptions() {
   const daySelect = document.getElementById('menu-planner-day');
   const mealSelect = document.getElementById('menu-planner-meal');
@@ -6794,6 +6799,10 @@ function buildDefaultSelectOptions() {
   if (dupRangeEndSelect) dupRangeEndSelect.innerHTML = dayOptions;
   if (mealSelect) mealSelect.innerHTML = mealOptions;
   if (manualMealSelect) manualMealSelect.innerHTML = mealOptions;
+
+  const todayDay = getTodayDayKey();
+  if (daySelect) daySelect.value = todayDay;
+  if (manualDaySelect) manualDaySelect.value = todayDay;
 
   if (mealSelect && !mealSelect.value) mealSelect.value = 'dinner';
   if (manualMealSelect && !manualMealSelect.value) manualMealSelect.value = 'dinner';
@@ -8182,7 +8191,7 @@ function initMenuPlannerPhase1() {
   if (!weekInput) return;
 
   buildDefaultSelectOptions();
-  const weekStart = getStartOfWeekIso(weekInput.value || '');
+  const weekStart = getStartOfWeekIso('');
   weekInput.value = weekStart;
   menuPlannerState = loadMenuPlannerState(weekStart);
 
