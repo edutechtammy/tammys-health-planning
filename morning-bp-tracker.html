@@ -1192,6 +1192,10 @@
             : '—'
         },
         {
+          label: 'This Week Avg BPM',
+          value: Number.isFinite(weekBpmAvg) ? fmt(weekBpmAvg, 0) : '—'
+        },
+        {
           label: 'Latest BP Status',
           value: latestReading ? latestStatus.label : '—'
         }
