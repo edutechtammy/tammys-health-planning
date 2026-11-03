@@ -575,6 +575,14 @@
       return new Date(now.getTime() - tzOffsetMs).toISOString().slice(0, 10);
     }
 
+    function dateToISO(date) {
+      if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '';
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return year + '-' + month + '-' + day;
+    }
+
     function normalizeDateOnly(value) {
       const raw = String(value || '').trim();
       if (!raw) return '';
@@ -594,7 +602,7 @@
       const day = date.getDay();
       const diff = day === 0 ? -6 : 1 - day;
       date.setDate(date.getDate() + diff);
-      return date.toLocaleDateString('en-CA');
+      return dateToISO(date);
     }
 
     function addDays(isoDate, days) {
@@ -602,7 +610,7 @@
       if (!normalized) return '';
       const date = new Date(normalized + 'T12:00:00');
       date.setDate(date.getDate() + days);
-      return date.toLocaleDateString('en-CA');
+      return dateToISO(date);
     }
 
     function formatDate(isoDate) {
@@ -1248,8 +1256,7 @@
 
     function renderCharts(entries) {
       const sortedEntries = sortAsc(entries);
-      const weekEntries = getEntriesInWeek(entries, currentWeekStart);
-      const weekEnd = addDays(currentWeekStart, 6);
+      const currentWeekEntries = getEntriesInWeek(entries, getStartOfWeek(todayISO()));
       const earliestDate = sortedEntries.length ? sortedEntries[0].date : '';
       const latestDate = sortedEntries.length ? sortedEntries[sortedEntries.length - 1].date : '';
 
@@ -1269,8 +1276,8 @@
       chartDiastolic = upsertTimeSeriesChart(chartDiastolic, 'chart-diastolic', 'Diastolic', '#1d6fa5', diastolicSeries, 'mmHg', 60, 95, 5);
       chartBpm = upsertTimeSeriesChart(chartBpm, 'chart-bpm', 'Pulse', '#5b3a8f', bpmSeries, 'bpm', 50, 95, 6);
 
-      renderQuickStats(entries, weekEntries);
-      renderWeekTable(weekEntries);
+      renderQuickStats(entries, currentWeekEntries);
+      renderWeekTable(currentWeekEntries);
     }
 
     function render() {
