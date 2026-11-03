@@ -1,6 +1,10 @@
 {
     "images": [
         {
+            "file": "2026-11-02-and-03-heart_rate_comparison.png",
+            "caption": "Data from first two heartrate tracking tests."
+        },
+        {
             "file": "activity-to-muscle.jpg",
             "caption": "Study results measuring activity to muscle (not counting breakdown)."
         },
@@ -28,6 +32,5 @@
             "file": "walk-speed-glucose-burn.jpg",
             "caption": "Walking speed to glucose burn for 30-minutes duration."
         }
-        
     ]
 }

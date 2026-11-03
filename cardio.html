@@ -54,6 +54,37 @@
     .btn-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
     .btn{padding:.55rem .9rem;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green-dark);font:inherit;font-weight:700;text-decoration:none}
     .btn.primary{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
+
+    .tracker-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin:.85rem 0}
+    .tracker-field{display:flex;flex-direction:column;gap:.32rem}
+    .tracker-field label{font-size:.82rem;font-weight:700;color:#315f4d}
+    .tracker-field input,.tracker-field textarea,.tracker-field select{font:inherit;font-size:.9rem;border:1px solid var(--border);border-radius:10px;padding:.5rem .62rem;background:#fff;color:var(--text)}
+    .tracker-field textarea{min-height:84px;resize:vertical}
+    .tracker-field small{font-size:.74rem;color:var(--muted)}
+    .tracker-field.wide{grid-column:1 / -1}
+    .tracker-status{margin-top:.5rem;font-size:.84rem;color:#2f5d4d;min-height:1.2em}
+
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin:.75rem 0 1rem}
+    .kpi-card{border:1px solid var(--border);background:#f8fcfa;border-radius:12px;padding:.65rem .72rem}
+    .kpi-label{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#5f7d70}
+    .kpi-value{font-size:1.18rem;font-weight:800;color:#204535;margin-top:.25rem;line-height:1.2}
+
+    .cue-box{border:1px solid var(--border);border-radius:12px;padding:.72rem .82rem;background:#f8fcfa}
+    .cue-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:.24rem .58rem}
+    .cue-badge.green{background:#d8f3dc;color:#1f6b46;border:1px solid #9ad9b0}
+    .cue-badge.yellow{background:#fff4cc;color:#946200;border:1px solid #f1d686}
+    .cue-badge.red{background:#fde8ea;color:#9a2331;border:1px solid #f3b6bf}
+    .cue-badge.gray{background:#eef3f1;color:#4f6460;border:1px solid #d7e4de}
+    .cue-title{margin-top:.45rem;font-size:1rem;font-weight:800;color:#244d3c}
+    .cue-note{margin-top:.38rem;font-size:.86rem;color:#476257}
+
+    .micro-table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:.84rem}
+    .micro-table th,.micro-table td{padding:.46rem .5rem;border-bottom:1px solid #e1ede7;text-align:left;vertical-align:top}
+    .micro-table th{background:#edf7f0;color:#305947;font-size:.74rem;letter-spacing:.02em;text-transform:uppercase}
+    .micro-empty{font-size:.84rem;color:var(--muted);margin:.4rem 0 .15rem}
+
+    .split-2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    @media(max-width:760px){.split-2{grid-template-columns:1fr}}
     @media(max-width:700px){.two-col{grid-template-columns:1fr}.week-grid{grid-template-columns:repeat(4,1fr)}}
 
     /* EXERCISE ILLUSTRATION SLIDESHOW */
@@ -309,6 +340,122 @@
   <br>
 
     <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Cardio Heart Efficiency Tracker</div>
+      <div class="panel-body">
+        <div class="callout">
+          <strong>How this tracker helps</strong>
+          For repeated sessions at the same load, improvement is seen as lower working heart rate, lower drift, and faster 1 to 2 minute post-stop recovery.
+        </div>
+
+        <div class="tracker-grid">
+          <div class="tracker-field">
+            <label for="cardio-date">Session Date</label>
+            <input id="cardio-date" type="date" />
+          </div>
+          <div class="tracker-field">
+            <label for="cardio-name">Session Name</label>
+            <input id="cardio-name" type="text" value="Recovery Walk" placeholder="Example: Recovery Walk" />
+          </div>
+          <div class="tracker-field">
+            <label for="cardio-speed">Speed (mph)</label>
+            <input id="cardio-speed" type="number" step="0.1" min="0" value="1.6" />
+          </div>
+          <div class="tracker-field">
+            <label for="cardio-incline">Incline (%)</label>
+            <input id="cardio-incline" type="number" step="0.1" min="0" value="4" />
+          </div>
+          <div class="tracker-field">
+            <label for="cardio-duration">Duration (minutes)</label>
+            <input id="cardio-duration" type="number" step="1" min="1" value="20" />
+          </div>
+          <div class="tracker-field">
+            <label for="cardio-start-hr">Starting HR (bpm)</label>
+            <input id="cardio-start-hr" type="number" step="1" min="1" placeholder="Example: 70" />
+          </div>
+          <div class="tracker-field wide">
+            <label for="cardio-intervals">Under-load intervals (minute:bpm, one per line)</label>
+            <textarea id="cardio-intervals" placeholder="2:83&#10;4:103&#10;6:108&#10;8:100&#10;10:114"></textarea>
+            <small>Use NA or missed if no reading at that minute. Example: 14:missed</small>
+          </div>
+          <div class="tracker-field wide">
+            <label for="cardio-post">Post-stop recovery (minute:bpm, one per line)</label>
+            <textarea id="cardio-post" placeholder="1:80&#10;2:76&#10;3:76"></textarea>
+          </div>
+          <div class="tracker-field wide">
+            <label for="cardio-notes">Notes (optional)</label>
+            <textarea id="cardio-notes" placeholder="Anything relevant: sleep, hydration, stress, timing, missed minute, etc."></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary" id="cardio-save-btn" type="button">Save Session</button>
+          <button class="btn" id="cardio-clear-btn" type="button">Clear Form</button>
+          <button class="btn" id="cardio-load-starter-btn" type="button">Load Nov 2-3 Starter Data</button>
+          <button class="btn" id="cardio-export-btn" type="button">Export Cardio CSV</button>
+        </div>
+        <div class="tracker-status" id="cardio-status"></div>
+
+        <hr style="margin:1rem 0;border:0;border-top:1px solid #e2eee8" />
+
+        <div class="split-2" style="align-items:end">
+          <div class="tracker-field" style="max-width:420px">
+            <label for="cardio-load-filter">Analyze load condition</label>
+            <select id="cardio-load-filter"></select>
+            <small>Heart efficiency trends are most meaningful when load is held constant.</small>
+          </div>
+        </div>
+
+        <div class="kpi-grid" id="cardio-kpis"></div>
+
+        <div class="cue-box" id="cardio-cue-box">
+          <span class="cue-badge gray" id="cardio-cue-badge">Data Building</span>
+          <div class="cue-title" id="cardio-cue-title">Need more sessions at same load</div>
+          <div class="cue-note" id="cardio-cue-note">Collect 3 or more sessions for a stable trend signal before changing treadmill intensity.</div>
+        </div>
+
+        <div class="split-2" style="margin-top:1rem">
+          <div>
+            <h3 style="font-size:1rem;margin:.2rem 0 .45rem">Load-specific trend rows</h3>
+            <div class="table-wrap">
+              <table class="micro-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Work Median</th>
+                    <th>Peak</th>
+                    <th>Drift</th>
+                    <th>HRR1</th>
+                    <th>Cue</th>
+                  </tr>
+                </thead>
+                <tbody id="cardio-trend-body"></tbody>
+              </table>
+            </div>
+            <p class="micro-empty" id="cardio-trend-empty">No sessions logged yet.</p>
+          </div>
+          <div>
+            <h3 style="font-size:1rem;margin:.2rem 0 .45rem">All logged sessions</h3>
+            <div class="table-wrap">
+              <table class="micro-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Load</th>
+                    <th>Start</th>
+                    <th>Intervals</th>
+                    <th>Post-stop</th>
+                  </tr>
+                </thead>
+                <tbody id="cardio-all-body"></tbody>
+              </table>
+            </div>
+            <p class="micro-empty" id="cardio-all-empty">No sessions logged yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.5rem">
       <div class="panel-header">Exercise Illustration Slideshow</div>
       <div class="panel-body">
 
@@ -350,6 +497,577 @@
     </div>
   </main>
   <script>
+    const CARDIO_TRACKER_STORAGE_KEY='tammys_cardio_hr_tracker_v1';
+    const CARDIO_STARTER_STORAGE_KEY='tammys_cardio_hr_tracker_starter_loaded_v1';
+    const CARDIO_SAMPLE_SESSIONS=[
+      {
+        date:'2026-11-02',
+        name:'Recovery Walk',
+        speedMph:1.6,
+        inclinePct:4,
+        durationMin:20,
+        startHr:70,
+        intervals:[
+          {minute:2,bpm:83},{minute:4,bpm:103},{minute:6,bpm:108},{minute:8,bpm:100},{minute:10,bpm:114},
+          {minute:12,bpm:104},{minute:14,bpm:94},{minute:16,bpm:105},{minute:18,bpm:94},{minute:20,bpm:105}
+        ],
+        postStop:[],
+        notes:'No post-stop readings captured this day.'
+      },
+      {
+        date:'2026-11-03',
+        name:'Recovery Walk',
+        speedMph:1.6,
+        inclinePct:4,
+        durationMin:20,
+        startHr:70,
+        intervals:[
+          {minute:2,bpm:120},{minute:4,bpm:102},{minute:6,bpm:83},{minute:8,bpm:81},{minute:10,bpm:92},
+          {minute:12,bpm:103},{minute:14,bpm:null},{minute:18,bpm:89},{minute:20,bpm:89}
+        ],
+        postStop:[
+          {minute:1,bpm:80},{minute:2,bpm:76},{minute:3,bpm:76}
+        ],
+        notes:'Missed minute 14 under-load reading.'
+      }
+    ];
+
+    let cardioEditingId=null;
+
+    function trackerTodayISO(){
+      const now=new Date();
+      const tzOffsetMs=now.getTimezoneOffset()*60000;
+      return new Date(now.getTime()-tzOffsetMs).toISOString().slice(0,10);
+    }
+
+    function showCardioStatus(message){
+      const el=document.getElementById('cardio-status');
+      if(!el) return;
+      el.textContent=message||'';
+      window.clearTimeout(showCardioStatus._timer);
+      showCardioStatus._timer=window.setTimeout(()=>{
+        if(el.textContent===message) el.textContent='';
+      },2400);
+    }
+
+    function asNumber(value){
+      const n=Number(value);
+      return Number.isFinite(n)?n:null;
+    }
+
+    function normalizeDateOnly(value){
+      const raw=String(value||'').trim();
+      if(!raw) return '';
+      const candidate=raw.includes('T')?raw.slice(0,10):raw;
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(candidate)) return '';
+      const [year,month,day]=candidate.split('-').map(Number);
+      const check=new Date(Date.UTC(year,month-1,day));
+      if(check.getUTCFullYear()!==year||check.getUTCMonth()!==month-1||check.getUTCDate()!==day) return '';
+      return candidate;
+    }
+
+    function parseMinuteBpmText(text){
+      const lines=String(text||'').split(/\r?\n/);
+      const out=[];
+      for(const rawLine of lines){
+        const line=rawLine.trim();
+        if(!line) continue;
+        const match=line.match(/^(\d+(?:\.\d+)?)\s*[:\-\s,]?\s*(missed|na|n\/a|none|\d+)$/i);
+        if(!match) continue;
+        const minute=Number(match[1]);
+        if(!Number.isFinite(minute)||minute<0) continue;
+        const valueToken=String(match[2]||'').toLowerCase();
+        const bpm=/^(missed|na|n\/a|none)$/.test(valueToken)?null:Number(valueToken);
+        out.push({
+          minute,
+          bpm:Number.isFinite(bpm)?bpm:null
+        });
+      }
+      const unique=[];
+      const seen=new Set();
+      out.sort((a,b)=>a.minute-b.minute).forEach(item=>{
+        const key=String(item.minute);
+        if(seen.has(key)) return;
+        seen.add(key);
+        unique.push(item);
+      });
+      return unique;
+    }
+
+    function formatMinuteBpmList(list){
+      if(!Array.isArray(list)||!list.length) return '—';
+      return list.map(item=>{
+        const minute=Number.isFinite(item.minute)?item.minute:'?';
+        const bpm=Number.isFinite(item.bpm)?item.bpm:'missed';
+        return minute+':'+bpm;
+      }).join(' | ');
+    }
+
+    function toLoadKey(session){
+      return [
+        String(session.name||'').trim().toLowerCase(),
+        Number(session.speedMph||0).toFixed(2),
+        Number(session.inclinePct||0).toFixed(2),
+        Number(session.durationMin||0).toFixed(0)
+      ].join('|');
+    }
+
+    function toLoadLabel(session){
+      return String(session.name||'Session')+' · '+session.speedMph+' mph · '+session.inclinePct+'% · '+session.durationMin+' min';
+    }
+
+    function median(values){
+      const nums=values.filter(v=>Number.isFinite(v)).slice().sort((a,b)=>a-b);
+      if(!nums.length) return null;
+      const mid=Math.floor(nums.length/2);
+      if(nums.length%2) return nums[mid];
+      return (nums[mid-1]+nums[mid])/2;
+    }
+
+    function average(values){
+      const nums=values.filter(v=>Number.isFinite(v));
+      if(!nums.length) return null;
+      return nums.reduce((sum,n)=>sum+n,0)/nums.length;
+    }
+
+    function findBpmAtMinute(list,minute){
+      const row=(Array.isArray(list)?list:[]).find(item=>Number(item.minute)===Number(minute));
+      return row&&Number.isFinite(row.bpm)?row.bpm:null;
+    }
+
+    function getMetricPack(session){
+      const intervals=(Array.isArray(session.intervals)?session.intervals:[])
+        .filter(item=>item&&Number.isFinite(item.minute))
+        .slice()
+        .sort((a,b)=>a.minute-b.minute);
+
+      const validBpms=intervals.map(item=>item.bpm).filter(v=>Number.isFinite(v));
+      const working=intervals.filter(item=>item.minute>=10&&item.minute<=20).map(item=>item.bpm).filter(v=>Number.isFinite(v));
+      const early=intervals.filter(item=>item.minute>=4&&item.minute<=8).map(item=>item.bpm).filter(v=>Number.isFinite(v));
+      const late=intervals.filter(item=>item.minute>=16&&item.minute<=20).map(item=>item.bpm).filter(v=>Number.isFinite(v));
+
+      let stopHr=null;
+      for(let i=intervals.length-1;i>=0;i-=1){
+        if(Number.isFinite(intervals[i].bpm)){
+          stopHr=intervals[i].bpm;
+          break;
+        }
+      }
+
+      const drift=(average(late)!=null&&average(early)!=null)?(average(late)-average(early)):null;
+      const hrr1=(stopHr!=null&&Number.isFinite(findBpmAtMinute(session.postStop,1)))?stopHr-findBpmAtMinute(session.postStop,1):null;
+      const hrr2=(stopHr!=null&&Number.isFinite(findBpmAtMinute(session.postStop,2)))?stopHr-findBpmAtMinute(session.postStop,2):null;
+
+      return {
+        workingMedian:median(working),
+        peak:validBpms.length?Math.max(...validBpms):null,
+        drift,
+        hrr1,
+        hrr2,
+        stopHr
+      };
+    }
+
+    function round1(value){
+      return Number.isFinite(value)?Math.round(value*10)/10:null;
+    }
+
+    function fmtNum(value,digits=0){
+      return Number.isFinite(value)?Number(value).toFixed(digits):'—';
+    }
+
+    function getCueForSession(session,sessionHistorySameLoad){
+      const metrics=getMetricPack(session);
+      const prior=(Array.isArray(sessionHistorySameLoad)?sessionHistorySameLoad:[])
+        .filter(item=>item.id!==session.id)
+        .filter(item=>item.date<=session.date)
+        .slice(-4);
+
+      const baselinePool=prior.map(getMetricPack).map(pack=>pack.workingMedian).filter(v=>Number.isFinite(v));
+      const baseline=baselinePool.length?average(baselinePool):null;
+
+      const checks=[];
+      if(Number.isFinite(metrics.workingMedian)&&Number.isFinite(baseline)){
+        checks.push(metrics.workingMedian<=baseline-3);
+      }
+      if(Number.isFinite(metrics.drift)) checks.push(metrics.drift<=3);
+      if(Number.isFinite(metrics.hrr1)) checks.push(metrics.hrr1>=12);
+      if(Number.isFinite(metrics.hrr2)) checks.push(metrics.hrr2>=18);
+
+      const trueCount=checks.filter(Boolean).length;
+      const validCount=checks.length;
+      if(validCount<2) return {tone:'gray',label:'Data Building',title:'Need more complete readings',note:'Add more under-load and post-stop points for a stable cue.'};
+      if(trueCount>=3) return {tone:'green',label:'Green',title:'Progress likely ready soon',note:'Trend suggests better efficiency at this same load.'};
+      if(trueCount===2) return {tone:'yellow',label:'Yellow',title:'Hold current load',note:'Mixed signal. Keep load steady and collect more sessions.'};
+      return {tone:'red',label:'Red',title:'Do not increase load yet',note:'Recovery or drift signal needs improvement first.'};
+    }
+
+    function normalizeSession(item){
+      if(!item||typeof item!=='object') return null;
+      const date=normalizeDateOnly(item.date);
+      if(!date) return null;
+      const name=String(item.name||'Recovery Walk').trim()||'Recovery Walk';
+      const speedMph=asNumber(item.speedMph);
+      const inclinePct=asNumber(item.inclinePct);
+      const durationMin=asNumber(item.durationMin);
+      const startHr=asNumber(item.startHr);
+      if(!Number.isFinite(speedMph)||!Number.isFinite(inclinePct)||!Number.isFinite(durationMin)||!Number.isFinite(startHr)) return null;
+      if(speedMph<0||inclinePct<0||durationMin<=0||startHr<=0) return null;
+
+      const intervals=Array.isArray(item.intervals)?item.intervals:[];
+      const postStop=Array.isArray(item.postStop)?item.postStop:[];
+
+      const normIntervals=intervals
+        .map(row=>({ minute:asNumber(row.minute), bpm:asNumber(row.bpm) }))
+        .filter(row=>Number.isFinite(row.minute))
+        .sort((a,b)=>a.minute-b.minute)
+        .map(row=>({ minute:row.minute, bpm:Number.isFinite(row.bpm)?Math.round(row.bpm):null }));
+
+      const normPost=postStop
+        .map(row=>({ minute:asNumber(row.minute), bpm:asNumber(row.bpm) }))
+        .filter(row=>Number.isFinite(row.minute))
+        .sort((a,b)=>a.minute-b.minute)
+        .map(row=>({ minute:row.minute, bpm:Number.isFinite(row.bpm)?Math.round(row.bpm):null }));
+
+      return {
+        id:String(item.id||('session-'+date+'-'+Math.random().toString(36).slice(2,9))),
+        date,
+        name,
+        speedMph:round1(speedMph),
+        inclinePct:round1(inclinePct),
+        durationMin:Math.round(durationMin),
+        startHr:Math.round(startHr),
+        intervals:normIntervals,
+        postStop:normPost,
+        notes:String(item.notes||'').trim(),
+        updatedAt:String(item.updatedAt||new Date().toISOString())
+      };
+    }
+
+    function loadCardioSessions(){
+      try{
+        const parsed=JSON.parse(localStorage.getItem(CARDIO_TRACKER_STORAGE_KEY)||'[]');
+        if(!Array.isArray(parsed)) return [];
+        return parsed.map(normalizeSession).filter(Boolean).sort((a,b)=>a.date.localeCompare(b.date));
+      }catch{
+        return [];
+      }
+    }
+
+    function saveCardioSessions(sessions){
+      localStorage.setItem(CARDIO_TRACKER_STORAGE_KEY,JSON.stringify(sessions));
+    }
+
+    function formToSession(){
+      const date=normalizeDateOnly(document.getElementById('cardio-date')?.value);
+      const name=String(document.getElementById('cardio-name')?.value||'').trim()||'Recovery Walk';
+      const speedMph=asNumber(document.getElementById('cardio-speed')?.value);
+      const inclinePct=asNumber(document.getElementById('cardio-incline')?.value);
+      const durationMin=asNumber(document.getElementById('cardio-duration')?.value);
+      const startHr=asNumber(document.getElementById('cardio-start-hr')?.value);
+      const intervals=parseMinuteBpmText(document.getElementById('cardio-intervals')?.value);
+      const postStop=parseMinuteBpmText(document.getElementById('cardio-post')?.value);
+      const notes=String(document.getElementById('cardio-notes')?.value||'').trim();
+
+      if(!date) return {error:'Choose a valid date.'};
+      if(!Number.isFinite(speedMph)||speedMph<0) return {error:'Enter a valid speed (mph).'};
+      if(!Number.isFinite(inclinePct)||inclinePct<0) return {error:'Enter a valid incline (%).'};
+      if(!Number.isFinite(durationMin)||durationMin<=0) return {error:'Enter a valid duration (minutes).'};
+      if(!Number.isFinite(startHr)||startHr<=0) return {error:'Enter a valid starting HR.'};
+      if(!intervals.length) return {error:'Add at least one under-load interval reading.'};
+
+      return {
+        value:normalizeSession({
+          id:cardioEditingId||('session-'+Date.now()),
+          date,
+          name,
+          speedMph,
+          inclinePct,
+          durationMin,
+          startHr,
+          intervals,
+          postStop,
+          notes,
+          updatedAt:new Date().toISOString()
+        })
+      };
+    }
+
+    function clearCardioForm(){
+      cardioEditingId=null;
+      const saveBtn=document.getElementById('cardio-save-btn');
+      if(saveBtn) saveBtn.textContent='Save Session';
+      const dateEl=document.getElementById('cardio-date');
+      if(dateEl) dateEl.value=trackerTodayISO();
+      const nameEl=document.getElementById('cardio-name');
+      if(nameEl) nameEl.value='Recovery Walk';
+      const speedEl=document.getElementById('cardio-speed');
+      if(speedEl) speedEl.value='1.6';
+      const inclineEl=document.getElementById('cardio-incline');
+      if(inclineEl) inclineEl.value='4';
+      const durationEl=document.getElementById('cardio-duration');
+      if(durationEl) durationEl.value='20';
+      const startEl=document.getElementById('cardio-start-hr');
+      if(startEl) startEl.value='';
+      const iEl=document.getElementById('cardio-intervals');
+      if(iEl) iEl.value='';
+      const pEl=document.getElementById('cardio-post');
+      if(pEl) pEl.value='';
+      const nEl=document.getElementById('cardio-notes');
+      if(nEl) nEl.value='';
+    }
+
+    function upsertCardioSession(){
+      const parsed=formToSession();
+      if(parsed.error){
+        showCardioStatus(parsed.error);
+        return;
+      }
+      const session=parsed.value;
+      const sessions=loadCardioSessions();
+      const idx=sessions.findIndex(item=>item.id===session.id||item.date===session.date&&toLoadKey(item)===toLoadKey(session));
+      if(idx>=0){
+        sessions[idx]=session;
+      }else{
+        sessions.push(session);
+      }
+      sessions.sort((a,b)=>a.date.localeCompare(b.date));
+      saveCardioSessions(sessions);
+      renderCardioTracker();
+      clearCardioForm();
+      showCardioStatus('Session saved.');
+    }
+
+    function exportCardioCsv(){
+      const sessions=loadCardioSessions();
+      if(!sessions.length){
+        showCardioStatus('No sessions to export yet.');
+        return;
+      }
+      const rows=[[
+        'Date','Session Name','Speed mph','Incline %','Duration min','Start HR bpm','Intervals','Post Stop','Notes'
+      ]];
+      sessions.forEach(item=>{
+        rows.push([
+          item.date,
+          item.name,
+          item.speedMph,
+          item.inclinePct,
+          item.durationMin,
+          item.startHr,
+          formatMinuteBpmList(item.intervals),
+          formatMinuteBpmList(item.postStop),
+          item.notes||''
+        ]);
+      });
+      const csv=rows.map(row=>row.map(cell=>'"'+String(cell??'').replace(/"/g,'""')+'"').join(',')).join('\n');
+      const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+      const url=URL.createObjectURL(blob);
+      const link=document.createElement('a');
+      link.href=url;
+      link.download='cardio-hr-tracker-'+trackerTodayISO()+'.csv';
+      link.click();
+      URL.revokeObjectURL(url);
+      showCardioStatus('Cardio CSV exported.');
+    }
+
+    function seedStarterSessions(){
+      if(!window.confirm('Load starter sessions for Nov 2 and Nov 3, 2026? Existing sessions with the same date and load will be replaced.')) return;
+      const sessions=loadCardioSessions();
+      const map=new Map(sessions.map(item=>[item.date+'|'+toLoadKey(item),item]));
+      CARDIO_SAMPLE_SESSIONS.map(normalizeSession).forEach(sample=>{
+        map.set(sample.date+'|'+toLoadKey(sample),sample);
+      });
+      const merged=Array.from(map.values()).sort((a,b)=>a.date.localeCompare(b.date));
+      saveCardioSessions(merged);
+      localStorage.setItem(CARDIO_STARTER_STORAGE_KEY,'1');
+      renderCardioTracker();
+      showCardioStatus('Starter sessions loaded.');
+    }
+
+    function renderLoadFilter(sessions){
+      const select=document.getElementById('cardio-load-filter');
+      if(!select) return '';
+
+      const groups=new Map();
+      sessions.forEach(item=>{
+        const key=toLoadKey(item);
+        const existing=groups.get(key)||{label:toLoadLabel(item),count:0,lastDate:''};
+        existing.count+=1;
+        if(!existing.lastDate||item.date>existing.lastDate) existing.lastDate=item.date;
+        groups.set(key,existing);
+      });
+
+      const options=Array.from(groups.entries()).sort((a,b)=>b[1].lastDate.localeCompare(a[1].lastDate));
+      const prior=select.value;
+      select.innerHTML='';
+      if(!options.length){
+        const opt=document.createElement('option');
+        opt.value='';
+        opt.textContent='No load conditions yet';
+        select.appendChild(opt);
+        select.disabled=true;
+        return '';
+      }
+
+      select.disabled=false;
+      options.forEach(([key,meta])=>{
+        const opt=document.createElement('option');
+        opt.value=key;
+        opt.textContent=meta.label+' ('+meta.count+' session'+(meta.count===1?'':'s')+')';
+        select.appendChild(opt);
+      });
+
+      if(options.some(([key])=>key===prior)){
+        select.value=prior;
+      }else{
+        select.value=options[0][0];
+      }
+      return select.value;
+    }
+
+    function renderCardioKpis(filteredSessions){
+      const host=document.getElementById('cardio-kpis');
+      if(!host) return;
+      if(!filteredSessions.length){
+        host.innerHTML='';
+        return;
+      }
+
+      const latest=filteredSessions[filteredSessions.length-1];
+      const packs=filteredSessions.map(getMetricPack);
+      const workingSeries=packs.map(item=>item.workingMedian).filter(v=>Number.isFinite(v));
+      const hrr1Series=packs.map(item=>item.hrr1).filter(v=>Number.isFinite(v));
+      const driftSeries=packs.map(item=>item.drift).filter(v=>Number.isFinite(v));
+      const lastThree=workingSeries.slice(-3);
+      const firstThree=workingSeries.slice(0,3);
+
+      const trendDelta=(average(lastThree)!=null&&average(firstThree)!=null)?(average(lastThree)-average(firstThree)):null;
+
+      const cards=[
+        {label:'Sessions At This Load',value:String(filteredSessions.length)},
+        {label:'Latest Working Median',value:fmtNum(getMetricPack(latest).workingMedian,0)+' bpm'},
+        {label:'3-Session Working Avg',value:fmtNum(average(lastThree),1)+' bpm'},
+        {label:'Latest HRR1',value:fmtNum(getMetricPack(latest).hrr1,0)+' bpm'},
+        {label:'Average Drift (16-20 minus 4-8)',value:fmtNum(average(driftSeries),1)+' bpm'},
+        {label:'Working HR Trend',value:Number.isFinite(trendDelta)?(trendDelta<=0?fmtNum(Math.abs(trendDelta),1)+' bpm lower':fmtNum(trendDelta,1)+' bpm higher'):'—'}
+      ];
+
+      host.innerHTML=cards.map(card=>{
+        return '<div class="kpi-card"><div class="kpi-label">'+card.label+'</div><div class="kpi-value">'+card.value+'</div></div>';
+      }).join('');
+    }
+
+    function renderCue(filteredSessions){
+      const badge=document.getElementById('cardio-cue-badge');
+      const title=document.getElementById('cardio-cue-title');
+      const note=document.getElementById('cardio-cue-note');
+      if(!badge||!title||!note) return;
+
+      if(!filteredSessions.length){
+        badge.className='cue-badge gray';
+        badge.textContent='Data Building';
+        title.textContent='Need at least one session';
+        note.textContent='Add a session to begin trend analysis.';
+        return;
+      }
+
+      const latest=filteredSessions[filteredSessions.length-1];
+      const cue=getCueForSession(latest,filteredSessions);
+
+      badge.className='cue-badge '+cue.tone;
+      badge.textContent=cue.label;
+      title.textContent=cue.title;
+
+      if(filteredSessions.length>=3&&cue.tone==='green'){
+        note.textContent='Signal supports discussing a small progression: add 2 to 5 minutes first or a 0.1 mph speed step, then reassess.';
+      }else{
+        note.textContent=cue.note;
+      }
+    }
+
+    function renderTrendTable(filteredSessions){
+      const body=document.getElementById('cardio-trend-body');
+      const empty=document.getElementById('cardio-trend-empty');
+      if(!body||!empty) return;
+
+      if(!filteredSessions.length){
+        body.innerHTML='';
+        empty.style.display='block';
+        return;
+      }
+
+      empty.style.display='none';
+      body.innerHTML=filteredSessions.map(item=>{
+        const metrics=getMetricPack(item);
+        const cue=getCueForSession(item,filteredSessions);
+        return '<tr>'+
+          '<td>'+item.date+'</td>'+
+          '<td>'+fmtNum(metrics.workingMedian,0)+'</td>'+
+          '<td>'+fmtNum(metrics.peak,0)+'</td>'+
+          '<td>'+fmtNum(metrics.drift,1)+'</td>'+
+          '<td>'+fmtNum(metrics.hrr1,0)+'</td>'+
+          '<td><span class="cue-badge '+cue.tone+'">'+cue.label+'</span></td>'+
+        '</tr>';
+      }).join('');
+    }
+
+    function renderAllSessionsTable(sessions){
+      const body=document.getElementById('cardio-all-body');
+      const empty=document.getElementById('cardio-all-empty');
+      if(!body||!empty) return;
+      if(!sessions.length){
+        body.innerHTML='';
+        empty.style.display='block';
+        return;
+      }
+      empty.style.display='none';
+      body.innerHTML=sessions.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(item=>{
+        return '<tr>'+
+          '<td>'+item.date+'</td>'+
+          '<td>'+toLoadLabel(item)+'</td>'+
+          '<td>'+fmtNum(item.startHr,0)+'</td>'+
+          '<td>'+formatMinuteBpmList(item.intervals)+'</td>'+
+          '<td>'+formatMinuteBpmList(item.postStop)+'</td>'+
+        '</tr>';
+      }).join('');
+    }
+
+    function renderCardioTracker(){
+      const sessions=loadCardioSessions();
+      const selectedLoad=renderLoadFilter(sessions);
+      const filtered=sessions.filter(item=>toLoadKey(item)===selectedLoad);
+
+      renderCardioKpis(filtered);
+      renderCue(filtered);
+      renderTrendTable(filtered);
+      renderAllSessionsTable(sessions);
+    }
+
+    function initializeCardioTracker(){
+      const dateEl=document.getElementById('cardio-date');
+      if(dateEl&&!dateEl.value) dateEl.value=trackerTodayISO();
+
+      const saveBtn=document.getElementById('cardio-save-btn');
+      if(saveBtn) saveBtn.addEventListener('click',upsertCardioSession);
+
+      const clearBtn=document.getElementById('cardio-clear-btn');
+      if(clearBtn) clearBtn.addEventListener('click',()=>{ clearCardioForm(); showCardioStatus('Form cleared.'); });
+
+      const starterBtn=document.getElementById('cardio-load-starter-btn');
+      if(starterBtn) starterBtn.addEventListener('click',seedStarterSessions);
+
+      const exportBtn=document.getElementById('cardio-export-btn');
+      if(exportBtn) exportBtn.addEventListener('click',exportCardioCsv);
+
+      const loadFilter=document.getElementById('cardio-load-filter');
+      if(loadFilter) loadFilter.addEventListener('change',renderCardioTracker);
+
+      renderCardioTracker();
+    }
+
+    initializeCardioTracker();
+
     const EXERCISE_SLIDES_FALLBACK=[
   {fileName:'chair-squats.png',caption:'Chair squat form guide'},
   {fileName:'glute-bridsge.png',caption:'Glute bridge setup and movement pattern'},
