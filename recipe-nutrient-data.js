@@ -6071,6 +6071,195 @@ window.RECIPE_PANEL_NUTRIENTS = {
       }
     }
   },
+  "cracker-bread-spread-mediterranean-olive-salmon": {
+    "choline": {
+      "display": "~18 mg",
+      "value": 18.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3": {
+      "display": "~240 mg",
+      "value": 240.0,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folate": {
+      "display": "~10 µg",
+      "value": 10.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12": {
+      "display": "~0.4 µg",
+      "value": 0.4,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "calories": {
+      "display": "~118 kcal",
+      "value": 118,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1.1 g",
+      "value": 1.1,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~0.8 g",
+      "value": 0.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8.8 g",
+      "value": 8.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~4.5 g",
+      "value": 4.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.7 g",
+      "value": 0.7,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~18 mg",
+      "value": 18,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~240 mg",
+      "value": 240,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~10 µg",
+      "value": 10,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0.4 µg",
+      "value": 0.4,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "",
+        "value": 0,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          { "minute": 0, "delta": 0 },
+          { "minute": 30, "delta": 0 },
+          { "minute": 60, "delta": 0 },
+          { "minute": 120, "delta": 0 },
+          { "minute": 180, "delta": 0 }
+        ],
+        "notes": ""
+      }
+    }
+  },
+  "cracker-bread-spread-sardine-smoked-salmon-pate": {
+    "choline": { "display": "~42 mg", "value": 42.0, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3": { "display": "~650 mg", "value": 650.0, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folate": { "display": "~8 µg", "value": 8.0, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12": { "display": "~2.0 µg", "value": 2.0, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "calories": { "display": "~150 kcal", "value": 150, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~2.0 g", "value": 2.0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~0.4 g", "value": 0.4, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "mufaG": { "display": "~7.0 g", "value": 7.0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "proteinG": { "display": "~9.0 g", "value": 9.0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~0.5 g", "value": 0.5, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~42 mg", "value": 42, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~650 mg", "value": 650, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folateMcg": { "display": "~8 µg", "value": 8, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12Mcg": { "display": "~2.0 µg", "value": 2.0, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false }, "foodTest": { "unit": "mg/dL_delta", "baseline": 0, "points": [{ "minute": 0, "delta": 0 }, { "minute": 30, "delta": 0 }, { "minute": 60, "delta": 0 }, { "minute": 120, "delta": 0 }, { "minute": 180, "delta": 0 }], "notes": "" } }
+  },
+  "cracker-bread-spread-roasted-garlic-onion-confit": {
+    "choline": { "display": "~4 mg", "value": 4.0, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3": { "display": "~12 mg", "value": 12.0, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folate": { "display": "~6 µg", "value": 6.0, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12": { "display": "0 µg", "value": 0.0, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "calories": { "display": "~75 kcal", "value": 75, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~0.3 g", "value": 0.3, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~3.0 g", "value": 3.0, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "mufaG": { "display": "~3.8 g", "value": 3.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "proteinG": { "display": "~1.2 g", "value": 1.2, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~1.7 g", "value": 1.7, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~4 mg", "value": 4, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~12 mg", "value": 12, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folateMcg": { "display": "~6 µg", "value": 6, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false }, "foodTest": { "unit": "mg/dL_delta", "baseline": 0, "points": [{ "minute": 0, "delta": 0 }, { "minute": 30, "delta": 0 }, { "minute": 60, "delta": 0 }, { "minute": 120, "delta": 0 }, { "minute": 180, "delta": 0 }], "notes": "" } }
+  },
+  "cracker-bread-spread-almond-butter-seed-crunch": {
+    "choline": { "display": "~14 mg", "value": 14.0, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3": { "display": "~80 mg", "value": 80.0, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folate": { "display": "~12 µg", "value": 12.0, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12": { "display": "~0.1 µg", "value": 0.1, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "calories": { "display": "~130 kcal", "value": 130, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~1.2 g", "value": 1.2, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~2.8 g", "value": 2.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "mufaG": { "display": "~9.6 g", "value": 9.6, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "proteinG": { "display": "~4.8 g", "value": 4.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~2.5 g", "value": 2.5, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~14 mg", "value": 14, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~80 mg", "value": 80, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folateMcg": { "display": "~12 µg", "value": 12, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12Mcg": { "display": "~0.1 µg", "value": 0.1, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false }, "foodTest": { "unit": "mg/dL_delta", "baseline": 0, "points": [{ "minute": 0, "delta": 0 }, { "minute": 30, "delta": 0 }, { "minute": 60, "delta": 0 }, { "minute": 120, "delta": 0 }, { "minute": 180, "delta": 0 }], "notes": "" } }
+  },
+  "cracker-bread-spread-walnut-pesto": {
+    "choline": { "display": "~16 mg", "value": 16.0, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3": { "display": "~160 mg", "value": 160.0, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folate": { "display": "~18 µg", "value": 18.0, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12": { "display": "0 µg", "value": 0.0, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "calories": { "display": "~140 kcal", "value": 140, "unit": "kcal", "name": "Calories — per serving", "estimated": false },
+    "satfatG": { "display": "~1.4 g", "value": 1.4, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "netcarbsG": { "display": "~1.2 g", "value": 1.2, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "mufaG": { "display": "~11.2 g", "value": 11.2, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "proteinG": { "display": "~3.5 g", "value": 3.5, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "viscousFiberG": { "display": "~1.8 g", "value": 1.8, "unit": "g", "name": "grams — per serving", "estimated": false },
+    "cholineMg": { "display": "~16 mg", "value": 16, "unit": "mg", "name": "Choline — APOE4 · Fatty Liver · MTHFR", "estimated": false },
+    "omega3Mg": { "display": "~160 mg", "value": 160, "unit": "mg", "name": "Omega-3 — supporting fatty liver + APOE4", "estimated": false },
+    "folateMcg": { "display": "~18 µg", "value": 18, "unit": "mcg", "name": "Folate — MTHFR", "estimated": false },
+    "b12Mcg": { "display": "0 µg", "value": 0, "unit": "mcg", "name": "B12 — MTHFR", "estimated": false },
+    "glycemic": { "gl": { "display": "", "value": 0, "unit": "GL", "name": "Glycemic Load — per serving", "estimated": false }, "foodTest": { "unit": "mg/dL_delta", "baseline": 0, "points": [{ "minute": 0, "delta": 0 }, { "minute": 30, "delta": 0 }, { "minute": 60, "delta": 0 }, { "minute": 120, "delta": 0 }, { "minute": 180, "delta": 0 }], "notes": "" } }
+  },
   "recipe-cracker-bread-spread-alternatives.html": {
     "choline": {
       "display": "~25 mg",
