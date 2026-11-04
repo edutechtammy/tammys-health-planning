@@ -38,7 +38,7 @@
 
     .chip-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
     .chip{display:inline-block;padding:.2rem .6rem;border-radius:999px;background:#e0f7fa;color:var(--sky-dark);font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-    .table-wrap{overflow-x:auto}
+    .table-wrap{overflow-x:auto;max-width:100%}
 
     table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
     th,td{padding:.6rem .75rem;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
@@ -78,12 +78,13 @@
     .cue-title{margin-top:.45rem;font-size:1rem;font-weight:800;color:#244d3c}
     .cue-note{margin-top:.38rem;font-size:.86rem;color:#476257}
 
-    .micro-table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:.84rem}
+    .micro-table{width:100%;min-width:520px;border-collapse:collapse;margin:.6rem 0;font-size:.84rem}
     .micro-table th,.micro-table td{padding:.46rem .5rem;border-bottom:1px solid #e1ede7;text-align:left;vertical-align:top}
     .micro-table th{background:#edf7f0;color:#305947;font-size:.74rem;letter-spacing:.02em;text-transform:uppercase}
     .micro-empty{font-size:.84rem;color:var(--muted);margin:.4rem 0 .15rem}
 
-    .split-2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    .split-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+    .split-2 > div{min-width:0}
     @media(max-width:760px){.split-2{grid-template-columns:1fr}}
     @media(max-width:700px){.two-col{grid-template-columns:1fr}.week-grid{grid-template-columns:repeat(4,1fr)}}
 
@@ -456,6 +457,38 @@
             <p class="micro-empty" id="cardio-all-empty">No sessions logged yet.</p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Dance Cardio Research Section</div>
+      <div class="panel-body">
+        <div class="callout">
+          <strong>Research focus</strong>
+          Dance cardio can complement treadmill work by combining heart-rate training with coordination, rhythm, and brain-body challenges that may support long-term cognitive resilience alongside metabolic health goals.
+        </div>
+
+        <h3 style="font-size:1rem;margin:.2rem 0 .45rem">How dance fitness fits a well-rounded routine</h3>
+        <ul class="ref">
+          <li><strong>Cardiovascular Endurance:</strong> Continuous movement elevates your heart rate, burns calories, and strengthens your heart and lungs, making it great endurance training.</li>
+          <li><strong>Neuromotor Fitness:</strong> Dance requires coordination, spatial awareness, rhythm, and quick footwork. This challenges your brain and nervous system, improving agility, balance, and cognitive function, especially beneficial for long-term functional mobility.</li>
+          <li><strong>Low-Impact to High-Impact Options:</strong> Depending on the style (for example, hip-hop vs. low-impact dance fitness), it can also incorporate bodyweight resistance and dynamic stretching.</li>
+        </ul>
+
+        <h3 style="font-size:1rem;margin:1rem 0 .45rem">Equipment to begin collecting</h3>
+        <ul class="ref">
+          <li><strong>Aerobic step</strong> (also called a workout step platform or exercise step bench).</li>
+          <li>Wearable, continuous heart-rate monitor.</li>
+          <li><strong>Heavy-duty rubber exercise mats (1/2 inch to 1 inch):</strong> If you want something extremely durable that will not compress or slide around, heavy rubber mats (often sold as horse-stall mats or gym flooring rolls) can provide shock absorption and sound dampening.</li>
+        </ul>
+
+        <h3 style="font-size:1rem;margin:1rem 0 .45rem">Learning the moves</h3>
+        <ul class="ref">
+          <li><a href="https://www.youtube.com/c/stepfitwithbronwyn" target="_blank" rel="noopener noreferrer"><strong>Step Fit with B</strong></a> - Great for breaking down individual footwork patterns step-by-step before tackling full-length cardio routines.</li>
+          <li><a href="https://www.youtube.com/@cdornerfitness" target="_blank" rel="noopener noreferrer"><strong>CDornerFitness</strong></a> - Offers an extensive library of step aerobics classes ranging from absolute beginner to intermediate speeds, with dedicated tutorials on basic steps.</li>
+          <li><strong>Yes2Next</strong> - Good for low-impact, gentle, or senior-friendly step and cardio routines to build confidence safely.</li>
+          <li><a href="https://www.facebook.com/profile.php?id=61594084207451" target="_blank" rel="noopener noreferrer"><strong>Strong at Any Age (Facebook)</strong></a> - Inspiration from an 81-year-old creator demonstrating high-level movement quality and consistency.</li>
+        </ul>
       </div>
     </div>
 
