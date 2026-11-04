@@ -406,6 +406,7 @@
         <div class="btn-row">
           <button class="btn primary" id="cardio-save-btn" type="button">Save Session</button>
           <button class="btn" id="cardio-clear-btn" type="button">Clear Form</button>
+          <button class="btn" id="cardio-cancel-edit-btn" type="button" style="display:none">Cancel Edit</button>
           <button class="btn" id="cardio-load-starter-btn" type="button">Load Nov 2-3 Starter Data</button>
           <button class="btn" id="cardio-export-btn" type="button">Export Cardio CSV</button>
         </div>
@@ -896,10 +897,16 @@
       };
     }
 
+    function setCardioEditMode(isEditing){
+      const saveBtn=document.getElementById('cardio-save-btn');
+      if(saveBtn) saveBtn.textContent=isEditing?'Update Session':'Save Session';
+      const cancelBtn=document.getElementById('cardio-cancel-edit-btn');
+      if(cancelBtn) cancelBtn.style.display=isEditing?'inline-flex':'none';
+    }
+
     function clearCardioForm(){
       cardioEditingId=null;
-      const saveBtn=document.getElementById('cardio-save-btn');
-      if(saveBtn) saveBtn.textContent='Save Session';
+      setCardioEditMode(false);
       const dateEl=document.getElementById('cardio-date');
       if(dateEl) dateEl.value=trackerTodayISO();
       const nameEl=document.getElementById('cardio-name');
@@ -938,9 +945,10 @@
       }
       sessions.sort(compareSessionsAsc);
       saveCardioSessions(sessions);
+      const wasEditing=Boolean(cardioEditingId);
       renderCardioTracker();
       clearCardioForm();
-      showCardioStatus('Session saved.');
+      showCardioStatus(wasEditing?'Session updated.':'Session saved.');
     }
 
     function exportCardioCsv(){
@@ -1145,8 +1153,7 @@
           if(!session) return;
 
           cardioEditingId=session.id;
-          const saveBtn=document.getElementById('cardio-save-btn');
-          if(saveBtn) saveBtn.textContent='Update Session';
+          setCardioEditMode(true);
 
           const dateEl=document.getElementById('cardio-date');
           if(dateEl) dateEl.value=session.date;
@@ -1318,6 +1325,13 @@
 
       const clearBtn=document.getElementById('cardio-clear-btn');
       if(clearBtn) clearBtn.addEventListener('click',()=>{ clearCardioForm(); showCardioStatus('Form cleared.'); });
+
+      const cancelBtn=document.getElementById('cardio-cancel-edit-btn');
+      if(cancelBtn) cancelBtn.addEventListener('click',()=>{
+        cardioEditingId=null;
+        clearCardioForm();
+        showCardioStatus('Edit cancelled.');
+      });
 
       const starterBtn=document.getElementById('cardio-load-starter-btn');
       if(starterBtn) starterBtn.addEventListener('click',seedStarterSessions);
