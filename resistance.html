@@ -472,6 +472,19 @@
               <!-- outer-hip-right - back view -->
               <path class="muscle-region" data-muscle="outer-hip-right" d="M183.52,238.29l.53,3.73s-3.17,14.18-3.37,19,1.31,14.42.71,19.18c-.37,2.94-3.37,11.37-3.37,11.37,0,0,7.61,17.4,7.99,23.97.53,9.23.71,34.27.71,34.27,0,0,7.18-24.81,6.93-31.79-.53-14.38-6.74-71.07-6.75-71.21-.11-1.99-3.37-8.52-3.37-8.52Z" fill="#f2f2f2" stroke="#4a5b66" stroke-miterlimit="10"/>
 
+
+              <!-- adductor-group-right - back view -->
+              <path class="muscle-region" data-muscle="adductor_group-right" d="M158.96,289.14s-10.99-4.76-13.55-7c-2.01-1.75-4.77-8.14-4.77-8.14,0,0,.14,11.61.23,15.48.46,19.87,10.17,61.47,10.17,61.47,0,0,1.99-35.57,4.11-47.02.69-3.74,3.81-14.8,3.81-14.8Z" fill="#f2f2f2" stroke="#4a5b66" stroke-miterlimit="10"/>
+
+              <!-- adductor-group-left - back view -->
+              <path class="muscle-region" data-muscle="adductor_group-left" d="M122.38,289.72s11.95-5.55,14.33-7.63c2.19-1.91,3.93-8.32,3.93-8.32,0,0-.14,11.61-.23,15.48-.46,19.87-10.17,61.47-10.17,61.47,0,0-1.99-35.57-4.11-47.02-.69-3.74-3.74-13.99-3.74-13.99Z" fill="#f2f2f2" stroke="#4a5b66" stroke-miterlimit="10"/>
+
+              <!-- lower-back-left - back view -->
+              <path class="muscle-region" data-muscle="lower_back_left" d="M139.94,183.41l.46,80.42s-8.3-19.19-12.94-24.27c-3.35-3.66-16.64-10.86-16.64-10.86l2.08-10.86,24.96-38.13,2.08,3.7Z" fill="#f2f2f2" stroke="#4a5b66" stroke-miterlimit="10"/>
+
+              <!-- lower-back-right - back view -->
+              <path class="muscle-region" data-muscle="lower_back_right" d="M140.71,183.57l-.46,80.42s8.3-19.19,12.94-24.27c3.35-3.66,16.64-10.86,16.64-10.86l-2.08-10.86-24.96-38.13-2.08,3.7Z" fill="#f2f2f2" stroke="#4a5b66" stroke-miterlimit="10"/>
+
               <!-- rear-delt-right - back view -->
                <path class="muscle-region" data-muscle="rear_delts" d="M182.23,119.88l8.65-10.62s11.03-3.58,22.64,9.7c10.22,11.68,5.81,25.64,5.48,31.73,0,0-20.16-12.06-25.54-16.83-3.53-3.12-11.23-13.99-11.23-13.99Z" fill="#f2f2f2" stroke="#4a5b66" stroke-miterlimit="10"/>
               <!-- rear-delt-left - back view -->
@@ -1187,6 +1200,8 @@
       'outer-hip-left': 0,
       'iliotibial-band-right': 0,
       'iliotibial-band-left': 0,
+      lower_back_right: 0,
+      lower_back_left: 0,
       'rhomboid-right': 0,
       'rhomboid-left': 0,
       glutes: 0,
@@ -1199,7 +1214,7 @@
 
     const EXERCISE_TO_MUSCLES = {
       chair_squat: { quads: 18, glutes: 14, hamstrings: 10, calves: 5, abs: 4, adductors: 8, 'outer-hip-right': 3, 'outer-hip-left': 3, 'iliotibial-band-right': 2, 'iliotibial-band-left': 2 },
-      glute_bridge: { glutes: 19, hamstrings: 13, erectors: 6, abs: 5 },
+      glute_bridge: { glutes: 19, hamstrings: 13, erectors: 6, abs: 5, lower_back_right: 4, lower_back_left: 4 },
       step_up: { quads: 15, glutes: 12, hamstrings: 8, calves: 9, adductors: 6, abs: 4, 'outer-hip-right': 7, 'outer-hip-left': 7, 'iliotibial-band-right': 8, 'iliotibial-band-left': 8 },
       side_lunge: { quads: 16, glutes: 13, hamstrings: 10, adductors: 12, calves: 6, abs: 4, oblique: 3, 'outer-hip-right': 14, 'outer-hip-left': 14, 'iliotibial-band-right': 9, 'iliotibial-band-left': 9 },
       resistance_band_row: { lats: 18, traps: 12, rear_delts: 10, biceps: 11, erectors: 5, 'rhomboid-right': 8, 'rhomboid-left': 8 },
@@ -1207,19 +1222,19 @@
       gentle_walk: { calves: 6, quads: 5, glutes: 4, hip_flexors: 3, abs: 2 },
       // extra stimulus from carrying vest weight; stacks on top of base gentle_walk
       gentle_walk_vest: { calves: 3, quads: 2, glutes: 2, hip_flexors: 1, abs: 2, erectors: 2 },
-      dead_bug: { abs: 16, hip_flexors: 8, erectors: 6 },
+      dead_bug: { abs: 16, hip_flexors: 8, erectors: 6, lower_back_right: 3, lower_back_left: 3 },
       knee_marches: { hip_flexors: 12, abs: 10, quads: 6, 'outer-hip-right': 8, 'outer-hip-left': 8, 'hip-flexor-right': 7, 'hip-flexor-left': 7, 'iliotibial-band-right': 5, 'iliotibial-band-left': 5 },
-      half_kneeling_side_bend_windmill: { oblique: 20, abs: 12, erectors: 9, glutes: 7, adductors: 6, hip_flexors: 5 },
-      russian_twist: { oblique: 18, abs: 10, erectors: 5 },
-      modified_bird_dog: { erectors: 14, abs: 12, glutes: 8, rear_delts: 5, traps: 4 },
+      half_kneeling_side_bend_windmill: { oblique: 20, abs: 12, erectors: 9, glutes: 7, adductors: 6, hip_flexors: 5, lower_back_right: 4, lower_back_left: 4 },
+      russian_twist: { oblique: 18, abs: 10, erectors: 5, lower_back_right: 3, lower_back_left: 3 },
+      modified_bird_dog: { erectors: 14, abs: 12, glutes: 8, rear_delts: 5, traps: 4, lower_back_right: 6, lower_back_left: 6 },
       stretches: { hamstrings: 3, glutes: 2, calves: 2, lats: 2, traps: 2, abs: 2 },
       bike_ride: { quads: 8, calves: 7, glutes: 5, hamstrings: 4, hip_flexors: 3, abs: 2 },
       aquatic_center_recreation: { quads: 5, hamstrings: 4, glutes: 4, calves: 3, lats: 3, abs: 2 },
       gardening: { quads: 4, glutes: 4, hamstrings: 3, calves: 3, abs: 2, erectors: 2 },
       goblet_squat: { quads: 20, glutes: 16, hamstrings: 11, calves: 7, abs: 5, adductors: 9, 'outer-hip-right': 5, 'outer-hip-left': 5, 'iliotibial-band-right': 4, 'iliotibial-band-left': 4 },
-      romanian_deadlift: { hamstrings: 18, glutes: 16, erectors: 14, traps: 5, calves: 4 },
+      romanian_deadlift: { hamstrings: 18, glutes: 16, erectors: 14, traps: 5, calves: 4, lower_back_right: 8, lower_back_left: 8 },
       dumbbell_floor_press: { pecs: 20, front_delts: 13, triceps: 16, abs: 4 },
-      bentover_dumbbell_row: { lats: 19, traps: 12, rear_delts: 9, biceps: 13, erectors: 5, 'rhomboid-right': 11, 'rhomboid-left': 11 },
+      bentover_dumbbell_row: { lats: 19, traps: 12, rear_delts: 9, biceps: 13, erectors: 5, 'rhomboid-right': 11, 'rhomboid-left': 11, lower_back_right: 5, lower_back_left: 5 },
       forearm_curl: { forearm: 14, biceps: 8 }
     };
 
@@ -1757,6 +1772,8 @@
         'outer-hip-left': 'Outer hip (left)',
         'iliotibial-band-right': 'IT band (right)',
         'iliotibial-band-left': 'IT band (left)',
+        lower_back_right: 'Lower back (right)',
+        lower_back_left: 'Lower back (left)',
         'rhomboid-right': 'Rhomboids (right)',
         'rhomboid-left': 'Rhomboids (left)',
         glutes: 'Glutes',
