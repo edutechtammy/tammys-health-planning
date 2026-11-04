@@ -530,6 +530,7 @@
       <select id="exercise-category-filter" aria-label="Filter exercises by category">
         <option value="all">All Exercises</option>
         <option value="bodyweight">No Special Equipment</option>
+        <option value="floor_mat">Floor Mat</option>
         <option value="dumbbell">Dumbbells</option>
         <option value="band">Resistance Bands</option>
         <option value="recovery">Recovery Day</option>
@@ -576,32 +577,6 @@
               </div>
               <div class="exercise-actions">
                 <button class="btn add-day-btn" type="button" data-add-exercise="chair_squat">+ Add to Day</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="glute_bridge">
-            <div class="exercise-visual" aria-label="Glute Bridge visual">
-              <img src="exercise-illustrations/resistance/glute-bridge.png" alt="Glute Bridge" />
-              <span class="exercise-visual-label">Glute Bridge</span>
-            </div>
-            <div class="exercise-visual" aria-label="Glute Bridge visual">
-              <img src="exercise-illustrations/resistance/muscles-glute-bridge.png" alt="Glute Bridge" />
-              <span class="exercise-visual-label">Glutes · Hamstrings · Core</span>
-            </div>
-            <div class="exercise-body">
-              <div class="exercise-header">
-                <h3 class="exercise-name">Glute Bridge</h3>
-                <span class="exercise-chip">Bodyweight</span>
-              </div>
-              <div class="exercise-meta">
-                <div class="meta"><label>Muscle group</label><span class="muscle">Glutes · Hamstrings · Core</span></div>
-                <div class="meta"><label>Sets × Reps</label><p>3 × 15–20</p></div>
-                <div class="meta"><label>Starting version</label><p>Lie on back, knees bent, feet flat. Drive hips up and lower slowly.</p></div>
-                <div class="meta"><label>Progression</label><p>Hold at top → single-leg bridge → elevate feet.</p></div>
-              </div>
-              <div class="exercise-actions">
-                <button class="btn add-day-btn" type="button" data-add-exercise="glute_bridge">+ Add to Day</button>
               </div>
             </div>
           </article>
@@ -655,59 +630,6 @@
             </div>
           </article>
 
-          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="dead_bug">
-            
-            <div class="exercise-visual" aria-label="Dead Bug visual">
-              <img src="exercise-illustrations/resistance/dead-bug.png" alt="Dead Bug" />
-              <span class="exercise-visual-label">Dead Bug</span>
-            </div>
-            <div class="exercise-visual" aria-label="Dead Bug visual">
-              <img src="exercise-illustrations/resistance/muscles-dead-bug.png" alt="Dead Bug" />
-              <span class="exercise-visual-label">Core · Hip flexors · Spinal erectors</span>
-            </div>
-            <div class="exercise-body">
-              <div class="exercise-header">
-                <h3 class="exercise-name">Dead Bug</h3>
-                <span class="exercise-chip">Bodyweight</span>
-              </div>
-              <div class="exercise-meta">
-                <div class="meta"><label>Muscle group</label><span class="muscle">Core · Hip flexors · Spinal erectors</span></div>
-                <div class="meta"><label>Sets × Reps</label><p>3 × 6–8 each side</p></div>
-                <div class="meta"><label>How to do it</label><p>Lie on your back, knees bent at 90° floating above your hips, arms extended toward the ceiling. Slowly lower your right arm overhead while straightening your left leg just above the surface — only as low as your lower back stays pressed down. Return to center and switch sides.</p></div>
-                <div class="meta"><label>Why it helps</label><p>Safely teaches your core to brace while your limbs move, with no neck strain. The back-to-mattress cue keeps the movement within a safe range.</p></div>
-              </div>
-              <div class="exercise-actions">
-                <button class="btn add-day-btn" type="button" data-add-exercise="dead_bug">+ Add to Day</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="russian_twist" data-level="intermediate">
-            <div class="exercise-visual" aria-label="Russian Twist visual">
-              <img src="exercise-illustrations/resistance/russian-twist.jpg" alt="Russian Twist" />
-              <span class="exercise-visual-label">Russian Twist</span>
-            </div>
-            <div class="exercise-visual" aria-label="Russian Twist visual">
-              <img src="exercise-illustrations/resistance/muscles-russian-twist.png" alt="Russian Twist" />
-              <span class="exercise-visual-label">Obliques · Core</span>
-            </div>
-            <div class="exercise-body">
-              <div class="exercise-header">
-                <h3 class="exercise-name">Russian Twist</h3>
-                <span class="exercise-chip">Bodyweight</span>
-              </div>
-              <div class="exercise-meta">
-                <div class="meta"><label>Muscle group</label><span class="muscle">Obliques · Core</span></div>
-                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12 each side</p></div>
-                <div class="meta"><label>How to do it</label><p>Sit on the mattress with knees bent and torso leaning back slightly. Rotate from side to side in a controlled motion, keeping the movement centered through the trunk rather than swinging with momentum.</p></div>
-                <div class="meta"><label>Why it helps</label><p>Targets the obliques and trunk control while improving rotational strength and core endurance.</p></div>
-              </div>
-              <div class="exercise-actions">
-                <button class="btn add-day-btn" type="button" data-add-exercise="russian_twist">+ Add to Day</button>
-              </div>
-            </div>
-          </article>
-
           <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="knee_marches">
             <div class="exercise-visual" aria-label="Knee Marches visual">
               <img src="exercise-illustrations/resistance/knee-marches.jpg" alt="Knee Marches" />
@@ -734,7 +656,120 @@
             </div>
           </article>
 
-          <article class="exercise-card" data-category="bodyweight" data-equipment="none" data-exercise-id="modified_bird_dog">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel exercise-category-panel" data-panel="floor_mat">
+      <div class="panel-header">Option B — Floor Mat protocol</div>
+      <div class="panel-body">
+        <div class="exercise-list">
+          <article class="exercise-card" data-category="floor_mat" data-equipment="none" data-exercise-id="glute_bridge">
+            <div class="exercise-visual" aria-label="Glute Bridge visual">
+              <img src="exercise-illustrations/resistance/glute-bridge.png" alt="Glute Bridge" />
+              <span class="exercise-visual-label">Glute Bridge</span>
+            </div>
+            <div class="exercise-visual" aria-label="Glute Bridge visual">
+              <img src="exercise-illustrations/resistance/muscles-glute-bridge.png" alt="Glute Bridge" />
+              <span class="exercise-visual-label">Glutes · Hamstrings · Core</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Glute Bridge</h3>
+                <span class="exercise-chip">Floor Mat</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Glutes · Hamstrings · Core</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 15–20</p></div>
+                <div class="meta"><label>Starting version</label><p>Lie on back, knees bent, feet flat. Drive hips up and lower slowly.</p></div>
+                <div class="meta"><label>Progression</label><p>Hold at top → single-leg bridge → elevate feet.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="glute_bridge">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="floor_mat" data-equipment="none" data-exercise-id="dead_bug">
+            <div class="exercise-visual" aria-label="Dead Bug visual">
+              <img src="exercise-illustrations/resistance/dead-bug.png" alt="Dead Bug" />
+              <span class="exercise-visual-label">Dead Bug</span>
+            </div>
+            <div class="exercise-visual" aria-label="Dead Bug visual">
+              <img src="exercise-illustrations/resistance/muscles-dead-bug.png" alt="Dead Bug" />
+              <span class="exercise-visual-label">Core · Hip flexors · Spinal erectors</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Dead Bug</h3>
+                <span class="exercise-chip">Floor Mat</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Core · Hip flexors · Spinal erectors</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 6–8 each side</p></div>
+                <div class="meta"><label>How to do it</label><p>Lie on your back, knees bent at 90° floating above your hips, arms extended toward the ceiling. Slowly lower your right arm overhead while straightening your left leg just above the surface — only as low as your lower back stays pressed down. Return to center and switch sides.</p></div>
+                <div class="meta"><label>Why it helps</label><p>Safely teaches your core to brace while your limbs move, with no neck strain. The back-to-mattress cue keeps the movement within a safe range.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="dead_bug">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="floor_mat" data-equipment="none" data-exercise-id="russian_twist" data-level="intermediate">
+            <div class="exercise-visual" aria-label="Russian Twist visual">
+              <img src="exercise-illustrations/resistance/russian-twist.jpg" alt="Russian Twist" />
+              <span class="exercise-visual-label">Russian Twist</span>
+            </div>
+            <div class="exercise-visual" aria-label="Russian Twist visual">
+              <img src="exercise-illustrations/resistance/muscles-russian-twist.png" alt="Russian Twist" />
+              <span class="exercise-visual-label">Obliques · Core</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Russian Twist</h3>
+                <span class="exercise-chip">Floor Mat</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Obliques · Core</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12 each side</p></div>
+                <div class="meta"><label>How to do it</label><p>Sit on the mattress with knees bent and torso leaning back slightly. Rotate from side to side in a controlled motion, keeping the movement centered through the trunk rather than swinging with momentum.</p></div>
+                <div class="meta"><label>Why it helps</label><p>Targets the obliques and trunk control while improving rotational strength and core endurance.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="russian_twist">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="floor_mat" data-equipment="none" data-exercise-id="half_kneeling_side_bend_windmill" data-level="intermediate">
+            <div class="exercise-visual" aria-label="Half Kneeling Side Bend w Windmill visual">
+              <img src="exercise-illustrations/resistance/half-kneeling-side-bend.png" alt="Half Kneeling Side Bend w Windmill" />
+              <span class="exercise-visual-label">Half Kneeling Side Bend w Windmill</span>
+            </div>
+            <div class="exercise-visual" aria-label="Half Kneeling Side Bend w Windmill visual">
+              <img src="exercise-illustrations/resistance/muscles-half-kneeling-side-bend.png" alt="Half Kneeling Side Bend w Windmill" />
+              <span class="exercise-visual-label">Half Kneeling Side Bend w Windmill</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Half Kneeling Side Bend w Windmill</h3>
+                <span class="exercise-chip">Floor Mat</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Muscle group</label><span class="muscle">Obliques · QL · Core · Thoracic mobility</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>2–3 × 6–8 each side</p></div>
+                <div class="meta"><label>How to do it</label><p>Start in a half-kneeling position with the working side knee down and the opposite foot planted near a wall or stable surface. Brace your lower body, reach the top arm overhead, and bend sideways while allowing a controlled thoracic rotation through the windmill pattern. Keep the hips square and the ribs down so the movement stays centered through the waist and mid-back.</p></div>
+                <div class="meta"><label>Why it helps</label><p>Builds lateral core strength and oblique control while improving thoracic rotation and side-bend mobility without letting the hips drift out of alignment.</p></div>
+                <div class="meta"><label>Video cue</label><p><a href="https://www.facebook.com/reel/2197224937872076" target="_blank" rel="noopener noreferrer">Video example: Half Kneeling Side Bend w Windmill</a></p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="half_kneeling_side_bend_windmill">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="floor_mat" data-equipment="none" data-exercise-id="modified_bird_dog">
             <div class="exercise-visual" aria-label="Modified Bird-Dog visual">
               <img src="exercise-illustrations/resistance/modified-bird-dog.jpg" alt="Modified Bird-Dog" />
               <span class="exercise-visual-label">Modified Bird-Dog</span>
@@ -746,7 +781,7 @@
             <div class="exercise-body">
               <div class="exercise-header">
                 <h3 class="exercise-name">Modified Bird-Dog</h3>
-                <span class="exercise-chip">Bodyweight</span>
+                <span class="exercise-chip">Floor Mat</span>
               </div>
               <div class="exercise-meta">
                 <div class="meta"><label>Muscle group</label><span class="muscle">Spinal erectors · Core · Glutes</span></div>
@@ -760,6 +795,53 @@
             </div>
           </article>
 
+          <article class="exercise-card" data-category="floor_mat" data-equipment="dumbbell" data-exercise-id="dumbbell_floor_press">
+            <div class="exercise-visual" aria-label="Dumbbell Floor Press visual">
+              <img src="exercise-illustrations/resistance/dumbbell-floor-press.jpg" alt="Dumbbell Floor Press" />
+              <span class="exercise-visual-label">Dumbbell Floor Press</span>
+            </div>
+            <div class="exercise-visual" aria-label="Dumbbell Floor Press visual">
+              <img src="exercise-illustrations/resistance/muscles-dumbbell-floor-press.png" alt="Dumbbell Floor Press" />
+              <span class="exercise-visual-label">Chest · Shoulders · Triceps</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Dumbbell Floor Press (or Push-ups)</h3>
+                <span class="exercise-chip">Floor Mat</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Targets</label><span class="muscle">Chest · Shoulders · Triceps</span></div>
+                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12</p></div>
+                <div class="meta"><label>Why</label><p>Since you are training at home, the floor press is a safe, shoulder-friendly bench-press alternative that lets you push challenging dumbbell loads with control.</p></div>
+                <div class="meta"><label>Alternative</label><p>If no dumbbells are available, use push-ups with the same set and rep structure.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="dumbbell_floor_press">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="exercise-card" data-category="floor_mat" data-equipment="none" data-exercise-id="stretches">
+            <div class="exercise-visual" aria-label="Stretches visual">
+              <img src="exercise-illustrations/recovery-day/stretches.jpg" alt="Stretches" />
+              <span class="exercise-visual-label">Stretches</span>
+            </div>
+            <div class="exercise-body">
+              <div class="exercise-header">
+                <h3 class="exercise-name">Stretches</h3>
+                <span class="exercise-chip">Floor Mat</span>
+              </div>
+              <div class="exercise-meta">
+                <div class="meta"><label>Goal</label><span class="muscle">Mobility · Recovery · Joint comfort</span></div>
+                <div class="meta"><label>Duration</label><p>10-20 minutes of gentle full-body stretching</p></div>
+                <div class="meta"><label>Why</label><p>Supports tissue recovery, eases stiffness, and helps maintain range of motion between training days.</p></div>
+                <div class="meta"><label>Form focus</label><p>Move slowly, breathe steadily, and stop short of pain while holding each stretch with control.</p></div>
+              </div>
+              <div class="exercise-actions">
+                <button class="btn add-day-btn" type="button" data-add-exercise="stretches">+ Add to Day</button>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </div>
@@ -816,32 +898,6 @@
               </div>
               <div class="exercise-actions">
                 <button class="btn add-day-btn" type="button" data-add-exercise="romanian_deadlift">+ Add to Day</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="exercise-card" data-category="dumbbell" data-equipment="dumbbell" data-exercise-id="dumbbell_floor_press">
-            <div class="exercise-visual" aria-label="Dumbbell Floor Press visual">
-              <img src="exercise-illustrations/resistance/dumbbell-floor-press.jpg" alt="Dumbbell Floor Press" />
-              <span class="exercise-visual-label">Dumbbell Floor Press</span>
-            </div>
-            <div class="exercise-visual" aria-label="Dumbbell Floor Press visual">
-              <img src="exercise-illustrations/resistance/muscles-dumbbell-floor-press.png" alt="Dumbbell Floor Press" />
-              <span class="exercise-visual-label">Chest · Shoulders · Triceps</span>
-            </div>
-            <div class="exercise-body">
-              <div class="exercise-header">
-                <h3 class="exercise-name">Dumbbell Floor Press (or Push-ups)</h3>
-                <span class="exercise-chip">Upper body press</span>
-              </div>
-              <div class="exercise-meta">
-                <div class="meta"><label>Targets</label><span class="muscle">Chest · Shoulders · Triceps</span></div>
-                <div class="meta"><label>Sets × Reps</label><p>3 × 10–12</p></div>
-                <div class="meta"><label>Why</label><p>Since you are training at home, the floor press is a safe, shoulder-friendly bench-press alternative that lets you push challenging dumbbell loads with control.</p></div>
-                <div class="meta"><label>Alternative</label><p>If no dumbbells are available, use push-ups with the same set and rep structure.</p></div>
-              </div>
-              <div class="exercise-actions">
-                <button class="btn add-day-btn" type="button" data-add-exercise="dumbbell_floor_press">+ Add to Day</button>
               </div>
             </div>
           </article>
@@ -986,28 +1042,6 @@
             </div>
           </article>
 
-          <article class="exercise-card" data-category="recovery" data-equipment="none" data-exercise-id="stretches">
-            <div class="exercise-visual" aria-label="Stretches visual">
-              <img src="exercise-illustrations/recovery-day/stretches.jpg" alt="Stretches" />
-              <span class="exercise-visual-label">Stretches</span>
-            </div>
-            <div class="exercise-body">
-              <div class="exercise-header">
-                <h3 class="exercise-name">Stretches</h3>
-                <span class="exercise-chip">Recovery day</span>
-              </div>
-              <div class="exercise-meta">
-                <div class="meta"><label>Goal</label><span class="muscle">Mobility · Recovery · Joint comfort</span></div>
-                <div class="meta"><label>Duration</label><p>10-20 minutes of gentle full-body stretching</p></div>
-                <div class="meta"><label>Why</label><p>Supports tissue recovery, eases stiffness, and helps maintain range of motion between training days.</p></div>
-                <div class="meta"><label>Form focus</label><p>Move slowly, breathe steadily, and stop short of pain while holding each stretch with control.</p></div>
-              </div>
-              <div class="exercise-actions">
-                <button class="btn add-day-btn" type="button" data-add-exercise="stretches">+ Add to Day</button>
-              </div>
-            </div>
-          </article>
-
           <article class="exercise-card" data-category="recovery" data-equipment="none" data-exercise-id="bike_ride">
             <div class="exercise-visual" aria-label="Bike Ride visual">
               <img src="exercise-illustrations/recovery-day/bike-ride.jpg" alt="Bike Ride" />
@@ -1138,6 +1172,7 @@
       gentle_walk_vest: { calves: 3, quads: 2, glutes: 2, hip_flexors: 1, abs: 2, erectors: 2 },
       dead_bug: { abs: 16, hip_flexors: 8, erectors: 6 },
       knee_marches: { hip_flexors: 12, abs: 10, quads: 6 },
+      half_kneeling_side_bend_windmill: { oblique: 20, abs: 12, erectors: 9, glutes: 7, adductors: 6, hip_flexors: 5 },
       russian_twist: { oblique: 18, abs: 10, erectors: 5 },
       modified_bird_dog: { erectors: 14, abs: 12, glutes: 8, rear_delts: 5, traps: 4 },
       stretches: { hamstrings: 3, glutes: 2, calves: 2, lats: 2, traps: 2, abs: 2 },
