@@ -78,12 +78,23 @@
     .cue-title{margin-top:.45rem;font-size:1rem;font-weight:800;color:#244d3c}
     .cue-note{margin-top:.38rem;font-size:.86rem;color:#476257}
 
+    .chart-panel{border:1px solid var(--border);border-radius:12px;background:#f8fcfa;padding:.9rem;margin-top:1rem}
+    .chart-toolbar{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.7rem}
+    .chart-toolbar .btn{padding:.45rem .7rem;font-size:.82rem}
+    .chart-toolbar .btn.active{background:var(--green-mid);border-color:var(--green-mid);color:#fff}
+    .chart-toolbar .btn:disabled{opacity:.45;cursor:not-allowed}
+    .chart-svg{width:100%;height:220px;display:block;border:1px solid #dfeee4;border-radius:10px;background:#fff}
+    .chart-empty{font-size:.84rem;color:var(--muted);margin:.35rem 0 0}
+    .chart-legend{display:flex;flex-wrap:wrap;gap:.6rem .9rem;margin-top:.6rem}
+    .chart-legend-item{display:inline-flex;align-items:center;gap:.45rem;font-size:.82rem;color:#2b4f40;font-weight:600}
+    .chart-legend-swatch{width:.72rem;height:.72rem;border-radius:50%;display:inline-block;border:2px solid rgba(255,255,255,.8);box-shadow:0 0 0 1px rgba(15,23,42,.08)}
+
     .micro-table{width:100%;min-width:520px;border-collapse:collapse;margin:.6rem 0;font-size:.84rem}
     .micro-table th,.micro-table td{padding:.46rem .5rem;border-bottom:1px solid #e1ede7;text-align:left;vertical-align:top}
     .micro-table th{background:#edf7f0;color:#305947;font-size:.74rem;letter-spacing:.02em;text-transform:uppercase}
     .micro-empty{font-size:.84rem;color:var(--muted);margin:.4rem 0 .15rem}
 
-    .split-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+    .split-2{display:grid;grid-template-columns:1fr;gap:1rem}
     .split-2 > div{min-width:0}
     @media(max-width:760px){.split-2{grid-template-columns:1fr}}
     @media(max-width:700px){.two-col{grid-template-columns:1fr}.week-grid{grid-template-columns:repeat(4,1fr)}}
@@ -418,6 +429,27 @@
           <div class="cue-note" id="cardio-cue-note">Collect 3 or more sessions for a stable trend signal before changing treadmill intensity.</div>
         </div>
 
+        <div class="callout" style="margin-top:1rem;">
+          <strong>Reading the trend columns</strong>
+          <div><strong>Drift</strong> = how much the heart rate rises or wanders upward during a steady effort, which can suggest inefficiency, fatigue, or stress. Lower drift is usually better at the same speed and incline.</div>
+          <div style="margin-top:.35rem"><strong>HRR1</strong> = first-minute heart-rate recovery after stopping, measured as the drop from the final working load to one minute later. A faster drop usually means stronger cardiovascular efficiency and recovery capacity.</div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="chart-toolbar">
+            <h3 style="font-size:1rem;margin:0">Selected load heart-rate trend</h3>
+            <div class="btn-row" style="margin-top:0">
+              <button class="btn" type="button" data-cardio-window="2">Last 2</button>
+              <button class="btn" type="button" data-cardio-window="4">Last 4</button>
+              <button class="btn" type="button" data-cardio-window="6">Last 6</button>
+              <button class="btn" type="button" data-cardio-window="10">Last 10</button>
+            </div>
+          </div>
+          <svg id="cardio-load-graph" class="chart-svg" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet" aria-label="Cardio load trend graph"></svg>
+          <div id="cardio-load-legend" class="chart-legend"></div>
+          <p id="cardio-graph-empty" class="chart-empty">Need at least one session in this load condition to graph the trend.</p>
+        </div>
+
         <div class="split-2" style="margin-top:1rem">
           <div>
             <h3 style="font-size:1rem;margin:.2rem 0 .45rem">Load-specific trend rows</h3>
@@ -449,6 +481,7 @@
                     <th>Start</th>
                     <th>Intervals</th>
                     <th>Post-stop</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody id="cardio-all-body"></tbody>
@@ -1101,8 +1134,167 @@
           '<td>'+fmtNum(item.startHr,0)+'</td>'+
           '<td>'+formatMinuteBpmList(item.intervals)+'</td>'+
           '<td>'+formatMinuteBpmList(item.postStop)+'</td>'+
+          '<td><button type="button" class="btn" data-cardio-edit-id="'+item.id+'">Edit</button></td>'+
         '</tr>';
       }).join('');
+
+      body.querySelectorAll('[data-cardio-edit-id]').forEach(button=>{
+        button.addEventListener('click',()=>{
+          const id=button.getAttribute('data-cardio-edit-id');
+          const session=loadCardioSessions().find(item=>item.id===id);
+          if(!session) return;
+
+          cardioEditingId=session.id;
+          const saveBtn=document.getElementById('cardio-save-btn');
+          if(saveBtn) saveBtn.textContent='Update Session';
+
+          const dateEl=document.getElementById('cardio-date');
+          if(dateEl) dateEl.value=session.date;
+          const timeEl=document.getElementById('cardio-time');
+          if(timeEl) timeEl.value=session.sessionTime||'';
+          const nameEl=document.getElementById('cardio-name');
+          if(nameEl) nameEl.value=session.name||'Recovery Walk';
+          const speedEl=document.getElementById('cardio-speed');
+          if(speedEl) speedEl.value=session.speedMph ?? '1.6';
+          const inclineEl=document.getElementById('cardio-incline');
+          if(inclineEl) inclineEl.value=session.inclinePct ?? '4';
+          const durationEl=document.getElementById('cardio-duration');
+          if(durationEl) durationEl.value=session.durationMin ?? '20';
+          const startHrEl=document.getElementById('cardio-start-hr');
+          if(startHrEl) startHrEl.value=session.startHr ?? '';
+          const intervalsEl=document.getElementById('cardio-intervals');
+          if(intervalsEl) intervalsEl.value=(Array.isArray(session.intervals)?session.intervals:[]).map(item=>item.minute+':'+(Number.isFinite(item.bpm)?item.bpm:'missed')).join('\n');
+          const postEl=document.getElementById('cardio-post');
+          if(postEl) postEl.value=(Array.isArray(session.postStop)?session.postStop:[]).map(item=>item.minute+':'+(Number.isFinite(item.bpm)?item.bpm:'missed')).join('\n');
+          const notesEl=document.getElementById('cardio-notes');
+          if(notesEl) notesEl.value=session.notes||'';
+
+          showCardioStatus('Loaded session for editing.');
+          document.getElementById('cardio-date')?.focus();
+          window.scrollTo({top:0,behavior:'smooth'});
+        });
+      });
+    }
+
+    const CARDIO_GRAPH_WINDOW_DEFAULT=4;
+    let cardioGraphWindow=CARDIO_GRAPH_WINDOW_DEFAULT;
+
+    function renderCardioTrendGraph(filteredSessions){
+      const svg=document.getElementById('cardio-load-graph');
+      const legend=document.getElementById('cardio-load-legend');
+      const empty=document.getElementById('cardio-graph-empty');
+      if(!svg||!legend||!empty) return;
+
+      const buttons=[...document.querySelectorAll('[data-cardio-window]')];
+      buttons.forEach(btn=>{
+        const size=Number(btn.dataset.cardioWindow);
+        const enabled=filteredSessions.length>=size;
+        btn.disabled=!enabled;
+        btn.classList.toggle('active', cardioGraphWindow===size);
+      });
+
+      if(!filteredSessions.length){
+        svg.innerHTML='';
+        legend.innerHTML='';
+        empty.style.display='block';
+        empty.textContent='Need at least one session in this load condition to graph the trend.';
+        return;
+      }
+
+      const targetWindow=Math.min(cardioGraphWindow, filteredSessions.length);
+      const series=filteredSessions.slice(-targetWindow);
+      const allPoints=[];
+      series.forEach((session, sessionIndex)=>{
+        const valid=(Array.isArray(session.intervals)?session.intervals:[])
+          .filter(item=>Number.isFinite(item.minute)&&Number.isFinite(item.bpm))
+          .map(item=>({minute:Number(item.minute), bpm:Number(item.bpm), session, sessionIndex}));
+        allPoints.push(...valid);
+      });
+
+      if(!allPoints.length){
+        svg.innerHTML='';
+        legend.innerHTML='';
+        empty.style.display='block';
+        empty.textContent='Add interval readings to build the heart-rate trend.';
+        return;
+      }
+
+      const width=760;
+      const height=220;
+      const pad={top:18,right:20,bottom:34,left:44};
+      const plotWidth=width-pad.left-pad.right;
+      const plotHeight=height-pad.top-pad.bottom;
+      const xMin=0;
+      const xMax=Math.max(20, ...allPoints.map(item=>item.minute));
+      const yMin=Math.min(...allPoints.map(item=>item.bpm))-6;
+      const yMax=Math.max(...allPoints.map(item=>item.bpm))+6;
+      const yRange=Math.max(1, yMax-yMin);
+      const palette=['#2d6a4f','#3498db','#f4a261','#7b2d8b','#0ea5e9','#14b8a6','#e11d48','#f59e0b','#64748b','#8b5cf6'];
+
+      function xForMinute(minute){
+        return pad.left + ((Number(minute)-xMin)/(xMax-xMin||1))*plotWidth;
+      }
+      function yForBpm(bpm){
+        return pad.top + plotHeight - ((Number(bpm)-yMin)/yRange)*plotHeight;
+      }
+
+      const gridLines=Array.from({length:5},(_,index)=>{
+        const ratio=index/4;
+        const y=pad.top + plotHeight*ratio;
+        const value=yMax-(yRange*ratio);
+        return [
+          '<line x1="'+pad.left+'" y1="'+y+'" x2="'+(width-pad.right)+'" y2="'+y+'" stroke="#dfeee4" stroke-width="1" />',
+          '<text x="8" y="'+(y+4)+'" fill="#4a5d57" font-size="10">'+Math.round(value)+'</text>'
+        ].join('');
+      }).join('');
+
+      const xLabels=Array.from({length:5},(_,index)=>{
+        const minute=xMin + ((xMax-xMin)*index/4);
+        const x=xForMinute(minute);
+        return '<text x="'+x+'" y="'+(height-10)+'" text-anchor="middle" fill="#4a5d57" font-size="10">'+Number(minute).toFixed(1).replace(/\.0$/,'.0')+'</text>';
+      }).join('');
+
+      const sessionSeriesMarkup=series.map((session, sessionIndex)=>{
+        const points=(Array.isArray(session.intervals)?session.intervals:[])
+          .filter(item=>Number.isFinite(item.minute)&&Number.isFinite(item.bpm))
+          .map(item=>({minute:Number(item.minute), bpm:Number(item.bpm)}))
+          .sort((a,b)=>a.minute-b.minute);
+
+        if(!points.length) return '';
+
+        const color=palette[sessionIndex % palette.length];
+        const path=points.map((point,index)=>{
+          const x=xForMinute(point.minute);
+          const y=yForBpm(point.bpm);
+          return (index===0?'M':'L')+' '+x+' '+y;
+        }).join(' ');
+
+        const circles=points.map(point=>`<circle cx="${xForMinute(point.minute)}" cy="${yForBpm(point.bpm)}" r="3.6" fill="${color}" stroke="#fff" stroke-width="1.5" />`).join('');
+        return `
+          <path d="${path}" fill="none" stroke="${color}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          ${circles}
+        `;
+      }).join('');
+
+      const labelsMarkup=series.map((session, sessionIndex)=>{
+        const color=palette[sessionIndex % palette.length];
+        const label='Day '+(sessionIndex+1)+' ('+session.speedMph+' mph)';
+        return '<div class="chart-legend-item"><span class="chart-legend-swatch" style="background:'+color+'"></span>'+label+'</div>';
+      }).join('');
+
+      svg.innerHTML=`
+        <g>
+          ${gridLines}
+          <line x1="${pad.left}" y1="${height-pad.bottom}" x2="${width-pad.right}" y2="${height-pad.bottom}" stroke="#b7d4c1" stroke-width="1"/>
+          <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height-pad.bottom}" stroke="#b7d4c1" stroke-width="1"/>
+          <line x1="${width-pad.right}" y1="${pad.top}" x2="${width-pad.right}" y2="${height-pad.bottom}" stroke="#dfeee4" stroke-width="1"/>
+          ${sessionSeriesMarkup}
+          ${xLabels}
+        </g>
+      `;
+
+      legend.innerHTML=labelsMarkup;
+      empty.style.display='none';
     }
 
     function renderCardioTracker(){
@@ -1112,6 +1304,7 @@
 
       renderCardioKpis(filtered);
       renderCue(filtered);
+      renderCardioTrendGraph(filtered);
       renderTrendTable(filtered);
       renderAllSessionsTable(sessions);
     }
@@ -1134,6 +1327,16 @@
 
       const loadFilter=document.getElementById('cardio-load-filter');
       if(loadFilter) loadFilter.addEventListener('change',renderCardioTracker);
+
+      document.querySelectorAll('[data-cardio-window]').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const size=Number(btn.dataset.cardioWindow);
+          if(Number.isFinite(size)&&size>0){
+            cardioGraphWindow=size;
+            renderCardioTracker();
+          }
+        });
+      });
 
       renderCardioTracker();
     }
