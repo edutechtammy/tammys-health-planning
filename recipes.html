@@ -4807,7 +4807,7 @@
     data-protein-g="0.5">
       <div class="recipe-card-img">🥦✨</div>
       <div class="recipe-card-body">
-        <div class="recipe-card-title">Brussels Sprouts (15g serving)</div>
+        <div class="recipe-card-title">Brussels Sprouts (raw, 15g serving)</div>
         <div class="recipe-card-meta">
           <span>⏱ 1 min</span>
           <span>📦 1 serving = 15g</span>
@@ -4821,13 +4821,13 @@
           <span class="badge badge-mthfr">MTHFR</span>
           <span class="badge badge-kidney">Kidney Stone</span>
         </div>
-        <p class="recipe-card-ingredients">brussels sprouts ⋅ lemon (optional) ⋅ EVOO (optional)</p>
+        <p class="recipe-card-ingredients">raw brussels sprouts ⋅ lemon (optional) ⋅ EVOO (optional)</p>
         <div class="recipe-card-trigger">
           <span class="trigger-pill"><strong>Net carbs:</strong> ~1g/serving</span>
           <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~0.1g/serving</span>
         </div>
         <div class="recipe-card-desc">
-          <p>A tiny brassica add-on for menu planning when you want a small but meaningful antioxidant and fiber contribution without creating a recipe burden. Fifteen grams is intentionally small and is best used as a light daily add-on rather than a full serving.</p>
+          <p>A tiny raw brassica add-on for salad planning when you want a small but meaningful antioxidant and fiber contribution without creating a recipe burden. Fifteen grams is intentionally small and is best used as a light daily add-on rather than a full serving.</p>
           <p><span class="badge badge-apoe4">APOE4</span> Low-friction way to incorporate a cruciferous vegetable into the plan without needing a cooked dish.</p>
           <p><span class="badge badge-liver">Fatty Liver</span> Useful when you want a small sulfur-rich vegetable anchor while keeping the plate low in added fat and prep.</p>
         </div>
@@ -5833,6 +5833,10 @@ const PANTRY_NORM = {
   'whole globe artichoke': 'artichoke',
   'purple cabbage':      'cabbage',
   'red cabbage':         'cabbage',
+  'brussels sprouts':    'cabbage',
+  'raw brussels sprouts': 'cabbage',
+  'brussel sprouts':     'cabbage',
+  'raw brussel sprouts': 'cabbage',
   'almond butter':       'almond butter',
   'almonds':             'almonds',
   'whole almonds':       'almonds',
@@ -6091,7 +6095,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Kale, Apple, Blueberry & Mozzarella Salad with Lemon-EVOO Dressing',
     'Kale (30g serving)',
     'Red Cabbage (raw, 40g serving)',
-    'Brussels Sprouts (15g serving)',
+    'Brussels Sprouts (raw, 15g serving)',
     'Cherry Tomatoes (6 tomatoes, ~80g serving)',
     'Cucumber',
     'Sweet Potato (Small)',
@@ -6117,6 +6121,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Marinated Olive Salad',
     'Mediterranean Chop Chop Salad',
     'Red Cabbage (raw, 40g serving)',
+    'Brussels Sprouts (raw, 15g serving)',
     'Kale, Apple, Blueberry & Mozzarella Salad with Lemon-EVOO Dressing',
     'Ginger Carrot Slaw with Apple, Sweet Pepper & Lemon',
     'Apricot Salad with Spinach, Cherries, Pecans, and Feta Cheese',
@@ -6629,7 +6634,13 @@ function getSearchMatch(card) {
     card.querySelector('.recipe-card-desc')?.textContent || '',
     card.querySelector('.recipe-card-meta')?.textContent || ''
   ].join(' ').toLowerCase();
-  return haystack.includes(activeRecipeSearch);
+  const tokens = activeRecipeSearch
+    .toLowerCase()
+    .split(/\s+/)
+    .map(token => token.trim())
+    .filter(Boolean);
+  if (!tokens.length) return true;
+  return tokens.every(token => haystack.includes(token));
 }
 
 function addMissingMacroTriggers() {
