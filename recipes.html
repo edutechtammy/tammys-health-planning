@@ -5765,6 +5765,56 @@
       </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════
+         RECIPE 14R — SAVORY HERB EGG WHITE CLOUD BOWL
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card"
+      data-conditions="apoe4 celiac dp mthfr"
+      data-calories="210"
+      data-oxalate="low"
+      data-choline-mg="120"
+      data-omega3-mg="80"
+      data-mufa-g="2.8"
+      data-satfat-g="2.1"
+      data-folate-mcg="40"
+      data-b12-mcg="0.7"
+      data-viscous-fiber-g="0.8"
+      data-netcarbs-g="3.0"
+      data-protein-g="34.0">
+      <div class="recipe-card-img">🥚☁️🌿</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Savory Herb Egg White &amp; Cottage Cheese Cloud Bowl</div>
+        <div class="recipe-card-meta">
+          <span>⏱ Prep 5 min</span>
+          <span>🔥 Cook 5-7 min</span>
+          <span>🍽 1 training serving</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+        </div>
+        <p class="recipe-card-ingredients">liquid egg whites ⋅ Daisy Pure &amp; Natural 4% cottage cheese ⋅ spinach / kale ⋅ chives / dill ⋅ skim milk ⋅ EVOO</p>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-low"></span>
+          <span class="gi-low">Low GI</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— very high protein with minimal carbs</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>Whipped egg whites folded with cottage cheese, chopped greens, and herbs, then softly scrambled low and slow for cloud-like curds. Built as a protein-dense bowl to raise daily protein while keeping saturated fat measured.</p>
+          <p><span class="badge badge-dp">DP / Blood Sugar</span> Low net carbohydrate load and high protein density make this a steady glucose-friendly training meal.</p>
+          <p><span class="badge badge-apoe4">APOE4</span> Choline-rich profile supports membrane and liver pathways while avoiding a heavy saturated-fat load.</p>
+          <p><span class="badge badge-mthfr">MTHFR</span> Greens plus herbs contribute folate support alongside a strong protein anchor.</p>
+          <p><span class="badge badge-celiac">Celiac / GF</span> Gluten-free by ingredient design.</p>
+        </div>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-savory-herb-egg-white-cottage-cloud-bowl.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
   </div><!-- /recipe-grid -->
 
   <p style="color:var(--muted);font-size:.82rem;margin-top:1.5rem;text-align:center">More recipes added as they are developed and tested. Each one is built specifically around your condition stack.</p></div><!-- /main-wrap -->
@@ -5877,6 +5927,7 @@ const PANTRY_NORM = {
   'thin-sliced ginger':  'ginger',
   'raw honey':           'honey',
   'skim milk':           'milk',
+  'unsweetened skim milk': 'milk',
   'warm water':          'water',
   'lukewarm water':      'water',
   'hot water':           'water',
@@ -6098,7 +6149,10 @@ const PANTRY_NORM = {
   'roasted chicken breast (plain)': 'chicken',
   'roasted chicken breast plain': 'chicken',
   'plain roasted chicken breast': 'chicken',
-  'roasted chicken breast': 'chicken'
+  'roasted chicken breast': 'chicken',
+  'liquid egg whites': 'eggs',
+  'egg whites': 'eggs',
+  'egg white': 'eggs'
 };
 
 const PANTRY_LS_KEY = 'pantry_v1';
@@ -6121,6 +6175,7 @@ const EXPLICIT_CATEGORY_TITLES = {
   breakfast: [
     'Almond Flour Waffles',
     'Sugar Shift Probiotic Yogurt',
+    'Savory Herb Egg White & Cottage Cheese Cloud Bowl',
     'Perfect Hard Boiled Eggs — No Grey Ring',
     'Rice Paper Bagels',
     'Kefir Overnight Grain Porridge',
@@ -6281,6 +6336,7 @@ const EXPLICIT_CATEGORY_TITLES = {
   dairy: [
     'Marinated Feta in Chili & Herb EVOO',
     'Feta Cheese (10g serving)',
+    'Savory Herb Egg White & Cottage Cheese Cloud Bowl',
     'Marinated Smoked Gouda in Chili & Herb EVOO',
     'Cultured Butter — 1 L Mason Jar Shake Method',
     '30-Minute Homemade Mozzarella — Marinated & Baked Sticks (GF)',
@@ -6452,6 +6508,7 @@ const CARD_MACROS = {
   'Roasted Broccoli with Bone Broth Mozzarella Cheese Sauce': { net: '~8g/serving', sat: '~5g/serving' },
   'Afternoon MCT Coffee — Decaf Arabica, Ceylon Cinnamon, MCT Oil': { net: '~2g/serving', sat: '~2g/serving' },
   'Skim Milk Drink (1.5 cup serving)': { net: '~18g/serving', sat: '~0.3g/serving' },
+  'Savory Herb Egg White & Cottage Cheese Cloud Bowl': { net: '~3g/serving', sat: '~2.1g/serving' },
   'Roasted Whole Artichoke with Garlic EVOO Dipping Sauce': { net: '~8g/serving', sat: '~1g/serving' },
   '30-Minute Homemade Mozzarella — Marinated & Baked Sticks (GF)': { net: '~1g/serving', sat: '~4g/serving' },
   'Sugar Shift Labneh (Strained Yogurt Cheese)': { net: '~2g/serving', sat: '~3g/serving' },
