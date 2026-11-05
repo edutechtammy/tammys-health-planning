@@ -1780,15 +1780,23 @@ function importCSV(input){
         dataRows = rows.slice(1);
       }
 
+      const rowsRead = dataRows.length;
+
       const imported = dataRows
         .map(row => parseImportedTestRow(row, headerMap, !headerLike))
         .filter(Boolean);
 
-      if(!imported.length){ alert('No valid food tests found in CSV.'); return; }
+      const validRows = imported.length;
+      const skippedRows = Math.max(0, rowsRead - validRows);
+
+      if(!imported.length){
+        alert(`No valid food tests found in CSV. Rows read: ${rowsRead}. Valid: ${validRows}. Skipped: ${skippedRows}.`);
+        return;
+      }
 
       const result = mergeImportedTests(imported);
       render();
-      alert(`Import complete: ${result.added} new test(s) added, ${result.updated} updated.`);
+      alert(`Import complete: ${result.added} new test(s) added, ${result.updated} updated. Rows read: ${rowsRead}. Valid: ${validRows}. Skipped: ${skippedRows}.`);
     } catch {
       alert('Could not read that CSV file.');
     } finally {
