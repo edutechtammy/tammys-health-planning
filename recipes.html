@@ -892,6 +892,7 @@
         <option value="mufa">MUFAs</option>
         <option value="glp1">GLP-1</option>
         <option value="folate">Folate</option>
+        <option value="smart-protein">Smart Protein</option>
         <option value="snacks">Snacks</option>
         <option value="beverages">Beverages</option>
         <option value="other">Other / Uncategorized</option>
@@ -5630,7 +5631,7 @@
       data-b12-mcg="1.6"
       data-viscous-fiber-g="0.0"
       data-netcarbs-g="4.0"
-      data-protein-g="17.0">
+      data-protein-g="8.5">
       <div class="recipe-card-img">🥩✨</div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Soules Kitchen Fajita Steak</div>
@@ -6056,6 +6057,10 @@ let activeRecipeSearch = '';
 let menuSlides = [];
 let menuSlideIndex = 0;
 let menuFullscreenModal = null;
+
+const SMART_PROTEIN_MIN_PROTEIN_G = 8;
+const SMART_PROTEIN_MAX_SAT_FAT_G = 3;
+const SMART_PROTEIN_MIN_PROTEIN_TO_SAT_RATIO = 4;
 
 const MENU_SLIDES_MANIFEST = 'menu/index.json';
 const MENU_SLIDES_FOLDER = 'menu/';
@@ -6653,9 +6658,25 @@ function getRecipeFolateEstimate(card) {
   return estimateNutrientsPerServing(ingEl.textContent || '').folateMcg || 0;
 }
 
+function getSmartProteinMatch(card) {
+  const hasProteinData = card.dataset.hasProteinData === 'true';
+  const hasSatFatData = card.dataset.hasSatfatData === 'true';
+  if (!hasProteinData || !hasSatFatData) return false;
+  if (getRecipeCategories(card).includes('eggs')) return false;
+
+  const proteinG = Number(card.dataset.proteinG || 0);
+  const satFatG = Number(card.dataset.satfatG || 0);
+  if (!Number.isFinite(proteinG) || !Number.isFinite(satFatG)) return false;
+  if (proteinG < SMART_PROTEIN_MIN_PROTEIN_G) return false;
+  if (satFatG > SMART_PROTEIN_MAX_SAT_FAT_G) return false;
+  if (satFatG <= 0) return true;
+  return (proteinG / satFatG) >= SMART_PROTEIN_MIN_PROTEIN_TO_SAT_RATIO;
+}
+
 function getCategoryMatch(card) {
   if (activeRecipeCategory === 'all') return true;
   if (activeRecipeCategory === 'folate') return getRecipeFolateEstimate(card) >= 40;
+  if (activeRecipeCategory === 'smart-protein') return getSmartProteinMatch(card);
   if (activeRecipeCategory === 'bread') return getRecipeCategories(card).includes('bread-baked') || getRecipeTitle(card).toLowerCase().includes('bread') || getRecipeTitle(card).toLowerCase().includes('flatbread') || getRecipeTitle(card).toLowerCase().includes('pita');
   return getRecipeCategories(card).includes(activeRecipeCategory);
 }
@@ -6931,6 +6952,8 @@ function addNutrientTargetBadges() {
     card.dataset.b12Mcg = String(Number.isFinite(b12Value) ? b12Value : est.b12Mcg);
     card.dataset.viscousFiberG = String(Number.isFinite(viscousFiberValue) ? viscousFiberValue : est.viscousFiberG);
     card.dataset.fluidsCups = String(Number.isFinite(fluidsValue) ? fluidsValue : 0);
+    card.dataset.hasProteinData = String(hasExplicitProtein || hasProteinSource);
+    card.dataset.hasSatfatData = String(hasExplicitSatFat || hasSatFatSource);
 
     const goals = [
       {
