@@ -272,6 +272,52 @@
       text-transform: uppercase;
     }
 
+    .journal-date-cell {
+      min-width: 180px;
+      white-space: nowrap;
+    }
+
+    .journal-date {
+      font-weight: 700;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .journal-day-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .journal-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 999px;
+      padding: 3px 7px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .journal-flag.flag-spike {
+      background: rgba(180, 67, 67, 0.12);
+      color: var(--red);
+    }
+
+    .journal-flag.flag-low {
+      background: rgba(37, 99, 235, 0.08);
+      color: #2563eb;
+    }
+
+    .journal-flag.neutral {
+      background: rgba(45, 127, 82, 0.08);
+      color: var(--green-dark);
+    }
+
     .status-bad {
       color: var(--red);
       background: var(--red-soft);
@@ -648,40 +694,6 @@
     </section>
 
     <section class="panel">
-      <h2>Add note</h2>
-      <div class="grid">
-        <div class="field">
-          <label for="noteType">Type</label>
-          <select id="noteType">
-            <option value="food">Food</option>
-            <option value="sleep-wake">Sleep / Wake</option>
-            <option value="exercise">Exercise</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="noteDate">Date</label>
-          <input id="noteDate" type="date" />
-        </div>
-        <div class="field">
-          <label for="noteTime">Time</label>
-          <input id="noteTime" type="time" />
-        </div>
-      </div>
-
-      <div id="dynamicFields" class="dynamic-fields"></div>
-
-      <div class="field full">
-        <label for="noteDetails">Notes / observations</label>
-        <textarea id="noteDetails" placeholder="Optional freeform details, symptoms, context, or anything not covered above..."></textarea>
-      </div>
-
-      <div class="btn-row">
-        <button class="primary" id="saveNoteBtn" type="button">Save note</button>
-      </div>
-    </section>
-
-    <section class="panel">
       <h2>Import CGM export</h2>
       <div class="small" style="margin: 0 0 12px; line-height: 1.5; color: var(--muted);">
         Paste the full Lingo export each time you receive a new file. The export is cumulative and contains the whole current sensor history, so the safest workflow is to import the complete file again rather than trying to remember the last import time or pasting only the newest rows. The importer will merge all valid data into the active sensor and automatically skip exact duplicates. If the same timestamp appears with a different value, it will be flagged for review rather than silently overwriting the earlier reading.<br><br><strong>Do not include the column-title row.</strong> The first data row should be the first timestamp, not a header. This importer accepts both comma-separated and tab-separated Lingo exports.
@@ -727,13 +739,47 @@
     </section>
 
     <section class="panel">
+      <h2>Add note</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="noteType">Type</label>
+          <select id="noteType">
+            <option value="food">Food</option>
+            <option value="sleep-wake">Sleep / Wake</option>
+            <option value="exercise">Exercise</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="noteDate">Date</label>
+          <input id="noteDate" type="date" />
+        </div>
+        <div class="field">
+          <label for="noteTime">Time</label>
+          <input id="noteTime" type="time" />
+        </div>
+      </div>
+
+      <div id="dynamicFields" class="dynamic-fields"></div>
+
+      <div class="field full">
+        <label for="noteDetails">Notes / observations</label>
+        <textarea id="noteDetails" placeholder="Optional freeform details, symptoms, context, or anything not covered above..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="primary" id="saveNoteBtn" type="button">Save note</button>
+      </div>
+    </section>
+
+    <section class="panel">
       <h2>Journal entries</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Type</th>
               <th>Timestamp</th>
+              <th>Type</th>
               <th>Summary</th>
               <th>Details</th>
               <th>Action</th>
@@ -1256,8 +1302,7 @@
       }
 
       const structured = readFormFields(type);
-      const note = {
-        id: crypto.randomUUID ? crypto.randomUUID() : `note-${Date.now()}`,
+      const baseNote = {
         sensorId: sensor.id,
         type,
         timestampLocal,
@@ -1266,13 +1311,33 @@
         summary: buildNoteSummary(type, structured),
         structured,
         details: document.getElementById('noteDetails').value.trim(),
+      };
+
+      if (app.editingNoteId) {
+        const index = state.notes.findIndex(note => note.id === app.editingNoteId);
+        if (index >= 0) {
+          state.notes[index] = {
+            ...state.notes[index],
+            ...baseNote,
+            updatedAt: new Date().toISOString()
+          };
+          saveState(state);
+          resetNoteForm();
+          renderAll();
+          return;
+        }
+      }
+
+      const note = {
+        id: crypto.randomUUID ? crypto.randomUUID() : `note-${Date.now()}`,
+        ...baseNote,
         createdAt: new Date().toISOString()
       };
 
       state.notes.push(note);
       saveState(state);
       renderAll();
-      document.getElementById('noteDetails').value = '';
+      resetNoteForm();
     }
 
     function deleteNote(noteId) {
@@ -1282,10 +1347,113 @@
       renderAll();
     }
 
+    function getNoteDayFlags(note, sensorId) {
+      if (!sensorId) return [];
+      const dataset = normalizeCgmDataset(app.state.cgmData[sensorId]).entries;
+      const dateKey = (note.date || note.timestampLocal || '').slice(0, 10);
+      if (!dateKey) return [];
+
+      const values = dataset
+        .filter(item => item.status === 'valid' && Number.isFinite(item.glucose))
+        .filter(item => (item.timestampLocal || '').slice(0, 10) === dateKey)
+        .map(item => Number(item.glucose));
+
+      if (!values.length) return [];
+
+      const flags = [];
+      if (values.some(value => value > 140)) flags.push({ label: 'Spike day', className: 'flag-spike' });
+      if (values.some(value => value < 70)) flags.push({ label: 'Low day', className: 'flag-low' });
+      return flags.length ? flags : [{ label: 'Normal day', className: 'neutral' }];
+    }
+
+    function setNoteFormMode() {
+      const isEditing = !!app.editingNoteId;
+      const saveBtn = document.getElementById('saveNoteBtn');
+      if (saveBtn) {
+        saveBtn.textContent = isEditing ? 'Update note' : 'Save note';
+      }
+      const cancelBtn = document.getElementById('cancelEditNoteBtn');
+      if (cancelBtn) {
+        cancelBtn.style.display = isEditing ? 'inline-flex' : 'none';
+      }
+    }
+
+    function resetNoteForm() {
+      app.editingNoteId = null;
+      const defaults = noteDefaults();
+      document.getElementById('noteType').value = 'food';
+      document.getElementById('noteDate').value = defaults.date;
+      document.getElementById('noteTime').value = defaults.time;
+      document.getElementById('noteDetails').value = '';
+      renderDynamicForm();
+      setNoteFormMode();
+    }
+
+    function applyStructuredValuesToForm(type, structured) {
+      if (!structured || typeof structured !== 'object') return;
+      if (type === 'food') {
+        document.getElementById('foodName').value = structured.foodName || '';
+        document.getElementById('netCarbs').value = structured.netCarbs || '';
+        document.getElementById('protein').value = structured.protein || '';
+        document.getElementById('fat').value = structured.fat || '';
+        document.getElementById('fiber').value = structured.fiber || '';
+        document.getElementById('calories').value = structured.calories || '';
+        document.getElementById('glycemicLoad').value = structured.glycemicLoad || '';
+        document.getElementById('acvTaken').value = structured.acvTaken || '';
+        document.getElementById('berberineTaken').value = structured.berberineTaken || '';
+        document.getElementById('walkBeforeTest').value = structured.walkBeforeTest || '';
+        document.getElementById('baseline').value = structured.baseline || '';
+        document.getElementById('min30').value = structured.min30 || '';
+        document.getElementById('min60').value = structured.min60 || '';
+        document.getElementById('min120').value = structured.min120 || '';
+        document.getElementById('returnToBaseline').value = structured.returnToBaseline || '';
+      }
+
+      if (type === 'sleep-wake') {
+        document.getElementById('sleepStart').value = structured.sleepStart || '';
+        document.getElementById('wakeTime').value = structured.wakeTime || '';
+        document.getElementById('sleepQuality').value = structured.sleepQuality || '';
+        document.getElementById('sleepDisturbance').value = structured.sleepDisturbance || '';
+        document.getElementById('sleepNotes').value = structured.sleepNotes || '';
+      }
+
+      if (type === 'exercise') {
+        document.getElementById('exerciseCategory').value = structured.exerciseCategory || '';
+        document.getElementById('exerciseType').value = structured.exerciseType || '';
+        document.getElementById('exerciseDuration').value = structured.exerciseDuration || '';
+        document.getElementById('exerciseSpeed').value = structured.exerciseSpeed || '';
+        document.getElementById('exerciseIntensity').value = structured.exerciseIntensity || '';
+        document.getElementById('exerciseWeight').value = structured.exerciseWeight || '';
+        document.getElementById('exerciseSetsReps').value = structured.exerciseSetsReps || '';
+        document.getElementById('exerciseNotes').value = structured.exerciseNotes || '';
+      }
+
+      if (type === 'other') {
+        document.getElementById('otherTitle').value = structured.otherTitle || '';
+        document.getElementById('otherNotes').value = structured.otherNotes || '';
+      }
+    }
+
+    function beginEditNote(noteId) {
+      const note = app.state.notes.find(item => item.id === noteId);
+      if (!note) return;
+
+      app.editingNoteId = noteId;
+      document.getElementById('noteType').value = note.type || 'food';
+      renderDynamicForm();
+      document.getElementById('noteDate').value = note.date || noteDefaults().date;
+      document.getElementById('noteTime').value = note.time || noteDefaults().time;
+      document.getElementById('noteDetails').value = note.details || '';
+      applyStructuredValuesToForm(note.type, note.structured || {});
+      setNoteFormMode();
+      document.getElementById('noteType').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     function renderNotesTable() {
       const state = app.state;
       const sensor = getSelectedSensor();
-      const rows = state.notes.filter(note => note.sensorId === (sensor ? sensor.id : ''));
+      const sensorId = sensor ? sensor.id : '';
+      const rows = state.notes.filter(note => note.sensorId === sensorId);
       const tbody = document.getElementById('notesTableBody');
       tbody.innerHTML = '';
 
@@ -1309,16 +1477,32 @@
           });
 
           const details = [note.details, detailLines.join(' · ')].filter(Boolean).join(' | ');
+          const flags = getNoteDayFlags(note, sensorId);
+          const flagMarkup = flags.length
+            ? flags.map(flag => `<span class="journal-flag ${flag.className}">${flag.label}</span>`).join('')
+            : '';
 
           tr.innerHTML = `
+            <td class="journal-date-cell">
+              <div class="journal-date">${displayTimestamp(note.timestampLocal)}</div>
+              <div class="journal-day-tags">${flagMarkup}</div>
+            </td>
             <td><span class="tag">${note.type}</span></td>
-            <td>${displayTimestamp(note.timestampLocal)}</td>
             <td>${note.summary || 'Entry'}</td>
             <td>${details || '—'}</td>
-            <td><button class="danger" type="button" data-delete-id="${note.id}">Delete</button></td>
+            <td>
+              <div class="btn-row" style="margin-top:0; gap:6px;">
+                <button class="secondary" type="button" data-edit-id="${note.id}" style="padding:6px 10px; font-size:0.75rem;">Edit</button>
+                <button class="danger" type="button" data-delete-id="${note.id}" style="padding:6px 10px; font-size:0.75rem;">Delete</button>
+              </div>
+            </td>
           `;
           tbody.appendChild(tr);
         });
+
+      tbody.querySelectorAll('[data-edit-id]').forEach(button => {
+        button.addEventListener('click', () => beginEditNote(button.getAttribute('data-edit-id')));
+      });
 
       tbody.querySelectorAll('[data-delete-id]').forEach(button => {
         button.addEventListener('click', () => deleteNote(button.getAttribute('data-delete-id')));
@@ -2096,6 +2280,15 @@
         document.getElementById('sensorSelect').value = '';
       });
       document.getElementById('saveNoteBtn').addEventListener('click', saveNote);
+      const cancelEditBtn = document.createElement('button');
+      cancelEditBtn.id = 'cancelEditNoteBtn';
+      cancelEditBtn.type = 'button';
+      cancelEditBtn.className = 'ghost';
+      cancelEditBtn.textContent = 'Cancel edit';
+      cancelEditBtn.style.display = 'none';
+      cancelEditBtn.addEventListener('click', () => resetNoteForm());
+      const saveRow = document.querySelector('#saveNoteBtn').parentElement;
+      if (saveRow) saveRow.appendChild(cancelEditBtn);
       document.getElementById('importCgmBtn').addEventListener('click', importCgmCsv);
       document.getElementById('clearCsvBtn').addEventListener('click', () => {
         document.getElementById('csvInput').value = '';
@@ -2113,7 +2306,7 @@
       renderAll();
     }
 
-    const app = { state: defaultState };
+    const app = { state: defaultState, editingNoteId: null };
     init();
   </script>
 </body>
