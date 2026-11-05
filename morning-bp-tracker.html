@@ -487,6 +487,14 @@
       </div>
       <p class="week-summary" id="week-summary"></p>
 
+      <div class="field" style="max-width: 285px; margin: .4rem 0 .7rem;">
+        <label for="gap-threshold-days">Compress gaps longer than</label>
+        <div style="display:flex; align-items:center; gap:.6rem;">
+          <input type="number" id="gap-threshold-days" min="7" max="180" step="1" value="30" style="flex:1;" />
+          <span style="font-size:.82rem; color:var(--muted);">days</span>
+        </div>
+      </div>
+
       <div class="chart-grid">
         <div class="chart-card">
           <div class="chart-title" style="color:var(--sys)">Systolic (mmHg)</div>
@@ -547,6 +555,7 @@
 
   <script>
     const STORAGE_KEY = 'tammys_morning_bp_tracker_v1';
+    const DEFAULT_GAP_COMPRESSION_DAYS = 30;
 
     const dateInput = document.getElementById('bp-date');
     const systolicInput = document.getElementById('bp-systolic');
@@ -554,6 +563,7 @@
     const bpmInput = document.getElementById('bp-bpm');
     const notesInput = document.getElementById('bp-notes');
     const saveState = document.getElementById('save-state');
+    const gapThresholdInput = document.getElementById('gap-threshold-days');
 
     const quickStatsEl = document.getElementById('quick-stats');
     const weekLabelEl = document.getElementById('week-label');
@@ -594,6 +604,15 @@
         return '';
       }
       return candidate;
+    }
+
+    function dateToStamp(dateStr) {
+      const normalized = normalizeDateOnly(dateStr);
+      if (!normalized) {
+        return Number.NaN;
+      }
+      const [year, month, day] = normalized.split('-').map(Number);
+      return Date.UTC(year, month - 1, day);
     }
 
     function getStartOfWeek(dateLike) {
@@ -1078,17 +1097,54 @@
       };
     }
 
-    function buildContinuousSeries(entries, key) {
-      return sortAsc(entries).map(item => ({
-        x: new Date(item.date + 'T12:00:00'),
-        y: Number(item[key])
-      }));
+    function getGapCompressionDays() {
+      const value = Number(gapThresholdInput.value);
+      if (!Number.isFinite(value) || value < 7) {
+        return DEFAULT_GAP_COMPRESSION_DAYS;
+      }
+      return Math.min(Math.max(Math.round(value), 7), 180);
+    }
+
+    function buildCompressedSeries(entries, key, maxGapDays = DEFAULT_GAP_COMPRESSION_DAYS) {
+      const points = sortAsc(entries).filter(item => normalizeDateOnly(item.date) && Number.isFinite(Number(item[key])));
+      if (!points.length) {
+        return [];
+      }
+
+      const maxGapMs = maxGapDays * 24 * 60 * 60 * 1000;
+      const compressed = [];
+      let cursor = dateToStamp(points[0].date);
+
+      compressed.push({
+        x: cursor,
+        y: Number(points[0][key]),
+        originalDate: points[0].date
+      });
+
+      for (let i = 1; i < points.length; i += 1) {
+        const previous = points[i - 1];
+        const current = points[i];
+        const gapMs = dateToStamp(current.date) - dateToStamp(previous.date);
+        cursor += gapMs > maxGapMs ? maxGapMs : gapMs;
+        compressed.push({
+          x: cursor,
+          y: Number(current[key]),
+          originalDate: current.date
+        });
+      }
+
+      return compressed;
     }
 
     function upsertTimeSeriesChart(existingChart, canvasId, label, color, data, unit, fallbackMin, fallbackMax, pad) {
       if (existingChart) existingChart.destroy();
 
       const range = yRange(data.map(point => point.y), fallbackMin, fallbackMax, pad);
+      const dateLookup = new Map(data.map(point => [Math.round(point.x), point.originalDate]));
+      const xValues = data.map(point => Number(point.x));
+      const xMin = xValues.length ? Math.min(...xValues) : 0;
+      const xMax = xValues.length ? Math.max(...xValues) : 0;
+      const xPad = xValues.length > 1 ? ((xMax - xMin) * 0.05) || 86400000 : 86400000;
 
       return new Chart(document.getElementById(canvasId), {
         type: 'line',
@@ -1103,7 +1159,8 @@
             pointHoverRadius: 5,
             pointBackgroundColor: color,
             tension: .33,
-            spanGaps: true
+            spanGaps: true,
+            parsing: false
           }]
         },
         options: {
@@ -1119,8 +1176,10 @@
               callbacks: {
                 title(context) {
                   const point = context[0];
-                  if (!point || !point.raw || !point.raw.x) return '';
-                  return formatDate(point.raw.x.toISOString().slice(0, 10));
+                  if (!point || !point.raw || Number.isNaN(Number(point.raw.x))) return '';
+                  const stamp = Math.round(Number(point.raw.x));
+                  const originalDate = dateLookup.get(stamp);
+                  return originalDate ? formatDate(originalDate) : '';
                 },
                 label(context) {
                   if (!Number.isFinite(context.parsed.y)) return 'No reading';
@@ -1131,19 +1190,16 @@
           },
           scales: {
             x: {
-              type: 'time',
-              time: {
-                unit: 'day',
-                tooltipFormat: 'MMM d, yyyy',
-                displayFormats: {
-                  day: 'MMM d',
-                  week: 'MMM d',
-                  month: 'MMM yyyy'
-                }
-              },
+              type: 'linear',
+              min: xMin - xPad,
+              max: xMax + xPad,
               ticks: {
                 autoSkip: true,
                 maxRotation: 0,
+                callback(value) {
+                  const dateKey = dateLookup.get(Math.round(Number(value)));
+                  return dateKey ? formatDate(dateKey) : '';
+                },
                 font: { size: 10 }
               },
               grid: { color: '#edf5f1' }
@@ -1263,18 +1319,19 @@
       const currentWeekEntries = getEntriesInWeek(entries, getStartOfWeek(todayISO()));
       const earliestDate = sortedEntries.length ? sortedEntries[0].date : '';
       const latestDate = sortedEntries.length ? sortedEntries[sortedEntries.length - 1].date : '';
+      const gapThreshold = getGapCompressionDays();
 
       weekLabelEl.textContent = sortedEntries.length
         ? ('Timeline: ' + formatDate(earliestDate) + ' - ' + formatDate(latestDate))
         : 'No readings yet';
 
       weekSummaryEl.textContent = sortedEntries.length
-        ? (sortedEntries.length + ' reading(s) across the full date range from ' + formatDate(earliestDate) + ' to ' + formatDate(latestDate) + '. Long gaps are displayed on a continuous time axis.')
+        ? (sortedEntries.length + ' reading(s) across the full date range from ' + formatDate(earliestDate) + ' to ' + formatDate(latestDate) + '. Large gaps longer than ' + gapThreshold + ' days are visually compressed to keep the chart readable.')
         : ('No readings yet for this date range. Use the date navigation buttons to jump to saved data.');
 
-      const systolicSeries = buildContinuousSeries(sortedEntries, 'systolic');
-      const diastolicSeries = buildContinuousSeries(entries, 'diastolic');
-      const bpmSeries = buildContinuousSeries(entries, 'bpm');
+      const systolicSeries = buildCompressedSeries(sortedEntries, 'systolic', gapThreshold);
+      const diastolicSeries = buildCompressedSeries(sortedEntries, 'diastolic', gapThreshold);
+      const bpmSeries = buildCompressedSeries(sortedEntries, 'bpm', gapThreshold);
 
       chartSystolic = upsertTimeSeriesChart(chartSystolic, 'chart-systolic', 'Systolic', '#b02a37', systolicSeries, 'mmHg', 95, 140, 6);
       chartDiastolic = upsertTimeSeriesChart(chartDiastolic, 'chart-diastolic', 'Diastolic', '#1d6fa5', diastolicSeries, 'mmHg', 60, 95, 5);
@@ -1316,6 +1373,9 @@
       currentWeekStart = target;
       render();
     }
+
+    gapThresholdInput.addEventListener('input', render);
+    gapThresholdInput.addEventListener('change', render);
 
     document.getElementById('save-btn').addEventListener('click', saveEntry);
     document.getElementById('clear-btn').addEventListener('click', clearForm);
