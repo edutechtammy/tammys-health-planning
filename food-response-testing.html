@@ -1577,6 +1577,46 @@ function normalizeCSVHeader(value){
   return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 
+function normalizeImportedDate(value){
+  const raw = String(value ?? '').trim();
+  if(!raw) return '';
+  if(/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+
+  const slashOrDash = raw.match(/^(\d{1,4})[\/\-](\d{1,2})[\/\-](\d{1,4})$/);
+  if(slashOrDash){
+    let year;
+    let month;
+    let day;
+
+    if(slashOrDash[1].length === 4){
+      year = Number(slashOrDash[1]);
+      month = Number(slashOrDash[2]);
+      day = Number(slashOrDash[3]);
+    } else if(slashOrDash[3].length === 4){
+      year = Number(slashOrDash[3]);
+      month = Number(slashOrDash[1]);
+      day = Number(slashOrDash[2]);
+    }
+
+    if(Number.isInteger(year) && Number.isInteger(month) && Number.isInteger(day)){
+      if(month >= 1 && month <= 12 && day >= 1 && day <= 31){
+        const iso = `${year.toString().padStart(4,'0')}-${month.toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
+        const d = new Date(`${iso}T00:00:00`);
+        if(Number.isFinite(d.getTime()) && d.getFullYear() === year && d.getMonth() === month - 1 && d.getDate() === day){
+          return iso;
+        }
+      }
+    }
+  }
+
+  const parsed = new Date(raw);
+  if(!Number.isFinite(parsed.getTime())) return '';
+  const y = parsed.getFullYear();
+  const m = parsed.getMonth() + 1;
+  const d = parsed.getDate();
+  return `${y.toString().padStart(4,'0')}-${m.toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`;
+}
+
 function parseNumberish(value){
   const trimmed = String(value ?? '').trim();
   if(!trimmed) return null;
@@ -1630,7 +1670,7 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
     return fallbackMode ? row[fallbackIndex] : '';
   };
 
-  const date = String(read(['date'], 0) || '').trim();
+  const date = normalizeImportedDate(read(['date'], 0));
   const food = String(read(['food', 'foodcombinationtested', 'foodcombination', 'combinationtested', 'combination', 'foodname'], 1) || '').trim();
   const catRaw = String(read(['category', 'cat'], 2) || '').trim();
   const portion = String(read(['portion', 'quantity'], 3) || '').trim();
@@ -1641,13 +1681,13 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const protein = parseNumberish(read(['protein', 'proteing', 'protein(g)'], latestWithGlFallback ? 8 : (latestWithFiberFallback ? 7 : (latestFallback ? 6 : -1))));
   const totalFat = parseNumberish(read(['totalfat', 'fat', 'totalfatg', 'fatg', 'totalfat(g)'], latestWithGlFallback ? 9 : (latestWithFiberFallback ? 8 : (latestFallback ? 7 : -1))));
   const calories = parseNumberish(read(['calories', 'kcal', 'energy', 'calorieskcal'], latestWithGlFallback ? 10 : (latestWithFiberFallback ? 9 : (latestFallback ? 8 : -1))));
-  const t0 = parseNumberish(read(['baseline', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], latestWithGlFallback ? 11 : (latestWithFiberFallback ? 10 : (latestFallback ? 9 : (newFallback ? 6 : 4)))));
+  const t0 = parseNumberish(read(['baseline', 'baselinet0', 'baseline(t=0)', 'baselinefasting', 'fastingbaseline', 't0'], latestWithGlFallback ? 11 : (latestWithFiberFallback ? 10 : (latestFallback ? 9 : (newFallback ? 6 : 4)))));
   const baselineTime = normalizeBaselineTime(read(['baselinetimeofdayampm', 'baselinetimeofday', 'baselinetime', 'timeofday', 't0time'], latestWithGlFallback ? 12 : (latestWithFiberFallback ? 11 : (latestFallback ? 10 : (newFallback ? 7 : (oldFallback ? -1 : 5))))));
-  const t30 = parseNumberish(read(['30min', 't30', 'plus30min', '30'], idx.t30));
-  const t60 = parseNumberish(read(['60min', 't60', 'plus60min', '60'], idx.t60));
-  const t120 = parseNumberish(read(['120min', 't120', 'plus120min', '120'], idx.t120));
-  const t180 = parseNumberish(read(['180min', 't180', 'plus180min', '180'], idx.t180));
-  const returnBaselineRaw = parseNumberish(read(['returntobaselineminute', 'returnbaselineminute', 'returnminute', 'returntobaseline', 'retmin'], idx.ret));
+  const t30 = parseNumberish(read(['30min', '30minoptional', 't30', 'plus30min', '30'], idx.t30));
+  const t60 = parseNumberish(read(['60min', '60minoptional', 't60', 'plus60min', '60'], idx.t60));
+  const t120 = parseNumberish(read(['120min', '120minoptional', 't120', 'plus120min', '120'], idx.t120));
+  const t180 = parseNumberish(read(['180min', '180minoptional', 't180', 'plus180min', '180'], idx.t180));
+  const returnBaselineRaw = parseNumberish(read(['returntobaselineminute', 'returntobaselineminuteif120', 'returnbaselineminute', 'returnminute', 'returntobaseline', 'retmin'], idx.ret));
   const returnBaselineMin = returnBaselineRaw != null && returnBaselineRaw > 120
     ? Math.round(returnBaselineRaw)
     : null;
@@ -1659,12 +1699,11 @@ function parseImportedTestRow(row, headerMap, fallbackMode){
   const notes = String(read(['notes', 'observations', 'notesobservations'], idx.notes) || '').trim();
   const id = String(read(['id', 'entryid'], -1) || '').trim();
 
-  const hasValidDate = !date || /^\d{4}-\d{2}-\d{2}$/.test(date);
-  if(!hasValidDate || !food || t0 == null){
+  const cat = normalizeCategory(catRaw);
+  const requiresBaseline = cat !== 'test';
+  if(!food || (requiresBaseline && t0 == null)){
     return null;
   }
-
-  const cat = normalizeCategory(catRaw);
 
   return { id, date, food, cat, portion, netCarbs, glycemicLoad, fiber, satFat, protein, totalFat, calories, t0, baselineTime, t30, t60, t120, t180, returnBaselineMin, berberine, acv, walk, activity, notes };
 }
