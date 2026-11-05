@@ -99,6 +99,19 @@
     @media(max-width:760px){.split-2{grid-template-columns:1fr}}
     @media(max-width:700px){.two-col{grid-template-columns:1fr}.week-grid{grid-template-columns:repeat(4,1fr)}}
 
+    .cardio-import-overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);display:none;align-items:center;justify-content:center;padding:1rem;z-index:2100}
+    .cardio-import-overlay.visible{display:flex}
+    .cardio-import-dialog{width:min(92vw,640px);max-height:88vh;overflow:auto;background:#fff;border:1px solid #d7e8dd;border-radius:14px;box-shadow:0 18px 46px rgba(15,23,42,.25);padding:1rem}
+    .cardio-import-title{font-size:1.05rem;font-weight:800;color:#1f4a39;margin:0 0 .6rem}
+    .cardio-import-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .cardio-import-box{border:1px solid #d8e9df;background:#f8fcfa;border-radius:10px;padding:.65rem .7rem}
+    .cardio-import-box strong{display:block;color:#234b3b;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.38rem}
+    .cardio-import-line{display:flex;justify-content:space-between;gap:.65rem;font-size:.84rem;color:#37574b;margin:.18rem 0}
+    .cardio-import-line span:first-child{color:#4f6d62}
+    .cardio-import-actions{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:flex-end;margin-top:.8rem}
+    .cardio-import-actions .btn{font-size:.84rem}
+    @media(max-width:720px){.cardio-import-grid{grid-template-columns:1fr}}
+
     /* EXERCISE ILLUSTRATION SLIDESHOW */
   .exercise-slideshow{border:1px solid var(--border);border-radius:12px;background:#f8fdf9;padding:.8rem}
   .exercise-slide-header{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:.55rem}
@@ -407,8 +420,10 @@
           <button class="btn primary" id="cardio-save-btn" type="button">Save Session</button>
           <button class="btn" id="cardio-clear-btn" type="button">Clear Form</button>
           <button class="btn" id="cardio-cancel-edit-btn" type="button" style="display:none">Cancel Edit</button>
-          <button class="btn" id="cardio-load-starter-btn" type="button">Load Nov 2-3 Starter Data</button>
           <button class="btn" id="cardio-export-btn" type="button">Export Cardio CSV</button>
+          <button class="btn" id="cardio-export-json-btn" type="button">Export Cardio JSON</button>
+          <button class="btn" id="cardio-import-json-btn" type="button">Import Cardio JSON</button>
+          <input id="cardio-import-json-file" type="file" accept=".json,application/json" hidden />
         </div>
         <div class="tracker-status" id="cardio-status"></div>
 
@@ -566,42 +581,42 @@
       <a class="btn primary" href="resistance.html">Go to Resistance page →</a>
       <a class="btn" href="exercise-protocol.html">Back to Exercise hub</a>
     </div>
+
+    <div class="cardio-import-overlay" id="cardio-import-overlay" aria-hidden="true">
+      <div class="cardio-import-dialog" role="dialog" aria-modal="true" aria-labelledby="cardio-import-title">
+        <h3 class="cardio-import-title" id="cardio-import-title">Cardio Import Preview</h3>
+        <div class="cardio-import-grid">
+          <div class="cardio-import-box" id="cardio-import-source-box">
+            <strong>File Quality</strong>
+            <div class="cardio-import-line"><span>Rows read</span><span id="cardio-import-rows-read">0</span></div>
+            <div class="cardio-import-line"><span>Valid rows</span><span id="cardio-import-valid-rows">0</span></div>
+            <div class="cardio-import-line"><span>Skipped invalid</span><span id="cardio-import-invalid-rows">0</span></div>
+            <div class="cardio-import-line"><span>Skipped duplicates</span><span id="cardio-import-duplicate-rows">0</span></div>
+          </div>
+          <div class="cardio-import-box" id="cardio-import-merge-box">
+            <strong>Merge Impact</strong>
+            <div class="cardio-import-line"><span>New</span><span id="cardio-import-new-count">0</span></div>
+            <div class="cardio-import-line"><span>Replaced</span><span id="cardio-import-replaced-count">0</span></div>
+            <div class="cardio-import-line"><span>Unchanged</span><span id="cardio-import-unchanged-count">0</span></div>
+            <div class="cardio-import-line"><span>Final merged total</span><span id="cardio-import-merge-total">0</span></div>
+          </div>
+          <div class="cardio-import-box" id="cardio-import-replace-box">
+            <strong>Replace Impact</strong>
+            <div class="cardio-import-line"><span>Imported sessions to keep</span><span id="cardio-import-keep-count">0</span></div>
+            <div class="cardio-import-line"><span>Existing sessions removed</span><span id="cardio-import-remove-count">0</span></div>
+          </div>
+        </div>
+        <div class="cardio-import-actions">
+          <button class="btn" type="button" id="cardio-import-cancel-action">Cancel</button>
+          <button class="btn" type="button" id="cardio-import-replace-action">Replace All</button>
+          <button class="btn primary" type="button" id="cardio-import-merge-action">Merge</button>
+        </div>
+      </div>
+    </div>
   </main>
   <script>
     const CARDIO_TRACKER_STORAGE_KEY='tammys_cardio_hr_tracker_v1';
-    const CARDIO_STARTER_STORAGE_KEY='tammys_cardio_hr_tracker_starter_loaded_v1';
-    const CARDIO_SAMPLE_SESSIONS=[
-      {
-        date:'2026-11-02',
-        name:'Recovery Walk',
-        speedMph:1.6,
-        inclinePct:4,
-        durationMin:20,
-        startHr:70,
-        intervals:[
-          {minute:2,bpm:83},{minute:4,bpm:103},{minute:6,bpm:108},{minute:8,bpm:100},{minute:10,bpm:114},
-          {minute:12,bpm:104},{minute:14,bpm:94},{minute:16,bpm:105},{minute:18,bpm:94},{minute:20,bpm:105}
-        ],
-        postStop:[],
-        notes:'No post-stop readings captured this day.'
-      },
-      {
-        date:'2026-11-03',
-        name:'Recovery Walk',
-        speedMph:1.6,
-        inclinePct:4,
-        durationMin:20,
-        startHr:70,
-        intervals:[
-          {minute:2,bpm:120},{minute:4,bpm:102},{minute:6,bpm:83},{minute:8,bpm:81},{minute:10,bpm:92},
-          {minute:12,bpm:103},{minute:14,bpm:null},{minute:18,bpm:89},{minute:20,bpm:89}
-        ],
-        postStop:[
-          {minute:1,bpm:80},{minute:2,bpm:76},{minute:3,bpm:76}
-        ],
-        notes:'Missed minute 14 under-load reading.'
-      }
-    ];
+    const CARDIO_EXPORT_VERSION=1;
 
     let cardioEditingId=null;
 
@@ -619,6 +634,48 @@
       showCardioStatus._timer=window.setTimeout(()=>{
         if(el.textContent===message) el.textContent='';
       },2400);
+    }
+
+    let cardioImportModalResolver=null;
+
+    function closeCardioImportModal(choice){
+      const overlay=document.getElementById('cardio-import-overlay');
+      if(overlay){
+        overlay.classList.remove('visible');
+        overlay.setAttribute('aria-hidden','true');
+      }
+      if(cardioImportModalResolver){
+        cardioImportModalResolver(choice||'cancel');
+        cardioImportModalResolver=null;
+      }
+    }
+
+    function showCardioImportModal(parsedImport,mergePreview,existingCount,incomingCount){
+      const overlay=document.getElementById('cardio-import-overlay');
+      if(!overlay) return Promise.resolve('cancel');
+
+      const bind=(id,value)=>{
+        const el=document.getElementById(id);
+        if(el) el.textContent=String(value);
+      };
+
+      bind('cardio-import-rows-read',parsedImport.rowsRead);
+      bind('cardio-import-valid-rows',parsedImport.validRows);
+      bind('cardio-import-invalid-rows',parsedImport.invalidRows);
+      bind('cardio-import-duplicate-rows',parsedImport.duplicateRows);
+      bind('cardio-import-new-count',mergePreview.newCount);
+      bind('cardio-import-replaced-count',mergePreview.replacedCount);
+      bind('cardio-import-unchanged-count',mergePreview.unchangedCount);
+      bind('cardio-import-merge-total',mergePreview.mergeTotal);
+      bind('cardio-import-keep-count',incomingCount);
+      bind('cardio-import-remove-count',existingCount);
+
+      overlay.classList.add('visible');
+      overlay.setAttribute('aria-hidden','false');
+
+      return new Promise(resolve=>{
+        cardioImportModalResolver=resolve;
+      });
     }
 
     function asNumber(value){
@@ -985,17 +1042,250 @@
       showCardioStatus('Cardio CSV exported.');
     }
 
-    function seedStarterSessions(){
-      if(!window.confirm('Load starter sessions for Nov 2 and Nov 3, 2026? Existing sessions with the same date and load will be replaced.')) return;
+    function cardioSessionFingerprint(session){
+      return [
+        normalizeDateOnly(session.date),
+        normalizeTimeOnly(session.sessionTime),
+        String(session.name||'').trim().toLowerCase(),
+        Number(session.speedMph||0).toFixed(2),
+        Number(session.inclinePct||0).toFixed(2),
+        Number(session.durationMin||0).toFixed(0),
+        Number(session.startHr||0).toFixed(0),
+        formatMinuteBpmList(session.intervals),
+        formatMinuteBpmList(session.postStop)
+      ].join('|');
+    }
+
+    function buildCardioExportPayload(sessions){
+      return {
+        version:CARDIO_EXPORT_VERSION,
+        exportedAt:new Date().toISOString(),
+        storageKey:CARDIO_TRACKER_STORAGE_KEY,
+        sessions
+      };
+    }
+
+    function exportCardioJson(){
       const sessions=loadCardioSessions();
-      const samples=CARDIO_SAMPLE_SESSIONS.map(normalizeSession).filter(Boolean);
-      const sampleKeys=new Set(samples.map(item=>item.date+'|'+toLoadKey(item)));
-      const remaining=sessions.filter(item=>!sampleKeys.has(item.date+'|'+toLoadKey(item)));
-      const merged=remaining.concat(samples).sort(compareSessionsAsc);
-      saveCardioSessions(merged);
-      localStorage.setItem(CARDIO_STARTER_STORAGE_KEY,'1');
-      renderCardioTracker();
-      showCardioStatus('Starter sessions loaded.');
+      if(!sessions.length){
+        showCardioStatus('No sessions to export yet.');
+        return;
+      }
+      const payload=buildCardioExportPayload(sessions);
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8;'});
+      const url=URL.createObjectURL(blob);
+      const link=document.createElement('a');
+      link.href=url;
+      link.download='cardio-hr-tracker-backup-'+trackerTodayISO()+'.json';
+      link.click();
+      URL.revokeObjectURL(url);
+      showCardioStatus('Cardio JSON exported.');
+    }
+
+    function parseCardioImportPayload(payload){
+      const source=Array.isArray(payload)
+        ? payload
+        : (payload&&typeof payload==='object'&&Array.isArray(payload.sessions)?payload.sessions:null);
+
+      if(!source){
+        return {
+          rowsRead:0,
+          validRows:0,
+          duplicateRows:0,
+          invalidRows:0,
+          sessions:[]
+        };
+      }
+
+      const normalized=source.map(normalizeSession).filter(Boolean);
+      const deduped=[];
+      const seenById=new Set();
+      const seenByFingerprint=new Set();
+
+      normalized.forEach(session=>{
+        const fingerprint=cardioSessionFingerprint(session);
+        if(seenById.has(session.id)||seenByFingerprint.has(fingerprint)) return;
+        seenById.add(session.id);
+        seenByFingerprint.add(fingerprint);
+        deduped.push(session);
+      });
+
+      return {
+        rowsRead:source.length,
+        validRows:normalized.length,
+        duplicateRows:normalized.length-deduped.length,
+        invalidRows:source.length-normalized.length,
+        sessions:deduped.sort(compareSessionsAsc)
+      };
+    }
+
+    function toCardioSessionComparable(session){
+      const normalized=normalizeSession(session);
+      if(!normalized) return '';
+      return JSON.stringify({
+        date:normalized.date,
+        name:normalized.name,
+        speedMph:normalized.speedMph,
+        inclinePct:normalized.inclinePct,
+        durationMin:normalized.durationMin,
+        sessionTime:normalizeTimeOnly(normalized.sessionTime),
+        startHr:normalized.startHr,
+        intervals:normalized.intervals,
+        postStop:normalized.postStop,
+        notes:normalized.notes
+      });
+    }
+
+    function getCardioMergePreview(existingSessions,incomingSessions){
+      const existing=(Array.isArray(existingSessions)?existingSessions:[]).map(normalizeSession).filter(Boolean);
+      const incoming=(Array.isArray(incomingSessions)?incomingSessions:[]).map(normalizeSession).filter(Boolean);
+      const byId=new Map();
+      const byFingerprint=new Map();
+
+      existing.forEach(session=>{
+        byId.set(session.id,session);
+        byFingerprint.set(cardioSessionFingerprint(session),session);
+      });
+
+      let newCount=0;
+      let replacedCount=0;
+      let unchangedCount=0;
+
+      incoming.forEach(session=>{
+        const idMatch=byId.get(session.id);
+        if(idMatch){
+          if(toCardioSessionComparable(idMatch)===toCardioSessionComparable(session)){
+            unchangedCount+=1;
+          }else{
+            replacedCount+=1;
+          }
+          return;
+        }
+
+        const fingerprintMatch=byFingerprint.get(cardioSessionFingerprint(session));
+        if(fingerprintMatch){
+          if(toCardioSessionComparable(fingerprintMatch)===toCardioSessionComparable(session)){
+            unchangedCount+=1;
+          }else{
+            replacedCount+=1;
+          }
+          return;
+        }
+
+        newCount+=1;
+      });
+
+      return {
+        newCount,
+        replacedCount,
+        unchangedCount,
+        mergeTotal:existing.length+newCount
+      };
+    }
+
+    function mergeCardioSessions(existingSessions,incomingSessions){
+      const merged=(Array.isArray(existingSessions)?existingSessions:[]).map(normalizeSession).filter(Boolean);
+      const incoming=(Array.isArray(incomingSessions)?incomingSessions:[]).map(normalizeSession).filter(Boolean);
+
+      const indexById=new Map();
+      const indexByFingerprint=new Map();
+      merged.forEach((session,index)=>{
+        indexById.set(session.id,index);
+        indexByFingerprint.set(cardioSessionFingerprint(session),index);
+      });
+
+      incoming.forEach(session=>{
+        const fingerprint=cardioSessionFingerprint(session);
+        if(indexById.has(session.id)){
+          const idx=indexById.get(session.id);
+          merged[idx]=session;
+          indexByFingerprint.set(fingerprint,idx);
+          return;
+        }
+        if(indexByFingerprint.has(fingerprint)){
+          const idx=indexByFingerprint.get(fingerprint);
+          const preservedId=String(merged[idx]?.id||session.id);
+          merged[idx]={...session,id:preservedId};
+          indexById.set(preservedId,idx);
+          indexByFingerprint.set(fingerprint,idx);
+          return;
+        }
+        merged.push(session);
+        const idx=merged.length-1;
+        indexById.set(session.id,idx);
+        indexByFingerprint.set(fingerprint,idx);
+      });
+
+      return merged.sort(compareSessionsAsc);
+    }
+
+    async function importCardioJsonFile(file){
+      if(!file) return;
+
+      const reader=new FileReader();
+      reader.onload=async event=>{
+        try{
+          const text=String(event.target?.result||'').trim();
+          if(!text){
+            showCardioStatus('Import file is empty.');
+            return;
+          }
+
+          const parsed=JSON.parse(text);
+          const parsedImport=parseCardioImportPayload(parsed);
+          const incomingSessions=parsedImport.sessions;
+          if(!incomingSessions.length){
+            showCardioStatus('No valid cardio sessions found in file.');
+            return;
+          }
+
+          const existingSessions=loadCardioSessions();
+          const mergePreview=getCardioMergePreview(existingSessions,incomingSessions);
+          let nextSessions=[];
+          let mode='imported';
+
+          if(!existingSessions.length){
+            nextSessions=incomingSessions;
+          }else{
+            const choice=await showCardioImportModal(
+              parsedImport,
+              mergePreview,
+              existingSessions.length,
+              incomingSessions.length
+            );
+
+            if(choice==='merge'){
+              nextSessions=mergeCardioSessions(existingSessions,incomingSessions);
+              mode='merged';
+            }else if(choice==='replace'){
+              nextSessions=incomingSessions;
+              mode='replaced';
+            }else{
+              showCardioStatus('Cardio import cancelled.');
+              return;
+            }
+          }
+
+          saveCardioSessions(nextSessions);
+          cardioEditingId=null;
+          clearCardioForm();
+          renderCardioTracker();
+
+          const importedCount=incomingSessions.length;
+          const totalCount=nextSessions.length;
+          if(mode==='merged'){
+            showCardioStatus('Imported '+importedCount+' session'+(importedCount===1?'':'s')+'. Total: '+totalCount+'.');
+          }else if(mode==='replaced'){
+            showCardioStatus('Replaced data with '+totalCount+' imported session'+(totalCount===1?'':'s')+'.');
+          }else{
+            showCardioStatus('Imported '+totalCount+' session'+(totalCount===1?'':'s')+'.');
+          }
+        }catch{
+          showCardioStatus('Could not parse cardio JSON file.');
+        }
+      };
+
+      reader.readAsText(file);
     }
 
     function renderLoadFilter(sessions){
@@ -1320,6 +1610,26 @@
       const dateEl=document.getElementById('cardio-date');
       if(dateEl&&!dateEl.value) dateEl.value=trackerTodayISO();
 
+      const importOverlay=document.getElementById('cardio-import-overlay');
+      if(importOverlay){
+        importOverlay.addEventListener('click',event=>{
+          if(event.target===importOverlay) closeCardioImportModal('cancel');
+        });
+      }
+      const mergeActionBtn=document.getElementById('cardio-import-merge-action');
+      if(mergeActionBtn) mergeActionBtn.addEventListener('click',()=>closeCardioImportModal('merge'));
+      const replaceActionBtn=document.getElementById('cardio-import-replace-action');
+      if(replaceActionBtn) replaceActionBtn.addEventListener('click',()=>closeCardioImportModal('replace'));
+      const cancelActionBtn=document.getElementById('cardio-import-cancel-action');
+      if(cancelActionBtn) cancelActionBtn.addEventListener('click',()=>closeCardioImportModal('cancel'));
+
+      document.addEventListener('keydown',event=>{
+        if(event.key==='Escape'){
+          const overlay=document.getElementById('cardio-import-overlay');
+          if(overlay&&overlay.classList.contains('visible')) closeCardioImportModal('cancel');
+        }
+      });
+
       const saveBtn=document.getElementById('cardio-save-btn');
       if(saveBtn) saveBtn.addEventListener('click',upsertCardioSession);
 
@@ -1333,11 +1643,22 @@
         showCardioStatus('Edit cancelled.');
       });
 
-      const starterBtn=document.getElementById('cardio-load-starter-btn');
-      if(starterBtn) starterBtn.addEventListener('click',seedStarterSessions);
-
       const exportBtn=document.getElementById('cardio-export-btn');
       if(exportBtn) exportBtn.addEventListener('click',exportCardioCsv);
+
+      const exportJsonBtn=document.getElementById('cardio-export-json-btn');
+      if(exportJsonBtn) exportJsonBtn.addEventListener('click',exportCardioJson);
+
+      const importJsonBtn=document.getElementById('cardio-import-json-btn');
+      const importJsonFile=document.getElementById('cardio-import-json-file');
+      if(importJsonBtn&&importJsonFile){
+        importJsonBtn.addEventListener('click',()=>importJsonFile.click());
+        importJsonFile.addEventListener('change',event=>{
+          const file=event.target?.files?.[0];
+          importCardioJsonFile(file);
+          importJsonFile.value='';
+        });
+      }
 
       const loadFilter=document.getElementById('cardio-load-filter');
       if(loadFilter) loadFilter.addEventListener('change',renderCardioTracker);

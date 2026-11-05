@@ -1,0 +1,461 @@
+{
+  "version": 1,
+  "exportedAt": "2026-11-05T12:59:05.861Z",
+  "entries": [
+    {
+      "id": "1779046164339",
+      "date": "2026-03-02",
+      "testId": "hba1c",
+      "value": "6.7",
+      "notes": "9 mm Kidney stone caused a backup into kidney with potential infection due to high fever"
+    },
+    {
+      "id": "1779046291977",
+      "date": "2025-11-25",
+      "testId": "hba1c",
+      "value": "6.7",
+      "notes": "this was during the Klebsiella pneumonia office visit."
+    },
+    {
+      "id": "1779046345973",
+      "date": "2025-01-28",
+      "testId": "hba1c",
+      "value": "6.6",
+      "notes": "positive for pneumonia and Covid"
+    },
+    {
+      "id": "1779046494378",
+      "date": "2021-09-01",
+      "testId": "serum-b12",
+      "value": "489",
+      "notes": "Potential stroke - Left side index finger and thumb, and half of face numb including hlf of tongue. Finger numbness resolved in a week. Facial numbness resolved in 1 to 2 months with the half of the tongue taking the longest to resolve."
+    },
+    {
+      "id": "1779046590081",
+      "date": "2026-03-02",
+      "testId": "serum-b12",
+      "value": "1014",
+      "notes": "9 mm Kidney stone caused a backup into kidney with potential infection due to high fever"
+    },
+    {
+      "id": "1779046669638",
+      "date": "2026-03-02",
+      "testId": "triglycerides",
+      "value": "326",
+      "notes": "9 mm Kidney stone caused a backup into kidney with potential infection due to high fever"
+    },
+    {
+      "id": "1779046746902",
+      "date": "2025-11-26",
+      "testId": "triglycerides",
+      "value": "271",
+      "notes": "this was during the Klebsiella pneumonia office visit."
+    },
+    {
+      "id": "1779046799514",
+      "date": "2025-01-28",
+      "testId": "triglycerides",
+      "value": "141",
+      "notes": "positive for pneumonia and Covid"
+    },
+    {
+      "id": "1779046892833",
+      "date": "2021-09-01",
+      "testId": "hba1c",
+      "value": "6.6",
+      "notes": "Potential stroke - Left side index finger and thumb, and half of face numb including hlf of tongue. Finger numbness resolved in a week. Facial numbness resolved in 1 to 2 months with the half of the tongue taking the longest to resolve."
+    },
+    {
+      "id": "1779046953125",
+      "date": "2021-09-21",
+      "testId": "triglycerides",
+      "value": "249",
+      "notes": "Potential stroke - Left side index finger and thumb, and half of face numb including hlf of tongue. Finger numbness resolved in a week. Facial numbness resolved in 1 to 2 months with the half of the tongue taking the longest to resolve."
+    },
+    {
+      "id": "1779047007657",
+      "date": "2014-07-18",
+      "testId": "triglycerides",
+      "value": "127",
+      "notes": "This was the first visit with Fox. It was a day or two aftger I busted my head open."
+    },
+    {
+      "id": "1779047211309",
+      "date": "2026-03-02",
+      "testId": "ldl",
+      "value": "125",
+      "notes": "9 mm Kidney stone caused a backup into kidney with potential infection due to high fever"
+    },
+    {
+      "id": "1779047340461",
+      "date": "2021-09-01",
+      "testId": "ldl",
+      "value": "153",
+      "notes": "Potential stroke - Left side index finger and thumb, and half of face numb including hlf of tongue. Finger numbness resolved in a week. Facial numbness resolved in 1 to 2 months with the half of the tongue taking the longest to resolve."
+    },
+    {
+      "id": "1779047393264",
+      "date": "2021-09-01",
+      "testId": "hdl",
+      "value": "51",
+      "notes": "Potential stroke - Left side index finger and thumb, and half of face numb including hlf of tongue. Finger numbness resolved in a week. Facial numbness resolved in 1 to 2 months with the half of the tongue taking the longest to resolve."
+    },
+    {
+      "id": "1779047554560",
+      "date": "2025-11-26",
+      "testId": "ldl",
+      "value": "146",
+      "notes": "this was during the Klebsiella pneumonia office visit."
+    },
+    {
+      "id": "1779047618284",
+      "date": "2025-01-28",
+      "testId": "ldl",
+      "value": "148",
+      "notes": "positive for pneumonia and Covid"
+    },
+    {
+      "id": "1779047710012",
+      "date": "2014-07-18",
+      "testId": "ldl",
+      "value": "162",
+      "notes": "This was the first visit with Fox. It was a day or two aftger I busted my head open."
+    },
+    {
+      "id": "1779047968191",
+      "date": "2014-07-18",
+      "testId": "hdl",
+      "value": "55",
+      "notes": "This was the first visit with Fox. It was a day or two aftger I busted my head open."
+    },
+    {
+      "id": "1779049425432",
+      "date": "2026-03-02",
+      "testId": "hdl",
+      "value": "43",
+      "notes": "9 mm Kidney stone caused a backup into kidney with potential infection due to high fever"
+    },
+    {
+      "id": "1779049477781",
+      "date": "2025-11-26",
+      "testId": "hdl",
+      "value": "48",
+      "notes": "this was during the Klebsiella pneumonia office visit."
+    },
+    {
+      "id": "1779049535276",
+      "date": "2025-01-28",
+      "testId": "hdl",
+      "value": "43",
+      "notes": "positive for pneumonia and Covid"
+    },
+    {
+      "id": "1779379030747",
+      "date": "2025-11-25",
+      "testId": "urine-culture",
+      "value": "Klebsiella pnuemonia",
+      "notes": "Klebsiela pneumonia organism was the cause of the bladder infection. I was given cipro."
+    },
+    {
+      "id": "1779379241104",
+      "date": "2026-03-02",
+      "testId": "serum-calcium",
+      "value": "10.0",
+      "notes": "9 mm Kidney stone caused a backup into kidney with potential infection due to high fever"
+    },
+    {
+      "id": "1779828430460",
+      "date": "2026-05-26",
+      "testId": "hba1c",
+      "value": "6.8",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1779828542731",
+      "date": "2026-05-26",
+      "testId": "hscrp",
+      "value": "5.63",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1779828703966",
+      "date": "2026-05-26",
+      "testId": "triglycerides",
+      "value": "259",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1779828789221",
+      "date": "2026-05-26",
+      "testId": "hdl",
+      "value": "48",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1779828826920",
+      "date": "2026-05-26",
+      "testId": "ldl",
+      "value": "170",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1779829562642",
+      "date": "2026-05-26",
+      "testId": "ptau-blood",
+      "value": "0.10",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1780098774345",
+      "date": "2026-05-29",
+      "testId": "tg-hdl-ratio",
+      "value": "5.4",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1792759157402",
+      "date": "2014-07-17",
+      "testId": "weight",
+      "value": "234",
+      "notes": "This was the first visit with Fox. It was a day or two aftger I busted my head open."
+    },
+    {
+      "id": "1792759223766",
+      "date": "2021-08-13",
+      "testId": "weight",
+      "value": "240",
+      "notes": ""
+    },
+    {
+      "id": "1792759314170",
+      "date": "2021-09-16",
+      "testId": "weight",
+      "value": "236",
+      "notes": ""
+    },
+    {
+      "id": "1792759368224",
+      "date": "2022-01-25",
+      "testId": "weight",
+      "value": "214",
+      "notes": ""
+    },
+    {
+      "id": "1792759410022",
+      "date": "2025-01-27",
+      "testId": "weight",
+      "value": "227.8",
+      "notes": ""
+    },
+    {
+      "id": "1792759455136",
+      "date": "2025-11-25",
+      "testId": "weight",
+      "value": "238",
+      "notes": ""
+    },
+    {
+      "id": "1792759490698",
+      "date": "2025-12-02",
+      "testId": "weight",
+      "value": "237",
+      "notes": ""
+    },
+    {
+      "id": "1792759532732",
+      "date": "2026-03-02",
+      "testId": "weight",
+      "value": "235.4",
+      "notes": ""
+    },
+    {
+      "id": "1792759561423",
+      "date": "2026-04-27",
+      "testId": "weight",
+      "value": "231.4",
+      "notes": "Just a follow up appointment. Finally, an appointment where I did not go in sick with anything."
+    },
+    {
+      "id": "1792760869770",
+      "date": "2014-07-17",
+      "testId": "blood-pressure",
+      "value": "134/82",
+      "notes": "This was the first visit with Fox. It was a day or two aftger I busted my head open."
+    },
+    {
+      "id": "1792760936452",
+      "date": "2021-08-31",
+      "testId": "blood-pressure",
+      "value": "130/78",
+      "notes": ""
+    },
+    {
+      "id": "1792761019710",
+      "date": "2021-09-16",
+      "testId": "blood-pressure",
+      "value": "134/82",
+      "notes": ""
+    },
+    {
+      "id": "1792761110898",
+      "date": "2022-01-25",
+      "testId": "blood-pressure",
+      "value": "132/82",
+      "notes": ""
+    },
+    {
+      "id": "1792761216091",
+      "date": "2025-11-25",
+      "testId": "blood-pressure",
+      "value": "138/86",
+      "notes": ""
+    },
+    {
+      "id": "1792761253566",
+      "date": "2025-12-22",
+      "testId": "blood-pressure",
+      "value": "134/80",
+      "notes": ""
+    },
+    {
+      "id": "1792761293369",
+      "date": "2026-03-02",
+      "testId": "blood-pressure",
+      "value": "136/80",
+      "notes": ""
+    },
+    {
+      "id": "1792761334788",
+      "date": "2026-04-27",
+      "testId": "blood-pressure",
+      "value": "108/68",
+      "notes": "Just a follow up appointment. Finally, an appointment where I did not go in sick with anything."
+    },
+    {
+      "id": "1792761736392",
+      "date": "2026-04-27",
+      "testId": "heart-rate",
+      "value": "89",
+      "notes": ""
+    },
+    {
+      "id": "1792761777376",
+      "date": "2026-03-02",
+      "testId": "heart-rate",
+      "value": "75",
+      "notes": ""
+    },
+    {
+      "id": "1792761837455",
+      "date": "2025-12-02",
+      "testId": "heart-rate",
+      "value": "73",
+      "notes": ""
+    },
+    {
+      "id": "1792762246588",
+      "date": "2026-04-27",
+      "testId": "oxygen-saturation",
+      "value": "97",
+      "notes": ""
+    },
+    {
+      "id": "1792762550821",
+      "date": "2026-03-02",
+      "testId": "oxygen-saturation",
+      "value": "98",
+      "notes": ""
+    },
+    {
+      "id": "1792762611843",
+      "date": "2025-12-02",
+      "testId": "oxygen-saturation",
+      "value": "97",
+      "notes": ""
+    },
+    {
+      "id": "1792776115347",
+      "date": "2014-07-17",
+      "testId": "heart-rate",
+      "value": "76",
+      "notes": ""
+    },
+    {
+      "id": "1792776171877",
+      "date": "2014-07-17",
+      "testId": "oxygen-saturation",
+      "value": "97",
+      "notes": ""
+    },
+    {
+      "id": "1792776290580",
+      "date": "2021-09-16",
+      "testId": "heart-rate",
+      "value": "76",
+      "notes": ""
+    },
+    {
+      "id": "1792776332752",
+      "date": "2021-09-16",
+      "testId": "oxygen-saturation",
+      "value": "98",
+      "notes": ""
+    },
+    {
+      "id": "1792776636605",
+      "date": "2022-01-25",
+      "testId": "heart-rate",
+      "value": "81",
+      "notes": ""
+    },
+    {
+      "id": "1792776672844",
+      "date": "2022-01-25",
+      "testId": "oxygen-saturation",
+      "value": "98",
+      "notes": ""
+    },
+    {
+      "id": "1792781018113",
+      "date": "2026-03-02",
+      "testId": "mch",
+      "value": "32.1",
+      "notes": "Kidney stone"
+    },
+    {
+      "id": "1792781073465",
+      "date": "2025-11-25",
+      "testId": "mch",
+      "value": "36.0",
+      "notes": "Klebsiella pnuemonia based bladder infection"
+    },
+    {
+      "id": "1792781221477",
+      "date": "2025-01-27",
+      "testId": "mch",
+      "value": "31.2",
+      "notes": "positive for pneumonia and Covid"
+    },
+    {
+      "id": "1792781270461",
+      "date": "2021-08-31",
+      "testId": "mch",
+      "value": "30.6",
+      "notes": "Potential stroke"
+    },
+    {
+      "id": "1792782916543",
+      "date": "2026-05-18",
+      "testId": "ast-alt-ratio",
+      "value": "18/20",
+      "notes": "Care Access"
+    },
+    {
+      "id": "1792783242451",
+      "date": "2026-05-18",
+      "testId": "alp",
+      "value": "88",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "exportedAt": "2026-11-05T14:06:41.499Z",
+  "data": {
+    "trainingNotes": "Current routine: Goblet Swuate or Leg Press, Romanian Deadlift, Dumbbell Floor Press, Bent-Over Dumbell Row, and Monster Walk\n\nContinue the routine for 4 weeks. You will be ready for a refresh at the end of November.\n\nTo determine the appropriate dumbbell weight for your exercises, you want to find a load where you can perform your target rep range (typically 10–12 reps for your current routine) with a challenging, controlled effort while maintaining strict form.\n\nSpecifically, this relies on finding a weight that aligns with roughly 80% of your 1-Rep Max (1RM) capability, or more practically for home workouts, a weight where your last 2–3 reps in a set feel very difficult while keeping your technique clean. If you can easily complete more reps than your target range with good form, the weight is too light; if your form breaks down before hitting the minimum reps, it's too heavy.\n\nDone. When the vest is logged, a second gentle_walk_vest profile stacks on top of the base walk profile, adding:\n\nMuscle\tBase walk\t+ Vest boost\tCombined\nCalves\t6\t                  +3\t                   9\nQuads\t5\t                  +2\t                   7\nGlutes\t4\t                 +2\t                   6\nHip flexors\t3\t         +1\t                   4\nCore\t2\t                 +2\t                   4\nSpinal erectors\t—\t+2\t                   2\n\nThe erectors are a new addition — the vest sits on the torso and the postural muscles work harder to keep you upright under that extra load.\n\nGlutes Bridge\nGlute Bridges (Core & Posterior Chain Support)\nHow to do it: Lie on your back on the firm twin mattress with your knees bent and feet flat, arms resting by your sides. Squeeze your glutes and push through your heels to lift your hips toward the ceiling until your body forms a straight line from shoulders to knees. Hold for 2 seconds, then slowly lower.\n- Why it helps: It reinforces your glutes and lower back without straining your neck or putting pressure on your abdomen.\n\n2. Modified Bird-Dog (Deep Core & Spinal Stability)\nHow to do it: Start on your hands and knees on the mattress. Keeping your core braced and your back flat, slowly extend your right arm forward and your left leg straight back. Hold for a couple of seconds, return to the start, and switch sides.\n- Why it helps: This builds foundational core stability and protects your spine without requiring you to get down on a hard floor.\n\n3. Supine Dead Bugs (Low-Impact Core Control)\nHow to do it: Lie on your back with your knees bent at a 90-degree angle floating above your hips, and your arms extended straight up toward the ceiling. Slowly lower your right arm backward toward the mattress while straightening your left leg just above the surface (only go as low as you can without your lower back arching off the mattress). Return to the center and switch sides.\n- Why it helps: It safely teaches your core to brace while your limbs move, avoiding neck strain entirely.\n",
+    "dumbbellLoads": {
+      "goblet_squat": 21,
+      "dumbbell_floor_press": 5.5,
+      "romanian_deadlift": 11,
+      "bentover_dumbbell_row": 11,
+      "forearm_curl": 5.5
+    },
+    "loadUnit": "lb",
+    "walkDistanceUnit": "mi",
+    "weeklyLog": {
+      "2026-W44": {
+        "mon": [],
+        "tue": [
+          {
+            "id": "1793145539032-eee043",
+            "exerciseId": "monster_walk",
+            "name": "Monster Walk",
+            "addedAt": "2026-10-27T23:58:59.032Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793152646197-f474f3",
+            "exerciseId": "goblet_squat",
+            "name": "Goblet Squat or Leg Press",
+            "load": 21,
+            "addedAt": "2026-10-28T01:57:26.197Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793153290702-e550a1",
+            "exerciseId": "dumbbell_floor_press",
+            "name": "Dumbbell Floor Press (or Push-ups)",
+            "load": 5.5,
+            "addedAt": "2026-10-28T02:08:10.702Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793153528126-aef638",
+            "exerciseId": "romanian_deadlift",
+            "name": "Romanian Deadlift",
+            "load": 11,
+            "addedAt": "2026-10-28T02:12:08.126Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793198935996-305f5d",
+            "exerciseId": "bentover_dumbbell_row",
+            "name": "Bent-Over Dumbbell Row (Dumbbells)",
+            "load": 11,
+            "addedAt": "2026-10-28T14:48:55.996Z",
+            "affectsMuscleMap": false
+          }
+        ],
+        "wed": [
+          {
+            "id": "1793197085112-e251d4",
+            "exerciseId": "gentle_walk",
+            "name": "Gentle Walk",
+            "load": 20,
+            "addedAt": "2026-10-28T14:18:05.112Z",
+            "distance": 2.5,
+            "distanceUnit": "mi",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793229920982-eebbca",
+            "exerciseId": "monster_walk",
+            "name": "Monster Walk",
+            "load": null,
+            "addedAt": "2026-10-28T23:25:20.982Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793230424991-400995",
+            "exerciseId": "goblet_squat",
+            "name": "Goblet Squat or Leg Press",
+            "load": 21,
+            "addedAt": "2026-10-28T23:33:44.991Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793231179429-dfd7cb",
+            "exerciseId": "dumbbell_floor_press",
+            "name": "Dumbbell Floor Press (or Push-ups)",
+            "load": 5.5,
+            "addedAt": "2026-10-28T23:46:19.430Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793242030817-83c2a7",
+            "exerciseId": "glute_bridge",
+            "name": "Glute Bridge",
+            "load": null,
+            "addedAt": "2026-10-29T02:47:10.817Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793242759094-6871ff",
+            "exerciseId": "dead_bug",
+            "name": "Dead Bug",
+            "load": null,
+            "addedAt": "2026-10-29T02:59:19.094Z",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793243320216-784fdc",
+            "exerciseId": "knee_marches",
+            "name": "Knee Marches",
+            "load": null,
+            "addedAt": "2026-10-29T03:08:40.216Z",
+            "affectsMuscleMap": false
+          }
+        ],
+        "thu": [
+          {
+            "id": "1793286229807-dfafee",
+            "exerciseId": "gentle_walk",
+            "name": "Gentle Walk",
+            "load": null,
+            "addedAt": "2026-10-29T15:03:49.807Z",
+            "distance": 1,
+            "distanceUnit": "mi",
+            "affectsMuscleMap": false
+          },
+          {
+            "id": "1793289711446-3bd695",
+            "exerciseId": "forearm_curl",
+            "name": "Dumbbell Forearm Curl",
+            "load": 5.5,
+            "addedAt": "2026-10-29T16:01:51.446Z",
+            "affectsMuscleMap": false
+          }
+        ],
+        "fri": [],
+        "sat": [],
+        "sun": []
+      },
+      "2026-W45": {
+        "mon": [
+          {
+            "id": "1793679116858-4fda98",
+            "exerciseId": "gentle_walk",
+            "name": "Gentle Walk",
+            "load": null,
+            "affectsMuscleMap": true,
+            "addedAt": "2026-11-03T04:11:56.858Z",
+            "distance": 0.5,
+            "distanceUnit": "mi"
+          },
+          {
+            "id": "1793679634411-554404",
+            "exerciseId": "goblet_squat",
+            "name": "Goblet Squat or Leg Press",
+            "load": 21,
+            "affectsMuscleMap": true,
+            "addedAt": "2026-11-03T04:20:34.411Z"
+          }
+        ],
+        "tue": [
+          {
+            "id": "1793721319443-28d8b0",
+            "exerciseId": "gentle_walk",
+            "name": "Gentle Walk",
+            "load": null,
+            "affectsMuscleMap": true,
+            "addedAt": "2026-11-03T15:55:19.443Z",
+            "distance": 1.6,
+            "distanceUnit": "mi"
+          },
+          {
+            "id": "1793737899110-149d2a",
+            "exerciseId": "goblet_squat",
+            "name": "Goblet Squat or Leg Press",
+            "load": 21,
+            "affectsMuscleMap": true,
+            "addedAt": "2026-11-03T20:31:39.110Z"
+          },
+          {
+            "id": "1793760196487-c344cd",
+            "exerciseId": "chair_squat",
+            "name": "Chair Squat",
+            "load": null,
+            "affectsMuscleMap": true,
+            "addedAt": "2026-11-04T02:43:16.487Z"
+          }
+        ],
+        "wed": [
+          {
+            "id": "1793812205545-ce0490",
+            "exerciseId": "chair_squat",
+            "name": "Chair Squat",
+            "load": null,
+            "affectsMuscleMap": true,
+            "addedAt": "2026-11-04T17:10:05.545Z"
+          }
+        ],
+        "thu": [],
+        "fri": [],
+        "sat": [],
+        "sun": []
+      },
+      "2026-W46": {
+        "mon": [],
+        "tue": [],
+        "wed": [],
+        "thu": [],
+        "fri": [],
+        "sat": [],
+        "sun": []
+      },
+      "2026-W43": {
+        "mon": [],
+        "tue": [],
+        "wed": [],
+        "thu": [],
+        "fri": [],
+        "sat": [],
+        "sun": []
+      }
+    },
+    "muscleLoads": {
+      "front_delts": 0,
+      "rear_delts": 0,
+      "pecs": 0,
+      "biceps": 0,
+      "triceps": 0,
+      "forearm": 0,
+      "abs": 22,
+      "oblique": 0,
+      "hip_flexors": 6,
+      "hip-flexor-right": 0,
+      "hip-flexor-left": 0,
+      "quads": 86,
+      "adductors": 34,
+      "outer-hip-right": 16,
+      "outer-hip-left": 16,
+      "iliotibial-band-right": 12,
+      "iliotibial-band-left": 12,
+      "lower_back_right": 0,
+      "lower_back_left": 0,
+      "rhomboid-right": 0,
+      "rhomboid-left": 0,
+      "glutes": 68,
+      "hamstrings": 42,
+      "calves": 36,
+      "traps": 0,
+      "lats": 0,
+      "erectors": 0
+    },
+    "slideNotes": {}
+  }
+}

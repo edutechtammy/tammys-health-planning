@@ -133,6 +133,19 @@
     .muscle-toolbar{margin-top:.6rem;display:flex;flex-wrap:wrap;gap:.45rem}
     .muscle-toolbar button{padding:.5rem .7rem;border-radius:8px;border:1px solid #cde4d2;background:#fff;color:#245d47;font:inherit;font-weight:700;cursor:pointer}
     .muscle-toolbar button:hover{background:#f0fbf4}
+    .resistance-io-status{margin-top:.55rem;font-size:.82rem;color:#2f5d4d;min-height:1.1em}
+    .resistance-import-overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);display:none;align-items:center;justify-content:center;padding:1rem;z-index:2200}
+    .resistance-import-overlay.visible{display:flex}
+    .resistance-import-dialog{width:min(92vw,620px);max-height:88vh;overflow:auto;background:#fff;border:1px solid #d7e8dd;border-radius:14px;box-shadow:0 18px 46px rgba(15,23,42,.25);padding:1rem}
+    .resistance-import-title{font-size:1.04rem;font-weight:800;color:#1f4a39;margin:0 0 .65rem}
+    .resistance-import-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .resistance-import-box{border:1px solid #d8e9df;background:#f8fcfa;border-radius:10px;padding:.65rem .7rem}
+    .resistance-import-box strong{display:block;color:#234b3b;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.38rem}
+    .resistance-import-line{display:flex;justify-content:space-between;gap:.65rem;font-size:.84rem;color:#37574b;margin:.18rem 0}
+    .resistance-import-line span:first-child{color:#4f6d62}
+    .resistance-import-actions{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:flex-end;margin-top:.82rem}
+    .resistance-import-actions .btn{font-size:.84rem}
+    @media(max-width:720px){.resistance-import-grid{grid-template-columns:1fr}}
     .muscle-legend{margin-top:.75rem;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;font-size:.78rem;color:#4a5b66}
     .muscle-legend-bar{height:.7rem;width:170px;border-radius:999px;background:linear-gradient(90deg,#edf2ef,#9fe7b6,#6fd693,#36b36f,#1a7f47)}
     .muscle-summary{margin-top:.65rem;font-size:.84rem;color:#2f4652}
@@ -557,7 +570,11 @@
 
           <div class="muscle-toolbar">
             <button type="button" id="muscle-map-reset">Reset map</button>
+            <button type="button" id="resistance-export-json-btn">Export Resistance JSON</button>
+            <button type="button" id="resistance-import-json-btn">Import Resistance JSON</button>
+            <input id="resistance-import-json-file" type="file" accept=".json,application/json" hidden />
           </div>
+          <div class="resistance-io-status" id="resistance-io-status"></div>
         </div>
       </div>
     </div>
@@ -1157,6 +1174,38 @@
       <a class="btn primary" href="cardio.html">Go to Cardio page →</a>
       <a class="btn" href="exercise-protocol.html">Back to Exercise hub</a>
     </div>
+
+    <div class="resistance-import-overlay" id="resistance-import-overlay" aria-hidden="true">
+      <div class="resistance-import-dialog" role="dialog" aria-modal="true" aria-labelledby="resistance-import-title">
+        <h3 class="resistance-import-title" id="resistance-import-title">Resistance Import Preview</h3>
+        <div class="resistance-import-grid">
+          <div class="resistance-import-box">
+            <strong>File Quality</strong>
+            <div class="resistance-import-line"><span>Rows read</span><span id="resistance-import-rows-read">0</span></div>
+            <div class="resistance-import-line"><span>Valid rows</span><span id="resistance-import-valid-rows">0</span></div>
+            <div class="resistance-import-line"><span>Skipped invalid</span><span id="resistance-import-invalid-rows">0</span></div>
+            <div class="resistance-import-line"><span>Skipped duplicates</span><span id="resistance-import-duplicate-rows">0</span></div>
+          </div>
+          <div class="resistance-import-box">
+            <strong>Merge Impact</strong>
+            <div class="resistance-import-line"><span>New</span><span id="resistance-import-new-count">0</span></div>
+            <div class="resistance-import-line"><span>Replaced</span><span id="resistance-import-replaced-count">0</span></div>
+            <div class="resistance-import-line"><span>Unchanged</span><span id="resistance-import-unchanged-count">0</span></div>
+            <div class="resistance-import-line"><span>Final merged total</span><span id="resistance-import-merge-total">0</span></div>
+          </div>
+          <div class="resistance-import-box">
+            <strong>Replace Impact</strong>
+            <div class="resistance-import-line"><span>Imported sessions to keep</span><span id="resistance-import-keep">0</span></div>
+            <div class="resistance-import-line"><span>Existing sessions removed</span><span id="resistance-import-remove">0</span></div>
+          </div>
+        </div>
+        <div class="resistance-import-actions">
+          <button class="btn" type="button" id="resistance-import-cancel-action">Cancel</button>
+          <button class="btn" type="button" id="resistance-import-replace-action">Replace All</button>
+          <button class="btn primary" type="button" id="resistance-import-merge-action">Merge</button>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -1167,6 +1216,7 @@
     const MUSCLE_MAP_LOADS_KEY = 'resistance-muscle-map-loads-v1';
     const EXERCISE_WEEKLY_LOG_KEY = 'resistance-weekly-exercise-log-v1';
     const WALK_DISTANCE_UNIT_KEY = 'resistance-walk-distance-unit-v1';
+    const RESISTANCE_EXPORT_VERSION = 1;
     let EXERCISE_SLIDES = [];
     let exerciseSlideIndex = 0;
     let exerciseFullscreenModal = null;
@@ -1262,6 +1312,446 @@
 
     function todayISO() {
       return new Date().toLocaleDateString('en-CA');
+    }
+
+    function showResistanceIoStatus(message) {
+      const el = document.getElementById('resistance-io-status');
+      if (!el) return;
+      el.textContent = message || '';
+      window.clearTimeout(showResistanceIoStatus._timer);
+      showResistanceIoStatus._timer = window.setTimeout(() => {
+        if (el.textContent === message) el.textContent = '';
+      }, 2400);
+    }
+
+    let resistanceImportModalResolver = null;
+
+    function closeResistanceImportModal(choice) {
+      const overlay = document.getElementById('resistance-import-overlay');
+      if (overlay) {
+        overlay.classList.remove('visible');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+      if (resistanceImportModalResolver) {
+        resistanceImportModalResolver(choice || 'cancel');
+        resistanceImportModalResolver = null;
+      }
+    }
+
+    function showResistanceImportModal(parsedImport, mergePreview, existingCount, incomingCount) {
+      const overlay = document.getElementById('resistance-import-overlay');
+      if (!overlay) return Promise.resolve('cancel');
+
+      const bind = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = String(value);
+      };
+
+      bind('resistance-import-rows-read', parsedImport.rowsRead);
+      bind('resistance-import-valid-rows', parsedImport.validRows);
+      bind('resistance-import-invalid-rows', parsedImport.invalidRows);
+      bind('resistance-import-duplicate-rows', parsedImport.duplicateRows);
+      bind('resistance-import-new-count', mergePreview.newCount);
+      bind('resistance-import-replaced-count', mergePreview.replacedCount);
+      bind('resistance-import-unchanged-count', mergePreview.unchangedCount);
+      bind('resistance-import-merge-total', mergePreview.mergeTotal);
+      bind('resistance-import-keep', incomingCount);
+      bind('resistance-import-remove', existingCount);
+
+      overlay.classList.add('visible');
+      overlay.setAttribute('aria-hidden', 'false');
+      return new Promise(resolve => {
+        resistanceImportModalResolver = resolve;
+      });
+    }
+
+    function isPlainObject(value) {
+      return !!value && typeof value === 'object' && !Array.isArray(value);
+    }
+
+    function countWeeklyEntries(weeklyLog) {
+      if (!isPlainObject(weeklyLog)) return 0;
+      let count = 0;
+      Object.values(weeklyLog).forEach(weekData => {
+        if (!isPlainObject(weekData)) return;
+        DAY_ORDER.forEach(day => {
+          const entries = weekData[day];
+          if (Array.isArray(entries)) count += entries.length;
+        });
+      });
+      return count;
+    }
+
+    function countUniqueWeeklyEntries(weeklyLog) {
+      if (!isPlainObject(weeklyLog)) return 0;
+      const uniqueKeys = new Set();
+      Object.entries(weeklyLog).forEach(([weekKey, weekData]) => {
+        if (!isPlainObject(weekData)) return;
+        DAY_ORDER.forEach(day => {
+          const entries = weekData[day];
+          if (!Array.isArray(entries)) return;
+          entries.forEach(entry => {
+            if (!isPlainObject(entry)) return;
+            const exerciseId = String(entry.exerciseId || '').trim();
+            if (!exerciseId) return;
+            uniqueKeys.add(`${weekKey}|${day}|${exerciseId}`);
+          });
+        });
+      });
+      return uniqueKeys.size;
+    }
+
+    function resistanceEntryComparable(entry) {
+      if (!isPlainObject(entry)) return '';
+      return JSON.stringify({
+        exerciseId: String(entry.exerciseId || '').trim(),
+        name: String(entry.name || '').trim(),
+        affectsMuscleMap: entry.affectsMuscleMap !== false,
+        sets: Number.isFinite(Number(entry.sets)) ? Number(entry.sets) : null,
+        reps: Number.isFinite(Number(entry.reps)) ? Number(entry.reps) : null,
+        load: Number.isFinite(Number(entry.load)) ? Number(entry.load) : null,
+        unit: entry.unit === 'kg' ? 'kg' : 'lb',
+        distance: Number.isFinite(Number(entry.distance)) ? Number(entry.distance) : null,
+        distanceUnit: entry.distanceUnit === 'km' ? 'km' : 'mi',
+        isWeightedWalk: entry.isWeightedWalk === true,
+        vestWeight: Number.isFinite(Number(entry.vestWeight)) ? Number(entry.vestWeight) : null,
+        vestUnit: entry.vestUnit === 'kg' ? 'kg' : 'lb',
+        notes: String(entry.notes || '').trim()
+      });
+    }
+
+    function getResistanceMergePreview(currentWeeklyLog, incomingWeeklyLog) {
+      const current = sanitizeWeeklyLog(currentWeeklyLog);
+      const incoming = sanitizeWeeklyLog(incomingWeeklyLog);
+      const currentMap = new Map();
+      const incomingMap = new Map();
+
+      Object.entries(current).forEach(([weekKey, weekData]) => {
+        if (!isPlainObject(weekData)) return;
+        DAY_ORDER.forEach(day => {
+          const entries = weekData[day];
+          if (!Array.isArray(entries)) return;
+          entries.forEach(entry => {
+            const exerciseId = String(entry.exerciseId || '').trim();
+            if (!exerciseId) return;
+            const key = `${weekKey}|${day}|${exerciseId}`;
+            currentMap.set(key, resistanceEntryComparable(entry));
+          });
+        });
+      });
+
+      Object.entries(incoming).forEach(([weekKey, weekData]) => {
+        if (!isPlainObject(weekData)) return;
+        DAY_ORDER.forEach(day => {
+          const entries = weekData[day];
+          if (!Array.isArray(entries)) return;
+          entries.forEach(entry => {
+            const exerciseId = String(entry.exerciseId || '').trim();
+            if (!exerciseId) return;
+            const key = `${weekKey}|${day}|${exerciseId}`;
+            incomingMap.set(key, resistanceEntryComparable(entry));
+          });
+        });
+      });
+
+      let newCount = 0;
+      let replacedCount = 0;
+      let unchangedCount = 0;
+
+      incomingMap.forEach((incomingEntry, key) => {
+        if (!currentMap.has(key)) {
+          newCount += 1;
+          return;
+        }
+        if (currentMap.get(key) === incomingEntry) {
+          unchangedCount += 1;
+        } else {
+          replacedCount += 1;
+        }
+      });
+
+      return {
+        newCount,
+        replacedCount,
+        unchangedCount,
+        mergeTotal: currentMap.size + newCount,
+        incomingUniqueCount: incomingMap.size
+      };
+    }
+
+    function normalizeResistanceEntry(entry) {
+      if (!isPlainObject(entry)) return null;
+      const exerciseId = String(entry.exerciseId || '').trim();
+      if (!exerciseId) return null;
+      const id = String(entry.id || `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`);
+      const addedAtRaw = String(entry.addedAt || '').trim();
+      const addedAt = Number.isNaN(new Date(addedAtRaw).getTime()) ? new Date().toISOString() : addedAtRaw;
+      const normalized = {
+        id,
+        exerciseId,
+        name: String(entry.name || exerciseId),
+        affectsMuscleMap: entry.affectsMuscleMap !== false,
+        addedAt
+      };
+      const load = Number(entry.load);
+      if (Number.isFinite(load) && load > 0) normalized.load = load;
+      const distance = Number(entry.distance);
+      if (Number.isFinite(distance) && distance > 0) normalized.distance = distance;
+      if (normalized.distance != null) {
+        normalized.distanceUnit = entry.distanceUnit === 'km' ? 'km' : 'mi';
+      }
+      return normalized;
+    }
+
+    function sanitizeWeeklyLog(rawLog) {
+      if (!isPlainObject(rawLog)) return {};
+      const safe = {};
+      Object.entries(rawLog).forEach(([weekKey, weekData]) => {
+        if (!isPlainObject(weekData)) return;
+        const week = {};
+        DAY_ORDER.forEach(day => {
+          const rows = Array.isArray(weekData[day]) ? weekData[day] : [];
+          week[day] = rows.map(normalizeResistanceEntry).filter(Boolean);
+        });
+        safe[String(weekKey)] = week;
+      });
+      return safe;
+    }
+
+    function sanitizeDumbbellLoads(rawLoads) {
+      if (!isPlainObject(rawLoads)) return {};
+      const safe = {};
+      Object.entries(rawLoads).forEach(([key, value]) => {
+        const n = Number(value);
+        if (Number.isFinite(n) && n > 0) safe[String(key)] = n;
+      });
+      return safe;
+    }
+
+    function sanitizeMuscleLoads(rawLoads) {
+      if (!isPlainObject(rawLoads)) return { ...BASE_MUSCLE_LOADS };
+      const safe = { ...BASE_MUSCLE_LOADS };
+      Object.keys(BASE_MUSCLE_LOADS).forEach(key => {
+        const n = Number(rawLoads[key]);
+        safe[key] = Number.isFinite(n) ? Math.max(0, Math.min(100, n)) : 0;
+      });
+      return safe;
+    }
+
+    function mergeWeeklyLogs(existing, incoming) {
+      const merged = sanitizeWeeklyLog(existing);
+      const source = sanitizeWeeklyLog(incoming);
+
+      Object.entries(source).forEach(([weekKey, weekData]) => {
+        if (!merged[weekKey]) {
+          merged[weekKey] = {
+            mon: [], tue: [], wed: [], thu: [], fri: [], sat: [], sun: []
+          };
+        }
+        DAY_ORDER.forEach(day => {
+          const currentRows = Array.isArray(merged[weekKey][day]) ? merged[weekKey][day] : [];
+          const incomingRows = Array.isArray(weekData[day]) ? weekData[day] : [];
+          const byId = new Map(currentRows.map(item => [item.id, item]));
+          const bySignature = new Map(currentRows.map(item => [
+            `${item.exerciseId}|${item.name}|${item.load || ''}|${item.distance || ''}|${item.distanceUnit || ''}|${item.addedAt}`,
+            item
+          ]));
+
+          incomingRows.forEach(item => {
+            const signature = `${item.exerciseId}|${item.name}|${item.load || ''}|${item.distance || ''}|${item.distanceUnit || ''}|${item.addedAt}`;
+            if (byId.has(item.id)) {
+              const idx = currentRows.findIndex(row => row.id === item.id);
+              if (idx >= 0) currentRows[idx] = item;
+              return;
+            }
+            if (bySignature.has(signature)) return;
+            currentRows.push(item);
+          });
+
+          merged[weekKey][day] = currentRows;
+        });
+      });
+
+      return merged;
+    }
+
+    function buildResistanceExportPayload() {
+      return {
+        version: RESISTANCE_EXPORT_VERSION,
+        exportedAt: new Date().toISOString(),
+        data: {
+          trainingNotes: loadResistanceTrainingNotes(),
+          dumbbellLoads,
+          loadUnit: currentLoadUnit,
+          walkDistanceUnit,
+          weeklyLog: weeklyExerciseLog,
+          muscleLoads,
+          slideNotes: exerciseSlideNotes
+        }
+      };
+    }
+
+    function exportResistanceJson() {
+      const payload = buildResistanceExportPayload();
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `resistance-data-backup-${todayISO()}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+      showResistanceIoStatus('Resistance JSON exported.');
+    }
+
+    function parseResistanceImportPayload(payload) {
+      const source = isPlainObject(payload?.data) ? payload.data : payload;
+      if (!isPlainObject(source)) return null;
+
+      const parsed = {
+        hasTrainingNotes: Object.prototype.hasOwnProperty.call(source, 'trainingNotes'),
+        hasDumbbellLoads: Object.prototype.hasOwnProperty.call(source, 'dumbbellLoads'),
+        hasLoadUnit: Object.prototype.hasOwnProperty.call(source, 'loadUnit'),
+        hasWalkDistanceUnit: Object.prototype.hasOwnProperty.call(source, 'walkDistanceUnit'),
+        hasWeeklyLog: Object.prototype.hasOwnProperty.call(source, 'weeklyLog'),
+        hasMuscleLoads: Object.prototype.hasOwnProperty.call(source, 'muscleLoads'),
+        hasSlideNotes: Object.prototype.hasOwnProperty.call(source, 'slideNotes'),
+        trainingNotes: String(source.trainingNotes || ''),
+        dumbbellLoads: sanitizeDumbbellLoads(source.dumbbellLoads),
+        loadUnit: source.loadUnit === 'kg' ? 'kg' : 'lb',
+        walkDistanceUnit: source.walkDistanceUnit === 'km' ? 'km' : 'mi',
+        weeklyLog: sanitizeWeeklyLog(source.weeklyLog),
+        muscleLoads: sanitizeMuscleLoads(source.muscleLoads),
+        slideNotes: isPlainObject(source.slideNotes) ? source.slideNotes : {}
+      };
+
+      parsed.rowsRead = countWeeklyEntries(source.weeklyLog);
+      parsed.validRows = countWeeklyEntries(parsed.weeklyLog);
+      parsed.duplicateRows = Math.max(0, parsed.validRows - countUniqueWeeklyEntries(parsed.weeklyLog));
+      parsed.invalidRows = Math.max(0, parsed.rowsRead - parsed.validRows);
+      parsed.incomingEntryCount = countWeeklyEntries(parsed.weeklyLog);
+      parsed.incomingWeekCount = Object.keys(parsed.weeklyLog).length;
+      return parsed;
+    }
+
+    function applyResistanceImport(parsed, mode) {
+      const mergeMode = mode === 'merge';
+
+      if (parsed.hasTrainingNotes) {
+        const notesField = document.getElementById('resistance-training-notes');
+        const nextNotes = parsed.trainingNotes;
+        saveResistanceTrainingNotes(nextNotes);
+        if (notesField) notesField.value = nextNotes;
+      }
+
+      if (parsed.hasDumbbellLoads) {
+        dumbbellLoads = mergeMode ? { ...dumbbellLoads, ...parsed.dumbbellLoads } : { ...parsed.dumbbellLoads };
+        saveDumbbellLoads(dumbbellLoads);
+      }
+
+      if (parsed.hasLoadUnit) {
+        currentLoadUnit = parsed.loadUnit;
+        savePreferredLoadUnit(currentLoadUnit);
+      }
+
+      if (parsed.hasWalkDistanceUnit) {
+        walkDistanceUnit = parsed.walkDistanceUnit;
+        saveWalkDistanceUnit(walkDistanceUnit);
+      }
+
+      if (parsed.hasSlideNotes) {
+        if (mergeMode) {
+          Object.assign(exerciseSlideNotes, parsed.slideNotes);
+        } else {
+          Object.keys(exerciseSlideNotes).forEach(key => delete exerciseSlideNotes[key]);
+          Object.assign(exerciseSlideNotes, parsed.slideNotes);
+        }
+        saveExerciseSlideNotes(exerciseSlideNotes);
+      }
+
+      if (parsed.hasWeeklyLog) {
+        weeklyExerciseLog = mergeMode ? mergeWeeklyLogs(weeklyExerciseLog, parsed.weeklyLog) : sanitizeWeeklyLog(parsed.weeklyLog);
+        saveWeeklyExerciseLog();
+        rebuildMuscleMapFromLog();
+      } else if (parsed.hasMuscleLoads) {
+        muscleLoads = { ...parsed.muscleLoads };
+        saveMuscleMapLoads();
+        renderMuscleMap();
+      }
+
+      const exerciseLoadUnit = document.getElementById('exercise-load-unit');
+      if (exerciseLoadUnit) exerciseLoadUnit.value = currentLoadUnit;
+
+      const walkDistanceInput = document.getElementById('gentle-walk-distance-input');
+      if (walkDistanceInput) {
+        walkDistanceInput.placeholder = walkDistanceUnit === 'km' ? 'e.g. 2.5' : 'e.g. 1.5';
+      }
+
+      renderDumbbellLoadInputs();
+      renderWeeklyExerciseLog();
+      renderExerciseSlide();
+    }
+
+    function importResistanceJsonFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async event => {
+        try {
+          const text = String(event.target?.result || '').trim();
+          if (!text) {
+            showResistanceIoStatus('Import file is empty.');
+            return;
+          }
+
+          const parsedJson = JSON.parse(text);
+          const parsed = parseResistanceImportPayload(parsedJson);
+          if (!parsed) {
+            showResistanceIoStatus('Could not read resistance backup format.');
+            return;
+          }
+
+          if (!parsed.incomingEntryCount) {
+            showResistanceIoStatus('No valid resistance entries found in file.');
+            return;
+          }
+
+          const existingEntryCount = countWeeklyEntries(weeklyExerciseLog);
+          const mergePreview = getResistanceMergePreview(weeklyExerciseLog, parsed.weeklyLog);
+          let mode = 'imported';
+
+          if (existingEntryCount) {
+            const choice = await showResistanceImportModal(
+              parsed,
+              mergePreview,
+              existingEntryCount,
+              mergePreview.incomingUniqueCount
+            );
+
+            if (choice === 'merge') {
+              mode = 'merged';
+            } else if (choice === 'replace') {
+              mode = 'replaced';
+            } else {
+              showResistanceIoStatus('Resistance import cancelled.');
+              return;
+            }
+          }
+
+          applyResistanceImport(parsed, mode === 'merged' ? 'merge' : 'replace');
+
+          const importedCount = mergePreview.incomingUniqueCount;
+          const totalCount = countWeeklyEntries(weeklyExerciseLog);
+          if (mode === 'merged') {
+            showResistanceIoStatus('Imported ' + importedCount + ' entr' + (importedCount === 1 ? 'y' : 'ies') + '. Total: ' + totalCount + '.');
+          } else if (mode === 'replaced') {
+            showResistanceIoStatus('Replaced data with ' + totalCount + ' imported entr' + (totalCount === 1 ? 'y' : 'ies') + '.');
+          } else {
+            showResistanceIoStatus('Imported ' + totalCount + ' entr' + (totalCount === 1 ? 'y' : 'ies') + '.');
+          }
+        } catch {
+          showResistanceIoStatus('Could not parse resistance JSON file.');
+        }
+      };
+      reader.readAsText(file);
     }
 
     function loadExerciseSlideNotes() {
@@ -2134,6 +2624,31 @@
       renderWeeklyExerciseLog();
     });
     document.getElementById('week-log-clear-day')?.addEventListener('click', clearActiveDayEntries);
+
+    document.getElementById('resistance-export-json-btn')?.addEventListener('click', exportResistanceJson);
+    document.getElementById('resistance-import-json-btn')?.addEventListener('click', () => {
+      document.getElementById('resistance-import-json-file')?.click();
+    });
+    document.getElementById('resistance-import-json-file')?.addEventListener('change', event => {
+      const file = event.target.files && event.target.files[0];
+      importResistanceJsonFile(file);
+      event.target.value = '';
+    });
+
+    const resistanceImportOverlay = document.getElementById('resistance-import-overlay');
+    if (resistanceImportOverlay) {
+      resistanceImportOverlay.addEventListener('click', event => {
+        if (event.target === resistanceImportOverlay) closeResistanceImportModal('cancel');
+      });
+    }
+    document.getElementById('resistance-import-merge-action')?.addEventListener('click', () => closeResistanceImportModal('merge'));
+    document.getElementById('resistance-import-replace-action')?.addEventListener('click', () => closeResistanceImportModal('replace'));
+    document.getElementById('resistance-import-cancel-action')?.addEventListener('click', () => closeResistanceImportModal('cancel'));
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      const overlay = document.getElementById('resistance-import-overlay');
+      if (overlay && overlay.classList.contains('visible')) closeResistanceImportModal('cancel');
+    });
 
     const exerciseCategoryFilter = document.getElementById('exercise-category-filter');
     const exerciseLevelFilter = document.getElementById('exercise-level-filter');
