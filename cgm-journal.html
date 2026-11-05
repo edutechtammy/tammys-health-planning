@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CGM Sensor Journal</title>
+  <style>
+    :root {
+      --bg: #f4f8f3;
+      --panel: #ffffff;
+      --panel-2: #eef7ef;
+      --line: #cfe3d5;
+      --text: #21372d;
+      --muted: #587163;
+      --green: #2d7f52;
+      --green-dark: #1f5d3d;
+      --green-soft: #dfeee3;
+      --amber: #b97709;
+      --amber-soft: #fff1d6;
+      --red: #b44343;
+      --red-soft: #fde7e7;
+      --shadow: 0 10px 25px rgba(30, 64, 52, 0.08);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f4f8f3 0%, #ecf4ee 100%);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 18px 60px;
+    }
+
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .top-nav a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      border: 1px solid var(--line);
+    }
+
+    .top-nav a.secondary {
+      background: #f4f8f3;
+      color: var(--text);
+    }
+
+    header {
+      margin-bottom: 20px;
+      padding: 22px 12px 6px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 2.5vw, 2.6rem);
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+      margin-bottom: 20px;
+    }
+
+    .panel h2 {
+      margin: 0 0 16px;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    input, select, textarea, button {
+      font: inherit;
+    }
+
+    input, select, textarea {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text);
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(45, 127, 82, 0.18);
+      border-color: var(--green);
+    }
+
+    textarea {
+      min-height: 86px;
+      resize: vertical;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    button:active { transform: translateY(0); }
+
+    .primary {
+      background: var(--green);
+      color: white;
+      padding: 10px 16px;
+    }
+
+    .secondary {
+      background: var(--panel-2);
+      color: var(--green-dark);
+      border: 1px solid var(--line);
+      padding: 10px 16px;
+    }
+
+    .danger {
+      background: var(--red-soft);
+      color: var(--red);
+      border: 1px solid rgba(180, 67, 67, 0.18);
+      padding: 10px 16px;
+    }
+
+    .ghost {
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 10px 16px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .dynamic-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin: 12px 0 16px;
+    }
+
+    .summary-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .pill {
+      background: var(--green-soft);
+      color: var(--green-dark);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 600;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfffc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      background: #eff8f1;
+      color: var(--green-dark);
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .status-bad {
+      color: var(--red);
+      background: var(--red-soft);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .status-good {
+      color: var(--green-dark);
+      background: var(--green-soft);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-style: italic;
+      padding: 14px 10px;
+    }
+
+    .small {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(90px, 1fr));
+      gap: 10px;
+      margin: 0 0 16px;
+    }
+
+    .kpi-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 88px;
+      padding: 10px 8px 8px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid #9ec7af;
+      box-shadow: inset 0 0 0 1px rgba(45, 127, 82, 0.03);
+      text-align: center;
+    }
+
+    .kpi-card.health-green {
+      background: rgba(223, 238, 227, 0.9);
+      border-color: #8dbca0;
+    }
+
+    .kpi-card.health-yellow {
+      background: rgba(255, 241, 214, 0.9);
+      border-color: #d7b15d;
+    }
+
+    .kpi-card.health-pink {
+      background: rgba(255, 230, 236, 0.92);
+      border-color: #d7a3b0;
+    }
+
+    .kpi-value {
+      font-size: clamp(1.2rem, 1.7vw, 1.9rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--green-dark);
+      letter-spacing: -0.06em;
+    }
+
+    .kpi-card.health-yellow .kpi-value,
+    .kpi-card.health-yellow .kpi-label {
+      color: #7a5a0a;
+    }
+
+    .kpi-card.health-pink .kpi-value,
+    .kpi-card.health-pink .kpi-label {
+      color: #8c4259;
+    }
+
+    .kpi-label {
+      margin-top: 4px;
+      font-size: 0.63rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    .kpi-status {
+      margin-top: 4px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      color: inherit;
+      opacity: 0.9;
+    }
+
+    .chart-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .chart-controls label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .chart-wrap {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fbfdfb 0%, #f3faf3 100%);
+      padding: 12px;
+    }
+
+    .chart-wrap canvas {
+      display: block;
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+      background: #fbfdfb;
+    }
+
+    .monthly-summary {
+      margin-top: 20px;
+    }
+
+    .monthly-title {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .monthly-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .month-card {
+      padding: 12px 10px 10px;
+      border-radius: 12px;
+      border: 1px solid #d8e3d9;
+      background: rgba(255,255,255,0.35);
+      text-align: center;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .month-card.month-healthy {
+      background: rgba(223, 238, 227, 0.8);
+      border-color: #9fc7ac;
+    }
+
+    .month-card.month-prediabetes {
+      background: rgba(255, 241, 214, 0.82);
+      border-color: #d8b86a;
+    }
+
+    .month-card.month-high {
+      background: rgba(255, 230, 236, 0.88);
+      border-color: #d8a9b8;
+    }
+
+    .month-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .month-value {
+      font-size: clamp(1.7rem, 2vw, 2.3rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.06em;
+      color: var(--green-dark);
+    }
+
+    .month-card.month-prediabetes .month-value,
+    .month-card.month-prediabetes .month-status,
+    .month-card.month-prediabetes .month-floor {
+      color: #9c6d00;
+    }
+
+    .month-card.month-high .month-value,
+    .month-card.month-high .month-status,
+    .month-card.month-high .month-floor {
+      color: #9c3a5d;
+    }
+
+    .month-status {
+      margin-top: 4px;
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      line-height: 1.25;
+    }
+
+    .month-floor {
+      margin-top: 2px;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      opacity: 0.9;
+    }
+
+    .month-legend {
+      margin-top: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.4);
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .legend-dot.green { background: #8ec39d; }
+    .legend-dot.yellow { background: #e3bf66; }
+    .legend-dot.pink { background: #d99ead; }
+
+    @media (max-width: 700px) {
+      .panel { padding: 14px; }
+      .grid { grid-template-columns: 1fr; }
+      .monthly-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top-nav" aria-label="Page navigation">
+      <a href="cgm-tracker.html">Original CGM tracker</a>
+      <a class="secondary" href="index.html">Main planning index</a>
+    </nav>
+
+    <header>
+      <h1>📡 CGM Sensor Journal</h1>
+      <p class="subtitle">
+        A sensor-based log for CGM readings, sleep/wake notes, exercise, food testing, and other context that needs to be correlated by date and time.
+      </p>
+    </header>
+
+    <section class="panel">
+      <h2>Active sensor</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="sensorSelect">Sensor</label>
+          <select id="sensorSelect"></select>
+        </div>
+        <div class="field">
+          <label for="sensorId">Sensor ID / Label</label>
+          <input id="sensorId" type="text" placeholder="e.g. Sensor 2026-09-30" />
+        </div>
+        <div class="field">
+          <label for="sensorStartDate">Start date</label>
+          <input id="sensorStartDate" type="date" />
+        </div>
+        <div class="field">
+          <label for="sensorEndDate">End date</label>
+          <input id="sensorEndDate" type="date" />
+        </div>
+        <div class="field full">
+          <label for="sensorNotes">Sensor notes</label>
+          <textarea id="sensorNotes" placeholder="Notes for this sensor, failed sensor, protocol or context for this wear period..."></textarea>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="primary" id="saveSensorBtn" type="button">Save sensor</button>
+        <button class="ghost" id="newSensorBtn" type="button">New sensor</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Add note</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="noteType">Type</label>
+          <select id="noteType">
+            <option value="food">Food</option>
+            <option value="sleep-wake">Sleep / Wake</option>
+            <option value="exercise">Exercise</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="noteDate">Date</label>
+          <input id="noteDate" type="date" />
+        </div>
+        <div class="field">
+          <label for="noteTime">Time</label>
+          <input id="noteTime" type="time" />
+        </div>
+      </div>
+
+      <div id="dynamicFields" class="dynamic-fields"></div>
+
+      <div class="field full">
+        <label for="noteDetails">Notes / observations</label>
+        <textarea id="noteDetails" placeholder="Optional freeform details, symptoms, context, or anything not covered above..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="primary" id="saveNoteBtn" type="button">Save note</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Import CGM export</h2>
+      <div class="small" style="margin: 0 0 12px; line-height: 1.5; color: var(--muted);">
+        Paste the full Lingo export each time you receive a new file. The export is cumulative and contains the whole current sensor history, so the safest workflow is to import the complete file again rather than trying to remember the last import time or pasting only the newest rows. The importer will merge all valid data into the active sensor and automatically skip exact duplicates. If the same timestamp appears with a different value, it will be flagged for review rather than silently overwriting the earlier reading.<br><br><strong>Do not include the column-title row.</strong> The first data row should be the first timestamp, not a header. This importer accepts both comma-separated and tab-separated Lingo exports.
+      </div>
+      <div class="field full">
+        <label for="csvInput">Paste Lingo CSV export</label>
+        <textarea id="csvInput" placeholder="2026-09-30T14:19-05:00,105
+2026-09-30T14:14-05:00,104
+2026-09-30T11:19-05:00,Out of range"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="primary" id="importCgmBtn" type="button">Import into active sensor</button>
+        <button class="ghost" id="clearCsvBtn" type="button">Clear</button>
+      </div>
+      <div class="summary-strip" id="cgmSummary"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Average daily glucose</h2>
+      <div id="yearlyKpiRow" class="kpi-row"></div>
+      <div class="chart-controls">
+        <label for="chartYearSelect">Year</label>
+        <select id="chartYearSelect"></select>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="dailyAverageChart" width="900" height="280"></canvas>
+      </div>
+
+      <div class="monthly-summary">
+        <div id="monthlySummaryTitle" class="monthly-title">2026 Fasting Glucose (average)</div>
+        <div id="monthlySummaryGrid" class="monthly-grid"></div>
+        <div class="month-legend">
+          <span class="legend-chip"><span class="legend-dot green"></span>Healthy</span>
+          <span class="legend-chip"><span class="legend-dot yellow"></span>Pre-Diab</span>
+          <span class="legend-chip"><span class="legend-dot pink"></span>High</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Journal entries</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Timestamp</th>
+              <th>Summary</th>
+              <th>Details</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="notesTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Export and import</h2>
+      <div class="btn-row">
+        <button class="primary" id="exportBundleBtn" type="button">Export sensor bundle</button>
+        <button class="secondary" id="downloadNotesBtn" type="button">Download notes JSON</button>
+        <button class="ghost" id="importBundleBtn" type="button">Import notes JSON</button>
+        <input id="bundleFileInput" type="file" accept="application/json,.json" hidden />
+      </div>
+      <div class="small" style="margin-top: 10px;">The sensor bundle includes sensor metadata, notes, and imported CGM readings. JSON is preferred for readability, while the sensor export remains CSV.</div>
+    </section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'cgm-sensor-journal-v1';
+
+    const defaultState = {
+      sensors: [],
+      notes: [],
+      cgmData: {},
+      activeSensorId: null
+    };
+
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return structuredClone(defaultState);
+      try {
+        const parsed = JSON.parse(raw);
+        return {
+          sensors: Array.isArray(parsed.sensors) ? parsed.sensors : [],
+          notes: Array.isArray(parsed.notes) ? parsed.notes : [],
+          cgmData: parsed.cgmData && typeof parsed.cgmData === 'object' ? parsed.cgmData : {},
+          activeSensorId: parsed.activeSensorId || null
+        };
+      } catch (error) {
+        console.warn('Failed parsing localStorage state:', error);
+        return structuredClone(defaultState);
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function getActiveSensorId(state = app.state) {
+      return state.activeSensorId || (state.sensors[0] ? state.sensors[0].id : null);
+    }
+
+    function formatDateForInput(value) {
+      if (!value) return '';
+      if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '';
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatTimestampForStorage(dateString, timeString) {
+      if (!dateString || !timeString) return '';
+      const localDate = `${dateString}T${timeString}:00`;
+      const d = new Date(localDate);
+      if (Number.isNaN(d.getTime())) return '';
+      const offsetMinutes = d.getTimezoneOffset();
+      const sign = offsetMinutes <= 0 ? '+' : '-';
+      const absoluteOffset = Math.abs(offsetMinutes);
+      const hours = String(Math.floor(absoluteOffset / 60)).padStart(2, '0');
+      const minutes = String(absoluteOffset % 60).padStart(2, '0');
+      return `${dateString}T${timeString}${sign}${hours}:${minutes}`;
+    }
+
+    function parseTimestampLocal(value) {
+      if (!value) return null;
+      const match = value.match(/^(.{10})T(.{5})([+-])(\d{2}):(\d{2})$/);
+      if (match) {
+        return {
+          date: match[1],
+          time: match[2],
+          offset: `${match[3]}${match[4]}:${match[5]}`
+        };
+      }
+      return null;
+    }
+
+    function displayTimestamp(value) {
+      if (!value) return '—';
+      const parsed = parseTimestampLocal(value);
+      if (!parsed) return value;
+      return `${parsed.date} ${parsed.time}${parsed.offset}`;
+    }
+
+    function noteDefaults() {
+      const today = new Date();
+      const date = formatDateForInput(today.toISOString().slice(0, 10));
+      const time = `${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
+      return { date, time };
+    }
+
+    function getSensorDefaultId() {
+      const d = new Date();
+      return `Sensor ${d.toISOString().slice(0, 10)}`;
+    }
+
+    function getSelectedSensor() {
+      const state = app.state;
+      const activeId = getActiveSensorId(state);
+      return state.sensors.find(sensor => sensor.id === activeId) || null;
+    }
+
+    function renderSensorSelect() {
+      const state = app.state;
+      const select = document.getElementById('sensorSelect');
+      const activeId = getActiveSensorId(state);
+      select.innerHTML = '';
+
+      if (!state.sensors.length) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'No sensors yet';
+        select.appendChild(option);
+        return;
+      }
+
+      state.sensors.forEach(sensor => {
+        const option = document.createElement('option');
+        option.value = sensor.id;
+        option.textContent = `${sensor.label || sensor.id} (${sensor.startDate || '—'} to ${sensor.endDate || '—'})`;
+        if (sensor.id === activeId) option.selected = true;
+        select.appendChild(option);
+      });
+
+      if (activeId) {
+        const sensor = state.sensors.find(s => s.id === activeId);
+        if (sensor) {
+          document.getElementById('sensorId').value = sensor.id;
+          document.getElementById('sensorStartDate').value = sensor.startDate || '';
+          document.getElementById('sensorEndDate').value = sensor.endDate || '';
+          document.getElementById('sensorNotes').value = sensor.notes || '';
+        }
+      }
+    }
+
+    function ensureSensorExists(sensorId) {
+      const state = app.state;
+      const existing = state.sensors.find(sensor => sensor.id === sensorId);
+      if (existing) return existing;
+
+      const newSensor = {
+        id: sensorId,
+        label: sensorId,
+        startDate: '',
+        endDate: '',
+        notes: ''
+      };
+      state.sensors.push(newSensor);
+      state.activeSensorId = sensorId;
+      saveState(state);
+      return newSensor;
+    }
+
+    function saveSensor() {
+      const state = app.state;
+      const id = document.getElementById('sensorId').value.trim() || getSensorDefaultId();
+      const sensor = ensureSensorExists(id);
+
+      sensor.id = id;
+      sensor.label = id;
+      sensor.startDate = document.getElementById('sensorStartDate').value;
+      sensor.endDate = document.getElementById('sensorEndDate').value;
+      sensor.notes = document.getElementById('sensorNotes').value.trim();
+      state.activeSensorId = id;
+      saveState(state);
+      renderAll();
+    }
+
+    function clearSensorForm() {
+      document.getElementById('sensorId').value = getSensorDefaultId();
+      document.getElementById('sensorStartDate').value = '';
+      document.getElementById('sensorEndDate').value = '';
+      document.getElementById('sensorNotes').value = '';
+    }
+
+    function renderDynamicForm() {
+      const type = document.getElementById('noteType').value;
+      const container = document.getElementById('dynamicFields');
+      const defaults = noteDefaults();
+      let fields = '';
+
+      if (type === 'food') {
+        fields = `
+          <div class="field">
+            <label>Food / combination tested</label>
+            <input id="foodName" type="text" value="" placeholder="e.g. GF sourdough + EVOO + A2 milk" />
+          </div>
+          <div class="field">
+            <label>Net carbs (g)</label>
+            <input id="netCarbs" type="number" step="0.1" placeholder="e.g. 18.5" />
+          </div>
+          <div class="field">
+            <label>Protein (g)</label>
+            <input id="protein" type="number" step="0.1" placeholder="e.g. 24" />
+          </div>
+          <div class="field">
+            <label>Fat (g)</label>
+            <input id="fat" type="number" step="0.1" placeholder="e.g. 18.5" />
+          </div>
+          <div class="field">
+            <label>Fiber (g)</label>
+            <input id="fiber" type="number" step="0.1" placeholder="e.g. 4.2" />
+          </div>
+          <div class="field">
+            <label>Calories</label>
+            <input id="calories" type="number" step="1" placeholder="e.g. 320" />
+          </div>
+          <div class="field">
+            <label>Glycemic load</label>
+            <input id="glycemicLoad" type="number" step="0.1" placeholder="e.g. 9.5" />
+          </div>
+          <div class="field">
+            <label>Was ACV taken?</label>
+            <select id="acvTaken">
+              <option value="">— not logged —</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Was berberine taken?</label>
+            <select id="berberineTaken">
+              <option value="">— not logged —</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Walk before test?</label>
+            <select id="walkBeforeTest">
+              <option value="">— not logged —</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Baseline</label>
+            <input id="baseline" type="number" step="1" placeholder="e.g. 118" />
+          </div>
+          <div class="field">
+            <label>+30 min</label>
+            <input id="min30" type="number" step="1" placeholder="e.g. 145" />
+          </div>
+          <div class="field">
+            <label>+60 min</label>
+            <input id="min60" type="number" step="1" placeholder="e.g. 138" />
+          </div>
+          <div class="field">
+            <label>+120 min</label>
+            <input id="min120" type="number" step="1" placeholder="e.g. 122" />
+          </div>
+          <div class="field">
+            <label>Return to baseline minute</label>
+            <input id="returnToBaseline" type="number" step="1" placeholder="e.g. 165" />
+          </div>
+        `;
+      }
+
+      if (type === 'sleep-wake') {
+        fields = `
+          <div class="field">
+            <label>Sleep start</label>
+            <input id="sleepStart" type="time" />
+          </div>
+          <div class="field">
+            <label>Wake time</label>
+            <input id="wakeTime" type="time" />
+          </div>
+          <div class="field">
+            <label>Sleep quality</label>
+            <select id="sleepQuality">
+              <option value="">— not logged —</option>
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
+              <option value="poor">Poor</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Sleep disturbance</label>
+            <select id="sleepDisturbance">
+              <option value="">— not logged —</option>
+              <option value="none">None</option>
+              <option value="bathroom">Bathroom</option>
+              <option value="stress">Stress / waking anxiety</option>
+              <option value="noise">Noise / interruption</option>
+              <option value="pain">Pain / discomfort</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Sleep notes</label>
+            <textarea id="sleepNotes" placeholder="Woke up early, restless sleep, dreaming, etc."></textarea>
+          </div>
+        `;
+      }
+
+      if (type === 'exercise') {
+        const exercisePresets = [
+          { label: '— custom / not listed —', category: '', type: '', duration: '', speed: '', intensity: '', setsReps: '', weight: '' },
+          { label: 'Recovery treadmill walk', category: 'cardio', type: 'Treadmill recovery walk', duration: '20', speed: '1.6 mph', intensity: 'light', setsReps: '', weight: '' },
+          { label: 'Zone 2 treadmill', category: 'cardio', type: 'Zone 2 treadmill', duration: '20', speed: '2.6 mph', intensity: 'moderate', setsReps: '', weight: '' },
+          { label: 'Goblet squat', category: 'resistance', type: 'Goblet squat', duration: '', speed: '', intensity: 'moderate', setsReps: '3 × 10–12', weight: '' },
+          { label: 'Bent-over dumbbell row', category: 'resistance', type: 'Bent-over dumbbell row', duration: '', speed: '', intensity: 'moderate', setsReps: '3 × 10–12', weight: '' },
+          { label: 'Dumbbell floor press', category: 'resistance', type: 'Dumbbell floor press', duration: '', speed: '', intensity: 'moderate', setsReps: '3 × 10–12', weight: '' },
+          { label: 'Resistance band row', category: 'resistance', type: 'Resistance band row', duration: '', speed: '', intensity: 'moderate', setsReps: '3 × 10–12', weight: '' },
+          { label: 'Chair squat', category: 'resistance', type: 'Chair squat', duration: '', speed: '', intensity: 'moderate', setsReps: '3 × 12–15', weight: '' },
+          { label: 'Recovery mobility', category: 'recovery', type: 'Recovery mobility', duration: '10', speed: '', intensity: 'light', setsReps: '', weight: '' },
+          { label: 'Stretching session', category: 'recovery', type: 'Stretching', duration: '15', speed: '', intensity: 'light', setsReps: '', weight: '' }
+        ];
+
+        const presetOptions = exercisePresets.map(preset => 
+          `<option value="${JSON.stringify(preset).replace(/"/g, '&quot;')}">${preset.label}</option>`
+        ).join('');
+
+        fields = `
+          <div class="field">
+            <label>Quick exercise preset</label>
+            <select id="exercisePresetSelect">
+              ${presetOptions}
+            </select>
+          </div>
+          <div class="field">
+            <label>Exercise category</label>
+            <select id="exerciseCategory">
+              <option value="">— not logged —</option>
+              <option value="cardio">Cardio</option>
+              <option value="resistance">Resistance</option>
+              <option value="recovery">Recovery / mobility</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Exercise name</label>
+            <input id="exerciseType" type="text" placeholder="e.g. treadmill recovery, goblet squat, band row" />
+          </div>
+          <div class="field">
+            <label>Duration (minutes)</label>
+            <input id="exerciseDuration" type="number" step="1" placeholder="e.g. 20" />
+          </div>
+          <div class="field">
+            <label>Speed / pace</label>
+            <input id="exerciseSpeed" type="text" placeholder="e.g. 1.6 mph, 2.6 mph, Zone 2" />
+          </div>
+          <div class="field">
+            <label>Intensity</label>
+            <select id="exerciseIntensity">
+              <option value="">— not logged —</option>
+              <option value="light">Light</option>
+              <option value="moderate">Moderate</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Weight used (lb)</label>
+            <input id="exerciseWeight" type="number" step="1" placeholder="optional — only if relevant" />
+          </div>
+          <div class="field">
+            <label>Sets × reps</label>
+            <input id="exerciseSetsReps" type="text" placeholder="e.g. 3 × 10–12" />
+          </div>
+          <div class="field full">
+            <label>Exercise notes</label>
+            <textarea id="exerciseNotes" placeholder="When it happened, what it felt like, whether it was before or after food, impact on readings..."></textarea>
+          </div>
+        `;
+      }
+
+      if (type === 'other') {
+        fields = `
+          <div class="field">
+            <label>Event name</label>
+            <input id="otherTitle" type="text" placeholder="e.g. stress event, supplement timing, travel" />
+          </div>
+          <div class="field full">
+            <label>Context</label>
+            <textarea id="otherNotes" placeholder="Freeform notes for anything else that may influence the glucose curve..."></textarea>
+          </div>
+        `;
+      }
+
+      container.innerHTML = fields;
+      document.getElementById('noteDate').value = defaults.date;
+      document.getElementById('noteTime').value = defaults.time;
+
+      if (type === 'exercise') {
+        const presetSelect = document.getElementById('exercisePresetSelect');
+        if (presetSelect) {
+          presetSelect.addEventListener('change', () => {
+            const selected = presetSelect.value;
+            if (!selected || selected === '— custom / not listed —') return;
+            try {
+              const preset = JSON.parse(selected.replace(/&quot;/g, '"'));
+              const categoryField = document.getElementById('exerciseCategory');
+              const typeField = document.getElementById('exerciseType');
+              const durationField = document.getElementById('exerciseDuration');
+              const speedField = document.getElementById('exerciseSpeed');
+              const intensityField = document.getElementById('exerciseIntensity');
+              const weightField = document.getElementById('exerciseWeight');
+              const setsRepsField = document.getElementById('exerciseSetsReps');
+
+              if (categoryField) categoryField.value = preset.category || '';
+              if (typeField) typeField.value = preset.type || '';
+              if (durationField) durationField.value = preset.duration || '';
+              if (speedField) speedField.value = preset.speed || '';
+              if (intensityField) intensityField.value = preset.intensity || '';
+              if (weightField) weightField.value = preset.weight || '';
+              if (setsRepsField) setsRepsField.value = preset.setsReps || '';
+            } catch (error) {
+              console.warn('Failed parsing exercise preset:', error);
+            }
+          });
+        }
+      }
+    }
+
+    function readFormFields(type) {
+      const payload = {};
+      if (type === 'food') {
+        payload.foodName = document.getElementById('foodName')?.value.trim() || '';
+        payload.netCarbs = document.getElementById('netCarbs')?.value || '';
+        payload.protein = document.getElementById('protein')?.value || '';
+        payload.fat = document.getElementById('fat')?.value || '';
+        payload.fiber = document.getElementById('fiber')?.value || '';
+        payload.calories = document.getElementById('calories')?.value || '';
+        payload.glycemicLoad = document.getElementById('glycemicLoad')?.value || '';
+        payload.acvTaken = document.getElementById('acvTaken')?.value || '';
+        payload.berberineTaken = document.getElementById('berberineTaken')?.value || '';
+        payload.walkBeforeTest = document.getElementById('walkBeforeTest')?.value || '';
+        payload.baseline = document.getElementById('baseline')?.value || '';
+        payload.min30 = document.getElementById('min30')?.value || '';
+        payload.min60 = document.getElementById('min60')?.value || '';
+        payload.min120 = document.getElementById('min120')?.value || '';
+        payload.returnToBaseline = document.getElementById('returnToBaseline')?.value || '';
+      }
+
+      if (type === 'sleep-wake') {
+        payload.sleepStart = document.getElementById('sleepStart')?.value || '';
+        payload.wakeTime = document.getElementById('wakeTime')?.value || '';
+        payload.sleepQuality = document.getElementById('sleepQuality')?.value || '';
+        payload.sleepDisturbance = document.getElementById('sleepDisturbance')?.value || '';
+        payload.sleepNotes = document.getElementById('sleepNotes')?.value.trim() || '';
+      }
+
+      if (type === 'exercise') {
+        payload.exerciseCategory = document.getElementById('exerciseCategory')?.value || '';
+        payload.exerciseType = document.getElementById('exerciseType')?.value.trim() || '';
+        payload.exerciseDuration = document.getElementById('exerciseDuration')?.value || '';
+        payload.exerciseSpeed = document.getElementById('exerciseSpeed')?.value.trim() || '';
+        payload.exerciseIntensity = document.getElementById('exerciseIntensity')?.value || '';
+        payload.exerciseWeight = document.getElementById('exerciseWeight')?.value || '';
+        payload.exerciseSetsReps = document.getElementById('exerciseSetsReps')?.value.trim() || '';
+        payload.exerciseNotes = document.getElementById('exerciseNotes')?.value.trim() || '';
+      }
+
+      if (type === 'other') {
+        payload.otherTitle = document.getElementById('otherTitle')?.value.trim() || '';
+        payload.otherNotes = document.getElementById('otherNotes')?.value.trim() || '';
+      }
+
+      return payload;
+    }
+
+    function buildNoteSummary(type, structured) {
+      if (type === 'food') {
+        const label = structured.foodName || 'Food entry';
+        return label;
+      }
+      if (type === 'sleep-wake') {
+        const wake = structured.wakeTime ? `Wake ${structured.wakeTime}` : 'Sleep / wake';
+        const sleep = structured.sleepStart ? `Sleep ${structured.sleepStart}` : '';
+        return [sleep, wake].filter(Boolean).join(' · ') || 'Sleep / wake';
+      }
+      if (type === 'exercise') {
+        const name = structured.exerciseType || 'Exercise';
+        const details = [];
+        if (structured.exerciseDuration) details.push(`${structured.exerciseDuration} min`);
+        if (structured.exerciseSpeed) details.push(structured.exerciseSpeed);
+        if (structured.exerciseWeight) details.push(`${structured.exerciseWeight} lb`);
+        if (structured.exerciseSetsReps) details.push(structured.exerciseSetsReps);
+        return [name, details.join(' · ')].filter(Boolean).join(' — ') || 'Exercise';
+      }
+      if (type === 'other') {
+        return structured.otherTitle || 'Other';
+      }
+      return 'Entry';
+    }
+
+    function saveNote() {
+      const state = app.state;
+      const sensor = getSelectedSensor();
+      if (!sensor) {
+        alert('Create or select a sensor before saving a note.');
+        return;
+      }
+
+      const type = document.getElementById('noteType').value;
+      const date = document.getElementById('noteDate').value;
+      const time = document.getElementById('noteTime').value;
+      const timestampLocal = formatTimestampForStorage(date, time);
+
+      if (!timestampLocal) {
+        alert('Please enter a valid date and time.');
+        return;
+      }
+
+      const structured = readFormFields(type);
+      const note = {
+        id: crypto.randomUUID ? crypto.randomUUID() : `note-${Date.now()}`,
+        sensorId: sensor.id,
+        type,
+        timestampLocal,
+        date,
+        time,
+        summary: buildNoteSummary(type, structured),
+        structured,
+        details: document.getElementById('noteDetails').value.trim(),
+        createdAt: new Date().toISOString()
+      };
+
+      state.notes.push(note);
+      saveState(state);
+      renderAll();
+      document.getElementById('noteDetails').value = '';
+    }
+
+    function deleteNote(noteId) {
+      const state = app.state;
+      state.notes = state.notes.filter(note => note.id !== noteId);
+      saveState(state);
+      renderAll();
+    }
+
+    function renderNotesTable() {
+      const state = app.state;
+      const sensor = getSelectedSensor();
+      const rows = state.notes.filter(note => note.sensorId === (sensor ? sensor.id : ''));
+      const tbody = document.getElementById('notesTableBody');
+      tbody.innerHTML = '';
+
+      if (!rows.length) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td colspan="5" class="empty">No notes yet for this sensor.</td>';
+        tbody.appendChild(tr);
+        return;
+      }
+
+      rows
+        .sort((a, b) => (a.timestampLocal || '').localeCompare(b.timestampLocal || ''))
+        .forEach(note => {
+          const tr = document.createElement('tr');
+          const detailLines = [];
+
+          Object.entries(note.structured || {}).forEach(([key, value]) => {
+            if (!value || value === '—') return;
+            const prettyKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, char => char.toUpperCase());
+            detailLines.push(`${prettyKey}: ${value}`);
+          });
+
+          const details = [note.details, detailLines.join(' · ')].filter(Boolean).join(' | ');
+
+          tr.innerHTML = `
+            <td><span class="tag">${note.type}</span></td>
+            <td>${displayTimestamp(note.timestampLocal)}</td>
+            <td>${note.summary || 'Entry'}</td>
+            <td>${details || '—'}</td>
+            <td><button class="danger" type="button" data-delete-id="${note.id}">Delete</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+      tbody.querySelectorAll('[data-delete-id]').forEach(button => {
+        button.addEventListener('click', () => deleteNote(button.getAttribute('data-delete-id')));
+      });
+    }
+
+    function normalizeCgmDataset(raw) {
+      if (Array.isArray(raw)) {
+        return { entries: raw, conflicts: [] };
+      }
+      if (raw && Array.isArray(raw.entries)) {
+        return { entries: raw.entries, conflicts: Array.isArray(raw.conflicts) ? raw.conflicts : [] };
+      }
+      return { entries: [], conflicts: [] };
+    }
+
+    function parseCgmCsv(text) {
+      if (!text || !text.trim()) {
+        throw new Error('The CSV input is empty.');
+      }
+
+      const lines = text.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+      if (!lines.length) {
+        throw new Error('No rows found in the CSV.');
+      }
+
+      const rows = [];
+      lines.forEach(line => {
+        const cells = line.split(/[\t,;]+/).map(cell => cell.trim());
+        if (cells.length >= 2) {
+          rows.push(cells);
+        }
+      });
+
+      if (!rows.length) {
+        throw new Error('No valid rows could be parsed from the CSV.');
+      }
+
+      const entries = [];
+      rows.forEach((row, index) => {
+        if (index === 0 && row[0].toLowerCase().includes('time of glucose')) return;
+        const tsValue = row[0];
+        const valValue = row[1];
+        if (!tsValue) return;
+
+        let glucose = null;
+        let status = 'valid';
+
+        if (valValue && valValue.toLowerCase() === 'out of range') {
+          status = 'out_of_range';
+        } else if (valValue !== undefined && valValue !== '' && !Number.isNaN(Number(valValue))) {
+          glucose = Number(valValue);
+        }
+
+        if (!glucose && status !== 'out_of_range') {
+          return;
+        }
+
+        entries.push({
+          timestampLocal: tsValue,
+          glucose: glucose,
+          status,
+          source: 'lingo'
+        });
+      });
+
+      entries.sort((a, b) => a.timestampLocal.localeCompare(b.timestampLocal));
+      return entries;
+    }
+
+    function importCgmCsv() {
+      const state = app.state;
+      const sensor = getSelectedSensor();
+      if (!sensor) {
+        alert('Create or select a sensor before importing CGM data.');
+        return;
+      }
+
+      const csvText = document.getElementById('csvInput').value;
+      let parsed;
+      try {
+        parsed = parseCgmCsv(csvText);
+      } catch (error) {
+        alert(error.message);
+        return;
+      }
+
+      if (!parsed.length) {
+        alert('No valid CGM rows were imported.');
+        return;
+      }
+
+      const existing = normalizeCgmDataset(state.cgmData[sensor.id]);
+      const map = new Map();
+      existing.entries.forEach(item => {
+        map.set(item.timestampLocal, item);
+      });
+
+      let duplicates = 0;
+      let conflicts = 0;
+      const mergedEntries = [...existing.entries];
+      const conflictList = [...(existing.conflicts || [])];
+
+      parsed.forEach(item => {
+        const existingItem = map.get(item.timestampLocal);
+        if (!existingItem) {
+          mergedEntries.push(item);
+          map.set(item.timestampLocal, item);
+          return;
+        }
+
+        const sameValue = existingItem.status === item.status && existingItem.glucose === item.glucose;
+        if (sameValue) {
+          duplicates += 1;
+          return;
+        }
+
+        conflicts += 1;
+        conflictList.push({
+          timestampLocal: item.timestampLocal,
+          existing: existingItem,
+          incoming: item
+        });
+      });
+
+      mergedEntries.sort((a, b) => a.timestampLocal.localeCompare(b.timestampLocal));
+      state.cgmData[sensor.id] = { entries: mergedEntries, conflicts: conflictList };
+      saveState(state);
+      renderSummary();
+      renderDailyAverageChart();
+      document.getElementById('csvInput').value = '';
+      alert(`Imported ${parsed.length} CGM readings into ${sensor.id}. ${duplicates} duplicate rows skipped; ${conflicts} conflicts flagged for review.`);
+    }
+
+    function renderSummary() {
+      const sensor = getSelectedSensor();
+      const summary = document.getElementById('cgmSummary');
+      if (!sensor || !app.state.cgmData[sensor.id]) {
+        summary.innerHTML = '<span class="pill">No CGM data imported yet</span>';
+        return;
+      }
+
+      const dataset = normalizeCgmDataset(app.state.cgmData[sensor.id]);
+      const data = dataset.entries;
+      if (!data.length) {
+        summary.innerHTML = '<span class="pill">No CGM data imported yet</span>';
+        return;
+      }
+
+      const valid = data.filter(item => item.status === 'valid');
+      const outOfRange = data.filter(item => item.status === 'out_of_range');
+      const first = valid[0]?.timestampLocal || data[0]?.timestampLocal || '—';
+      const last = valid[valid.length - 1]?.timestampLocal || data[data.length - 1]?.timestampLocal || '—';
+      const avg = valid.length ? (valid.reduce((total, item) => total + item.glucose, 0) / valid.length).toFixed(1) : '—';
+
+      summary.innerHTML = `
+        <span class="pill">${valid.length} valid readings</span>
+        <span class="pill">${outOfRange.length} out-of-range entries</span>
+        <span class="pill">${dataset.conflicts.length} conflicts flagged</span>
+        <span class="pill">First: ${first}</span>
+        <span class="pill">Last: ${last}</span>
+        <span class="pill">Avg glucose: ${avg}</span>
+      `;
+    }
+
+    function getAllValidEntriesAcrossSensors() {
+      const datasets = Object.values(app.state.cgmData || {});
+      const entries = [];
+      datasets.forEach(dataset => {
+        const normalized = normalizeCgmDataset(dataset);
+        normalized.entries.forEach(item => {
+          if (item.status === 'valid' && Number.isFinite(item.glucose)) {
+            entries.push(item);
+          }
+        });
+      });
+      return entries;
+    }
+
+    function getDailyAverageSeries(entries) {
+      const byDate = new Map();
+      entries.forEach(item => {
+        const dateKey = (item.timestampLocal || '').slice(0, 10);
+        if (!dateKey) return;
+        if (!byDate.has(dateKey)) {
+          byDate.set(dateKey, { date: dateKey, total: 0, count: 0 });
+        }
+        const bucket = byDate.get(dateKey);
+        bucket.total += Number(item.glucose);
+        bucket.count += 1;
+      });
+
+      return Array.from(byDate.values())
+        .map(bucket => ({ date: bucket.date, avg: bucket.total / bucket.count }))
+        .sort((a, b) => a.date.localeCompare(b.date));
+    }
+
+    function getYearlyKpiStats(entries, selectedYear) {
+      const yearEntries = entries.filter(item => (item.timestampLocal || '').startsWith(`${selectedYear}-`));
+      if (!yearEntries.length) return null;
+
+      const values = yearEntries.map(item => Number(item.glucose));
+      const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+      const inRange = values.filter(value => value >= 70 && value <= 140).length;
+      const below = values.filter(value => value < 70).length;
+      const above = values.filter(value => value > 140).length;
+      const lowest = Math.min(...values);
+      const highest = Math.max(...values);
+      const estA1c = (mean + 46.7) / 28.7;
+
+      return {
+        mean: mean.toFixed(1),
+        tir: ((inRange / values.length) * 100).toFixed(1),
+        below: ((below / values.length) * 100).toFixed(1),
+        above: ((above / values.length) * 100).toFixed(1),
+        lowest: Math.round(lowest),
+        highest: Math.round(highest),
+        estA1c: estA1c.toFixed(2)
+      };
+    }
+
+    function renderYearlyKpis(entries) {
+      const row = document.getElementById('yearlyKpiRow');
+      const yearSelect = document.getElementById('chartYearSelect');
+      const selectedYear = yearSelect.value || new Date().getFullYear();
+      const stats = getYearlyKpiStats(entries, selectedYear);
+
+      if (!stats) {
+        row.innerHTML = '<div class="kpi-card"><div class="kpi-value">—</div><div class="kpi-label">No data</div></div>';
+        return;
+      }
+
+      const cards = [
+        { value: `${stats.mean}`, label: 'Mean mg/dL' },
+        { value: `${stats.tir}%`, label: 'TIR 70–140' },
+        { value: `${stats.below}%`, label: 'Time <70' },
+        { value: `${stats.above}%`, label: 'Time >140' },
+        { value: `${stats.lowest}`, label: 'Lowest' },
+        { value: `${stats.highest}`, label: 'Highest' },
+        { value: `${stats.estA1c}`, label: 'Est. HbA1c' }
+      ];
+
+      const ahcValue = Number(stats.estA1c);
+      let a1cClass = 'health-green';
+      if (ahcValue >= 5.7 && ahcValue < 6.5) {
+        a1cClass = 'health-yellow';
+      } else if (ahcValue >= 6.5) {
+        a1cClass = 'health-pink';
+      }
+
+      const a1cStatus = ahcValue < 5.7 ? 'Healthy' : ahcValue < 6.5 ? 'Prediabetes' : 'Type 2 diabetes';
+
+      row.innerHTML = cards.map((card, index) => {
+        const isA1c = index === cards.length - 1;
+        const extraClass = isA1c ? ` ${a1cClass}` : '';
+        const statusMarkup = isA1c ? `<div class="kpi-status">${a1cStatus}</div>` : '';
+        return `
+          <div class="kpi-card${extraClass}">
+            <div class="kpi-value">${card.value}</div>
+            <div class="kpi-label">${card.label}</div>
+            ${statusMarkup}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getMonthlyAverageSeries(entries, selectedYear) {
+      const byMonth = new Map();
+      entries.forEach(item => {
+        const stamp = item.timestampLocal || '';
+        if (!stamp.startsWith(`${selectedYear}-`)) return;
+        const monthKey = stamp.slice(0, 7);
+        if (!byMonth.has(monthKey)) {
+          byMonth.set(monthKey, { monthKey, total: 0, count: 0 });
+        }
+        const bucket = byMonth.get(monthKey);
+        bucket.total += Number(item.glucose);
+        bucket.count += 1;
+      });
+
+      return Array.from(byMonth.values())
+        .map(bucket => {
+          const monthDate = new Date(`${bucket.monthKey}-01T00:00:00`);
+          return {
+            monthKey: bucket.monthKey,
+            label: monthDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+            avg: bucket.total / bucket.count,
+            floor: Math.round(bucket.total / bucket.count)
+          };
+        })
+        .sort((a, b) => a.monthKey.localeCompare(b.monthKey));
+    }
+
+    function getMonthBand(avg) {
+      if (avg < 100) return { key: 'month-healthy', label: 'Healthy', floorText: 'floor 99' };
+      if (avg <= 125) return { key: 'month-prediabetes', label: 'Pre-Diab', floorText: 'floor 125' };
+      return { key: 'month-high', label: 'High', floorText: 'floor 126+' };
+    }
+
+    function renderMonthlySummary(entries) {
+      const yearSelect = document.getElementById('chartYearSelect');
+      const title = document.getElementById('monthlySummaryTitle');
+      const grid = document.getElementById('monthlySummaryGrid');
+      const selectedYear = yearSelect.value || new Date().getFullYear();
+      const monthly = getMonthlyAverageSeries(entries, selectedYear);
+
+      title.textContent = `${selectedYear} Fasting Glucose (average)`;
+
+      if (!monthly.length) {
+        grid.innerHTML = '<div class="month-card"><div class="month-name">No data</div><div class="month-value">—</div></div>';
+        return;
+      }
+
+      grid.innerHTML = monthly.map(item => {
+        const band = getMonthBand(item.avg);
+        return `
+          <div class="month-card ${band.key}">
+            <div class="month-name">${item.label}</div>
+            <div class="month-value">${item.avg.toFixed(1)}</div>
+            <div class="month-status">${band.label}</div>
+            <div class="month-floor">${band.floorText}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderDailyAverageChart() {
+      const canvas = document.getElementById('dailyAverageChart');
+      const yearSelect = document.getElementById('chartYearSelect');
+      const ctx = canvas.getContext('2d');
+      const validEntries = getAllValidEntriesAcrossSensors();
+
+      if (!validEntries.length) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#587163';
+        ctx.font = '16px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Import CGM data to begin the daily average chart.', canvas.width / 2, canvas.height / 2);
+        yearSelect.innerHTML = '<option value="">No data</option>';
+        document.getElementById('yearlyKpiRow').innerHTML = '<div class="kpi-card"><div class="kpi-value">—</div><div class="kpi-label">No data</div></div>';
+        document.getElementById('monthlySummaryGrid').innerHTML = '<div class="month-card"><div class="month-name">No data</div><div class="month-value">—</div></div>';
+        document.getElementById('monthlySummaryTitle').textContent = 'No data';
+        return;
+      }
+
+      const years = [...new Set(validEntries.map(item => (item.timestampLocal || '').slice(0, 4)))].sort();
+      if (!yearSelect.value || !years.includes(yearSelect.value)) {
+        yearSelect.value = years[years.length - 1];
+      }
+
+      const selectedYear = yearSelect.value || years[years.length - 1];
+      const dailySeries = getDailyAverageSeries(validEntries).filter(point => point.date.startsWith(`${selectedYear}-`));
+
+      yearSelect.innerHTML = years.map(year => `<option value="${year}">${year}</option>`).join('');
+      yearSelect.value = selectedYear;
+      renderYearlyKpis(validEntries);
+      renderMonthlySummary(validEntries);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#fbfdfb';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      if (!dailySeries.length) {
+        ctx.fillStyle = '#587163';
+        ctx.font = '16px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('No valid readings for this year yet.', canvas.width / 2, canvas.height / 2);
+        return;
+      }
+
+      const margin = { top: 24, right: 28, bottom: 30, left: 52 };
+      const plotWidth = canvas.width - margin.left - margin.right;
+      const plotHeight = canvas.height - margin.top - margin.bottom;
+      const values = dailySeries.map(point => point.avg);
+      const minValue = Math.max(0, Math.min(...values) - 10);
+      const maxValue = Math.max(...values) + 10;
+      const range = maxValue - minValue || 1;
+
+      ctx.strokeStyle = '#cfe3d5';
+      ctx.lineWidth = 1;
+      ctx.font = '12px sans-serif';
+      ctx.fillStyle = '#587163';
+      ctx.textAlign = 'right';
+      for (let i = 0; i <= 4; i += 1) {
+        const y = margin.top + (plotHeight * i) / 4;
+        const value = maxValue - (range * i) / 4;
+        ctx.beginPath();
+        ctx.moveTo(margin.left, y);
+        ctx.lineTo(canvas.width - margin.right, y);
+        ctx.stroke();
+        ctx.fillText(Math.round(value), margin.left - 10, y + 4);
+      }
+
+      const labels = new Set();
+      dailySeries.forEach(point => {
+        const monthKey = point.date.slice(0, 7);
+        labels.add(monthKey);
+      });
+      const monthEntries = Array.from(labels);
+
+      ctx.textAlign = 'center';
+      monthEntries.forEach((monthKey, index) => {
+        const monthIndex = monthEntries.indexOf(monthKey);
+        const x = margin.left + (plotWidth * (monthIndex + 0.5)) / Math.max(monthEntries.length, 1);
+        ctx.fillText(monthKey.slice(5, 7), x, canvas.height - 8);
+      });
+
+      ctx.beginPath();
+      dailySeries.forEach((point, index) => {
+        const x = margin.left + (plotWidth * index) / Math.max(dailySeries.length - 1, 1);
+        const y = margin.top + ((maxValue - point.avg) / range) * plotHeight;
+        if (index === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      ctx.strokeStyle = '#2d7f52';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      dailySeries.forEach((point, index) => {
+        const x = margin.left + (plotWidth * index) / Math.max(dailySeries.length - 1, 1);
+        const y = margin.top + ((maxValue - point.avg) / range) * plotHeight;
+        ctx.beginPath();
+        ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#2d7f52';
+        ctx.fill();
+      });
+
+      ctx.fillStyle = '#21372d';
+      ctx.font = '700 13px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(`${selectedYear} average daily glucose`, margin.left, 16);
+    }
+
+    function exportBundle() {
+      const state = app.state;
+      const sensor = getSelectedSensor();
+      if (!sensor) {
+        alert('Select a sensor before exporting a bundle.');
+        return;
+      }
+
+      const payload = {
+        sensor,
+        notes: state.notes.filter(note => note.sensorId === sensor.id),
+        cgmData: normalizeCgmDataset(state.cgmData[sensor.id]).entries
+      };
+
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `cgm-sensor-bundle-${sensor.id}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadNotesJson() {
+      const state = app.state;
+      const sensor = getSelectedSensor();
+      if (!sensor) {
+        alert('Select a sensor before exporting notes.');
+        return;
+      }
+
+      const payload = state.notes.filter(note => note.sensorId === sensor.id);
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `cgm-notes-${sensor.id}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importBundleFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload = JSON.parse(String(reader.result));
+          if (!payload || !payload.sensor || !Array.isArray(payload.notes)) {
+            throw new Error('This file is not a valid sensor bundle JSON export.');
+          }
+          const state = app.state;
+          const sensorId = payload.sensor.id || payload.sensor.label || getSensorDefaultId();
+          if (!state.sensors.find(sensor => sensor.id === sensorId)) {
+            state.sensors.push({
+              id: sensorId,
+              label: payload.sensor.label || sensorId,
+              startDate: payload.sensor.startDate || '',
+              endDate: payload.sensor.endDate || '',
+              notes: payload.sensor.notes || ''
+            });
+          } else {
+            const sensor = state.sensors.find(s => s.id === sensorId);
+            sensor.label = payload.sensor.label || sensor.id;
+            sensor.startDate = payload.sensor.startDate || sensor.startDate || '';
+            sensor.endDate = payload.sensor.endDate || sensor.endDate || '';
+            sensor.notes = payload.sensor.notes || sensor.notes || '';
+          }
+          state.activeSensorId = sensorId;
+          state.notes = state.notes.filter(note => note.sensorId !== sensorId).concat(payload.notes);
+          if (payload.cgmData) {
+            const merged = normalizeCgmDataset(state.cgmData[sensorId]);
+            const map = new Map();
+            merged.entries.forEach(item => map.set(item.timestampLocal, item));
+            payload.cgmData.forEach(item => {
+              if (!map.has(item.timestampLocal)) {
+                merged.entries.push(item);
+                map.set(item.timestampLocal, item);
+              }
+            });
+            merged.entries.sort((a, b) => a.timestampLocal.localeCompare(b.timestampLocal));
+            state.cgmData[sensorId] = merged;
+          }
+          saveState(state);
+          renderAll();
+        } catch (error) {
+          alert(error.message || 'Import failed.');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    function renderAll() {
+      renderSensorSelect();
+      renderDynamicForm();
+      renderNotesTable();
+      renderSummary();
+      renderDailyAverageChart();
+      document.getElementById('sensorSelect').onchange = function () {
+        app.state.activeSensorId = this.value;
+        saveState(app.state);
+        renderAll();
+      };
+    }
+
+    function init() {
+      app.state = loadState();
+      if (!app.state.sensors.length) {
+        const defaultSensorId = getSensorDefaultId();
+        app.state.sensors.push({ id: defaultSensorId, label: defaultSensorId, startDate: '', endDate: '', notes: '' });
+        app.state.activeSensorId = defaultSensorId;
+        saveState(app.state);
+      }
+
+      document.getElementById('noteType').addEventListener('change', renderDynamicForm);
+      document.getElementById('saveSensorBtn').addEventListener('click', saveSensor);
+      document.getElementById('newSensorBtn').addEventListener('click', () => {
+        clearSensorForm();
+        const id = getSensorDefaultId();
+        document.getElementById('sensorId').value = id;
+        document.getElementById('sensorSelect').value = '';
+      });
+      document.getElementById('saveNoteBtn').addEventListener('click', saveNote);
+      document.getElementById('importCgmBtn').addEventListener('click', importCgmCsv);
+      document.getElementById('clearCsvBtn').addEventListener('click', () => {
+        document.getElementById('csvInput').value = '';
+      });
+      document.getElementById('chartYearSelect').addEventListener('change', renderDailyAverageChart);
+      document.getElementById('exportBundleBtn').addEventListener('click', exportBundle);
+      document.getElementById('downloadNotesBtn').addEventListener('click', downloadNotesJson);
+      document.getElementById('importBundleBtn').addEventListener('click', () => document.getElementById('bundleFileInput').click());
+      document.getElementById('bundleFileInput').addEventListener('change', importBundleFile);
+
+      const defaultDate = noteDefaults();
+      document.getElementById('noteDate').value = defaultDate.date;
+      document.getElementById('noteTime').value = defaultDate.time;
+
+      renderAll();
+    }
+
+    const app = { state: defaultState };
+    init();
+  </script>
+</body>
+</html>
