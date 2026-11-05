@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turkey & Hemp Heart Lettuce Wraps with Ginger-Tamari Sauce</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Turkey & Hemp Heart Lettuce Wraps with Ginger-Tamari Sauce",
+    "description": "Lean ground turkey sauteed with fresh ginger, activated garlic, gluten-free tamari, hemp hearts, and scallions, served in crisp lettuce leaves. This is a high-protein, low-saturated-fat wrap designed for custom salad building while preserving sat-fat budget and glucose stability.",
+    "recipeYield": "2 servings",
+    "prepTime": "PT10M",
+    "cookTime": "PT12M",
+    "totalTime": "PT22M",
+    "recipeCategory": "Main",
+    "recipeCuisine": "Mediterranean-Asian inspired",
+    "keywords": "ground turkey, hemp hearts, lettuce wraps, gluten-free tamari, APOE4, fatty liver, MTHFR, low saturated fat, high protein",
+    "recipeIngredient": [
+      "250 g lean ground turkey",
+      "3 tbsp hemp hearts (about 30 g)",
+      "1 tbsp gluten-free tamari",
+      "1 tbsp fresh ginger, finely minced",
+      "2 garlic cloves, minced and rested 5 minutes",
+      "1 tsp sesame oil",
+      "3 scallions, finely chopped",
+      "6-8 large romaine or butter lettuce leaves"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Activate aromatics",
+        "text": "Mince garlic and let it rest at least 5 minutes to activate allicin. Mince ginger and chop scallions. Wash and dry lettuce leaves well so wraps stay crisp."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Brown turkey",
+        "text": "Heat a skillet over medium-high heat. Add turkey and break apart with a wooden spoon. Cook 6 to 8 minutes until fully browned. Drain excess moisture if needed."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Build flavor",
+        "text": "Reduce heat to medium. Stir in garlic and ginger and cook 1 minute until fragrant."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add sauce and hemp",
+        "text": "Add tamari and sesame oil. Stir in hemp hearts and cook about 2 minutes so they lightly toast and absorb flavor."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish and assemble",
+        "text": "Remove from heat, fold in most scallions, and reserve a little for garnish. Spoon filling into lettuce leaves, top with remaining scallions, and serve immediately."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #2d6a4f; --green-mid: #40916c; --green-light: #d8f3dc;
+      --green-pale:  #f0faf2; --amber: #fff8e1; --amber-dark: #78350f;
+      --amber-border:#fde68a; --text: #1e2d24; --muted: #5a7263;
+      --border: #b7ddc4; --shadow: 0 2px 12px rgba(45,106,79,.12);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--green-pale); color: var(--text); line-height: 1.6; padding-bottom: 4rem; }
+    nav { background: var(--green-dark); padding: .75rem 1.5rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; opacity: .85; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+    .recipe-hero { background: #fff; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+    .recipe-hero-emoji { background: var(--green-light); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 4rem; letter-spacing: .5rem; }
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: .9rem; }
+    .meta-strip { display: flex; gap: 1.2rem; flex-wrap: wrap; background: var(--green-pale); border-radius: 8px; padding: .6rem 1rem; font-size: .82rem; color: var(--muted); margin-bottom: .9rem; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4  { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp     { background: #e3f2fd; color: #1565c0; }
+    .badge-liver  { background: #fef3c7; color: #78350f; }
+    .badge-mthfr  { background: #f3e5f5; color: #6a1b9a; }
+    .badge-kidney { background: #fce4ec; color: #880e4f; }
+    .glucose-strip { display: inline-flex; align-items: center; gap: .45rem; background: #e8f5e9; border-radius: 20px; padding: .28rem .85rem; font-size: .8rem; font-weight: 700; color: #1b5e20; }
+    .gi-dot-low { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+    .recipe-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .recipe-layout { grid-template-columns: 1fr; } }
+    .panel { background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 1px 6px rgba(45,106,79,.08); overflow: hidden; }
+    .panel-header { background: var(--green-dark); color: #fff; padding: .65rem 1.1rem; font-weight: 700; font-size: .88rem; }
+    .panel-body { padding: 1rem 1.1rem; }
+    .ing-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .ing-item { font-size: .87rem; display: grid; grid-template-columns: 80px 1fr auto; gap: .4rem; align-items: baseline; border-bottom: 1px solid var(--green-pale); padding-bottom: .4rem; line-height: 1.4; }
+    .ing-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); font-size: .84rem; }
+    .ing-note { font-size: .7rem; text-align: right; white-space: nowrap; padding-left: .3rem; }
+    .ox-low { color: #27ae60; }
+    .ox-zero { color: #95a5a6; }
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .step-item { display: flex; gap: .85rem; align-items: flex-start; font-size: .88rem; line-height: 1.65; }
+    .step-num { background: var(--green-dark); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .15rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+    .callout-panel { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.5rem; }
+    .callout-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--green-dark); margin-bottom: .75rem; font-weight: 700; }
+    .callout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: .65rem; }
+    .callout-card { border-radius: 10px; padding: .65rem .85rem; font-size: .82rem; line-height: 1.5; border: 1px solid var(--border); }
+    .callout-card strong { display: block; font-size: .8rem; margin-bottom: .2rem; }
+    .cc-a { background: #e8f5e9; }
+    .cc-a strong { color: #1b5e20; }
+    .cc-b { background: #e3f2fd; }
+    .cc-b strong { color: #0d47a1; }
+    .cc-c { background: #fff8e1; }
+    .cc-c strong { color: #78350f; }
+    .cc-d { background: #f3e5f5; }
+    .cc-d strong { color: #6a1b9a; }
+    .notes-panel { background: var(--amber); border: 1px solid var(--amber-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+    .notes-panel h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; color: var(--amber-dark); margin-bottom: .7rem; font-weight: 700; }
+    .notes-panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .notes-panel li { font-size: .87rem; line-height: 1.6; padding-left: 1.3rem; position: relative; }
+    .notes-panel li::before { content: '→'; position: absolute; left: 0; color: var(--amber-dark); font-weight: 700; }
+    .test-bar { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .test-bar p { font-size: .85rem; color: var(--muted); }
+    .btn { padding: .48rem 1.15rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .btn-back { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn:hover { opacity: .82; }
+    .nutr-panel { background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:1.2rem; }
+    .nutr-panel-header { background:#f8f8f8; padding:.65rem 1.2rem; font-size:.82rem; font-weight:700; color:#2f2f2f; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; }
+    .nutr-panel-header span { font-size:.72rem; font-weight:400; color:#64748b; }
+    .nutr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:.5rem; padding:1rem 1.2rem; }
+    .nutr-row { display:flex; flex-direction:column; gap:.2rem; }
+    .nutr-label-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .nutr-name { font-size:.8rem; font-weight:700; color:#1f2937; }
+    .nutr-why { font-size:.7rem; color:#64748b; font-style:italic; }
+    .nutr-amount { font-size:.78rem; font-weight:700; color:#334155; white-space:nowrap; }
+    .nutr-track { background:#f0ede8; border-radius:20px; height:10px; overflow:hidden; }
+    .nutr-fill { height:100%; border-radius:20px; }
+    .nutr-pct { font-size:.69rem; color:#64748b; margin-top:.05rem; }
+    .nutr-note { font-size:.72rem; color:#64748b; padding:.5rem 1.2rem .9rem; border-top:1px solid #e5e7eb; line-height:1.5; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">🏠 Home</a>
+  <a href="../health-tracker.html">📈 Health Tracker</a>
+  <a href="../lab-tracker.html">🧪 Lab Results</a>
+  <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+  <a href="../food-response-testing.html">🍽️ Food Testing</a>
+  <a href="../dawn-effect.html">🌅 Dawn Effect</a>
+  <a href="../genetics.html">🧬 Genetics</a>
+  <a href="../health-reference.html">📋 Reference</a>
+  <a href="../supplement-timing.html">💊 Supplements</a>
+  <a href="../exercise-protocol.html">🏃 Exercise</a>
+  <a href="../cgm-tracker.html">📡 CGM</a>
+  <a href="../daily-weight-tracker.html">⚖️ Weight</a>
+  <a href="../diet-power.html">🥣 Diet Power</a>
+</nav>
+
+<div class="main-wrap">
+
+  <div class="recipe-hero">
+    <div class="recipe-hero-emoji">🦃 🥬 🌿</div>
+    <div class="recipe-hero-body">
+      <h1>Turkey & Hemp Heart Lettuce Wraps with Ginger-Tamari Sauce</h1>
+      <p>Lean ground turkey and hemp hearts create a high-protein, low-saturated-fat filling with fresh ginger, activated garlic, and gluten-free tamari. Wrapped in crisp lettuce instead of grain, this is designed as a salad-builder meal that helps you raise protein without spending too much of your daily saturated fat budget.</p>
+
+      <div class="meta-strip">
+        <span>⏱ Prep 10 min</span>
+        <span>🔥 Cook 10-12 min</span>
+        <span>🍽 2 generous servings</span>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-apoe4">APOE4</span>
+        <span class="badge badge-celiac">Celiac / GF</span>
+        <span class="badge badge-dp">DP / Blood Sugar</span>
+        <span class="badge badge-liver">Fatty Liver</span>
+        <span class="badge badge-mthfr">MTHFR</span>
+        <span class="badge badge-kidney">Kidney Stone</span>
+      </div>
+
+      <div class="glucose-strip">
+        <span class="gi-dot-low"></span>
+        Low GI - low starch wrap format
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:.6rem; margin: 0 0 1rem;">
+    <span style="display:inline-flex; align-items:center; gap:.35rem; background:#e8f5e9; color:#166534; border:1px solid #86efac; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Net carbs: ~4.0 g per serving</span>
+    <span style="display:inline-flex; align-items:center; gap:.35rem; background:#fff7ed; color:#9a4d00; border:1px solid #fed7aa; border-radius:999px; padding:.38rem .8rem; font-size:.76rem; font-weight:700;">Saturated fat: ~1.5 g per serving</span>
+  </div>
+
+  <div class="nutr-panel">
+    <div class="nutr-panel-header">📊 Targeted nutrients - per serving <span>estimated values for 1 of 2 servings</span></div>
+    <div class="nutr-grid">
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Choline <span class="nutr-why">- APOE4 · Fatty Liver</span></span>
+          <span class="nutr-amount">~120 mg</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:28%;background:#f59e0b"></div></div>
+        <div class="nutr-pct">Supports liver-fat export pattern and membrane health.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Protein <span class="nutr-why">- satiety</span></span>
+          <span class="nutr-amount">~32 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:40%;background:#16a34a"></div></div>
+        <div class="nutr-pct">Strong protein anchor for custom salad builds.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">B12 <span class="nutr-why">- MTHFR</span></span>
+          <span class="nutr-amount">~0.6 ug</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:25%;background:#7c3aed"></div></div>
+        <div class="nutr-pct">Animal-protein B12 support without high sat fat.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Folate <span class="nutr-why">- MTHFR</span></span>
+          <span class="nutr-amount">~42 ug</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:11%;background:#db2777"></div></div>
+        <div class="nutr-pct">Fresh aromatics and greens contribute folate support.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Saturated Fat <span class="nutr-why">- limit</span></span>
+          <span class="nutr-amount">~1.5 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:15%;background:#dc2626"></div></div>
+        <div class="nutr-pct">Keeps this meal friendly to a 10 g/day sat-fat budget.</div>
+      </div>
+      <div class="nutr-row">
+        <div class="nutr-label-row">
+          <span class="nutr-name">Net Carbs <span class="nutr-why">- DP</span></span>
+          <span class="nutr-amount">~4.0 g</span>
+        </div>
+        <div class="nutr-track"><div class="nutr-fill" style="width:8%;background:#0ea5e9"></div></div>
+        <div class="nutr-pct">Low glycemic load in lettuce-wrap format.</div>
+      </div>
+    </div>
+    <div class="nutr-note">Use this as a protein-forward wrap base and pair with low-carb greens to preserve glucose stability.</div>
+  </div>
+
+  <div class="callout-panel">
+    <h3>🧬 What each ingredient is doing</h3>
+    <div class="callout-grid">
+      <div class="callout-card cc-a">
+        <strong>🦃 Lean turkey</strong>
+        Delivers dense complete protein with lower saturated fat than many red-meat options.
+      </div>
+      <div class="callout-card cc-b">
+        <strong>🌿 Hemp hearts</strong>
+        Adds extra protein, magnesium, and unsaturated fats while keeping carbs low.
+      </div>
+      <div class="callout-card cc-c">
+        <strong>🧄 Garlic + ginger</strong>
+        Supports anti-inflammatory flavor base and improves meal quality without sugary sauces.
+      </div>
+      <div class="callout-card cc-d">
+        <strong>🥬 Lettuce wraps</strong>
+        Replaces grain wrappers with a crisp, low-carb structure for DP-friendly assembly.
+      </div>
+    </div>
+  </div>
+
+  <div class="recipe-layout">
+    <div class="panel">
+      <div class="panel-header">🧾 Ingredients - 2 servings</div>
+      <div class="panel-body">
+        <ul class="ing-list">
+          <li class="ing-item">
+            <span class="ing-amount">250 g</span>
+            <span>lean ground turkey</span>
+            <span class="ing-note ox-zero">⬜ ~0 mg</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">3 tbsp</span>
+            <span>hemp hearts (~30 g)</span>
+            <span class="ing-note ox-low">🟢 low</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">1 tbsp</span>
+            <span>gluten-free tamari</span>
+            <span class="ing-note ox-zero">⬜ ~0 mg</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">1 tbsp</span>
+            <span>fresh ginger, minced</span>
+            <span class="ing-note ox-zero">⬜ ~0 mg</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">2 cloves</span>
+            <span>garlic, minced (rest 5 min)</span>
+            <span class="ing-note ox-zero">⬜ ~0 mg</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">1 tsp</span>
+            <span>sesame oil</span>
+            <span class="ing-note ox-zero">⬜ ~0 mg</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">3 stalks</span>
+            <span>scallions, chopped</span>
+            <span class="ing-note ox-low">🟢 low</span>
+          </li>
+          <li class="ing-item">
+            <span class="ing-amount">6-8 leaves</span>
+            <span>romaine or butter lettuce, washed and dried</span>
+            <span class="ing-note ox-low">🟢 low</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">🔪 Method - about 22 minutes</div>
+      <div class="panel-body">
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <div class="step-name">Activate Aromatics</div>
+              Mince garlic and let it rest at least 5 minutes. Prep ginger, scallions, and lettuce leaves.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <div class="step-name">Brown Turkey</div>
+              Heat skillet over medium-high heat. Add turkey, break apart, and cook 6-8 minutes until browned.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <div class="step-name">Build Flavor Base</div>
+              Reduce to medium heat, stir in garlic and ginger, and cook about 1 minute until fragrant.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">4</span>
+            <div>
+              <div class="step-name">Sauce + Hemp Hearts</div>
+              Add tamari and sesame oil. Stir in hemp hearts and cook 2 minutes so they absorb flavor.
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">5</span>
+            <div>
+              <div class="step-name">Finish + Wrap</div>
+              Remove from heat, fold in most scallions, and reserve some for garnish. Spoon into lettuce leaves and serve.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-panel">
+    <h3>🍽 Serving ideas and combinations</h3>
+    <ul>
+      <li><strong>Salad builder:</strong> Add cucumber, herbs, or a squeeze of lemon for a larger low-carb bowl.</li>
+      <li><strong>Protein boost:</strong> Use as a topper over chopped romaine when protein target is behind.</li>
+      <li><strong>Batch prep:</strong> Cook filling ahead and reheat gently; assemble wraps fresh to preserve crunch.</li>
+    </ul>
+  </div>
+
+  <div class="test-bar">
+    <p>🩸 <strong>Low glycemic profile</strong> - high protein with low net carbs; suitable for blood sugar testing as a low-spike meal.</p>
+    <a class="btn btn-back" href="../recipes.html">← Back to Recipes</a>
+  </div>
+
+</div>
+</body>
+</html>
