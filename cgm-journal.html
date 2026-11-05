@@ -521,13 +521,22 @@
       border: 1px solid var(--line);
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.72);
-      padding: 14px 14px 10px;
+      padding: 10px 10px 8px;
       overflow: hidden;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .event-card.full-width {
       grid-column: 1 / -1;
+    }
+
+    .event-card .table-wrap table {
+      min-width: 100%;
+    }
+
+    .event-card th, .event-card td {
+      padding: 7px 8px;
+      font-size: 0.8rem;
     }
 
     .event-card h3 {
