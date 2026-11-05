@@ -1523,11 +1523,13 @@
         if (!stamp.startsWith(`${selectedYear}-`)) return;
         const monthKey = stamp.slice(0, 7);
         if (!byMonth.has(monthKey)) {
-          byMonth.set(monthKey, { monthKey, total: 0, count: 0 });
+          byMonth.set(monthKey, { monthKey, total: 0, count: 0, floor: Number.POSITIVE_INFINITY });
         }
         const bucket = byMonth.get(monthKey);
-        bucket.total += Number(item.glucose);
+        const glucose = Number(item.glucose);
+        bucket.total += glucose;
         bucket.count += 1;
+        bucket.floor = Math.min(bucket.floor, glucose);
       });
 
       return Array.from(byMonth.values())
@@ -1537,16 +1539,16 @@
             monthKey: bucket.monthKey,
             label: monthDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
             avg: bucket.total / bucket.count,
-            floor: Math.round(bucket.total / bucket.count)
+            floor: bucket.floor === Number.POSITIVE_INFINITY ? null : bucket.floor
           };
         })
         .sort((a, b) => a.monthKey.localeCompare(b.monthKey));
     }
 
     function getMonthBand(avg) {
-      if (avg < 100) return { key: 'month-healthy', label: 'Healthy', floorText: 'floor 99' };
-      if (avg <= 125) return { key: 'month-prediabetes', label: 'Pre-Diab', floorText: 'floor 125' };
-      return { key: 'month-high', label: 'High', floorText: 'floor 126+' };
+      if (avg < 100) return { key: 'month-healthy', label: 'Healthy' };
+      if (avg <= 125) return { key: 'month-prediabetes', label: 'Pre-Diab' };
+      return { key: 'month-high', label: 'High' };
     }
 
     function renderMonthlySummary(entries) {
@@ -1565,12 +1567,13 @@
 
       grid.innerHTML = monthly.map(item => {
         const band = getMonthBand(item.avg);
+        const floorDisplay = item.floor === null ? '—' : `Floor ${Math.round(item.floor)}`;
         return `
           <div class="month-card ${band.key}">
             <div class="month-name">${item.label}</div>
             <div class="month-value">${item.avg.toFixed(1)}</div>
             <div class="month-status">${band.label}</div>
-            <div class="month-floor">${band.floorText}</div>
+            <div class="month-floor">${floorDisplay}</div>
           </div>
         `;
       }).join('');
