@@ -1,0 +1,133 @@
+{
+  "id": "preset-cycle-1",
+  "label": "Cycle 1 — Baseline",
+  "milestone": 0,
+  "weightStart": 228.2,
+  "weightEnd": 224.0,
+  "notes": "First Lingo CGM wear (sensor 1). May 28–29 had the worst hypo cluster of the period — nadir 55 mg/dL for 100 minutes on May 29 midday, and sustained low from May 28 23:44 through May 29 early AM. All morning spikes were post-breakfast (7–10am window), with Jun 1 being the highest single reading at 166. May 30 was a perfect 100% TIR day — that day's meals are the baseline template. No dawn phenomenon detected: overnight glucose naturally declines through 3–6am on most nights. Jun 4 overnight nadir of 55 occurred during sleep.",
+  "stats": {
+    "dateStart": "2026-05-27",
+    "dateEnd": "2026-06-07",
+    "durationDays": 11,
+    "n": 3206,
+    "mean": 91,
+    "min": 55,
+    "max": 166,
+    "tir70_140": 93.4,
+    "tir70_180": 95.3,
+    "pctBelow70": 4.7,
+    "pctAbove140": 1.9,
+    "pctAbove180": 0,
+    "gmi": 5.49,
+    "dawnPositive": false,
+    "spikes": [
+      {
+        "onset": "2026-05-28 09:54",
+        "peakTime": "2026-05-28 10:09",
+        "peakVal": 150,
+        "duration": 25
+      },
+      {
+        "onset": "2026-05-29 09:24",
+        "peakTime": "2026-05-29 09:44",
+        "peakVal": 163,
+        "duration": 60
+      },
+      {
+        "onset": "2026-06-01 08:54",
+        "peakTime": "2026-06-01 09:24",
+        "peakVal": 166,
+        "duration": 60
+      },
+      {
+        "onset": "2026-06-02 07:59",
+        "peakTime": "2026-06-02 08:14",
+        "peakVal": 160,
+        "duration": 65
+      },
+      {
+        "onset": "2026-06-06 07:44",
+        "peakTime": "2026-06-06 07:49",
+        "peakVal": 148,
+        "duration": 20
+      },
+      {
+        "onset": "2026-06-07 14:29",
+        "peakTime": "2026-06-07 14:44",
+        "peakVal": 147,
+        "duration": 45
+      }
+    ],
+    "hypos": [
+      {
+        "onset": "2026-05-28 03:09",
+        "nadirTime": "2026-05-28 03:29",
+        "nadirVal": 62,
+        "duration": 40
+      },
+      {
+        "onset": "2026-05-28 05:54",
+        "nadirTime": "2026-05-28 06:09",
+        "nadirVal": 62,
+        "duration": 55
+      },
+      {
+        "onset": "2026-05-28 21:14",
+        "nadirTime": "2026-05-28 21:19",
+        "nadirVal": 65,
+        "duration": 20
+      },
+      {
+        "onset": "2026-05-28 23:44",
+        "nadirTime": "2026-05-29 00:24",
+        "nadirVal": 60,
+        "duration": 185
+      },
+      {
+        "onset": "2026-05-29 04:39",
+        "nadirTime": "2026-05-29 04:59",
+        "nadirVal": 61,
+        "duration": 50
+      },
+      {
+        "onset": "2026-05-29 11:44",
+        "nadirTime": "2026-05-29 12:14",
+        "nadirVal": 55,
+        "duration": 100
+      },
+      {
+        "onset": "2026-06-04 04:39",
+        "nadirTime": "2026-06-04 04:54",
+        "nadirVal": 55,
+        "duration": 35
+      },
+      {
+        "onset": "2026-06-05 16:14",
+        "nadirTime": "2026-06-05 16:19",
+        "nadirVal": 67,
+        "duration": 30
+      },
+      {
+        "onset": "2026-06-05 20:54",
+        "nadirTime": "2026-06-05 20:59",
+        "nadirVal": 59,
+        "duration": 55
+      }
+    ],
+    "daily": [
+      {
+        "date": "2026-09-04",
+        "n": 288,
+        "mean": 86.2,
+        "min": 55,
+        "max": 163,
+        "tir": 70.5,
+        "pctLow": 25,
+        "pctHigh": 4.5,
+        "meals": "NO ACV for any meal logged in round 1 CGM test.\n8:39 AM breakfast of 2 bacon wrapped chicken servings a salad with dressing (sugar sweetened and seed oil-based until I can get homemade dressings figured out). Skim Milk.\n3:30 PM - A single slice of sourdough bread with my freshly made homemade butter. I used this mean as a food test.\n8:40 PM - Gouda Cheese and cassava cracker snack.\n9:02 PM - Sugar Shift Yogurt with hemp seeds, stevia sweetened chocolate chips, and hemp seeds to compare the hemp seeds with the walnuts the night before.",
+        "contextNotes": "6:39 AM. New kitten has confrontation with our spayed adult male cat. I bit of an adrenaline waking.",
+        "exercise": "4:00 PM Walked on the treadmill at 1.5 MPH for 30 minutes."
+      }
+    ]
+  }
+}

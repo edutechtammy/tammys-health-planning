@@ -12,8 +12,8 @@ Desktop.ini
 *.bak
 *.backup
 
-# Manual backups folder
-manual-backups/
+# Manual backups folder (kept in repo so it can sync between machines)
+# manual-backups/  # intentionally not ignored; keep this folder tracked
 *.orig
 *.tmp
 *~

@@ -1,0 +1,112 @@
+{
+  "exportedAt": "2026-10-02T15:47:23.760Z",
+  "app": "Daily Weight Tracker",
+  "entryCount": 15,
+  "entries": [
+    {
+      "date": "2026-10-02",
+      "weight": 222.4,
+      "waist": 47,
+      "notes": "",
+      "updatedAt": "2026-10-02T14:34:34.051Z"
+    },
+    {
+      "date": "2026-09-22",
+      "weight": 221.6,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-22T10:45:49.747Z"
+    },
+    {
+      "date": "2026-09-18",
+      "weight": 223.2,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-19T02:28:00.199Z"
+    },
+    {
+      "date": "2026-09-16",
+      "weight": 224,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-16T15:14:45.709Z"
+    },
+    {
+      "date": "2026-09-14",
+      "weight": 225.8,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-14T12:12:51.228Z"
+    },
+    {
+      "date": "2026-09-08",
+      "weight": 226,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-08T12:21:56.761Z"
+    },
+    {
+      "date": "2026-09-06",
+      "weight": 227.2,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-06T12:48:41.640Z"
+    },
+    {
+      "date": "2026-09-04",
+      "weight": 229.4,
+      "waist": "",
+      "notes": "",
+      "updatedAt": "2026-09-04T15:57:11.890Z"
+    },
+    {
+      "date": "2026-06-16",
+      "weight": 222.4,
+      "waist": 45.8,
+      "notes": "",
+      "updatedAt": "2026-10-02T15:42:12.850Z"
+    },
+    {
+      "date": "2026-06-13",
+      "weight": 222,
+      "waist": 45.8,
+      "notes": "",
+      "updatedAt": "2026-10-02T15:41:34.491Z"
+    },
+    {
+      "date": "2026-06-11",
+      "weight": 221.8,
+      "waist": 45.5,
+      "notes": "",
+      "updatedAt": "2026-10-02T15:40:14.615Z"
+    },
+    {
+      "date": "2026-06-05",
+      "weight": 224,
+      "waist": 47.3,
+      "notes": "",
+      "updatedAt": "2026-10-02T15:39:12.552Z"
+    },
+    {
+      "date": "2026-06-02",
+      "weight": 222,
+      "waist": 47.3,
+      "notes": "",
+      "updatedAt": "2026-10-02T15:38:36.769Z"
+    },
+    {
+      "date": "2026-05-30",
+      "weight": 223,
+      "waist": 48.3,
+      "notes": "",
+      "updatedAt": "2026-10-02T15:37:41.032Z"
+    },
+    {
+      "date": "2026-05-25",
+      "weight": 224.4,
+      "waist": 48.8,
+      "notes": "",
+      "updatedAt": "2026-10-02T15:36:00.945Z"
+    }
+  ]
+}
