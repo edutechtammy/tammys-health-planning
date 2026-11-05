@@ -511,6 +511,61 @@
       flex-wrap: wrap;
     }
 
+    .event-summary-grid {
+      display: block;
+      margin-top: 18px;
+    }
+
+    .event-card {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 14px 14px 10px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .event-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .event-card h3 {
+      margin: 0 0 10px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+    }
+
+    .event-card .table-wrap {
+      border-radius: 10px;
+    }
+
+    .mini-badge {
+      display: inline-block;
+      padding: 0.18rem 0.45rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .mini-badge.red {
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    .mini-badge.amber {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .mini-badge.green {
+      background: var(--green-soft);
+      color: var(--green-dark);
+    }
+
     .legend-chip {
       display: inline-flex;
       align-items: center;
@@ -655,6 +710,11 @@
           <span class="legend-chip"><span class="legend-dot pink"></span>High</span>
         </div>
       </div>
+    </section>
+
+    <section class="panel">
+      <h2>Event summary</h2>
+      <div id="eventSummaryContainer"></div>
     </section>
 
     <section class="panel">
@@ -1579,6 +1639,218 @@
       }).join('');
     }
 
+    function formatEventTimestamp(value) {
+      if (!value) return '—';
+      return value.replace('T', ' ').slice(0, 16);
+    }
+
+    function findYearlyEvents(entries, threshold, above) {
+      const events = [];
+      let inEvent = false;
+      let startIndex = -1;
+      let extremumIndex = -1;
+
+      for (let i = 0; i < entries.length; i += 1) {
+        const value = Number(entries[i].glucose);
+        const triggered = above ? value > threshold : value < threshold;
+
+        if (triggered && !inEvent) {
+          inEvent = true;
+          startIndex = i;
+          extremumIndex = i;
+        } else if (triggered && inEvent) {
+          if (above && value > Number(entries[extremumIndex].glucose)) {
+            extremumIndex = i;
+          }
+          if (!above && value < Number(entries[extremumIndex].glucose)) {
+            extremumIndex = i;
+          }
+        } else if (!triggered && inEvent) {
+          const start = entries[startIndex];
+          const end = entries[i - 1];
+          const startDate = new Date(start.timestampLocal);
+          const endDate = new Date(end.timestampLocal);
+          const duration = Math.round((endDate - startDate) / 60000);
+          const onset = formatEventTimestamp(start.timestampLocal);
+          const extremumTs = formatEventTimestamp(entries[extremumIndex].timestampLocal);
+          const extremumValue = Number(entries[extremumIndex].glucose);
+
+          if (above) {
+            events.push({ onset, peakTime: extremumTs, peakVal: extremumValue, duration });
+          } else {
+            events.push({ onset, nadirTime: extremumTs, nadirVal: extremumValue, duration });
+          }
+          inEvent = false;
+          startIndex = -1;
+          extremumIndex = -1;
+        }
+      }
+
+      if (inEvent && startIndex >= 0) {
+        const start = entries[startIndex];
+        const end = entries[entries.length - 1];
+        const startDate = new Date(start.timestampLocal);
+        const endDate = new Date(end.timestampLocal);
+        const duration = Math.round((endDate - startDate) / 60000);
+        const onset = formatEventTimestamp(start.timestampLocal);
+        const extremumTs = formatEventTimestamp(entries[extremumIndex].timestampLocal);
+        const extremumValue = Number(entries[extremumIndex].glucose);
+
+        if (above) {
+          events.push({ onset, peakTime: extremumTs, peakVal: extremumValue, duration });
+        } else {
+          events.push({ onset, nadirTime: extremumTs, nadirVal: extremumValue, duration });
+        }
+      }
+
+      return events;
+    }
+
+    function getYearlyEventSummary(entries, selectedYear) {
+      const yearEntries = entries
+        .filter(item => item.status === 'valid' && Number.isFinite(item.glucose) && (item.timestampLocal || '').startsWith(`${selectedYear}-`))
+        .sort((a, b) => (a.timestampLocal || '').localeCompare(b.timestampLocal || ''));
+
+      const byDate = new Map();
+      yearEntries.forEach(item => {
+        const dateKey = (item.timestampLocal || '').slice(0, 10);
+        if (!byDate.has(dateKey)) {
+          byDate.set(dateKey, []);
+        }
+        byDate.get(dateKey).push(Number(item.glucose));
+      });
+
+      const daily = Array.from(byDate.entries())
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([date, values]) => {
+          const n = values.length;
+          const mean = values.reduce((sum, value) => sum + value, 0) / n;
+          const min = Math.min(...values);
+          const max = Math.max(...values);
+          const tir = (values.filter(value => value >= 70 && value <= 140).length / n) * 100;
+          const pctLow = (values.filter(value => value < 70).length / n) * 100;
+          const pctHigh = (values.filter(value => value > 140).length / n) * 100;
+
+          return {
+            date,
+            n,
+            mean: Number(mean.toFixed(1)),
+            min: Math.round(min),
+            max: Math.round(max),
+            tir: Number(tir.toFixed(1)),
+            pctLow: Number(pctLow.toFixed(1)),
+            pctHigh: Number(pctHigh.toFixed(1))
+          };
+        });
+
+      return {
+        spikes: findYearlyEvents(yearEntries, 140, true),
+        hypos: findYearlyEvents(yearEntries, 70, false),
+        daily
+      };
+    }
+
+    function renderEventSummary(entries) {
+      const container = document.getElementById('eventSummaryContainer');
+      const yearSelect = document.getElementById('chartYearSelect');
+      const selectedYear = yearSelect.value || new Date().getFullYear();
+      const validEntries = entries.filter(item => item.status === 'valid' && Number.isFinite(item.glucose));
+      const yearEntries = validEntries.filter(item => (item.timestampLocal || '').startsWith(`${selectedYear}-`));
+
+      if (!yearEntries.length) {
+        container.innerHTML = '<div class="empty">No valid readings for this year yet.</div>';
+        return;
+      }
+
+      const summary = getYearlyEventSummary(validEntries, selectedYear);
+      const spikeRows = summary.spikes.length
+        ? summary.spikes.map(event => {
+            const badgeClass = event.peakVal >= 180 ? 'red' : event.peakVal >= 160 ? 'amber' : 'green';
+            return `
+              <tr>
+                <td>${event.onset}</td>
+                <td>${event.peakTime}</td>
+                <td><span class="mini-badge ${badgeClass}">${event.peakVal}</span></td>
+                <td>${event.duration > 0 ? `${event.duration} min` : '<5 min'}</td>
+              </tr>
+            `;
+          }).join('')
+        : '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1rem;">No spikes above 140 mg/dL</td></tr>';
+
+      const hypoRows = summary.hypos.length
+        ? summary.hypos.map(event => {
+            const badgeClass = event.nadirVal <= 54 ? 'red' : event.nadirVal <= 62 ? 'amber' : 'green';
+            const cell = badgeClass === 'green' ? event.nadirVal : `<span class="mini-badge ${badgeClass}">${event.nadirVal}</span>`;
+            return `
+              <tr>
+                <td>${event.onset}</td>
+                <td>${event.nadirTime}</td>
+                <td>${cell}</td>
+                <td>${event.duration > 0 ? `${event.duration} min` : '<5 min'}</td>
+              </tr>
+            `;
+          }).join('')
+        : '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1rem;">No readings below 70 mg/dL</td></tr>';
+
+      const dailyRows = summary.daily.length
+        ? summary.daily.map(day => {
+            const tirClass = day.tir >= 90 ? 'health-green' : day.tir >= 70 ? 'health-yellow' : 'health-pink';
+            const lowClass = day.pctLow > 5 ? 'health-pink' : day.pctLow > 0 ? 'health-yellow' : 'health-green';
+            const perfect = day.tir === 100 && day.pctLow === 0 ? 'style="background:#f0faf2"' : '';
+            return `
+              <tr ${perfect}>
+                <td><strong>${day.date}</strong></td>
+                <td>${day.n}</td>
+                <td>${day.mean}</td>
+                <td>${day.min}</td>
+                <td>${day.max}</td>
+                <td class="${tirClass}">${day.tir}%</td>
+                <td class="${lowClass}">${day.pctLow}%</td>
+                <td>${day.pctHigh}%</td>
+              </tr>
+            `;
+          }).join('')
+        : '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:1rem;">No daily summary available.</td></tr>';
+
+      container.innerHTML = `
+        <div class="event-summary-grid">
+          <div class="event-card">
+            <h3>Spike events &gt; 140 mg/dL</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Onset</th><th>Peak Time</th><th>Peak</th><th>Duration</th></tr>
+                </thead>
+                <tbody>${spikeRows}</tbody>
+              </table>
+            </div>
+          </div>
+          <div class="event-card">
+            <h3>Hypoglycemia events &lt; 70 mg/dL</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Onset</th><th>Nadir Time</th><th>Nadir</th><th>Duration</th></tr>
+                </thead>
+                <tbody>${hypoRows}</tbody>
+              </table>
+            </div>
+          </div>
+          <div class="event-card full-width">
+            <h3>Daily summary</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Date</th><th>Rdgs</th><th>Mean</th><th>Min</th><th>Max</th><th>TIR 70–140</th><th>% &lt;70</th><th>% &gt;140</th></tr>
+                </thead>
+                <tbody>${dailyRows}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderDailyAverageChart() {
       const canvas = document.getElementById('dailyAverageChart');
       const yearSelect = document.getElementById('chartYearSelect');
@@ -1595,6 +1867,7 @@
         document.getElementById('yearlyKpiRow').innerHTML = '<div class="kpi-card"><div class="kpi-value">—</div><div class="kpi-label">No data</div></div>';
         document.getElementById('monthlySummaryGrid').innerHTML = '<div class="month-card"><div class="month-name">No data</div><div class="month-value">—</div></div>';
         document.getElementById('monthlySummaryTitle').textContent = 'No data';
+        document.getElementById('eventSummaryContainer').innerHTML = '<div class="empty">No valid readings for this year yet.</div>';
         return;
       }
 
@@ -1610,6 +1883,7 @@
       yearSelect.value = selectedYear;
       renderYearlyKpis(validEntries);
       renderMonthlySummary(validEntries);
+      renderEventSummary(validEntries);
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#fbfdfb';
