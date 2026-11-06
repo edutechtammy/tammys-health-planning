@@ -867,6 +867,17 @@
     </section>
 
     <section class="panel">
+      <h2>Export and import</h2>
+      <div class="btn-row">
+        <button class="primary" id="exportBundleBtn" type="button">Export sensor bundle</button>
+        <button class="secondary" id="downloadNotesBtn" type="button">Download notes JSON</button>
+        <button class="ghost" id="importBundleBtn" type="button">Import notes JSON</button>
+        <input id="bundleFileInput" type="file" accept="application/json,.json" hidden />
+      </div>
+      <div class="small" style="margin-top: 10px;">The sensor bundle includes sensor metadata, notes, and imported CGM readings. JSON is preferred for readability, while the sensor export remains CSV.</div>
+    </section>
+
+    <section class="panel">
       <div class="inspector-panel">
         <h3 style="margin:0 0 10px;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--green-dark);">Event-to-CGM inspector</h3>
         <div class="grid" style="margin-bottom:0;">
@@ -931,17 +942,6 @@
           <tbody id="notesTableBody"></tbody>
         </table>
       </div>
-    </section>
-
-    <section class="panel">
-      <h2>Export and import</h2>
-      <div class="btn-row">
-        <button class="primary" id="exportBundleBtn" type="button">Export sensor bundle</button>
-        <button class="secondary" id="downloadNotesBtn" type="button">Download notes JSON</button>
-        <button class="ghost" id="importBundleBtn" type="button">Import notes JSON</button>
-        <input id="bundleFileInput" type="file" accept="application/json,.json" hidden />
-      </div>
-      <div class="small" style="margin-top: 10px;">The sensor bundle includes sensor metadata, notes, and imported CGM readings. JSON is preferred for readability, while the sensor export remains CSV.</div>
     </section>
   </div>
 
