@@ -955,7 +955,12 @@
             <option value="oldest">Oldest first</option>
           </select>
         </div>
+        <div class="field" style="min-width:260px; flex:1; margin:0;">
+          <label for="notesTextFilter">Search entries</label>
+          <input id="notesTextFilter" type="search" placeholder="Search words in summary, details, and data fields" />
+        </div>
       </div>
+      <div id="notesFilterSummary" class="small" style="margin:0 0 0.9rem;"></div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1071,6 +1076,20 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
+    }
+
+    function escapeRegExp(text) {
+      return String(text || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function highlightMatchHtml(text, rawQuery) {
+      const value = String(text || '');
+      const query = String(rawQuery || '').trim();
+      if (!value) return '';
+      if (!query) return escapeHtml(value);
+
+      const pattern = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+      return escapeHtml(value).replace(pattern, '<mark>$1</mark>');
     }
 
     function noteDefaults() {
@@ -1913,10 +1932,37 @@
       const sensorId = sensor ? sensor.id : '';
       const typeFilter = app.notesTypeFilter || 'all';
       const sortOrder = app.notesSortOrder || 'newest';
+      const textFilter = (app.notesTextFilter || '').trim().toLowerCase();
       let rows = state.notes.filter(note => note.sensorId === sensorId);
+      const totalRows = rows.length;
 
       if (typeFilter !== 'all') {
         rows = rows.filter(note => note.type === typeFilter);
+      }
+
+      if (textFilter) {
+        rows = rows.filter(note => {
+          const structuredText = Object.values(note.structured || {})
+            .filter(value => value !== null && value !== undefined && value !== '')
+            .join(' ');
+          const searchableText = [
+            note.type,
+            note.summary,
+            note.details,
+            note.timestampLocal,
+            note.date,
+            note.time,
+            structuredText
+          ].join(' ').toLowerCase();
+          return searchableText.includes(textFilter);
+        });
+      }
+
+      const summary = document.getElementById('notesFilterSummary');
+      if (summary) {
+        summary.textContent = textFilter
+          ? `Showing ${rows.length} of ${totalRows} notes for this sensor (search: "${app.notesTextFilter}").`
+          : `Showing ${rows.length} of ${totalRows} notes for this sensor.`;
       }
 
       const tbody = document.getElementById('notesTableBody');
@@ -1924,7 +1970,7 @@
 
       if (!rows.length) {
         const tr = document.createElement('tr');
-        tr.innerHTML = '<td colspan="5" class="empty">No notes match this filter for this sensor.</td>';
+        tr.innerHTML = '<td colspan="5" class="empty">No notes match the active filter/search for this sensor.</td>';
         tbody.appendChild(tr);
         return;
       }
@@ -1946,6 +1992,8 @@
           });
 
           const details = [note.details, detailLines.join(' · ')].filter(Boolean).join(' | ');
+          const summaryHtml = highlightMatchHtml(note.summary || 'Entry', app.notesTextFilter || '');
+          const detailsHtml = details ? highlightMatchHtml(details, app.notesTextFilter || '') : '—';
           const flags = getNoteDayFlags(note, sensorId);
           const flagMarkup = flags.length
             ? flags.map(flag => `<span class="journal-flag ${flag.className}">${flag.label}</span>`).join('')
@@ -1957,8 +2005,8 @@
               <div class="journal-day-tags">${flagMarkup}</div>
             </td>
             <td><span class="tag">${note.type}</span></td>
-            <td>${note.summary || 'Entry'}</td>
-            <td>${details || '—'}</td>
+            <td>${summaryHtml}</td>
+            <td>${detailsHtml}</td>
             <td>
               <div class="btn-row" style="margin-top:0; gap:6px;">
                 <button class="ghost" type="button" data-inspect-id="${note.id}" style="padding:6px 10px; font-size:0.75rem;">Inspect</button>
@@ -2769,6 +2817,10 @@
         app.notesSortOrder = event.target.value === 'oldest' ? 'oldest' : 'newest';
         renderNotesTable();
       });
+      document.getElementById('notesTextFilter').addEventListener('input', (event) => {
+        app.notesTextFilter = event.target.value || '';
+        renderNotesTable();
+      });
       document.getElementById('saveSensorBtn').addEventListener('click', saveSensor);
       document.getElementById('newSensorBtn').addEventListener('click', () => {
         clearSensorForm();
@@ -2825,7 +2877,14 @@
       renderAll();
     }
 
-    const app = { state: defaultState, editingNoteId: null, inspectorNoteId: '', notesTypeFilter: 'all', notesSortOrder: 'newest' };
+    const app = {
+      state: defaultState,
+      editingNoteId: null,
+      inspectorNoteId: '',
+      notesTypeFilter: 'all',
+      notesSortOrder: 'newest',
+      notesTextFilter: ''
+    };
     init();
   </script>
 </body>
