@@ -814,7 +814,7 @@
       </div>
 
       <div class="monthly-summary">
-        <div id="monthlySummaryTitle" class="monthly-title">2026 Fasting Glucose (average)</div>
+        <div id="monthlySummaryTitle" class="monthly-title">2026 Daily Average Glucose</div>
         <div id="monthlySummaryGrid" class="monthly-grid"></div>
         <div class="month-legend">
           <span class="legend-chip"><span class="legend-dot green"></span>Healthy</span>
@@ -2205,7 +2205,7 @@
       const selectedYear = yearSelect.value || new Date().getFullYear();
       const monthly = getMonthlyAverageSeries(entries, selectedYear);
 
-      title.textContent = `${selectedYear} Fasting Glucose (average)`;
+      title.textContent = `${selectedYear} Daily Average Glucose`;
 
       if (!monthly.length) {
         grid.innerHTML = '<div class="month-card"><div class="month-name">No data</div><div class="month-value">—</div></div>';
