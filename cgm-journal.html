@@ -650,6 +650,34 @@
       margin-top: 12px;
     }
 
+    .inspector-note-details {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(240, 249, 241, 0.7);
+      padding: 10px;
+      font-size: 0.84rem;
+      line-height: 1.45;
+      color: var(--text);
+    }
+
+    .inspector-note-details .title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .inspector-note-details .line {
+      margin-bottom: 4px;
+    }
+
+    .inspector-note-details .line:last-child {
+      margin-bottom: 0;
+    }
+
     .inspector-context table {
       min-width: 100%;
       font-size: 0.84rem;
@@ -831,6 +859,8 @@
           <canvas id="eventInspectChart" width="900" height="220"></canvas>
         </div>
 
+        <div id="eventInspectNoteDetails" class="inspector-note-details"></div>
+
         <div class="inspector-context table-wrap">
           <table>
             <thead>
@@ -999,6 +1029,15 @@
       if (!value) return null;
       const parsed = new Date(value);
       return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    function escapeHtml(text) {
+      return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     function noteDefaults() {
@@ -1561,6 +1600,47 @@
       }
     }
 
+    function renderInspectorNoteDetails(targetStamp) {
+      const container = document.getElementById('eventInspectNoteDetails');
+      const selectedNote = app.inspectorNoteId
+        ? app.state.notes.find(note => note.id === app.inspectorNoteId)
+        : null;
+
+      if (!targetStamp) {
+        container.innerHTML = '<div class="title">Selected event details</div><div class="line">Pick an event date/time or choose a saved note to show context details.</div>';
+        return;
+      }
+
+      if (!selectedNote) {
+        container.innerHTML = `
+          <div class="title">Selected event details</div>
+          <div class="line"><strong>Event time:</strong> ${escapeHtml(displayTimestamp(targetStamp))}</div>
+          <div class="line">Manual event time selected (no saved note linked).</div>
+        `;
+        return;
+      }
+
+      const structuredLines = Object.entries(selectedNote.structured || {})
+        .filter(([, value]) => value !== null && value !== undefined && String(value).trim() !== '')
+        .map(([key, value]) => {
+          const prettyKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, char => char.toUpperCase());
+          return `<div class="line"><strong>${escapeHtml(prettyKey)}:</strong> ${escapeHtml(value)}</div>`;
+        }).join('');
+
+      const detailsMarkup = selectedNote.details
+        ? `<div class="line"><strong>Notes:</strong> ${escapeHtml(selectedNote.details)}</div>`
+        : '';
+
+      container.innerHTML = `
+        <div class="title">Selected event details</div>
+        <div class="line"><strong>Timestamp:</strong> ${escapeHtml(displayTimestamp(selectedNote.timestampLocal || targetStamp))}</div>
+        <div class="line"><strong>Type:</strong> ${escapeHtml(selectedNote.type || '—')}</div>
+        <div class="line"><strong>Summary:</strong> ${escapeHtml(selectedNote.summary || '—')}</div>
+        ${structuredLines || '<div class="line"><strong>Structured details:</strong> —</div>'}
+        ${detailsMarkup}
+      `;
+    }
+
     function renderEventInspector() {
       renderInspectorNoteOptions();
 
@@ -1569,6 +1649,7 @@
       const entries = getActiveSensorEntries();
 
       if (!entries.length) {
+        renderInspectorNoteDetails(getTargetEventTimestamp());
         summary.innerHTML = '<div class="inspector-pill"><strong>Status</strong>Import CGM readings for this sensor to inspect event timing.</div>';
         rowsBody.innerHTML = '<tr><td colspan="3" class="empty">No CGM readings available for the active sensor.</td></tr>';
         drawInspectorChart([], 0);
@@ -1578,11 +1659,14 @@
       const targetStamp = getTargetEventTimestamp();
       const targetDate = toDateSafe(targetStamp);
       if (!targetDate) {
+        renderInspectorNoteDetails('');
         summary.innerHTML = '<div class="inspector-pill"><strong>Status</strong>Select an event date and time to inspect nearby CGM readings.</div>';
         rowsBody.innerHTML = '<tr><td colspan="3" class="empty">Pick a date/time above, then click Inspect event time.</td></tr>';
         drawInspectorChart([], 0);
         return;
       }
+
+      renderInspectorNoteDetails(targetStamp);
 
       const windowInput = Number(document.getElementById('eventWindowMinutes').value || 90);
       const windowMinutes = Math.min(360, Math.max(15, Number.isFinite(windowInput) ? windowInput : 90));
