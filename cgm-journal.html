@@ -2383,9 +2383,13 @@
         ? summary.daily.map(day => {
             const tirClass = day.tir >= 90 ? 'health-green' : day.tir >= 70 ? 'health-yellow' : 'health-pink';
             const lowClass = day.pctLow > 5 ? 'health-pink' : day.pctLow > 0 ? 'health-yellow' : 'health-green';
-            const perfect = day.tir === 100 && day.pctLow === 0 ? 'style="background:#f0faf2"' : '';
+            const rowStyle = day.tir < 80
+              ? 'style="background:#fdf0f3"'
+              : day.tir === 100 && day.pctLow === 0
+                ? 'style="background:#f0faf2"'
+                : '';
             return `
-              <tr ${perfect}>
+              <tr ${rowStyle}>
                 <td><strong>${day.date}</strong></td>
                 <td>${day.n}</td>
                 <td>${day.mean}</td>
