@@ -1185,6 +1185,18 @@
             <input id="hoursSlept" type="number" step="0.5" min="0" max="24" placeholder="e.g. 7.5" />
           </div>
           <div class="field">
+            <label>Nap start</label>
+            <input id="napStart" type="time" />
+          </div>
+          <div class="field">
+            <label>Nap wake time</label>
+            <input id="napWakeTime" type="time" />
+          </div>
+          <div class="field">
+            <label>Nap duration (minutes)</label>
+            <input id="napDuration" type="number" step="5" min="0" max="600" placeholder="e.g. 25" />
+          </div>
+          <div class="field">
             <label>Sleep quality</label>
             <select id="sleepQuality">
               <option value="">— not logged —</option>
@@ -1340,6 +1352,9 @@
         payload.sleepStart = document.getElementById('sleepStart')?.value || '';
         payload.wakeTime = document.getElementById('wakeTime')?.value || '';
         payload.hoursSlept = document.getElementById('hoursSlept')?.value || '';
+        payload.napStart = document.getElementById('napStart')?.value || '';
+        payload.napWakeTime = document.getElementById('napWakeTime')?.value || '';
+        payload.napDuration = document.getElementById('napDuration')?.value || '';
         payload.sleepQuality = document.getElementById('sleepQuality')?.value || '';
         payload.sleepDisturbance = document.getElementById('sleepDisturbance')?.value || '';
         payload.sleepNotes = document.getElementById('sleepNotes')?.value.trim() || '';
@@ -1373,7 +1388,9 @@
         const wake = structured.wakeTime ? `Wake ${structured.wakeTime}` : 'Sleep / wake';
         const sleep = structured.sleepStart ? `Sleep ${structured.sleepStart}` : '';
         const hours = structured.hoursSlept ? `${structured.hoursSlept}h slept` : '';
-        return [sleep, wake, hours].filter(Boolean).join(' · ') || 'Sleep / wake';
+        const nap = structured.napStart && structured.napWakeTime ? `Nap ${structured.napStart}-${structured.napWakeTime}` : (structured.napDuration ? `Nap ${structured.napDuration} min` : '');
+        const parts = [sleep, wake, hours, nap].filter(Boolean);
+        return parts.length ? parts.join(' · ') : 'Sleep / wake';
       }
       if (type === 'exercise') {
         const name = structured.exerciseType || 'Exercise';
@@ -1825,6 +1842,9 @@
         document.getElementById('sleepStart').value = structured.sleepStart || '';
         document.getElementById('wakeTime').value = structured.wakeTime || '';
         document.getElementById('hoursSlept').value = structured.hoursSlept || '';
+        document.getElementById('napStart').value = structured.napStart || '';
+        document.getElementById('napWakeTime').value = structured.napWakeTime || '';
+        document.getElementById('napDuration').value = structured.napDuration || '';
         document.getElementById('sleepQuality').value = structured.sleepQuality || '';
         document.getElementById('sleepDisturbance').value = structured.sleepDisturbance || '';
         document.getElementById('sleepNotes').value = structured.sleepNotes || '';
