@@ -1,0 +1,1160 @@
+[
+  {
+    "id": "bb3769ae-9220-4894-adbc-e02aba6d16d9",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-05-27T21:19-05:00",
+    "date": "2026-05-27",
+    "time": "21:19",
+    "summary": "Yogurt, Sugar Shift from A2 Milk [AUC 01515] - Evening; stevia sweetened chocolate chips, walnuts",
+    "structured": {
+      "foodName": "Yogurt, Sugar Shift from A2 Milk [AUC 01515] - Evening; stevia sweetened chocolate chips, walnuts"
+    },
+    "details": "Peak: 121 mg/dL  ·  Spike above baseline: +31 mg/dL  ·  -4 mg/dL from baseline at 120 min  ·  180-min: -6 mg/dL from baseline  ·  iAUC↑: 1515 mg·min/dL (to +180 min)   Mild;  Activity: Napped",
+    "createdAt": "2026-11-05T23:01:10.905Z",
+    "updatedAt": "2026-11-05T23:36:15.189Z"
+  },
+  {
+    "id": "4334dcd0-e3a9-4d6b-afd7-0ade17caec4a",
+    "sensorId": "2026 05 to 10",
+    "type": "exercise",
+    "timestampLocal": "2026-05-28T21:45-05:00",
+    "date": "2026-05-28",
+    "time": "21:45",
+    "summary": "Treadmill recovery walk — 20 min · 1.6 mph",
+    "structured": {
+      "exerciseCategory": "cardio",
+      "exerciseType": "Treadmill recovery walk",
+      "exerciseDuration": "20",
+      "exerciseSpeed": "1.6 mph",
+      "exerciseIntensity": "light",
+      "exerciseWeight": "",
+      "exerciseSetsReps": "",
+      "exerciseNotes": "9:45 AM I walked at 1.5 MPH because I saw how fast and high my blood sugar was rising on the CGM"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T02:49:49.523Z"
+  },
+  {
+    "id": "7ee7cf72-1382-474e-a355-74fc1b6f5b8f",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-05-28T06:39-05:00",
+    "date": "2026-05-28",
+    "time": "06:39",
+    "summary": "Wake 06:39 · 8h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "06:39",
+      "hoursSlept": "8",
+      "sleepQuality": "good",
+      "sleepDisturbance": "none",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T02:54:03.902Z",
+    "updatedAt": "2026-11-06T14:24:13.484Z"
+  },
+  {
+    "id": "e5c4908a-cd81-461c-8dbc-76adee30bbb4",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-05-29T22:00-05:00",
+    "date": "2026-05-29",
+    "time": "22:00",
+    "summary": "Sleep 22:00 · Wake 06:39 · 7h slept",
+    "structured": {
+      "sleepStart": "22:00",
+      "wakeTime": "06:39",
+      "hoursSlept": "7",
+      "sleepQuality": "good",
+      "sleepDisturbance": "noise",
+      "sleepNotes": "When I went to sleep - I was awakened when John came to bed because the little kitten got so rough with him that he cried out and even got a little angry with the kitten for drawing blood. I noted it because I was curious if the waking/adrenaline would be reflected in the readings.\nWhen I woke up - New kitten has confrontation with our spayed adult male cat. I bit of an adrenaline waking."
+    },
+    "details": "",
+    "createdAt": "2026-11-06T02:57:26.923Z",
+    "updatedAt": "2026-11-06T14:23:52.174Z"
+  },
+  {
+    "id": "0279b844-1555-47d4-b34b-13a1da024036",
+    "sensorId": "2026 05 to 10",
+    "type": "exercise",
+    "timestampLocal": "2026-05-29T16:00-05:00",
+    "date": "2026-05-29",
+    "time": "16:00",
+    "summary": "Treadmill recovery walk — 30 min · 1.6 mph",
+    "structured": {
+      "exerciseCategory": "cardio",
+      "exerciseType": "Treadmill recovery walk",
+      "exerciseDuration": "30",
+      "exerciseSpeed": "1.6 mph",
+      "exerciseIntensity": "light",
+      "exerciseWeight": "",
+      "exerciseSetsReps": "",
+      "exerciseNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T02:59:05.616Z"
+  },
+  {
+    "id": "4425af26-43e3-4454-b538-cc3f7b3312e8",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-05-30T15:59-05:00",
+    "date": "2026-05-30",
+    "time": "15:59",
+    "summary": "Wake 03:59 · 6.5h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "03:59",
+      "hoursSlept": "6.5",
+      "sleepQuality": "good",
+      "sleepDisturbance": "bathroom",
+      "sleepNotes": "3:59 woke up to go pee. Noted to see if stirring in the middle of the night for a brief time makes an glucose impact."
+    },
+    "details": "",
+    "createdAt": "2026-11-06T03:02:49.108Z",
+    "updatedAt": "2026-11-06T14:23:14.628Z"
+  },
+  {
+    "id": "55e64f55-4ddb-46d0-bfb1-c410e2fc14b0",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-05-28T00:59-05:00",
+    "date": "2026-05-28",
+    "time": "00:59",
+    "summary": "Hypoglycemic Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic Event",
+      "otherNotes": "NADIR 69, <5-min."
+    },
+    "details": "",
+    "createdAt": "2026-11-06T03:43:45.018Z",
+    "updatedAt": "2026-11-06T16:43:42.977Z"
+  },
+  {
+    "id": "6159ec5c-bd2d-4b95-a02e-3548d88005f0",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-05-28T03:29-05:00",
+    "date": "2026-05-28",
+    "time": "03:29",
+    "summary": "Hypoglycemic Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic Event",
+      "otherNotes": "NADIR 62, 40-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T03:47:20.320Z",
+    "updatedAt": "2026-11-06T03:48:08.843Z"
+  },
+  {
+    "id": "23e110e9-1013-4e79-befe-31660405c8f0",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-05-28T10:09-05:00",
+    "date": "2026-05-28",
+    "time": "10:09",
+    "summary": "Spike Event",
+    "structured": {
+      "otherTitle": "Spike Event",
+      "otherNotes": "PEAK (mg/dL) 150; 25-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T03:58:13.829Z"
+  },
+  {
+    "id": "9a67aea6-9cc6-40d4-87c5-59ed218d18ac",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-05-31T06:04-05:00",
+    "date": "2026-05-31",
+    "time": "06:04",
+    "summary": "Sleep 22:30 · Wake 06:04 · 6.5h slept",
+    "structured": {
+      "sleepStart": "22:30",
+      "wakeTime": "06:04",
+      "hoursSlept": "6.5",
+      "sleepQuality": "fair",
+      "sleepDisturbance": "bathroom",
+      "sleepNotes": "I logged only 6.5 hours of sleep, so sleep was disturbed."
+    },
+    "details": "",
+    "createdAt": "2026-11-06T14:01:00.978Z",
+    "updatedAt": "2026-11-06T14:22:18.859Z"
+  },
+  {
+    "id": "e7eb8bbc-42e0-49e7-9709-848dcfdb211d",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-02T05:07-05:00",
+    "date": "2026-06-02",
+    "time": "05:07",
+    "summary": "Sleep 23:30 · Wake 05:07 · 5.5h slept",
+    "structured": {
+      "sleepStart": "23:30",
+      "wakeTime": "05:07",
+      "hoursSlept": "5.5",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": "5:07 AM up to go pee. To be by 10PM this night."
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:02:35.333Z",
+    "updatedAt": "2026-11-06T16:14:59.835Z"
+  },
+  {
+    "id": "dd866102-ec14-4a4c-9a80-26e22cb11806",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-03T05:24-05:00",
+    "date": "2026-06-03",
+    "time": "05:24",
+    "summary": "Sleep 22:30 · Wake 05:24 · 6h slept",
+    "structured": {
+      "sleepStart": "22:30",
+      "wakeTime": "05:24",
+      "hoursSlept": "6",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:03:21.874Z",
+    "updatedAt": "2026-11-06T16:16:14.371Z"
+  },
+  {
+    "id": "696d4364-389b-459f-a101-1b9a3ef1e004",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-04T05:54-05:00",
+    "date": "2026-06-04",
+    "time": "05:54",
+    "summary": "Wake 05:54 · 5.5h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "05:54",
+      "hoursSlept": "5.5",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:03:56.654Z",
+    "updatedAt": "2026-11-06T16:16:55.920Z"
+  },
+  {
+    "id": "74492af5-4355-49de-969c-c6167ab6dafe",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-05T05:19-05:00",
+    "date": "2026-06-05",
+    "time": "05:19",
+    "summary": "Wake 05:19 · 5.5h slept · Nap 05:40-06:14",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "05:19",
+      "hoursSlept": "5.5",
+      "napStart": "05:40",
+      "napWakeTime": "06:14",
+      "napDuration": "30",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": "I got up at 5:19 AM but I was still sleepyo after about 20 minutes I went back to bed. I got up again at 6:14 AM. I will count that extra sleep as a nap."
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:05:01.051Z",
+    "updatedAt": "2026-11-06T16:20:54.186Z"
+  },
+  {
+    "id": "38446c6a-49c3-426c-a475-7a33d271b05b",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-06T06:00-05:00",
+    "date": "2026-06-06",
+    "time": "06:00",
+    "summary": "Sleep 00:00 · Wake 06:00 · 6h slept",
+    "structured": {
+      "sleepStart": "00:00",
+      "wakeTime": "06:00",
+      "hoursSlept": "6",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:05:36.636Z",
+    "updatedAt": "2026-11-06T16:54:43.134Z"
+  },
+  {
+    "id": "adbd5d93-3014-4e7f-89be-9bd9d82f33a3",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-08T05:00-05:00",
+    "date": "2026-06-08",
+    "time": "05:00",
+    "summary": "Sleep 23:30 · Wake 05:00 · 6.5h slept",
+    "structured": {
+      "sleepStart": "23:30",
+      "wakeTime": "05:00",
+      "hoursSlept": "6.5",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:06:05.517Z",
+    "updatedAt": "2026-11-06T16:58:13.573Z"
+  },
+  {
+    "id": "40d70515-0eec-47be-9c47-b30e789807c6",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-09T06:00-05:00",
+    "date": "2026-06-09",
+    "time": "06:00",
+    "summary": "Wake 06:00 · 6h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "06:00",
+      "hoursSlept": "6",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:06:27.969Z",
+    "updatedAt": "2026-11-06T16:56:40.967Z"
+  },
+  {
+    "id": "743e8c1f-79eb-48e5-816e-c64825f74e4b",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-10T06:00-05:00",
+    "date": "2026-06-10",
+    "time": "06:00",
+    "summary": "Wake 06:00 · 7h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "06:00",
+      "hoursSlept": "7",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:06:49.457Z",
+    "updatedAt": "2026-11-06T17:33:38.328Z"
+  },
+  {
+    "id": "1ded4e9a-385a-4315-8a5a-e61881494b3b",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-11T06:00-05:00",
+    "date": "2026-06-11",
+    "time": "06:00",
+    "summary": "Wake 06:00 · 7h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "06:00",
+      "hoursSlept": "7",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:07:09.953Z",
+    "updatedAt": "2026-11-06T18:57:31.788Z"
+  },
+  {
+    "id": "f6efaa46-cac2-4ab9-a43f-ce2150585b5a",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-12T10:07-05:00",
+    "date": "2026-06-12",
+    "time": "10:07",
+    "summary": "Sleep / wake · 7h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "",
+      "hoursSlept": "7",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:07:35.210Z"
+  },
+  {
+    "id": "a83b2eb4-fd9e-49f3-a774-7e4bb915a2c2",
+    "sensorId": "2026 05 to 10",
+    "type": "sleep-wake",
+    "timestampLocal": "2026-06-13T10:07-05:00",
+    "date": "2026-06-13",
+    "time": "10:07",
+    "summary": "Sleep / wake · 7h slept",
+    "structured": {
+      "sleepStart": "",
+      "wakeTime": "",
+      "hoursSlept": "7",
+      "napStart": "",
+      "napWakeTime": "",
+      "napDuration": "",
+      "sleepQuality": "",
+      "sleepDisturbance": "",
+      "sleepNotes": ""
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:07:53.790Z"
+  },
+  {
+    "id": "16fdb005-dda8-49b0-b38d-1e105fdfca1c",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-06-06T09:24-05:00",
+    "date": "2026-06-06",
+    "time": "09:24",
+    "summary": "Dizzy",
+    "structured": {
+      "otherTitle": "Dizzy",
+      "otherNotes": "Rapid Cycling of glucose"
+    },
+    "details": "9:24 stretch of a few hours of feeling dizzy noted. Mild nausea. I thought maybe blood sugar was low, but it didn't seem like it. I noted that the blood glucose monitor showed rapid cycling of glucose up and down in very short bursts that timed out to the duration of feeling dizzy.",
+    "createdAt": "2026-11-06T16:22:55.644Z"
+  },
+  {
+    "id": "041b6f46-10cb-4059-9075-ea97404874f3",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-05-29T04:39-05:00",
+    "date": "2026-05-29",
+    "time": "04:39",
+    "summary": "Hypoglycemic  Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic  Event",
+      "otherNotes": "NADIR 61; 50-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:28:09.563Z"
+  },
+  {
+    "id": "0548c64c-20d2-4e02-9455-7e2763ba9063",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-05-29T00:14-05:00",
+    "date": "2026-05-29",
+    "time": "00:14",
+    "summary": "Hypoglycemic Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic Event",
+      "otherNotes": "NADIR 55; 100-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:30:46.287Z"
+  },
+  {
+    "id": "3658da75-b432-4e98-ba7d-cdff7ff1af9e",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-06-04T04:54-05:00",
+    "date": "2026-06-04",
+    "time": "04:54",
+    "summary": "Hypoglycemic Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic Event",
+      "otherNotes": "NADIR 55; 35-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:32:21.715Z"
+  },
+  {
+    "id": "bb169677-a9f3-4aa9-a49e-e7a260335715",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-06-05T16:19-05:00",
+    "date": "2026-06-05",
+    "time": "16:19",
+    "summary": "Hypoglycemic Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic Event",
+      "otherNotes": "NADIR 67; 30-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:34:02.508Z"
+  },
+  {
+    "id": "61dfd55d-d460-4321-85b5-6d94fa8a26f0",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-06-05T20:59-05:00",
+    "date": "2026-06-05",
+    "time": "20:59",
+    "summary": "Hypoglycemic Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic Event",
+      "otherNotes": "NADIR 59; 55-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:35:20.637Z"
+  },
+  {
+    "id": "4cbe61d5-1b4b-4c2c-a2d3-29b1a48d62a7",
+    "sensorId": "2026 05 to 10",
+    "type": "other",
+    "timestampLocal": "2026-05-28T06:09-05:00",
+    "date": "2026-05-28",
+    "time": "06:09",
+    "summary": "Hypoglycemic Event",
+    "structured": {
+      "otherTitle": "Hypoglycemic Event",
+      "otherNotes": "Notes: NADIR 62, 55-min"
+    },
+    "details": "",
+    "createdAt": "2026-11-06T16:45:31.794Z"
+  },
+  {
+    "id": "ad41ee62-9e8c-41eb-9e95-7f4a5d5d432f",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-30T09:54-05:00",
+    "date": "2026-09-30",
+    "time": "09:54",
+    "summary": "Almond Fast Bread",
+    "structured": {
+      "foodName": "Almond Fast Bread"
+    },
+    "details": "Peak: 98 mg/dL  ·  Spike above baseline: +7 mg/dL  ·  120-min not yet entered  ·  180-min: -11 mg/dL from baseline  ·  iAUC↑: Incomplete / Unbounded (late rise at +180)   Flat ✅",
+    "createdAt": "2026-11-06T19:30:48.299Z"
+  },
+  {
+    "id": "af7da614-d8ff-4265-99da-ff386430f0a1",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-09T19:57-05:00",
+    "date": "2026-09-09",
+    "time": "19:57",
+    "summary": "almonds, sliced with skin on (40 g) [AUC 00255] - Evening; 0.09 net carbs per gram; flatline; thirty. GL aligned",
+    "structured": {
+      "foodName": "almonds, sliced with skin on (40 g) [AUC 00255] - Evening; 0.09 net carbs per gram; flatline; thirty. GL aligned"
+    },
+    "details": "Peak: 99 mg/dL  ·  Spike above baseline: +5 mg/dL  ·  -5 mg/dL from baseline at 120 min  ·  180-min: -5 mg/dL from baseline  ·  iAUC↑: 255 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T19:32:25.779Z",
+    "updatedAt": "2026-11-06T19:34:07.098Z"
+  },
+  {
+    "id": "9a732c3b-1a74-4c58-b393-b29a4984df1b",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-06-09T12:29-05:00",
+    "date": "2026-06-09",
+    "time": "12:29",
+    "summary": "Beef - Greek-Style Beef Kale and Feta; thirty",
+    "structured": {
+      "foodName": "Beef - Greek-Style Beef Kale and Feta; thirty"
+    },
+    "details": "Peak: 109 mg/dL  ·  Spike above baseline: +17 mg/dL  ·  -6 mg/dL from baseline at 120 min  ·  180-min: -6 mg/dL from baseline  ·  iAUC↑: 1155 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T19:36:27.213Z"
+  },
+  {
+    "id": "e2f69e6e-79a5-46e1-8c2a-8a1a05b68ff9",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-29T15:44-05:00",
+    "date": "2026-09-29",
+    "time": "15:44",
+    "summary": "Texas Roadhouse Ribeye Steak meal - complimentary roll, ribeye steak, potato, salad with Italiam dressing",
+    "structured": {
+      "foodName": "Texas Roadhouse Ribeye Steak meal - complimentary roll, ribeye steak, potato, salad with Italiam dressing"
+    },
+    "details": "Peak: 178 mg/dL  ·  Spike above baseline: +90 mg/dL  ·  +60 mg/dL from baseline at 120 min  ·  180-min: +68 mg/dL from baseline  ·  iAUC↑: Incomplete / Unbounded (late rise at +180)   High 🚫",
+    "createdAt": "2026-11-06T19:43:23.186Z"
+  },
+  {
+    "id": "51eaee9d-94a6-41e7-b8d0-31bf1929eefe",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-18T18:19-05:00",
+    "date": "2026-09-18",
+    "time": "18:19",
+    "summary": "beef patty; cheddar cheese, Marketside brand - Evening, 2 cucumbers; flatline; thirty",
+    "structured": {
+      "foodName": "beef patty; cheddar cheese, Marketside brand - Evening, 2 cucumbers; flatline; thirty"
+    },
+    "details": "Peak: 91 mg/dL  ·  Spike above baseline: +11 mg/dL  ·  -1 mg/dL from baseline at 120 min  ·  180-min: +0 mg/dL from baseline  ·  iAUC↑: Incomplete / Unbounded (late rise at +180)   Flat ✅",
+    "createdAt": "2026-11-06T19:47:37.654Z"
+  },
+  {
+    "id": "2a1617ed-03b9-43cf-870c-a2203c41314d",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-05-19T19:10-05:00",
+    "date": "2026-05-19",
+    "time": "19:10",
+    "summary": "Bread 1  [AUC 01830] - 1 slice Olive Cheese GF Sourdough bread - standard recipe, water, WALK first 30 min",
+    "structured": {
+      "foodName": "Bread 1  [AUC 01830] - 1 slice Olive Cheese GF Sourdough bread - standard recipe, water, WALK first 30 min"
+    },
+    "details": "Peak: 177 mg/dL  ·  Spike above baseline: +34 mg/dL  ·  +10 mg/dL from baseline at 120 min  ·  iAUC↑: 1830 mg·min/dL (to +120 min)   Mild ✅",
+    "createdAt": "2026-11-06T19:48:57.861Z"
+  },
+  {
+    "id": "37c8975e-614b-4dfd-a77f-96ec21777798",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-06-03T12:48-05:00",
+    "date": "2026-06-03",
+    "time": "12:48",
+    "summary": "Bread 1 [AUC 02070] - Afternooon; slice of plain sourdough bread with butter with milk",
+    "structured": {
+      "foodName": "Bread 1 [AUC 02070] - Afternooon; slice of plain sourdough bread with butter with milk"
+    },
+    "details": "Peak: 133 mg/dL  ·  Spike above baseline: +29 mg/dL  ·  +29 mg/dL from baseline at 120 min  ·  180-min: +2 mg/dL from baseline  ·  iAUC↑: 2070 mg·min/dL (to +360 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:06:15.295Z"
+  },
+  {
+    "id": "2539b8b7-ee34-46f1-b843-1ee16c0945b6",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-06-10T16:02-05:00",
+    "date": "2026-06-10",
+    "time": "16:02",
+    "summary": "bread 1 [AUC 04095] - Afternoon; oats as third flour, no berberine",
+    "structured": {
+      "foodName": "bread 1 [AUC 04095] - Afternoon; oats as third flour, no berberine"
+    },
+    "details": "Peak: 135 mg/dL  ·  Spike above baseline: +43 mg/dL  ·  +15 mg/dL from baseline at 120 min  ·  180-min: +7 mg/dL from baseline  ·  iAUC↑: 4095 mg·min/dL (to +180 min)   Moderate ⚠️",
+    "createdAt": "2026-11-06T20:08:36.676Z"
+  },
+  {
+    "id": "4813e6b9-bd5d-43a9-9352-ea7fba81414a",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-05T12:30-05:00",
+    "date": "2026-09-05",
+    "time": "12:30",
+    "summary": "Bread 2 [AUC 01470] - Afternoon; Swap Olive Salad with Canola Oil out for chopped black olives and olive oil",
+    "structured": {
+      "foodName": "Bread 2 [AUC 01470] - Afternoon; Swap Olive Salad with Canola Oil out for chopped black olives and olive oil"
+    },
+    "details": "Peak: 136 mg/dL  ·  Spike above baseline: +26 mg/dL  ·  -4 mg/dL from baseline at 120 min  ·  180-min: +26 mg/dL from baseline  ·  iAUC↑: Incomplete / Unbounded (late rise at +180)   Mild ✅",
+    "createdAt": "2026-11-06T20:10:15.479Z"
+  },
+  {
+    "id": "cd8daf83-6c51-4d46-a718-d9e5e729a2b8",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-02T14:58-05:00",
+    "date": "2026-09-02",
+    "time": "14:58",
+    "summary": "Bread 2 [AUC 01935] - Afternoon; Olive Salad and Cheese; flatline; GL Near Miss",
+    "structured": {
+      "foodName": "Bread 2 [AUC 01935] - Afternoon; Olive Salad and Cheese; flatline; GL Near Miss"
+    },
+    "details": "Peak: 114 mg/dL  ·  Spike above baseline: +33 mg/dL  ·  +5 mg/dL from baseline at 120 min  ·  180-min: +33 mg/dL from baseline  ·  iAUC↑: Incomplete / Unbounded (late rise at +180)   Mild ✅",
+    "createdAt": "2026-11-06T20:11:44.282Z"
+  },
+  {
+    "id": "ec61fec0-fce1-416d-b223-f319a918222b",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-25T16:49-05:00",
+    "date": "2026-09-25",
+    "time": "16:49",
+    "summary": "Bread 2 with Bacon - Afternoon; Removal of flax seed for this one",
+    "structured": {
+      "foodName": "Bread 2 with Bacon - Afternoon; Removal of flax seed for this one"
+    },
+    "details": "Peak: 125 mg/dL  ·  Spike above baseline: +42 mg/dL  ·  +42 mg/dL from baseline at 120 min  ·  iAUC↑: 2820 mg·min/dL (to +120 min)   Moderate ⚠️",
+    "createdAt": "2026-11-06T20:12:51.361Z"
+  },
+  {
+    "id": "aa3dfe03-6289-4f33-905b-fe008fa46871",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-20T19:29-05:00",
+    "date": "2026-09-20",
+    "time": "19:29",
+    "summary": "broccoli, roasted in light coating of oilive oil and spices - Evening; flatline; thirty. GL aligned",
+    "structured": {
+      "foodName": "broccoli, roasted in light coating of oilive oil and spices - Evening; flatline; thirty. GL aligned"
+    },
+    "details": "Peak: 91 mg/dL  ·  Spike above baseline: +6 mg/dL  ·  +3 mg/dL from baseline at 120 min  ·  180-min: +6 mg/dL from baseline  ·  iAUC↑: Incomplete / Unbounded (late rise at +180)   Flat ✅",
+    "createdAt": "2026-11-06T20:13:46.728Z"
+  },
+  {
+    "id": "e4fc7da8-cdff-4323-ab3c-ace2e471192e",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-07T13:32-05:00",
+    "date": "2026-09-07",
+    "time": "13:32",
+    "summary": "Brownie 1 plus A2 Milk [AUC 09435] - Afternoon; inulin; berberine",
+    "structured": {
+      "foodName": "Brownie 1 plus A2 Milk [AUC 09435] - Afternoon; inulin; berberine"
+    },
+    "details": "Peak: 160 mg/dL  ·  Spike above baseline: +77 mg/dL  ·  +49 mg/dL from baseline at 120 min  ·  180-min: +38 mg/dL from baseline  ·  iAUC↑: 9435 mg·min/dL (to +240 min)   High 🚫",
+    "createdAt": "2026-11-06T20:14:34.419Z"
+  },
+  {
+    "id": "0c214e56-061b-4922-b9a6-590f0cf28ae8",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-07T16:57-05:00",
+    "date": "2026-09-07",
+    "time": "16:57",
+    "summary": "Brownie 1 plus A2 Milk w/inulin [AUC 04140] - Afternoon;",
+    "structured": {
+      "foodName": "Brownie 1 plus A2 Milk w/inulin [AUC 04140] - Afternoon;"
+    },
+    "details": "Peak: 146 mg/dL  ·  Spike above baseline: +50 mg/dL  ·  +21 mg/dL from baseline at 120 min  ·  180-min: -20 mg/dL from baseline  ·  iAUC↑: 4140 mg·min/dL (to +180 min)   Moderate ⚠️",
+    "createdAt": "2026-11-06T20:16:25.265Z"
+  },
+  {
+    "id": "b4ece38a-b773-499a-99e1-f15b09e287ab",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-21T10:54-05:00",
+    "date": "2026-09-21",
+    "time": "10:54",
+    "summary": "Brownie 1 Plus Skim Milk - Late Morning",
+    "structured": {
+      "foodName": "Brownie 1 Plus Skim Milk - Late Morning"
+    },
+    "details": "Peak: 200 mg/dL  ·  Spike above baseline: +102 mg/dL  ·  +24 mg/dL from baseline at 120 min  ·  180-min: -16 mg/dL from baseline  ·  iAUC↑: 7590 mg·min/dL (to +180 min)   High 🚫",
+    "createdAt": "2026-11-06T20:18:06.299Z"
+  },
+  {
+    "id": "35134ebf-4047-4927-9715-ccebc0ace8ee",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-14T21:17-05:00",
+    "date": "2026-09-14",
+    "time": "21:17",
+    "summary": "Cantaloupe [AUC 01905] - Evening; 0-score; GL aligned",
+    "structured": {
+      "foodName": "Cantaloupe [AUC 01905] - Evening; 0-score; GL aligned"
+    },
+    "details": "Peak: 120 mg/dL  ·  Spike above baseline: +32 mg/dL  ·  +0 mg/dL from baseline at 120 min  ·  180-min: -9 mg/dL from baseline  ·  iAUC↑: 1905 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:19:03.054Z"
+  },
+  {
+    "id": "fede5043-8085-402b-935a-cef6c8c6f7eb",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-08T07:30-05:00",
+    "date": "2026-09-08",
+    "time": "07:30",
+    "summary": "carrots; raw [AUC 2445] - morning; 10 g; GL Near Miss",
+    "structured": {
+      "foodName": "carrots; raw [AUC 2445] - morning; 10 g; GL Near Miss"
+    },
+    "details": "Peak: 124 mg/dL  ·  Spike above baseline: +33 mg/dL  ·  +7 mg/dL from baseline at 120 min  ·  180-min: +0 mg/dL from baseline  ·  iAUC↑: 2445 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:19:46.357Z"
+  },
+  {
+    "id": "d8b73d17-f0d9-486a-b9b0-1d748d0e7741",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-16T21:39-05:00",
+    "date": "2026-09-16",
+    "time": "21:39",
+    "summary": "cashews, rosemarry and sea salt - Evening; thirty; GL Near Miss",
+    "structured": {
+      "foodName": "cashews, rosemarry and sea salt - Evening; thirty; GL Near Miss"
+    },
+    "details": "Peak: 103 mg/dL  ·  Spike above baseline: +21 mg/dL  ·  +7 mg/dL from baseline at 120 min  ·  180-min: +0 mg/dL from baseline  ·  iAUC↑: 1785 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:20:39.696Z"
+  },
+  {
+    "id": "5bc1ba03-1ed6-4b9f-8307-084e89df85fd",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-14T10:14-05:00",
+    "date": "2026-09-14",
+    "time": "10:14",
+    "summary": "cheese, Colby Jack Stick [AUC 02745] - Walmart brand; flatline; thirty",
+    "structured": {
+      "foodName": "cheese, Colby Jack Stick [AUC 02745] - Walmart brand; flatline; thirty"
+    },
+    "details": "Peak: 120 mg/dL  ·  Spike above baseline: +29 mg/dL  ·  +23 mg/dL from baseline at 120 min  ·  180-min: -10 mg/dL from baseline  ·  iAUC↑: 2745 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:21:24.108Z"
+  },
+  {
+    "id": "949fd2bc-b5a8-46c4-883a-0502df3a3b44",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-05-28T14:14-05:00",
+    "date": "2026-05-28",
+    "time": "14:14",
+    "summary": "Cheesecake, Blueberry Labneh [AUC 02175] - Afternoon; Coffee; thirty",
+    "structured": {
+      "foodName": "Cheesecake, Blueberry Labneh [AUC 02175] - Afternoon; Coffee; thirty"
+    },
+    "details": "Peak: 98 mg/dL  ·  Spike above baseline: +21 mg/dL  ·  +19 mg/dL from baseline at 120 min  ·  180-min: -1 mg/dL from baseline  ·  iAUC↑: 2175 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:22:22.027Z"
+  },
+  {
+    "id": "7ae67c49-c5ed-45ff-9e1c-b233ec452001",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-14T11:56-05:00",
+    "date": "2026-09-14",
+    "time": "11:56",
+    "summary": "Chia, Chocolate Pudding [AUC 00465] - Morning - 12 h4 refrigeration; Skim Milk as ingredient. nothing else; thirty; 0-score",
+    "structured": {
+      "foodName": "Chia, Chocolate Pudding [AUC 00465] - Morning - 12 h4 refrigeration; Skim Milk as ingredient. nothing else; thirty; 0-score"
+    },
+    "details": "Peak: 102 mg/dL  ·  Spike above baseline: +8 mg/dL  ·  -3 mg/dL from baseline at 120 min  ·  180-min: -5 mg/dL from baseline  ·  iAUC↑: 465 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:23:15.686Z"
+  },
+  {
+    "id": "75945a35-0b65-47bb-be56-20aa4798b47e",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-14T18:07-05:00",
+    "date": "2026-09-14",
+    "time": "18:07",
+    "summary": "Chia, Chocolate Pudding [AUC 01005] - Evening - 6-8 hr refrigeration; Skim Milk as ingredient. nothing else; thirty",
+    "structured": {
+      "foodName": "Chia, Chocolate Pudding [AUC 01005] - Evening - 6-8 hr refrigeration; Skim Milk as ingredient. nothing else; thirty"
+    },
+    "details": "Peak: 95 mg/dL  ·  Spike above baseline: +10 mg/dL  ·  +10 mg/dL from baseline at 120 min  ·  180-min: +0 mg/dL from baseline  ·  iAUC↑: 1005 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:24:49.109Z"
+  },
+  {
+    "id": "9edb538a-ca15-485b-8aae-4e10cf561bae",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-12T20:22-05:00",
+    "date": "2026-09-12",
+    "time": "20:22",
+    "summary": "Chia, Chocolate Pudding [AUC 05580] - Evening (freshly made 20-40 minute sit); Skim Milk both as ingredient and as a beverage; SUPPLEMENTS",
+    "structured": {
+      "foodName": "Chia, Chocolate Pudding [AUC 05580] - Evening (freshly made 20-40 minute sit); Skim Milk both as ingredient and as a beverage; SUPPLEMENTS"
+    },
+    "details": "Peak: 162 mg/dL  ·  Spike above baseline: +62 mg/dL  ·  +34 mg/dL from baseline at 120 min  ·  180-min: -2 mg/dL from baseline  ·  iAUC↑: 5580 mg·min/dL (to +180 min)   High 🚫",
+    "createdAt": "2026-11-06T20:25:53.063Z"
+  },
+  {
+    "id": "9a824875-450e-4e0d-8b2d-ee036c1c8f0d",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-15T19:12-05:00",
+    "date": "2026-09-15",
+    "time": "19:12",
+    "summary": "Chia, Chocolate Pudding- Frozen [AUC -] - Evening; 12 hours refrigeration 12 in freezer; made from Skim Milk; flatline; thirty",
+    "structured": {
+      "foodName": "Chia, Chocolate Pudding- Frozen [AUC -] - Evening; 12 hours refrigeration 12 in freezer; made from Skim Milk; flatline; thirty"
+    },
+    "details": "Peak: 89 mg/dL  ·  Spike above baseline: +4 mg/dL  ·  +4 mg/dL from baseline at 120 min  ·  180-min: +4 mg/dL from baseline  ·  iAUC↑: 360 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:26:40.983Z"
+  },
+  {
+    "id": "9fb02a54-f3bd-4138-a1e4-be689f94c868",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-06-01T13:56-05:00",
+    "date": "2026-06-01",
+    "time": "13:56",
+    "summary": "Chop Chop Salad [AUC 00270]- Afternoon; flatline; thirty",
+    "structured": {
+      "foodName": "Chop Chop Salad [AUC 00270]- Afternoon; flatline; thirty"
+    },
+    "details": "Peak: 91 mg/dL  ·  Spike above baseline: +4 mg/dL  ·  -3 mg/dL from baseline at 120 min  ·  180-min: -4 mg/dL from baseline  ·  iAUC↑: 270 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:27:24.106Z"
+  },
+  {
+    "id": "2b20a01f-2f74-40f0-9e3b-f6498d165f5a",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-10T19:37-05:00",
+    "date": "2026-09-10",
+    "time": "19:37",
+    "summary": "Chop Chop Salad [AUC 2085] - Evening; thirty",
+    "structured": {
+      "foodName": "Chop Chop Salad [AUC 2085] - Evening; thirty"
+    },
+    "details": "Peak: 125 mg/dL  ·  Spike above baseline: +27 mg/dL  ·  +9 mg/dL from baseline at 120 min  ·  180-min: -2 mg/dL from baseline  ·  iAUC↑: 2085 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:28:30.444Z",
+    "updatedAt": "2026-11-06T20:50:37.874Z"
+  },
+  {
+    "id": "25935796-c4a1-43c9-93a2-8c1c8d329ff5",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-09T18:02-05:00",
+    "date": "2026-09-09",
+    "time": "18:02",
+    "summary": "cucumbers, 2 medium [AUC 0150] - Evening; flatline; thirty; 0-score; GL aligned",
+    "structured": {
+      "foodName": "cucumbers, 2 medium [AUC 0150] - Evening; flatline; thirty; 0-score; GL aligned"
+    },
+    "details": "Peak: 100 mg/dL  ·  Spike above baseline: +2 mg/dL  ·  -6 mg/dL from baseline at 120 min  ·  180-min: -6 mg/dL from baseline  ·  iAUC↑: 150 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:29:28.183Z"
+  },
+  {
+    "id": "53c012bb-a55a-4027-a38c-01e9a79018b6",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-06-01T08:15-05:00",
+    "date": "2026-06-01",
+    "time": "08:15",
+    "summary": "Egg - Egg Scrambled [AUC 03930] - Morning; cheddar Cheese, slice Olive Sourdough bread, A2 Milk",
+    "structured": {
+      "foodName": "Egg - Egg Scrambled [AUC 03930] - Morning; cheddar Cheese, slice Olive Sourdough bread, A2 Milk"
+    },
+    "details": "Peak: 159 mg/dL  ·  Spike above baseline: +50 mg/dL  ·  +18 mg/dL from baseline at 120 min  ·  180-min: -7 mg/dL from baseline  ·  iAUC↑: 3930 mg·min/dL (to +180 min)   Moderate ⚠️",
+    "createdAt": "2026-11-06T20:30:32.358Z"
+  },
+  {
+    "id": "cd64b813-2349-4e79-9697-875e60cb5ac9",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-05-28T09:18-05:00",
+    "date": "2026-05-28",
+    "time": "09:18",
+    "summary": "Egg - Egg Shaksuka [AUC 01680] - Morning; Farm Fresh Milk; walked for 45 minutes during the test",
+    "structured": {
+      "foodName": "Egg - Egg Shaksuka [AUC 01680] - Morning; Farm Fresh Milk; walked for 45 minutes during the test"
+    },
+    "details": "Peak: 141 mg/dL  ·  Spike above baseline: +30 mg/dL  ·  -17 mg/dL from baseline at 120 min  ·  180-min: -30 mg/dL from baseline  ·  iAUC↑: 1680 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:31:37.440Z"
+  },
+  {
+    "id": "d0fa7156-533d-4dea-bc6e-0f772204e374",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-15T07:47-05:00",
+    "date": "2026-09-15",
+    "time": "07:47",
+    "summary": "Egg - Egg, fried [AUC 00570] - Morning; 2 eggs, grated block Parmesan cheese; Just water to drink. Specific test of low carb meal; thirty",
+    "structured": {
+      "foodName": "Egg - Egg, fried [AUC 00570] - Morning; 2 eggs, grated block Parmesan cheese; Just water to drink. Specific test of low carb meal; thirty"
+    },
+    "details": "Peak: 114 mg/dL  ·  Spike above baseline: +13 mg/dL  ·  -9 mg/dL from baseline at 120 min  ·  180-min: -10 mg/dL from baseline  ·  iAUC↑: 570 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:32:48.527Z"
+  },
+  {
+    "id": "b4b2c60d-72a5-42bd-b16e-61398177b5bb",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-05-31T07:14-05:00",
+    "date": "2026-05-31",
+    "time": "07:14",
+    "summary": "Egg - Egg, scrambled [AUC 00825] - Morning; Cheddar Cheese; Kefir; thirty",
+    "structured": {
+      "foodName": "Egg - Egg, scrambled [AUC 00825] - Morning; Cheddar Cheese; Kefir; thirty"
+    },
+    "details": "Peak: 110 mg/dL  ·  Spike above baseline: +12 mg/dL  ·  +7 mg/dL from baseline at 120 min  ·  180-min: -14 mg/dL from baseline  ·  iAUC↑: 825 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:33:51.443Z"
+  },
+  {
+    "id": "8c408279-d706-4bf7-9ece-385a4b685d52",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-10T07:42-05:00",
+    "date": "2026-09-10",
+    "time": "07:42",
+    "summary": "Egg - Egg, scrambled [AUC 05175] - Morning, 2 scrambled eggs, diced chicken, cheese, Walmart whole milk, berberine, walked 1.5 for 40-min",
+    "structured": {
+      "foodName": "Egg - Egg, scrambled [AUC 05175] - Morning, 2 scrambled eggs, diced chicken, cheese, Walmart whole milk, berberine, walked 1.5 for 40-min"
+    },
+    "details": "Peak: 155 mg/dL  ·  Spike above baseline: +57 mg/dL  ·  +35 mg/dL from baseline at 120 min  ·  180-min: -11 mg/dL from baseline  ·  iAUC↑: 5175 mg·min/dL (to +180 min)   Moderate ⚠️",
+    "createdAt": "2026-11-06T20:35:09.817Z"
+  },
+  {
+    "id": "0791850f-5c24-4821-aec9-39740ae54813",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-09T06:12-05:00",
+    "date": "2026-09-09",
+    "time": "06:12",
+    "summary": "Egg, 2 hard boiled [AUC 04200] - Morning, a little Kraft Olive Oil Mayo to make it deviled egg (New target: 20 to 25 g. 1/2 an egg is about 30 g)",
+    "structured": {
+      "foodName": "Egg, 2 hard boiled [AUC 04200] - Morning, a little Kraft Olive Oil Mayo to make it deviled egg (New target: 20 to 25 g. 1/2 an egg is about 30 g)"
+    },
+    "details": "Peak: 120 mg/dL  ·  Spike above baseline: +38 mg/dL  ·  +25 mg/dL from baseline at 120 min  ·  180-min: +6 mg/dL from baseline  ·  iAUC↑: 4200 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:37:17.119Z"
+  },
+  {
+    "id": "03981d33-0d73-4025-8c51-1b071598db6f",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-06-06T19:10-05:00",
+    "date": "2026-06-06",
+    "time": "19:10",
+    "summary": "Fish - Salmon Rice Paper - Afternoon; carrots, purple cabbage; berberine and walk",
+    "structured": {
+      "foodName": "Fish - Salmon Rice Paper - Afternoon; carrots, purple cabbage; berberine and walk"
+    },
+    "details": "Peak: 105 mg/dL  ·  Spike above baseline: +27 mg/dL  ·  +27 mg/dL from baseline at 120 min  ·  180-min: +0 mg/dL from baseline  ·  iAUC↑: 2730 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:38:10.426Z"
+  },
+  {
+    "id": "6a11e5b7-8205-42f5-8059-39f1d31729ed",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-14T07:13-05:00",
+    "date": "2026-09-14",
+    "time": "07:13",
+    "summary": "gouda cheese, smoked [AUC 00765] - Morning; cucumber; thirty",
+    "structured": {
+      "foodName": "gouda cheese, smoked [AUC 00765] - Morning; cucumber; thirty"
+    },
+    "details": "Peak: 107 mg/dL  ·  Spike above baseline: +9 mg/dL  ·  +5 mg/dL from baseline at 120 min  ·  180-min: -2 mg/dL from baseline  ·  iAUC↑: 765 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:39:07.090Z"
+  },
+  {
+    "id": "bc7c044c-fa10-4c70-ab66-ac5a33df3ac0",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-13T07:42-05:00",
+    "date": "2026-09-13",
+    "time": "07:42",
+    "summary": "Gouda cheese, Smoked [AUC 01365] - Morning; cinnamon mint test;Morning Supplements; thirty",
+    "structured": {
+      "foodName": "Gouda cheese, Smoked [AUC 01365] - Morning; cinnamon mint test;Morning Supplements; thirty"
+    },
+    "details": "Peak: 130 mg/dL  ·  Spike above baseline: +23 mg/dL  ·  -2 mg/dL from baseline at 120 min  ·  180-min: -16 mg/dL from baseline  ·  iAUC↑: 1365 mg·min/dL (to +180 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:40:00.341Z"
+  },
+  {
+    "id": "c5ca32ca-c04b-4eaf-9177-bec6505681dd",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-21T19:44-05:00",
+    "date": "2026-09-21",
+    "time": "19:44",
+    "summary": "Hard-boiled egg, not deviled - 2 eggs, Evening; GL aligned",
+    "structured": {
+      "foodName": "Hard-boiled egg, not deviled - 2 eggs, Evening; GL aligned"
+    },
+    "details": "Peak: 90 mg/dL  ·  Spike above baseline: +2 mg/dL  ·  +2 mg/dL from baseline at 120 min  ·  180-min: -7 mg/dL from baseline  ·  iAUC↑: 165 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:41:02.827Z"
+  },
+  {
+    "id": "39e625df-7bcd-43bf-9145-b6de895cfc31",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-12T15:27-05:00",
+    "date": "2026-09-12",
+    "time": "15:27",
+    "summary": "Hemp Hearts (30 g) [AUC 00645] - Mid-afternoon; eaten slowly; 0.047 net carbs per g; flatline; thirty; GL aligned",
+    "structured": {
+      "foodName": "Hemp Hearts (30 g) [AUC 00645] - Mid-afternoon; eaten slowly; 0.047 net carbs per g; flatline; thirty; GL aligned"
+    },
+    "details": "Peak: 86 mg/dL  ·  Spike above baseline: +7 mg/dL  ·  +7 mg/dL from baseline at 120 min  ·  180-min: +6 mg/dL from baseline  ·  iAUC↑: 645 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:42:01.202Z"
+  },
+  {
+    "id": "47ad258a-ab13-4e21-8480-f9f23ec5395a",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-10T12:40-05:00",
+    "date": "2026-09-10",
+    "time": "12:40",
+    "summary": "Kefir (Lifeway - unflavoered) [AUC 04675] - Afternoon; Stur Stevia sweetener, fruit flavor; GL NEar Miss",
+    "structured": {
+      "foodName": "Kefir (Lifeway - unflavoered) [AUC 04675] - Afternoon; Stur Stevia sweetener, fruit flavor; GL NEar Miss"
+    },
+    "details": "Peak: 118 mg/dL  ·  Spike above baseline: +34 mg/dL  ·  +34 mg/dL from baseline at 120 min  ·  180-min: +7 mg/dL from baseline  ·  iAUC↑: 4675 mg·min/dL (to +200 min)   Mild ✅",
+    "createdAt": "2026-11-06T20:42:54.614Z"
+  },
+  {
+    "id": "10501ef7-441c-4740-aa3d-6898b3333993",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-07T11:01-05:00",
+    "date": "2026-09-07",
+    "time": "11:01",
+    "summary": "Kefir (Lifeway), unflavored) [AUC 01255] : late morning; inulin and Stur Stevia sweetener, fruit flavor; thirty; GL aligned",
+    "structured": {
+      "foodName": "Kefir (Lifeway), unflavored) [AUC 01255] : late morning; inulin and Stur Stevia sweetener, fruit flavor; thirty; GL aligned"
+    },
+    "details": "Peak: 108 mg/dL  ·  Spike above baseline: +19 mg/dL  ·  +8 mg/dL from baseline at 120 min  ·  180-min: +4 mg/dL from baseline  ·  iAUC↑: 1575 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:43:47.638Z"
+  },
+  {
+    "id": "55caf5f0-0de0-498c-bec9-096098fe1933",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-14T16:32-05:00",
+    "date": "2026-09-14",
+    "time": "16:32",
+    "summary": "Ladenia - Afternoon; Colby Jack cheese stick, Farm Fresh Milk, Smoked Gouda; flatline; thirty",
+    "structured": {
+      "foodName": "Ladenia - Afternoon; Colby Jack cheese stick, Farm Fresh Milk, Smoked Gouda; flatline; thirty"
+    },
+    "details": "Peak: 94 mg/dL  ·  Spike above baseline: +16 mg/dL  ·  +6 mg/dL from baseline at 120 min  ·  180-min: +16 mg/dL from baseline  ·  iAUC↑: Incomplete / Unbounded (late rise at +180)   Flat ✅",
+    "createdAt": "2026-11-06T20:44:40.428Z"
+  },
+  {
+    "id": "dc11586c-f302-4e9c-8e72-86f0c5b72f00",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-10-01T13:49-05:00",
+    "date": "2026-10-01",
+    "time": "13:49",
+    "summary": "Lentil soup and large salad - Afternoon",
+    "structured": {
+      "foodName": "Lentil soup and large salad - Afternoon"
+    },
+    "details": "Peak: 124 mg/dL  ·  Spike above baseline: +29 mg/dL  ·  120-min not yet entered  ·  iAUC↑: 915 mg·min/dL (to +60 min)   M",
+    "createdAt": "2026-11-06T20:45:41.937Z"
+  },
+  {
+    "id": "447f6595-4a14-4a16-befb-b427d18738d2",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-23T17:04-05:00",
+    "date": "2026-09-23",
+    "time": "17:04",
+    "summary": "Lily's Milk Chocolate Chips- Late afternoon; (walked 20-minutes an hour prior to this test)",
+    "structured": {
+      "foodName": "Lily's Milk Chocolate Chips- Late afternoon; (walked 20-minutes an hour prior to this test)"
+    },
+    "details": "Peak: 96 mg/dL  ·  Spike above baseline: +2 mg/dL  ·  +1 mg/dL from baseline at 120 min  ·  180-min: -12 mg/dL from baseline  ·  iAUC↑: 150 mg·min/dL (to +180 min)   Flat ✅",
+    "createdAt": "2026-11-06T20:46:43.968Z"
+  },
+  {
+    "id": "7cca8957-293c-4bc9-91c9-998d3504c661",
+    "sensorId": "2026 05 to 10",
+    "type": "food",
+    "timestampLocal": "2026-09-20T19:30-05:00",
+    "date": "2026-09-20",
+    "time": "19:30",
+    "summary": "Mexican - Pile Uo Tacos - this time the almonds were dropped. Evening. shredded cheddar cheese",
+    "structured": {
+      "foodName": "Mexican - Pile Uo Tacos - this time the almonds were dropped. Evening. shredded cheddar cheese"
+    },
+    "details": "Peak: 145 mg/dL  ·  Spike above baseline: +54 mg/dL  ·  +46 mg/dL from baseline at 120 min  ·  180-min: -8 mg/dL from baseline  ·  iAUC↑: 5280 mg·min/dL (to +180 min)   Moderate ⚠️",
+    "createdAt": "2026-11-06T20:47:31.719Z"
+  }
+]
