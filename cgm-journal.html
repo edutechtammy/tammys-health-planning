@@ -984,74 +984,6 @@
             <label>Food / combination tested</label>
             <input id="foodName" type="text" value="" placeholder="e.g. GF sourdough + EVOO + A2 milk" />
           </div>
-          <div class="field">
-            <label>Net carbs (g)</label>
-            <input id="netCarbs" type="number" step="0.1" placeholder="e.g. 18.5" />
-          </div>
-          <div class="field">
-            <label>Protein (g)</label>
-            <input id="protein" type="number" step="0.1" placeholder="e.g. 24" />
-          </div>
-          <div class="field">
-            <label>Fat (g)</label>
-            <input id="fat" type="number" step="0.1" placeholder="e.g. 18.5" />
-          </div>
-          <div class="field">
-            <label>Fiber (g)</label>
-            <input id="fiber" type="number" step="0.1" placeholder="e.g. 4.2" />
-          </div>
-          <div class="field">
-            <label>Calories</label>
-            <input id="calories" type="number" step="1" placeholder="e.g. 320" />
-          </div>
-          <div class="field">
-            <label>Glycemic load</label>
-            <input id="glycemicLoad" type="number" step="0.1" placeholder="e.g. 9.5" />
-          </div>
-          <div class="field">
-            <label>Was ACV taken?</label>
-            <select id="acvTaken">
-              <option value="">— not logged —</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Was berberine taken?</label>
-            <select id="berberineTaken">
-              <option value="">— not logged —</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Walk before test?</label>
-            <select id="walkBeforeTest">
-              <option value="">— not logged —</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Baseline</label>
-            <input id="baseline" type="number" step="1" placeholder="e.g. 118" />
-          </div>
-          <div class="field">
-            <label>+30 min</label>
-            <input id="min30" type="number" step="1" placeholder="e.g. 145" />
-          </div>
-          <div class="field">
-            <label>+60 min</label>
-            <input id="min60" type="number" step="1" placeholder="e.g. 138" />
-          </div>
-          <div class="field">
-            <label>+120 min</label>
-            <input id="min120" type="number" step="1" placeholder="e.g. 122" />
-          </div>
-          <div class="field">
-            <label>Return to baseline minute</label>
-            <input id="returnToBaseline" type="number" step="1" placeholder="e.g. 165" />
-          </div>
         `;
       }
 
@@ -1215,20 +1147,6 @@
       const payload = {};
       if (type === 'food') {
         payload.foodName = document.getElementById('foodName')?.value.trim() || '';
-        payload.netCarbs = document.getElementById('netCarbs')?.value || '';
-        payload.protein = document.getElementById('protein')?.value || '';
-        payload.fat = document.getElementById('fat')?.value || '';
-        payload.fiber = document.getElementById('fiber')?.value || '';
-        payload.calories = document.getElementById('calories')?.value || '';
-        payload.glycemicLoad = document.getElementById('glycemicLoad')?.value || '';
-        payload.acvTaken = document.getElementById('acvTaken')?.value || '';
-        payload.berberineTaken = document.getElementById('berberineTaken')?.value || '';
-        payload.walkBeforeTest = document.getElementById('walkBeforeTest')?.value || '';
-        payload.baseline = document.getElementById('baseline')?.value || '';
-        payload.min30 = document.getElementById('min30')?.value || '';
-        payload.min60 = document.getElementById('min60')?.value || '';
-        payload.min120 = document.getElementById('min120')?.value || '';
-        payload.returnToBaseline = document.getElementById('returnToBaseline')?.value || '';
       }
 
       if (type === 'sleep-wake') {
@@ -1393,20 +1311,6 @@
       if (!structured || typeof structured !== 'object') return;
       if (type === 'food') {
         document.getElementById('foodName').value = structured.foodName || '';
-        document.getElementById('netCarbs').value = structured.netCarbs || '';
-        document.getElementById('protein').value = structured.protein || '';
-        document.getElementById('fat').value = structured.fat || '';
-        document.getElementById('fiber').value = structured.fiber || '';
-        document.getElementById('calories').value = structured.calories || '';
-        document.getElementById('glycemicLoad').value = structured.glycemicLoad || '';
-        document.getElementById('acvTaken').value = structured.acvTaken || '';
-        document.getElementById('berberineTaken').value = structured.berberineTaken || '';
-        document.getElementById('walkBeforeTest').value = structured.walkBeforeTest || '';
-        document.getElementById('baseline').value = structured.baseline || '';
-        document.getElementById('min30').value = structured.min30 || '';
-        document.getElementById('min60').value = structured.min60 || '';
-        document.getElementById('min120').value = structured.min120 || '';
-        document.getElementById('returnToBaseline').value = structured.returnToBaseline || '';
       }
 
       if (type === 'sleep-wake') {
