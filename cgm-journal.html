@@ -830,7 +830,43 @@
     <section class="panel">
       <h2>Event summary</h2>
       <div id="eventSummaryContainer"></div>
+    </section>
 
+    <section class="panel">
+      <h2>Add note</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="noteType">Type</label>
+          <select id="noteType">
+            <option value="food">Food</option>
+            <option value="sleep-wake">Sleep / Wake</option>
+            <option value="exercise">Exercise</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="noteDate">Date</label>
+          <input id="noteDate" type="date" />
+        </div>
+        <div class="field">
+          <label for="noteTime">Time</label>
+          <input id="noteTime" type="time" />
+        </div>
+      </div>
+
+      <div id="dynamicFields" class="dynamic-fields"></div>
+
+      <div class="field full">
+        <label for="noteDetails">Notes / observations</label>
+        <textarea id="noteDetails" placeholder="Optional freeform details, symptoms, context, or anything not covered above..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="primary" id="saveNoteBtn" type="button">Save note</button>
+      </div>
+    </section>
+
+    <section class="panel">
       <div class="inspector-panel">
         <h3 style="margin:0 0 10px;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--green-dark);">Event-to-CGM inspector</h3>
         <div class="grid" style="margin-bottom:0;">
@@ -876,40 +912,6 @@
             <tbody id="eventInspectRows"></tbody>
           </table>
         </div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Add note</h2>
-      <div class="grid">
-        <div class="field">
-          <label for="noteType">Type</label>
-          <select id="noteType">
-            <option value="food">Food</option>
-            <option value="sleep-wake">Sleep / Wake</option>
-            <option value="exercise">Exercise</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="noteDate">Date</label>
-          <input id="noteDate" type="date" />
-        </div>
-        <div class="field">
-          <label for="noteTime">Time</label>
-          <input id="noteTime" type="time" />
-        </div>
-      </div>
-
-      <div id="dynamicFields" class="dynamic-fields"></div>
-
-      <div class="field full">
-        <label for="noteDetails">Notes / observations</label>
-        <textarea id="noteDetails" placeholder="Optional freeform details, symptoms, context, or anything not covered above..."></textarea>
-      </div>
-
-      <div class="btn-row">
-        <button class="primary" id="saveNoteBtn" type="button">Save note</button>
       </div>
     </section>
 
