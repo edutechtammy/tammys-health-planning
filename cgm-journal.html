@@ -1623,6 +1623,22 @@
         ctx.fillText(Math.round(value), margin.left - 8, y + 3);
       }
 
+      // Draw faint hourly vertical guides (e.g., 1 PM, 2 PM, 3 PM) for easier time scaling.
+      const firstHour = new Date(startMs);
+      firstHour.setMinutes(0, 0, 0);
+      if (firstHour.getTime() < startMs) {
+        firstHour.setHours(firstHour.getHours() + 1);
+      }
+      ctx.strokeStyle = '#e2e8e4';
+      ctx.lineWidth = 1;
+      for (let hourMs = firstHour.getTime(); hourMs <= endMs; hourMs += 60 * 60 * 1000) {
+        const x = margin.left + ((hourMs - startMs) / spanMs) * plotWidth;
+        ctx.beginPath();
+        ctx.moveTo(x, margin.top);
+        ctx.lineTo(x, canvas.height - margin.bottom);
+        ctx.stroke();
+      }
+
       ctx.beginPath();
       rows.forEach((row, index) => {
         const x = margin.left + ((row.tsDate.getTime() - startMs) / spanMs) * plotWidth;
