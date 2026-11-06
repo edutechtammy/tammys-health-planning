@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-11-05T13:07:55.453Z",
+  "exportedAt": "2026-11-06T02:18:52.668Z",
   "storageKey": "tammys_cardio_hr_tracker_v1",
   "sessions": [
     {
@@ -111,32 +111,16 @@
       ],
       "postStop": [
         {
-          "minute": 2,
+          "minute": 1,
           "bpm": 78
         },
         {
-          "minute": 3,
+          "minute": 2,
           "bpm": 87
-        },
-        {
-          "minute": 4,
-          "bpm": 91
-        },
-        {
-          "minute": 5,
-          "bpm": 82
-        },
-        {
-          "minute": 6,
-          "bpm": 83
-        },
-        {
-          "minute": 7,
-          "bpm": 83
         }
       ],
       "notes": "",
-      "updatedAt": "2026-11-04T01:12:38.990Z"
+      "updatedAt": "2026-11-06T02:05:50.617Z"
     },
     {
       "id": "session-2026-11-03-ceefyjc",
@@ -193,14 +177,10 @@
         {
           "minute": 2,
           "bpm": 76
-        },
-        {
-          "minute": 3,
-          "bpm": 76
         }
       ],
       "notes": "Missed minute 14 under-load reading.",
-      "updatedAt": "2026-11-04T01:52:29.223Z"
+      "updatedAt": "2026-11-06T02:05:11.250Z"
     },
     {
       "id": "session-1793832267558",
@@ -255,16 +235,80 @@
       ],
       "postStop": [
         {
-          "minute": 2,
+          "minute": 1,
           "bpm": 79
         },
         {
-          "minute": 4,
+          "minute": 2,
           "bpm": 75
         }
       ],
       "notes": "I was talking to John at the 10-min mark.",
-      "updatedAt": "2026-11-04T22:44:27.558Z"
+      "updatedAt": "2026-11-06T02:06:13.197Z"
+    },
+    {
+      "id": "session-1793929089099",
+      "date": "2026-11-05",
+      "name": "Recovery Walk",
+      "speedMph": 1.6,
+      "inclinePct": 4,
+      "durationMin": 20,
+      "sessionTime": "19:11",
+      "startHr": 62,
+      "intervals": [
+        {
+          "minute": 2,
+          "bpm": 89
+        },
+        {
+          "minute": 4,
+          "bpm": 116
+        },
+        {
+          "minute": 6,
+          "bpm": 99
+        },
+        {
+          "minute": 8,
+          "bpm": 86
+        },
+        {
+          "minute": 10,
+          "bpm": 104
+        },
+        {
+          "minute": 12,
+          "bpm": 99
+        },
+        {
+          "minute": 14,
+          "bpm": 109
+        },
+        {
+          "minute": 16,
+          "bpm": 96
+        },
+        {
+          "minute": 18,
+          "bpm": 111
+        },
+        {
+          "minute": 20,
+          "bpm": 102
+        }
+      ],
+      "postStop": [
+        {
+          "minute": 1,
+          "bpm": 80
+        },
+        {
+          "minute": 2,
+          "bpm": 76
+        }
+      ],
+      "notes": "",
+      "updatedAt": "2026-11-06T02:06:39.849Z"
     }
   ]
 }

@@ -63,6 +63,8 @@
     .tracker-field small{font-size:.74rem;color:var(--muted)}
     .tracker-field.wide{grid-column:1 / -1}
     .tracker-status{margin-top:.5rem;font-size:.84rem;color:#2f5d4d;min-height:1.2em}
+    .tracker-warning{margin-top:.45rem;font-size:.82rem;line-height:1.45;color:#7a4b00;background:#fff7e8;border:1px solid #f1d4a8;border-radius:10px;padding:.55rem .68rem;display:none}
+    .tracker-warning.visible{display:block}
 
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin:.75rem 0 1rem}
     .kpi-card{border:1px solid var(--border);background:#f8fcfa;border-radius:12px;padding:.65rem .72rem}
@@ -88,6 +90,10 @@
     .chart-legend{display:flex;flex-wrap:wrap;gap:.6rem .9rem;margin-top:.6rem}
     .chart-legend-item{display:inline-flex;align-items:center;gap:.45rem;font-size:.82rem;color:#2b4f40;font-weight:600}
     .chart-legend-swatch{width:.72rem;height:.72rem;border-radius:50%;display:inline-block;border:2px solid rgba(255,255,255,.8);box-shadow:0 0 0 1px rgba(15,23,42,.08)}
+    .chart-analysis{margin-top:.75rem;padding:.7rem .78rem;border:1px solid #dbeadf;border-radius:10px;background:#fff;font-size:.84rem;color:#2f4f42;line-height:1.45}
+    .chart-analysis strong{display:block;color:#234b3b;margin-bottom:.28rem}
+    .chart-analysis ul{margin:.25rem 0 0;padding-left:1.1rem}
+    .chart-analysis li{margin:.22rem 0}
 
     .micro-table{width:100%;min-width:520px;border-collapse:collapse;margin:.6rem 0;font-size:.84rem}
     .micro-table th,.micro-table td{padding:.46rem .5rem;border-bottom:1px solid #e1ede7;text-align:left;vertical-align:top}
@@ -409,6 +415,9 @@
           <div class="tracker-field wide">
             <label for="cardio-post">Post-stop recovery (minute:bpm, one per line)</label>
             <textarea id="cardio-post" placeholder="1:80&#10;2:76&#10;3:76"></textarea>
+            <small>For useful recovery signals, include numeric minute 1 and minute 2 entries (for example: 1:80 and 2:76).</small>
+            <small>If minute 1 is missing, HRR1 shows a dash. If minute 2 is missing, HRR2 shows a dash.</small>
+            <button class="btn" id="cardio-post-template-btn" type="button" style="align-self:flex-start;margin-top:.2rem">Insert Post-stop Template</button>
           </div>
           <div class="tracker-field wide">
             <label for="cardio-notes">Notes (optional)</label>
@@ -426,6 +435,7 @@
           <input id="cardio-import-json-file" type="file" accept=".json,application/json" hidden />
         </div>
         <div class="tracker-status" id="cardio-status"></div>
+        <div class="tracker-warning" id="cardio-data-warning" role="status" aria-live="polite"></div>
 
         <hr style="margin:1rem 0;border:0;border-top:1px solid #e2eee8" />
 
@@ -451,6 +461,19 @@
           <div style="margin-top:.35rem"><strong>HRR1</strong> = first-minute heart-rate recovery after stopping, measured as the drop from the final working load to one minute later. A faster drop usually means stronger cardiovascular efficiency and recovery capacity.</div>
         </div>
 
+        <div class="callout" style="margin-top:.75rem;">
+          <strong>How Green, Yellow, and Red are decided (same load only)</strong>
+          <ul class="ref" style="margin:.45rem 0 .2rem;">
+            <li>The cue is based on <strong>4 checks</strong> from your latest session under the selected load (same name, speed, incline, and duration).</li>
+            <li><strong>Working median check:</strong> pass if latest working median is at least <strong>3 bpm lower</strong> than your baseline (baseline = average of up to the last 4 same-load sessions).</li>
+            <li><strong>Drift check:</strong> pass if drift is <strong>3 bpm or less</strong>.</li>
+            <li><strong>HRR1 check:</strong> pass if 1-minute recovery is <strong>12 bpm or more</strong>.</li>
+            <li><strong>HRR2 check:</strong> pass if 2-minute recovery is <strong>18 bpm or more</strong>.</li>
+            <li><strong>Green:</strong> 3 to 4 checks pass. <strong>Yellow:</strong> exactly 2 pass. <strong>Red:</strong> 0 to 1 pass. <strong>Data Building:</strong> fewer than 2 checks available.</li>
+            <li><strong>Important:</strong> not every interval reading must be lower than the previous one, and <strong>peak HR is tracked but does not directly set the cue</strong>.</li>
+          </ul>
+        </div>
+
         <div class="chart-panel">
           <div class="chart-toolbar">
             <h3 style="font-size:1rem;margin:0">Selected load heart-rate trend</h3>
@@ -464,6 +487,7 @@
           <svg id="cardio-load-graph" class="chart-svg" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid meet" aria-label="Cardio load trend graph"></svg>
           <div id="cardio-load-legend" class="chart-legend"></div>
           <p id="cardio-graph-empty" class="chart-empty">Need at least one session in this load condition to graph the trend.</p>
+          <div id="cardio-trend-analysis" class="chart-analysis" aria-live="polite"></div>
         </div>
 
         <div class="split-2" style="margin-top:1rem">
@@ -807,6 +831,54 @@
       };
     }
 
+    function getCardioSessionDataWarnings(session){
+      if(!session||typeof session!=='object') return [];
+
+      const intervals=(Array.isArray(session.intervals)?session.intervals:[])
+        .filter(item=>item&&Number.isFinite(item.minute));
+      const metrics=getMetricPack(session);
+      const hasMinute1=Number.isFinite(findBpmAtMinute(session.postStop,1));
+      const hasMinute2=Number.isFinite(findBpmAtMinute(session.postStop,2));
+
+      const workingCount=intervals.filter(item=>item.minute>=10&&item.minute<=20&&Number.isFinite(item.bpm)).length;
+      const earlyCount=intervals.filter(item=>item.minute>=4&&item.minute<=8&&Number.isFinite(item.bpm)).length;
+      const lateCount=intervals.filter(item=>item.minute>=16&&item.minute<=20&&Number.isFinite(item.bpm)).length;
+
+      const warnings=[];
+      if(metrics.stopHr==null){
+        warnings.push('No numeric under-load bpm was found, so HRR1 and HRR2 cannot be calculated.');
+      }
+      if(metrics.stopHr!=null&&!hasMinute1){
+        warnings.push('Missing minute 1 post-stop bpm, so HRR1 will show as a dash.');
+      }
+      if(metrics.stopHr!=null&&!hasMinute2){
+        warnings.push('Missing minute 2 post-stop bpm, so HRR2 will show as a dash.');
+      }
+      if(workingCount===0){
+        warnings.push('No numeric bpm in minutes 10-20, so working median cannot be calculated.');
+      }
+      if(earlyCount===0||lateCount===0){
+        warnings.push('Need numeric bpm in both minutes 4-8 and 16-20 to calculate drift.');
+      }
+
+      return warnings;
+    }
+
+    function renderCardioDataWarning(session){
+      const host=document.getElementById('cardio-data-warning');
+      if(!host) return;
+
+      const warnings=getCardioSessionDataWarnings(session);
+      if(!warnings.length){
+        host.classList.remove('visible');
+        host.textContent='';
+        return;
+      }
+
+      host.classList.add('visible');
+      host.innerHTML='<strong>Data quality warning:</strong> '+warnings.join(' ');
+    }
+
     function round1(value){
       return Number.isFinite(value)?Math.round(value*10)/10:null;
     }
@@ -984,6 +1056,30 @@
       if(pEl) pEl.value='';
       const nEl=document.getElementById('cardio-notes');
       if(nEl) nEl.value='';
+      renderCardioDataWarning(null);
+    }
+
+    function insertPostStopTemplate(){
+      const postEl=document.getElementById('cardio-post');
+      if(!postEl) return;
+
+      const text=String(postEl.value||'');
+      const lines=text?text.split(/\r?\n/):[];
+      const hasMinute=minute=>lines.some(line=>new RegExp('^\\s*'+minute+'\\s*[:\\-\\s,]').test(String(line||'')));
+
+      const additions=[];
+      if(!hasMinute(1)) additions.push('1:80');
+      if(!hasMinute(2)) additions.push('2:76');
+      if(!hasMinute(3)) additions.push('3:72');
+
+      if(!additions.length){
+        showCardioStatus('Post-stop already includes minutes 1, 2, and 3.');
+        return;
+      }
+
+      const nextText=(text.trim()?text.trim()+'\n':'')+additions.join('\n');
+      postEl.value=nextText;
+      showCardioStatus('Inserted post-stop template lines for missing minutes.');
     }
 
     function upsertCardioSession(){
@@ -1005,7 +1101,13 @@
       const wasEditing=Boolean(cardioEditingId);
       renderCardioTracker();
       clearCardioForm();
-      showCardioStatus(wasEditing?'Session updated.':'Session saved.');
+      const warnings=getCardioSessionDataWarnings(session);
+      renderCardioDataWarning(session);
+      if(warnings.length){
+        showCardioStatus((wasEditing?'Session updated. ':'Session saved. ')+'See data quality warning below.');
+      }else{
+        showCardioStatus(wasEditing?'Session updated.':'Session saved.');
+      }
     }
 
     function exportCardioCsv(){
@@ -1466,6 +1568,8 @@
           const notesEl=document.getElementById('cardio-notes');
           if(notesEl) notesEl.value=session.notes||'';
 
+          renderCardioDataWarning(session);
+
           showCardioStatus('Loaded session for editing.');
           document.getElementById('cardio-date')?.focus();
           window.scrollTo({top:0,behavior:'smooth'});
@@ -1594,6 +1698,59 @@
       empty.style.display='none';
     }
 
+    function renderCardioTrendAnalysis(filteredSessions){
+      const host=document.getElementById('cardio-trend-analysis');
+      if(!host) return;
+
+      if(!Array.isArray(filteredSessions)||!filteredSessions.length){
+        host.innerHTML='<strong>Text analysis</strong><div>Add sessions in this load condition to generate a written interpretation.</div>';
+        return;
+      }
+
+      const targetWindow=Math.min(cardioGraphWindow, filteredSessions.length);
+      const series=filteredSessions.slice(-targetWindow);
+      const latest=filteredSessions[filteredSessions.length-1];
+      const cue=getCueForSession(latest,filteredSessions);
+      const packs=series.map(getMetricPack);
+
+      const workingSeries=packs.map(item=>item.workingMedian).filter(v=>Number.isFinite(v));
+      const driftSeries=packs.map(item=>item.drift).filter(v=>Number.isFinite(v));
+      const hrr1Series=packs.map(item=>item.hrr1).filter(v=>Number.isFinite(v));
+      const hrr2Series=packs.map(item=>item.hrr2).filter(v=>Number.isFinite(v));
+
+      const firstWorking=workingSeries.length?workingSeries[0]:null;
+      const latestWorking=workingSeries.length?workingSeries[workingSeries.length-1]:null;
+      const workingDelta=(Number.isFinite(firstWorking)&&Number.isFinite(latestWorking))?(latestWorking-firstWorking):null;
+
+      const cueLine='Current cue: '+cue.label+' ('+cue.title+').';
+      const workingLine=Number.isFinite(workingDelta)
+        ? ('Working median trend over shown sessions: '+fmtNum(Math.abs(workingDelta),1)+' bpm '+(workingDelta<=0?'lower':'higher')+'.')
+        : 'Working median trend: need more complete minute 10 to 20 readings.';
+
+      const latestDrift=driftSeries.length?driftSeries[driftSeries.length-1]:null;
+      const driftLine=Number.isFinite(latestDrift)
+        ? ('Latest drift: '+fmtNum(latestDrift,1)+' bpm (target: 3.0 or lower).')
+        : 'Drift: unavailable. Add numeric bpm in both minute ranges 4 to 8 and 16 to 20.';
+
+      const latestHrr1=hrr1Series.length?hrr1Series[hrr1Series.length-1]:null;
+      const latestHrr2=hrr2Series.length?hrr2Series[hrr2Series.length-1]:null;
+      const recoveryBits=[];
+      recoveryBits.push(Number.isFinite(latestHrr1)?('HRR1 '+fmtNum(latestHrr1,0)+' (target: 12+)'):'HRR1 missing (add post-stop minute 1)');
+      recoveryBits.push(Number.isFinite(latestHrr2)?('HRR2 '+fmtNum(latestHrr2,0)+' (target: 18+)'):'HRR2 missing (add post-stop minute 2)');
+      const recoveryLine='Recovery checks: '+recoveryBits.join('; ')+'.';
+
+      const completeCount=series.filter(session=>getCardioSessionDataWarnings(session).length===0).length;
+      const qualityLine='Data quality: '+completeCount+' of '+series.length+' shown session'+(series.length===1?'':'s')+' have complete metric inputs.';
+
+      host.innerHTML='<strong>Text analysis</strong><ul>'+
+        '<li>'+cueLine+'</li>'+
+        '<li>'+workingLine+'</li>'+
+        '<li>'+driftLine+'</li>'+
+        '<li>'+recoveryLine+'</li>'+
+        '<li>'+qualityLine+'</li>'+
+      '</ul>';
+    }
+
     function renderCardioTracker(){
       const sessions=loadCardioSessions();
       const selectedLoad=renderLoadFilter(sessions);
@@ -1602,6 +1759,7 @@
       renderCardioKpis(filtered);
       renderCue(filtered);
       renderCardioTrendGraph(filtered);
+      renderCardioTrendAnalysis(filtered);
       renderTrendTable(filtered);
       renderAllSessionsTable(sessions);
     }
@@ -1635,6 +1793,9 @@
 
       const clearBtn=document.getElementById('cardio-clear-btn');
       if(clearBtn) clearBtn.addEventListener('click',()=>{ clearCardioForm(); showCardioStatus('Form cleared.'); });
+
+      const postTemplateBtn=document.getElementById('cardio-post-template-btn');
+      if(postTemplateBtn) postTemplateBtn.addEventListener('click',insertPostStopTemplate);
 
       const cancelBtn=document.getElementById('cardio-cancel-edit-btn');
       if(cancelBtn) cancelBtn.addEventListener('click',()=>{
