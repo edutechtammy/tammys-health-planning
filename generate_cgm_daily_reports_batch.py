@@ -26,7 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--csv", help="Path to source CSV. Optional if preset HTML has embedded csvData.")
     parser.add_argument(
         "--preset-html",
-        default="cgm-tracker.html",
+        default="cgm-journal.html",
         help="HTML file containing embedded PRESET_CYCLE csvData template literal.",
     )
     parser.add_argument(

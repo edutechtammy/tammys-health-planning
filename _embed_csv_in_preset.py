@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Quick script to embed the CSV data into the PRESET_CYCLE in cgm-tracker.html
+Quick script to embed the CSV data into the PRESET_CYCLE in cgm-journal.html
 so the heatmap works immediately without requiring a CSV upload.
 """
 import json
 import re
 
 csv_path = 'manual-backups/lingo-cgm-2026-05-27-to-2026-06-07.csv'
-html_path = 'cgm-tracker.html'
+html_path = 'cgm-journal.html'
 
 # Read the CSV
 with open(csv_path, 'r') as f:

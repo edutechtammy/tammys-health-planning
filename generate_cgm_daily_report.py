@@ -4,7 +4,7 @@ Generate a styled daily CGM PNG report from CSV data.
 
 Supports two data sources:
 1) --csv path/to/file.csv
-2) Embedded `csvData` inside cgm-tracker.html (fallback when --csv is omitted)
+2) Embedded `csvData` inside cgm-journal.html (fallback when --csv is omitted)
 
 Output styling is aligned to existing cycle report images, including:
 - target range shading
@@ -76,7 +76,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--preset-html",
-        default="cgm-tracker.html",
+        default="cgm-journal.html",
         help="HTML file containing embedded PRESET_CYCLE csvData template literal.",
     )
     parser.add_argument(

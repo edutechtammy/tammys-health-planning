@@ -42,7 +42,7 @@ A **D3.js-powered daily glucose heatmap** has been integrated into the CGM Track
 
 ## File Changes
 
-### cgm-tracker.html
+### cgm-journal.html
 - Added D3.js CDN link in `<head>`
 - Added `.heatmap-*` CSS classes for styling
 - Added `#heatmap-container` div after cycle detail section

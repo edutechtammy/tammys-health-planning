@@ -38,35 +38,29 @@
       padding: 24px 18px 60px;
     }
 
-    .top-nav {
+    nav {
+      background: var(--green-dark);
+      padding: .75rem 1.5rem;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 0 0 18px;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-    }
-
-    .top-nav a {
-      display: inline-flex;
+      gap: 1.2rem;
       align-items: center;
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: var(--green-dark);
-      background: var(--green-soft);
-      border: 1px solid var(--line);
+      flex-wrap: wrap;
     }
 
-    .top-nav a.secondary {
-      background: #f4f8f3;
-      color: var(--text);
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .88rem;
+      opacity: .82;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+
+    nav a:hover,
+    nav a.active {
+      opacity: 1;
+      text-decoration: underline;
     }
 
     header {
@@ -778,11 +772,25 @@
   </style>
 </head>
 <body>
+  <nav aria-label="Page navigation">
+    <a href="index.html">🏠 Home</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html">🍽️ Food Testing</a>
+    <a href="dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="genetics.html">🧬 Genetics</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="cardio.html">🏃 Cardio</a>
+    <a href="resistance.html">💪 Resistance</a>
+    <a href="cgm-journal.html" class="active">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="morning-bp-tracker.html">🩺 BP</a>
+    <a href="diet-power.html">🥣 Diet Power</a>
+  </nav>
+
   <div class="wrap">
-    <nav class="top-nav" aria-label="Page navigation">
-      <a href="cgm-tracker.html">Original CGM tracker</a>
-      <a class="secondary" href="index.html">Main planning index</a>
-    </nav>
 
     <header>
       <h1>📡 CGM Sensor Journal</h1>

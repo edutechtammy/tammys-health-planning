@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Update PRESET_CYCLE in cgm-tracker.html with context data from JSON file.
+Update PRESET_CYCLE in cgm-journal.html with context data from JSON file.
 Adds meals, exercise, and contextNotes to the daily array.
 """
 import json
 import re
 
 json_path = 'manual-backups/cgm-2026-05-27-to-2026-06-07 (2).json'
-html_path = 'cgm-tracker.html'
+html_path = 'cgm-journal.html'
 
 # Read the JSON with context data
 with open(json_path, 'r') as f:
