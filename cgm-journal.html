@@ -597,6 +597,69 @@
       border-radius: 10px;
     }
 
+    .inspector-panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.78);
+      padding: 12px;
+      margin-top: 8px;
+    }
+
+    .inspector-summary {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 8px;
+    }
+
+    .inspector-pill {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f8fcf8;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    .inspector-pill strong {
+      display: block;
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .inspector-chart-wrap {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfdfb;
+      padding: 8px;
+    }
+
+    .inspector-chart-wrap canvas {
+      width: 100%;
+      height: 220px;
+      display: block;
+      background: #fbfdfb;
+      border-radius: 8px;
+    }
+
+    .inspector-context {
+      margin-top: 12px;
+    }
+
+    .inspector-context table {
+      min-width: 100%;
+      font-size: 0.84rem;
+    }
+
+    .inspector-context th,
+    .inspector-context td {
+      padding: 8px 9px;
+    }
+
     .mini-badge {
       display: inline-block;
       padding: 0.18rem 0.45rem;
@@ -736,6 +799,51 @@
     <section class="panel">
       <h2>Event summary</h2>
       <div id="eventSummaryContainer"></div>
+
+      <div class="inspector-panel">
+        <h3 style="margin:0 0 10px;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--green-dark);">Event-to-CGM inspector</h3>
+        <div class="grid" style="margin-bottom:0;">
+          <div class="field">
+            <label for="eventNoteSelect">Use saved note</label>
+            <select id="eventNoteSelect"></select>
+          </div>
+          <div class="field">
+            <label for="eventInspectDate">Event date</label>
+            <input id="eventInspectDate" type="date" />
+          </div>
+          <div class="field">
+            <label for="eventInspectTime">Event time</label>
+            <input id="eventInspectTime" type="time" />
+          </div>
+          <div class="field">
+            <label for="eventWindowMinutes">Window (minutes each side)</label>
+            <input id="eventWindowMinutes" type="number" min="15" max="360" step="5" value="90" />
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top:12px;">
+          <button class="primary" id="inspectEventBtn" type="button">Inspect event time</button>
+          <button class="ghost" id="useNearestNoteBtn" type="button">Use nearest saved note</button>
+        </div>
+
+        <div id="eventInspectSummary" class="inspector-summary"></div>
+
+        <div class="inspector-chart-wrap">
+          <canvas id="eventInspectChart" width="900" height="220"></canvas>
+        </div>
+
+        <div class="inspector-context table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Glucose</th>
+                <th>Minutes From Event</th>
+              </tr>
+            </thead>
+            <tbody id="eventInspectRows"></tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
     <section class="panel">
@@ -879,6 +987,18 @@
       const parsed = parseTimestampLocal(value);
       if (!parsed) return value;
       return `${parsed.date} ${parsed.time}${parsed.offset}`;
+    }
+
+    function formatRelativeMinutes(minutes) {
+      if (!Number.isFinite(minutes)) return '—';
+      if (minutes === 0) return '0';
+      return minutes > 0 ? `+${minutes}` : `${minutes}`;
+    }
+
+    function toDateSafe(value) {
+      if (!value) return null;
+      const parsed = new Date(value);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
     }
 
     function noteDefaults() {
@@ -1284,6 +1404,280 @@
       return flags.length ? flags : [{ label: 'Normal day', className: 'neutral' }];
     }
 
+    function getActiveSensorEntries() {
+      const sensor = getSelectedSensor();
+      if (!sensor) return [];
+      const dataset = normalizeCgmDataset(app.state.cgmData[sensor.id]);
+      return dataset.entries
+        .filter(item => item.status === 'valid' && Number.isFinite(item.glucose))
+        .sort((a, b) => (a.timestampLocal || '').localeCompare(b.timestampLocal || ''));
+    }
+
+    function getTargetEventTimestamp() {
+      const date = document.getElementById('eventInspectDate').value;
+      const time = document.getElementById('eventInspectTime').value;
+      if (!date || !time) return '';
+      return formatTimestampForStorage(date, time);
+    }
+
+    function findWindowRows(entries, targetMs, windowMinutes) {
+      const windowMs = windowMinutes * 60 * 1000;
+      return entries
+        .map(item => {
+          const tsDate = toDateSafe(item.timestampLocal);
+          if (!tsDate) return null;
+          const deltaMs = tsDate.getTime() - targetMs;
+          return {
+            item,
+            tsDate,
+            deltaMs,
+            deltaMin: Math.round(deltaMs / 60000)
+          };
+        })
+        .filter(Boolean)
+        .filter(row => Math.abs(row.deltaMs) <= windowMs)
+        .sort((a, b) => a.tsDate.getTime() - b.tsDate.getTime());
+    }
+
+    function findNearestRow(entries, targetMs) {
+      let nearest = null;
+      entries.forEach(item => {
+        const tsDate = toDateSafe(item.timestampLocal);
+        if (!tsDate) return;
+        const deltaMs = tsDate.getTime() - targetMs;
+        const absDelta = Math.abs(deltaMs);
+        if (!nearest || absDelta < Math.abs(nearest.deltaMs)) {
+          nearest = {
+            item,
+            tsDate,
+            deltaMs,
+            deltaMin: Math.round(deltaMs / 60000)
+          };
+        }
+      });
+      return nearest;
+    }
+
+    function renderInspectorNoteOptions() {
+      const select = document.getElementById('eventNoteSelect');
+      const sensor = getSelectedSensor();
+      const sensorId = sensor ? sensor.id : '';
+      const notes = app.state.notes
+        .filter(note => note.sensorId === sensorId)
+        .sort((a, b) => (a.timestampLocal || '').localeCompare(b.timestampLocal || ''));
+
+      const fallback = '<option value="">Manual date/time selection</option>';
+      if (!notes.length) {
+        select.innerHTML = fallback;
+        select.value = '';
+        return;
+      }
+
+      const options = notes.map(note => {
+        const stamp = displayTimestamp(note.timestampLocal);
+        const summary = (note.summary || note.type || 'Entry').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return `<option value="${note.id}">${stamp} - ${summary}</option>`;
+      }).join('');
+      select.innerHTML = `${fallback}${options}`;
+      if (app.inspectorNoteId && notes.some(note => note.id === app.inspectorNoteId)) {
+        select.value = app.inspectorNoteId;
+      } else {
+        select.value = '';
+      }
+    }
+
+    function drawInspectorChart(rows, targetMs) {
+      const canvas = document.getElementById('eventInspectChart');
+      const ctx = canvas.getContext('2d');
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#fbfdfb';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      if (!rows.length) {
+        ctx.fillStyle = '#587163';
+        ctx.font = '15px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('No CGM readings in the selected time window.', canvas.width / 2, canvas.height / 2);
+        return;
+      }
+
+      const margin = { top: 18, right: 20, bottom: 26, left: 50 };
+      const plotWidth = canvas.width - margin.left - margin.right;
+      const plotHeight = canvas.height - margin.top - margin.bottom;
+      const values = rows.map(row => Number(row.item.glucose));
+      const minValue = Math.max(0, Math.min(...values) - 8);
+      const maxValue = Math.max(...values) + 8;
+      const range = maxValue - minValue || 1;
+      const startMs = rows[0].tsDate.getTime();
+      const endMs = rows[rows.length - 1].tsDate.getTime();
+      const spanMs = Math.max(1, endMs - startMs);
+
+      ctx.strokeStyle = '#d5e7d9';
+      ctx.lineWidth = 1;
+      ctx.fillStyle = '#587163';
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'right';
+      for (let i = 0; i <= 4; i += 1) {
+        const y = margin.top + (plotHeight * i) / 4;
+        const value = maxValue - (range * i) / 4;
+        ctx.beginPath();
+        ctx.moveTo(margin.left, y);
+        ctx.lineTo(canvas.width - margin.right, y);
+        ctx.stroke();
+        ctx.fillText(Math.round(value), margin.left - 8, y + 3);
+      }
+
+      ctx.beginPath();
+      rows.forEach((row, index) => {
+        const x = margin.left + ((row.tsDate.getTime() - startMs) / spanMs) * plotWidth;
+        const y = margin.top + ((maxValue - Number(row.item.glucose)) / range) * plotHeight;
+        if (index === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = '#2d7f52';
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      rows.forEach(row => {
+        const x = margin.left + ((row.tsDate.getTime() - startMs) / spanMs) * plotWidth;
+        const y = margin.top + ((maxValue - Number(row.item.glucose)) / range) * plotHeight;
+        ctx.beginPath();
+        ctx.arc(x, y, 2.3, 0, Math.PI * 2);
+        ctx.fillStyle = '#2d7f52';
+        ctx.fill();
+      });
+
+      if (targetMs >= startMs && targetMs <= endMs) {
+        const targetX = margin.left + ((targetMs - startMs) / spanMs) * plotWidth;
+        ctx.beginPath();
+        ctx.moveTo(targetX, margin.top);
+        ctx.lineTo(targetX, canvas.height - margin.bottom);
+        ctx.strokeStyle = '#b44343';
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    function renderEventInspector() {
+      renderInspectorNoteOptions();
+
+      const rowsBody = document.getElementById('eventInspectRows');
+      const summary = document.getElementById('eventInspectSummary');
+      const entries = getActiveSensorEntries();
+
+      if (!entries.length) {
+        summary.innerHTML = '<div class="inspector-pill"><strong>Status</strong>Import CGM readings for this sensor to inspect event timing.</div>';
+        rowsBody.innerHTML = '<tr><td colspan="3" class="empty">No CGM readings available for the active sensor.</td></tr>';
+        drawInspectorChart([], 0);
+        return;
+      }
+
+      const targetStamp = getTargetEventTimestamp();
+      const targetDate = toDateSafe(targetStamp);
+      if (!targetDate) {
+        summary.innerHTML = '<div class="inspector-pill"><strong>Status</strong>Select an event date and time to inspect nearby CGM readings.</div>';
+        rowsBody.innerHTML = '<tr><td colspan="3" class="empty">Pick a date/time above, then click Inspect event time.</td></tr>';
+        drawInspectorChart([], 0);
+        return;
+      }
+
+      const windowInput = Number(document.getElementById('eventWindowMinutes').value || 90);
+      const windowMinutes = Math.min(360, Math.max(15, Number.isFinite(windowInput) ? windowInput : 90));
+      document.getElementById('eventWindowMinutes').value = String(windowMinutes);
+
+      const targetMs = targetDate.getTime();
+      const nearby = findWindowRows(entries, targetMs, windowMinutes);
+      const nearest = findNearestRow(entries, targetMs);
+      const before = entries.filter(item => toDateSafe(item.timestampLocal)?.getTime() < targetMs).slice(-1)[0] || null;
+      const after = entries.find(item => toDateSafe(item.timestampLocal)?.getTime() > targetMs) || null;
+
+      const beforeVal = before ? Number(before.glucose) : null;
+      const afterVal = after ? Number(after.glucose) : null;
+      const nearestVal = nearest ? Number(nearest.item.glucose) : null;
+      const beforeDelta = nearestVal !== null && beforeVal !== null ? nearestVal - beforeVal : null;
+      const afterDelta = nearestVal !== null && afterVal !== null ? afterVal - nearestVal : null;
+
+      summary.innerHTML = [
+        `<div class="inspector-pill"><strong>Event time</strong>${displayTimestamp(targetStamp)}</div>`,
+        `<div class="inspector-pill"><strong>Nearest reading</strong>${nearest ? `${nearestVal} mg/dL (${formatRelativeMinutes(nearest.deltaMin)} min)` : '—'}</div>`,
+        `<div class="inspector-pill"><strong>Change from previous</strong>${beforeDelta === null ? '—' : `${beforeDelta > 0 ? '+' : ''}${beforeDelta} mg/dL`}</div>`,
+        `<div class="inspector-pill"><strong>Change to next</strong>${afterDelta === null ? '—' : `${afterDelta > 0 ? '+' : ''}${afterDelta} mg/dL`}</div>`,
+        `<div class="inspector-pill"><strong>Window size</strong>${windowMinutes} min each side</div>`,
+        `<div class="inspector-pill"><strong>Readings in window</strong>${nearby.length}</div>`
+      ].join('');
+
+      if (!nearby.length) {
+        rowsBody.innerHTML = '<tr><td colspan="3" class="empty">No readings fall inside this window. Increase minutes to widen context.</td></tr>';
+      } else {
+        rowsBody.innerHTML = nearby.map(row => `
+          <tr>
+            <td>${displayTimestamp(row.item.timestampLocal)}</td>
+            <td>${Number(row.item.glucose)}</td>
+            <td>${formatRelativeMinutes(row.deltaMin)}</td>
+          </tr>
+        `).join('');
+      }
+
+      drawInspectorChart(nearby, targetMs);
+    }
+
+    function applyNoteToInspector(noteId) {
+      const note = app.state.notes.find(item => item.id === noteId);
+      if (!note || !note.timestampLocal) return false;
+      const parsed = parseTimestampLocal(note.timestampLocal);
+      if (!parsed) return false;
+      document.getElementById('eventInspectDate').value = parsed.date;
+      document.getElementById('eventInspectTime').value = parsed.time;
+      app.inspectorNoteId = noteId;
+      const select = document.getElementById('eventNoteSelect');
+      if (select) select.value = noteId;
+      return true;
+    }
+
+    function useNearestSavedNote() {
+      const select = document.getElementById('eventNoteSelect');
+      const sensor = getSelectedSensor();
+      const sensorId = sensor ? sensor.id : '';
+      const notes = app.state.notes
+        .filter(note => note.sensorId === sensorId)
+        .sort((a, b) => (a.timestampLocal || '').localeCompare(b.timestampLocal || ''));
+
+      if (!notes.length) {
+        alert('No saved notes found for this sensor yet.');
+        return;
+      }
+
+      const targetStamp = getTargetEventTimestamp();
+      const targetDate = toDateSafe(targetStamp);
+      if (!targetDate) {
+        const latest = notes[notes.length - 1];
+        applyNoteToInspector(latest.id);
+        renderEventInspector();
+        return;
+      }
+
+      const targetMs = targetDate.getTime();
+      let winner = notes[0];
+      let bestDelta = Number.POSITIVE_INFINITY;
+      notes.forEach(note => {
+        const date = toDateSafe(note.timestampLocal);
+        if (!date) return;
+        const delta = Math.abs(date.getTime() - targetMs);
+        if (delta < bestDelta) {
+          bestDelta = delta;
+          winner = note;
+        }
+      });
+
+      if (winner && applyNoteToInspector(winner.id)) {
+        if (select) select.value = winner.id;
+        renderEventInspector();
+      }
+    }
+
     function setNoteFormMode() {
       const isEditing = !!app.editingNoteId;
       const saveBtn = document.getElementById('saveNoteBtn');
@@ -1396,6 +1790,7 @@
             <td>${details || '—'}</td>
             <td>
               <div class="btn-row" style="margin-top:0; gap:6px;">
+                <button class="ghost" type="button" data-inspect-id="${note.id}" style="padding:6px 10px; font-size:0.75rem;">Inspect</button>
                 <button class="secondary" type="button" data-edit-id="${note.id}" style="padding:6px 10px; font-size:0.75rem;">Edit</button>
                 <button class="danger" type="button" data-delete-id="${note.id}" style="padding:6px 10px; font-size:0.75rem;">Delete</button>
               </div>
@@ -1406,6 +1801,17 @@
 
       tbody.querySelectorAll('[data-edit-id]').forEach(button => {
         button.addEventListener('click', () => beginEditNote(button.getAttribute('data-edit-id')));
+      });
+
+      tbody.querySelectorAll('[data-inspect-id]').forEach(button => {
+        button.addEventListener('click', () => {
+          const noteId = button.getAttribute('data-inspect-id');
+          if (noteId && applyNoteToInspector(noteId)) {
+            renderEventInspector();
+            const inspector = document.getElementById('eventInspectSummary');
+            if (inspector) inspector.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
       });
 
       tbody.querySelectorAll('[data-delete-id]').forEach(button => {
@@ -2159,6 +2565,7 @@
       renderNotesTable();
       renderSummary();
       renderDailyAverageChart();
+      renderEventInspector();
       document.getElementById('sensorSelect').onchange = function () {
         app.state.activeSensorId = this.value;
         saveState(app.state);
@@ -2198,6 +2605,26 @@
         document.getElementById('csvInput').value = '';
       });
       document.getElementById('chartYearSelect').addEventListener('change', renderDailyAverageChart);
+      document.getElementById('inspectEventBtn').addEventListener('click', () => {
+        app.inspectorNoteId = '';
+        renderEventInspector();
+      });
+      document.getElementById('eventNoteSelect').addEventListener('change', function () {
+        const noteId = this.value;
+        app.inspectorNoteId = noteId || '';
+        if (noteId) {
+          applyNoteToInspector(noteId);
+        }
+        renderEventInspector();
+      });
+      document.getElementById('eventInspectDate').addEventListener('change', () => {
+        app.inspectorNoteId = '';
+      });
+      document.getElementById('eventInspectTime').addEventListener('change', () => {
+        app.inspectorNoteId = '';
+      });
+      document.getElementById('eventWindowMinutes').addEventListener('change', renderEventInspector);
+      document.getElementById('useNearestNoteBtn').addEventListener('click', useNearestSavedNote);
       document.getElementById('exportBundleBtn').addEventListener('click', exportBundle);
       document.getElementById('downloadNotesBtn').addEventListener('click', downloadNotesJson);
       document.getElementById('importBundleBtn').addEventListener('click', () => document.getElementById('bundleFileInput').click());
@@ -2206,11 +2633,13 @@
       const defaultDate = noteDefaults();
       document.getElementById('noteDate').value = defaultDate.date;
       document.getElementById('noteTime').value = defaultDate.time;
+      document.getElementById('eventInspectDate').value = defaultDate.date;
+      document.getElementById('eventInspectTime').value = defaultDate.time;
 
       renderAll();
     }
 
-    const app = { state: defaultState, editingNoteId: null };
+    const app = { state: defaultState, editingNoteId: null, inspectorNoteId: '' };
     init();
   </script>
 </body>
