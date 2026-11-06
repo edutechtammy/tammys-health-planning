@@ -928,6 +928,16 @@
 
     <section class="panel">
       <h2>Journal entries</h2>
+      <div class="field" style="max-width:220px; margin:0 0 0.9rem;">
+        <label for="notesTypeFilter">Filter by type</label>
+        <select id="notesTypeFilter">
+          <option value="all">All types</option>
+          <option value="food">Food</option>
+          <option value="sleep-wake">Sleep / Wake</option>
+          <option value="exercise">Exercise</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1847,13 +1857,19 @@
       const state = app.state;
       const sensor = getSelectedSensor();
       const sensorId = sensor ? sensor.id : '';
-      const rows = state.notes.filter(note => note.sensorId === sensorId);
+      const typeFilter = app.notesTypeFilter || 'all';
+      let rows = state.notes.filter(note => note.sensorId === sensorId);
+
+      if (typeFilter !== 'all') {
+        rows = rows.filter(note => note.type === typeFilter);
+      }
+
       const tbody = document.getElementById('notesTableBody');
       tbody.innerHTML = '';
 
       if (!rows.length) {
         const tr = document.createElement('tr');
-        tr.innerHTML = '<td colspan="5" class="empty">No notes yet for this sensor.</td>';
+        tr.innerHTML = '<td colspan="5" class="empty">No notes match this filter for this sensor.</td>';
         tbody.appendChild(tr);
         return;
       }
@@ -2683,6 +2699,10 @@
       }
 
       document.getElementById('noteType').addEventListener('change', renderDynamicForm);
+      document.getElementById('notesTypeFilter').addEventListener('change', (event) => {
+        app.notesTypeFilter = event.target.value || 'all';
+        renderNotesTable();
+      });
       document.getElementById('saveSensorBtn').addEventListener('click', saveSensor);
       document.getElementById('newSensorBtn').addEventListener('click', () => {
         clearSensorForm();
@@ -2739,7 +2759,7 @@
       renderAll();
     }
 
-    const app = { state: defaultState, editingNoteId: null, inspectorNoteId: '' };
+    const app = { state: defaultState, editingNoteId: null, inspectorNoteId: '', notesTypeFilter: 'all' };
     init();
   </script>
 </body>
