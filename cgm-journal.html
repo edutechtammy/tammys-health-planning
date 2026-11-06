@@ -928,15 +928,24 @@
 
     <section class="panel">
       <h2>Journal entries</h2>
-      <div class="field" style="max-width:220px; margin:0 0 0.9rem;">
-        <label for="notesTypeFilter">Filter by type</label>
-        <select id="notesTypeFilter">
-          <option value="all">All types</option>
-          <option value="food">Food</option>
-          <option value="sleep-wake">Sleep / Wake</option>
-          <option value="exercise">Exercise</option>
-          <option value="other">Other</option>
-        </select>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:0 0 0.9rem;">
+        <div class="field" style="max-width:220px; margin:0;">
+          <label for="notesTypeFilter">Filter by type</label>
+          <select id="notesTypeFilter">
+            <option value="all">All types</option>
+            <option value="food">Food</option>
+            <option value="sleep-wake">Sleep / Wake</option>
+            <option value="exercise">Exercise</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field" style="max-width:220px; margin:0;">
+          <label for="notesSortOrder">Sort order</label>
+          <select id="notesSortOrder">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
@@ -1858,6 +1867,7 @@
       const sensor = getSelectedSensor();
       const sensorId = sensor ? sensor.id : '';
       const typeFilter = app.notesTypeFilter || 'all';
+      const sortOrder = app.notesSortOrder || 'newest';
       let rows = state.notes.filter(note => note.sensorId === sensorId);
 
       if (typeFilter !== 'all') {
@@ -1875,7 +1885,11 @@
       }
 
       rows
-        .sort((a, b) => (a.timestampLocal || '').localeCompare(b.timestampLocal || ''))
+        .sort((a, b) => {
+          const aTime = a.timestampLocal || '';
+          const bTime = b.timestampLocal || '';
+          return sortOrder === 'oldest' ? aTime.localeCompare(bTime) : bTime.localeCompare(aTime);
+        })
         .forEach(note => {
           const tr = document.createElement('tr');
           const detailLines = [];
@@ -2703,6 +2717,10 @@
         app.notesTypeFilter = event.target.value || 'all';
         renderNotesTable();
       });
+      document.getElementById('notesSortOrder').addEventListener('change', (event) => {
+        app.notesSortOrder = event.target.value === 'oldest' ? 'oldest' : 'newest';
+        renderNotesTable();
+      });
       document.getElementById('saveSensorBtn').addEventListener('click', saveSensor);
       document.getElementById('newSensorBtn').addEventListener('click', () => {
         clearSensorForm();
@@ -2759,7 +2777,7 @@
       renderAll();
     }
 
-    const app = { state: defaultState, editingNoteId: null, inspectorNoteId: '', notesTypeFilter: 'all' };
+    const app = { state: defaultState, editingNoteId: null, inspectorNoteId: '', notesTypeFilter: 'all', notesSortOrder: 'newest' };
     init();
   </script>
 </body>
