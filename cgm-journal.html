@@ -546,6 +546,15 @@
       opacity: 0.9;
     }
 
+    .month-count {
+      margin-top: 6px;
+      font-size: 0.59rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.95;
+    }
+
     .month-legend {
       margin-top: 12px;
       font-size: 0.7rem;
@@ -2248,7 +2257,8 @@
             monthKey: bucket.monthKey,
             label: monthDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
             avg: bucket.total / bucket.count,
-            floor: bucket.floor === Number.POSITIVE_INFINITY ? null : bucket.floor
+            floor: bucket.floor === Number.POSITIVE_INFINITY ? null : bucket.floor,
+            count: bucket.count
           };
         })
         .sort((a, b) => a.monthKey.localeCompare(b.monthKey));
@@ -2277,12 +2287,14 @@
       grid.innerHTML = monthly.map(item => {
         const band = getMonthBand(item.avg);
         const floorDisplay = item.floor === null ? '—' : `Floor ${Math.round(item.floor)}`;
+        const sensorEntryLabel = `${item.count} sensor entries`;
         return `
           <div class="month-card ${band.key}">
             <div class="month-name">${item.label}</div>
             <div class="month-value">${item.avg.toFixed(1)}</div>
             <div class="month-status">${band.label}</div>
             <div class="month-floor">${floorDisplay}</div>
+            <div class="month-count">${sensorEntryLabel}</div>
           </div>
         `;
       }).join('');
