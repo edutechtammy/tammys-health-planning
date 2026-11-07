@@ -2046,13 +2046,13 @@
       return combined;
     }
 
-    function rebuildMuscleMapFromLog() {
+    function rebuildMuscleMapFromLog(weekKey = getCurrentWeekKey()) {
       const nextLoads = { ...BASE_MUSCLE_LOADS };
+      const weekData = weeklyExerciseLog && typeof weeklyExerciseLog === 'object' ? weeklyExerciseLog[weekKey] : null;
 
-      Object.values(weeklyExerciseLog || {}).forEach(weekData => {
-        if (!weekData || typeof weekData !== 'object') return;
-        Object.values(weekData).forEach(dayEntries => {
-          if (!Array.isArray(dayEntries)) return;
+      if (weekData && typeof weekData === 'object') {
+        DAY_ORDER.forEach(day => {
+          const dayEntries = Array.isArray(weekData[day]) ? weekData[day] : [];
           dayEntries.forEach(entry => {
             if (!entry || entry.affectsMuscleMap === false) return;
             const profile = getExerciseMuscleProfile(entry);
@@ -2061,7 +2061,7 @@
             });
           });
         });
-      });
+      }
 
       muscleLoads = nextLoads;
       saveMuscleMapLoads();
@@ -2072,7 +2072,7 @@
       const weekKey = getCurrentWeekKey();
       const weekData = ensureWeekLog(weekKey);
       saveWeeklyExerciseLog();
-      rebuildMuscleMapFromLog();
+      rebuildMuscleMapFromLog(weekKey);
 
       const currentWeekDate = getCurrentWeekDate();
       const weekStart = getWeekStart(currentWeekDate);
