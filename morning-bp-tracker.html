@@ -382,6 +382,53 @@
       font-style: italic;
     }
 
+    .pulse-warning {
+      display: none;
+      margin: .1rem 0 .75rem;
+      border-radius: 10px;
+      border: 1px solid #d9e7dc;
+      background: #f7faf8;
+      color: var(--text);
+      padding: .62rem .78rem;
+      font-size: .84rem;
+      line-height: 1.45;
+    }
+
+    .pulse-warning.watch {
+      display: block;
+      border-color: #e9d8a6;
+      background: #fffaf0;
+      color: #7a5a17;
+    }
+
+    .pulse-warning.good {
+      display: block;
+      border-color: #bfe0c9;
+      background: #edf9f1;
+      color: #1b5c3d;
+    }
+
+    .pulse-warning.caution {
+      display: block;
+      border-color: #f0dfb7;
+      background: #fffaf2;
+      color: #7a5a17;
+    }
+
+    .pulse-warning.flag {
+      display: block;
+      border-color: #f0c7c7;
+      background: #fff5f5;
+      color: #8a1d1d;
+    }
+
+    .pulse-warning.strong {
+      display: block;
+      border-color: #d97878;
+      background: #ffe9e9;
+      color: #6f1212;
+    }
+
     .action-btn {
       border: 1px solid #cce3d5;
       background: #fff;
@@ -513,6 +560,7 @@
 
     <section class="card">
       <h2>Entries In Current Week</h2>
+      <div id="pulse-fatigue-warning" class="pulse-warning"></div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -556,6 +604,13 @@
   <script>
     const STORAGE_KEY = 'tammys_morning_bp_tracker_v1';
     const DEFAULT_GAP_COMPRESSION_DAYS = 30;
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const PULSE_BASELINE_WINDOW_DAYS = 7;
+    const PULSE_BASELINE_MIN_READINGS = 4;
+    const PULSE_CAUTION_DELTA_BPM = 6;
+    const PULSE_FLAG_DELTA_BPM = 8;
+    const PULSE_STRONG_DELTA_BPM = 10;
+    const PULSE_CONSECUTIVE_ALERT_DAYS = 2;
 
     const dateInput = document.getElementById('bp-date');
     const systolicInput = document.getElementById('bp-systolic');
@@ -570,6 +625,7 @@
     const weekSummaryEl = document.getElementById('week-summary');
     const weekEntriesBody = document.getElementById('week-entries-body');
     const weekEmptyMsg = document.getElementById('week-empty-msg');
+    const pulseFatigueWarningEl = document.getElementById('pulse-fatigue-warning');
     const allEntriesBody = document.getElementById('all-entries-body');
     const allEmptyMsg = document.getElementById('all-empty-msg');
 
@@ -1059,6 +1115,123 @@
       return '<span class="bp-status-pill ' + status.tone + '">' + escapeHtml(status.label) + '</span>';
     }
 
+    function getPulseFatigueSignal(entries) {
+      const series = sortAsc(entries).filter(item => Number.isFinite(Number(item.bpm)) && Number.isFinite(dateToStamp(item.date)));
+      if (!series.length) {
+        return { level: 'none' };
+      }
+
+      const metrics = [];
+      for (let i = 0; i < series.length; i += 1) {
+        const current = series[i];
+        const currentStamp = dateToStamp(current.date);
+        const lookbackStart = currentStamp - (PULSE_BASELINE_WINDOW_DAYS * DAY_MS);
+        const baselineValues = [];
+
+        for (let j = 0; j < i; j += 1) {
+          const prior = series[j];
+          const priorStamp = dateToStamp(prior.date);
+          if (priorStamp >= lookbackStart && priorStamp < currentStamp) {
+            baselineValues.push(Number(prior.bpm));
+          }
+        }
+
+        const baselineAvg = average(baselineValues);
+        const hasBaseline = baselineValues.length >= PULSE_BASELINE_MIN_READINGS && Number.isFinite(baselineAvg);
+        const delta = hasBaseline ? Number(current.bpm) - baselineAvg : null;
+        const elevated = hasBaseline && Number.isFinite(delta) && delta >= PULSE_FLAG_DELTA_BPM;
+        const strong = hasBaseline && Number.isFinite(delta) && delta >= PULSE_STRONG_DELTA_BPM;
+
+        metrics.push({
+          date: current.date,
+          stamp: currentStamp,
+          bpm: Number(current.bpm),
+          baselineCount: baselineValues.length,
+          baselineAvg,
+          delta,
+          elevated,
+          strong
+        });
+      }
+
+      const latest = metrics[metrics.length - 1];
+      if (!latest || !latest.elevated) {
+        return { level: 'none', latest };
+      }
+
+      let streak = 1;
+      let hasStrongDay = latest.strong;
+      for (let i = metrics.length - 2; i >= 0; i -= 1) {
+        const current = metrics[i + 1];
+        const previous = metrics[i];
+        if (!previous.elevated) break;
+        if ((current.stamp - previous.stamp) !== DAY_MS) break;
+        streak += 1;
+        hasStrongDay = hasStrongDay || previous.strong;
+      }
+
+      if (streak >= PULSE_CONSECUTIVE_ALERT_DAYS) {
+        return {
+          level: hasStrongDay ? 'strong' : 'flag',
+          latest,
+          streak
+        };
+      }
+
+      return {
+        level: 'watch',
+        latest,
+        streak: 1
+      };
+    }
+
+    function renderPulseFatigueWarning(entries) {
+      pulseFatigueWarningEl.className = 'pulse-warning';
+      pulseFatigueWarningEl.textContent = '';
+
+      if (!entries.length) {
+        return;
+      }
+
+      const signal = getPulseFatigueSignal(entries);
+      if (!signal.latest) {
+        return;
+      }
+
+      const weekEnd = addDays(currentWeekStart, 6);
+      const latestInCurrentWeek = signal.latest.date >= currentWeekStart && signal.latest.date <= weekEnd;
+      if (!latestInCurrentWeek) {
+        return;
+      }
+
+      if (!Number.isFinite(signal.latest.baselineAvg) || signal.latest.baselineCount < PULSE_BASELINE_MIN_READINGS) {
+        pulseFatigueWarningEl.className = 'pulse-warning good';
+        pulseFatigueWarningEl.innerHTML = '<strong>Recovery Check:</strong> Keep collecting data. Need at least ' + PULSE_BASELINE_MIN_READINGS + ' prior morning pulse readings in the last ' + PULSE_BASELINE_WINDOW_DAYS + ' days for trend-based workload guidance.';
+        return;
+      }
+
+      if (signal.level === 'strong' || signal.level === 'flag') {
+        pulseFatigueWarningEl.className = 'pulse-warning ' + signal.level;
+        pulseFatigueWarningEl.innerHTML = '<strong>Rest & Recovery Warning:</strong> Pulse has been at least +' + PULSE_FLAG_DELTA_BPM + ' bpm above your 7-day baseline for ' + signal.streak + ' straight day(s). Latest: ' + fmt(signal.latest.bpm, 0) + ' bpm vs baseline ' + fmt(signal.latest.baselineAvg, 1) + ' (+' + fmt(signal.latest.delta, 1) + '). Consider reducing training load for 24-48 hours and prioritize recovery.';
+        return;
+      }
+
+      if (signal.level === 'watch') {
+        pulseFatigueWarningEl.className = 'pulse-warning watch';
+        pulseFatigueWarningEl.innerHTML = '<strong>Pulse Watch:</strong> Latest morning pulse is +' + fmt(signal.latest.delta, 1) + ' bpm above your 7-day baseline (' + fmt(signal.latest.bpm, 0) + ' vs ' + fmt(signal.latest.baselineAvg, 1) + '). If this persists tomorrow, it will trigger a recovery warning.';
+        return;
+      }
+
+      if (Number.isFinite(signal.latest.delta) && signal.latest.delta >= PULSE_CAUTION_DELTA_BPM) {
+        pulseFatigueWarningEl.className = 'pulse-warning caution';
+        pulseFatigueWarningEl.innerHTML = '<strong>Caution Trend:</strong> Pulse is rising toward your warning threshold (+' + fmt(signal.latest.delta, 1) + ' bpm vs baseline). Keep today\'s workload conservative and prioritize sleep/hydration.';
+        return;
+      }
+
+      pulseFatigueWarningEl.className = 'pulse-warning good';
+      pulseFatigueWarningEl.innerHTML = '<strong>All Clear:</strong> Morning pulse is within your expected recovery range (' + fmt(signal.latest.bpm, 0) + ' bpm vs baseline ' + fmt(signal.latest.baselineAvg, 1) + ', delta ' + fmt(signal.latest.delta, 1) + '). Current workload looks appropriate.';
+    }
+
     function getWeekSeries(entries, weekStart) {
       const labels = [];
       const systolicSeries = [];
@@ -1349,6 +1522,7 @@
       }
 
       renderCharts(entries);
+      renderPulseFatigueWarning(entries);
       renderAllTable(entries);
     }
 
