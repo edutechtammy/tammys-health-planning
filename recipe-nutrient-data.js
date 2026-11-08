@@ -3162,6 +3162,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~1300 mg",
       "value": 1300.0,
@@ -3284,6 +3291,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~105 mg",
       "value": 105.0,
@@ -3331,6 +3345,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 0.5,
       "unit": "mcg",
       "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folateMcg": {
@@ -3383,6 +3404,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 80.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "choline": {
@@ -3486,6 +3514,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · phosphatidylcholine synthesis",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~6.0 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~260 mg",
       "value": 260.0,
@@ -3585,6 +3620,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 95.0,
       "unit": "mg",
       "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "choline": {
@@ -3831,6 +3873,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~6.0 g",
+      "value": 6.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~120 mg",
       "value": 120.0,
@@ -3932,6 +3981,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~105 mg",
       "value": 105.0,
@@ -4031,6 +4087,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 36.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -4284,6 +4347,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~55 mg",
       "value": 55.0,
@@ -4383,6 +4453,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 130.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "b12": {
@@ -4486,6 +4563,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~95 mg",
       "value": 95.0,
@@ -4585,6 +4669,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 15.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -4688,6 +4779,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~90 mg",
       "value": 90.0,
@@ -4787,6 +4885,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 68.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -4890,6 +4995,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~3.5 g",
+      "value": 3.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~60 mg",
       "value": 60.0,
@@ -4981,6 +5093,421 @@ window.RECIPE_PANEL_NUTRIENTS = {
         ],
         "notes": ""
       }
+    }
+  },
+  "recipe-dense-bean-salad-smart-protein-mediterranean-lemon-herb-white-bean-crunch.html": {
+    "calories": {
+      "display": "~340 kcal",
+      "value": 340,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.3 g",
+      "value": 0.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~18 g",
+      "value": 18.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~9.5 g",
+      "value": 9.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~5.2 mcg",
+      "value": 5.2,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~7.0 g",
+      "value": 7.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~19.5 g",
+      "value": 19.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-greek-lemon-herb-chickpea-white-bean-power-salad.html": {
+    "calories": {
+      "display": "~330 kcal",
+      "value": 330,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.5 g",
+      "value": 0.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~16 g",
+      "value": 16.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8.8 g",
+      "value": 8.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~2.8 mcg",
+      "value": 2.8,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~6.2 g",
+      "value": 6.2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~17.8 g",
+      "value": 17.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-herby-lentil-white-bean-cabbage-crunch-salad.html": {
+    "calories": {
+      "display": "~345 kcal",
+      "value": 345,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.6 g",
+      "value": 0.6,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~15 g",
+      "value": 15.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8.6 g",
+      "value": 8.6,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~2.9 mcg",
+      "value": 2.9,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~7.4 g",
+      "value": 7.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~19.2 g",
+      "value": 19.2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-lemony-white-bean-kale-herb-protein-salad.html": {
+    "calories": {
+      "display": "~315 kcal",
+      "value": 315,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.4 g",
+      "value": 0.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~13 g",
+      "value": 13.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~8.2 g",
+      "value": 8.2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~2.6 mcg",
+      "value": 2.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~6.8 g",
+      "value": 6.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~18.4 g",
+      "value": 18.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-nutritional-yeast-16g.html": {
+    "calories": {
+      "display": "~60 kcal",
+      "value": 60,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.1 g",
+      "value": 0.1,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~20 mg",
+      "value": 20.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~40 mcg DFE",
+      "value": 40.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~5.0–10.0 mcg",
+      "value": 7.5,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~8.0 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-plain-baked-salmon-40g.html": {
+    "calories": {
+      "display": "~70 to 85 kcal",
+      "value": 77.5,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.3 to 0.5 g",
+      "value": 0.4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~0.6 to 0.9 g",
+      "value": 0.75,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~1.1 to 1.5 g",
+      "value": 1.3,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~25 to 35 mg",
+      "value": 30.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~1.0 to 3.5 mcg",
+      "value": 2.25,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0.9 to 1.2 mcg",
+      "value": 1.05,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~8.5 to 10.5 g",
+      "value": 9.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-savory-herb-egg-white-cottage-cloud-bowl.html": {
+    "calories": {
+      "display": "~210 kcal",
+      "value": 210,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.1 g",
+      "value": 2.1,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~3 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~120 mg",
+      "value": 120.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~40 mcg",
+      "value": 40.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~34 g",
+      "value": 34.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    }
+  },
+  "recipe-turkey-hemp-heart-lettuce-wraps.html": {
+    "satfatG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~120 mg",
+      "value": 120.0,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~42 mcg",
+      "value": 42.0,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~0.6 mcg",
+      "value": 0.6,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~32 g",
+      "value": 32.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
     }
   },
   "recipe-roasted-almonds.html": {
@@ -5135,6 +5662,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~20 mg",
       "value": 20.0,
@@ -5234,6 +5768,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 18.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -5337,6 +5878,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "0 mg",
       "value": 0.0,
@@ -5429,6 +5977,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 35.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -5533,6 +6088,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~55 mg",
       "value": 55.0,
@@ -5632,6 +6194,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 2.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -5840,6 +6409,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 105.0,
       "unit": "mcg",
       "name": "B12 — MTHFR · neurological · homocysteine",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folate": {
@@ -6499,6 +7075,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "b12": {
       "display": "~100%+ DV",
       "value": 100.0,
@@ -6598,6 +7181,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 111.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -6701,6 +7291,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "0 mg",
       "value": 0.0,
@@ -6800,6 +7397,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 120.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~8.0 g",
+      "value": 8.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -7133,6 +7737,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Marine omega-3",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "choline": {
       "display": "~150–220 mg",
       "value": 185.0,
@@ -7232,6 +7843,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 40.0,
       "unit": "mg",
       "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -7335,6 +7953,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~7.0 g",
+      "value": 7.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~130 mg",
       "value": 130.0,
@@ -7436,6 +8061,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~1700 mg",
       "value": 1700.0,
@@ -7535,6 +8167,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 5.0,
       "unit": "mg",
       "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -7767,6 +8406,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~70 mg",
       "value": 70.0,
@@ -7866,6 +8512,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 3.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -7969,6 +8622,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~45 mg",
       "value": 45.0,
@@ -8068,6 +8728,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 80.0,
       "unit": "mg",
       "name": "Choline",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.5 g",
+      "value": 2.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -8192,6 +8859,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~4.0 g",
+      "value": 4.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~45 mg",
       "value": 45.0,
@@ -8291,6 +8965,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 5.0,
       "unit": "mg",
       "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~0.0 g",
+      "value": 0.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -8394,6 +9075,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~10 mg",
       "value": 10.0,
@@ -8493,6 +9181,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 64.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -8596,6 +9291,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~130 mg",
       "value": 130.0,
@@ -8695,6 +9397,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 54.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1.0 g",
+      "value": 1.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -8798,6 +9507,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~5.0 g",
+      "value": 5.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~120 mg",
       "value": 120.0,
@@ -8897,6 +9613,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 14.0,
       "unit": "mg",
       "name": "Choline — APOE4",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -9244,6 +9967,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~40 mg",
       "value": 40.0,
@@ -9366,6 +10096,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~9.0 g",
+      "value": 9.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~330 mg",
       "value": 330.0,
@@ -9465,6 +10202,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 125.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "folate": {
@@ -9568,6 +10312,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~0.5 g",
+      "value": 0.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~20 mg",
       "value": 20.0,
@@ -9669,6 +10420,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~0.5 g",
+      "value": 0.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~30 mg",
       "value": 30.0,
@@ -9768,6 +10526,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 40.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
@@ -9972,6 +10737,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~1.5 g",
+      "value": 1.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~400–600 mg",
       "value": 500.0,
@@ -10073,6 +10845,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "name": "Choline — APOE4 · Fatty Liver · MTHFR",
       "estimated": false
     },
+    "satfatG": {
+      "display": "~9.0 g",
+      "value": 9.0,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
     "omega3": {
       "display": "~140 mg",
       "value": 140.0,
@@ -10172,6 +10951,13 @@ window.RECIPE_PANEL_NUTRIENTS = {
       "value": 70.0,
       "unit": "mg",
       "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~3.0 g",
+      "value": 3.0,
+      "unit": "g",
+      "name": "grams — per serving",
       "estimated": false
     },
     "omega3": {
