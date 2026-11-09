@@ -439,42 +439,15 @@
 
         <hr style="margin:1rem 0;border:0;border-top:1px solid #e2eee8" />
 
-        <div class="split-2" style="align-items:end">
-          <div class="tracker-field" style="max-width:420px">
-            <label for="cardio-load-filter">Analyze load condition</label>
-            <select id="cardio-load-filter"></select>
-            <small>Heart efficiency trends are most meaningful when load is held constant.</small>
-          </div>
-        </div>
-
-        <div class="kpi-grid" id="cardio-kpis"></div>
-
-        <div class="cue-box" id="cardio-cue-box">
-          <span class="cue-badge gray" id="cardio-cue-badge">Data Building</span>
-          <div class="cue-title" id="cardio-cue-title">Need more sessions at same load</div>
-          <div class="cue-note" id="cardio-cue-note">Collect 3 or more sessions for a stable trend signal before changing treadmill intensity.</div>
-        </div>
-
-        <div class="callout" style="margin-top:1rem;">
-          <strong>Reading the trend columns</strong>
-          <div><strong>Drift</strong> = how much the heart rate rises or wanders upward during a steady effort, which can suggest inefficiency, fatigue, or stress. Lower drift is usually better at the same speed and incline.</div>
-          <div style="margin-top:.35rem"><strong>HRR1</strong> = first-minute heart-rate recovery after stopping, measured as the drop from the final working load to one minute later. A faster drop usually means stronger cardiovascular efficiency and recovery capacity.</div>
-        </div>
-
-        <div class="callout" style="margin-top:.75rem;">
-          <strong>How Green, Yellow, and Red are decided (same load only)</strong>
-          <ul class="ref" style="margin:.45rem 0 .2rem;">
-            <li>The cue is based on <strong>4 checks</strong> from your latest session under the selected load (same name, speed, incline, and duration).</li>
-            <li><strong>Working median check:</strong> pass if latest working median is at least <strong>3 bpm lower</strong> than your baseline (baseline = average of up to the last 4 same-load sessions).</li>
-            <li><strong>Drift check:</strong> pass if drift is <strong>3 bpm or less</strong>.</li>
-            <li><strong>HRR1 check:</strong> pass if 1-minute recovery is <strong>12 bpm or more</strong>.</li>
-            <li><strong>HRR2 check:</strong> pass if 2-minute recovery is <strong>18 bpm or more</strong>.</li>
-            <li><strong>Green:</strong> 3 to 4 checks pass. <strong>Yellow:</strong> exactly 2 pass. <strong>Red:</strong> 0 to 1 pass. <strong>Data Building:</strong> fewer than 2 checks available.</li>
-            <li><strong>Important:</strong> not every interval reading must be lower than the previous one, and <strong>peak HR is tracked but does not directly set the cue</strong>.</li>
-          </ul>
-        </div>
-
         <div class="chart-panel">
+          <div class="split-2" style="align-items:end; margin-bottom:.8rem">
+            <div class="tracker-field" style="max-width:420px">
+              <label for="cardio-load-filter">Analyze load condition</label>
+              <select id="cardio-load-filter"></select>
+              <small>Heart efficiency trends are most meaningful when load is held constant.</small>
+            </div>
+          </div>
+
           <div class="chart-toolbar">
             <h3 style="font-size:1rem;margin:0">Selected load heart-rate trend</h3>
             <div class="btn-row" style="margin-top:0">
@@ -529,6 +502,33 @@
             </div>
             <p class="micro-empty" id="cardio-all-empty">No sessions logged yet.</p>
           </div>
+        </div>
+
+        <div class="kpi-grid" id="cardio-kpis"></div>
+
+        <div class="cue-box" id="cardio-cue-box">
+          <span class="cue-badge gray" id="cardio-cue-badge">Data Building</span>
+          <div class="cue-title" id="cardio-cue-title">Need more sessions at same load</div>
+          <div class="cue-note" id="cardio-cue-note">Collect 3 or more sessions for a stable trend signal before changing treadmill intensity.</div>
+        </div>
+
+        <div class="callout" style="margin-top:1rem;">
+          <strong>Reading the trend columns</strong>
+          <div><strong>Drift</strong> = how much the heart rate rises or wanders upward during a steady effort, which can suggest inefficiency, fatigue, or stress. Lower drift is usually better at the same speed and incline.</div>
+          <div style="margin-top:.35rem"><strong>HRR1</strong> = first-minute heart-rate recovery after stopping, measured as the drop from the final working load to one minute later. A faster drop usually means stronger cardiovascular efficiency and recovery capacity.</div>
+        </div>
+
+        <div class="callout" style="margin-top:.75rem;">
+          <strong>How Green, Yellow, and Red are decided (same load only)</strong>
+          <ul class="ref" style="margin:.45rem 0 .2rem;">
+            <li>The cue is based on <strong>4 checks</strong> from your latest session under the selected load (same name, speed, incline, and duration).</li>
+            <li><strong>Working median check:</strong> pass if latest working median is at least <strong>3 bpm lower</strong> than your baseline (baseline = average of up to the last 4 same-load sessions).</li>
+            <li><strong>Drift check:</strong> pass if drift is <strong>3 bpm or less</strong>.</li>
+            <li><strong>HRR1 check:</strong> pass if 1-minute recovery is <strong>12 bpm or more</strong>.</li>
+            <li><strong>HRR2 check:</strong> pass if 2-minute recovery is <strong>18 bpm or more</strong>.</li>
+            <li><strong>Green:</strong> 3 to 4 checks pass. <strong>Yellow:</strong> exactly 2 pass. <strong>Red:</strong> 0 to 1 pass. <strong>Data Building:</strong> fewer than 2 checks available.</li>
+            <li><strong>Important:</strong> not every interval reading must be lower than the previous one, and <strong>peak HR is tracked but does not directly set the cue</strong>.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -831,6 +831,34 @@
       };
     }
 
+    function getMinuteSequenceWarnings(list,label){
+      const values=(Array.isArray(list)?list:[])
+        .map(item=>Number(item&&item.minute))
+        .filter(value=>Number.isFinite(value));
+
+      if(!values.length) return [];
+
+      const warnings=[];
+      if(values.some(value=>value<1||value>60)){
+        warnings.push(label+' minute values look invalid; expected whole-minute values such as 2,4,6,...,20 or 1,2,3 for post-stop.');
+      }
+      if(values.length>1){
+        const sorted=[...values].sort((a,b)=>a-b);
+        if(sorted.some((value,index)=>index>0&&value<=sorted[index-1])){
+          warnings.push(label+' minute values should be in ascending order.');
+        }
+        const gaps=sorted.slice(1).map((value,index)=>value-sorted[index]);
+        const oddCount=sorted.filter(value=>value%2!==0).length;
+        if(oddCount>0){
+          warnings.push(label+' minutes should usually follow an even-minute pattern such as 2,4,6,...,20.');
+        }
+        if(gaps.some(gap=>gap>4)){
+          warnings.push(label+' minute values jump too much; check for missing or malformed entries.');
+        }
+      }
+      return warnings;
+    }
+
     function getCardioSessionDataWarnings(session){
       if(!session||typeof session!=='object') return [];
 
@@ -845,6 +873,8 @@
       const lateCount=intervals.filter(item=>item.minute>=16&&item.minute<=20&&Number.isFinite(item.bpm)).length;
 
       const warnings=[];
+      warnings.push(...getMinuteSequenceWarnings(session.intervals,'Under-load interval'));
+      warnings.push(...getMinuteSequenceWarnings(session.postStop,'Post-stop'));
       if(metrics.stopHr==null){
         warnings.push('No numeric under-load bpm was found, so HRR1 and HRR2 cannot be calculated.');
       }
@@ -1670,9 +1700,9 @@
           return (index===0?'M':'L')+' '+x+' '+y;
         }).join(' ');
 
-        const circles=points.map(point=>`<circle cx="${xForMinute(point.minute)}" cy="${yForBpm(point.bpm)}" r="3.6" fill="${color}" stroke="#fff" stroke-width="1.5" />`).join('');
+        const circles=points.map(point=>`<circle cx="${xForMinute(point.minute)}" cy="${yForBpm(point.bpm)}" r="3.2" fill="${color}" stroke="#fff" stroke-width="1.2" />`).join('');
         return `
-          <path d="${path}" fill="none" stroke="${color}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="${path}" fill="none" stroke="${color}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
           ${circles}
         `;
       }).join('');

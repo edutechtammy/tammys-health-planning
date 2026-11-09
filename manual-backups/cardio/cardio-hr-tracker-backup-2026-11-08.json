@@ -1,0 +1,378 @@
+{
+  "version": 1,
+  "exportedAt": "2026-11-09T05:48:30.547Z",
+  "storageKey": "tammys_cardio_hr_tracker_v1",
+  "sessions": [
+    {
+      "id": "session-2026-11-02-0lwywtn",
+      "date": "2026-11-02",
+      "name": "Recovery Walk",
+      "speedMph": 1.6,
+      "inclinePct": 4,
+      "durationMin": 20,
+      "sessionTime": "",
+      "startHr": 70,
+      "intervals": [
+        {
+          "minute": 2,
+          "bpm": 83
+        },
+        {
+          "minute": 4,
+          "bpm": 103
+        },
+        {
+          "minute": 6,
+          "bpm": 108
+        },
+        {
+          "minute": 8,
+          "bpm": 100
+        },
+        {
+          "minute": 10,
+          "bpm": 114
+        },
+        {
+          "minute": 12,
+          "bpm": 104
+        },
+        {
+          "minute": 14,
+          "bpm": 94
+        },
+        {
+          "minute": 16,
+          "bpm": 105
+        },
+        {
+          "minute": 18,
+          "bpm": 94
+        },
+        {
+          "minute": 20,
+          "bpm": 105
+        }
+      ],
+      "postStop": [],
+      "notes": "No post-stop readings captured this day.",
+      "updatedAt": "2026-11-03T16:39:22.184Z"
+    },
+    {
+      "id": "session-1793754758990",
+      "date": "2026-11-03",
+      "name": "Zone 2",
+      "speedMph": 2.6,
+      "inclinePct": 4,
+      "durationMin": 20,
+      "sessionTime": "18:40",
+      "startHr": 78,
+      "intervals": [
+        {
+          "minute": 2,
+          "bpm": 103
+        },
+        {
+          "minute": 4,
+          "bpm": 115
+        },
+        {
+          "minute": 6,
+          "bpm": 117
+        },
+        {
+          "minute": 8,
+          "bpm": 114
+        },
+        {
+          "minute": 10,
+          "bpm": 114
+        },
+        {
+          "minute": 12,
+          "bpm": 110
+        },
+        {
+          "minute": 14,
+          "bpm": 100
+        },
+        {
+          "minute": 16,
+          "bpm": 99
+        },
+        {
+          "minute": 18,
+          "bpm": 107
+        },
+        {
+          "minute": 20,
+          "bpm": 116
+        }
+      ],
+      "postStop": [
+        {
+          "minute": 1,
+          "bpm": 78
+        },
+        {
+          "minute": 2,
+          "bpm": 87
+        }
+      ],
+      "notes": "",
+      "updatedAt": "2026-11-06T02:05:50.617Z"
+    },
+    {
+      "id": "session-2026-11-03-ceefyjc",
+      "date": "2026-11-03",
+      "name": "Recovery Walk",
+      "speedMph": 1.6,
+      "inclinePct": 4,
+      "durationMin": 20,
+      "sessionTime": "",
+      "startHr": 70,
+      "intervals": [
+        {
+          "minute": 2,
+          "bpm": 120
+        },
+        {
+          "minute": 4,
+          "bpm": 102
+        },
+        {
+          "minute": 6,
+          "bpm": 83
+        },
+        {
+          "minute": 8,
+          "bpm": 81
+        },
+        {
+          "minute": 10,
+          "bpm": 92
+        },
+        {
+          "minute": 12,
+          "bpm": 103
+        },
+        {
+          "minute": 14,
+          "bpm": 98
+        },
+        {
+          "minute": 18,
+          "bpm": 89
+        },
+        {
+          "minute": 20,
+          "bpm": 89
+        }
+      ],
+      "postStop": [
+        {
+          "minute": 1,
+          "bpm": 80
+        },
+        {
+          "minute": 2,
+          "bpm": 76
+        }
+      ],
+      "notes": "Missed minute 14 under-load reading.",
+      "updatedAt": "2026-11-06T02:05:11.250Z"
+    },
+    {
+      "id": "session-1793832267558",
+      "date": "2026-11-04",
+      "name": "Recovery Walk",
+      "speedMph": 1.6,
+      "inclinePct": 4,
+      "durationMin": 20,
+      "sessionTime": "16:18",
+      "startHr": 75,
+      "intervals": [
+        {
+          "minute": 2,
+          "bpm": 100
+        },
+        {
+          "minute": 4,
+          "bpm": 104
+        },
+        {
+          "minute": 6,
+          "bpm": 104
+        },
+        {
+          "minute": 8,
+          "bpm": 91
+        },
+        {
+          "minute": 10,
+          "bpm": 129
+        },
+        {
+          "minute": 12,
+          "bpm": 97
+        },
+        {
+          "minute": 14,
+          "bpm": 116
+        },
+        {
+          "minute": 16,
+          "bpm": 100
+        },
+        {
+          "minute": 18,
+          "bpm": 93
+        },
+        {
+          "minute": 20,
+          "bpm": 87
+        }
+      ],
+      "postStop": [
+        {
+          "minute": 1,
+          "bpm": 79
+        },
+        {
+          "minute": 2,
+          "bpm": 75
+        }
+      ],
+      "notes": "I was talking to John at the 10-min mark.",
+      "updatedAt": "2026-11-06T02:06:13.197Z"
+    },
+    {
+      "id": "session-1793929089099",
+      "date": "2026-11-05",
+      "name": "Recovery Walk",
+      "speedMph": 1.6,
+      "inclinePct": 4,
+      "durationMin": 20,
+      "sessionTime": "19:11",
+      "startHr": 62,
+      "intervals": [
+        {
+          "minute": 2,
+          "bpm": 89
+        },
+        {
+          "minute": 4,
+          "bpm": 116
+        },
+        {
+          "minute": 6,
+          "bpm": 99
+        },
+        {
+          "minute": 8,
+          "bpm": 86
+        },
+        {
+          "minute": 10,
+          "bpm": 104
+        },
+        {
+          "minute": 12,
+          "bpm": 99
+        },
+        {
+          "minute": 14,
+          "bpm": 109
+        },
+        {
+          "minute": 16,
+          "bpm": 96
+        },
+        {
+          "minute": 18,
+          "bpm": 111
+        },
+        {
+          "minute": 20,
+          "bpm": 102
+        }
+      ],
+      "postStop": [
+        {
+          "minute": 1,
+          "bpm": 80
+        },
+        {
+          "minute": 2,
+          "bpm": 76
+        }
+      ],
+      "notes": "",
+      "updatedAt": "2026-11-06T02:06:39.849Z"
+    },
+    {
+      "id": "session-1794195091916",
+      "date": "2026-11-08",
+      "name": "Zone 2",
+      "speedMph": 2.6,
+      "inclinePct": 4,
+      "durationMin": 20,
+      "sessionTime": "21:10",
+      "startHr": 68,
+      "intervals": [
+        {
+          "minute": 2,
+          "bpm": 87
+        },
+        {
+          "minute": 4,
+          "bpm": 96
+        },
+        {
+          "minute": 6,
+          "bpm": 100
+        },
+        {
+          "minute": 8,
+          "bpm": 103
+        },
+        {
+          "minute": 10,
+          "bpm": 119
+        },
+        {
+          "minute": 12,
+          "bpm": 113
+        },
+        {
+          "minute": 14,
+          "bpm": 115
+        },
+        {
+          "minute": 16,
+          "bpm": 106
+        },
+        {
+          "minute": 18,
+          "bpm": 102
+        },
+        {
+          "minute": 20,
+          "bpm": 113
+        }
+      ],
+      "postStop": [
+        {
+          "minute": 1,
+          "bpm": 93
+        },
+        {
+          "minute": 2,
+          "bpm": 83
+        }
+      ],
+      "notes": "",
+      "updatedAt": "2026-11-09T04:17:43.841Z"
+    }
+  ]
+}
