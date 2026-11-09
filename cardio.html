@@ -831,7 +831,7 @@
       };
     }
 
-    function getMinuteSequenceWarnings(list,label){
+    function getMinuteSequenceWarnings(list,label,requireEvenMinutes){
       const values=(Array.isArray(list)?list:[])
         .map(item=>Number(item&&item.minute))
         .filter(value=>Number.isFinite(value));
@@ -840,7 +840,8 @@
 
       const warnings=[];
       if(values.some(value=>value<1||value>60)){
-        warnings.push(label+' minute values look invalid; expected whole-minute values such as 2,4,6,...,20 or 1,2,3 for post-stop.');
+        const examples=requireEvenMinutes?'2,4,6,...,20':'1,2,3';
+        warnings.push(label+' minute values look invalid; expected whole-minute values such as '+examples+'.');
       }
       if(values.length>1){
         const sorted=[...values].sort((a,b)=>a-b);
@@ -849,7 +850,7 @@
         }
         const gaps=sorted.slice(1).map((value,index)=>value-sorted[index]);
         const oddCount=sorted.filter(value=>value%2!==0).length;
-        if(oddCount>0){
+        if(requireEvenMinutes&&oddCount>0){
           warnings.push(label+' minutes should usually follow an even-minute pattern such as 2,4,6,...,20.');
         }
         if(gaps.some(gap=>gap>4)){
@@ -873,8 +874,8 @@
       const lateCount=intervals.filter(item=>item.minute>=16&&item.minute<=20&&Number.isFinite(item.bpm)).length;
 
       const warnings=[];
-      warnings.push(...getMinuteSequenceWarnings(session.intervals,'Under-load interval'));
-      warnings.push(...getMinuteSequenceWarnings(session.postStop,'Post-stop'));
+      warnings.push(...getMinuteSequenceWarnings(session.intervals,'Under-load interval',true));
+      warnings.push(...getMinuteSequenceWarnings(session.postStop,'Post-stop',false));
       if(metrics.stopHr==null){
         warnings.push('No numeric under-load bpm was found, so HRR1 and HRR2 cannot be calculated.');
       }
