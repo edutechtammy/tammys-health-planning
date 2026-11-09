@@ -203,6 +203,29 @@
       color: var(--muted);
     }
 
+    .bmi-context-badge {
+      color: var(--text);
+      transition: background-color .2s ease, border-color .2s ease;
+    }
+
+    .bmi-context-badge.status-underweight,
+    .bmi-context-badge.status-normal {
+      background: #edf8f1;
+      border-color: #b9dfc7;
+    }
+
+    .bmi-context-badge.status-overweight {
+      background: #fff6e8;
+      border-color: #f2d7a6;
+    }
+
+    .bmi-context-badge.status-obesity-1,
+    .bmi-context-badge.status-obesity-2,
+    .bmi-context-badge.status-obesity-3 {
+      background: #fdeeee;
+      border-color: #e8bcbc;
+    }
+
     .bmi-panel {
       margin-bottom: 1rem;
       background: linear-gradient(180deg, rgba(232, 245, 235, 0.72), rgba(255,255,255,0.92));
@@ -489,6 +512,7 @@
         <span>days</span>
       </div>
     </div>
+    <p class="chart-helper bmi-context-badge" id="weight-bmi-context" style="margin-top: .5rem; border: 1px solid #dceee3; border-radius: 8px; padding: .55rem .7rem;"></p>
     <p class="chart-helper">The trendline shows your overall weight direction, while the target line stays fixed at 160 lbs. The y-axis always supports viewing up to at least 230 lbs so long-term progress stays in context. Large gaps longer than the selected threshold are visually compressed to keep the graph readable. Goal is 1 to 1.5 lbs per week which will make the journey take 10.5 to 16 months. The blue marker indicates the official start of the muscle/endurance and weight-loss effort on November 2, 2026.</p>
   </section>
 
@@ -511,6 +535,20 @@
   </section>
 
   <section class="card">
+    <h2>Thigh Circumference Progress</h2>
+    <div class="chart-wrap">
+      <canvas id="thigh-chart"></canvas>
+    </div>
+    <div class="field" style="max-width: 320px; margin-top: .75rem;">
+      <label for="thigh-target-input">Target thigh (in, optional)</label>
+      <input type="number" id="thigh-target-input" step="0.1" min="0" placeholder="Auto-estimated from first thigh entry" />
+    </div>
+    <p class="chart-helper" id="thigh-target-meta" style="margin-top: .45rem;">Target mode: auto-estimate from your 224 to 160 lb journey.</p>
+    <div class="empty-msg" id="thigh-chart-empty" style="display: none; padding-top: .75rem;">No thigh measurements yet. Add a thigh value in Log Daily Weight to begin this chart.</div>
+    <p class="chart-helper">Tracks thigh measurement changes over time. Missing days are handled automatically and do not break the chart. A dashed target line is auto-estimated using your 224 to 160 lb goal unless you set a custom thigh target.</p>
+  </section>
+
+  <section class="card">
     <h2>Log Daily Weight</h2>
     <div class="form-grid">
       <div class="field">
@@ -524,6 +562,10 @@
       <div class="field">
         <label for="w-waist">Waist (in, optional)</label>
         <input type="number" id="w-waist" step="0.1" min="0" placeholder="e.g. 32.5" />
+      </div>
+      <div class="field">
+        <label for="w-thigh">Thigh (in, optional)</label>
+        <input type="number" id="w-thigh" step="0.1" min="0" placeholder="e.g. 24.8" />
       </div>
       <div class="field full">
         <label for="w-notes">Notes (optional)</label>
@@ -551,6 +593,7 @@
             <th>Date</th>
             <th>Weight (lbs)</th>
             <th>Waist (in)</th>
+            <th>Thigh (in)</th>
             <th>Notes</th>
             <th>Actions</th>
           </tr>
@@ -566,10 +609,14 @@
 
 <script>
   const STORAGE_KEY = 'dailyWeightEntries_v1';
+  const THIGH_SETTINGS_KEY = 'dailyWeightThighSettings_v1';
   const TARGET_WEIGHT = 160;
   const START_WEIGHT_CAP = 230;
   const START_WAIST = 47;
   const TARGET_WAIST = 34;
+  const JOURNEY_START_WEIGHT = 224;
+  const JOURNEY_TARGET_WEIGHT = 160;
+  const HEIGHT_INCHES = 68.5;
   const WAIST_MILESTONE_BANDS = [
     {
       key: 'liver-pancreas-unloading',
@@ -676,6 +723,7 @@
   let entries = [];
   let weightChart = null;
   let waistChart = null;
+  let thighChart = null;
   let bmiSelectedIndex = 0;
   let bmiSelectionMode = 'latest';
 
@@ -683,14 +731,20 @@
   const dateInput = document.getElementById('w-date');
   const weightInput = document.getElementById('w-weight');
   const waistInput = document.getElementById('w-waist');
+  const thighInput = document.getElementById('w-thigh');
+  const thighTargetInput = document.getElementById('thigh-target-input');
+  const thighTargetMeta = document.getElementById('thigh-target-meta');
   const notesInput = document.getElementById('w-notes');
   const entriesBody = document.getElementById('entries-body');
   const emptyMsg = document.getElementById('empty-msg');
   const toast = document.getElementById('toast');
   const importFileInput = document.getElementById('import-file-input');
   const weightChartCanvas = document.getElementById('weight-chart');
+  const weightBmiContextEl = document.getElementById('weight-bmi-context');
   const waistChartCanvas = document.getElementById('waist-chart');
+  const thighChartCanvas = document.getElementById('thigh-chart');
   const waistChartEmpty = document.getElementById('waist-chart-empty');
+  const thighChartEmpty = document.getElementById('thigh-chart-empty');
   const addEntryBtn = document.getElementById('add-entry');
   const editState = document.getElementById('edit-state');
   const bmiImageEl = document.getElementById('bmi-slideshow-image');
@@ -708,6 +762,97 @@
 
     const latest = [...entries].sort((a, b) => b.date.localeCompare(a.date))[0];
     return Number.isFinite(Number(latest.weight)) ? Number(latest.weight) : null;
+  }
+
+  function bmiForWeight(weightLbs) {
+    const weightNum = Number(weightLbs);
+    if (!Number.isFinite(weightNum) || weightNum <= 0 || !Number.isFinite(HEIGHT_INCHES) || HEIGHT_INCHES <= 0) {
+      return Number.NaN;
+    }
+
+    const weightKg = weightNum * 0.45359237;
+    const heightMeters = HEIGHT_INCHES * 0.0254;
+    return weightKg / (heightMeters * heightMeters);
+  }
+
+  function bmiCategoryLabel(bmiValue) {
+    if (!Number.isFinite(bmiValue)) {
+      return 'Unknown';
+    }
+    if (bmiValue < 18.5) {
+      return 'Underweight';
+    }
+    if (bmiValue < 25) {
+      return 'Normal';
+    }
+    if (bmiValue < 30) {
+      return 'Overweight';
+    }
+    if (bmiValue < 35) {
+      return 'Obesity I';
+    }
+    if (bmiValue < 40) {
+      return 'Obesity II';
+    }
+    return 'Obesity III';
+  }
+
+  function bmiCategoryStatusClass(bmiValue) {
+    if (!Number.isFinite(bmiValue)) {
+      return 'status-overweight';
+    }
+    if (bmiValue < 18.5) {
+      return 'status-underweight';
+    }
+    if (bmiValue < 25) {
+      return 'status-normal';
+    }
+    if (bmiValue < 30) {
+      return 'status-overweight';
+    }
+    if (bmiValue < 35) {
+      return 'status-obesity-1';
+    }
+    if (bmiValue < 40) {
+      return 'status-obesity-2';
+    }
+    return 'status-obesity-3';
+  }
+
+  function renderWeightBmiContext() {
+    if (!weightBmiContextEl) {
+      return;
+    }
+
+    const latestWeight = getLatestEntryWeight();
+    const currentWeight = Number.isFinite(latestWeight) ? latestWeight : JOURNEY_START_WEIGHT;
+    const startBmi = bmiForWeight(JOURNEY_START_WEIGHT);
+    const currentBmi = bmiForWeight(currentWeight);
+    const goalBmi = bmiForWeight(JOURNEY_TARGET_WEIGHT);
+    const poundsLost = Math.max(0, JOURNEY_START_WEIGHT - currentWeight);
+    const poundsToGoal = Math.max(0, currentWeight - JOURNEY_TARGET_WEIGHT);
+    const totalLossNeeded = JOURNEY_START_WEIGHT - JOURNEY_TARGET_WEIGHT;
+    const completionPercent = totalLossNeeded > 0
+      ? Math.min(100, Math.max(0, (poundsLost / totalLossNeeded) * 100))
+      : 0;
+    const statusClass = bmiCategoryStatusClass(currentBmi);
+
+    weightBmiContextEl.classList.remove(
+      'status-underweight',
+      'status-normal',
+      'status-overweight',
+      'status-obesity-1',
+      'status-obesity-2',
+      'status-obesity-3'
+    );
+    weightBmiContextEl.classList.add(statusClass);
+
+    weightBmiContextEl.innerHTML =
+      '<strong>BMI Journey Context</strong> at 5\'8.5&quot;: ' +
+      'Start ' + JOURNEY_START_WEIGHT.toFixed(1) + ' lbs (BMI ' + startBmi.toFixed(1) + ', ' + bmiCategoryLabel(startBmi) + ') | ' +
+      'Current ' + currentWeight.toFixed(1) + ' lbs (BMI ' + currentBmi.toFixed(1) + ', ' + bmiCategoryLabel(currentBmi) + ') | ' +
+      'Goal ' + JOURNEY_TARGET_WEIGHT.toFixed(1) + ' lbs (BMI ' + goalBmi.toFixed(1) + ', ' + bmiCategoryLabel(goalBmi) + '). ' +
+      'Progress: ' + poundsLost.toFixed(1) + ' lbs lost, ' + poundsToGoal.toFixed(1) + ' lbs to goal (' + completionPercent.toFixed(1) + '% complete).';
   }
 
   function findNearestBmiIndex(weightValue) {
@@ -961,6 +1106,7 @@
     dateInput.value = record.date;
     weightInput.value = formatMaybeNumber(record.weight, 1);
     waistInput.value = record.waist === '' ? '' : formatMaybeNumber(record.waist, 1);
+    thighInput.value = record.thigh === '' ? '' : formatMaybeNumber(record.thigh, 1);
     notesInput.value = record.notes || '';
     addEntryBtn.textContent = 'Update Entry';
     editState.textContent = 'Editing entry: ' + record.date;
@@ -1001,6 +1147,41 @@
 
   function saveToLocalStorage() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
+
+  function loadThighSettings() {
+    const raw = localStorage.getItem(THIGH_SETTINGS_KEY);
+    if (!raw) {
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(raw);
+      const targetValue = Number(parsed?.thighTargetIn);
+      if (Number.isFinite(targetValue) && targetValue > 0) {
+        thighTargetInput.value = targetValue.toFixed(1);
+      }
+    } catch {
+      // Ignore malformed settings and continue with defaults.
+    }
+  }
+
+  function saveThighSettings() {
+    const targetRaw = String(thighTargetInput.value || '').trim();
+    if (!targetRaw) {
+      localStorage.removeItem(THIGH_SETTINGS_KEY);
+      return;
+    }
+
+    const targetValue = Number(targetRaw);
+    if (!Number.isFinite(targetValue) || targetValue <= 0) {
+      return;
+    }
+
+    localStorage.setItem(THIGH_SETTINGS_KEY, JSON.stringify({
+      thighTargetIn: targetValue,
+      updatedAt: new Date().toISOString()
+    }));
   }
 
   function normalizeDateOnly(value) {
@@ -1052,7 +1233,14 @@
       const waistNum = waistRaw === '' || waistRaw === null || waistRaw === undefined
         ? ''
         : Number(waistRaw);
+      const thighRaw = item.thigh;
+      const thighNum = thighRaw === '' || thighRaw === null || thighRaw === undefined
+        ? ''
+        : Number(thighRaw);
       if (waistNum !== '' && (!Number.isFinite(waistNum) || waistNum <= 0)) {
+        continue;
+      }
+      if (thighNum !== '' && (!Number.isFinite(thighNum) || thighNum <= 0)) {
         continue;
       }
 
@@ -1060,6 +1248,7 @@
         date,
         weight: weightNum,
         waist: waistNum,
+        thigh: thighNum,
         notes: String(item.notes || '').trim(),
         updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
       });
@@ -1505,9 +1694,189 @@
     });
   }
 
+  function renderThighChart() {
+    const thighChrono = sortEntriesOldestFirst(entries).filter(item => {
+      if (!normalizeDateOnly(item.date)) {
+        return false;
+      }
+      if (item.thigh === '' || item.thigh === null || item.thigh === undefined) {
+        return false;
+      }
+      const thighValue = Number(item.thigh);
+      return Number.isFinite(thighValue) && thighValue > 0;
+    });
+
+    if (thighChart) {
+      thighChart.destroy();
+      thighChart = null;
+    }
+
+    if (!thighChrono.length) {
+      if (thighChartEmpty) {
+        thighChartEmpty.style.display = 'block';
+      }
+      return;
+    }
+
+    if (thighChartEmpty) {
+      thighChartEmpty.style.display = 'none';
+    }
+
+    const rawThighPoints = thighChrono.map(item => ({
+      x: dateToStamp(item.date),
+      y: Number(item.thigh),
+      originalDate: item.date
+    }));
+
+    const thighPoints = buildCompressedWeightPoints(rawThighPoints, getGapCompressionDays());
+    const dateLookup = new Map(thighPoints.map(point => [Math.round(point.x), point.originalDate]));
+    const measuredThighs = thighPoints.map(point => point.y);
+    const minThigh = Math.min(...measuredThighs);
+    const maxThigh = Math.max(...measuredThighs);
+    const minX = thighPoints[0].x;
+    const maxX = thighPoints[thighPoints.length - 1].x;
+    const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
+    const startThigh = Number(thighPoints[0].y);
+    const pointRadius = thighPoints.length > 240 ? 0 : 2.2;
+    const trendLinePoints = buildLinearTrendLinePoints(thighPoints);
+    const customTargetRaw = String(thighTargetInput.value || '').trim();
+    const customTarget = customTargetRaw ? Number(customTargetRaw) : Number.NaN;
+    const weightRatioTarget = JOURNEY_TARGET_WEIGHT / JOURNEY_START_WEIGHT;
+    const estimatedTarget = Number((startThigh * weightRatioTarget).toFixed(1));
+    const targetThigh = Number.isFinite(customTarget) && customTarget > 0 ? customTarget : estimatedTarget;
+    const hasCustomTarget = Number.isFinite(customTarget) && customTarget > 0;
+    const allYAxisValues = [...measuredThighs, startThigh, targetThigh];
+
+    if (thighTargetMeta) {
+      if (hasCustomTarget) {
+        thighTargetMeta.textContent = 'Target mode: custom (' + targetThigh.toFixed(1) + ' in).';
+      } else {
+        thighTargetMeta.textContent = 'Target mode: auto-estimated at ' + targetThigh.toFixed(1) + ' in from first thigh measurement using your 224 to 160 lb journey ratio.';
+      }
+    }
+
+    thighChart = new Chart(thighChartCanvas, {
+      type: 'line',
+      plugins: [officialStartDateLinePlugin],
+      data: {
+        datasets: [
+          {
+            label: 'Thigh Measurement',
+            data: thighPoints,
+            borderColor: '#6a4c93',
+            backgroundColor: 'rgba(106,76,147,.16)',
+            borderWidth: 2,
+            tension: 0.2,
+            parsing: false,
+            pointRadius,
+            pointHoverRadius: 4,
+            pointHitRadius: 12,
+            fill: false
+          },
+          {
+            label: 'Trendline',
+            data: trendLinePoints,
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          },
+          {
+            label: 'Start Thigh',
+            data: [
+              { x: minX, y: startThigh },
+              { x: targetEndX, y: startThigh }
+            ],
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [4, 4],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          },
+          {
+            label: hasCustomTarget ? 'Custom Target Thigh' : 'Estimated Target Thigh',
+            data: [
+              { x: minX, y: targetThigh },
+              { x: targetEndX, y: targetThigh }
+            ],
+            borderColor: '#c0392b',
+            borderWidth: 2,
+            borderDash: [7, 6],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        normalized: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { boxWidth: 18 }
+          },
+          tooltip: {
+            callbacks: {
+              title(context) {
+                if (!context.length) {
+                  return '';
+                }
+                const valueX = Math.round(context[0].parsed.x);
+                const dateForX = dateLookup.get(valueX);
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              },
+              label(context) {
+                if (context.parsed.y === null) {
+                  return context.dataset.label + ': not enough data yet';
+                }
+                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 12,
+              callback(value) {
+                const dateForX = dateLookup.get(Math.round(value));
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.45)' }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Thigh (in)'
+            },
+            min: Math.floor(Math.min(...allYAxisValues) - 1),
+            max: Math.ceil(Math.max(...allYAxisValues) + 1),
+            ticks: {
+              callback(value) {
+                return value + ' in';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.5)' }
+          }
+        }
+      }
+    });
+  }
+
   function renderEntries() {
     renderWeightChart();
     renderWaistChart();
+    renderThighChart();
+    renderWeightBmiContext();
     if (bmiSelectionMode !== 'manual') {
       applyLatestBmiImage();
     }
@@ -1527,6 +1896,7 @@
         '<td>' + escapeHtml(item.date || '') + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.weight, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.waist, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.thigh, 1)) + '</td>',
         '<td class="notes-cell">' + escapeHtml(item.notes || '') + '</td>',
         '<td class="actions-cell"><button type="button" class="entry-action-btn" data-edit-date="' + escapeHtml(item.date || '') + '">Edit</button><button type="button" class="entry-action-btn entry-delete-btn" data-delete-date="' + escapeHtml(item.date || '') + '">Delete</button></td>'
       ].join('');
@@ -1562,6 +1932,7 @@
     setDefaultDate();
     weightInput.value = '';
     waistInput.value = '';
+    thighInput.value = '';
     notesInput.value = '';
     weightInput.focus();
   }
@@ -1570,6 +1941,7 @@
     const date = normalizeDateOnly(dateInput.value);
     const weight = weightInput.value.trim();
     const waist = waistInput.value.trim();
+    const thigh = thighInput.value.trim();
     const notes = notesInput.value.trim();
 
     if (!date) {
@@ -1598,11 +1970,22 @@
       waistNum = n;
     }
 
+    let thighNum = '';
+    if (thigh) {
+      const n = Number(thigh);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Thigh must be a positive number.');
+        return;
+      }
+      thighNum = n;
+    }
+
     const existingIndex = entries.findIndex(e => e.date === date);
     const record = {
       date,
       weight: weightNum,
       waist: waistNum,
+      thigh: thighNum,
       notes,
       updatedAt: new Date().toISOString()
     };
@@ -1687,6 +2070,9 @@
       const waistNum = item.waist === '' || item.waist === null || item.waist === undefined
         ? ''
         : Number(item.waist);
+      const thighNum = item.thigh === '' || item.thigh === null || item.thigh === undefined
+        ? ''
+        : Number(item.thigh);
 
       if (!date) {
         continue;
@@ -1697,11 +2083,15 @@
       if (waistNum !== '' && (Number.isNaN(waistNum) || waistNum <= 0)) {
         continue;
       }
+      if (thighNum !== '' && (Number.isNaN(thighNum) || thighNum <= 0)) {
+        continue;
+      }
 
       cleaned.push({
         date,
         weight: weightNum,
         waist: waistNum,
+        thigh: thighNum,
         notes: String(item.notes || '').trim(),
         updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
       });
@@ -1754,6 +2144,28 @@
   gapThresholdInput.addEventListener('change', () => {
     renderEntries();
   });
+  thighTargetInput.addEventListener('input', () => {
+    saveThighSettings();
+    renderEntries();
+  });
+  thighTargetInput.addEventListener('change', () => {
+    const raw = String(thighTargetInput.value || '').trim();
+    if (!raw) {
+      saveThighSettings();
+      renderEntries();
+      return;
+    }
+
+    const value = Number(raw);
+    if (!Number.isFinite(value) || value <= 0) {
+      showToast('Target thigh must be a positive number.');
+      return;
+    }
+
+    thighTargetInput.value = value.toFixed(1);
+    saveThighSettings();
+    renderEntries();
+  });
 
   document.getElementById('add-entry').addEventListener('click', addEntry);
   document.getElementById('clear-form').addEventListener('click', clearForm);
@@ -1786,6 +2198,7 @@
   });
 
   loadFromLocalStorage();
+  loadThighSettings();
   setDefaultDate();
   renderEntries();
 </script>

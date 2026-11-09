@@ -1,0 +1,343 @@
+{
+  "exportedAt": "2026-11-09T15:01:29.434Z",
+  "app": "Daily Weight Tracker",
+  "entryCount": 42,
+  "entries": [
+    {
+      "date": "2026-11-09",
+      "weight": 224.8,
+      "waist": 45.8,
+      "thigh": 25,
+      "notes": "",
+      "updatedAt": "2026-11-09T14:49:41.925Z"
+    },
+    {
+      "date": "2026-11-06",
+      "weight": 226.2,
+      "waist": 46.6,
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-11-06T14:12:16.892Z"
+    },
+    {
+      "date": "2026-11-03",
+      "weight": 224.8,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-11-03T20:06:46.173Z"
+    },
+    {
+      "date": "2026-11-02",
+      "weight": 227,
+      "waist": 48,
+      "thigh": "",
+      "notes": "Family Halloween party at Marylyn's plus eating out at Waffle House over the weekend - likely fluid retention from salt being most of it. Excess calories possibly, but definitely lower quality food than I have been eating at home.",
+      "updatedAt": "2026-11-02T13:58:06.220Z"
+    },
+    {
+      "date": "2026-10-28",
+      "weight": 221.4,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-29T03:24:58.639Z"
+    },
+    {
+      "date": "2026-10-23",
+      "weight": 224.4,
+      "waist": 46.25,
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-24T04:04:28.817Z"
+    },
+    {
+      "date": "2026-10-14",
+      "weight": 224.6,
+      "waist": 48,
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-14T14:34:25.126Z"
+    },
+    {
+      "date": "2026-10-09",
+      "weight": 222,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-13T21:45:23.009Z"
+    },
+    {
+      "date": "2026-10-02",
+      "weight": 222.4,
+      "waist": 47,
+      "thigh": "",
+      "notes": "Celebration at Texas Roadhouse with my traditional order",
+      "updatedAt": "2026-11-01T21:59:25.705Z"
+    },
+    {
+      "date": "2026-09-22",
+      "weight": 221.6,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-09-22T10:45:49.747Z"
+    },
+    {
+      "date": "2026-09-18",
+      "weight": 223.2,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-09-19T02:28:00.199Z"
+    },
+    {
+      "date": "2026-09-16",
+      "weight": 224,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-09-16T15:14:45.709Z"
+    },
+    {
+      "date": "2026-09-14",
+      "weight": 225.8,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-09-14T12:12:51.228Z"
+    },
+    {
+      "date": "2026-09-08",
+      "weight": 226,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-09-08T12:21:56.761Z"
+    },
+    {
+      "date": "2026-09-06",
+      "weight": 227.2,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-09-06T12:48:41.640Z"
+    },
+    {
+      "date": "2026-09-04",
+      "weight": 229.4,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-09-04T15:57:11.890Z"
+    },
+    {
+      "date": "2026-06-16",
+      "weight": 222.4,
+      "waist": 45.8,
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:09:38.801Z"
+    },
+    {
+      "date": "2026-06-13",
+      "weight": 222,
+      "waist": 45.8,
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:09:32.573Z"
+    },
+    {
+      "date": "2026-06-11",
+      "weight": 221.8,
+      "waist": 45.5,
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:09:27.069Z"
+    },
+    {
+      "date": "2026-06-05",
+      "weight": 224,
+      "waist": 47.3,
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:09:17.538Z"
+    },
+    {
+      "date": "2026-06-02",
+      "weight": 222,
+      "waist": 47.3,
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:09:11.359Z"
+    },
+    {
+      "date": "2026-05-30",
+      "weight": 223,
+      "waist": 48.3,
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:09:04.519Z"
+    },
+    {
+      "date": "2026-05-25",
+      "weight": 224.4,
+      "waist": 48.8,
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:08:55.520Z"
+    },
+    {
+      "date": "2026-05-22",
+      "weight": 224.2,
+      "waist": "",
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:07:28.398Z"
+    },
+    {
+      "date": "2026-05-21",
+      "weight": 225.6,
+      "waist": "",
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:07:00.570Z"
+    },
+    {
+      "date": "2026-05-19",
+      "weight": 226.6,
+      "waist": "",
+      "thigh": "",
+      "notes": "original tracker page",
+      "updatedAt": "2026-11-06T14:05:54.497Z"
+    },
+    {
+      "date": "2026-05-17",
+      "weight": 227,
+      "waist": "",
+      "thigh": "",
+      "notes": "This is from the original tracker page.",
+      "updatedAt": "2026-11-06T14:05:07.211Z"
+    },
+    {
+      "date": "2026-05-16",
+      "weight": 228.2,
+      "waist": "",
+      "thigh": "",
+      "notes": "This is from the original Health tracker page that I am working to retire.",
+      "updatedAt": "2026-11-06T14:03:52.706Z"
+    },
+    {
+      "date": "2026-04-27",
+      "weight": 231.4,
+      "waist": "",
+      "thigh": "",
+      "notes": "Office Visit",
+      "updatedAt": "2026-10-31T00:44:07.018Z"
+    },
+    {
+      "date": "2026-03-02",
+      "weight": 235.4,
+      "waist": "",
+      "thigh": "",
+      "notes": "Office Visit",
+      "updatedAt": "2026-10-31T00:43:25.334Z"
+    },
+    {
+      "date": "2025-11-25",
+      "weight": 238,
+      "waist": "",
+      "thigh": "",
+      "notes": "Office Visit",
+      "updatedAt": "2026-10-31T00:42:16.343Z"
+    },
+    {
+      "date": "2025-03-22",
+      "weight": 215.8,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-13T21:37:04.995Z"
+    },
+    {
+      "date": "2025-03-01",
+      "weight": 220,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-13T21:42:13.319Z"
+    },
+    {
+      "date": "2025-01-27",
+      "weight": 227.8,
+      "waist": "",
+      "thigh": "",
+      "notes": "Office visit",
+      "updatedAt": "2026-10-31T00:41:09.832Z"
+    },
+    {
+      "date": "2024-09-28",
+      "weight": 229.4,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-13T21:40:31.429Z"
+    },
+    {
+      "date": "2024-09-17",
+      "weight": 232.6,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-13T21:38:42.054Z"
+    },
+    {
+      "date": "2024-09-16",
+      "weight": 235.6,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-13T21:38:05.518Z"
+    },
+    {
+      "date": "2024-09-15",
+      "weight": 237,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-13T21:35:45.344Z"
+    },
+    {
+      "date": "2022-01-25",
+      "weight": 214,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-31T00:39:39.633Z"
+    },
+    {
+      "date": "2021-09-16",
+      "weight": 236,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-31T00:39:16.132Z"
+    },
+    {
+      "date": "2021-08-31",
+      "weight": 240,
+      "waist": "",
+      "thigh": "",
+      "notes": "",
+      "updatedAt": "2026-10-31T00:38:52.161Z"
+    },
+    {
+      "date": "2014-07-17",
+      "weight": 234,
+      "waist": "",
+      "thigh": "",
+      "notes": "Office Visit vital",
+      "updatedAt": "2026-10-31T00:38:12.178Z"
+    }
+  ]
+}
