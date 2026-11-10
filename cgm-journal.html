@@ -1670,6 +1670,43 @@
       }
     }
 
+    function drawGlucoseRangeBands(ctx, plotBounds, minValue, maxValue, lowThreshold = 70, highThreshold = 140) {
+      const { left, top, right, bottom } = plotBounds;
+      const plotWidth = right - left;
+      const plotHeight = bottom - top;
+      const range = maxValue - minValue || 1;
+      const yForValue = value => top + ((maxValue - value) / range) * plotHeight;
+
+      const drawBand = (bandMin, bandMax, color) => {
+        const y1 = yForValue(bandMin);
+        const y2 = yForValue(bandMax);
+        const topY = Math.min(y1, y2);
+        const bandHeight = Math.abs(y2 - y1);
+        if (bandHeight <= 0 || !Number.isFinite(bandHeight)) {
+          return;
+        }
+
+        ctx.fillStyle = color;
+        ctx.fillRect(left, topY, plotWidth, bandHeight);
+      };
+
+      if (minValue < lowThreshold) {
+        drawBand(minValue, lowThreshold, 'rgba(72, 145, 237, 0.10)');
+      }
+
+      if (maxValue > lowThreshold && minValue < highThreshold) {
+        const healthyMin = Math.max(minValue, lowThreshold);
+        const healthyMax = Math.min(maxValue, highThreshold);
+        if (healthyMin < healthyMax) {
+          drawBand(healthyMin, healthyMax, 'rgba(38, 168, 105, 0.14)');
+        }
+      }
+
+      if (maxValue > highThreshold) {
+        drawBand(highThreshold, maxValue, 'rgba(220, 118, 74, 0.12)');
+      }
+    }
+
     function drawInspectorChart(rows, targetMs) {
       const canvas = document.getElementById('eventInspectChart');
       const ctx = canvas.getContext('2d');
@@ -1697,6 +1734,13 @@
       const endMs = rows[rows.length - 1].tsDate.getTime();
       const spanMs = Math.max(1, endMs - startMs);
 
+      drawGlucoseRangeBands(ctx, {
+        left: margin.left,
+        top: margin.top,
+        right: canvas.width - margin.right,
+        bottom: canvas.height - margin.bottom,
+      }, minValue, maxValue);
+
       ctx.strokeStyle = '#d5e7d9';
       ctx.lineWidth = 1;
       ctx.fillStyle = '#587163';
@@ -1712,20 +1756,26 @@
         ctx.fillText(Math.round(value), margin.left - 8, y + 3);
       }
 
-      // Draw faint hourly vertical guides (e.g., 1 PM, 2 PM, 3 PM) for easier time scaling.
+      // Draw darker hourly vertical guides with 24-hour labels for easier time scaling.
       const firstHour = new Date(startMs);
       firstHour.setMinutes(0, 0, 0);
       if (firstHour.getTime() < startMs) {
         firstHour.setHours(firstHour.getHours() + 1);
       }
-      ctx.strokeStyle = '#e2e8e4';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#8aa09a';
+      ctx.lineWidth = 1.1;
+      ctx.fillStyle = '#587163';
+      ctx.font = '10px sans-serif';
+      ctx.textAlign = 'center';
       for (let hourMs = firstHour.getTime(); hourMs <= endMs; hourMs += 60 * 60 * 1000) {
         const x = margin.left + ((hourMs - startMs) / spanMs) * plotWidth;
         ctx.beginPath();
         ctx.moveTo(x, margin.top);
         ctx.lineTo(x, canvas.height - margin.bottom);
         ctx.stroke();
+
+        const labelHour = new Date(hourMs).getHours();
+        ctx.fillText(String(labelHour), x, canvas.height - 8);
       }
 
       ctx.beginPath();
@@ -2703,6 +2753,13 @@
       const minValue = Math.max(0, Math.min(...values) - 10);
       const maxValue = Math.max(...values) + 10;
       const range = maxValue - minValue || 1;
+
+      drawGlucoseRangeBands(ctx, {
+        left: margin.left,
+        top: margin.top,
+        right: canvas.width - margin.right,
+        bottom: canvas.height - margin.bottom,
+      }, minValue, maxValue);
 
       ctx.strokeStyle = '#cfe3d5';
       ctx.lineWidth = 1;
