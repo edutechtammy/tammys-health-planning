@@ -816,23 +816,21 @@
 <body>
 
 <nav>
-  <a href="index.html">🏠 Home</a>
-  <a href="health-tracker.html">📈 Health Tracker</a>
-  <a href="lab-tracker.html">🧪 Lab Results</a>
-  <a href="recipes.html">👩‍🍳 Recipes</a>
-  <a href="food-response-testing.html" class="active">🍽️ Food Testing</a>
-  <a href="dawn-effect.html">🌅 Dawn Effect</a>
-  <a href="genetics.html">🧬 Genetics</a>
-  <a href="health-reference.html">📋 Reference</a>
-  <a href="supplement-timing.html">💊 Supplements</a>
-  <a href="cardio.html">🏃 Cardio</a>
-  <a href="resistance.html" class="active">💪 Resistance</a>
-  <a href="cgm-journal.html">📡 CGM</a>
-  <a href="simulator-development.html">🧪 Simulator Development</a>
-  <a href="daily-weight-tracker.html">⚖️ Weight</a>
-  <a href="morning-bp-tracker.html">🩺 BP</a>
-  <a href="diet-power.html">🥣 Diet Power</a>
-</nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="health-tracker.html">📈 Health Tracker</a>
+    <a href="lab-tracker.html">🧪 Lab Results</a>
+    <a href="recipes.html">👩‍🍳 Recipes</a>
+    <a href="food-response-testing.html" class="active">🍽️ Food Testing</a>
+    <a href="dawn-effect.html">🌅 Dawn Effect</a>
+    <a href="genetics.html">🧬 Genetics</a>
+    <a href="health-reference.html">📋 Reference</a>
+    <a href="supplement-timing.html">💊 Supplements</a>
+    <a href="cardio.html">🏃 Cardio</a>
+    <a href="resistance.html">💪 Resistance</a>
+    <a href="cgm-journal.html">📡 CGM</a>
+    <a href="daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="morning-bp-tracker.html">🩺 BP</a>
+  </nav>
 
 <header>
   <h1>🍽️ Personal Food Response Testing</h1>
@@ -2290,7 +2288,7 @@ function sendTestToDietPower(id){
   }
 
   localStorage.setItem(DIET_POWER_PREFILL_KEY, JSON.stringify(payload));
-  window.location.href='diet-power.html?prefill=food-test';
+  window.location.href='index.html';
 }
 
 let selectedForDietPower=new Set();
@@ -2329,7 +2327,7 @@ function sendSelectedTestsToDietPower(){
   };
 
   localStorage.setItem(DIET_POWER_PREFILL_KEY, JSON.stringify(payload));
-  window.location.href='diet-power.html?prefill=food-tests-batch';
+  window.location.href='index.html';
 }
 
 function confirmClearAll(){
@@ -2938,8 +2936,8 @@ function render(){
       const missingCount = pinnedItems.length - validPinned.length;
       pinnedSummaryEl.style.display='block';
       pinnedSummaryEl.innerHTML=`
-        <a class="pinned-calorie-qr-link" href="exercise-protocol.html" target="_blank" rel="noopener noreferrer" aria-label="Open the Exercise as Metabolic Medicine protocol">
-          <img class="pinned-calorie-qr" src="qr-assets/exercise-protocol-qr.png" alt="QR code for the exercise protocol page" />
+        <a class="pinned-calorie-qr-link" href="cardio.html" target="_blank" rel="noopener noreferrer" aria-label="Open the cardio protocol">
+          <img class="pinned-calorie-qr" src="qr-assets/exercise-protocol-qr.png" alt="QR code for the cardio page" />
         </a>
         <div class="pinned-calorie-summary-header">
           <div class="pinned-calorie-summary-title">Pinned food calories</div>
