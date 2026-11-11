@@ -351,7 +351,12 @@
             "description": "Gather the seeds. They can be processed just like chia to create a viscous fiber rich gel. This is actually wild psyllium. The leaves: Studies show that aucubin offers direct hepatoprotective qualities, helping to shield liver cells from metabolic stress and supporting clean processing pathways. Use the leaves in salad or dehydrate for a mineral rich tea."
         },
         {
-            "file": "taziki-restaurant_texarkana.png",
+            "file": "taziki-restaurant_texarkana-01.png",
+            "caption": "Taziki order",
+            "description": "Salmon, Mediterranean salad, and red potatoes."
+        },
+        {
+            "file": "taziki-restaurant_texarkana-02.png",
             "caption": "Taziki order when at their restaurant",
             "description": "Appetizer - Baba Ganoush but skip the hummus for me because restaurants usually add in starches or bean blends that will increase the glucose hit. The Main Entrée: Skewered Proteins - Chicken Souvlaki (Chicken Kabobs). Smart swaps: Ask to swap out the rice and pita bread for a double of the vegetables. Salad - Greek or Mediterranean salad with the authentic dressing (olive oil with red wine vinegar or lemon juice."
         },
