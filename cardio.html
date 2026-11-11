@@ -28,6 +28,13 @@
 
     .panel-body{padding:1rem 1.2rem}
 
+    .checklist-card{border:1px solid var(--border);background:#f9fcfa;border-radius:12px;padding:1rem}
+    .checklist-list{display:grid;gap:.5rem;margin-top:.85rem}
+    .checklist-item{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem .7rem;border:1px solid #dfece3;border-radius:10px;background:#f7fbf8}
+    .checklist-item input{margin-top:.18rem;width:1.05rem;height:1.05rem;accent-color:var(--green-mid)}
+    .checklist-item label{flex:1;font-size:.94rem;color:#285340;line-height:1.45}
+    .checklist-status{font-size:.85rem;color:#2a5a4a;font-weight:700}
+
     .callout{padding:.9rem 1rem;border-left:4px solid var(--green-mid);background:var(--green-pale);border-radius:10px;margin:0 0 1rem}
 
     .callout strong{display:block;margin-bottom:.3rem}
@@ -371,6 +378,43 @@
   <br>
 
     <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-header">Treadmill Ready Checklist</div>
+      <div class="panel-body">
+        <div class="checklist-card">
+          <p style="font-size:.93rem;line-height:1.5;margin:0">Run this quick check before you start so you do not have to interrupt the treadmill and lose what is on the display.</p>
+
+          <div class="checklist-list" id="treadmill-ready-list">
+            <div class="checklist-item">
+              <input id="ready-water" type="checkbox" data-ready-item="water" />
+              <label for="ready-water">Water bottle filled &amp; within reach?</label>
+            </div>
+            <div class="checklist-item">
+              <input id="ready-phone" type="checkbox" data-ready-item="phone" />
+              <label for="ready-phone">Phone / secondary device present?</label>
+            </div>
+            <div class="checklist-item">
+              <input id="ready-work" type="checkbox" data-ready-item="work" />
+              <label for="ready-work">Work tasks queued up (Deep Work vs. Passive Video)?</label>
+            </div>
+            <div class="checklist-item">
+              <input id="ready-audio" type="checkbox" data-ready-item="audio" />
+              <label for="ready-audio">Earbuds / Audio ready?</label>
+            </div>
+            <div class="checklist-item">
+              <input id="ready-bathroom" type="checkbox" data-ready-item="bathroom" />
+              <label for="ready-bathroom">Bathroom break taken before starting?</label>
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:1rem">
+            <button class="btn primary" type="button" id="reset-ready-btn">Reset Checklist</button>
+            <span class="checklist-status" id="ready-status"><strong>0 / 5 ready</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.5rem">
       <div class="panel-header">Cardio Heart Efficiency Tracker</div>
       <div class="panel-body">
         <div class="callout">
@@ -599,7 +643,38 @@
       </div>
     </div>
   </div>
-  
+
+  <div class="panel" style="margin-top:1.5rem">
+    <div class="panel-header">Calorie Burn Target Calculator</div>
+    <div class="panel-body">
+      <div class="callout-sky">
+        <strong>Target burn to time conversion</strong>
+        Enter the number of calories you want to burn, and this estimates how long you would need to walk at your 1.6 mph recovery pace or 2.6 mph Zone 2 pace. These calculations use the same <strong>222 lb body weight</strong> and <strong>~4% incline</strong> profile as the Workout Accountability Log math. For a sedentary baseline, a reasonable target for your daily burn is roughly <strong>1,900–2,000 kcal/day</strong> before adding exercise calories.
+      </div>
+
+      <form id="target-burn-form" class="band-card" style="margin-top:.85rem;background:#f8fdf9">
+        <div class="two-col">
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.25rem">Calories to burn</label>
+            <input id="target-burn-calories" type="number" min="1" step="1" placeholder="e.g. 300" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:.55rem .7rem;font:inherit;background:#fff" />
+          </div>
+          <div style="display:flex;align-items:end;gap:.5rem">
+            <button class="btn primary" type="submit" id="target-burn-btn">Calculate</button>
+            <button class="btn btn-outline" type="button" id="target-burn-reset-btn">Clear</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="calc-grid" style="margin-top:1rem">
+        <div class="summary-box"><strong>At 1.6 mph</strong><span id="target-burn-1-6">--</span></div>
+        <div class="summary-box"><strong>At 2.6 mph</strong><span id="target-burn-2-6">--</span></div>
+        <div class="summary-box"><strong>1.6 mph burn rate</strong><span id="target-burn-rate-1-6">--</span></div>
+        <div class="summary-box"><strong>2.6 mph burn rate</strong><span id="target-burn-rate-2-6">--</span></div>
+      </div>
+
+      <p class="chart-empty" style="margin-top:.8rem">Minutes are estimated using the same treadmill equation as the log: speed × grade × body weight, with your treadmill fixed at approximately 4% incline. This is not a flat-belt estimate.</p>
+    </div>
+  </div>
 
     <div class="btn-row">
       <a class="btn primary" href="resistance.html">Go to Resistance page →</a>
@@ -1782,6 +1857,60 @@
       '</ul>';
     }
 
+    const READY_CHECKLIST_KEY='treadmill-ready-checklist';
+
+    function loadReadyChecklist(){
+      try{
+        const parsed=JSON.parse(localStorage.getItem(READY_CHECKLIST_KEY));
+        if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)) return {};
+        return parsed;
+      }catch{
+        return {};
+      }
+    }
+
+    function saveReadyChecklist(state){
+      localStorage.setItem(READY_CHECKLIST_KEY,JSON.stringify(state));
+    }
+
+    function getReadyChecklistInputs(){
+      return Array.from(document.querySelectorAll('[data-ready-item]'));
+    }
+
+    function updateReadyChecklistStatus(){
+      const inputs=getReadyChecklistInputs();
+      const checkedCount=inputs.filter(input=>input.checked).length;
+      const statusEl=document.getElementById('ready-status');
+      if(!statusEl) return;
+      statusEl.innerHTML = checkedCount===inputs.length && inputs.length
+        ? '<strong>All set to start</strong>'
+        : `<strong>${checkedCount} / ${inputs.length} ready</strong>`;
+    }
+
+    function applyReadyChecklistState(state){
+      getReadyChecklistInputs().forEach(input=>{
+        input.checked=Boolean(state[input.dataset.readyItem]);
+      });
+      updateReadyChecklistStatus();
+    }
+
+    function persistReadyChecklist(){
+      const state={};
+      getReadyChecklistInputs().forEach(input=>{
+        state[input.dataset.readyItem]=input.checked;
+      });
+      saveReadyChecklist(state);
+      updateReadyChecklistStatus();
+    }
+
+    function resetReadyChecklist(){
+      getReadyChecklistInputs().forEach(input=>{
+        input.checked=false;
+      });
+      localStorage.removeItem(READY_CHECKLIST_KEY);
+      updateReadyChecklistStatus();
+    }
+
     function renderCardioTracker(){
       const sessions=loadCardioSessions();
       const selectedLoad=renderLoadFilter(sessions);
@@ -1821,6 +1950,14 @@
 
       const saveBtn=document.getElementById('cardio-save-btn');
       if(saveBtn) saveBtn.addEventListener('click',upsertCardioSession);
+
+      const readyInputs=getReadyChecklistInputs();
+      readyInputs.forEach(input=>input.addEventListener('change',persistReadyChecklist));
+
+      const resetReadyBtn=document.getElementById('reset-ready-btn');
+      if(resetReadyBtn) resetReadyBtn.addEventListener('click',resetReadyChecklist);
+
+      applyReadyChecklistState(loadReadyChecklist());
 
       const clearBtn=document.getElementById('cardio-clear-btn');
       if(clearBtn) clearBtn.addEventListener('click',()=>{ clearCardioForm(); showCardioStatus('Form cleared.'); });
