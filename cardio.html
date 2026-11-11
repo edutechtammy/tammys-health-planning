@@ -2335,6 +2335,40 @@ function moveExerciseSlide(step){
   updateExerciseFullscreenContent();
 }
 
+function updateTargetBurnCalculator(){
+  const caloriesInput=document.getElementById('target-burn-calories');
+  const result1=document.getElementById('target-burn-1-6');
+  const result2=document.getElementById('target-burn-2-6');
+  const rate1=document.getElementById('target-burn-rate-1-6');
+  const rate2=document.getElementById('target-burn-rate-2-6');
+
+  if(!caloriesInput||!result1||!result2||!rate1||!rate2) return;
+
+  const targetCalories=Number.parseFloat(caloriesInput.value);
+  if(!Number.isFinite(targetCalories)||targetCalories<=0){
+    result1.textContent='--';
+    result2.textContent='--';
+    rate1.textContent='--';
+    rate2.textContent='--';
+    return;
+  }
+
+  const bodyWeightKg=222 * 0.45359237;
+  const paceProfiles=[
+    { id:'1-6', speedMph:1.6, met:4.4 },
+    { id:'2-6', speedMph:2.6, met:6.1 }
+  ];
+
+  paceProfiles.forEach(profile=>{
+    const burnRateKcalPerMin=0.0175 * profile.met * bodyWeightKg;
+    const minutesNeeded=targetCalories / burnRateKcalPerMin;
+    const resultEl=document.getElementById(`target-burn-${profile.id}`);
+    const rateEl=document.getElementById(`target-burn-rate-${profile.id}`);
+    if(resultEl) resultEl.textContent=`${Number(minutesNeeded).toFixed(1)} min`;
+    if(rateEl) rateEl.textContent=`${Number(burnRateKcalPerMin).toFixed(1)} kcal/min`;
+  });
+}
+
 const readyChecklistInputs=document.querySelectorAll('[data-ready-checklist]');
 if(typeof getReadyChecklistInputs === 'function'){
   getReadyChecklistInputs().forEach(input=>input.addEventListener('change',persistReadyChecklist));
