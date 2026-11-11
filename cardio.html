@@ -101,6 +101,26 @@
     .chart-analysis strong{display:block;color:#234b3b;margin-bottom:.28rem}
     .chart-analysis ul{margin:.25rem 0 0;padding-left:1.1rem}
     .chart-analysis li{margin:.22rem 0}
+    .trend-mini-wrap{margin-top:.85rem;padding-top:.65rem;border-top:1px solid #dfeee4}
+    .trend-mini-header{font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#305947;margin-bottom:.45rem}
+    .trend-mini-svg{width:100%;height:170px;display:block;border:1px solid #dfeee4;border-radius:10px;background:#fff}
+    .trend-mini-legend{display:flex;flex-wrap:wrap;gap:.6rem .9rem;margin-top:.45rem}
+    .trend-mini-legend-item{display:inline-flex;align-items:center;gap:.42rem;font-size:.76rem;color:#2b4f40;font-weight:600}
+    .trend-mini-swatch{width:.72rem;height:.72rem;border-radius:50%;display:inline-block}
+    .drift-visual{margin-top:.9rem;padding-top:.7rem;border-top:1px solid #dfeee4}
+    .drift-visual-header{font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#305947;margin-bottom:.45rem}
+    .drift-visual-grid{display:grid;gap:.5rem}
+    .drift-row{display:flex;justify-content:space-between;align-items:center;gap:.75rem;font-size:.75rem;color:#2d4f40;font-weight:700}
+    .drift-track{position:relative;width:100%;height:10px;border-radius:999px;background:#eaf3ee;border:1px solid #d9e8de;overflow:hidden}
+    .drift-fill{position:absolute;top:0;bottom:0;left:0;border-radius:999px}
+    .drift-fill.early{background:#a9d7b8}
+    .drift-fill.late{background:#2d6a4f}
+    .drift-fill.warn{background:#d4a42a}
+    .drift-fill.alert{background:#c73d4d}
+    .drift-visual-status{margin-top:.45rem;font-size:.76rem;font-weight:800;border-radius:999px;padding:.28rem .6rem;display:inline-flex;align-items:center;letter-spacing:.02em}
+    .drift-visual-status.good{background:#d8f3dc;color:#1f6b46;border:1px solid #9ad9b0}
+    .drift-visual-status.caution{background:#fff4cc;color:#946200;border:1px solid #f1d686}
+    .drift-visual-status.bad{background:#fde8ea;color:#9a2331;border:1px solid #f3b6bf}
 
     .micro-table{width:100%;min-width:520px;border-collapse:collapse;margin:.6rem 0;font-size:.84rem}
     .micro-table th,.micro-table td{padding:.46rem .5rem;border-bottom:1px solid #e1ede7;text-align:left;vertical-align:top}
@@ -562,12 +582,11 @@
         <div class="callout" style="margin-top:.75rem;">
           <strong>How Green, Yellow, and Red are decided (same load only)</strong>
           <ul class="ref" style="margin:.45rem 0 .2rem;">
-            <li>The cue is based on <strong>4 checks</strong> from your latest session under the selected load (same name, speed, incline, and duration).</li>
+            <li>The cue is based on <strong>2 core checks</strong> from your latest session under the selected load (same name, speed, incline, and duration): <strong>working median</strong> and <strong>drift</strong>.</li>
             <li><strong>Working median check:</strong> pass if latest working median is at least <strong>3 bpm lower</strong> than your baseline (baseline = average of up to the last 4 same-load sessions).</li>
             <li><strong>Drift check:</strong> pass if drift is <strong>3 bpm or less</strong>.</li>
-            <li><strong>HRR1 check:</strong> pass if 1-minute recovery is <strong>12 bpm or more</strong>.</li>
-            <li><strong>HRR2 check:</strong> pass if 2-minute recovery is <strong>18 bpm or more</strong>.</li>
-            <li><strong>Green:</strong> 3 to 4 checks pass. <strong>Yellow:</strong> exactly 2 pass. <strong>Red:</strong> 0 to 1 pass. <strong>Data Building:</strong> fewer than 2 checks available.</li>
+            <li><strong>HRR1 and HRR2:</strong> these are still tracked as <strong>supporting recovery checks</strong> for context, but they are not used to punish a fitter, lower-effort curve. A lower working median can legitimately reduce the absolute drop even while the body is adapting better.</li>
+            <li><strong>Green:</strong> both core checks pass. <strong>Yellow:</strong> one core check passes with some recovery support, or recovery is strong but the efficiency trend is still not yet confirmed. <strong>Red:</strong> the core efficiency trend is not yet improved. <strong>Data Building:</strong> fewer than 2 checks available.</li>
             <li><strong>Important:</strong> not every interval reading must be lower than the previous one, and <strong>peak HR is tracked but does not directly set the cue</strong>.</li>
           </ul>
         </div>
@@ -1018,20 +1037,25 @@
       const baselinePool=prior.map(getMetricPack).map(pack=>pack.workingMedian).filter(v=>Number.isFinite(v));
       const baseline=baselinePool.length?average(baselinePool):null;
 
-      const checks=[];
-      if(Number.isFinite(metrics.workingMedian)&&Number.isFinite(baseline)){
-        checks.push(metrics.workingMedian<=baseline-3);
-      }
-      if(Number.isFinite(metrics.drift)) checks.push(metrics.drift<=3);
-      if(Number.isFinite(metrics.hrr1)) checks.push(metrics.hrr1>=12);
-      if(Number.isFinite(metrics.hrr2)) checks.push(metrics.hrr2>=18);
+      const primaryChecks=[];
+      const supportChecks=[];
 
-      const trueCount=checks.filter(Boolean).length;
-      const validCount=checks.length;
+      if(Number.isFinite(metrics.workingMedian)&&Number.isFinite(baseline)){
+        primaryChecks.push(metrics.workingMedian<=baseline-3);
+      }
+      if(Number.isFinite(metrics.drift)) primaryChecks.push(metrics.drift<=3);
+      if(Number.isFinite(metrics.hrr1)) supportChecks.push(metrics.hrr1>=12);
+      if(Number.isFinite(metrics.hrr2)) supportChecks.push(metrics.hrr2>=18);
+
+      const primaryPassCount=primaryChecks.filter(Boolean).length;
+      const supportPassCount=supportChecks.filter(Boolean).length;
+      const validCount=primaryChecks.length+supportChecks.length;
+
       if(validCount<2) return {tone:'gray',label:'Data Building',title:'Need more complete readings',note:'Add more under-load and post-stop points for a stable cue.'};
-      if(trueCount>=3) return {tone:'green',label:'Green',title:'Progress likely ready soon',note:'Trend suggests better efficiency at this same load.'};
-      if(trueCount===2) return {tone:'yellow',label:'Yellow',title:'Hold current load',note:'Mixed signal. Keep load steady and collect more sessions.'};
-      return {tone:'red',label:'Red',title:'Do not increase load yet',note:'Recovery or drift signal needs improvement first.'};
+      if(primaryPassCount>=2) return {tone:'green',label:'Green',title:'Progress likely ready soon',note:'Lower working median and lower drift are the clearer signs of better efficiency here; a smaller HRR1 drop can be normal as fitness improves.'};
+      if(primaryPassCount===1 && supportPassCount>=1) return {tone:'yellow',label:'Yellow',title:'Hold current load',note:'One core efficiency metric is improving, but confirm the trend with one more same-load session. Lower drift and lower working median matter more than a larger HRR1 swing.'};
+      if(primaryPassCount===0 && supportPassCount>=2) return {tone:'yellow',label:'Yellow',title:'Hold current load',note:'Recovery is strong, but the core efficiency trend still needs more evidence before increasing load. Focus on lower working median and lower drift.'};
+      return {tone:'red',label:'Red',title:'Do not increase load yet',note:'Need lower working median and lower drift before progressing to a harder load. A smaller HRR1 drop alone is not enough evidence to push harder.'};
     }
 
     function normalizeSession(item){
@@ -1588,7 +1612,7 @@
       title.textContent=cue.title;
 
       if(filteredSessions.length>=3&&cue.tone==='green'){
-        note.textContent='Signal supports discussing a small progression: add 2 to 5 minutes first or a 0.1 mph speed step, then reassess.';
+        note.textContent='Signal supports a small progression: add 2 to 5 minutes first or a 0.1 mph speed step, then reassess. The key trend is lower working median and lower drift, not a larger HRR1 drop.';
       }else{
         note.textContent=cue.note;
       }
@@ -1801,6 +1825,118 @@
       empty.style.display='none';
     }
 
+    function buildCardioMiniTrendSvg(series, metricSeries, colorMap){
+      if(!Array.isArray(series)||!series.length||!Array.isArray(metricSeries)||!metricSeries.length) return '';
+
+      const width=760;
+      const height=170;
+      const pad={top:16,right:18,bottom:22,left:30};
+      const allValues=[];
+      metricSeries.forEach(group=>{
+        if(Array.isArray(group.values)){
+          group.values.forEach(value=>{
+            if(Number.isFinite(value)) allValues.push(value);
+          });
+        }
+      });
+
+      if(!allValues.length) return '';
+
+      const minValue=Math.min(...allValues);
+      const maxValue=Math.max(...allValues);
+      const valueRange=maxValue-minValue||1;
+      const xStep=series.length>1 ? (width-pad.left-pad.right)/(series.length-1) : 0;
+      const gridLines=Array.from({length:4},(_,index)=>{
+        const y=pad.top + ((height-pad.top-pad.bottom)/(3)) * index;
+        const tickValue=maxValue - ((valueRange/3)*index);
+        return `
+          <line x1="${pad.left}" y1="${y}" x2="${width-pad.right}" y2="${y}" stroke="#e1efe5" stroke-width="1" />
+          <text x="6" y="${y+4}" font-size="10" fill="#5d7e71">${fmtNum(tickValue,0)}</text>
+        `;
+      }).join('');
+
+      const xLabels=series.map((_,index)=>{
+        const x=pad.left + index*xStep;
+        const label=index===0?'1':String(index+1);
+        return `<text x="${x}" y="${height-6}" text-anchor="middle" font-size="10" fill="#5d7e71">${label}</text>`;
+      }).join('');
+
+      const lineMarkup=metricSeries.map(group=>{
+        const points=group.values.map((value,index)=>{
+          if(!Number.isFinite(value)) return null;
+          const x=pad.left + index*xStep;
+          const y=height-pad.bottom - ((value-minValue)/valueRange) * (height-pad.top-pad.bottom);
+          return {x,y};
+        }).filter(Boolean);
+
+        if(!points.length) return '';
+
+        const d=points.map((point,index)=>`${index===0?'M':'L'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ');
+        return `
+          <path d="${d}" fill="none" stroke="${group.color}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+          ${points.map(point=>`<circle cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="3.2" fill="${group.color}" />`).join('')}
+        `;
+      }).join('');
+
+      const legendMarkup=metricSeries.map(group=>`
+        <span class="trend-mini-legend-item"><span class="trend-mini-swatch" style="background:${group.color}"></span>${group.label}</span>
+      `).join('');
+
+      return `
+        <div class="trend-mini-wrap">
+          <div class="trend-mini-header">Working median & recovery trend</div>
+          <svg class="trend-mini-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" aria-label="Working median and recovery trend over the selected sessions">
+            <g>
+              ${gridLines}
+              <line x1="${pad.left}" y1="${height-pad.bottom}" x2="${width-pad.right}" y2="${height-pad.bottom}" stroke="#bfd7c8" stroke-width="1" />
+              <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height-pad.bottom}" stroke="#bfd7c8" stroke-width="1" />
+              ${lineMarkup}
+              ${xLabels}
+            </g>
+          </svg>
+          <div class="trend-mini-legend">${legendMarkup}</div>
+        </div>
+      `;
+    }
+
+    function buildDriftVisual(session){
+      if(!session||typeof session!=='object') return '';
+      const intervals=(Array.isArray(session.intervals)?session.intervals:[])
+        .filter(item=>item&&Number.isFinite(item.minute)&&Number.isFinite(item.bpm))
+        .sort((a,b)=>a.minute-b.minute);
+      const early=intervals.filter(item=>item.minute>=4&&item.minute<=8).map(item=>item.bpm);
+      const late=intervals.filter(item=>item.minute>=16&&item.minute<=20).map(item=>item.bpm);
+      if(!early.length||!late.length) return '';
+
+      const earlyAvg=average(early);
+      const lateAvg=average(late);
+      const drift=Number.isFinite(earlyAvg)&&Number.isFinite(lateAvg)?lateAvg-earlyAvg:null;
+      if(!Number.isFinite(drift)) return '';
+
+      const minVal=Math.min(earlyAvg,lateAvg,80);
+      const maxVal=Math.max(earlyAvg,lateAvg,120);
+      const scale=Math.max(maxVal-minVal,10);
+      const earlyPct=((earlyAvg-minVal)/scale)*100;
+      const latePct=((lateAvg-minVal)/scale)*100;
+      const tone=drift<=3?'good':drift<=6?'caution':'bad';
+      const label=drift<=3?'Steady / efficient':drift<=6?'Slight upward drift':'Noticeable drift';
+      const statusText=drift<=3 ? 'Drift is low and the effort is staying steady.' : 'Late effort is rising above the early effort.';
+
+      return `
+        <div class="drift-visual">
+          <div class="drift-visual-header">Drift readout (4–8 vs 16–20 min)</div>
+          <div class="drift-visual-grid">
+            <div class="drift-row"><span>Early effort</span><span>${fmtNum(earlyAvg,0)} bpm</span></div>
+            <div class="drift-track"><div class="drift-fill early" style="width:${Math.max(8,Math.min(100,earlyPct))}%"></div></div>
+            <div class="drift-row"><span>Late effort</span><span>${fmtNum(lateAvg,0)} bpm</span></div>
+            <div class="drift-track"><div class="drift-fill ${drift<=6?'warn':'alert'} late" style="width:${Math.max(8,Math.min(100,latePct))}%"></div></div>
+          </div>
+          <div class="drift-visual-status ${tone}">${label} · ${fmtNum(Math.abs(drift),1)} bpm rise</div>
+          <div class="chart-empty" style="margin-top:.45rem">${statusText}</div>
+        </div>
+      `;
+    }
+
     function renderCardioTrendAnalysis(filteredSessions){
       const host=document.getElementById('cardio-trend-analysis');
       if(!host) return;
@@ -1816,9 +1952,11 @@
       const cue=getCueForSession(latest,filteredSessions);
       const packs=series.map(getMetricPack);
 
-      const workingSeries=packs.map(item=>item.workingMedian).filter(v=>Number.isFinite(v));
+      const workingTrend=packs.map(item=>item.workingMedian);
+      const workingSeries=workingTrend.filter(v=>Number.isFinite(v));
       const driftSeries=packs.map(item=>item.drift).filter(v=>Number.isFinite(v));
-      const hrr1Series=packs.map(item=>item.hrr1).filter(v=>Number.isFinite(v));
+      const hrr1Trend=packs.map(item=>item.hrr1);
+      const hrr1Series=hrr1Trend.filter(v=>Number.isFinite(v));
       const hrr2Series=packs.map(item=>item.hrr2).filter(v=>Number.isFinite(v));
 
       const firstWorking=workingSeries.length?workingSeries[0]:null;
@@ -1845,13 +1983,19 @@
       const completeCount=series.filter(session=>getCardioSessionDataWarnings(session).length===0).length;
       const qualityLine='Data quality: '+completeCount+' of '+series.length+' shown session'+(series.length===1?'':'s')+' have complete metric inputs.';
 
+      const trendGraph=buildCardioMiniTrendSvg(series, [
+        { label:'Working median', values:workingTrend, color:'#2d6a4f' },
+        { label:'HRR1', values:hrr1Trend, color:'#0077b6' }
+      ]);
+      const driftVisual=buildDriftVisual(latest);
+
       host.innerHTML='<strong>Text analysis</strong><ul>'+
         '<li>'+cueLine+'</li>'+
         '<li>'+workingLine+'</li>'+
         '<li>'+driftLine+'</li>'+
         '<li>'+recoveryLine+'</li>'+
         '<li>'+qualityLine+'</li>'+
-      '</ul>';
+      '</ul>' + (trendGraph || '<div class="trend-mini-wrap"><div class="trend-mini-header">Working median & recovery trend</div><div class="chart-empty">Need at least one numeric working median or HRR1 reading to plot a session trend.</div></div>') + (driftVisual || '');
     }
 
     const READY_CHECKLIST_KEY='treadmill-ready-checklist';
