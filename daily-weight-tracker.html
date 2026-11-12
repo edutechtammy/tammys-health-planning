@@ -672,7 +672,7 @@
 
   <section class="card">
     <h2>Training Context (Auto)</h2>
-    <p class="helper" id="training-context-summary">Reads cardio and resistance logs from this browser to provide same-day and 3-day context beside each weight entry.</p>
+    <p class="helper" id="training-context-summary">Reads cardio and resistance logs from this browser to provide prior-day and 3-day context beside each weight entry, which better matches morning weigh-ins.</p>
   </section>
 
   <section class="card">
@@ -1653,27 +1653,38 @@
     return totals;
   }
 
+  function buildTrainingActivityParts(aggregate) {
+    const parts = [];
+
+    if (aggregate.cardioSessions > 0) {
+      parts.push(`Cardio ${aggregate.cardioSessions} sess (${Math.round(aggregate.cardioMinutes)} min)`);
+    }
+    if (aggregate.resistanceEntries > 0) {
+      const resistanceText = aggregate.resistanceSets > 0
+        ? `Resistance ${aggregate.resistanceEntries} ex (${aggregate.resistanceSets} sets)`
+        : `Resistance ${aggregate.resistanceEntries} ex`;
+      parts.push(resistanceText);
+    }
+
+    return parts;
+  }
+
   function formatTrainingContextHtml(entryDate) {
     const normalizedDate = normalizeDateOnly(entryDate);
     if (!normalizedDate) {
       return '<div class="training-context-main">No context</div>';
     }
 
+    const previousDay = trainingContextByDate.get(addDaysToIsoDate(normalizedDate, -1)) || createTrainingAggregate();
     const sameDay = trainingContextByDate.get(normalizedDate) || createTrainingAggregate();
     const rolling = sumTrainingWindow(normalizedDate, 3);
 
-    const sameDayParts = [];
-    if (sameDay.cardioSessions > 0) {
-      sameDayParts.push(`Cardio ${sameDay.cardioSessions} sess (${Math.round(sameDay.cardioMinutes)} min)`);
-    }
-    if (sameDay.resistanceEntries > 0) {
-      const resistanceText = sameDay.resistanceSets > 0
-        ? `Resistance ${sameDay.resistanceEntries} ex (${sameDay.resistanceSets} sets)`
-        : `Resistance ${sameDay.resistanceEntries} ex`;
-      sameDayParts.push(resistanceText);
-    }
+    const previousDayParts = buildTrainingActivityParts(previousDay);
+    const sameDayParts = buildTrainingActivityParts(sameDay);
 
-    const mainText = sameDayParts.length ? sameDayParts.join(' · ') : 'No cardio/resistance logged';
+    const mainText = previousDayParts.length
+      ? `Prior day: ${previousDayParts.join(' · ')}`
+      : 'Prior day: no cardio/resistance logged';
 
     const rollingParts = [];
     if (rolling.cardioSessions > 0) {
@@ -1686,11 +1697,14 @@
       rollingParts.push(`${rolling.resistanceSets} sets`);
     }
 
+    const sameDayText = sameDayParts.length
+      ? `Today: ${sameDayParts.join(' · ')}`
+      : 'Today: no cardio/resistance logged';
     const rollingText = rollingParts.length
       ? `3-day: ${rollingParts.join(' · ')}`
       : '3-day: no cardio/resistance data';
 
-    return `<div class="training-context-main">${escapeHtml(mainText)}</div><div class="training-context-sub">${escapeHtml(rollingText)}</div>`;
+    return `<div class="training-context-main">${escapeHtml(mainText)}</div><div class="training-context-sub">${escapeHtml(`${sameDayText} · ${rollingText}`)}</div>`;
   }
 
   function updateTrainingContextSummary() {
