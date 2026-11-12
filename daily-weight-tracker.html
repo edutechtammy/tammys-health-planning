@@ -358,16 +358,21 @@
 
     .table-wrap {
       overflow-x: auto;
+      position: relative;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       font-size: .86rem;
     }
 
     thead tr {
       background: var(--green-light);
+      position: sticky;
+      top: 0;
+      z-index: 3;
     }
 
     th, td {
@@ -375,6 +380,7 @@
       white-space: nowrap;
       padding: .5rem .65rem;
       border-bottom: 1px solid #eaf4ec;
+      background: #fff;
     }
 
     th {
@@ -383,6 +389,23 @@
       text-transform: uppercase;
       letter-spacing: .04em;
       color: var(--green-dark);
+      background: var(--green-light);
+    }
+
+    thead th:first-child,
+    thead th:nth-child(2),
+    tbody td:first-child,
+    tbody td:nth-child(2) {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      box-shadow: 1px 0 0 #eaf4ec;
+    }
+
+    thead th:nth-child(2),
+    tbody td:nth-child(2) {
+      left: 9.6rem;
+      z-index: 1;
     }
 
     tbody tr:hover {
