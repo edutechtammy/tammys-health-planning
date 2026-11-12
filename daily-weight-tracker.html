@@ -591,6 +591,34 @@
   </section>
 
   <section class="card">
+    <h2>Under Bust Circumference Progress</h2>
+    <div class="chart-wrap">
+      <canvas id="under-bust-chart"></canvas>
+    </div>
+    <div class="field" style="max-width: 320px; margin-top: .75rem;">
+      <label for="under-bust-target-input">Target under bust (in, optional)</label>
+      <input type="number" id="under-bust-target-input" step="0.1" min="0" placeholder="Auto-estimated from first under-bust entry" />
+    </div>
+    <p class="chart-helper" id="under-bust-target-meta" style="margin-top: .45rem;">Target mode: auto-estimate from your 224 to 160 lb journey.</p>
+    <div class="empty-msg" id="under-bust-chart-empty" style="display: none; padding-top: .75rem;">No under-bust measurements yet. Add an under-bust value in Log Daily Weight to begin this chart.</div>
+    <p class="chart-helper">Tracks under-bust circumference changes over time. Missing days are handled automatically and do not break the chart.</p>
+  </section>
+
+  <section class="card">
+    <h2>Upper Arm Circumference Progress</h2>
+    <div class="chart-wrap">
+      <canvas id="upper-arm-chart"></canvas>
+    </div>
+    <div class="field" style="max-width: 320px; margin-top: .75rem;">
+      <label for="upper-arm-target-input">Target upper arm (in, optional)</label>
+      <input type="number" id="upper-arm-target-input" step="0.1" min="0" placeholder="Auto-estimated from first upper-arm entry" />
+    </div>
+    <p class="chart-helper" id="upper-arm-target-meta" style="margin-top: .45rem;">Target mode: auto-estimate from your 224 to 160 lb journey.</p>
+    <div class="empty-msg" id="upper-arm-chart-empty" style="display: none; padding-top: .75rem;">No upper-arm measurements yet. Add an upper-arm value in Log Daily Weight to begin this chart.</div>
+    <p class="chart-helper">Tracks upper-arm circumference changes over time. Missing days are handled automatically and do not break the chart.</p>
+  </section>
+
+  <section class="card">
     <h2>Log Daily Weight</h2>
     <div class="form-grid">
       <div class="field">
@@ -608,6 +636,14 @@
       <div class="field">
         <label for="w-thigh">Thigh (in, optional)</label>
         <input type="number" id="w-thigh" step="0.1" min="0" placeholder="e.g. 24.8" />
+      </div>
+      <div class="field">
+        <label for="w-under-bust">Under Bust (in, optional)</label>
+        <input type="number" id="w-under-bust" step="0.1" min="0" placeholder="e.g. 36.0" />
+      </div>
+      <div class="field">
+        <label for="w-upper-arm">Upper Arm (in, optional)</label>
+        <input type="number" id="w-upper-arm" step="0.1" min="0" placeholder="e.g. 14.2" />
       </div>
       <div class="field">
         <label for="w-body-fat-pct">Body Fat % (optional)</label>
@@ -652,6 +688,7 @@
 
   <section class="card">
     <h2>Saved Entries</h2>
+    <p class="helper">Suggested cadence: weight daily; waist, thigh, under-bust, and upper-arm weekly under the same conditions (morning, relaxed posture, same tape tension).</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -660,6 +697,8 @@
             <th>Weight (lbs)</th>
             <th>Waist (in)</th>
             <th>Thigh (in)</th>
+            <th>Under Bust (in)</th>
+            <th>Upper Arm (in)</th>
             <th>Body Fat %</th>
             <th>Muscle (lbs)</th>
             <th>Training Context</th>
@@ -805,6 +844,8 @@
   let weightChart = null;
   let waistChart = null;
   let thighChart = null;
+  let underBustChart = null;
+  let upperArmChart = null;
   let recompTrendChart = null;
   let bmiSelectedIndex = 0;
   let bmiSelectionMode = 'latest';
@@ -815,10 +856,16 @@
   const weightInput = document.getElementById('w-weight');
   const waistInput = document.getElementById('w-waist');
   const thighInput = document.getElementById('w-thigh');
+  const underBustInput = document.getElementById('w-under-bust');
+  const upperArmInput = document.getElementById('w-upper-arm');
   const bodyFatPctInput = document.getElementById('w-body-fat-pct');
   const muscleMassInput = document.getElementById('w-muscle-mass');
   const thighTargetInput = document.getElementById('thigh-target-input');
+  const underBustTargetInput = document.getElementById('under-bust-target-input');
+  const upperArmTargetInput = document.getElementById('upper-arm-target-input');
   const thighTargetMeta = document.getElementById('thigh-target-meta');
+  const underBustTargetMeta = document.getElementById('under-bust-target-meta');
+  const upperArmTargetMeta = document.getElementById('upper-arm-target-meta');
   const notesInput = document.getElementById('w-notes');
   const entriesBody = document.getElementById('entries-body');
   const emptyMsg = document.getElementById('empty-msg');
@@ -834,8 +881,12 @@
   const weightBmiContextEl = document.getElementById('weight-bmi-context');
   const waistChartCanvas = document.getElementById('waist-chart');
   const thighChartCanvas = document.getElementById('thigh-chart');
+  const underBustChartCanvas = document.getElementById('under-bust-chart');
+  const upperArmChartCanvas = document.getElementById('upper-arm-chart');
   const waistChartEmpty = document.getElementById('waist-chart-empty');
   const thighChartEmpty = document.getElementById('thigh-chart-empty');
+  const underBustChartEmpty = document.getElementById('under-bust-chart-empty');
+  const upperArmChartEmpty = document.getElementById('upper-arm-chart-empty');
   const addEntryBtn = document.getElementById('add-entry');
   const editState = document.getElementById('edit-state');
   const bmiImageEl = document.getElementById('bmi-slideshow-image');
@@ -1280,6 +1331,8 @@
     weightInput.value = formatMaybeNumber(record.weight, 1);
     waistInput.value = record.waist === '' ? '' : formatMaybeNumber(record.waist, 1);
     thighInput.value = record.thigh === '' ? '' : formatMaybeNumber(record.thigh, 1);
+    underBustInput.value = record.underBust === '' ? '' : formatMaybeNumber(record.underBust, 1);
+    upperArmInput.value = record.upperArm === '' ? '' : formatMaybeNumber(record.upperArm, 1);
     bodyFatPctInput.value = record.bodyFatPct === '' ? '' : formatMaybeNumber(record.bodyFatPct, 1);
     muscleMassInput.value = record.muscleMassLbs === '' ? '' : formatMaybeNumber(record.muscleMassLbs, 1);
     notesInput.value = record.notes || '';
@@ -1332,9 +1385,17 @@
 
     try {
       const parsed = JSON.parse(raw);
-      const targetValue = Number(parsed?.thighTargetIn);
-      if (Number.isFinite(targetValue) && targetValue > 0) {
-        thighTargetInput.value = targetValue.toFixed(1);
+      const thighTargetValue = Number(parsed?.thighTargetIn);
+      if (Number.isFinite(thighTargetValue) && thighTargetValue > 0) {
+        thighTargetInput.value = thighTargetValue.toFixed(1);
+      }
+      const underBustTargetValue = Number(parsed?.underBustTargetIn);
+      if (Number.isFinite(underBustTargetValue) && underBustTargetValue > 0) {
+        underBustTargetInput.value = underBustTargetValue.toFixed(1);
+      }
+      const upperArmTargetValue = Number(parsed?.upperArmTargetIn);
+      if (Number.isFinite(upperArmTargetValue) && upperArmTargetValue > 0) {
+        upperArmTargetInput.value = upperArmTargetValue.toFixed(1);
       }
     } catch {
       // Ignore malformed settings and continue with defaults.
@@ -1342,21 +1403,40 @@
   }
 
   function saveThighSettings() {
-    const targetRaw = String(thighTargetInput.value || '').trim();
-    if (!targetRaw) {
+    const thighTargetRaw = String(thighTargetInput.value || '').trim();
+    const underBustTargetRaw = String(underBustTargetInput.value || '').trim();
+    const upperArmTargetRaw = String(upperArmTargetInput.value || '').trim();
+
+    const payload = {};
+
+    if (thighTargetRaw) {
+      const targetValue = Number(thighTargetRaw);
+      if (Number.isFinite(targetValue) && targetValue > 0) {
+        payload.thighTargetIn = targetValue;
+      }
+    }
+
+    if (underBustTargetRaw) {
+      const targetValue = Number(underBustTargetRaw);
+      if (Number.isFinite(targetValue) && targetValue > 0) {
+        payload.underBustTargetIn = targetValue;
+      }
+    }
+
+    if (upperArmTargetRaw) {
+      const targetValue = Number(upperArmTargetRaw);
+      if (Number.isFinite(targetValue) && targetValue > 0) {
+        payload.upperArmTargetIn = targetValue;
+      }
+    }
+
+    if (!Object.keys(payload).length) {
       localStorage.removeItem(THIGH_SETTINGS_KEY);
       return;
     }
 
-    const targetValue = Number(targetRaw);
-    if (!Number.isFinite(targetValue) || targetValue <= 0) {
-      return;
-    }
-
-    localStorage.setItem(THIGH_SETTINGS_KEY, JSON.stringify({
-      thighTargetIn: targetValue,
-      updatedAt: new Date().toISOString()
-    }));
+    payload.updatedAt = new Date().toISOString();
+    localStorage.setItem(THIGH_SETTINGS_KEY, JSON.stringify(payload));
   }
 
   function normalizeDateOnly(value) {
@@ -2003,6 +2083,14 @@
       const thighNum = thighRaw === '' || thighRaw === null || thighRaw === undefined
         ? ''
         : Number(thighRaw);
+      const underBustRaw = item.underBust;
+      const underBustNum = underBustRaw === '' || underBustRaw === null || underBustRaw === undefined
+        ? ''
+        : Number(underBustRaw);
+      const upperArmRaw = item.upperArm;
+      const upperArmNum = upperArmRaw === '' || upperArmRaw === null || upperArmRaw === undefined
+        ? ''
+        : Number(upperArmRaw);
       const bodyFatRaw = item.bodyFatPct;
       const bodyFatPctNum = bodyFatRaw === '' || bodyFatRaw === null || bodyFatRaw === undefined
         ? ''
@@ -2017,6 +2105,12 @@
       if (thighNum !== '' && (!Number.isFinite(thighNum) || thighNum <= 0)) {
         continue;
       }
+      if (underBustNum !== '' && (!Number.isFinite(underBustNum) || underBustNum <= 0)) {
+        continue;
+      }
+      if (upperArmNum !== '' && (!Number.isFinite(upperArmNum) || upperArmNum <= 0)) {
+        continue;
+      }
       if (bodyFatPctNum !== '' && (!Number.isFinite(bodyFatPctNum) || bodyFatPctNum <= 0 || bodyFatPctNum > 75)) {
         continue;
       }
@@ -2029,6 +2123,8 @@
         weight: weightNum,
         waist: waistNum,
         thigh: thighNum,
+        underBust: underBustNum,
+        upperArm: upperArmNum,
         bodyFatPct: bodyFatPctNum,
         muscleMassLbs: muscleMassNum,
         notes: String(item.notes || '').trim(),
@@ -2654,12 +2750,366 @@
     });
   }
 
+  function renderUnderBustChart() {
+    const underBustChrono = sortEntriesOldestFirst(entries).filter(item => {
+      if (!normalizeDateOnly(item.date)) {
+        return false;
+      }
+      if (item.underBust === '' || item.underBust === null || item.underBust === undefined) {
+        return false;
+      }
+      const value = Number(item.underBust);
+      return Number.isFinite(value) && value > 0;
+    });
+
+    if (underBustChart) {
+      underBustChart.destroy();
+      underBustChart = null;
+    }
+
+    if (!underBustChrono.length) {
+      if (underBustChartEmpty) {
+        underBustChartEmpty.style.display = 'block';
+      }
+      return;
+    }
+
+    if (underBustChartEmpty) {
+      underBustChartEmpty.style.display = 'none';
+    }
+
+    const rawPoints = underBustChrono.map(item => ({
+      x: dateToStamp(item.date),
+      y: Number(item.underBust),
+      originalDate: item.date
+    }));
+
+    const points = buildCompressedWeightPoints(rawPoints, getGapCompressionDays());
+    const dateLookup = new Map(points.map(point => [Math.round(point.x), point.originalDate]));
+    const values = points.map(point => point.y);
+    const minX = points[0].x;
+    const maxX = points[points.length - 1].x;
+    const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
+    const startValue = Number(points[0].y);
+    const pointRadius = points.length > 240 ? 0 : 2.2;
+    const trendLinePoints = buildLinearTrendLinePoints(points);
+    const customTargetRaw = String(underBustTargetInput.value || '').trim();
+    const customTarget = customTargetRaw ? Number(customTargetRaw) : Number.NaN;
+    const weightRatioTarget = JOURNEY_TARGET_WEIGHT / JOURNEY_START_WEIGHT;
+    const estimatedTarget = Number((startValue * weightRatioTarget).toFixed(1));
+    const targetValue = Number.isFinite(customTarget) && customTarget > 0 ? customTarget : estimatedTarget;
+    const hasCustomTarget = Number.isFinite(customTarget) && customTarget > 0;
+    const allYAxisValues = [...values, startValue, targetValue];
+
+    if (underBustTargetMeta) {
+      if (hasCustomTarget) {
+        underBustTargetMeta.textContent = 'Target mode: custom (' + targetValue.toFixed(1) + ' in).';
+      } else {
+        underBustTargetMeta.textContent = 'Target mode: auto-estimated at ' + targetValue.toFixed(1) + ' in from first under-bust measurement using your 224 to 160 lb journey ratio.';
+      }
+    }
+
+    underBustChart = new Chart(underBustChartCanvas, {
+      type: 'line',
+      plugins: [officialStartDateLinePlugin],
+      data: {
+        datasets: [
+          {
+            label: 'Under Bust Measurement',
+            data: points,
+            borderColor: '#126782',
+            backgroundColor: 'rgba(18,103,130,.14)',
+            borderWidth: 2,
+            tension: 0.2,
+            parsing: false,
+            pointRadius,
+            pointHoverRadius: 4,
+            pointHitRadius: 12,
+            fill: false
+          },
+          {
+            label: 'Trendline',
+            data: trendLinePoints,
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          },
+          {
+            label: 'Start Under Bust',
+            data: [
+              { x: minX, y: startValue },
+              { x: targetEndX, y: startValue }
+            ],
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [4, 4],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          },
+          {
+            label: hasCustomTarget ? 'Custom Target Under Bust' : 'Estimated Target Under Bust',
+            data: [
+              { x: minX, y: targetValue },
+              { x: targetEndX, y: targetValue }
+            ],
+            borderColor: '#c0392b',
+            borderWidth: 2,
+            borderDash: [7, 6],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        normalized: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { boxWidth: 18 }
+          },
+          tooltip: {
+            callbacks: {
+              title(context) {
+                if (!context.length) {
+                  return '';
+                }
+                const valueX = Math.round(context[0].parsed.x);
+                const dateForX = dateLookup.get(valueX);
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              },
+              label(context) {
+                if (context.parsed.y === null) {
+                  return context.dataset.label + ': not enough data yet';
+                }
+                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 12,
+              callback(value) {
+                const dateForX = dateLookup.get(Math.round(value));
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.45)' }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Under Bust (in)'
+            },
+            min: Math.floor(Math.min(...allYAxisValues) - 1),
+            max: Math.ceil(Math.max(...allYAxisValues) + 1),
+            ticks: {
+              callback(value) {
+                return value + ' in';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.5)' }
+          }
+        }
+      }
+    });
+  }
+
+  function renderUpperArmChart() {
+    const upperArmChrono = sortEntriesOldestFirst(entries).filter(item => {
+      if (!normalizeDateOnly(item.date)) {
+        return false;
+      }
+      if (item.upperArm === '' || item.upperArm === null || item.upperArm === undefined) {
+        return false;
+      }
+      const value = Number(item.upperArm);
+      return Number.isFinite(value) && value > 0;
+    });
+
+    if (upperArmChart) {
+      upperArmChart.destroy();
+      upperArmChart = null;
+    }
+
+    if (!upperArmChrono.length) {
+      if (upperArmChartEmpty) {
+        upperArmChartEmpty.style.display = 'block';
+      }
+      return;
+    }
+
+    if (upperArmChartEmpty) {
+      upperArmChartEmpty.style.display = 'none';
+    }
+
+    const rawPoints = upperArmChrono.map(item => ({
+      x: dateToStamp(item.date),
+      y: Number(item.upperArm),
+      originalDate: item.date
+    }));
+
+    const points = buildCompressedWeightPoints(rawPoints, getGapCompressionDays());
+    const dateLookup = new Map(points.map(point => [Math.round(point.x), point.originalDate]));
+    const values = points.map(point => point.y);
+    const minX = points[0].x;
+    const maxX = points[points.length - 1].x;
+    const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
+    const startValue = Number(points[0].y);
+    const pointRadius = points.length > 240 ? 0 : 2.2;
+    const trendLinePoints = buildLinearTrendLinePoints(points);
+    const customTargetRaw = String(upperArmTargetInput.value || '').trim();
+    const customTarget = customTargetRaw ? Number(customTargetRaw) : Number.NaN;
+    const weightRatioTarget = JOURNEY_TARGET_WEIGHT / JOURNEY_START_WEIGHT;
+    const estimatedTarget = Number((startValue * weightRatioTarget).toFixed(1));
+    const targetValue = Number.isFinite(customTarget) && customTarget > 0 ? customTarget : estimatedTarget;
+    const hasCustomTarget = Number.isFinite(customTarget) && customTarget > 0;
+    const allYAxisValues = [...values, startValue, targetValue];
+
+    if (upperArmTargetMeta) {
+      if (hasCustomTarget) {
+        upperArmTargetMeta.textContent = 'Target mode: custom (' + targetValue.toFixed(1) + ' in).';
+      } else {
+        upperArmTargetMeta.textContent = 'Target mode: auto-estimated at ' + targetValue.toFixed(1) + ' in from first upper-arm measurement using your 224 to 160 lb journey ratio.';
+      }
+    }
+
+    upperArmChart = new Chart(upperArmChartCanvas, {
+      type: 'line',
+      plugins: [officialStartDateLinePlugin],
+      data: {
+        datasets: [
+          {
+            label: 'Upper Arm Measurement',
+            data: points,
+            borderColor: '#7b4f9a',
+            backgroundColor: 'rgba(123,79,154,.14)',
+            borderWidth: 2,
+            tension: 0.2,
+            parsing: false,
+            pointRadius,
+            pointHoverRadius: 4,
+            pointHitRadius: 12,
+            fill: false
+          },
+          {
+            label: 'Trendline',
+            data: trendLinePoints,
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          },
+          {
+            label: 'Start Upper Arm',
+            data: [
+              { x: minX, y: startValue },
+              { x: targetEndX, y: startValue }
+            ],
+            borderColor: '#6c757d',
+            borderWidth: 2,
+            borderDash: [4, 4],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          },
+          {
+            label: hasCustomTarget ? 'Custom Target Upper Arm' : 'Estimated Target Upper Arm',
+            data: [
+              { x: minX, y: targetValue },
+              { x: targetEndX, y: targetValue }
+            ],
+            borderColor: '#c0392b',
+            borderWidth: 2,
+            borderDash: [7, 6],
+            parsing: false,
+            pointRadius: 0,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        normalized: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { boxWidth: 18 }
+          },
+          tooltip: {
+            callbacks: {
+              title(context) {
+                if (!context.length) {
+                  return '';
+                }
+                const valueX = Math.round(context[0].parsed.x);
+                const dateForX = dateLookup.get(valueX);
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              },
+              label(context) {
+                if (context.parsed.y === null) {
+                  return context.dataset.label + ': not enough data yet';
+                }
+                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 12,
+              callback(value) {
+                const dateForX = dateLookup.get(Math.round(value));
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.45)' }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Upper Arm (in)'
+            },
+            min: Math.floor(Math.min(...allYAxisValues) - 1),
+            max: Math.ceil(Math.max(...allYAxisValues) + 1),
+            ticks: {
+              callback(value) {
+                return value + ' in';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.5)' }
+          }
+        }
+      }
+    });
+  }
+
   function renderEntries() {
     refreshTrainingContext();
     renderWeeklyRecompositionScore();
     renderWeightChart();
     renderWaistChart();
     renderThighChart();
+    renderUnderBustChart();
+    renderUpperArmChart();
     renderWeightBmiContext();
     if (bmiSelectionMode !== 'manual') {
       applyLatestBmiImage();
@@ -2681,6 +3131,8 @@
         '<td>' + escapeHtml(formatMaybeNumber(item.weight, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.waist, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.thigh, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.underBust, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.upperArm, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.bodyFatPct, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.muscleMassLbs, 1)) + '</td>',
         '<td class="training-context-cell">' + formatTrainingContextHtml(item.date) + '</td>',
@@ -2720,6 +3172,8 @@
     weightInput.value = '';
     waistInput.value = '';
     thighInput.value = '';
+    underBustInput.value = '';
+    upperArmInput.value = '';
     bodyFatPctInput.value = '';
     muscleMassInput.value = '';
     notesInput.value = '';
@@ -2731,6 +3185,8 @@
     const weight = weightInput.value.trim();
     const waist = waistInput.value.trim();
     const thigh = thighInput.value.trim();
+    const underBust = underBustInput.value.trim();
+    const upperArm = upperArmInput.value.trim();
     const bodyFatPct = bodyFatPctInput.value.trim();
     const muscleMass = muscleMassInput.value.trim();
     const notes = notesInput.value.trim();
@@ -2771,6 +3227,26 @@
       thighNum = n;
     }
 
+    let underBustNum = '';
+    if (underBust) {
+      const n = Number(underBust);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Under bust must be a positive number.');
+        return;
+      }
+      underBustNum = n;
+    }
+
+    let upperArmNum = '';
+    if (upperArm) {
+      const n = Number(upperArm);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Upper arm must be a positive number.');
+        return;
+      }
+      upperArmNum = n;
+    }
+
     let bodyFatPctNum = '';
     if (bodyFatPct) {
       const n = Number(bodyFatPct);
@@ -2797,6 +3273,8 @@
       weight: weightNum,
       waist: waistNum,
       thigh: thighNum,
+      underBust: underBustNum,
+      upperArm: upperArmNum,
       bodyFatPct: bodyFatPctNum,
       muscleMassLbs: muscleMassNum,
       notes,
@@ -2886,6 +3364,12 @@
       const thighNum = item.thigh === '' || item.thigh === null || item.thigh === undefined
         ? ''
         : Number(item.thigh);
+      const underBustNum = item.underBust === '' || item.underBust === null || item.underBust === undefined
+        ? ''
+        : Number(item.underBust);
+      const upperArmNum = item.upperArm === '' || item.upperArm === null || item.upperArm === undefined
+        ? ''
+        : Number(item.upperArm);
       const bodyFatPctNum = item.bodyFatPct === '' || item.bodyFatPct === null || item.bodyFatPct === undefined
         ? ''
         : Number(item.bodyFatPct);
@@ -2905,6 +3389,12 @@
       if (thighNum !== '' && (Number.isNaN(thighNum) || thighNum <= 0)) {
         continue;
       }
+      if (underBustNum !== '' && (Number.isNaN(underBustNum) || underBustNum <= 0)) {
+        continue;
+      }
+      if (upperArmNum !== '' && (Number.isNaN(upperArmNum) || upperArmNum <= 0)) {
+        continue;
+      }
       if (bodyFatPctNum !== '' && (Number.isNaN(bodyFatPctNum) || bodyFatPctNum <= 0 || bodyFatPctNum > 75)) {
         continue;
       }
@@ -2917,6 +3407,8 @@
         weight: weightNum,
         waist: waistNum,
         thigh: thighNum,
+        underBust: underBustNum,
+        upperArm: upperArmNum,
         bodyFatPct: bodyFatPctNum,
         muscleMassLbs: muscleMassNum,
         notes: String(item.notes || '').trim(),
@@ -2971,28 +3463,36 @@
   gapThresholdInput.addEventListener('change', () => {
     renderEntries();
   });
-  thighTargetInput.addEventListener('input', () => {
-    saveThighSettings();
-    renderEntries();
-  });
-  thighTargetInput.addEventListener('change', () => {
-    const raw = String(thighTargetInput.value || '').trim();
-    if (!raw) {
+
+  function attachCircumferenceTargetListeners(inputEl, label) {
+    if (!inputEl) return;
+    inputEl.addEventListener('input', () => {
       saveThighSettings();
       renderEntries();
-      return;
-    }
+    });
+    inputEl.addEventListener('change', () => {
+      const raw = String(inputEl.value || '').trim();
+      if (!raw) {
+        saveThighSettings();
+        renderEntries();
+        return;
+      }
 
-    const value = Number(raw);
-    if (!Number.isFinite(value) || value <= 0) {
-      showToast('Target thigh must be a positive number.');
-      return;
-    }
+      const value = Number(raw);
+      if (!Number.isFinite(value) || value <= 0) {
+        showToast(label + ' must be a positive number.');
+        return;
+      }
 
-    thighTargetInput.value = value.toFixed(1);
-    saveThighSettings();
-    renderEntries();
-  });
+      inputEl.value = value.toFixed(1);
+      saveThighSettings();
+      renderEntries();
+    });
+  }
+
+  attachCircumferenceTargetListeners(thighTargetInput, 'Target thigh');
+  attachCircumferenceTargetListeners(underBustTargetInput, 'Target under bust');
+  attachCircumferenceTargetListeners(upperArmTargetInput, 'Target upper arm');
 
   document.getElementById('add-entry').addEventListener('click', addEntry);
   document.getElementById('clear-form').addEventListener('click', clearForm);
