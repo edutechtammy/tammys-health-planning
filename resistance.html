@@ -54,6 +54,14 @@
     .exercise-load-input:focus,.walk-distance-input:focus{outline:2px solid var(--green-mid);outline-offset:1px}
     .exercise-load-unit{font-size:.8rem;color:var(--muted);font-weight:700}
     .exercise-load-help{font-size:.74rem;color:var(--muted)}
+    .exercise-volume-control{margin-top:.55rem;display:grid;gap:.35rem}
+    .exercise-volume-grid{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+    .exercise-volume-input{width:84px;padding:.42rem .55rem;border:1px solid var(--border);border-radius:8px;background:#fff;color:#1f2937;font:inherit;font-size:.86rem;font-weight:600}
+    .exercise-volume-input:focus{outline:2px solid var(--green-mid);outline-offset:1px}
+    .exercise-volume-separator{font-size:.82rem;font-weight:800;color:#476054}
+    .exercise-effort-grid{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+    .exercise-effort-input{width:84px;padding:.42rem .55rem;border:1px solid var(--border);border-radius:8px;background:#fff;color:#1f2937;font:inherit;font-size:.86rem;font-weight:600}
+    .exercise-effort-input:focus{outline:2px solid var(--green-mid);outline-offset:1px}
     .exercise-actions{margin-top:.8rem;display:flex;justify-content:flex-end}
     .add-day-btn{font-size:.82rem;padding:.42rem .68rem}
     .add-day-btn{transition:background .18s ease,color .18s ease,border-color .18s ease,transform .12s ease}
@@ -122,6 +130,8 @@
     .week-day-item-toggle{display:inline-flex;align-items:center;gap:.22rem;padding:.12rem .32rem;border-radius:999px;border:1px solid #d9e8dd;background:#fff;color:#2f5a47;font-size:.66rem;font-weight:800;line-height:1}
     .week-day-item-toggle input{accent-color:#2d6a4f}
     .week-day-item-load{font-size:.72rem;font-weight:800;color:#245d47;background:#e4f6ea;border:1px solid #cde4d2;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
+    .week-day-item-volume{font-size:.72rem;font-weight:800;color:#553c9a;background:#efe8ff;border:1px solid #d8c7ff;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
+    .week-day-item-effort{font-size:.72rem;font-weight:800;color:#8a4f00;background:#fff4dd;border:1px solid #f6d48e;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
     .week-day-item-distance{font-size:.72rem;font-weight:800;color:#0e5b6e;background:#e0f7fa;border:1px solid #b2ebf2;border-radius:999px;padding:.15rem .45rem;white-space:nowrap}
     .walk-vest-row{display:flex;align-items:center;gap:.5rem;margin-top:.45rem}
     .walk-vest-checkbox{width:1.05rem;height:1.05rem;accent-color:var(--green-mid);cursor:pointer;flex-shrink:0}
@@ -1209,6 +1219,7 @@
     const EXERCISE_SLIDE_NOTES_KEY = 'resistance-exercise-illustration-slide-notes';
     const RESISTANCE_TRAINING_NOTES_KEY = 'resistance-training-notes-v1';
     const RESISTANCE_DUMBBELL_LOADS_KEY = 'resistance-dumbbell-loads-v1';
+    const RESISTANCE_VOLUME_PRESETS_KEY = 'resistance-volume-presets-v1';
     const RESISTANCE_LOAD_UNIT_KEY = 'resistance-load-unit-v1';
     const MUSCLE_MAP_LOADS_KEY = 'resistance-muscle-map-loads-v1';
     const EXERCISE_WEEKLY_LOG_KEY = 'resistance-weekly-exercise-log-v1';
@@ -1289,6 +1300,7 @@
     let weeklyExerciseLog = loadWeeklyExerciseLog();
     let muscleLoads = { ...BASE_MUSCLE_LOADS };
     let dumbbellLoads = loadDumbbellLoads();
+    let exerciseVolumePresets = loadExerciseVolumePresets();
     let currentLoadUnit = loadPreferredLoadUnit();
     let walkDistanceUnit = loadWalkDistanceUnit();
     const WEIGHT_TRACKED_EXERCISE_IDS = new Set([
@@ -1406,6 +1418,8 @@
         affectsMuscleMap: entry.affectsMuscleMap !== false,
         sets: Number.isFinite(Number(entry.sets)) ? Number(entry.sets) : null,
         reps: Number.isFinite(Number(entry.reps)) ? Number(entry.reps) : null,
+        rpe: Number.isFinite(Number(entry.rpe)) ? Number(entry.rpe) : null,
+        rir: Number.isFinite(Number(entry.rir)) ? Number(entry.rir) : null,
         load: Number.isFinite(Number(entry.load)) ? Number(entry.load) : null,
         unit: entry.unit === 'kg' ? 'kg' : 'lb',
         distance: Number.isFinite(Number(entry.distance)) ? Number(entry.distance) : null,
@@ -1490,6 +1504,14 @@
         affectsMuscleMap: entry.affectsMuscleMap !== false,
         addedAt
       };
+      const sets = Number(entry.sets);
+      if (Number.isFinite(sets) && sets > 0) normalized.sets = Math.round(sets);
+      const reps = Number(entry.reps);
+      if (Number.isFinite(reps) && reps > 0) normalized.reps = Math.round(reps);
+      const rpe = Number(entry.rpe);
+      if (Number.isFinite(rpe) && rpe >= 1 && rpe <= 10) normalized.rpe = Math.round(rpe * 10) / 10;
+      const rir = Number(entry.rir);
+      if (Number.isFinite(rir) && rir >= 0 && rir <= 10) normalized.rir = Math.round(rir * 10) / 10;
       const load = Number(entry.load);
       if (Number.isFinite(load) && load > 0) normalized.load = load;
       const distance = Number(entry.distance);
@@ -1779,6 +1801,34 @@
       localStorage.setItem(RESISTANCE_DUMBBELL_LOADS_KEY, JSON.stringify(loadsMap));
     }
 
+    function loadExerciseVolumePresets() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(RESISTANCE_VOLUME_PRESETS_KEY));
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+        const safe = {};
+        Object.entries(parsed).forEach(([exerciseId, value]) => {
+          if (!value || typeof value !== 'object' || Array.isArray(value)) return;
+          const sets = Number(value.sets);
+          const reps = Number(value.reps);
+          const rpe = Number(value.rpe);
+          const rir = Number(value.rir);
+          const next = {};
+          if (Number.isFinite(sets) && sets > 0) next.sets = Math.round(sets);
+          if (Number.isFinite(reps) && reps > 0) next.reps = Math.round(reps);
+          if (Number.isFinite(rpe) && rpe >= 1 && rpe <= 10) next.rpe = Math.round(rpe * 10) / 10;
+          if (Number.isFinite(rir) && rir >= 0 && rir <= 10) next.rir = Math.round(rir * 10) / 10;
+          if (Object.keys(next).length) safe[String(exerciseId)] = next;
+        });
+        return safe;
+      } catch {
+        return {};
+      }
+    }
+
+    function saveExerciseVolumePresets() {
+      localStorage.setItem(RESISTANCE_VOLUME_PRESETS_KEY, JSON.stringify(exerciseVolumePresets));
+    }
+
     function loadPreferredLoadUnit() {
       const saved = localStorage.getItem(RESISTANCE_LOAD_UNIT_KEY);
       return saved === 'kg' ? 'kg' : 'lb';
@@ -1954,6 +2004,66 @@
       return toStoredLoad(value);
     }
 
+    function parsePositiveWholeNumber(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n) || n <= 0) return null;
+      return Math.round(n);
+    }
+
+    function parseBoundedNumber(value, min, max) {
+      const n = Number(value);
+      if (!Number.isFinite(n) || n < min || n > max) return null;
+      return Math.round(n * 10) / 10;
+    }
+
+    function getCardSetsValue(exerciseId) {
+      const card = document.querySelector(`.exercise-card[data-exercise-id="${exerciseId}"]`);
+      const input = card?.querySelector('.exercise-sets-input');
+      if (!input) return null;
+      return parsePositiveWholeNumber(input.value);
+    }
+
+    function getCardRepsValue(exerciseId) {
+      const card = document.querySelector(`.exercise-card[data-exercise-id="${exerciseId}"]`);
+      const input = card?.querySelector('.exercise-reps-input');
+      if (!input) return null;
+      return parsePositiveWholeNumber(input.value);
+    }
+
+    function getCardRpeValue(exerciseId) {
+      const card = document.querySelector(`.exercise-card[data-exercise-id="${exerciseId}"]`);
+      const input = card?.querySelector('.exercise-rpe-input');
+      if (!input) return null;
+      return parseBoundedNumber(input.value, 1, 10);
+    }
+
+    function getCardRirValue(exerciseId) {
+      const card = document.querySelector(`.exercise-card[data-exercise-id="${exerciseId}"]`);
+      const input = card?.querySelector('.exercise-rir-input');
+      if (!input) return null;
+      return parseBoundedNumber(input.value, 0, 10);
+    }
+
+    function upsertExerciseVolumePreset(exerciseId, setsRaw, repsRaw, rpeRaw, rirRaw) {
+      const sets = parsePositiveWholeNumber(setsRaw);
+      const reps = parsePositiveWholeNumber(repsRaw);
+      const rpe = parseBoundedNumber(rpeRaw, 1, 10);
+      const rir = parseBoundedNumber(rirRaw, 0, 10);
+      const next = {};
+      if (sets !== null) next.sets = sets;
+      if (reps !== null) next.reps = reps;
+      if (rpe !== null) next.rpe = rpe;
+      if (rir !== null) next.rir = rir;
+
+      if (!Object.keys(next).length) {
+        delete exerciseVolumePresets[exerciseId];
+      } else {
+        exerciseVolumePresets[exerciseId] = next;
+      }
+
+      saveExerciseVolumePresets();
+    }
+
     function renderDumbbellLoadInputs() {
       getWeightedExerciseCards().forEach(card => {
         const exerciseId = card.dataset.exerciseId;
@@ -2027,6 +2137,91 @@
       });
 
       renderDumbbellLoadInputs();
+    }
+
+    function initExerciseVolumeInputs() {
+      document.querySelectorAll('.exercise-card[data-exercise-id]').forEach(card => {
+        const exerciseId = card.dataset.exerciseId;
+        if (!exerciseId) return;
+        const actions = card.querySelector('.exercise-actions');
+        if (!actions || card.querySelector('.exercise-volume-control')) return;
+
+        const control = document.createElement('div');
+        control.className = 'exercise-volume-control';
+
+        const label = document.createElement('label');
+        label.setAttribute('for', `exercise-sets-${exerciseId}`);
+        label.textContent = 'Sets x Reps (optional)';
+
+        const grid = document.createElement('div');
+        grid.className = 'exercise-volume-grid';
+
+        const setsInput = document.createElement('input');
+        setsInput.id = `exercise-sets-${exerciseId}`;
+        setsInput.className = 'exercise-volume-input exercise-sets-input';
+        setsInput.type = 'number';
+        setsInput.min = '1';
+        setsInput.step = '1';
+        setsInput.placeholder = 'sets';
+
+        const sep = document.createElement('span');
+        sep.className = 'exercise-volume-separator';
+        sep.textContent = 'x';
+
+        const repsInput = document.createElement('input');
+        repsInput.id = `exercise-reps-${exerciseId}`;
+        repsInput.className = 'exercise-volume-input exercise-reps-input';
+        repsInput.type = 'number';
+        repsInput.min = '1';
+        repsInput.step = '1';
+        repsInput.placeholder = 'reps';
+
+        const effortGrid = document.createElement('div');
+        effortGrid.className = 'exercise-effort-grid';
+
+        const rpeInput = document.createElement('input');
+        rpeInput.id = `exercise-rpe-${exerciseId}`;
+        rpeInput.className = 'exercise-effort-input exercise-rpe-input';
+        rpeInput.type = 'number';
+        rpeInput.min = '1';
+        rpeInput.max = '10';
+        rpeInput.step = '0.5';
+        rpeInput.placeholder = 'RPE';
+
+        const rirInput = document.createElement('input');
+        rirInput.id = `exercise-rir-${exerciseId}`;
+        rirInput.className = 'exercise-effort-input exercise-rir-input';
+        rirInput.type = 'number';
+        rirInput.min = '0';
+        rirInput.max = '10';
+        rirInput.step = '0.5';
+        rirInput.placeholder = 'RIR';
+
+        const saved = exerciseVolumePresets[exerciseId] || {};
+        if (Number.isFinite(saved.sets) && saved.sets > 0) setsInput.value = String(saved.sets);
+        if (Number.isFinite(saved.reps) && saved.reps > 0) repsInput.value = String(saved.reps);
+        if (Number.isFinite(saved.rpe) && saved.rpe >= 1 && saved.rpe <= 10) rpeInput.value = String(saved.rpe);
+        if (Number.isFinite(saved.rir) && saved.rir >= 0 && saved.rir <= 10) rirInput.value = String(saved.rir);
+
+        const updatePreset = () => {
+          upsertExerciseVolumePreset(exerciseId, setsInput.value, repsInput.value, rpeInput.value, rirInput.value);
+        };
+
+        setsInput.addEventListener('input', updatePreset);
+        repsInput.addEventListener('input', updatePreset);
+        rpeInput.addEventListener('input', updatePreset);
+        rirInput.addEventListener('input', updatePreset);
+
+        grid.appendChild(setsInput);
+        grid.appendChild(sep);
+        grid.appendChild(repsInput);
+        effortGrid.appendChild(rpeInput);
+        effortGrid.appendChild(rirInput);
+        control.appendChild(label);
+        control.appendChild(grid);
+        control.appendChild(effortGrid);
+        actions.parentNode.insertBefore(control, actions);
+      });
     }
 
     function getExerciseMuscleProfile(entry) {
@@ -2124,6 +2319,27 @@
             meta.appendChild(load);
           }
 
+          if (Number.isFinite(entry.sets) && entry.sets > 0 && Number.isFinite(entry.reps) && entry.reps > 0) {
+            const volume = document.createElement('span');
+            volume.className = 'week-day-item-volume';
+            volume.textContent = `${entry.sets}x${entry.reps}`;
+            meta.appendChild(volume);
+          }
+
+          if (Number.isFinite(entry.rpe) && entry.rpe >= 1 && entry.rpe <= 10) {
+            const effort = document.createElement('span');
+            effort.className = 'week-day-item-effort';
+            effort.textContent = `RPE ${entry.rpe.toFixed(1)}`;
+            meta.appendChild(effort);
+          }
+
+          if (Number.isFinite(entry.rir) && entry.rir >= 0 && entry.rir <= 10) {
+            const effort = document.createElement('span');
+            effort.className = 'week-day-item-effort';
+            effort.textContent = `RIR ${entry.rir.toFixed(1)}`;
+            meta.appendChild(effort);
+          }
+
           if (Number.isFinite(entry.distance) && entry.distance > 0) {
             const dist = document.createElement('span');
             dist.className = 'week-day-item-distance';
@@ -2184,6 +2400,10 @@
       const weekKey = getCurrentWeekKey();
       const weekData = ensureWeekLog(weekKey);
       const load = getCardLoadValue(exerciseId);
+      const sets = getCardSetsValue(exerciseId);
+      const reps = getCardRepsValue(exerciseId);
+      const rpe = getCardRpeValue(exerciseId);
+      const rir = getCardRirValue(exerciseId);
       const entry = {
         id: `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
         exerciseId,
@@ -2192,6 +2412,10 @@
         affectsMuscleMap: true,
         addedAt: new Date().toISOString()
       };
+      if (Number.isFinite(sets) && sets > 0) entry.sets = sets;
+      if (Number.isFinite(reps) && reps > 0) entry.reps = reps;
+      if (Number.isFinite(rpe) && rpe >= 1 && rpe <= 10) entry.rpe = rpe;
+      if (Number.isFinite(rir) && rir >= 0 && rir <= 10) entry.rir = rir;
       if (exerciseId === 'gentle_walk') {
         const dist = getCardWalkDistance();
         if (dist !== null) {
@@ -2740,6 +2964,7 @@
 
     initResistanceTrainingNotes();
     initDumbbellLoadInputs();
+    initExerciseVolumeInputs();
     initWalkDistanceControl();
     rebuildMuscleMapFromLog();
     renderWeeklyExerciseLog();

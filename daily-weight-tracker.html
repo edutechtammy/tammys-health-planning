@@ -399,6 +399,51 @@
       min-width: 240px;
     }
 
+    .training-context-cell {
+      white-space: normal;
+      min-width: 260px;
+      line-height: 1.35;
+    }
+
+    .training-context-main {
+      font-size: .8rem;
+      font-weight: 600;
+      color: #244d3a;
+    }
+
+    .training-context-sub {
+      margin-top: .2rem;
+      font-size: .73rem;
+      color: var(--muted);
+    }
+
+    .recomp-badge {
+      display: inline-block;
+      margin-top: .45rem;
+      padding: .3rem .65rem;
+      border-radius: 999px;
+      border: 1px solid #d6e8dc;
+      background: #f4fbf6;
+      color: #24573f;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .recomp-chart-wrap {
+      position: relative;
+      height: 240px;
+      margin-top: .5rem;
+    }
+
+    .recomp-checks {
+      margin-top: .65rem;
+      padding-left: 1rem;
+      display: grid;
+      gap: .25rem;
+      font-size: .82rem;
+      color: #334e41;
+    }
+
     .actions-cell {
       white-space: nowrap;
       width: 1%;
@@ -564,6 +609,14 @@
         <label for="w-thigh">Thigh (in, optional)</label>
         <input type="number" id="w-thigh" step="0.1" min="0" placeholder="e.g. 24.8" />
       </div>
+      <div class="field">
+        <label for="w-body-fat-pct">Body Fat % (optional)</label>
+        <input type="number" id="w-body-fat-pct" step="0.1" min="0" max="75" placeholder="e.g. 34.2" />
+      </div>
+      <div class="field">
+        <label for="w-muscle-mass">Muscle Mass (lbs, optional)</label>
+        <input type="number" id="w-muscle-mass" step="0.1" min="0" placeholder="e.g. 82.4" />
+      </div>
       <div class="field full">
         <label for="w-notes">Notes (optional)</label>
         <textarea id="w-notes" placeholder="Sleep quality, cycle day, sodium-heavy meal, travel, stress, etc."></textarea>
@@ -582,6 +635,22 @@
   </section>
 
   <section class="card">
+    <h2>Training Context (Auto)</h2>
+    <p class="helper" id="training-context-summary">Reads cardio and resistance logs from this browser to provide same-day and 3-day context beside each weight entry.</p>
+  </section>
+
+  <section class="card">
+    <h2>Weekly Recomposition Score</h2>
+    <p class="helper" id="recomp-summary">Uses the latest 7-day vs prior 7-day trend from body fat, muscle, and training context.</p>
+    <div class="recomp-chart-wrap">
+      <canvas id="recomp-trend-chart"></canvas>
+    </div>
+    <div class="empty-msg" id="recomp-chart-empty" style="display: none; padding-top: .5rem;">Need at least 2 weekly snapshots to show the recomposition trend chart.</div>
+    <div class="recomp-badge" id="recomp-badge">Insufficient data</div>
+    <ul class="recomp-checks" id="recomp-checks"></ul>
+  </section>
+
+  <section class="card">
     <h2>Saved Entries</h2>
     <div class="table-wrap">
       <table>
@@ -591,6 +660,9 @@
             <th>Weight (lbs)</th>
             <th>Waist (in)</th>
             <th>Thigh (in)</th>
+            <th>Body Fat %</th>
+            <th>Muscle (lbs)</th>
+            <th>Training Context</th>
             <th>Notes</th>
             <th>Actions</th>
           </tr>
@@ -607,6 +679,18 @@
 <script>
   const STORAGE_KEY = 'dailyWeightEntries_v1';
   const THIGH_SETTINGS_KEY = 'dailyWeightThighSettings_v1';
+  const CARDIO_STORAGE_KEY = 'tammys_cardio_hr_tracker_v1';
+  const RESISTANCE_WEEKLY_LOG_KEY = 'resistance-weekly-exercise-log-v1';
+  const RESISTANCE_DAY_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const RESISTANCE_DAY_OFFSETS = {
+    mon: 0,
+    tue: 1,
+    wed: 2,
+    thu: 3,
+    fri: 4,
+    sat: 5,
+    sun: 6
+  };
   const TARGET_WEIGHT = 160;
   const START_WEIGHT_CAP = 230;
   const START_WAIST = 47;
@@ -721,20 +805,30 @@
   let weightChart = null;
   let waistChart = null;
   let thighChart = null;
+  let recompTrendChart = null;
   let bmiSelectedIndex = 0;
   let bmiSelectionMode = 'latest';
+  let trainingContextByDate = new Map();
 
   const gapThresholdInput = document.getElementById('gap-threshold-days');
   const dateInput = document.getElementById('w-date');
   const weightInput = document.getElementById('w-weight');
   const waistInput = document.getElementById('w-waist');
   const thighInput = document.getElementById('w-thigh');
+  const bodyFatPctInput = document.getElementById('w-body-fat-pct');
+  const muscleMassInput = document.getElementById('w-muscle-mass');
   const thighTargetInput = document.getElementById('thigh-target-input');
   const thighTargetMeta = document.getElementById('thigh-target-meta');
   const notesInput = document.getElementById('w-notes');
   const entriesBody = document.getElementById('entries-body');
   const emptyMsg = document.getElementById('empty-msg');
   const toast = document.getElementById('toast');
+  const trainingContextSummary = document.getElementById('training-context-summary');
+  const recompSummary = document.getElementById('recomp-summary');
+  const recompBadge = document.getElementById('recomp-badge');
+  const recompChecks = document.getElementById('recomp-checks');
+  const recompTrendChartCanvas = document.getElementById('recomp-trend-chart');
+  const recompChartEmpty = document.getElementById('recomp-chart-empty');
   const importFileInput = document.getElementById('import-file-input');
   const weightChartCanvas = document.getElementById('weight-chart');
   const weightBmiContextEl = document.getElementById('weight-bmi-context');
@@ -1035,6 +1129,88 @@
     }
   };
 
+  const recompScoreBandsPlugin = {
+    id: 'recompScoreBands',
+    beforeDatasetsDraw(chart, _args, pluginOptions) {
+      if (!pluginOptions || !Array.isArray(pluginOptions.bands) || !pluginOptions.bands.length) {
+        return;
+      }
+
+      const { ctx, chartArea, scales } = chart;
+      const axisId = pluginOptions.axisId || 'y1';
+      const yScale = scales[axisId];
+      if (!ctx || !chartArea || !yScale) {
+        return;
+      }
+
+      ctx.save();
+      for (const band of pluginOptions.bands) {
+        if (!band || !Number.isFinite(band.low) || !Number.isFinite(band.high)) {
+          continue;
+        }
+
+        const high = Math.max(band.high, band.low);
+        const low = Math.min(band.high, band.low);
+        const topPx = yScale.getPixelForValue(high);
+        const bottomPx = yScale.getPixelForValue(low);
+        const rectY = Math.min(topPx, bottomPx);
+        const rectH = Math.abs(bottomPx - topPx);
+        if (!Number.isFinite(rectY) || !Number.isFinite(rectH) || rectH <= 0) {
+          continue;
+        }
+
+        ctx.fillStyle = band.color || 'rgba(0,0,0,.05)';
+        ctx.fillRect(chartArea.left, rectY, chartArea.right - chartArea.left, rectH);
+      }
+      ctx.restore();
+    },
+    afterDatasetsDraw(chart, _args, pluginOptions) {
+      if (!pluginOptions || !Array.isArray(pluginOptions.bands) || !pluginOptions.bands.length) {
+        return;
+      }
+
+      const { ctx, chartArea, scales } = chart;
+      const axisId = pluginOptions.axisId || 'y1';
+      const yScale = scales[axisId];
+      if (!ctx || !chartArea || !yScale) {
+        return;
+      }
+
+      ctx.save();
+      ctx.font = '700 10px Segoe UI, system-ui, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+
+      for (const band of pluginOptions.bands) {
+        const label = String(band?.label || '').trim();
+        if (!label || !Number.isFinite(band.low) || !Number.isFinite(band.high)) {
+          continue;
+        }
+
+        const centerValue = (Number(band.low) + Number(band.high)) / 2;
+        let y = yScale.getPixelForValue(centerValue);
+        if (!Number.isFinite(y)) {
+          continue;
+        }
+
+        y = Math.max(chartArea.top + 8, Math.min(chartArea.bottom - 8, y));
+        const x = chartArea.right - 6;
+        const textWidth = ctx.measureText(label).width;
+        const rectW = textWidth + 10;
+        const rectH = 14;
+        const rectX = x - rectW;
+        const rectY = y - (rectH / 2);
+
+        ctx.fillStyle = 'rgba(255,255,255,.68)';
+        ctx.fillRect(rectX, rectY, rectW, rectH);
+        ctx.fillStyle = 'rgba(31,45,36,.78)';
+        ctx.fillText(label, x - 5, y);
+      }
+
+      ctx.restore();
+    }
+  };
+
   const officialStartDateLinePlugin = {
     id: 'officialStartDateLine',
     afterDatasetsDraw(chart) {
@@ -1104,6 +1280,8 @@
     weightInput.value = formatMaybeNumber(record.weight, 1);
     waistInput.value = record.waist === '' ? '' : formatMaybeNumber(record.waist, 1);
     thighInput.value = record.thigh === '' ? '' : formatMaybeNumber(record.thigh, 1);
+    bodyFatPctInput.value = record.bodyFatPct === '' ? '' : formatMaybeNumber(record.bodyFatPct, 1);
+    muscleMassInput.value = record.muscleMassLbs === '' ? '' : formatMaybeNumber(record.muscleMassLbs, 1);
     notesInput.value = record.notes || '';
     addEntryBtn.textContent = 'Update Entry';
     editState.textContent = 'Editing entry: ' + record.date;
@@ -1205,6 +1383,597 @@
     return candidate;
   }
 
+  function readJsonFromStorage(storageKey, fallbackValue) {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) {
+      return fallbackValue;
+    }
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return fallbackValue;
+    }
+  }
+
+  function toIsoDateFromUtc(date) {
+    return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())).toISOString().slice(0, 10);
+  }
+
+  function addDaysToIsoDate(isoDate, daysToAdd) {
+    const normalized = normalizeDateOnly(isoDate);
+    if (!normalized) {
+      return '';
+    }
+    const [year, month, day] = normalized.split('-').map(Number);
+    const utcDate = new Date(Date.UTC(year, month - 1, day));
+    utcDate.setUTCDate(utcDate.getUTCDate() + Number(daysToAdd || 0));
+    return toIsoDateFromUtc(utcDate);
+  }
+
+  function getIsoWeekMonday(weekKey) {
+    const match = String(weekKey || '').match(/^(\d{4})-W(\d{2})$/);
+    if (!match) {
+      return '';
+    }
+
+    const year = Number(match[1]);
+    const week = Number(match[2]);
+    if (!Number.isFinite(year) || !Number.isFinite(week) || week < 1 || week > 53) {
+      return '';
+    }
+
+    const jan4 = new Date(Date.UTC(year, 0, 4));
+    const jan4Day = jan4.getUTCDay() || 7;
+    const firstMonday = new Date(jan4);
+    firstMonday.setUTCDate(jan4.getUTCDate() - jan4Day + 1);
+    firstMonday.setUTCDate(firstMonday.getUTCDate() + ((week - 1) * 7));
+    return toIsoDateFromUtc(firstMonday);
+  }
+
+  function parsePositiveNumber(value) {
+    const n = Number(value);
+    if (!Number.isFinite(n) || n <= 0) {
+      return null;
+    }
+    return n;
+  }
+
+  function medianNumber(values) {
+    const nums = values.filter(value => Number.isFinite(value)).slice().sort((a, b) => a - b);
+    if (!nums.length) {
+      return null;
+    }
+    const mid = Math.floor(nums.length / 2);
+    if (nums.length % 2) {
+      return nums[mid];
+    }
+    return (nums[mid - 1] + nums[mid]) / 2;
+  }
+
+  function getCardioWorkingMedian(intervals) {
+    const rows = Array.isArray(intervals) ? intervals : [];
+    const workingBpms = rows
+      .map(row => {
+        if (!row || typeof row !== 'object') return null;
+        const minute = Number(row.minute);
+        const bpm = Number(row.bpm);
+        if (!Number.isFinite(minute) || !Number.isFinite(bpm)) return null;
+        if (minute < 10 || minute > 20) return null;
+        return bpm;
+      })
+      .filter(value => Number.isFinite(value));
+    return medianNumber(workingBpms);
+  }
+
+  function createTrainingAggregate() {
+    return {
+      cardioSessions: 0,
+      cardioMinutes: 0,
+      cardioWorkingMedians: [],
+      resistanceEntries: 0,
+      resistanceLoadedEntries: 0,
+      resistanceSets: 0,
+      resistanceKnownSetRepsEntries: 0,
+      resistanceEstimatedVolume: 0
+    };
+  }
+
+  function getOrCreateTrainingAggregate(map, date) {
+    if (!map.has(date)) {
+      map.set(date, createTrainingAggregate());
+    }
+    return map.get(date);
+  }
+
+  function buildTrainingContextByDate() {
+    const byDate = new Map();
+
+    const cardioSessionsRaw = readJsonFromStorage(CARDIO_STORAGE_KEY, []);
+    if (Array.isArray(cardioSessionsRaw)) {
+      cardioSessionsRaw.forEach(session => {
+        if (!session || typeof session !== 'object') return;
+        const date = normalizeDateOnly(session.date);
+        if (!date) return;
+        const aggregate = getOrCreateTrainingAggregate(byDate, date);
+        aggregate.cardioSessions += 1;
+
+        const duration = parsePositiveNumber(session.durationMin);
+        if (duration !== null) {
+          aggregate.cardioMinutes += duration;
+        }
+
+        const workingMedian = getCardioWorkingMedian(session.intervals);
+        if (Number.isFinite(workingMedian)) {
+          aggregate.cardioWorkingMedians.push(workingMedian);
+        }
+      });
+    }
+
+    const resistanceWeeklyLog = readJsonFromStorage(RESISTANCE_WEEKLY_LOG_KEY, {});
+    if (resistanceWeeklyLog && typeof resistanceWeeklyLog === 'object' && !Array.isArray(resistanceWeeklyLog)) {
+      Object.entries(resistanceWeeklyLog).forEach(([weekKey, weekData]) => {
+        if (!weekData || typeof weekData !== 'object' || Array.isArray(weekData)) return;
+        const mondayDate = getIsoWeekMonday(weekKey);
+        if (!mondayDate) return;
+
+        RESISTANCE_DAY_ORDER.forEach(dayKey => {
+          const entriesForDay = Array.isArray(weekData[dayKey]) ? weekData[dayKey] : [];
+          if (!entriesForDay.length) return;
+          const dayOffset = RESISTANCE_DAY_OFFSETS[dayKey];
+          const date = addDaysToIsoDate(mondayDate, dayOffset);
+          if (!date) return;
+          const aggregate = getOrCreateTrainingAggregate(byDate, date);
+
+          entriesForDay.forEach(entry => {
+            if (!entry || typeof entry !== 'object') return;
+            aggregate.resistanceEntries += 1;
+
+            const sets = parsePositiveNumber(entry.sets);
+            const reps = parsePositiveNumber(entry.reps);
+            const load = parsePositiveNumber(entry.load);
+
+            if (sets !== null) {
+              aggregate.resistanceSets += sets;
+            }
+            if (load !== null) {
+              aggregate.resistanceLoadedEntries += 1;
+            }
+            if (sets !== null && reps !== null) {
+              aggregate.resistanceKnownSetRepsEntries += 1;
+              if (load !== null) {
+                aggregate.resistanceEstimatedVolume += (sets * reps * load);
+              }
+            }
+          });
+        });
+      });
+    }
+
+    return byDate;
+  }
+
+  function sumTrainingWindow(endDate, days) {
+    const safeDays = Math.max(1, Math.round(Number(days) || 1));
+    const totals = createTrainingAggregate();
+
+    for (let offset = safeDays - 1; offset >= 0; offset -= 1) {
+      const date = addDaysToIsoDate(endDate, -offset);
+      const day = trainingContextByDate.get(date);
+      if (!day) continue;
+      totals.cardioSessions += day.cardioSessions;
+      totals.cardioMinutes += day.cardioMinutes;
+      totals.cardioWorkingMedians.push(...day.cardioWorkingMedians);
+      totals.resistanceEntries += day.resistanceEntries;
+      totals.resistanceLoadedEntries += day.resistanceLoadedEntries;
+      totals.resistanceSets += day.resistanceSets;
+      totals.resistanceKnownSetRepsEntries += day.resistanceKnownSetRepsEntries;
+      totals.resistanceEstimatedVolume += day.resistanceEstimatedVolume;
+    }
+
+    return totals;
+  }
+
+  function formatTrainingContextHtml(entryDate) {
+    const normalizedDate = normalizeDateOnly(entryDate);
+    if (!normalizedDate) {
+      return '<div class="training-context-main">No context</div>';
+    }
+
+    const sameDay = trainingContextByDate.get(normalizedDate) || createTrainingAggregate();
+    const rolling = sumTrainingWindow(normalizedDate, 3);
+
+    const sameDayParts = [];
+    if (sameDay.cardioSessions > 0) {
+      sameDayParts.push(`Cardio ${sameDay.cardioSessions} sess (${Math.round(sameDay.cardioMinutes)} min)`);
+    }
+    if (sameDay.resistanceEntries > 0) {
+      const resistanceText = sameDay.resistanceSets > 0
+        ? `Resistance ${sameDay.resistanceEntries} ex (${sameDay.resistanceSets} sets)`
+        : `Resistance ${sameDay.resistanceEntries} ex`;
+      sameDayParts.push(resistanceText);
+    }
+
+    const mainText = sameDayParts.length ? sameDayParts.join(' · ') : 'No cardio/resistance logged';
+
+    const rollingParts = [];
+    if (rolling.cardioSessions > 0) {
+      rollingParts.push(`${rolling.cardioSessions} cardio sess`);
+    }
+    if (rolling.resistanceEntries > 0) {
+      rollingParts.push(`${rolling.resistanceEntries} resistance ex`);
+    }
+    if (rolling.resistanceSets > 0) {
+      rollingParts.push(`${rolling.resistanceSets} sets`);
+    }
+
+    const rollingText = rollingParts.length
+      ? `3-day: ${rollingParts.join(' · ')}`
+      : '3-day: no cardio/resistance data';
+
+    return `<div class="training-context-main">${escapeHtml(mainText)}</div><div class="training-context-sub">${escapeHtml(rollingText)}</div>`;
+  }
+
+  function updateTrainingContextSummary() {
+    if (!trainingContextSummary) {
+      return;
+    }
+
+    const dates = Array.from(trainingContextByDate.keys()).sort((a, b) => a.localeCompare(b));
+    if (!dates.length) {
+      trainingContextSummary.textContent = 'No cardio or resistance entries were found in local storage yet. Add logs on those pages and this context will appear automatically.';
+      return;
+    }
+
+    const total = createTrainingAggregate();
+    trainingContextByDate.forEach(day => {
+      total.cardioSessions += day.cardioSessions;
+      total.cardioMinutes += day.cardioMinutes;
+      total.resistanceEntries += day.resistanceEntries;
+      total.resistanceSets += day.resistanceSets;
+      total.resistanceEstimatedVolume += day.resistanceEstimatedVolume;
+    });
+
+    const firstDate = dates[0];
+    const lastDate = dates[dates.length - 1];
+    const parts = [
+      `${total.cardioSessions} cardio sessions (${Math.round(total.cardioMinutes)} min)`,
+      `${total.resistanceEntries} resistance entries`
+    ];
+    if (total.resistanceSets > 0) {
+      parts.push(`${total.resistanceSets} logged sets`);
+    }
+    if (total.resistanceEstimatedVolume > 0) {
+      parts.push(`~${Math.round(total.resistanceEstimatedVolume)} lb estimated volume`);
+    }
+
+    trainingContextSummary.textContent = `Data window ${firstDate} to ${lastDate}: ${parts.join(' · ')}.`;
+  }
+
+  function refreshTrainingContext() {
+    trainingContextByDate = buildTrainingContextByDate();
+    updateTrainingContextSummary();
+  }
+
+  function averageOfField(rows, picker) {
+    const values = rows.map(picker).filter(value => Number.isFinite(value));
+    if (!values.length) return null;
+    return values.reduce((sum, value) => sum + value, 0) / values.length;
+  }
+
+  function buildDateWindowRows(baseDate, startOffsetDays, endOffsetDays) {
+    const list = [];
+    for (let offset = startOffsetDays; offset <= endOffsetDays; offset += 1) {
+      const date = addDaysToIsoDate(baseDate, offset);
+      if (!date) continue;
+      const found = entries.find(item => item.date === date);
+      if (found) list.push(found);
+    }
+    return list;
+  }
+
+  function appendRecompCheck(target, passed, label, detail) {
+    const li = document.createElement('li');
+    const icon = passed === null ? '○' : (passed ? '✓' : '✗');
+    li.textContent = `${icon} ${label}: ${detail}`;
+    target.appendChild(li);
+  }
+
+  function computeWeeklyRecompSnapshot(endDate) {
+    const currentRows = buildDateWindowRows(endDate, -6, 0);
+    const previousRows = buildDateWindowRows(endDate, -13, -7);
+
+    const currentFatMass = averageOfField(currentRows, row => {
+      const bf = Number(row.bodyFatPct);
+      const wt = Number(row.weight);
+      if (!Number.isFinite(bf) || !Number.isFinite(wt) || bf <= 0 || wt <= 0) return Number.NaN;
+      return wt * (bf / 100);
+    });
+    const previousFatMass = averageOfField(previousRows, row => {
+      const bf = Number(row.bodyFatPct);
+      const wt = Number(row.weight);
+      if (!Number.isFinite(bf) || !Number.isFinite(wt) || bf <= 0 || wt <= 0) return Number.NaN;
+      return wt * (bf / 100);
+    });
+
+    const currentMuscle = averageOfField(currentRows, row => Number(row.muscleMassLbs));
+    const previousMuscle = averageOfField(previousRows, row => Number(row.muscleMassLbs));
+
+    const currentWaist = averageOfField(currentRows, row => Number(row.waist));
+    const previousWaist = averageOfField(previousRows, row => Number(row.waist));
+
+    const trainCurrent = sumTrainingWindow(endDate, 7);
+
+    let checksAvailable = 0;
+    let checksPassed = 0;
+
+    const fatCheck = Number.isFinite(currentFatMass) && Number.isFinite(previousFatMass)
+      ? currentFatMass <= (previousFatMass - 0.1)
+      : null;
+    if (fatCheck !== null) {
+      checksAvailable += 1;
+      if (fatCheck) checksPassed += 1;
+    }
+
+    const muscleCheck = Number.isFinite(currentMuscle) && Number.isFinite(previousMuscle)
+      ? currentMuscle >= (previousMuscle - 0.1)
+      : null;
+    if (muscleCheck !== null) {
+      checksAvailable += 1;
+      if (muscleCheck) checksPassed += 1;
+    }
+
+    const waistCheck = Number.isFinite(currentWaist) && Number.isFinite(previousWaist)
+      ? currentWaist <= (previousWaist - 0.1)
+      : null;
+    if (waistCheck !== null) {
+      checksAvailable += 1;
+      if (waistCheck) checksPassed += 1;
+    }
+
+    const resistanceCheck = trainCurrent.resistanceEntries >= 3 && trainCurrent.resistanceSets >= 8;
+    checksAvailable += 1;
+    if (resistanceCheck) checksPassed += 1;
+
+    const cardioCheck = trainCurrent.cardioSessions >= 2 || trainCurrent.cardioMinutes >= 40;
+    checksAvailable += 1;
+    if (cardioCheck) checksPassed += 1;
+
+    return {
+      endDate,
+      currentFatMass,
+      previousFatMass,
+      currentMuscle,
+      previousMuscle,
+      currentWaist,
+      previousWaist,
+      trainCurrent,
+      checksAvailable,
+      checksPassed,
+      fatCheck,
+      muscleCheck,
+      waistCheck,
+      resistanceCheck,
+      cardioCheck
+    };
+  }
+
+  function renderRecompTrendChart(latestDate) {
+    if (!recompTrendChartCanvas) {
+      return;
+    }
+
+    if (recompTrendChart) {
+      recompTrendChart.destroy();
+      recompTrendChart = null;
+    }
+
+    const snapshots = [];
+    for (let weekOffset = 7; weekOffset >= 0; weekOffset -= 1) {
+      const endDate = addDaysToIsoDate(latestDate, -(weekOffset * 7));
+      if (!endDate) continue;
+      snapshots.push(computeWeeklyRecompSnapshot(endDate));
+    }
+
+    const chartRows = snapshots.filter(row => {
+      const hasBodyComp = Number.isFinite(row.currentFatMass) || Number.isFinite(row.currentMuscle);
+      const hasScore = row.checksAvailable > 0;
+      return hasBodyComp || hasScore;
+    });
+
+    if (chartRows.length < 2) {
+      if (recompChartEmpty) recompChartEmpty.style.display = 'block';
+      return;
+    }
+
+    if (recompChartEmpty) recompChartEmpty.style.display = 'none';
+
+    const labels = chartRows.map(row => stampToDateLabel(dateToStamp(row.endDate)));
+    const fatMassData = chartRows.map(row => Number.isFinite(row.currentFatMass) ? Number(row.currentFatMass.toFixed(1)) : null);
+    const muscleData = chartRows.map(row => Number.isFinite(row.currentMuscle) ? Number(row.currentMuscle.toFixed(1)) : null);
+    const scoreData = chartRows.map(row => row.checksAvailable > 0 ? Number(((row.checksPassed / row.checksAvailable) * 100).toFixed(1)) : null);
+
+    recompTrendChart = new Chart(recompTrendChartCanvas, {
+      type: 'line',
+      plugins: [recompScoreBandsPlugin],
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Fat Mass (lbs)',
+            data: fatMassData,
+            borderColor: '#c0392b',
+            backgroundColor: 'rgba(192,57,43,.12)',
+            borderWidth: 2,
+            tension: 0.2,
+            spanGaps: true,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Muscle Mass (lbs)',
+            data: muscleData,
+            borderColor: '#1f6a4d',
+            backgroundColor: 'rgba(31,106,77,.12)',
+            borderWidth: 2,
+            tension: 0.2,
+            spanGaps: true,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Recomp Score %',
+            data: scoreData,
+            borderColor: '#3d5a80',
+            backgroundColor: 'rgba(61,90,128,.1)',
+            borderWidth: 2,
+            borderDash: [5, 4],
+            tension: 0.15,
+            spanGaps: true,
+            yAxisID: 'y1'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: {
+          recompScoreBands: {
+            axisId: 'y1',
+            bands: [
+              { low: 0, high: 60, color: 'rgba(231, 76, 60, .10)', label: 'Adjustment' },
+              { low: 60, high: 80, color: 'rgba(243, 156, 18, .10)', label: 'Mixed' },
+              { low: 80, high: 100, color: 'rgba(39, 174, 96, .10)', label: 'Strong' }
+            ]
+          },
+          legend: {
+            position: 'top',
+            labels: { boxWidth: 16 }
+          },
+          tooltip: {
+            callbacks: {
+              label(context) {
+                const value = context.parsed.y;
+                if (!Number.isFinite(value)) return `${context.dataset.label}: n/a`;
+                if (context.dataset.yAxisID === 'y1') return `${context.dataset.label}: ${value.toFixed(1)}%`;
+                return `${context.dataset.label}: ${value.toFixed(1)} lbs`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            position: 'left',
+            title: {
+              display: true,
+              text: 'Mass (lbs)'
+            },
+            grid: { color: 'rgba(183,221,196,.45)' }
+          },
+          y1: {
+            position: 'right',
+            min: 0,
+            max: 100,
+            title: {
+              display: true,
+              text: 'Score %'
+            },
+            grid: { drawOnChartArea: false }
+          }
+        }
+      }
+    });
+  }
+
+  function renderWeeklyRecompositionScore() {
+    if (!recompSummary || !recompBadge || !recompChecks) {
+      return;
+    }
+
+    recompChecks.innerHTML = '';
+    if (!entries.length) {
+      if (recompTrendChart) {
+        recompTrendChart.destroy();
+        recompTrendChart = null;
+      }
+      if (recompChartEmpty) recompChartEmpty.style.display = 'block';
+      recompBadge.textContent = 'Insufficient data';
+      recompSummary.textContent = 'Add entries to compute weekly recomposition score.';
+      return;
+    }
+
+    const latestDate = [...entries].sort((a, b) => b.date.localeCompare(a.date))[0]?.date || '';
+    if (!latestDate) {
+      if (recompTrendChart) {
+        recompTrendChart.destroy();
+        recompTrendChart = null;
+      }
+      if (recompChartEmpty) recompChartEmpty.style.display = 'block';
+      recompBadge.textContent = 'Insufficient data';
+      recompSummary.textContent = 'Add entries to compute weekly recomposition score.';
+      return;
+    }
+
+    const snapshot = computeWeeklyRecompSnapshot(latestDate);
+    renderRecompTrendChart(latestDate);
+
+    appendRecompCheck(
+      recompChecks,
+      snapshot.fatCheck,
+      'Fat trend',
+      snapshot.fatCheck === null
+        ? 'Need body fat % in both 7-day windows'
+        : `Fat mass ${snapshot.previousFatMass.toFixed(1)} -> ${snapshot.currentFatMass.toFixed(1)} lbs`
+    );
+
+    appendRecompCheck(
+      recompChecks,
+      snapshot.muscleCheck,
+      'Muscle trend',
+      snapshot.muscleCheck === null
+        ? 'Need muscle mass in both 7-day windows'
+        : `Muscle ${snapshot.previousMuscle.toFixed(1)} -> ${snapshot.currentMuscle.toFixed(1)} lbs`
+    );
+
+    appendRecompCheck(
+      recompChecks,
+      snapshot.waistCheck,
+      'Waist trend',
+      snapshot.waistCheck === null
+        ? 'Need waist values in both 7-day windows'
+        : `Waist ${snapshot.previousWaist.toFixed(1)} -> ${snapshot.currentWaist.toFixed(1)} in`
+    );
+
+    appendRecompCheck(
+      recompChecks,
+      snapshot.resistanceCheck,
+      'Resistance consistency',
+      `${snapshot.trainCurrent.resistanceEntries} entries, ${snapshot.trainCurrent.resistanceSets} sets in latest 7 days`
+    );
+
+    appendRecompCheck(
+      recompChecks,
+      snapshot.cardioCheck,
+      'Cardio/recovery support',
+      `${snapshot.trainCurrent.cardioSessions} sessions, ${Math.round(snapshot.trainCurrent.cardioMinutes)} min in latest 7 days`
+    );
+
+    const scoreText = `${snapshot.checksPassed}/${snapshot.checksAvailable}`;
+    recompBadge.textContent = `Weekly score: ${scoreText}`;
+    if (snapshot.checksAvailable < 3) {
+      recompSummary.textContent = 'Score is partial until more body-composition fields are logged in both 7-day windows.';
+      return;
+    }
+
+    if (snapshot.checksPassed >= 4) {
+      recompSummary.textContent = 'Strong recomposition week. Keep current nutrition and training strategy.';
+      return;
+    }
+    if (snapshot.checksPassed >= 3) {
+      recompSummary.textContent = 'Mixed but positive week. Stay consistent and recheck in 7 days.';
+      return;
+    }
+    recompSummary.textContent = 'Adjustment week. Review calories, protein, and progression while protecting recovery.';
+  }
+
   function sanitizeEntries(rawEntries) {
     if (!Array.isArray(rawEntries)) {
       return [];
@@ -1234,10 +2003,24 @@
       const thighNum = thighRaw === '' || thighRaw === null || thighRaw === undefined
         ? ''
         : Number(thighRaw);
+      const bodyFatRaw = item.bodyFatPct;
+      const bodyFatPctNum = bodyFatRaw === '' || bodyFatRaw === null || bodyFatRaw === undefined
+        ? ''
+        : Number(bodyFatRaw);
+      const muscleMassRaw = item.muscleMassLbs;
+      const muscleMassNum = muscleMassRaw === '' || muscleMassRaw === null || muscleMassRaw === undefined
+        ? ''
+        : Number(muscleMassRaw);
       if (waistNum !== '' && (!Number.isFinite(waistNum) || waistNum <= 0)) {
         continue;
       }
       if (thighNum !== '' && (!Number.isFinite(thighNum) || thighNum <= 0)) {
+        continue;
+      }
+      if (bodyFatPctNum !== '' && (!Number.isFinite(bodyFatPctNum) || bodyFatPctNum <= 0 || bodyFatPctNum > 75)) {
+        continue;
+      }
+      if (muscleMassNum !== '' && (!Number.isFinite(muscleMassNum) || muscleMassNum <= 0)) {
         continue;
       }
 
@@ -1246,6 +2029,8 @@
         weight: weightNum,
         waist: waistNum,
         thigh: thighNum,
+        bodyFatPct: bodyFatPctNum,
+        muscleMassLbs: muscleMassNum,
         notes: String(item.notes || '').trim(),
         updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
       });
@@ -1870,6 +2655,8 @@
   }
 
   function renderEntries() {
+    refreshTrainingContext();
+    renderWeeklyRecompositionScore();
     renderWeightChart();
     renderWaistChart();
     renderThighChart();
@@ -1894,6 +2681,9 @@
         '<td>' + escapeHtml(formatMaybeNumber(item.weight, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.waist, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.thigh, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.bodyFatPct, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.muscleMassLbs, 1)) + '</td>',
+        '<td class="training-context-cell">' + formatTrainingContextHtml(item.date) + '</td>',
         '<td class="notes-cell">' + escapeHtml(item.notes || '') + '</td>',
         '<td class="actions-cell"><button type="button" class="entry-action-btn" data-edit-date="' + escapeHtml(item.date || '') + '">Edit</button><button type="button" class="entry-action-btn entry-delete-btn" data-delete-date="' + escapeHtml(item.date || '') + '">Delete</button></td>'
       ].join('');
@@ -1930,6 +2720,8 @@
     weightInput.value = '';
     waistInput.value = '';
     thighInput.value = '';
+    bodyFatPctInput.value = '';
+    muscleMassInput.value = '';
     notesInput.value = '';
     weightInput.focus();
   }
@@ -1939,6 +2731,8 @@
     const weight = weightInput.value.trim();
     const waist = waistInput.value.trim();
     const thigh = thighInput.value.trim();
+    const bodyFatPct = bodyFatPctInput.value.trim();
+    const muscleMass = muscleMassInput.value.trim();
     const notes = notesInput.value.trim();
 
     if (!date) {
@@ -1977,12 +2771,34 @@
       thighNum = n;
     }
 
+    let bodyFatPctNum = '';
+    if (bodyFatPct) {
+      const n = Number(bodyFatPct);
+      if (Number.isNaN(n) || n <= 0 || n > 75) {
+        showToast('Body fat % must be between 0 and 75.');
+        return;
+      }
+      bodyFatPctNum = n;
+    }
+
+    let muscleMassNum = '';
+    if (muscleMass) {
+      const n = Number(muscleMass);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Muscle mass must be a positive number.');
+        return;
+      }
+      muscleMassNum = n;
+    }
+
     const existingIndex = entries.findIndex(e => e.date === date);
     const record = {
       date,
       weight: weightNum,
       waist: waistNum,
       thigh: thighNum,
+      bodyFatPct: bodyFatPctNum,
+      muscleMassLbs: muscleMassNum,
       notes,
       updatedAt: new Date().toISOString()
     };
@@ -2070,6 +2886,12 @@
       const thighNum = item.thigh === '' || item.thigh === null || item.thigh === undefined
         ? ''
         : Number(item.thigh);
+      const bodyFatPctNum = item.bodyFatPct === '' || item.bodyFatPct === null || item.bodyFatPct === undefined
+        ? ''
+        : Number(item.bodyFatPct);
+      const muscleMassNum = item.muscleMassLbs === '' || item.muscleMassLbs === null || item.muscleMassLbs === undefined
+        ? ''
+        : Number(item.muscleMassLbs);
 
       if (!date) {
         continue;
@@ -2083,12 +2905,20 @@
       if (thighNum !== '' && (Number.isNaN(thighNum) || thighNum <= 0)) {
         continue;
       }
+      if (bodyFatPctNum !== '' && (Number.isNaN(bodyFatPctNum) || bodyFatPctNum <= 0 || bodyFatPctNum > 75)) {
+        continue;
+      }
+      if (muscleMassNum !== '' && (Number.isNaN(muscleMassNum) || muscleMassNum <= 0)) {
+        continue;
+      }
 
       cleaned.push({
         date,
         weight: weightNum,
         waist: waistNum,
         thigh: thighNum,
+        bodyFatPct: bodyFatPctNum,
+        muscleMassLbs: muscleMassNum,
         notes: String(item.notes || '').trim(),
         updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
       });
@@ -2192,6 +3022,19 @@
       importDataFromFile(file);
     }
     importFileInput.value = '';
+  });
+
+  window.addEventListener('focus', () => {
+    renderEntries();
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (!event || !event.key) {
+      return;
+    }
+    if (event.key === CARDIO_STORAGE_KEY || event.key === RESISTANCE_WEEKLY_LOG_KEY || event.key === STORAGE_KEY) {
+      renderEntries();
+    }
   });
 
   loadFromLocalStorage();
