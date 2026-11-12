@@ -1320,12 +1320,6 @@
     </div>
   </div>
 
-  <div class="btn-row" style="margin-top:-.35rem;margin-bottom:.85rem">
-    <button class="btn btn-outline" type="button" onclick="sendSelectedTestsToDietPower()">🥣 Send Selected to Diet Power</button>
-    <button class="btn btn-outline" type="button" onclick="clearDietPowerSelection()">Clear Selected</button>
-    <span id="diet-power-selection-status" style="font-size:.82rem;color:var(--muted);font-weight:700">Selected for Diet Power: 0</span>
-  </div>
-
   <p class="risk-summary" id="satfat-risk-summary">Visible high sat fat tests (>=5 g): 0 of 0</p>
   <p style="margin:-.35rem 0 .85rem;font-size:.8rem;color:var(--muted)">Pink cards have a starting baseline that is likely to skew interpretation: <strong>75 or below</strong> may drift upward regardless of food, and <strong>above 120</strong> may already be falling under background insulin response. These entries stay in the dataset, but they are excluded from the graph. Soft green cards mark foods or serving sizes that still fit alongside a serving of <strong>skim milk</strong> inside the current 5g sat fat / 15g net carb limits. Soft red cards mark foods that would push that pairing outside the limit. The skim-milk tint does not remove entries from the graph.</p>
 
@@ -2240,98 +2234,14 @@ function deleteTest(id){
   if(!confirm('Delete this test entry?')) return;
   delete curveVisibilityOverrides[id];
   pinnedTestIds.delete(String(id));
-  selectedForDietPower.delete(String(id));
   savePinnedTests();
   saveTests(loadTests().filter(t=>String(t.id)!==String(id)));
   render();
 }
 
-function buildDietPowerTransferItem(test){
-  return {
-    testId:String(test.id||''),
-    date:String(test.date||''),
-    food:String(test.food||''),
-    portion:String(test.portion||''),
-    netCarbs:parseNumberish(test.netCarbs),
-    fiber:parseNumberish(test.fiber),
-    satFat:parseNumberish(test.satFat),
-    protein:parseNumberish(test.protein),
-    totalFat:parseNumberish(test.totalFat),
-    calories:parseNumberish(test.calories)
-  };
-}
-
-function hasTransferNutrition(item){
-  return [item.netCarbs,item.satFat,item.protein,item.totalFat,item.calories].some(v=>v!=null);
-}
-
-function sendTestToDietPower(id){
-  const test=loadTests().find(t=>String(t.id)===String(id));
-  if(!test){
-    alert('That test entry could not be found.');
-    return;
-  }
-
-  const item=buildDietPowerTransferItem(test);
-  const payload={
-    source:'food-response-testing',
-    mode:'single',
-    transferredAt:new Date().toISOString(),
-    items:[item]
-  };
-
-  if(!hasTransferNutrition(item)){
-    alert('Add at least one nutrition value (net carbs, sat fat, protein, total fat, or calories) before sending to Diet Power.');
-    return;
-  }
-
-  localStorage.setItem(DIET_POWER_PREFILL_KEY, JSON.stringify(payload));
-  window.location.href='index.html';
-}
-
-let selectedForDietPower=new Set();
-
-function toggleDietPowerSelection(id){
-  const key=String(id);
-  if(selectedForDietPower.has(key)) selectedForDietPower.delete(key);
-  else selectedForDietPower.add(key);
-  render();
-}
-
-function clearDietPowerSelection(){
-  selectedForDietPower.clear();
-  render();
-}
-
-function sendSelectedTestsToDietPower(){
-  const tests=loadTests();
-  const selected=tests.filter(t=>selectedForDietPower.has(String(t.id)));
-  if(!selected.length){
-    alert('Select at least one test card first.');
-    return;
-  }
-
-  const items=selected.map(buildDietPowerTransferItem).filter(hasTransferNutrition);
-  if(!items.length){
-    alert('Selected tests do not have nutrition values to send yet.');
-    return;
-  }
-
-  const payload={
-    source:'food-response-testing',
-    mode:'batch',
-    transferredAt:new Date().toISOString(),
-    items
-  };
-
-  localStorage.setItem(DIET_POWER_PREFILL_KEY, JSON.stringify(payload));
-  window.location.href='index.html';
-}
-
 function confirmClearAll(){
   if(!confirm('Delete ALL food response tests? This cannot be undone.')) return;
   Object.keys(curveVisibilityOverrides).forEach(k=>delete curveVisibilityOverrides[k]);
-  selectedForDietPower.clear();
   localStorage.removeItem(STORE_KEY); render();
 }
 
@@ -2857,10 +2767,6 @@ const highPeakZonePlugin={
 
 function render(){
   const all=loadTests();
-  const validIds=new Set(all.map(t=>String(t.id||'')));
-  Array.from(selectedForDietPower).forEach(id=>{
-    if(!validIds.has(id)) selectedForDietPower.delete(id);
-  });
   const search=(document.getElementById('search-box').value||'').toLowerCase();
   const sortBtn=document.getElementById('auc-sort-btn');
   if(sortBtn){
@@ -3026,11 +2932,6 @@ function render(){
   if(satFatSummaryEl){
     satFatSummaryEl.innerHTML=`Visible high sat fat tests (>=5 g): <strong>${highSatVisibleCount}</strong> of ${filtered.length}`;
   }
-  const selectionStatusEl=document.getElementById('diet-power-selection-status');
-  if(selectionStatusEl){
-    selectionStatusEl.textContent=`Selected for Diet Power: ${selectedForDietPower.size}`;
-  }
-
   const glPredictiveCard=document.getElementById('gl-predictive-card');
   if(glPredictiveCard){
     if(!showGlPredictiveView){
@@ -3163,7 +3064,6 @@ function render(){
         ? ' baseline-outlier'
         : (milkPairStatus==='friendly' ? ' milk-pair-friendly' : (milkPairStatus==='unfriendly' ? ' milk-pair-unfriendly' : ''));
       const satFatClass=satFatHigh ? ' satfat-high' : '';
-      const selectedForTransfer=selectedForDietPower.has(String(t.id));
       const hasSummaryContent = Boolean(a || metricBits || analysisBits || contextBits);
       const glReliability = getGlReliabilityStatus(t);
       return `
@@ -3203,8 +3103,6 @@ function render(){
         ${t.notes?`<div class="test-card-notes">${t.notes}</div>`:''}
         <div class="test-card-actions">
           <button class="btn-sm btn-sm-outline" onclick="editTest('${t.id}')">✏️ Add / Edit Readings</button>
-          <button class="btn-sm btn-sm-outline" onclick="sendTestToDietPower('${t.id}')">🥣 Use in Diet Power</button>
-          <button class="btn-sm btn-sm-outline" onclick="toggleDietPowerSelection('${t.id}')">${selectedForTransfer?'☑️ Selected':'⬜ Select for Diet Power'}</button>
           <button class="pin-btn ${isPinned ? 'pinned' : ''}" type="button" onclick="togglePinnedTest('${t.id}')" title="${isPinned ? 'Unpin this card' : 'Pin this card for graph comparison'}" aria-label="${isPinned ? 'Unpin card' : 'Pin card'}">📌</button>
           <button class="btn-sm btn-sm-danger" onclick="deleteTest('${t.id}')">Delete</button>
         </div>
