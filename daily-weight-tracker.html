@@ -570,6 +570,7 @@
     <div class="chart-wrap">
       <canvas id="weight-chart"></canvas>
     </div>
+    <p class="chart-helper" id="weight-goal-projection" style="margin-top: .65rem; color: #1f5d3d; font-weight: 600;"></p>
     <div class="field" style="max-width: 260px; margin-top: .75rem;">
       <label for="gap-threshold-days">Compress gaps longer than</label>
       <div style="display: flex; align-items: center; gap: .6rem;">
@@ -901,6 +902,7 @@
   const recompChartEmpty = document.getElementById('recomp-chart-empty');
   const importFileInput = document.getElementById('import-file-input');
   const weightChartCanvas = document.getElementById('weight-chart');
+  const weightGoalProjectionEl = document.getElementById('weight-goal-projection');
   const weightBmiContextEl = document.getElementById('weight-bmi-context');
   const waistChartCanvas = document.getElementById('waist-chart');
   const thighChartCanvas = document.getElementById('thigh-chart');
@@ -2285,6 +2287,70 @@
     ];
   }
 
+  function getProjectedGoalDate(points, recentWindowDays = 90) {
+    if (!points || points.length < 2) {
+      return null;
+    }
+
+    const dayMs = 24 * 60 * 60 * 1000;
+    const recentWindowMs = recentWindowDays * dayMs;
+
+    function fitWindow(windowPoints) {
+      if (!windowPoints || windowPoints.length < 2) {
+        return null;
+      }
+
+      const xOrigin = windowPoints[0].x;
+      const n = windowPoints.length;
+      let sumX = 0;
+      let sumY = 0;
+      let sumXY = 0;
+      let sumXX = 0;
+
+      for (const point of windowPoints) {
+        const x = (point.x - xOrigin) / dayMs;
+        const y = point.y;
+        sumX += x;
+        sumY += y;
+        sumXY += x * y;
+        sumXX += x * x;
+      }
+
+      const denominator = (n * sumXX) - (sumX * sumX);
+      if (Math.abs(denominator) < Number.EPSILON) {
+        return null;
+      }
+
+      const slope = ((n * sumXY) - (sumX * sumY)) / denominator;
+      if (!Number.isFinite(slope)) {
+        return null;
+      }
+
+      const intercept = (sumY - (slope * sumX)) / n;
+      const goalDays = (TARGET_WEIGHT - intercept) / slope;
+      if (!Number.isFinite(goalDays)) {
+        return null;
+      }
+
+      const goalStamp = xOrigin + (goalDays * dayMs);
+      const goalDate = new Date(goalStamp);
+      if (Number.isNaN(goalDate.getTime())) {
+        return null;
+      }
+
+      return { date: goalDate, slope };
+    }
+
+    const lastStamp = points[points.length - 1].x;
+    const recentPoints = points.filter(point => point.x >= lastStamp - recentWindowMs);
+    const recentProjection = recentWindowDays > 0 ? fitWindow(recentPoints) : null;
+    if (recentProjection) {
+      return recentProjection;
+    }
+
+    return fitWindow(points);
+  }
+
   function renderWeightChart() {
     const chrono = sortEntriesOldestFirst(entries).filter(item => {
       return !!normalizeDateOnly(item.date) && Number.isFinite(Number(item.weight));
@@ -2296,6 +2362,9 @@
     }
 
     if (!chrono.length) {
+      if (weightGoalProjectionEl) {
+        weightGoalProjectionEl.textContent = 'Projected goal date if the trendline continues: add at least two weight entries to estimate it.';
+      }
       return;
     }
 
@@ -2316,6 +2385,22 @@
     const targetEndX = minX === maxX ? maxX + 86400000 : maxX;
     const pointRadius = weightPoints.length > 240 ? 0 : 2.2;
     const trendLinePoints = buildLinearTrendLinePoints(weightPoints);
+    const goalProjection = getProjectedGoalDate(rawWeightPoints, 90);
+
+    if (weightGoalProjectionEl) {
+      if (goalProjection && goalProjection.slope < 0) {
+        const projectedDate = goalProjection.date.toLocaleDateString(undefined, {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+        weightGoalProjectionEl.textContent = 'Projected goal date based on your recent 90-day trend: ' + projectedDate + '.';
+      } else if (goalProjection && goalProjection.slope >= 0) {
+        weightGoalProjectionEl.textContent = 'Projected goal date based on your recent 90-day trend: the current trend is moving away from your goal, so there is no goal-date forecast yet.';
+      } else {
+        weightGoalProjectionEl.textContent = 'Projected goal date based on your recent 90-day trend: there is not enough recent data to estimate it yet.';
+      }
+    }
 
     weightChart = new Chart(weightChartCanvas, {
       type: 'line',
