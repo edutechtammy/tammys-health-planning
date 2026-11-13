@@ -359,6 +359,7 @@
     .table-wrap {
       overflow-x: auto;
       position: relative;
+      --sticky-date-col-width: 7.2rem;
     }
 
     table {
@@ -402,9 +403,15 @@
       box-shadow: 1px 0 0 #eaf4ec;
     }
 
+    thead th:first-child,
+    tbody td:first-child {
+      width: var(--sticky-date-col-width);
+      min-width: var(--sticky-date-col-width);
+    }
+
     thead th:nth-child(2),
     tbody td:nth-child(2) {
-      left: 9.6rem;
+      left: var(--sticky-date-col-width);
       z-index: 1;
     }
 
