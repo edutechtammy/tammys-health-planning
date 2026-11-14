@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>When Thin is In</title>
+  <title>When Thin Is In</title>
   <style>
+    :root {
+      --green-dark:#2d6a4f;
+      --green-mid:#40916c;
+      --green-light:#74c69d;
+      --green-pale:#d8f3dc;
+      --amber:#e9c46a;
+      --amber-dark:#f4a261;
+      --sky:#90e0ef;
+      --sky-dark:#0077b6;
+      --purple:#c77dff;
+      --purple-dark:#7b2d8b;
+      --red:#e63946;
+      --red-pale:#fde8ea;
+      --slate:#f8f9fa;
+      --border:#d1e8d5;
+      --text:#1a1a2e;
+      --muted:#6c757d;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
+      margin: 0;
       font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--green-pale);
+      background: #f4faf5;
       color: var(--text);
       line-height: 1.6;
-      padding-bottom: 4rem;
+      font-size: 17px;
     }
+
     nav {
       background: var(--green-dark);
       padding: .75rem 1.5rem;
@@ -38,45 +61,241 @@
     }
 
     header {
+      background: linear-gradient(135deg, var(--green-dark), var(--sky-dark));
+      color: #fff;
       text-align: center;
-      padding: 2rem 1rem 1.4rem;
+      padding: 2rem 1.2rem 1.4rem;
     }
 
     header h1 {
-      font-size: clamp(1.6rem, 4vw, 2.3rem);
-      color: var(--green-dark);
-    }
-    header p {
-      color: var(--muted);
-      margin-top: .35rem;
-      font-size: .95rem;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin: 0 0 .35rem;
+      letter-spacing: .02em;
     }
 
-    .main-wrap {
+    header p {
+      margin: 0;
+      opacity: .9;
+      font-size: 1rem;
+    }
+
+    main {
       max-width: 980px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 2rem 1rem 4rem;
     }
 
-    .first-three-images-row {
+    .section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 1.6rem;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(25, 58, 47, 0.04);
+    }
+
+    .section-header {
       display: flex;
+      align-items: center;
       gap: .75rem;
-      overflow-x: auto;
-      padding-bottom: .25rem;
+      padding: 1rem 1.2rem;
+      background: var(--green-pale);
+      border-bottom: 1px solid var(--border);
     }
 
-    .first-three-images-row img {
+    .section-header .icon {
+      font-size: 1.5rem;
+      width: 2rem;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--green-dark);
+      flex: 1;
+    }
+
+    .section-body {
+      padding: 1.1rem 1.2rem 1.35rem;
+    }
+
+    .section-body > :first-child {
+      margin-top: 0;
+    }
+
+    .lead {
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+
+    .callout {
+      border-radius: 10px;
+      padding: .9rem 1rem;
+      margin: 1rem 0;
+      font-size: .95rem;
+      border-left: 4px solid var(--green-mid);
+      background: var(--green-pale);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: .2rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    ul, ol {
+      padding-left: 1.3rem;
+      margin: 0 0 1rem;
+    }
+
+    li + li {
+      margin-top: .45rem;
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    figure {
+      margin: 0;
+      background: #f9fbfa;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .7rem;
+    }
+
+    figure img {
       display: block;
       width: 100%;
-      max-width: 240px;
-      min-width: 220px;
-      height: auto;
-      flex: 1 0 0;
+      max-height: 420px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
+      transition: transform .2s ease, box-shadow .2s ease;
+      cursor: pointer;
+    }
+
+    figure img:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(45, 106, 79, 0.12);
+    }
+
+    figcaption {
+      display: block;
+      margin-top: .45rem;
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 22, 18, 0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 1000;
+    }
+
+    .lightbox-overlay.visible {
+      display: flex;
+    }
+
+    .lightbox-panel {
+      position: relative;
+      max-width: min(92vw, 1000px);
+      max-height: 92vh;
+      background: #fff;
+      border-radius: 14px;
+      padding: .9rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
+    }
+
+    .lightbox-panel img {
+      display: block;
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #f8faf8;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .lightbox-caption {
+      margin-top: .7rem;
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .feature-box {
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fbfdfb;
+    }
+
+    .feature-box h3 {
+      margin: 0 0 .45rem;
+      color: var(--green-dark);
+      font-size: 1rem;
+    }
+
+    .feature-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 0;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    @media (max-width: 700px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-    <nav>
+  <nav>
     <a href="index.html">🏠 Home</a>
     <a href="lab-tracker.html">🧪 Lab Results</a>
     <a href="recipes.html">👩‍🍳 Recipes</a>
@@ -91,70 +310,187 @@
     <a href="daily-weight-tracker.html">⚖️ Weight</a>
     <a href="morning-bp-tracker.html">🩺 BP</a>
   </nav>
-  <h1>When Thin Is In</h1>
-  <h2>Hair</h2>
-  <p>Light-weight Rinse out Conditioner: </p>
-  <p>Key Techniques:</p>
-  <ul>
-    <li>Soaking wet hair when styling gel is applied.</li>
-    <li>Opt for a volumizing mousse, foam, or a light-to-medium hold gel instead of heavy curl creams or butters</li>
-    <li>Rake, glaze, and scrunch. Rake a leave-in conditioner or mousse through your hair, smooth a light gel over the outside of your wave clumps (glazing), and pulse-scrunch upward from the ends to the roots</li>
-    <li>Micro-plop instead of using a bath towel. Regular terrycloth towels cause frizz. Gently scrunch excess water out of your hair using a microfiber towel or a soft cotton T-shirt for a few minutes to boost bounce without flattening the roots.</li>
-    <li>Flip your part - Part on the opposite side you want to have your part. Once your hair is completely dry, flip your part to the opposite side for instant, zero-effort root volume.</li>
-    <li>Hover-diffuse upside down - low speed. Flip your head upside down and hover a diffuser around your roots on medium heat and low-to-medium airflow until they are mostly dry. Drying the roots first locks in lift before water weight pulls them flat.</li>
-    <li>Cup-diffuse the lengths. Once the roots are dry, gently gather sections of your waves into the diffuser bowl and hold them up against your scalp for 15 to 30 seconds per section.</li>
-    <li>Clip your roots. If you prefer air-drying, insert small claw clips or duckbill clips at your crown to lift the hair away from your scalp while it sets.</li>
-    <li>Finish and Refreshing - Scrunch out the crunch. If your styling gel leaves a stiff cast once your hair is 100% dry, gently scrunch your waves with bare hands or a drop of lightweight hair oil to reveal soft, bouncy waves.</li>
-    <li>Fluff at the roots. Slide your fingertips under your hair against your scalp and gently shake to separate the roots and add instant fullness.</li>
-    <li>Protect overnight. Loosely gather your hair on top of your head with a satin scrunchie (known as "pineappling") or sleep on a silk pillowcase to prevent your waves from getting crushed while you sleep.</li>
-    <li>To refresh on day 2, 3, 4, mist with water and scrunch upward.</li>
-  </ul>
-  <p>No Styling</p>
-  <div class="first-three-images-row">
-    <img src="when-thin-is-in/hairstyles/00-1.png" alt="No Styling" />
-    <img src="when-thin-is-in/hairstyles/00-2.png" alt="No Styling" />
-    <img src="when-thin-is-in/hairstyles/00-3.jpg" alt="No Styling" />
+
+  <header>
+    <h1>🧴 When Thin Is In</h1>
+    <p>Hair, styling, and the functional wardrobe goals that work with thinner, more sculpted silhouettes.</p>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-header">
+        <span class="icon">💇‍♀️</span>
+        <h2>Hair</h2>
+      </div>
+      <div class="section-body">
+        <p class="lead">Light-weight rinse-out conditioner and volume-first styling are the goal. The point is to create lift, softness, and movement without flattening the roots or creating a heavy, weighed-down look.</p>
+
+        <div class="callout">
+          <strong>Key styling techniques</strong>
+          Start with hair that is thoroughly wet, use a volumizing mousse or light gel, then rake and scrunch upward from the ends to the roots. Micro-plop instead of using a towel, hover-diffuse upside down, and clip roots for lift while drying.
+        </div>
+
+        <ul>
+          <li>Soak wet hair before styling gel is applied.</li>
+          <li>Choose a volumizing mousse, foam, or light-to-medium hold gel rather than heavy curl creams or butters.</li>
+          <li>Rake, glaze, and scrunch. Work in a leave-in conditioner or mousse, smooth a light gel over the outside of the wave clumps, and pulse-scrunch upward from the ends to the roots.</li>
+          <li>Micro-plop instead of using a bath towel. Regular terrycloth towels create frizz. Gently scrunch excess water out using a microfiber towel or soft cotton T-shirt.</li>
+          <li>Flip your part to the opposite side you want to wear it. Once fully dry, flip it back for instant root lift.</li>
+          <li>Hover-diffuse upside down on low speed so the roots dry first and stay lifted.</li>
+          <li>Cup-diffuse the lengths once the roots are mostly dry to build shape and volume.</li>
+          <li>Use claw clips at the crown while air-drying if you want extra fullness.</li>
+          <li>Scrunch out the crunch once completely dry to soften the cast without losing body.</li>
+          <li>Fluff at the roots with fingertips to lift the crown and create extra fullness.</li>
+          <li>Protect overnight with a satin scrunchie or silk pillowcase to prevent crushing.</li>
+          <li>Refresh on days 2–4 by misting with water and scrunching upward.</li>
+        </ul>
+
+        <div class="image-gallery">
+          <figure>
+            <img src="when-thin-is-in/hairstyles/00-1.png" alt="No styling" />
+            <figcaption>No styling</figcaption>
+          </figure>
+          <figure>
+            <img src="when-thin-is-in/hairstyles/00-2.png" alt="No styling variation" />
+            <figcaption>No styling</figcaption>
+          </figure>
+          <figure>
+            <img src="when-thin-is-in/hairstyles/00-3.jpg" alt="No styling texture" />
+            <figcaption>No styling</figcaption>
+          </figure>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-box">
+            <h3>AI style ideas</h3>
+            <p>Explore the full reference set and look at how volume, layer shape, and face framing change the silhouette.</p>
+          </div>
+          <div class="feature-box">
+            <h3>Style direction</h3>
+            <p>The goal is soft movement, lifted roots, and a healthier-looking bounce rather than a heavy, weighed-down wave pattern.</p>
+          </div>
+        </div>
+
+        <div class="image-gallery" style="margin-top:1rem;">
+          
+          <figure>
+            <img src="when-thin-is-in/hairstyles/01.png" alt="Hairstyle 1" />
+            <figcaption>No makeup</figcaption>
+          </figure>
+          <figure>
+            <img src="when-thin-is-in/hairstyles/02.png" alt="Hairstyle 2" />
+            <figcaption>With light makeup. Hair is a bit fuller to fill the sides of the face.</figcaption>
+          </figure>
+          <figure>
+            <img src="when-thin-is-in/hairstyles/03.png" alt="Hairstyle 3" />
+            <figcaption>Fuller, more defined curl look.</figcaption>
+          </figure>
+          <figure>
+            <img src="when-thin-is-in/hairstyles/04.png" alt="Hairstyle 4" />
+            <figcaption>Shoulder-length layered cut with softer face framing and fuller volume around the cheeks.</figcaption>
+          </figure>
+          <figure>
+            <img src="when-thin-is-in/hairstyles/05.png" alt="Hairstyle 5" />
+            <figcaption>Curtain bangs that blend into the curls around the face and pull the eyes upward.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <span class="icon">👗</span>
+        <h2>Clothes</h2>
+      </div>
+      <div class="section-body">
+        <p class="lead">When I am thinner, I want to indulge the historical fantasy of white lace and structure — but the functional side matters more. After losing weight, loose skin will be a factor, so clothing should support, smooth, and prevent irritation without feeling constrictive.</p>
+
+        <div class="two-col">
+          <div>
+            <h3 style="margin:0 0 .65rem; color:var(--green-dark);">Core needs</h3>
+            <ol>
+              <li>Choose cotton or cotton blends so the skin can breathe and sweat can evaporate instead of collecting against the body.</li>
+              <li>Use a little stretch or spandex for compression without requiring heavy lacing or hooks.</li>
+              <li>Beware of chafing, especially on loose skin areas that can become irritated.</li>
+              <li>Lean toward high-coverage, longline, or overbust silhouettes to smooth and support the torso.</li>
+              <li>Use flat, smooth seams and flexible boning to avoid digging or discomfort.</li>
+              <li>Favor adjustable lacing or multiple rows for shape and comfort.</li>
+            </ol>
+          </div>
+
+          <div>
+            <h3 style="margin:0 0 .65rem; color:var(--green-dark);">Functional garment terms</h3>
+            <ol>
+              <li><strong>Corset:</strong> Underclothes with structure to compress and shape the torso.</li>
+              <li><strong>Bodice:</strong> A fitted outer garment popular in Victorian and Renaissance styling that supports the chest and waist.</li>
+              <li><strong>Stay:</strong> The 18th-century predecessor to the corset, with a V-shaped front that smooths the abdomen and supports the torso.</li>
+              <li><strong>Longline Bustier:</strong> A longer bra style that reaches to the waist, pairing delicate lace with light boning and soft support.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Outer garment style terms</strong>
+          V-waistband / Swiss waist effect: a pointed or V-shaped front creates a historical silhouette and visually elongates the torso, helping the waistline look more defined without requiring harsh compression.
+        </div>
+
+        <figure style="margin-top:1rem;">
+          <img src="when-thin-is-in/clothing/decorative/v-waistband.png" alt="V-waistband styling reference" />
+          <figcaption>V-waistband and Swiss waist-inspired line work that gives a longer, smoother torso shape.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    When Thin Is In · styling inspiration and functional support notes
+  </footer>
+
+  <div class="lightbox-overlay" id="lightboxOverlay" aria-hidden="true">
+    <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Expanded image view">
+      <button class="lightbox-close" type="button" aria-label="Close image">×</button>
+      <img id="lightboxImage" src="" alt="Expanded view" />
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
   </div>
-  <p>AI styles:</p>
-  <img src="when-thin-is-in/hairstyles/00-0.png" alt="All Styles" />
-    <p>All Styles</p>
-    <br>  
-  <img src="when-thin-is-in/hairstyles/01.png" alt="Hairstyle 1" />
-    <p>No makeup</p>
-    <br>
-    <img src="when-thin-is-in/hairstyles/02.png" alt="Hairstyle 2" />
-    <p>With light makeup. Hair a bit fuller so that it fills out more at the sides of the face..</p>
-    <br>
-    <img src="when-thin-is-in/hairstyles/03.png" alt="Hairstyle 3" />
-    <p>Fuller, more defined curl, look.</p>
-    <br>
-    <img src="when-thin-is-in/hairstyles/04.png" alt="Hairstyle 4" />
-    <p>Shoulder length layered cut. This has softer, face framing layers, fuller volume around the cheeks, and gently curled ends.</p>
-    <br>
-    <img src="when-thin-is-in/hairstyles/05.png" alt="Hairstyle 5" />
-    <p>Curtain banks that blend into the curls around the face. Notice how the bangs flare out right at eye level and almost point to the eyes. </p>
-    <br>
-  <h2>Clothes</h2>
-  <p>When I am thin, I want to indulge my fantasy to wear the more historical garment styles that match to my love of white lace clothes. However, there is a functional side to it. After losing 60 pounds, I will have loose skin to deal with. Clothing styles that very naturally work with structural support to support and control that extra skin will be useful. Core needs: </p>
-  <ol>
-    <li>The skin must breath and sweat should not be trapped against the skin, so aim for cotton or cotton blend material for absorption and evaporation of sweat. A blend of spandex is useful to give some compression. Without the spandex, lacing or hooks would be needed.</li>
-    <li>Be careful of chaffing. If the skin gets irritated, it can become prone to infection.</li>
-    <li>Lean toward full torso and high back coverage to reduce spill over (longline, overbust, vest style).</li>
-    <li>Flat, smooth seams that do not cut into skin</li>
-    <li>Flexible boning (spiral steel or soft boning)</li>
-    <li>Lace up or multiple row adjustability.</li>
-  </ol>
-  <p>Here are some terms to learn regarding functional clothing structures:</p>
-  <ol>
-    <li>corset: underclothes with structure to compress and shape the torso.</li>
-    <li>bodice: outer garment popular in Victorian and Renaissance times. It fits snugly over the chest and waist. often it is laced but is more for support than waist reduction.</li>
-    <li>stay: The 18th-century predecessor to the corset. Stays feature a V-shaped front profile that flattens the abdomen and pushes skin smoothly upward, which can be much more comfortable for loose skin than modern high-compression waist cinchers.</li>
-    <li>Longline Bustier: An extended bra style reaching down to the waist. It pairs delicate white lace with light boning, giving you the historical look and smooth containment with a softer, modern stretch.</li>
-  </ol>
-  <p>Here are style terms related to the outer garments that can also provide some support:</p>
-  <ol>
-    <li>V-Waistband / Swiss Waist Effect: The pointed or V-shaped front cut on this skirt is a classic historical design technique (often called a Swiss waist or pointed waistband). Visual Illusion: It mimics the downward point of historical corsets and stays, which visually elongates the torso and creates an hourglass illusion.</li>
-  </ol>
-<img src="when-thin-is-in/clothing/decorative/v-waistband.png" alt="v-waistband" />
+
+  <script>
+    const overlay = document.getElementById('lightboxOverlay');
+    const imgEl = document.getElementById('lightboxImage');
+    const captionEl = document.getElementById('lightboxCaption');
+    const closeBtn = document.querySelector('.lightbox-close');
+
+    function openLightbox(src, caption) {
+      imgEl.src = src;
+      imgEl.alt = caption || 'Expanded image';
+      captionEl.textContent = caption || '';
+      overlay.classList.add('visible');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeLightbox() {
+      overlay.classList.remove('visible');
+      overlay.setAttribute('aria-hidden', 'true');
+      imgEl.src = '';
+      captionEl.textContent = '';
+    }
+
+    document.querySelectorAll('figure img').forEach((image) => {
+      image.addEventListener('click', () => {
+        const caption = image.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || image.getAttribute('alt') || '';
+        openLightbox(image.src, caption);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) closeLightbox();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && overlay.classList.contains('visible')) {
+        closeLightbox();
+      }
+    });
+  </script>
 </body>
 </html>
