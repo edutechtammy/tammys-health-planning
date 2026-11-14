@@ -7543,7 +7543,7 @@ function getCategoryMatch(card) {
   if (activeRecipeCategory === 'all') return true;
   if (activeRecipeCategory === 'folate') return getRecipeFolateEstimate(card) >= 40;
   if (activeRecipeCategory === 'omega3') return getRecipeNutrientThresholdValue(card, 'omega3Mg') >= 500;
-  if (activeRecipeCategory === 'choline') return getRecipeNutrientThresholdValue(card, 'cholineMg') >= 125;
+  if (activeRecipeCategory === 'choline') return getRecipeNutrientThresholdValue(card, 'cholineMg') >= 25;
   if (activeRecipeCategory === 'mufa') return getRecipeNutrientThresholdValue(card, 'mufaG') >= 7;
   if (activeRecipeCategory === 'smart-protein') return getSmartProteinMatch(card);
   if (activeRecipeCategory === 'bread') return getRecipeCategories(card).includes('bread-baked') || getRecipeTitle(card).toLowerCase().includes('bread') || getRecipeTitle(card).toLowerCase().includes('flatbread') || getRecipeTitle(card).toLowerCase().includes('pita');
@@ -9723,6 +9723,22 @@ function getRecipeCardSortTitle(card) {
   return (card?.querySelector('.recipe-card-title')?.textContent || '').trim().toLowerCase();
 }
 
+function getRecipeCardNutrientSortValue(card) {
+  const category = activeRecipeCategory;
+  if (category === 'omega3') return getRecipeNutrientThresholdValue(card, 'omega3Mg');
+  if (category === 'choline') return getRecipeNutrientThresholdValue(card, 'cholineMg');
+  if (category === 'mufa') return getRecipeNutrientThresholdValue(card, 'mufaG');
+  if (category === 'folate') return getRecipeFolateEstimate(card);
+  if (category === 'smart-protein') {
+    const proteinG = Number(card.dataset.proteinG || 0);
+    const satFatG = Number(card.dataset.satfatG || 0);
+    if (!Number.isFinite(proteinG) || proteinG <= 0) return 0;
+    if (!Number.isFinite(satFatG) || satFatG <= 0) return proteinG;
+    return proteinG / satFatG;
+  }
+  return null;
+}
+
 function sortRecipeCardsAlphabetically() {
   const cards = Array.from(document.querySelectorAll('.recipe-card'));
   if (cards.length < 2) return;
@@ -9730,9 +9746,20 @@ function sortRecipeCardsAlphabetically() {
   const parent = cards[0].parentElement;
   if (!parent) return;
 
+  const nutrientSortActive = ['omega3', 'choline', 'mufa', 'folate', 'smart-protein'].includes(activeRecipeCategory);
+
   cards.sort((a, b) => {
     const pinDiff = Number(isRecipeCardPinned(b)) - Number(isRecipeCardPinned(a));
     if (pinDiff !== 0) return pinDiff;
+
+    if (nutrientSortActive) {
+      const aValue = getRecipeCardNutrientSortValue(a);
+      const bValue = getRecipeCardNutrientSortValue(b);
+      if (aValue !== bValue) {
+        return Number(bValue || 0) - Number(aValue || 0);
+      }
+    }
+
     return getRecipeCardSortTitle(a).localeCompare(getRecipeCardSortTitle(b));
   });
 
