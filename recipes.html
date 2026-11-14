@@ -8690,9 +8690,10 @@ function renderMenuPlannerWeeklySummary() {
   const weeklyCalories = Number(weekly.totals.calories || 0);
   const calorieTarget = getCalorieTarget();
   const weeklyCalorieTarget = calorieTarget * 7;
-  const caloriePct = weeklyCalorieTarget ? Math.min(100, Math.round((weeklyCalories / weeklyCalorieTarget) * 100)) : 0;
+  const caloriePct = weeklyCalorieTarget ? Math.round((weeklyCalories / weeklyCalorieTarget) * 100) : 0;
   const caloriesMissing = !weekly.coverage.calories;
   const calorieClass = caloriesMissing ? ' missing' : (weeklyCalories <= weeklyCalorieTarget ? getProgressClass(caloriePct) : ' low');
+  const calorieBarWidth = Math.min(Math.max(caloriePct, 0), 100);
   const calorieLine = caloriesMissing
     ? `Missing / ${formatCalorieValue(weeklyCalorieTarget)} kcal`
     : `${formatCalorieValue(weeklyCalories)} / ${formatCalorieValue(weeklyCalorieTarget)} kcal (${caloriePct}%)`;
@@ -8707,15 +8708,16 @@ function renderMenuPlannerWeeklySummary() {
       <section class="menu-weekly-card" aria-label="Weekly Calorie Summary">
         <h4>Weekly Calories</h4>
         <div class="menu-weekly-line">${calorieLine}</div>
-        <div class="menu-weekly-bar"><div class="menu-weekly-fill${calorieClass}" style="width:${caloriesMissing ? 0 : caloriePct}%"></div></div>
+        <div class="menu-weekly-bar"><div class="menu-weekly-fill${calorieClass}" style="width:${caloriesMissing ? 0 : calorieBarWidth}%"></div></div>
         <div class="menu-weekly-foot">${calorieFoot}</div>
       </section>
     `,
     ...MENU_PLANNER_NUTRIENTS.map((nutrient) => {
       const weekTarget = nutrient.target * 7;
       const total = weekly.totals[nutrient.key] || 0;
-      const pct = weekTarget ? Math.min(100, Math.round((total / weekTarget) * 100)) : 0;
+      const pct = weekTarget ? Math.round((total / weekTarget) * 100) : 0;
       const missing = !weekly.coverage[nutrient.key];
+      const pctWidth = Math.min(Math.max(pct, 0), 100);
       const progressClass = missing
         ? ' missing'
         : (nutrient.limit ? (total <= weekTarget ? getProgressClass(pct) : ' low') : getProgressClass(pct));
@@ -8733,7 +8735,7 @@ function renderMenuPlannerWeeklySummary() {
         <section class="menu-weekly-card" aria-label="Weekly ${nutrient.label} Summary">
           <h4>Weekly ${nutrient.label} Rollup</h4>
           <div class="menu-weekly-line">${lineText}</div>
-          <div class="menu-weekly-bar"><div class="menu-weekly-fill${progressClass}" style="width:${missing ? 0 : pct}%"></div></div>
+          <div class="menu-weekly-bar"><div class="menu-weekly-fill${progressClass}" style="width:${missing ? 0 : pctWidth}%"></div></div>
           <div class="menu-weekly-foot">${footText}</div>
         </section>
       `;
