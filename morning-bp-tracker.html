@@ -577,6 +577,7 @@
               <th>Diastolic</th>
               <th>Pulse</th>
               <th>Status</th>
+              <th>Prev-day exercise</th>
               <th>Notes</th>
             </tr>
           </thead>
@@ -597,6 +598,7 @@
               <th>Diastolic</th>
               <th>Pulse</th>
               <th>Status</th>
+              <th>Prev-day exercise</th>
               <th>Notes</th>
               <th>Actions</th>
             </tr>
@@ -610,6 +612,10 @@
 
   <script>
     const STORAGE_KEY = 'tammys_morning_bp_tracker_v1';
+    const CARDIO_STORAGE_KEY = 'tammys_cardio_hr_tracker_v1';
+    const RESISTANCE_WEEKLY_LOG_KEY = 'resistance-weekly-exercise-log-v1';
+    const RESISTANCE_DAY_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    const RESISTANCE_DAY_OFFSETS = { mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6 };
     const DEFAULT_GAP_COMPRESSION_DAYS = 30;
     const DAY_MS = 24 * 60 * 60 * 1000;
     const PULSE_BASELINE_WINDOW_DAYS = 7;
@@ -654,6 +660,11 @@
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
       return year + '-' + month + '-' + day;
+    }
+
+    function toIsoDateFromUtc(date) {
+      if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '';
+      return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())).toISOString().slice(0, 10);
     }
 
     function normalizeDateOnly(value) {
@@ -718,6 +729,141 @@
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#39;');
+    }
+
+    function readJsonFromStorage(key, fallbackValue) {
+      const raw = localStorage.getItem(key);
+      if (raw === null || raw === undefined || raw === '') {
+        return fallbackValue;
+      }
+      try {
+        const parsed = JSON.parse(raw);
+        return parsed === undefined ? fallbackValue : parsed;
+      } catch {
+        return fallbackValue;
+      }
+    }
+
+    function parsePositiveNumber(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n) || n <= 0) {
+        return null;
+      }
+      return n;
+    }
+
+    function getIsoWeekMonday(weekKey) {
+      const match = String(weekKey || '').match(/^(\d{4})-W(\d{2})$/);
+      if (!match) {
+        return '';
+      }
+
+      const year = Number(match[1]);
+      const week = Number(match[2]);
+      if (!Number.isFinite(year) || !Number.isFinite(week) || week < 1 || week > 53) {
+        return '';
+      }
+
+      const jan4 = new Date(Date.UTC(year, 0, 4));
+      const jan4Day = jan4.getUTCDay() || 7;
+      const firstMonday = new Date(jan4);
+      firstMonday.setUTCDate(jan4.getUTCDate() - jan4Day + 1);
+      firstMonday.setUTCDate(firstMonday.getUTCDate() + ((week - 1) * 7));
+      return toIsoDateFromUtc(firstMonday);
+    }
+
+    function buildTrainingContextByDate() {
+      const byDate = new Map();
+
+      const cardioSessionsRaw = readJsonFromStorage(CARDIO_STORAGE_KEY, []);
+      if (Array.isArray(cardioSessionsRaw)) {
+        cardioSessionsRaw.forEach(session => {
+          if (!session || typeof session !== 'object') return;
+          const date = normalizeDateOnly(session.date);
+          if (!date) return;
+
+          const aggregate = byDate.get(date) || {
+            cardioSessions: 0,
+            cardioMinutes: 0,
+            resistanceEntries: 0,
+            resistanceSets: 0
+          };
+
+          aggregate.cardioSessions += 1;
+          const duration = parsePositiveNumber(session.durationMin);
+          if (duration !== null) {
+            aggregate.cardioMinutes += duration;
+          }
+
+          byDate.set(date, aggregate);
+        });
+      }
+
+      const resistanceWeeklyLog = readJsonFromStorage(RESISTANCE_WEEKLY_LOG_KEY, {});
+      if (resistanceWeeklyLog && typeof resistanceWeeklyLog === 'object' && !Array.isArray(resistanceWeeklyLog)) {
+        Object.entries(resistanceWeeklyLog).forEach(([weekKey, weekData]) => {
+          if (!weekData || typeof weekData !== 'object' || Array.isArray(weekData)) return;
+          const mondayDate = getIsoWeekMonday(weekKey);
+          if (!mondayDate) return;
+
+          RESISTANCE_DAY_ORDER.forEach(dayKey => {
+            const entriesForDay = Array.isArray(weekData[dayKey]) ? weekData[dayKey] : [];
+            if (!entriesForDay.length) return;
+            const date = addDays(mondayDate, RESISTANCE_DAY_OFFSETS[dayKey]);
+            if (!date) return;
+
+            const aggregate = byDate.get(date) || {
+              cardioSessions: 0,
+              cardioMinutes: 0,
+              resistanceEntries: 0,
+              resistanceSets: 0
+            };
+
+            entriesForDay.forEach(entry => {
+              if (!entry || typeof entry !== 'object') return;
+              aggregate.resistanceEntries += 1;
+
+              const sets = parsePositiveNumber(entry.sets);
+              if (sets !== null) {
+                aggregate.resistanceSets += sets;
+              }
+            });
+
+            byDate.set(date, aggregate);
+          });
+        });
+      }
+
+      return byDate;
+    }
+
+    function formatPreviousDayExerciseSummary(entryDate, contextByDate = buildTrainingContextByDate()) {
+      const normalized = normalizeDateOnly(entryDate);
+      if (!normalized) {
+        return 'No date';
+      }
+
+      const previousDate = addDays(normalized, -1);
+      const aggregate = contextByDate.get(previousDate) || {
+        cardioSessions: 0,
+        cardioMinutes: 0,
+        resistanceEntries: 0,
+        resistanceSets: 0
+      };
+
+      const parts = [];
+      if (aggregate.cardioSessions > 0) {
+        const minutes = Math.round(Number(aggregate.cardioMinutes) || 0);
+        const cardioLabel = aggregate.cardioSessions === 1 ? 'session' : 'sessions';
+        parts.push('Cardio ' + aggregate.cardioSessions + ' ' + cardioLabel + ' (' + minutes + ' min)');
+      }
+      if (aggregate.resistanceEntries > 0) {
+        const setsText = Number(aggregate.resistanceSets) > 0 ? ' (' + aggregate.resistanceSets + ' sets)' : '';
+        const resistanceLabel = aggregate.resistanceEntries === 1 ? 'exercise' : 'exercises';
+        parts.push('Resistance ' + aggregate.resistanceEntries + ' ' + resistanceLabel + setsText);
+      }
+
+      return parts.length ? parts.join(' · ') : 'No cardio/resistance logged';
     }
 
     function showState(message) {
@@ -1507,6 +1653,7 @@
         return;
       }
 
+      const contextByDate = buildTrainingContextByDate();
       weekEmptyMsg.style.display = 'none';
       weekEntriesBody.innerHTML = sortAsc(weekEntries).map(item => {
         return '<tr>' +
@@ -1515,6 +1662,7 @@
           '<td>' + escapeHtml(String(item.diastolic)) + '</td>' +
           '<td>' + escapeHtml(String(item.bpm)) + '</td>' +
           '<td>' + renderStatusBadge(item) + '</td>' +
+          '<td style="white-space:normal;min-width:210px">' + escapeHtml(formatPreviousDayExerciseSummary(item.date, contextByDate)) + '</td>' +
           '<td style="white-space:normal;min-width:200px">' + escapeHtml(item.notes || '') + '</td>' +
         '</tr>';
       }).join('');
@@ -1527,6 +1675,7 @@
         return;
       }
 
+      const contextByDate = buildTrainingContextByDate();
       allEmptyMsg.style.display = 'none';
       allEntriesBody.innerHTML = sortDesc(entries).map(item => {
         return '<tr>' +
@@ -1535,6 +1684,7 @@
           '<td>' + escapeHtml(String(item.diastolic)) + '</td>' +
           '<td>' + escapeHtml(String(item.bpm)) + '</td>' +
           '<td>' + renderStatusBadge(item) + '</td>' +
+          '<td style="white-space:normal;min-width:210px">' + escapeHtml(formatPreviousDayExerciseSummary(item.date, contextByDate)) + '</td>' +
           '<td style="white-space:normal;min-width:220px">' + escapeHtml(item.notes || '') + '</td>' +
           '<td>' +
             '<button class="action-btn" type="button" onclick="startEdit(\'' + escapeHtml(item.date) + '\')">Edit</button>' +
