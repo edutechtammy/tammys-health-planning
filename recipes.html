@@ -890,6 +890,7 @@
         <option value="omega3">Omega-3</option>
         <option value="choline">Choline</option>
         <option value="mufa">MUFAs</option>
+        <option value="high-viscous-fiber">High Soluble Viscous Fiber</option>
         <option value="glp1">GLP-1</option>
         <option value="folate">Folate</option>
         <option value="smart-protein">Smart Protein</option>
@@ -6846,6 +6847,7 @@ let menuFullscreenModal = null;
 const SMART_PROTEIN_MIN_PROTEIN_G = 8;
 const SMART_PROTEIN_MAX_SAT_FAT_G = 3;
 const SMART_PROTEIN_MIN_PROTEIN_TO_SAT_RATIO = 4;
+const HIGH_VISCOUS_FIBER_MIN_G = 2;
 
 const MENU_SLIDES_MANIFEST = 'menu/index.json';
 const MENU_SLIDES_FOLDER = 'menu/';
@@ -7545,6 +7547,7 @@ function getCategoryMatch(card) {
   if (activeRecipeCategory === 'omega3') return getRecipeNutrientThresholdValue(card, 'omega3Mg') >= 500;
   if (activeRecipeCategory === 'choline') return getRecipeNutrientThresholdValue(card, 'cholineMg') >= 25;
   if (activeRecipeCategory === 'mufa') return getRecipeNutrientThresholdValue(card, 'mufaG') >= 7;
+  if (activeRecipeCategory === 'high-viscous-fiber') return getRecipeNutrientThresholdValue(card, 'viscousFiberG') >= HIGH_VISCOUS_FIBER_MIN_G;
   if (activeRecipeCategory === 'smart-protein') return getSmartProteinMatch(card);
   if (activeRecipeCategory === 'bread') return getRecipeCategories(card).includes('bread-baked') || getRecipeTitle(card).toLowerCase().includes('bread') || getRecipeTitle(card).toLowerCase().includes('flatbread') || getRecipeTitle(card).toLowerCase().includes('pita');
   return getRecipeCategories(card).includes(activeRecipeCategory);
@@ -9728,6 +9731,7 @@ function getRecipeCardNutrientSortValue(card) {
   if (category === 'omega3') return getRecipeNutrientThresholdValue(card, 'omega3Mg');
   if (category === 'choline') return getRecipeNutrientThresholdValue(card, 'cholineMg');
   if (category === 'mufa') return getRecipeNutrientThresholdValue(card, 'mufaG');
+  if (category === 'high-viscous-fiber') return getRecipeNutrientThresholdValue(card, 'viscousFiberG');
   if (category === 'folate') return getRecipeFolateEstimate(card);
   if (category === 'smart-protein') {
     const proteinG = Number(card.dataset.proteinG || 0);
@@ -9746,7 +9750,7 @@ function sortRecipeCardsAlphabetically() {
   const parent = cards[0].parentElement;
   if (!parent) return;
 
-  const nutrientSortActive = ['omega3', 'choline', 'mufa', 'folate', 'smart-protein'].includes(activeRecipeCategory);
+  const nutrientSortActive = ['omega3', 'choline', 'mufa', 'high-viscous-fiber', 'folate', 'smart-protein'].includes(activeRecipeCategory);
 
   cards.sort((a, b) => {
     const pinDiff = Number(isRecipeCardPinned(b)) - Number(isRecipeCardPinned(a));
