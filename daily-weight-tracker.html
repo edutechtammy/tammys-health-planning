@@ -526,6 +526,29 @@
       font-size: .8rem;
     }
 
+    .hydration-insight {
+      margin-top: .55rem;
+      background: #f4faf7;
+      border: 1px solid #dceee3;
+      border-radius: 10px;
+      padding: .6rem .7rem;
+    }
+
+    .hydration-insight-title {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      margin-bottom: .22rem;
+    }
+
+    .hydration-insight-text {
+      font-size: .83rem;
+      color: #2f4e40;
+      line-height: 1.4;
+    }
+
     .smart-scale-legend {
       margin-top: .55rem;
       display: flex;
@@ -961,6 +984,10 @@
           <canvas id="body-water-trend-chart"></canvas>
         </div>
         <div class="smart-scale-legend" id="body-water-trend-legend"></div>
+        <div class="hydration-insight" id="hydration-insight">
+          <div class="hydration-insight-title">Hydration Insight</div>
+          <div class="hydration-insight-text" id="hydration-insight-text">Add body water % entries to track hydration progress toward your standard zone.</div>
+        </div>
         <div class="smart-scale-empty" id="body-water-trend-empty">Add body water % values to render this trend.</div>
       </div>
     </div>
@@ -1201,6 +1228,7 @@
   const bodyFatTrendEmpty = document.getElementById('body-fat-trend-empty');
   const visceralFatTrendEmpty = document.getElementById('visceral-fat-trend-empty');
   const bodyWaterTrendEmpty = document.getElementById('body-water-trend-empty');
+  const hydrationInsightText = document.getElementById('hydration-insight-text');
   const recompTrendChartCanvas = document.getElementById('recomp-trend-chart');
   const recompChartEmpty = document.getElementById('recomp-chart-empty');
   const importFileInput = document.getElementById('import-file-input');
@@ -4004,11 +4032,112 @@
     });
   }
 
+  function getBodyWaterZone(value) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) {
+      return null;
+    }
+
+    const zones = SMART_SCALE_BANDS.bodyWater || [];
+    for (const zone of zones) {
+      if (!zone || !Number.isFinite(zone.low) || !Number.isFinite(zone.high)) {
+        continue;
+      }
+      if (numeric >= zone.low && numeric < zone.high) {
+        return zone;
+      }
+    }
+
+    return zones.length ? zones[zones.length - 1] : null;
+  }
+
+  function averageNumber(values) {
+    const nums = (values || []).filter(value => Number.isFinite(value));
+    if (!nums.length) {
+      return null;
+    }
+    return nums.reduce((sum, value) => sum + value, 0) / nums.length;
+  }
+
+  function renderHydrationInsight() {
+    if (!hydrationInsightText) {
+      return;
+    }
+
+    const bodyWaterRows = sortEntriesOldestFirst(entries)
+      .map(item => ({
+        date: item.date,
+        value: Number(item.bodyWaterPct),
+        weight: Number(item.weight)
+      }))
+      .filter(item => normalizeDateOnly(item.date) && Number.isFinite(item.value) && item.value > 0);
+
+    if (!bodyWaterRows.length) {
+      hydrationInsightText.textContent = 'Add body water % entries to track hydration progress toward your standard zone.';
+      return;
+    }
+
+    const latest = bodyWaterRows[bodyWaterRows.length - 1];
+    const latestZone = getBodyWaterZone(latest.value);
+    const standardFloor = 45;
+    const standardCeil = 60;
+    const standardMid = (standardFloor + standardCeil) / 2;
+    const toStandard = Math.max(0, standardFloor - latest.value);
+
+    const recent7 = bodyWaterRows.slice(-7).map(item => item.value);
+    const prior7 = bodyWaterRows.slice(-14, -7).map(item => item.value);
+    const recentAvg = averageNumber(recent7);
+    const priorAvg = averageNumber(prior7);
+    const trendDelta = Number.isFinite(recentAvg) && Number.isFinite(priorAvg)
+      ? (recentAvg - priorAvg)
+      : null;
+
+    let message = 'Latest: ' + latest.value.toFixed(1) + '%. '; 
+    if (latestZone && latestZone.shortLabel) {
+      message += 'Current zone: ' + latestZone.shortLabel + '. ';
+    }
+
+    if (toStandard > 0) {
+      message += 'You are ' + toStandard.toFixed(1) + ' points below the standard hydration zone (' + standardFloor + '-' + standardCeil + '%). ';
+    } else {
+      message += 'You are in the standard-or-higher hydration range (' + standardFloor + '-' + standardCeil + '%). ';
+    }
+
+    if (Number.isFinite(recentAvg)) {
+      message += '7-entry average: ' + recentAvg.toFixed(1) + '%. ';
+    }
+
+    if (Number.isFinite(latest.weight) && latest.weight > 0 && latest.value < standardMid) {
+      const cupsPerPoundWater = 1.917;
+      const waterGapLbs = latest.weight * ((standardMid - latest.value) / 100);
+      const cupGap = waterGapLbs * cupsPerPoundWater;
+      const suggestedDailyCups = Math.max(1, Math.min(6, Math.round(cupGap / 7)));
+      message += 'Estimated gap to midpoint (' + standardMid.toFixed(1) + '%): about ' + cupGap.toFixed(1) + ' cups of body-water equivalent. ';
+      message += 'Practical target: add about ' + suggestedDailyCups + ' extra cups daily for a week, then reassess. ';
+      message += 'This is a guidance estimate, not a direct 1:1 fluid-retention prediction. ';
+    } else if (Number.isFinite(latest.weight) && latest.weight > 0) {
+      message += 'You are at or above the midpoint hydration target (' + standardMid.toFixed(1) + '%). Focus on consistency to stay in range. ';
+    }
+
+    if (Number.isFinite(trendDelta)) {
+      if (trendDelta > 0.2) {
+        message += 'Trend vs prior 7 entries: improving by ' + trendDelta.toFixed(1) + ' points.';
+      } else if (trendDelta < -0.2) {
+        message += 'Trend vs prior 7 entries: down by ' + Math.abs(trendDelta).toFixed(1) + ' points; increase hydration consistency this week.';
+      } else {
+        message += 'Trend vs prior 7 entries: steady.';
+      }
+    }
+
+    hydrationInsightText.textContent = message;
+  }
+
   function renderSmartScaleCharts() {
     renderSmartScaleLegend(bmiTrendLegend, SMART_SCALE_BANDS.bmi);
     renderSmartScaleLegend(bodyFatTrendLegend, SMART_SCALE_BANDS.bodyFat);
     renderSmartScaleLegend(visceralFatTrendLegend, SMART_SCALE_BANDS.visceralFat);
     renderSmartScaleLegend(bodyWaterTrendLegend, SMART_SCALE_BANDS.bodyWater);
+    renderHydrationInsight();
 
     renderSmartMetricChart({
       key: 'bmi',
