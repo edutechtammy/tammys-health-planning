@@ -491,6 +491,70 @@
       color: #2b4d3d;
     }
 
+    .smart-scale-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .85rem;
+      margin-top: .65rem;
+    }
+
+    .smart-scale-card {
+      background: #f9fcfa;
+      border: 1px solid #dceee3;
+      border-radius: 10px;
+      padding: .65rem .7rem;
+    }
+
+    .smart-scale-title {
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--green-dark);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: .45rem;
+    }
+
+    .smart-scale-chart-wrap {
+      position: relative;
+      height: 310px;
+    }
+
+    .smart-scale-empty {
+      display: none;
+      padding: .7rem .2rem .2rem;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .smart-scale-legend {
+      margin-top: .55rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem .45rem;
+    }
+
+    .smart-scale-legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .34rem;
+      border: 1px solid #dceee3;
+      border-radius: 999px;
+      padding: .16rem .5rem .16rem .34rem;
+      font-size: .72rem;
+      font-weight: 700;
+      color: #2b4d3d;
+      background: #fff;
+      line-height: 1;
+    }
+
+    .smart-scale-legend-swatch {
+      width: .7rem;
+      height: .7rem;
+      border-radius: 2px;
+      border: 1px solid rgba(0, 0, 0, .14);
+      flex: 0 0 auto;
+    }
+
     .recomp-badge {
       display: inline-block;
       margin-top: .45rem;
@@ -864,6 +928,45 @@
   </section>
 
   <section class="card">
+    <h2>Smart Scale Label Trends</h2>
+    <p class="helper">Reference zone colors use VeSync-style label guidance: Low, Standard, Elevated/High, and Excess. Ranges are practical defaults and help highlight when trend lines cross into a new zone.</p>
+    <div class="smart-scale-grid">
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">BMI Trend</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="bmi-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="bmi-trend-legend"></div>
+        <div class="smart-scale-empty" id="bmi-trend-empty">Need at least one weight entry to render BMI trend.</div>
+      </div>
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">Body Fat % Trend</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="body-fat-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="body-fat-trend-legend"></div>
+        <div class="smart-scale-empty" id="body-fat-trend-empty">Add body fat % values to render this trend.</div>
+      </div>
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">Visceral Fat Trend</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="visceral-fat-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="visceral-fat-trend-legend"></div>
+        <div class="smart-scale-empty" id="visceral-fat-trend-empty">Add visceral fat values to render this trend.</div>
+      </div>
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">Body Water % Trend</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="body-water-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="body-water-trend-legend"></div>
+        <div class="smart-scale-empty" id="body-water-trend-empty">Add body water % values to render this trend.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
     <h2>Saved Entries</h2>
     <p class="helper">Suggested cadence: weight daily; waist, thigh, under-bust, and upper-arm weekly under the same conditions (morning, relaxed posture, same tape tension). Smart-scale composition metrics are most useful when taken on a repeatable schedule.</p>
     <div class="table-wrap">
@@ -1086,6 +1189,18 @@
   const segmentBalanceSummary = document.getElementById('segment-balance-summary');
   const segmentMuscleBalanceList = document.getElementById('segment-muscle-balance-list');
   const segmentFatBalanceList = document.getElementById('segment-fat-balance-list');
+  const bmiTrendChartCanvas = document.getElementById('bmi-trend-chart');
+  const bodyFatTrendChartCanvas = document.getElementById('body-fat-trend-chart');
+  const visceralFatTrendChartCanvas = document.getElementById('visceral-fat-trend-chart');
+  const bodyWaterTrendChartCanvas = document.getElementById('body-water-trend-chart');
+  const bmiTrendLegend = document.getElementById('bmi-trend-legend');
+  const bodyFatTrendLegend = document.getElementById('body-fat-trend-legend');
+  const visceralFatTrendLegend = document.getElementById('visceral-fat-trend-legend');
+  const bodyWaterTrendLegend = document.getElementById('body-water-trend-legend');
+  const bmiTrendEmpty = document.getElementById('bmi-trend-empty');
+  const bodyFatTrendEmpty = document.getElementById('body-fat-trend-empty');
+  const visceralFatTrendEmpty = document.getElementById('visceral-fat-trend-empty');
+  const bodyWaterTrendEmpty = document.getElementById('body-water-trend-empty');
   const recompTrendChartCanvas = document.getElementById('recomp-trend-chart');
   const recompChartEmpty = document.getElementById('recomp-chart-empty');
   const importFileInput = document.getElementById('import-file-input');
@@ -1108,6 +1223,36 @@
   const bmiPrevBtn = document.getElementById('bmi-prev-btn');
   const bmiNextBtn = document.getElementById('bmi-next-btn');
   const bmiImageFrame = document.getElementById('bmi-image-frame');
+  const smartScaleCharts = {
+    bmi: null,
+    bodyFat: null,
+    visceralFat: null,
+    bodyWater: null
+  };
+  const SMART_SCALE_BANDS = {
+    bmi: [
+      { low: 0, high: 18.5, shortLabel: 'Low', color: 'rgba(66, 133, 244, .12)' },
+      { low: 18.5, high: 25, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 25, high: 30, shortLabel: 'Elevated', color: 'rgba(243, 156, 18, .12)' },
+      { low: 30, high: 70, shortLabel: 'Excess', color: 'rgba(231, 76, 60, .13)' }
+    ],
+    bodyFat: [
+      { low: 0, high: 20, shortLabel: 'Low', color: 'rgba(66, 133, 244, .12)' },
+      { low: 20, high: 32, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 32, high: 39, shortLabel: 'Elevated', color: 'rgba(243, 156, 18, .12)' },
+      { low: 39, high: 75, shortLabel: 'Excess', color: 'rgba(231, 76, 60, .13)' }
+    ],
+    visceralFat: [
+      { low: 0, high: 10, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 10, high: 15, shortLabel: 'Elevated', color: 'rgba(243, 156, 18, .12)' },
+      { low: 15, high: 60, shortLabel: 'Excess', color: 'rgba(231, 76, 60, .13)' }
+    ],
+    bodyWater: [
+      { low: 0, high: 45, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 45, high: 60, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 60, high: 80, shortLabel: 'High', color: 'rgba(26, 188, 156, .12)' }
+    ]
+  };
   let editingDate = null;
 
   function getLatestEntryWeight() {
@@ -3684,6 +3829,248 @@
     );
   }
 
+  function renderSmartMetricChart(config) {
+    const {
+      key,
+      canvas,
+      emptyEl,
+      valueFromEntry,
+      label,
+      yTitle,
+      unit,
+      color,
+      bands,
+      minFloor,
+      maxCeil,
+      decimals = 1
+    } = config;
+
+    if (smartScaleCharts[key]) {
+      smartScaleCharts[key].destroy();
+      smartScaleCharts[key] = null;
+    }
+
+    if (!canvas) {
+      return;
+    }
+
+    const chrono = sortEntriesOldestFirst(entries)
+      .map(item => ({
+        date: item.date,
+        value: Number(valueFromEntry(item))
+      }))
+      .filter(item => normalizeDateOnly(item.date) && Number.isFinite(item.value) && item.value > 0);
+
+    if (!chrono.length) {
+      if (emptyEl) {
+        emptyEl.style.display = 'block';
+      }
+      return;
+    }
+
+    if (emptyEl) {
+      emptyEl.style.display = 'none';
+    }
+
+    const rawPoints = chrono.map(item => ({
+      x: dateToStamp(item.date),
+      y: item.value,
+      originalDate: item.date
+    }));
+    const points = buildCompressedWeightPoints(rawPoints, getGapCompressionDays());
+    const dateLookup = new Map(points.map(point => [Math.round(point.x), point.originalDate]));
+    const values = points.map(point => point.y);
+    const bandBounds = (bands || [])
+      .flatMap(band => [Number(band.low), Number(band.high)])
+      .filter(value => Number.isFinite(value));
+    const minValue = Math.min(...values, ...(bandBounds.length ? bandBounds : values));
+    const maxValue = Math.max(...values, ...(bandBounds.length ? bandBounds : values));
+    const yPadding = Math.max((maxValue - minValue) * 0.08, 0.6);
+
+    smartScaleCharts[key] = new Chart(canvas, {
+      type: 'line',
+      plugins: [waistMilestoneBandsPlugin],
+      data: {
+        datasets: [
+          {
+            label,
+            data: points,
+            borderColor: color,
+            backgroundColor: color,
+            borderWidth: 2,
+            tension: 0.22,
+            parsing: false,
+            pointRadius: points.length > 220 ? 0 : 2,
+            pointHoverRadius: 4,
+            pointHitRadius: 12,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        normalized: true,
+        plugins: {
+          waistMilestoneBands: {
+            bands: bands || [],
+            showLabels: true,
+            labelColor: 'rgba(30,45,36,.78)',
+            labelBackground: 'rgba(255,255,255,.62)'
+          },
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              title(context) {
+                if (!context.length) {
+                  return '';
+                }
+                const valueX = Math.round(context[0].parsed.x);
+                const dateForX = dateLookup.get(valueX);
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              },
+              label(context) {
+                if (!Number.isFinite(context.parsed.y)) {
+                  return label + ': n/a';
+                }
+                return label + ': ' + Number(context.parsed.y).toFixed(decimals) + ' ' + unit;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 8,
+              callback(value) {
+                const dateForX = dateLookup.get(Math.round(value));
+                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.45)' }
+          },
+          y: {
+            title: {
+              display: true,
+              text: yTitle
+            },
+            min: Number.isFinite(minFloor) ? minFloor : Math.max(0, minValue - yPadding),
+            max: Number.isFinite(maxCeil) ? maxCeil : (maxValue + yPadding),
+            ticks: {
+              callback(value) {
+                return value + ' ' + unit;
+              }
+            },
+            grid: { color: 'rgba(183,221,196,.5)' }
+          }
+        }
+      }
+    });
+  }
+
+  function renderSmartScaleLegend(legendEl, bands) {
+    if (!legendEl) {
+      return;
+    }
+
+    legendEl.innerHTML = '';
+    if (!Array.isArray(bands) || !bands.length) {
+      return;
+    }
+
+    bands.forEach(band => {
+      if (!band) {
+        return;
+      }
+
+      const chip = document.createElement('span');
+      chip.className = 'smart-scale-legend-chip';
+
+      const swatch = document.createElement('span');
+      swatch.className = 'smart-scale-legend-swatch';
+      swatch.style.background = band.color || 'rgba(0,0,0,.12)';
+
+      const label = document.createElement('span');
+      label.textContent = String(band.shortLabel || band.label || 'Range');
+
+      chip.appendChild(swatch);
+      chip.appendChild(label);
+      legendEl.appendChild(chip);
+    });
+  }
+
+  function renderSmartScaleCharts() {
+    renderSmartScaleLegend(bmiTrendLegend, SMART_SCALE_BANDS.bmi);
+    renderSmartScaleLegend(bodyFatTrendLegend, SMART_SCALE_BANDS.bodyFat);
+    renderSmartScaleLegend(visceralFatTrendLegend, SMART_SCALE_BANDS.visceralFat);
+    renderSmartScaleLegend(bodyWaterTrendLegend, SMART_SCALE_BANDS.bodyWater);
+
+    renderSmartMetricChart({
+      key: 'bmi',
+      canvas: bmiTrendChartCanvas,
+      emptyEl: bmiTrendEmpty,
+      valueFromEntry: (entry) => bmiForWeight(entry.weight),
+      label: 'BMI',
+      yTitle: 'BMI',
+      unit: '',
+      color: '#5f6caf',
+      bands: SMART_SCALE_BANDS.bmi,
+      minFloor: 15,
+      maxCeil: 45,
+      decimals: 1
+    });
+
+    renderSmartMetricChart({
+      key: 'bodyFat',
+      canvas: bodyFatTrendChartCanvas,
+      emptyEl: bodyFatTrendEmpty,
+      valueFromEntry: (entry) => entry.bodyFatPct,
+      label: 'Body Fat',
+      yTitle: 'Body Fat %',
+      unit: '%',
+      color: '#c0392b',
+      bands: SMART_SCALE_BANDS.bodyFat,
+      minFloor: 10,
+      maxCeil: 55,
+      decimals: 1
+    });
+
+    renderSmartMetricChart({
+      key: 'visceralFat',
+      canvas: visceralFatTrendChartCanvas,
+      emptyEl: visceralFatTrendEmpty,
+      valueFromEntry: (entry) => entry.visceralFatIndex,
+      label: 'Visceral Fat',
+      yTitle: 'Visceral Fat Index',
+      unit: '',
+      color: '#af601a',
+      bands: SMART_SCALE_BANDS.visceralFat,
+      minFloor: 0,
+      maxCeil: 30,
+      decimals: 1
+    });
+
+    renderSmartMetricChart({
+      key: 'bodyWater',
+      canvas: bodyWaterTrendChartCanvas,
+      emptyEl: bodyWaterTrendEmpty,
+      valueFromEntry: (entry) => entry.bodyWaterPct,
+      label: 'Body Water',
+      yTitle: 'Body Water %',
+      unit: '%',
+      color: '#1f78b4',
+      bands: SMART_SCALE_BANDS.bodyWater,
+      minFloor: 30,
+      maxCeil: 70,
+      decimals: 1
+    });
+  }
+
   function renderEntries() {
     refreshTrainingContext();
     renderWeeklyRecompositionScore();
@@ -3692,6 +4079,7 @@
     renderThighChart();
     renderUnderBustChart();
     renderUpperArmChart();
+    renderSmartScaleCharts();
     renderSegmentBalancePanel();
     renderWeightBmiContext();
     if (bmiSelectionMode !== 'manual') {
