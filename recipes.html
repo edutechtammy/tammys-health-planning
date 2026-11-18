@@ -961,6 +961,49 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════
+         RECIPE — HEARTY BEEF VEGETABLE SOUP
+    ═══════════════════════════════════════════════ -->
+    <div class="recipe-card" data-conditions="apoe4 celiac dp liver mthfr" data-oxalate="low" data-mufa-g="2.4">
+      <div class="recipe-card-img">🥩🥔🥣</div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">Hearty Beef Vegetable Soup (300 g Serving)</div>
+        <div class="recipe-card-meta">
+          <span>⏱ 20 min prep + 45 min cook</span>
+          <span>🍽 About 10 servings</span>
+          <span>⚖️ 300 g each</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+        </div>
+        <div class="glucose-row">
+          <span class="gi-dot gi-dot-mod"></span>
+          <span class="gi-moderate">Moderate GI style</span>
+          <span style="color:var(--muted);font-weight:400;font-size:.75rem">— potatoes + peas balanced by protein, fiber, and broth volume</span>
+        </div>
+        <p class="recipe-card-ingredients">1 lb ground beef ⋅ 2 cans stewed tomatoes ⋅ 2 large peeled potatoes ⋅ 1 can young green peas ⋅ 1 large onion ⋅ 907 g bone broth</p>
+        <div class="recipe-card-trigger">
+          <span class="trigger-pill"><strong>Calories:</strong> ~190 per 300 g</span>
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~16.5 g</span>
+          <span class="trigger-pill warning"><strong>Saturated fat:</strong> ~2.0 g</span>
+        </div>
+        <div class="recipe-card-desc">
+          <p>A homestyle beef-and-vegetable soup built around your exact requested base ingredients and standardized to a 300 g serving size for easy tracking.
+          <br><span class="badge badge-apoe4">APOE4</span> Choline and B12 support from the full pound of beef while keeping per-serving saturated fat moderate.
+          <br><span class="badge badge-liver">Fatty Liver</span> Protein and fiber help meal satiety while the soup format keeps energy density manageable.
+          <br><span class="badge badge-celiac">Celiac / GF</span> Naturally gluten-free with no wheat thickeners.</p>
+        </div>
+      </div>
+      <div class="recipe-card-footer">
+        <a class="btn-recipe btn-view" href="recipes/recipe-hearty-beef-vegetable-soup.html" target="_blank">📄 Full Recipe / Import Page</a>
+        <a class="btn-recipe btn-test" href="food-response-testing.html">🍽 Log a Test</a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
          RECIPE — SOFT & PLIABLE GLUTEN-FREE GYRO PITA
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="celiac dp kidney" data-oxalate="low">
@@ -6530,7 +6573,7 @@ const PANTRY_GROUPS = {
       'Ceylon cinnamon','chamomile','chili powder','citric acid','cocoa','coconut aminos',
       'coconut flakes','coconut sugar','coriander','cumin','dried rosemary','dried thyme',
       'dark chocolate chips','Lily\'s Stevia Sweetened Dark Chocolate Chips','chocolate chips','gluten-free chocolate chip cookies','Tate\'s Bake Shop GF Chocolate Chip Cookies','decaf coffee','dill','Dijon mustard','dried chili','dry milk powder','EVOO',
-      'extra virgin olive oil','fennel','flax seed','Fuji apple','garlic','ginger','great northern beans','green split peas','herbs','hibiscus','honey',
+      'extra virgin olive oil','fennel','flax seed','Fuji apple','garlic','ginger','great northern beans','green split peas','green peas','herbs','hibiscus','honey',
       'lemon','lime','MCT oil', 'mediterranean soup','millet / millet flour','mint','olive-cheddar spread','olive cheddar spread',
       'apple cider','orange peel','pomegranate molasses','paprika','olives','onion','onion powder','oregano','parsley','peppermint',
       'pecans','pepitas','pinto beans','pomegranate juice','potatoes','sweet potato','Prebio Plus','psyllium','pumpkin','pumpkin seeds','nutmeg','romaine','shiitake',
@@ -6565,6 +6608,7 @@ const PANTRY_NORM = {
   'chicken breast':      'chicken',
   'chicken thighs':      'chicken',
   'yukon gold potatoes': 'potatoes',
+  'peeled potatoes':     'potatoes',
   'potatoes':            'potatoes',
   'sweet potato':        'sweet potato',
   'sweet potatoes':      'sweet potato',
@@ -6572,6 +6616,8 @@ const PANTRY_NORM = {
   'baked sweet potato':  'sweet potato',
   'broth':               'vegetable broth',
   'tomato':              'tomatoes',
+  'stewed tomatoes':     'tomatoes',
+  'canned stewed tomatoes': 'tomatoes',
   'tomato sauce':        'tomatoes',
   'tomato paste':        'tomatoes',
   'sea salt':            'salt',
@@ -6807,6 +6853,8 @@ const PANTRY_NORM = {
   'whole milk':          'milk',
   'whole-grain bread for dipping': 'whole-grain bread',
   'great northern bean': 'cannellini beans',
+  'young green peas':    'green peas',
+  'green peas':          'green peas',
   'white bean':          'cannellini beans',
   'white beans':         'cannellini beans',
   'white kidney beans':  'cannellini beans',
@@ -6956,6 +7004,7 @@ const EXPLICIT_CATEGORY_TITLES = {
     'Roasted Asparagus — EVOO, Garlic & Lemon',
     'Marinated Olive Salad',
     'Mediterranean Chop Chop Salad',
+    'Hearty Beef Vegetable Soup (300 g Serving)',
     'Spinach (10g fresh/raw serving)',
     'Greek Lemon Herb Roasted Potatoes (Patates Lemonates)'
   ],
@@ -7070,6 +7119,7 @@ const EXPLICIT_CATEGORY_TITLES = {
   soups: [
     'Bone Broth Soup Base — Master Recipe',
     'Low-Carb Velvet Egg Drop Soup (Starch-Free)',
+    'Hearty Beef Vegetable Soup (300 g Serving)',
     'Creamy Mediterranean Red Lentil & Tomato Soup',
     'Tuscan White Beans with Garlic, Rosemary & Olive Oil',
     'Campbell\'s Mediterranean Lentil Soup'
@@ -7282,6 +7332,8 @@ function normIng(raw) {
   // Normalize apostrophe variants so pantry aliases match reliably (e.g., za’atar -> za'atar)
   s = s.replace(/[’ʻʼ]/g, "'");
   s = s.replace(/^[\d\s]+/, '');
+  // Strip leading measurement units that can remain after number removal (e.g., "1 lb beef" -> "beef", "907 g broth" -> "broth").
+  s = s.replace(/^(?:kg|g|gram|grams|lb|lbs|pound|pounds|ml|l|liter|liters|litre|litres)\s+/i, '');
   s = s.replace(/^(?:large|medium|small|extra|fresh|dried|ground|whole|raw|dry|optional|to taste|pinch|sprig|clove|cloves|tbsp|tsp|oz|can|cans|cups?|slices?|slice)\s+/i, '');
   s = s.replace(/\s*\([^)]*\)/g, '');
   s = s.replace(/\s*,\s*(?:drained\s*(?:&|and)?\s*rinsed|drained|rinsed)\b.*$/i, '');

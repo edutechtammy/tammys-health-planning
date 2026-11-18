@@ -11470,5 +11470,127 @@ window.RECIPE_PANEL_NUTRIENTS = {
         "notes": "I used the meatloaf run with broccoli and cauliflower from May 28, 2026. The GL is truly 0. Omega-3 Turkey does have real omega-3. Viscous fiber is truly 0."
       }
     }
+  },
+  "recipe-hearty-beef-vegetable-soup.html": {
+    "calories": {
+      "display": "~190 kcal",
+      "value": 190,
+      "unit": "kcal",
+      "name": "Calories — per serving",
+      "estimated": false
+    },
+    "satfatG": {
+      "display": "~2.0 g",
+      "value": 2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "netcarbsG": {
+      "display": "~16.5 g",
+      "value": 16.5,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "cholineMg": {
+      "display": "~57 mg",
+      "value": 57,
+      "unit": "mg",
+      "name": "Choline — APOE4 · Fatty Liver",
+      "estimated": false
+    },
+    "omega3Mg": {
+      "display": "~12 mg",
+      "value": 12,
+      "unit": "mg",
+      "name": "Omega-3 — supporting fatty liver + APOE4",
+      "estimated": false
+    },
+    "mufaG": {
+      "display": "~2.2 g",
+      "value": 2.2,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "folateMcg": {
+      "display": "~28 ug",
+      "value": 28,
+      "unit": "mcg",
+      "name": "Folate — MTHFR",
+      "estimated": false
+    },
+    "b12Mcg": {
+      "display": "~1.1 ug",
+      "value": 1.1,
+      "unit": "mcg",
+      "name": "B12 — MTHFR",
+      "estimated": false
+    },
+    "viscousFiberG": {
+      "display": "~1.8 g",
+      "value": 1.8,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "proteinG": {
+      "display": "~15 g",
+      "value": 15,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "carbsG": {
+      "display": "~21 g",
+      "value": 21,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "fiberG": {
+      "display": "~4.0 g",
+      "value": 4,
+      "unit": "g",
+      "name": "grams — per serving",
+      "estimated": false
+    },
+    "glycemic": {
+      "gl": {
+        "display": "10",
+        "value": 10,
+        "unit": "GL",
+        "name": "Glycemic Load — per serving",
+        "estimated": false
+      },
+      "foodTest": {
+        "unit": "mg/dL_delta",
+        "baseline": 0,
+        "points": [
+          {
+            "minute": 0,
+            "delta": 0
+          },
+          {
+            "minute": 30,
+            "delta": 0
+          },
+          {
+            "minute": 60,
+            "delta": 0
+          },
+          {
+            "minute": 120,
+            "delta": 0
+          },
+          {
+            "minute": 180,
+            "delta": 0
+          }
+        ],
+        "notes": ""
+      }
+    }
   }
 };
