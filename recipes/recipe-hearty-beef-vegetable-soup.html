@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hearty Beef Vegetable Soup (300 g Serving)</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Hearty Beef Vegetable Soup",
+    "description": "A large-batch beef and vegetable soup built from one full pound of ground beef, stewed tomatoes, potatoes, peas, onion, and bone broth. Balanced for satiety and menu-planner tracking with a clearly defined 300 g serving size.",
+    "recipeYield": "About 10 servings (300 g each)",
+    "prepTime": "PT20M",
+    "cookTime": "PT45M",
+    "totalTime": "PT65M",
+    "recipeCategory": "Soup / Main",
+    "recipeCuisine": "Homestyle",
+    "keywords": "ground beef soup, vegetable soup, bone broth soup, stewed tomato soup, meal prep, gluten-free",
+    "recipeIngredient": [
+      "1 lb (454 g) ground beef",
+      "2 cans stewed tomatoes (about 14.5 oz / 411 g each, with juices)",
+      "2 large potatoes, peeled and diced",
+      "1 can young green peas (about 15 oz / 425 g can, drained)",
+      "1 large onion, diced",
+      "907 g (32 oz) bone broth",
+      "1 tsp sea salt, or to taste",
+      "1/2 tsp black pepper",
+      "1 tsp dried oregano (optional)",
+      "1 bay leaf (optional)"
+    ],
+    "recipeInstructions": [
+      {
+        "@type": "HowToStep",
+        "name": "Brown the beef and onion",
+        "text": "In a large heavy pot over medium heat, cook the ground beef and diced onion together for 8 to 10 minutes, breaking the meat into small pieces until the beef is fully browned and the onion is softened. Drain excess fat if needed."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add the core soup ingredients",
+        "text": "Stir in both cans of stewed tomatoes with their juices, the peeled diced potatoes, the drained peas, and the 907 g bone broth. Add salt, pepper, oregano, and bay leaf if using."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Simmer until potatoes are tender",
+        "text": "Bring to a gentle boil, then reduce to a low simmer. Cover partially and cook 30 to 35 minutes, stirring occasionally, until potatoes are fork-tender and the flavors are fully combined."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Finish and portion",
+        "text": "Taste and adjust seasoning. Remove bay leaf if used. Let the soup rest 5 minutes, then portion by weight at 300 g per serving for consistent tracking in the menu planner."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1f5a40;
+      --green-mid: #2e7d5b;
+      --green-light: #d8f3dc;
+      --green-pale: #f3fbf5;
+      --border: #bfdcc8;
+      --text: #163126;
+      --muted: #4c695d;
+      --shadow: 0 2px 12px rgba(31, 90, 64, .12);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--green-pale);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 4rem;
+    }
+
+    nav {
+      background: var(--green-dark);
+      padding: .75rem 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .95rem;
+      opacity: .85;
+    }
+
+    nav a:hover, nav a.active { opacity: 1; text-decoration: underline; }
+
+    .main-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 0; }
+
+    .recipe-hero {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .recipe-hero-emoji {
+      background: linear-gradient(135deg, var(--green-light) 40%, #fff4db 100%);
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.8rem;
+      letter-spacing: .4rem;
+    }
+
+    .recipe-hero-body { padding: 1.4rem 1.6rem 1rem; }
+    .recipe-hero-body h1 { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--green-dark); margin-bottom: .6rem; }
+    .recipe-hero-body p { color: var(--muted); font-size: .92rem; line-height: 1.68; margin-bottom: .9rem; }
+
+    .meta-strip {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      background: var(--green-light);
+      border-radius: 8px;
+      padding: .6rem 1rem;
+      font-size: .82rem;
+      color: var(--green-dark);
+      margin-bottom: .9rem;
+    }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; }
+    .badge { border-radius: 12px; padding: .2rem .65rem; font-size: .73rem; font-weight: 700; }
+    .badge-apoe4 { background: #e8f5e9; color: #2e7d32; }
+    .badge-celiac { background: #fff3e0; color: #e65100; }
+    .badge-dp { background: #e3f2fd; color: #1565c0; }
+    .badge-liver { background: #fef3c7; color: #78350f; }
+    .badge-mthfr { background: #f3e5f5; color: #6a1b9a; }
+
+    .trigger-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      align-items: center;
+      background: #f5fbf6;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .7rem .9rem;
+      margin: .15rem 0 .9rem;
+    }
+
+    .trigger-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: .22rem .7rem;
+      font-size: .74rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .recipe-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    @media (max-width: 640px) {
+      .recipe-layout { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+
+    .panel-header {
+      background: var(--green-light);
+      padding: .65rem 1.2rem;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-body { padding: 1rem 1.2rem; }
+
+    .ing-list { list-style: none; }
+    .ing-item {
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
+      padding: .28rem 0;
+      border-bottom: 1px solid #e5f0e8;
+      font-size: .85rem;
+    }
+
+    .ing-item:last-child { border-bottom: none; }
+    .ing-amount { font-weight: 700; color: var(--green-dark); min-width: 8.2rem; flex-shrink: 0; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: .85rem; }
+    .step-item { display: flex; gap: .75rem; align-items: flex-start; font-size: .85rem; }
+    .step-num {
+      background: var(--green-dark);
+      color: #fff;
+      border-radius: 50%;
+      width: 1.6rem;
+      height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    .step-name { font-weight: 700; color: var(--green-dark); margin-bottom: .2rem; }
+
+    .nutr-panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+
+    .nutr-panel-header {
+      background: linear-gradient(135deg, var(--green-light) 0%, #edf9ef 100%);
+      padding: .7rem 1rem;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .nutr-panel-header span {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nutr-grid {
+      display: grid;
+      gap: .72rem;
+      padding: 1rem 1rem .7rem;
+    }
+
+    .nutr-row {
+      background: #f9fcfa;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .65rem .8rem;
+    }
+
+    .nutr-label-row {
+      display: flex;
+      justify-content: space-between;
+      gap: .65rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: .35rem;
+    }
+
+    .nutr-name {
+      font-size: .76rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .nutr-why {
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .nutr-amount {
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--green-mid);
+    }
+
+    .nutr-track {
+      width: 100%;
+      background: #eaf3ec;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .nutr-fill { height: 100%; border-radius: 999px; }
+
+    .nutr-pct {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: .35rem;
+    }
+
+    .nutr-note {
+      margin: 0 1rem 1rem;
+      background: #fff8f0;
+      border: 1px solid #ffd7a5;
+      border-radius: 10px;
+      padding: .8rem 1rem;
+      font-size: .8rem;
+      line-height: 1.6;
+      color: #7c3a00;
+    }
+
+    .btn {
+      padding: .48rem 1.15rem;
+      border-radius: 8px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+    }
+
+    .btn-back { background: #fff; color: var(--green-dark); border: 1.5px solid var(--green-mid); }
+    .btn-primary { background: var(--green-dark); color: #fff; }
+    .btn:hover { opacity: .82; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html">🏠 Home</a>
+    <a href="../lab-tracker.html">🧪 Lab Results</a>
+    <a href="../recipes.html" class="active">👩‍🍳 Recipes</a>
+    <a href="../food-response-testing.html">🍽️ Food Testing</a>
+    <a href="../genetics.html">🧬 Genetics</a>
+    <a href="../health-reference.html">📋 Reference</a>
+    <a href="../when-thin.html">🧴 When Thin</a>
+    <a href="../supplement-timing.html">💊 Supplements</a>
+    <a href="../cardio.html">🏃 Cardio</a>
+    <a href="../resistance.html">💪 Resistance</a>
+    <a href="../cgm-journal.html">📡 CGM</a>
+    <a href="../daily-weight-tracker.html">⚖️ Weight</a>
+    <a href="../morning-bp-tracker.html">🩺 BP</a>
+  </nav>
+
+  <div class="main-wrap">
+    <div class="recipe-hero">
+      <div class="recipe-hero-emoji">🥩🥔🥣</div>
+      <div class="recipe-hero-body">
+        <h1>Hearty Beef Vegetable Soup</h1>
+        <p>A meal-prep soup using one full pound of ground beef plus stewed tomatoes, potatoes, peas, onion, and 907 g of bone broth. The nutrient section is set to a 300 g serving size so the recipe and menu planner stay aligned.</p>
+        <div class="meta-strip">
+          <span>⏱ Prep: 20 min</span>
+          <span>🔥 Cook: 45 min</span>
+          <span>🍽 Yield: about 10 servings</span>
+          <span>⚖️ Serving size: 300 g</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-apoe4">APOE4</span>
+          <span class="badge badge-liver">Fatty Liver</span>
+          <span class="badge badge-mthfr">MTHFR</span>
+          <span class="badge badge-celiac">Celiac / GF</span>
+          <span class="badge badge-dp">DP / Blood Sugar</span>
+        </div>
+        <div class="trigger-summary">
+          <span class="trigger-pill"><strong>Calories:</strong> ~190 kcal</span>
+          <span class="trigger-pill"><strong>Net carbs:</strong> ~16.5 g</span>
+          <span class="trigger-pill"><strong>Saturated fat:</strong> ~2.0 g</span>
+          <span class="trigger-pill"><strong>Protein:</strong> ~15 g</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nutr-panel">
+      <div class="nutr-panel-header">📊 Nutrient panel — per serving (300 g) <span>estimated from full batch ingredients and 300 g serving weight</span></div>
+      <div class="nutr-grid">
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Calories</span>
+            <span class="nutr-amount">~190 kcal</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:10%;background:#16a34a"></div></div>
+          <div class="nutr-pct">About 10% of a 2000 kcal baseline.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Saturated fat</span>
+            <span class="nutr-amount">~2.0 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:20%;background:#0891b2"></div></div>
+          <div class="nutr-pct">Fits a lower sat-fat day structure when paired with lean sides.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Net carbs</span>
+            <span class="nutr-amount">~16.5 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:33%;background:#15803d"></div></div>
+          <div class="nutr-pct">Moderate carbohydrate load from potatoes, peas, and tomatoes.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Choline <span class="nutr-why">— APOE4 · Fatty Liver</span></span>
+            <span class="nutr-amount">~57 mg</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:8%;background:#f59e0b"></div></div>
+          <div class="nutr-pct">Beef-forward choline support with additional contribution from potatoes and peas.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Omega-3 <span class="nutr-why">— supportive baseline</span></span>
+            <span class="nutr-amount">~12 mg</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:1%;background:#14b8a6"></div></div>
+          <div class="nutr-pct">Small background amount; marine EPA/DHA should still come from seafood meals.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">MUFAs</span>
+            <span class="nutr-amount">~2.2 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:8%;background:#0891b2"></div></div>
+          <div class="nutr-pct">Modest monounsaturated fat contribution from the beef profile.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Folate <span class="nutr-why">— MTHFR</span></span>
+            <span class="nutr-amount">~28 ug</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:7%;background:#db2777"></div></div>
+          <div class="nutr-pct">Vegetable-driven folate support from peas, tomatoes, potatoes, and onion.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">B12 <span class="nutr-why">— MTHFR</span></span>
+            <span class="nutr-amount">~1.1 ug</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:46%;background:#7c3aed"></div></div>
+          <div class="nutr-pct">Meaningful B12 from the full pound of ground beef distributed across servings.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Viscous fiber</span>
+            <span class="nutr-amount">~1.8 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:12%;background:#14b8a6"></div></div>
+          <div class="nutr-pct">Comes mostly from peas and onion; contributes to satiety and meal smoothing.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Protein <span class="nutr-why">— satiety</span></span>
+            <span class="nutr-amount">~15 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:11%;background:#16a34a"></div></div>
+          <div class="nutr-pct">Steady protein base from beef, peas, and broth.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Total carbs</span>
+            <span class="nutr-amount">~21 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:42%;background:#22c55e"></div></div>
+          <div class="nutr-pct">Most carbs are whole-food starch and legume carbs from potato and peas.</div>
+        </div>
+
+        <div class="nutr-row">
+          <div class="nutr-label-row">
+            <span class="nutr-name">Fiber</span>
+            <span class="nutr-amount">~4.0 g</span>
+          </div>
+          <div class="nutr-track"><div class="nutr-fill" style="width:16%;background:#14b8a6"></div></div>
+          <div class="nutr-pct">Supports gut comfort and helps reduce effective carb load.</div>
+        </div>
+      </div>
+      <div class="nutr-note">All nutrient values are aligned to the 300 g serving size and mirrored in recipe-nutrient-data.js under this exact recipe filename so the menu planner can use the same numbers.</div>
+    </div>
+
+    <div class="recipe-layout">
+      <div class="panel">
+        <div class="panel-header">Ingredients</div>
+        <div class="panel-body">
+          <ul class="ing-list">
+            <li class="ing-item"><span class="ing-amount">1 lb (454 g)</span><span>ground beef</span></li>
+            <li class="ing-item"><span class="ing-amount">2 cans</span><span>stewed tomatoes (about 14.5 oz / 411 g each, with juices)</span></li>
+            <li class="ing-item"><span class="ing-amount">2 large</span><span>potatoes, peeled and diced</span></li>
+            <li class="ing-item"><span class="ing-amount">1 can</span><span>young green peas, drained</span></li>
+            <li class="ing-item"><span class="ing-amount">1 large</span><span>onion, diced</span></li>
+            <li class="ing-item"><span class="ing-amount">907 g</span><span>bone broth</span></li>
+            <li class="ing-item"><span class="ing-amount">1 tsp</span><span>sea salt, plus more to taste</span></li>
+            <li class="ing-item"><span class="ing-amount">1/2 tsp</span><span>black pepper</span></li>
+            <li class="ing-item"><span class="ing-amount">Optional</span><span>1 tsp dried oregano and 1 bay leaf</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Instructions</div>
+        <div class="panel-body">
+          <ol class="step-list">
+            <li class="step-item"><span class="step-num">1</span><div><div class="step-name">Brown base</div>Cook ground beef and diced onion in a large pot over medium heat for 8 to 10 minutes until beef is browned and onion is soft. Drain excess fat if needed.</div></li>
+            <li class="step-item"><span class="step-num">2</span><div><div class="step-name">Build soup</div>Add stewed tomatoes with juices, diced potatoes, drained peas, and 907 g bone broth. Season with salt, pepper, oregano, and bay leaf if using.</div></li>
+            <li class="step-item"><span class="step-num">3</span><div><div class="step-name">Simmer</div>Bring to a boil, then reduce to a gentle simmer. Cook 30 to 35 minutes, stirring occasionally, until the potatoes are tender.</div></li>
+            <li class="step-item"><span class="step-num">4</span><div><div class="step-name">Portion</div>Remove bay leaf, adjust seasoning, and weigh portions at 300 g each for consistent tracking and menu planning.</div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top: 1rem;">
+      <a href="../recipes.html" class="btn btn-back">← Back to Recipe Library</a>
+      <a href="../food-response-testing.html" class="btn btn-primary">🍽 Log a Food Test</a>
+    </div>
+  </div>
+</body>
+</html>
