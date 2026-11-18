@@ -447,6 +447,50 @@
       color: var(--muted);
     }
 
+    .segment-mass-cell {
+      white-space: normal;
+      min-width: 240px;
+      line-height: 1.35;
+    }
+
+    .segment-balance-summary {
+      color: #244d3a;
+      font-size: .86rem;
+      font-weight: 600;
+      margin-bottom: .55rem;
+    }
+
+    .segment-balance-grid {
+      display: grid;
+      gap: .65rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .segment-balance-group {
+      background: #f7fbf8;
+      border: 1px solid #dceee3;
+      border-radius: 10px;
+      padding: .7rem .8rem;
+    }
+
+    .segment-balance-title {
+      font-size: .74rem;
+      font-weight: 800;
+      color: var(--green-dark);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: .3rem;
+    }
+
+    .segment-balance-list {
+      margin: 0;
+      padding-left: 1rem;
+      display: grid;
+      gap: .22rem;
+      font-size: .82rem;
+      color: #2b4d3d;
+    }
+
     .recomp-badge {
       display: inline-block;
       margin-top: .45rem;
@@ -682,8 +726,94 @@
         <input type="number" id="w-body-fat-pct" step="0.1" min="0" max="75" placeholder="e.g. 34.2" />
       </div>
       <div class="field">
-        <label for="w-muscle-mass">Muscle Mass (lbs, optional)</label>
+        <label for="w-muscle-mass">Skeletal Muscle (lbs, optional)</label>
         <input type="number" id="w-muscle-mass" step="0.1" min="0" placeholder="e.g. 82.4" />
+      </div>
+      <div class="field">
+        <label for="w-physical-index">Physical Index (0-100, optional)</label>
+        <input type="number" id="w-physical-index" step="1" min="0" max="100" placeholder="e.g. 59" />
+      </div>
+      <div class="field">
+        <label for="w-visceral-fat">Visceral Fat Index (optional)</label>
+        <input type="number" id="w-visceral-fat" step="0.1" min="0" placeholder="e.g. 20" />
+      </div>
+      <div class="field">
+        <label for="w-subcutaneous-fat-pct">Subcutaneous Fat % (optional)</label>
+        <input type="number" id="w-subcutaneous-fat-pct" step="0.1" min="0" max="100" placeholder="e.g. 31.2" />
+      </div>
+      <div class="field">
+        <label for="w-metabolic-age">Metabolic Age (years, optional)</label>
+        <input type="number" id="w-metabolic-age" step="1" min="0" placeholder="e.g. 66" />
+      </div>
+      <div class="field">
+        <label for="w-body-water-pct">Body Water % (optional)</label>
+        <input type="number" id="w-body-water-pct" step="0.1" min="0" max="100" placeholder="e.g. 41.2" />
+      </div>
+      <div class="field">
+        <label for="w-bmr-kcal">BMR (kCal/day, optional)</label>
+        <input type="number" id="w-bmr-kcal" step="1" min="0" placeholder="e.g. 1606" />
+      </div>
+      <div class="field">
+        <label for="w-fat-free-weight">Fat-Free Weight (lbs, optional)</label>
+        <input type="number" id="w-fat-free-weight" step="0.1" min="0" placeholder="e.g. 126.1" />
+      </div>
+      <div class="field">
+        <label for="w-muscle-mass-pct">Muscle Mass % (optional)</label>
+        <input type="number" id="w-muscle-mass-pct" step="0.1" min="0" max="100" placeholder="e.g. 52.4" />
+      </div>
+      <div class="field">
+        <label for="w-bone-mass">Bone Mass (lbs, optional)</label>
+        <input type="number" id="w-bone-mass" step="0.1" min="0" placeholder="e.g. 8.4" />
+      </div>
+      <div class="field">
+        <label for="w-protein-pct">Protein % (optional)</label>
+        <input type="number" id="w-protein-pct" step="0.1" min="0" max="100" placeholder="e.g. 11.2" />
+      </div>
+      <div class="field full" style="margin-top: .25rem;">
+        <label>Segmental Muscle Mass (lbs, optional)</label>
+      </div>
+      <div class="field">
+        <label for="w-seg-ll-muscle">Left Leg Muscle</label>
+        <input type="number" id="w-seg-ll-muscle" step="0.1" min="0" placeholder="e.g. 18.2" />
+      </div>
+      <div class="field">
+        <label for="w-seg-rl-muscle">Right Leg Muscle</label>
+        <input type="number" id="w-seg-rl-muscle" step="0.1" min="0" placeholder="e.g. 18.1" />
+      </div>
+      <div class="field">
+        <label for="w-seg-la-muscle">Left Arm Muscle</label>
+        <input type="number" id="w-seg-la-muscle" step="0.1" min="0" placeholder="e.g. 6.4" />
+      </div>
+      <div class="field">
+        <label for="w-seg-ra-muscle">Right Arm Muscle</label>
+        <input type="number" id="w-seg-ra-muscle" step="0.1" min="0" placeholder="e.g. 6.6" />
+      </div>
+      <div class="field">
+        <label for="w-seg-trunk-muscle">Trunk Muscle</label>
+        <input type="number" id="w-seg-trunk-muscle" step="0.1" min="0" placeholder="e.g. 40.2" />
+      </div>
+      <div class="field full" style="margin-top: .15rem;">
+        <label>Segmental Fat Mass (lbs, optional)</label>
+      </div>
+      <div class="field">
+        <label for="w-seg-ll-fat">Left Leg Fat</label>
+        <input type="number" id="w-seg-ll-fat" step="0.1" min="0" placeholder="e.g. 8.8" />
+      </div>
+      <div class="field">
+        <label for="w-seg-rl-fat">Right Leg Fat</label>
+        <input type="number" id="w-seg-rl-fat" step="0.1" min="0" placeholder="e.g. 8.9" />
+      </div>
+      <div class="field">
+        <label for="w-seg-la-fat">Left Arm Fat</label>
+        <input type="number" id="w-seg-la-fat" step="0.1" min="0" placeholder="e.g. 2.6" />
+      </div>
+      <div class="field">
+        <label for="w-seg-ra-fat">Right Arm Fat</label>
+        <input type="number" id="w-seg-ra-fat" step="0.1" min="0" placeholder="e.g. 2.7" />
+      </div>
+      <div class="field">
+        <label for="w-seg-trunk-fat">Trunk Fat</label>
+        <input type="number" id="w-seg-trunk-fat" step="0.1" min="0" placeholder="e.g. 27.5" />
       </div>
       <div class="field full">
         <label for="w-notes">Notes (optional)</label>
@@ -699,7 +829,7 @@
       <input type="file" id="import-file-input" accept="application/json,.json" hidden />
     </div>
     <div class="edit-state" id="edit-state"></div>
-    <p class="helper">Entries are kept in this browser for convenience, and Save Data to File downloads a JSON backup you can keep anywhere.</p>
+    <p class="helper">Entries are kept in this browser for convenience, and Save Data to File downloads a JSON backup you can keep anywhere. Optional Etekcity body-composition fields can be logged whenever measured.</p>
   </section>
 
   <section class="card">
@@ -719,8 +849,23 @@
   </section>
 
   <section class="card">
+    <h2>Segment Balance (Latest Entry)</h2>
+    <p class="segment-balance-summary" id="segment-balance-summary">Add segment muscle/fat values to see arm and leg left-vs-right differences.</p>
+    <div class="segment-balance-grid">
+      <div class="segment-balance-group">
+        <div class="segment-balance-title">Muscle Mass Balance</div>
+        <ul class="segment-balance-list" id="segment-muscle-balance-list"></ul>
+      </div>
+      <div class="segment-balance-group">
+        <div class="segment-balance-title">Fat Mass Balance</div>
+        <ul class="segment-balance-list" id="segment-fat-balance-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
     <h2>Saved Entries</h2>
-    <p class="helper">Suggested cadence: weight daily; waist, thigh, under-bust, and upper-arm weekly under the same conditions (morning, relaxed posture, same tape tension).</p>
+    <p class="helper">Suggested cadence: weight daily; waist, thigh, under-bust, and upper-arm weekly under the same conditions (morning, relaxed posture, same tape tension). Smart-scale composition metrics are most useful when taken on a repeatable schedule.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -732,7 +877,19 @@
             <th>Under Bust (in)</th>
             <th>Upper Arm (in)</th>
             <th>Body Fat %</th>
-            <th>Muscle (lbs)</th>
+            <th>Skeletal Muscle (lbs)</th>
+            <th>Muscle Mass %</th>
+            <th>Fat-Free Wt (lbs)</th>
+            <th>Visceral Fat</th>
+            <th>Subcut Fat %</th>
+            <th>Body Water %</th>
+            <th>Protein %</th>
+            <th>Bone Mass (lbs)</th>
+            <th>BMR (kCal)</th>
+            <th>Metabolic Age</th>
+            <th>Physical Index</th>
+            <th>Segment Muscle (lbs)</th>
+            <th>Segment Fat (lbs)</th>
             <th>Training Context</th>
             <th>Notes</th>
             <th>Actions</th>
@@ -892,6 +1049,26 @@
   const upperArmInput = document.getElementById('w-upper-arm');
   const bodyFatPctInput = document.getElementById('w-body-fat-pct');
   const muscleMassInput = document.getElementById('w-muscle-mass');
+  const physicalIndexInput = document.getElementById('w-physical-index');
+  const visceralFatInput = document.getElementById('w-visceral-fat');
+  const subcutaneousFatPctInput = document.getElementById('w-subcutaneous-fat-pct');
+  const metabolicAgeInput = document.getElementById('w-metabolic-age');
+  const bodyWaterPctInput = document.getElementById('w-body-water-pct');
+  const bmrKcalInput = document.getElementById('w-bmr-kcal');
+  const fatFreeWeightInput = document.getElementById('w-fat-free-weight');
+  const muscleMassPctInput = document.getElementById('w-muscle-mass-pct');
+  const boneMassInput = document.getElementById('w-bone-mass');
+  const proteinPctInput = document.getElementById('w-protein-pct');
+  const segmentLeftLegMuscleInput = document.getElementById('w-seg-ll-muscle');
+  const segmentRightLegMuscleInput = document.getElementById('w-seg-rl-muscle');
+  const segmentLeftArmMuscleInput = document.getElementById('w-seg-la-muscle');
+  const segmentRightArmMuscleInput = document.getElementById('w-seg-ra-muscle');
+  const segmentTrunkMuscleInput = document.getElementById('w-seg-trunk-muscle');
+  const segmentLeftLegFatInput = document.getElementById('w-seg-ll-fat');
+  const segmentRightLegFatInput = document.getElementById('w-seg-rl-fat');
+  const segmentLeftArmFatInput = document.getElementById('w-seg-la-fat');
+  const segmentRightArmFatInput = document.getElementById('w-seg-ra-fat');
+  const segmentTrunkFatInput = document.getElementById('w-seg-trunk-fat');
   const thighTargetInput = document.getElementById('thigh-target-input');
   const underBustTargetInput = document.getElementById('under-bust-target-input');
   const upperArmTargetInput = document.getElementById('upper-arm-target-input');
@@ -906,6 +1083,9 @@
   const recompSummary = document.getElementById('recomp-summary');
   const recompBadge = document.getElementById('recomp-badge');
   const recompChecks = document.getElementById('recomp-checks');
+  const segmentBalanceSummary = document.getElementById('segment-balance-summary');
+  const segmentMuscleBalanceList = document.getElementById('segment-muscle-balance-list');
+  const segmentFatBalanceList = document.getElementById('segment-fat-balance-list');
   const recompTrendChartCanvas = document.getElementById('recomp-trend-chart');
   const recompChartEmpty = document.getElementById('recomp-chart-empty');
   const importFileInput = document.getElementById('import-file-input');
@@ -1368,6 +1548,26 @@
     upperArmInput.value = record.upperArm === '' ? '' : formatMaybeNumber(record.upperArm, 1);
     bodyFatPctInput.value = record.bodyFatPct === '' ? '' : formatMaybeNumber(record.bodyFatPct, 1);
     muscleMassInput.value = record.muscleMassLbs === '' ? '' : formatMaybeNumber(record.muscleMassLbs, 1);
+    physicalIndexInput.value = record.physicalIndexScore === '' ? '' : formatMaybeNumber(record.physicalIndexScore, 0);
+    visceralFatInput.value = record.visceralFatIndex === '' ? '' : formatMaybeNumber(record.visceralFatIndex, 1);
+    subcutaneousFatPctInput.value = record.subcutaneousFatPct === '' ? '' : formatMaybeNumber(record.subcutaneousFatPct, 1);
+    metabolicAgeInput.value = record.metabolicAgeYears === '' ? '' : formatMaybeNumber(record.metabolicAgeYears, 0);
+    bodyWaterPctInput.value = record.bodyWaterPct === '' ? '' : formatMaybeNumber(record.bodyWaterPct, 1);
+    bmrKcalInput.value = record.bmrKcal === '' ? '' : formatMaybeNumber(record.bmrKcal, 0);
+    fatFreeWeightInput.value = record.fatFreeWeightLbs === '' ? '' : formatMaybeNumber(record.fatFreeWeightLbs, 1);
+    muscleMassPctInput.value = record.muscleMassPct === '' ? '' : formatMaybeNumber(record.muscleMassPct, 1);
+    boneMassInput.value = record.boneMassLbs === '' ? '' : formatMaybeNumber(record.boneMassLbs, 1);
+    proteinPctInput.value = record.proteinPct === '' ? '' : formatMaybeNumber(record.proteinPct, 1);
+    segmentLeftLegMuscleInput.value = record.segmentLeftLegMuscleLbs === '' ? '' : formatMaybeNumber(record.segmentLeftLegMuscleLbs, 1);
+    segmentRightLegMuscleInput.value = record.segmentRightLegMuscleLbs === '' ? '' : formatMaybeNumber(record.segmentRightLegMuscleLbs, 1);
+    segmentLeftArmMuscleInput.value = record.segmentLeftArmMuscleLbs === '' ? '' : formatMaybeNumber(record.segmentLeftArmMuscleLbs, 1);
+    segmentRightArmMuscleInput.value = record.segmentRightArmMuscleLbs === '' ? '' : formatMaybeNumber(record.segmentRightArmMuscleLbs, 1);
+    segmentTrunkMuscleInput.value = record.segmentTrunkMuscleLbs === '' ? '' : formatMaybeNumber(record.segmentTrunkMuscleLbs, 1);
+    segmentLeftLegFatInput.value = record.segmentLeftLegFatLbs === '' ? '' : formatMaybeNumber(record.segmentLeftLegFatLbs, 1);
+    segmentRightLegFatInput.value = record.segmentRightLegFatLbs === '' ? '' : formatMaybeNumber(record.segmentRightLegFatLbs, 1);
+    segmentLeftArmFatInput.value = record.segmentLeftArmFatLbs === '' ? '' : formatMaybeNumber(record.segmentLeftArmFatLbs, 1);
+    segmentRightArmFatInput.value = record.segmentRightArmFatLbs === '' ? '' : formatMaybeNumber(record.segmentRightArmFatLbs, 1);
+    segmentTrunkFatInput.value = record.segmentTrunkFatLbs === '' ? '' : formatMaybeNumber(record.segmentTrunkFatLbs, 1);
     notesInput.value = record.notes || '';
     addEntryBtn.textContent = 'Update Entry';
     editState.textContent = 'Editing entry: ' + record.date;
@@ -2146,6 +2346,86 @@
       const muscleMassNum = muscleMassRaw === '' || muscleMassRaw === null || muscleMassRaw === undefined
         ? ''
         : Number(muscleMassRaw);
+      const physicalIndexRaw = item.physicalIndexScore;
+      const physicalIndexNum = physicalIndexRaw === '' || physicalIndexRaw === null || physicalIndexRaw === undefined
+        ? ''
+        : Number(physicalIndexRaw);
+      const visceralFatRaw = item.visceralFatIndex;
+      const visceralFatNum = visceralFatRaw === '' || visceralFatRaw === null || visceralFatRaw === undefined
+        ? ''
+        : Number(visceralFatRaw);
+      const subcutaneousFatRaw = item.subcutaneousFatPct;
+      const subcutaneousFatPctNum = subcutaneousFatRaw === '' || subcutaneousFatRaw === null || subcutaneousFatRaw === undefined
+        ? ''
+        : Number(subcutaneousFatRaw);
+      const metabolicAgeRaw = item.metabolicAgeYears;
+      const metabolicAgeNum = metabolicAgeRaw === '' || metabolicAgeRaw === null || metabolicAgeRaw === undefined
+        ? ''
+        : Number(metabolicAgeRaw);
+      const bodyWaterRaw = item.bodyWaterPct;
+      const bodyWaterPctNum = bodyWaterRaw === '' || bodyWaterRaw === null || bodyWaterRaw === undefined
+        ? ''
+        : Number(bodyWaterRaw);
+      const bmrRaw = item.bmrKcal;
+      const bmrKcalNum = bmrRaw === '' || bmrRaw === null || bmrRaw === undefined
+        ? ''
+        : Number(bmrRaw);
+      const fatFreeWeightRaw = item.fatFreeWeightLbs;
+      const fatFreeWeightNum = fatFreeWeightRaw === '' || fatFreeWeightRaw === null || fatFreeWeightRaw === undefined
+        ? ''
+        : Number(fatFreeWeightRaw);
+      const muscleMassPctRaw = item.muscleMassPct;
+      const muscleMassPctNum = muscleMassPctRaw === '' || muscleMassPctRaw === null || muscleMassPctRaw === undefined
+        ? ''
+        : Number(muscleMassPctRaw);
+      const boneMassRaw = item.boneMassLbs;
+      const boneMassNum = boneMassRaw === '' || boneMassRaw === null || boneMassRaw === undefined
+        ? ''
+        : Number(boneMassRaw);
+      const proteinPctRaw = item.proteinPct;
+      const proteinPctNum = proteinPctRaw === '' || proteinPctRaw === null || proteinPctRaw === undefined
+        ? ''
+        : Number(proteinPctRaw);
+      const segmentLeftLegMuscleRaw = item.segmentLeftLegMuscleLbs;
+      const segmentLeftLegMuscleNum = segmentLeftLegMuscleRaw === '' || segmentLeftLegMuscleRaw === null || segmentLeftLegMuscleRaw === undefined
+        ? ''
+        : Number(segmentLeftLegMuscleRaw);
+      const segmentRightLegMuscleRaw = item.segmentRightLegMuscleLbs;
+      const segmentRightLegMuscleNum = segmentRightLegMuscleRaw === '' || segmentRightLegMuscleRaw === null || segmentRightLegMuscleRaw === undefined
+        ? ''
+        : Number(segmentRightLegMuscleRaw);
+      const segmentLeftArmMuscleRaw = item.segmentLeftArmMuscleLbs;
+      const segmentLeftArmMuscleNum = segmentLeftArmMuscleRaw === '' || segmentLeftArmMuscleRaw === null || segmentLeftArmMuscleRaw === undefined
+        ? ''
+        : Number(segmentLeftArmMuscleRaw);
+      const segmentRightArmMuscleRaw = item.segmentRightArmMuscleLbs;
+      const segmentRightArmMuscleNum = segmentRightArmMuscleRaw === '' || segmentRightArmMuscleRaw === null || segmentRightArmMuscleRaw === undefined
+        ? ''
+        : Number(segmentRightArmMuscleRaw);
+      const segmentTrunkMuscleRaw = item.segmentTrunkMuscleLbs;
+      const segmentTrunkMuscleNum = segmentTrunkMuscleRaw === '' || segmentTrunkMuscleRaw === null || segmentTrunkMuscleRaw === undefined
+        ? ''
+        : Number(segmentTrunkMuscleRaw);
+      const segmentLeftLegFatRaw = item.segmentLeftLegFatLbs;
+      const segmentLeftLegFatNum = segmentLeftLegFatRaw === '' || segmentLeftLegFatRaw === null || segmentLeftLegFatRaw === undefined
+        ? ''
+        : Number(segmentLeftLegFatRaw);
+      const segmentRightLegFatRaw = item.segmentRightLegFatLbs;
+      const segmentRightLegFatNum = segmentRightLegFatRaw === '' || segmentRightLegFatRaw === null || segmentRightLegFatRaw === undefined
+        ? ''
+        : Number(segmentRightLegFatRaw);
+      const segmentLeftArmFatRaw = item.segmentLeftArmFatLbs;
+      const segmentLeftArmFatNum = segmentLeftArmFatRaw === '' || segmentLeftArmFatRaw === null || segmentLeftArmFatRaw === undefined
+        ? ''
+        : Number(segmentLeftArmFatRaw);
+      const segmentRightArmFatRaw = item.segmentRightArmFatLbs;
+      const segmentRightArmFatNum = segmentRightArmFatRaw === '' || segmentRightArmFatRaw === null || segmentRightArmFatRaw === undefined
+        ? ''
+        : Number(segmentRightArmFatRaw);
+      const segmentTrunkFatRaw = item.segmentTrunkFatLbs;
+      const segmentTrunkFatNum = segmentTrunkFatRaw === '' || segmentTrunkFatRaw === null || segmentTrunkFatRaw === undefined
+        ? ''
+        : Number(segmentTrunkFatRaw);
       if (waistNum !== '' && (!Number.isFinite(waistNum) || waistNum <= 0)) {
         continue;
       }
@@ -2164,6 +2444,66 @@
       if (muscleMassNum !== '' && (!Number.isFinite(muscleMassNum) || muscleMassNum <= 0)) {
         continue;
       }
+      if (physicalIndexNum !== '' && (!Number.isFinite(physicalIndexNum) || physicalIndexNum < 0 || physicalIndexNum > 100)) {
+        continue;
+      }
+      if (visceralFatNum !== '' && (!Number.isFinite(visceralFatNum) || visceralFatNum < 0)) {
+        continue;
+      }
+      if (subcutaneousFatPctNum !== '' && (!Number.isFinite(subcutaneousFatPctNum) || subcutaneousFatPctNum < 0 || subcutaneousFatPctNum > 100)) {
+        continue;
+      }
+      if (metabolicAgeNum !== '' && (!Number.isFinite(metabolicAgeNum) || metabolicAgeNum <= 0)) {
+        continue;
+      }
+      if (bodyWaterPctNum !== '' && (!Number.isFinite(bodyWaterPctNum) || bodyWaterPctNum < 0 || bodyWaterPctNum > 100)) {
+        continue;
+      }
+      if (bmrKcalNum !== '' && (!Number.isFinite(bmrKcalNum) || bmrKcalNum <= 0)) {
+        continue;
+      }
+      if (fatFreeWeightNum !== '' && (!Number.isFinite(fatFreeWeightNum) || fatFreeWeightNum <= 0)) {
+        continue;
+      }
+      if (muscleMassPctNum !== '' && (!Number.isFinite(muscleMassPctNum) || muscleMassPctNum < 0 || muscleMassPctNum > 100)) {
+        continue;
+      }
+      if (boneMassNum !== '' && (!Number.isFinite(boneMassNum) || boneMassNum <= 0)) {
+        continue;
+      }
+      if (proteinPctNum !== '' && (!Number.isFinite(proteinPctNum) || proteinPctNum < 0 || proteinPctNum > 100)) {
+        continue;
+      }
+      if (segmentLeftLegMuscleNum !== '' && (!Number.isFinite(segmentLeftLegMuscleNum) || segmentLeftLegMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentRightLegMuscleNum !== '' && (!Number.isFinite(segmentRightLegMuscleNum) || segmentRightLegMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentLeftArmMuscleNum !== '' && (!Number.isFinite(segmentLeftArmMuscleNum) || segmentLeftArmMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentRightArmMuscleNum !== '' && (!Number.isFinite(segmentRightArmMuscleNum) || segmentRightArmMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentTrunkMuscleNum !== '' && (!Number.isFinite(segmentTrunkMuscleNum) || segmentTrunkMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentLeftLegFatNum !== '' && (!Number.isFinite(segmentLeftLegFatNum) || segmentLeftLegFatNum <= 0)) {
+        continue;
+      }
+      if (segmentRightLegFatNum !== '' && (!Number.isFinite(segmentRightLegFatNum) || segmentRightLegFatNum <= 0)) {
+        continue;
+      }
+      if (segmentLeftArmFatNum !== '' && (!Number.isFinite(segmentLeftArmFatNum) || segmentLeftArmFatNum <= 0)) {
+        continue;
+      }
+      if (segmentRightArmFatNum !== '' && (!Number.isFinite(segmentRightArmFatNum) || segmentRightArmFatNum <= 0)) {
+        continue;
+      }
+      if (segmentTrunkFatNum !== '' && (!Number.isFinite(segmentTrunkFatNum) || segmentTrunkFatNum <= 0)) {
+        continue;
+      }
 
       byDate.set(date, {
         date,
@@ -2174,6 +2514,26 @@
         upperArm: upperArmNum,
         bodyFatPct: bodyFatPctNum,
         muscleMassLbs: muscleMassNum,
+        physicalIndexScore: physicalIndexNum,
+        visceralFatIndex: visceralFatNum,
+        subcutaneousFatPct: subcutaneousFatPctNum,
+        metabolicAgeYears: metabolicAgeNum,
+        bodyWaterPct: bodyWaterPctNum,
+        bmrKcal: bmrKcalNum,
+        fatFreeWeightLbs: fatFreeWeightNum,
+        muscleMassPct: muscleMassPctNum,
+        boneMassLbs: boneMassNum,
+        proteinPct: proteinPctNum,
+        segmentLeftLegMuscleLbs: segmentLeftLegMuscleNum,
+        segmentRightLegMuscleLbs: segmentRightLegMuscleNum,
+        segmentLeftArmMuscleLbs: segmentLeftArmMuscleNum,
+        segmentRightArmMuscleLbs: segmentRightArmMuscleNum,
+        segmentTrunkMuscleLbs: segmentTrunkMuscleNum,
+        segmentLeftLegFatLbs: segmentLeftLegFatNum,
+        segmentRightLegFatLbs: segmentRightLegFatNum,
+        segmentLeftArmFatLbs: segmentLeftArmFatNum,
+        segmentRightArmFatLbs: segmentRightArmFatNum,
+        segmentTrunkFatLbs: segmentTrunkFatNum,
         notes: String(item.notes || '').trim(),
         updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
       });
@@ -3232,6 +3592,98 @@
     });
   }
 
+  function getLatestEntryRecord() {
+    if (!entries.length) {
+      return null;
+    }
+
+    return [...entries].sort((a, b) => b.date.localeCompare(a.date))[0] || null;
+  }
+
+  function addBalanceListItem(listEl, text) {
+    if (!listEl) {
+      return;
+    }
+
+    const li = document.createElement('li');
+    li.textContent = text;
+    listEl.appendChild(li);
+  }
+
+  function buildSideDeltaLine(label, leftValue, rightValue, unit) {
+    if (!Number.isFinite(leftValue) || !Number.isFinite(rightValue)) {
+      return label + ': missing left or right value';
+    }
+
+    const delta = Math.abs(leftValue - rightValue);
+    const dominantSide = leftValue === rightValue
+      ? 'Even'
+      : (leftValue > rightValue ? 'Left higher' : 'Right higher');
+
+    return label + ': L ' + leftValue.toFixed(1) + ' vs R ' + rightValue.toFixed(1) + ' ' + unit + ' (delta ' + delta.toFixed(1) + ', ' + dominantSide + ')';
+  }
+
+  function renderSegmentBalancePanel() {
+    if (!segmentBalanceSummary || !segmentMuscleBalanceList || !segmentFatBalanceList) {
+      return;
+    }
+
+    segmentMuscleBalanceList.innerHTML = '';
+    segmentFatBalanceList.innerHTML = '';
+
+    const latest = getLatestEntryRecord();
+    if (!latest) {
+      segmentBalanceSummary.textContent = 'Add entries to see segment balance from your latest scan.';
+      addBalanceListItem(segmentMuscleBalanceList, 'No data yet');
+      addBalanceListItem(segmentFatBalanceList, 'No data yet');
+      return;
+    }
+
+    const llMuscle = Number(latest.segmentLeftLegMuscleLbs);
+    const rlMuscle = Number(latest.segmentRightLegMuscleLbs);
+    const laMuscle = Number(latest.segmentLeftArmMuscleLbs);
+    const raMuscle = Number(latest.segmentRightArmMuscleLbs);
+    const trunkMuscle = Number(latest.segmentTrunkMuscleLbs);
+
+    const llFat = Number(latest.segmentLeftLegFatLbs);
+    const rlFat = Number(latest.segmentRightLegFatLbs);
+    const laFat = Number(latest.segmentLeftArmFatLbs);
+    const raFat = Number(latest.segmentRightArmFatLbs);
+    const trunkFat = Number(latest.segmentTrunkFatLbs);
+
+    const hasAnySegmentData = [
+      llMuscle, rlMuscle, laMuscle, raMuscle, trunkMuscle,
+      llFat, rlFat, laFat, raFat, trunkFat
+    ].some(value => Number.isFinite(value));
+
+    if (!hasAnySegmentData) {
+      segmentBalanceSummary.textContent = 'Latest entry (' + latest.date + ') has no segment values yet.';
+      addBalanceListItem(segmentMuscleBalanceList, 'No muscle segment values on latest entry');
+      addBalanceListItem(segmentFatBalanceList, 'No fat segment values on latest entry');
+      return;
+    }
+
+    segmentBalanceSummary.textContent = 'Using latest dated entry: ' + latest.date + '.';
+
+    addBalanceListItem(segmentMuscleBalanceList, buildSideDeltaLine('Legs', llMuscle, rlMuscle, 'lbs'));
+    addBalanceListItem(segmentMuscleBalanceList, buildSideDeltaLine('Arms', laMuscle, raMuscle, 'lbs'));
+    addBalanceListItem(
+      segmentMuscleBalanceList,
+      Number.isFinite(trunkMuscle)
+        ? 'Trunk muscle: ' + trunkMuscle.toFixed(1) + ' lbs'
+        : 'Trunk muscle: missing'
+    );
+
+    addBalanceListItem(segmentFatBalanceList, buildSideDeltaLine('Legs', llFat, rlFat, 'lbs'));
+    addBalanceListItem(segmentFatBalanceList, buildSideDeltaLine('Arms', laFat, raFat, 'lbs'));
+    addBalanceListItem(
+      segmentFatBalanceList,
+      Number.isFinite(trunkFat)
+        ? 'Trunk fat: ' + trunkFat.toFixed(1) + ' lbs'
+        : 'Trunk fat: missing'
+    );
+  }
+
   function renderEntries() {
     refreshTrainingContext();
     renderWeeklyRecompositionScore();
@@ -3240,6 +3692,7 @@
     renderThighChart();
     renderUnderBustChart();
     renderUpperArmChart();
+    renderSegmentBalancePanel();
     renderWeightBmiContext();
     if (bmiSelectionMode !== 'manual') {
       applyLatestBmiImage();
@@ -3255,6 +3708,22 @@
     emptyMsg.style.display = 'none';
 
     for (const item of entries) {
+      const segmentMuscleSummary = [
+        item.segmentLeftLegMuscleLbs === '' || item.segmentLeftLegMuscleLbs === null || item.segmentLeftLegMuscleLbs === undefined ? '' : 'LL ' + formatMaybeNumber(item.segmentLeftLegMuscleLbs, 1),
+        item.segmentRightLegMuscleLbs === '' || item.segmentRightLegMuscleLbs === null || item.segmentRightLegMuscleLbs === undefined ? '' : 'RL ' + formatMaybeNumber(item.segmentRightLegMuscleLbs, 1),
+        item.segmentLeftArmMuscleLbs === '' || item.segmentLeftArmMuscleLbs === null || item.segmentLeftArmMuscleLbs === undefined ? '' : 'LA ' + formatMaybeNumber(item.segmentLeftArmMuscleLbs, 1),
+        item.segmentRightArmMuscleLbs === '' || item.segmentRightArmMuscleLbs === null || item.segmentRightArmMuscleLbs === undefined ? '' : 'RA ' + formatMaybeNumber(item.segmentRightArmMuscleLbs, 1),
+        item.segmentTrunkMuscleLbs === '' || item.segmentTrunkMuscleLbs === null || item.segmentTrunkMuscleLbs === undefined ? '' : 'TR ' + formatMaybeNumber(item.segmentTrunkMuscleLbs, 1)
+      ].filter(Boolean).join(' | ');
+
+      const segmentFatSummary = [
+        item.segmentLeftLegFatLbs === '' || item.segmentLeftLegFatLbs === null || item.segmentLeftLegFatLbs === undefined ? '' : 'LL ' + formatMaybeNumber(item.segmentLeftLegFatLbs, 1),
+        item.segmentRightLegFatLbs === '' || item.segmentRightLegFatLbs === null || item.segmentRightLegFatLbs === undefined ? '' : 'RL ' + formatMaybeNumber(item.segmentRightLegFatLbs, 1),
+        item.segmentLeftArmFatLbs === '' || item.segmentLeftArmFatLbs === null || item.segmentLeftArmFatLbs === undefined ? '' : 'LA ' + formatMaybeNumber(item.segmentLeftArmFatLbs, 1),
+        item.segmentRightArmFatLbs === '' || item.segmentRightArmFatLbs === null || item.segmentRightArmFatLbs === undefined ? '' : 'RA ' + formatMaybeNumber(item.segmentRightArmFatLbs, 1),
+        item.segmentTrunkFatLbs === '' || item.segmentTrunkFatLbs === null || item.segmentTrunkFatLbs === undefined ? '' : 'TR ' + formatMaybeNumber(item.segmentTrunkFatLbs, 1)
+      ].filter(Boolean).join(' | ');
+
       const tr = document.createElement('tr');
       tr.innerHTML = [
         '<td>' + escapeHtml(item.date || '') + '</td>',
@@ -3265,6 +3734,18 @@
         '<td>' + escapeHtml(formatMaybeNumber(item.upperArm, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.bodyFatPct, 1)) + '</td>',
         '<td>' + escapeHtml(formatMaybeNumber(item.muscleMassLbs, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.muscleMassPct, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.fatFreeWeightLbs, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.visceralFatIndex, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.subcutaneousFatPct, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.bodyWaterPct, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.proteinPct, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.boneMassLbs, 1)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.bmrKcal, 0)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.metabolicAgeYears, 0)) + '</td>',
+        '<td>' + escapeHtml(formatMaybeNumber(item.physicalIndexScore, 0)) + '</td>',
+        '<td class="segment-mass-cell">' + escapeHtml(segmentMuscleSummary) + '</td>',
+        '<td class="segment-mass-cell">' + escapeHtml(segmentFatSummary) + '</td>',
         '<td class="training-context-cell">' + formatTrainingContextHtml(item.date) + '</td>',
         '<td class="notes-cell">' + escapeHtml(item.notes || '') + '</td>',
         '<td class="actions-cell"><button type="button" class="entry-action-btn" data-edit-date="' + escapeHtml(item.date || '') + '">Edit</button><button type="button" class="entry-action-btn entry-delete-btn" data-delete-date="' + escapeHtml(item.date || '') + '">Delete</button></td>'
@@ -3306,6 +3787,26 @@
     upperArmInput.value = '';
     bodyFatPctInput.value = '';
     muscleMassInput.value = '';
+    physicalIndexInput.value = '';
+    visceralFatInput.value = '';
+    subcutaneousFatPctInput.value = '';
+    metabolicAgeInput.value = '';
+    bodyWaterPctInput.value = '';
+    bmrKcalInput.value = '';
+    fatFreeWeightInput.value = '';
+    muscleMassPctInput.value = '';
+    boneMassInput.value = '';
+    proteinPctInput.value = '';
+    segmentLeftLegMuscleInput.value = '';
+    segmentRightLegMuscleInput.value = '';
+    segmentLeftArmMuscleInput.value = '';
+    segmentRightArmMuscleInput.value = '';
+    segmentTrunkMuscleInput.value = '';
+    segmentLeftLegFatInput.value = '';
+    segmentRightLegFatInput.value = '';
+    segmentLeftArmFatInput.value = '';
+    segmentRightArmFatInput.value = '';
+    segmentTrunkFatInput.value = '';
     notesInput.value = '';
     weightInput.focus();
   }
@@ -3319,6 +3820,26 @@
     const upperArm = upperArmInput.value.trim();
     const bodyFatPct = bodyFatPctInput.value.trim();
     const muscleMass = muscleMassInput.value.trim();
+    const physicalIndex = physicalIndexInput.value.trim();
+    const visceralFat = visceralFatInput.value.trim();
+    const subcutaneousFatPct = subcutaneousFatPctInput.value.trim();
+    const metabolicAge = metabolicAgeInput.value.trim();
+    const bodyWaterPct = bodyWaterPctInput.value.trim();
+    const bmrKcal = bmrKcalInput.value.trim();
+    const fatFreeWeight = fatFreeWeightInput.value.trim();
+    const muscleMassPct = muscleMassPctInput.value.trim();
+    const boneMass = boneMassInput.value.trim();
+    const proteinPct = proteinPctInput.value.trim();
+    const segmentLeftLegMuscle = segmentLeftLegMuscleInput.value.trim();
+    const segmentRightLegMuscle = segmentRightLegMuscleInput.value.trim();
+    const segmentLeftArmMuscle = segmentLeftArmMuscleInput.value.trim();
+    const segmentRightArmMuscle = segmentRightArmMuscleInput.value.trim();
+    const segmentTrunkMuscle = segmentTrunkMuscleInput.value.trim();
+    const segmentLeftLegFat = segmentLeftLegFatInput.value.trim();
+    const segmentRightLegFat = segmentRightLegFatInput.value.trim();
+    const segmentLeftArmFat = segmentLeftArmFatInput.value.trim();
+    const segmentRightArmFat = segmentRightArmFatInput.value.trim();
+    const segmentTrunkFat = segmentTrunkFatInput.value.trim();
     const notes = notesInput.value.trim();
 
     if (!date) {
@@ -3397,6 +3918,206 @@
       muscleMassNum = n;
     }
 
+    let physicalIndexNum = '';
+    if (physicalIndex) {
+      const n = Number(physicalIndex);
+      if (Number.isNaN(n) || n < 0 || n > 100) {
+        showToast('Physical index must be between 0 and 100.');
+        return;
+      }
+      physicalIndexNum = n;
+    }
+
+    let visceralFatNum = '';
+    if (visceralFat) {
+      const n = Number(visceralFat);
+      if (Number.isNaN(n) || n < 0) {
+        showToast('Visceral fat index must be 0 or higher.');
+        return;
+      }
+      visceralFatNum = n;
+    }
+
+    let subcutaneousFatPctNum = '';
+    if (subcutaneousFatPct) {
+      const n = Number(subcutaneousFatPct);
+      if (Number.isNaN(n) || n < 0 || n > 100) {
+        showToast('Subcutaneous fat % must be between 0 and 100.');
+        return;
+      }
+      subcutaneousFatPctNum = n;
+    }
+
+    let metabolicAgeNum = '';
+    if (metabolicAge) {
+      const n = Number(metabolicAge);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Metabolic age must be a positive number.');
+        return;
+      }
+      metabolicAgeNum = n;
+    }
+
+    let bodyWaterPctNum = '';
+    if (bodyWaterPct) {
+      const n = Number(bodyWaterPct);
+      if (Number.isNaN(n) || n < 0 || n > 100) {
+        showToast('Body water % must be between 0 and 100.');
+        return;
+      }
+      bodyWaterPctNum = n;
+    }
+
+    let bmrKcalNum = '';
+    if (bmrKcal) {
+      const n = Number(bmrKcal);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('BMR must be a positive number.');
+        return;
+      }
+      bmrKcalNum = n;
+    }
+
+    let fatFreeWeightNum = '';
+    if (fatFreeWeight) {
+      const n = Number(fatFreeWeight);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Fat-free weight must be a positive number.');
+        return;
+      }
+      fatFreeWeightNum = n;
+    }
+
+    let muscleMassPctNum = '';
+    if (muscleMassPct) {
+      const n = Number(muscleMassPct);
+      if (Number.isNaN(n) || n < 0 || n > 100) {
+        showToast('Muscle mass % must be between 0 and 100.');
+        return;
+      }
+      muscleMassPctNum = n;
+    }
+
+    let boneMassNum = '';
+    if (boneMass) {
+      const n = Number(boneMass);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Bone mass must be a positive number.');
+        return;
+      }
+      boneMassNum = n;
+    }
+
+    let proteinPctNum = '';
+    if (proteinPct) {
+      const n = Number(proteinPct);
+      if (Number.isNaN(n) || n < 0 || n > 100) {
+        showToast('Protein % must be between 0 and 100.');
+        return;
+      }
+      proteinPctNum = n;
+    }
+
+    let segmentLeftLegMuscleNum = '';
+    if (segmentLeftLegMuscle) {
+      const n = Number(segmentLeftLegMuscle);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Left leg muscle must be a positive number.');
+        return;
+      }
+      segmentLeftLegMuscleNum = n;
+    }
+
+    let segmentRightLegMuscleNum = '';
+    if (segmentRightLegMuscle) {
+      const n = Number(segmentRightLegMuscle);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Right leg muscle must be a positive number.');
+        return;
+      }
+      segmentRightLegMuscleNum = n;
+    }
+
+    let segmentLeftArmMuscleNum = '';
+    if (segmentLeftArmMuscle) {
+      const n = Number(segmentLeftArmMuscle);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Left arm muscle must be a positive number.');
+        return;
+      }
+      segmentLeftArmMuscleNum = n;
+    }
+
+    let segmentRightArmMuscleNum = '';
+    if (segmentRightArmMuscle) {
+      const n = Number(segmentRightArmMuscle);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Right arm muscle must be a positive number.');
+        return;
+      }
+      segmentRightArmMuscleNum = n;
+    }
+
+    let segmentTrunkMuscleNum = '';
+    if (segmentTrunkMuscle) {
+      const n = Number(segmentTrunkMuscle);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Trunk muscle must be a positive number.');
+        return;
+      }
+      segmentTrunkMuscleNum = n;
+    }
+
+    let segmentLeftLegFatNum = '';
+    if (segmentLeftLegFat) {
+      const n = Number(segmentLeftLegFat);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Left leg fat must be a positive number.');
+        return;
+      }
+      segmentLeftLegFatNum = n;
+    }
+
+    let segmentRightLegFatNum = '';
+    if (segmentRightLegFat) {
+      const n = Number(segmentRightLegFat);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Right leg fat must be a positive number.');
+        return;
+      }
+      segmentRightLegFatNum = n;
+    }
+
+    let segmentLeftArmFatNum = '';
+    if (segmentLeftArmFat) {
+      const n = Number(segmentLeftArmFat);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Left arm fat must be a positive number.');
+        return;
+      }
+      segmentLeftArmFatNum = n;
+    }
+
+    let segmentRightArmFatNum = '';
+    if (segmentRightArmFat) {
+      const n = Number(segmentRightArmFat);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Right arm fat must be a positive number.');
+        return;
+      }
+      segmentRightArmFatNum = n;
+    }
+
+    let segmentTrunkFatNum = '';
+    if (segmentTrunkFat) {
+      const n = Number(segmentTrunkFat);
+      if (Number.isNaN(n) || n <= 0) {
+        showToast('Trunk fat must be a positive number.');
+        return;
+      }
+      segmentTrunkFatNum = n;
+    }
+
     const existingIndex = entries.findIndex(e => e.date === date);
     const record = {
       date,
@@ -3407,6 +4128,26 @@
       upperArm: upperArmNum,
       bodyFatPct: bodyFatPctNum,
       muscleMassLbs: muscleMassNum,
+      physicalIndexScore: physicalIndexNum,
+      visceralFatIndex: visceralFatNum,
+      subcutaneousFatPct: subcutaneousFatPctNum,
+      metabolicAgeYears: metabolicAgeNum,
+      bodyWaterPct: bodyWaterPctNum,
+      bmrKcal: bmrKcalNum,
+      fatFreeWeightLbs: fatFreeWeightNum,
+      muscleMassPct: muscleMassPctNum,
+      boneMassLbs: boneMassNum,
+      proteinPct: proteinPctNum,
+      segmentLeftLegMuscleLbs: segmentLeftLegMuscleNum,
+      segmentRightLegMuscleLbs: segmentRightLegMuscleNum,
+      segmentLeftArmMuscleLbs: segmentLeftArmMuscleNum,
+      segmentRightArmMuscleLbs: segmentRightArmMuscleNum,
+      segmentTrunkMuscleLbs: segmentTrunkMuscleNum,
+      segmentLeftLegFatLbs: segmentLeftLegFatNum,
+      segmentRightLegFatLbs: segmentRightLegFatNum,
+      segmentLeftArmFatLbs: segmentLeftArmFatNum,
+      segmentRightArmFatLbs: segmentRightArmFatNum,
+      segmentTrunkFatLbs: segmentTrunkFatNum,
       notes,
       updatedAt: new Date().toISOString()
     };
@@ -3506,6 +4247,66 @@
       const muscleMassNum = item.muscleMassLbs === '' || item.muscleMassLbs === null || item.muscleMassLbs === undefined
         ? ''
         : Number(item.muscleMassLbs);
+      const physicalIndexNum = item.physicalIndexScore === '' || item.physicalIndexScore === null || item.physicalIndexScore === undefined
+        ? ''
+        : Number(item.physicalIndexScore);
+      const visceralFatNum = item.visceralFatIndex === '' || item.visceralFatIndex === null || item.visceralFatIndex === undefined
+        ? ''
+        : Number(item.visceralFatIndex);
+      const subcutaneousFatPctNum = item.subcutaneousFatPct === '' || item.subcutaneousFatPct === null || item.subcutaneousFatPct === undefined
+        ? ''
+        : Number(item.subcutaneousFatPct);
+      const metabolicAgeNum = item.metabolicAgeYears === '' || item.metabolicAgeYears === null || item.metabolicAgeYears === undefined
+        ? ''
+        : Number(item.metabolicAgeYears);
+      const bodyWaterPctNum = item.bodyWaterPct === '' || item.bodyWaterPct === null || item.bodyWaterPct === undefined
+        ? ''
+        : Number(item.bodyWaterPct);
+      const bmrKcalNum = item.bmrKcal === '' || item.bmrKcal === null || item.bmrKcal === undefined
+        ? ''
+        : Number(item.bmrKcal);
+      const fatFreeWeightNum = item.fatFreeWeightLbs === '' || item.fatFreeWeightLbs === null || item.fatFreeWeightLbs === undefined
+        ? ''
+        : Number(item.fatFreeWeightLbs);
+      const muscleMassPctNum = item.muscleMassPct === '' || item.muscleMassPct === null || item.muscleMassPct === undefined
+        ? ''
+        : Number(item.muscleMassPct);
+      const boneMassNum = item.boneMassLbs === '' || item.boneMassLbs === null || item.boneMassLbs === undefined
+        ? ''
+        : Number(item.boneMassLbs);
+      const proteinPctNum = item.proteinPct === '' || item.proteinPct === null || item.proteinPct === undefined
+        ? ''
+        : Number(item.proteinPct);
+      const segmentLeftLegMuscleNum = item.segmentLeftLegMuscleLbs === '' || item.segmentLeftLegMuscleLbs === null || item.segmentLeftLegMuscleLbs === undefined
+        ? ''
+        : Number(item.segmentLeftLegMuscleLbs);
+      const segmentRightLegMuscleNum = item.segmentRightLegMuscleLbs === '' || item.segmentRightLegMuscleLbs === null || item.segmentRightLegMuscleLbs === undefined
+        ? ''
+        : Number(item.segmentRightLegMuscleLbs);
+      const segmentLeftArmMuscleNum = item.segmentLeftArmMuscleLbs === '' || item.segmentLeftArmMuscleLbs === null || item.segmentLeftArmMuscleLbs === undefined
+        ? ''
+        : Number(item.segmentLeftArmMuscleLbs);
+      const segmentRightArmMuscleNum = item.segmentRightArmMuscleLbs === '' || item.segmentRightArmMuscleLbs === null || item.segmentRightArmMuscleLbs === undefined
+        ? ''
+        : Number(item.segmentRightArmMuscleLbs);
+      const segmentTrunkMuscleNum = item.segmentTrunkMuscleLbs === '' || item.segmentTrunkMuscleLbs === null || item.segmentTrunkMuscleLbs === undefined
+        ? ''
+        : Number(item.segmentTrunkMuscleLbs);
+      const segmentLeftLegFatNum = item.segmentLeftLegFatLbs === '' || item.segmentLeftLegFatLbs === null || item.segmentLeftLegFatLbs === undefined
+        ? ''
+        : Number(item.segmentLeftLegFatLbs);
+      const segmentRightLegFatNum = item.segmentRightLegFatLbs === '' || item.segmentRightLegFatLbs === null || item.segmentRightLegFatLbs === undefined
+        ? ''
+        : Number(item.segmentRightLegFatLbs);
+      const segmentLeftArmFatNum = item.segmentLeftArmFatLbs === '' || item.segmentLeftArmFatLbs === null || item.segmentLeftArmFatLbs === undefined
+        ? ''
+        : Number(item.segmentLeftArmFatLbs);
+      const segmentRightArmFatNum = item.segmentRightArmFatLbs === '' || item.segmentRightArmFatLbs === null || item.segmentRightArmFatLbs === undefined
+        ? ''
+        : Number(item.segmentRightArmFatLbs);
+      const segmentTrunkFatNum = item.segmentTrunkFatLbs === '' || item.segmentTrunkFatLbs === null || item.segmentTrunkFatLbs === undefined
+        ? ''
+        : Number(item.segmentTrunkFatLbs);
 
       if (!date) {
         continue;
@@ -3531,6 +4332,66 @@
       if (muscleMassNum !== '' && (Number.isNaN(muscleMassNum) || muscleMassNum <= 0)) {
         continue;
       }
+      if (physicalIndexNum !== '' && (Number.isNaN(physicalIndexNum) || physicalIndexNum < 0 || physicalIndexNum > 100)) {
+        continue;
+      }
+      if (visceralFatNum !== '' && (Number.isNaN(visceralFatNum) || visceralFatNum < 0)) {
+        continue;
+      }
+      if (subcutaneousFatPctNum !== '' && (Number.isNaN(subcutaneousFatPctNum) || subcutaneousFatPctNum < 0 || subcutaneousFatPctNum > 100)) {
+        continue;
+      }
+      if (metabolicAgeNum !== '' && (Number.isNaN(metabolicAgeNum) || metabolicAgeNum <= 0)) {
+        continue;
+      }
+      if (bodyWaterPctNum !== '' && (Number.isNaN(bodyWaterPctNum) || bodyWaterPctNum < 0 || bodyWaterPctNum > 100)) {
+        continue;
+      }
+      if (bmrKcalNum !== '' && (Number.isNaN(bmrKcalNum) || bmrKcalNum <= 0)) {
+        continue;
+      }
+      if (fatFreeWeightNum !== '' && (Number.isNaN(fatFreeWeightNum) || fatFreeWeightNum <= 0)) {
+        continue;
+      }
+      if (muscleMassPctNum !== '' && (Number.isNaN(muscleMassPctNum) || muscleMassPctNum < 0 || muscleMassPctNum > 100)) {
+        continue;
+      }
+      if (boneMassNum !== '' && (Number.isNaN(boneMassNum) || boneMassNum <= 0)) {
+        continue;
+      }
+      if (proteinPctNum !== '' && (Number.isNaN(proteinPctNum) || proteinPctNum < 0 || proteinPctNum > 100)) {
+        continue;
+      }
+      if (segmentLeftLegMuscleNum !== '' && (Number.isNaN(segmentLeftLegMuscleNum) || segmentLeftLegMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentRightLegMuscleNum !== '' && (Number.isNaN(segmentRightLegMuscleNum) || segmentRightLegMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentLeftArmMuscleNum !== '' && (Number.isNaN(segmentLeftArmMuscleNum) || segmentLeftArmMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentRightArmMuscleNum !== '' && (Number.isNaN(segmentRightArmMuscleNum) || segmentRightArmMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentTrunkMuscleNum !== '' && (Number.isNaN(segmentTrunkMuscleNum) || segmentTrunkMuscleNum <= 0)) {
+        continue;
+      }
+      if (segmentLeftLegFatNum !== '' && (Number.isNaN(segmentLeftLegFatNum) || segmentLeftLegFatNum <= 0)) {
+        continue;
+      }
+      if (segmentRightLegFatNum !== '' && (Number.isNaN(segmentRightLegFatNum) || segmentRightLegFatNum <= 0)) {
+        continue;
+      }
+      if (segmentLeftArmFatNum !== '' && (Number.isNaN(segmentLeftArmFatNum) || segmentLeftArmFatNum <= 0)) {
+        continue;
+      }
+      if (segmentRightArmFatNum !== '' && (Number.isNaN(segmentRightArmFatNum) || segmentRightArmFatNum <= 0)) {
+        continue;
+      }
+      if (segmentTrunkFatNum !== '' && (Number.isNaN(segmentTrunkFatNum) || segmentTrunkFatNum <= 0)) {
+        continue;
+      }
 
       cleaned.push({
         date,
@@ -3541,6 +4402,26 @@
         upperArm: upperArmNum,
         bodyFatPct: bodyFatPctNum,
         muscleMassLbs: muscleMassNum,
+        physicalIndexScore: physicalIndexNum,
+        visceralFatIndex: visceralFatNum,
+        subcutaneousFatPct: subcutaneousFatPctNum,
+        metabolicAgeYears: metabolicAgeNum,
+        bodyWaterPct: bodyWaterPctNum,
+        bmrKcal: bmrKcalNum,
+        fatFreeWeightLbs: fatFreeWeightNum,
+        muscleMassPct: muscleMassPctNum,
+        boneMassLbs: boneMassNum,
+        proteinPct: proteinPctNum,
+        segmentLeftLegMuscleLbs: segmentLeftLegMuscleNum,
+        segmentRightLegMuscleLbs: segmentRightLegMuscleNum,
+        segmentLeftArmMuscleLbs: segmentLeftArmMuscleNum,
+        segmentRightArmMuscleLbs: segmentRightArmMuscleNum,
+        segmentTrunkMuscleLbs: segmentTrunkMuscleNum,
+        segmentLeftLegFatLbs: segmentLeftLegFatNum,
+        segmentRightLegFatLbs: segmentRightLegFatNum,
+        segmentLeftArmFatLbs: segmentLeftArmFatNum,
+        segmentRightArmFatLbs: segmentRightArmFatNum,
+        segmentTrunkFatLbs: segmentTrunkFatNum,
         notes: String(item.notes || '').trim(),
         updatedAt: item.updatedAt ? String(item.updatedAt) : new Date().toISOString()
       });
