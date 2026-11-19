@@ -549,6 +549,63 @@
       line-height: 1.4;
     }
 
+    .bmr-activity-grid {
+      display: grid;
+      gap: .55rem;
+      margin-top: .55rem;
+    }
+
+    .bmr-activity-row {
+      background: #f7fbf8;
+      border: 1px solid #dceee3;
+      border-radius: 10px;
+      padding: .58rem .7rem;
+    }
+
+    .bmr-activity-label {
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      margin-bottom: .15rem;
+    }
+
+    .bmr-activity-value {
+      font-size: .94rem;
+      font-weight: 700;
+      color: #244d3a;
+      margin-bottom: .15rem;
+    }
+
+    .bmr-activity-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .bmr-activity-cut {
+      margin-top: .2rem;
+      font-size: .78rem;
+      color: #355747;
+      line-height: 1.35;
+    }
+
+    .muscle-preservation-insight.is-good {
+      background: #eef9f2;
+      border-color: #cbe9d5;
+    }
+
+    .muscle-preservation-insight.is-caution {
+      background: #fff8ed;
+      border-color: #efd8b0;
+    }
+
+    .muscle-preservation-insight.is-alert {
+      background: #fdf1f1;
+      border-color: #e6bcbc;
+    }
+
     .smart-scale-legend {
       margin-top: .55rem;
       display: flex;
@@ -936,6 +993,12 @@
   </section>
 
   <section class="card">
+    <h2>BMR Activity Energy Targets</h2>
+    <p class="helper" id="bmr-activity-summary">Uses your latest logged BMR and activity multipliers to estimate maintenance calories per day.</p>
+    <div class="bmr-activity-grid" id="bmr-activity-grid"></div>
+  </section>
+
+  <section class="card">
     <h2>Segment Balance (Latest Entry)</h2>
     <p class="segment-balance-summary" id="segment-balance-summary">Add segment muscle/fat values to see arm and leg left-vs-right differences.</p>
     <div class="segment-balance-grid">
@@ -952,7 +1015,8 @@
 
   <section class="card">
     <h2>Smart Scale Label Trends</h2>
-    <p class="helper">Reference zone colors use VeSync-style label guidance: Low, Standard, Elevated/High, and Excess. Ranges are practical defaults and help highlight when trend lines cross into a new zone.</p>
+    <p class="helper">Reference zone colors use VeSync-style label guidance. For lean-supporting metrics (muscle, bone, protein, hydration), the upper band is shown as Above Standard.</p>
+    <p class="helper">Cutoffs are working estimates based on your available profile and can be updated whenever you share a newly observed threshold. Current anchors: Skeletal Muscle 71.5 lbs and Muscle Mass 52.4% map to Excellent.</p>
     <div class="smart-scale-grid">
       <div class="smart-scale-card">
         <div class="smart-scale-title">BMI Trend</div>
@@ -961,6 +1025,26 @@
         </div>
         <div class="smart-scale-legend" id="bmi-trend-legend"></div>
         <div class="smart-scale-empty" id="bmi-trend-empty">Need at least one weight entry to render BMI trend.</div>
+      </div>
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">Skeletal Muscle Mass Trend (lbs)</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="muscle-mass-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="muscle-mass-trend-legend"></div>
+          <div class="hydration-insight muscle-preservation-insight is-neutral" id="muscle-preservation-insight">
+            <div class="hydration-insight-title">Muscle Preservation Signal</div>
+            <div class="hydration-insight-text" id="muscle-preservation-insight-text">Add skeletal muscle entries to estimate whether current fat-loss pace is preserving lean mass.</div>
+          </div>
+        <div class="smart-scale-empty" id="muscle-mass-trend-empty">Add skeletal muscle (lbs) values to render this trend.</div>
+      </div>
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">Muscle Mass % Trend</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="muscle-mass-pct-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="muscle-mass-pct-trend-legend"></div>
+        <div class="smart-scale-empty" id="muscle-mass-pct-trend-empty">Add muscle mass % values to render this trend.</div>
       </div>
       <div class="smart-scale-card">
         <div class="smart-scale-title">Body Fat % Trend</div>
@@ -989,6 +1073,22 @@
           <div class="hydration-insight-text" id="hydration-insight-text">Add body water % entries to track hydration progress toward your standard zone.</div>
         </div>
         <div class="smart-scale-empty" id="body-water-trend-empty">Add body water % values to render this trend.</div>
+      </div>
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">Bone Mass Trend (lbs)</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="bone-mass-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="bone-mass-trend-legend"></div>
+        <div class="smart-scale-empty" id="bone-mass-trend-empty">Add bone mass (lbs) values to render this trend.</div>
+      </div>
+      <div class="smart-scale-card">
+        <div class="smart-scale-title">Protein % Trend</div>
+        <div class="smart-scale-chart-wrap">
+          <canvas id="protein-trend-chart"></canvas>
+        </div>
+        <div class="smart-scale-legend" id="protein-trend-legend"></div>
+        <div class="smart-scale-empty" id="protein-trend-empty">Add protein % values to render this trend.</div>
       </div>
     </div>
   </section>
@@ -1056,6 +1156,8 @@
   const JOURNEY_START_WEIGHT = 224;
   const JOURNEY_TARGET_WEIGHT = 160;
   const HEIGHT_INCHES = 68.5;
+  const SKELETAL_MUSCLE_EXCELLENT_FLOOR = 71.5;
+  const MUSCLE_MASS_PCT_EXCELLENT_FLOOR = 52.4;
   const WAIST_MILESTONE_BANDS = [
     {
       key: 'liver-pancreas-unloading',
@@ -1213,21 +1315,37 @@
   const recompSummary = document.getElementById('recomp-summary');
   const recompBadge = document.getElementById('recomp-badge');
   const recompChecks = document.getElementById('recomp-checks');
+  const bmrActivitySummary = document.getElementById('bmr-activity-summary');
+  const bmrActivityGrid = document.getElementById('bmr-activity-grid');
   const segmentBalanceSummary = document.getElementById('segment-balance-summary');
   const segmentMuscleBalanceList = document.getElementById('segment-muscle-balance-list');
   const segmentFatBalanceList = document.getElementById('segment-fat-balance-list');
   const bmiTrendChartCanvas = document.getElementById('bmi-trend-chart');
+  const muscleMassTrendChartCanvas = document.getElementById('muscle-mass-trend-chart');
+  const muscleMassPctTrendChartCanvas = document.getElementById('muscle-mass-pct-trend-chart');
   const bodyFatTrendChartCanvas = document.getElementById('body-fat-trend-chart');
   const visceralFatTrendChartCanvas = document.getElementById('visceral-fat-trend-chart');
   const bodyWaterTrendChartCanvas = document.getElementById('body-water-trend-chart');
+  const boneMassTrendChartCanvas = document.getElementById('bone-mass-trend-chart');
+  const proteinTrendChartCanvas = document.getElementById('protein-trend-chart');
   const bmiTrendLegend = document.getElementById('bmi-trend-legend');
+  const muscleMassTrendLegend = document.getElementById('muscle-mass-trend-legend');
+  const muscleMassPctTrendLegend = document.getElementById('muscle-mass-pct-trend-legend');
   const bodyFatTrendLegend = document.getElementById('body-fat-trend-legend');
   const visceralFatTrendLegend = document.getElementById('visceral-fat-trend-legend');
   const bodyWaterTrendLegend = document.getElementById('body-water-trend-legend');
+  const boneMassTrendLegend = document.getElementById('bone-mass-trend-legend');
+  const proteinTrendLegend = document.getElementById('protein-trend-legend');
   const bmiTrendEmpty = document.getElementById('bmi-trend-empty');
+  const muscleMassTrendEmpty = document.getElementById('muscle-mass-trend-empty');
+  const muscleMassPctTrendEmpty = document.getElementById('muscle-mass-pct-trend-empty');
   const bodyFatTrendEmpty = document.getElementById('body-fat-trend-empty');
   const visceralFatTrendEmpty = document.getElementById('visceral-fat-trend-empty');
   const bodyWaterTrendEmpty = document.getElementById('body-water-trend-empty');
+  const boneMassTrendEmpty = document.getElementById('bone-mass-trend-empty');
+  const proteinTrendEmpty = document.getElementById('protein-trend-empty');
+  const musclePreservationInsight = document.getElementById('muscle-preservation-insight');
+  const musclePreservationInsightText = document.getElementById('muscle-preservation-insight-text');
   const hydrationInsightText = document.getElementById('hydration-insight-text');
   const recompTrendChartCanvas = document.getElementById('recomp-trend-chart');
   const recompChartEmpty = document.getElementById('recomp-chart-empty');
@@ -1253,9 +1371,13 @@
   const bmiImageFrame = document.getElementById('bmi-image-frame');
   const smartScaleCharts = {
     bmi: null,
+    muscleMass: null,
+    muscleMassPct: null,
     bodyFat: null,
     visceralFat: null,
-    bodyWater: null
+    bodyWater: null,
+    boneMass: null,
+    protein: null
   };
   const SMART_SCALE_BANDS = {
     bmi: [
@@ -1265,10 +1387,10 @@
       { low: 30, high: 70, shortLabel: 'Excess', color: 'rgba(231, 76, 60, .13)' }
     ],
     bodyFat: [
-      { low: 0, high: 20, shortLabel: 'Low', color: 'rgba(66, 133, 244, .12)' },
-      { low: 20, high: 32, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
-      { low: 32, high: 39, shortLabel: 'Elevated', color: 'rgba(243, 156, 18, .12)' },
-      { low: 39, high: 75, shortLabel: 'Excess', color: 'rgba(231, 76, 60, .13)' }
+      { low: 0, high: 21, shortLabel: 'Low', color: 'rgba(66, 133, 244, .12)' },
+      { low: 21, high: 32, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 32, high: 37, shortLabel: 'Elevated', color: 'rgba(243, 156, 18, .12)' },
+      { low: 37, high: 75, shortLabel: 'Excess', color: 'rgba(231, 76, 60, .13)' }
     ],
     visceralFat: [
       { low: 0, high: 10, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
@@ -1278,7 +1400,18 @@
     bodyWater: [
       { low: 0, high: 45, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
       { low: 45, high: 60, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
-      { low: 60, high: 80, shortLabel: 'High', color: 'rgba(26, 188, 156, .12)' }
+      { low: 60, high: 80, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
+    ],
+    muscleMassPct: [
+      { low: 0, high: 45, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 45, high: 50, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 50, high: MUSCLE_MASS_PCT_EXCELLENT_FLOOR, shortLabel: 'High', color: 'rgba(26, 188, 156, .12)' },
+      { low: MUSCLE_MASS_PCT_EXCELLENT_FLOOR, high: 80, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
+    ],
+    protein: [
+      { low: 0, high: 16, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 16, high: 20, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 20, high: 30, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
     ]
   };
   let editingDate = null;
@@ -4059,6 +4192,36 @@
     return nums.reduce((sum, value) => sum + value, 0) / nums.length;
   }
 
+  function getSkeletalMuscleBands() {
+    return [
+      { low: 0, high: 60, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 60, high: 68, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 68, high: SKELETAL_MUSCLE_EXCELLENT_FLOOR, shortLabel: 'High', color: 'rgba(26, 188, 156, .12)' },
+      { low: SKELETAL_MUSCLE_EXCELLENT_FLOOR, high: 140, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
+    ];
+  }
+
+  function getBoneMassBands() {
+    const latestWeight = getLatestEntryWeight();
+    if (!Number.isFinite(latestWeight) || latestWeight <= 0) {
+      return [
+        { low: 0, high: 7.5, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+        { low: 7.5, high: 9.5, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+        { low: 9.5, high: 13, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
+      ];
+    }
+
+    const lowUpper = latestWeight * 0.033;
+    const standardUpper = latestWeight * 0.043;
+    const highUpper = latestWeight * 0.06;
+
+    return [
+      { low: 0, high: lowUpper, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: lowUpper, high: standardUpper, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: standardUpper, high: highUpper, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
+    ];
+  }
+
   function renderHydrationInsight() {
     if (!hydrationInsightText) {
       return;
@@ -4132,11 +4295,129 @@
     hydrationInsightText.textContent = message;
   }
 
+  function setMusclePreservationInsightState(state) {
+    if (!musclePreservationInsight) {
+      return;
+    }
+
+    musclePreservationInsight.classList.remove('is-neutral', 'is-good', 'is-caution', 'is-alert');
+    musclePreservationInsight.classList.add(state || 'is-neutral');
+  }
+
+  function renderMusclePreservationInsight() {
+    if (!musclePreservationInsightText) {
+      return;
+    }
+
+    const chrono = sortEntriesOldestFirst(entries)
+      .map(item => ({
+        date: item.date,
+        muscle: Number(item.muscleMassLbs),
+        weight: Number(item.weight),
+        bodyFat: Number(item.bodyFatPct)
+      }))
+      .filter(item => normalizeDateOnly(item.date));
+
+    const muscleRows = chrono.filter(item => Number.isFinite(item.muscle) && item.muscle > 0);
+    if (!muscleRows.length) {
+      setMusclePreservationInsightState('is-neutral');
+      musclePreservationInsightText.textContent = 'Add skeletal muscle entries to estimate whether current fat-loss pace is preserving lean mass.';
+      return;
+    }
+
+    const latest = muscleRows[muscleRows.length - 1];
+    const recentMuscleAvg = averageNumber(muscleRows.slice(-7).map(item => item.muscle));
+    const priorMuscleAvg = averageNumber(muscleRows.slice(-14, -7).map(item => item.muscle));
+    const muscleDelta = Number.isFinite(recentMuscleAvg) && Number.isFinite(priorMuscleAvg)
+      ? recentMuscleAvg - priorMuscleAvg
+      : null;
+
+    const weightRows = chrono.filter(item => Number.isFinite(item.weight) && item.weight > 0);
+    const recentWeightAvg = averageNumber(weightRows.slice(-7).map(item => item.weight));
+    const priorWeightAvg = averageNumber(weightRows.slice(-14, -7).map(item => item.weight));
+    const weightDelta = Number.isFinite(recentWeightAvg) && Number.isFinite(priorWeightAvg)
+      ? recentWeightAvg - priorWeightAvg
+      : null;
+
+    const bodyFatRows = chrono.filter(item => Number.isFinite(item.bodyFat) && item.bodyFat > 0);
+    const recentBodyFatAvg = averageNumber(bodyFatRows.slice(-7).map(item => item.bodyFat));
+    const priorBodyFatAvg = averageNumber(bodyFatRows.slice(-14, -7).map(item => item.bodyFat));
+    const bodyFatDelta = Number.isFinite(recentBodyFatAvg) && Number.isFinite(priorBodyFatAvg)
+      ? recentBodyFatAvg - priorBodyFatAvg
+      : null;
+
+    let state = 'is-neutral';
+    let headline = 'Insufficient comparison window.';
+
+    if (Number.isFinite(muscleDelta)) {
+      if (muscleDelta <= -0.7) {
+        state = 'is-alert';
+        headline = 'Possible muscle loss signal.';
+      } else if (muscleDelta < -0.25) {
+        state = 'is-caution';
+        headline = 'Mild muscle drop trend.';
+      } else if (muscleDelta >= 0.15) {
+        state = 'is-good';
+        headline = 'Muscle trend is being preserved.';
+      } else {
+        state = 'is-neutral';
+        headline = 'Muscle trend is mostly stable.';
+      }
+    }
+
+    if (state !== 'is-alert' && Number.isFinite(muscleDelta) && Number.isFinite(weightDelta) && weightDelta <= -1.2 && muscleDelta < 0.05) {
+      state = 'is-caution';
+      headline = 'Cut pace may be challenging recovery.';
+    }
+
+    setMusclePreservationInsightState(state);
+
+    let message = headline + ' Latest skeletal muscle: ' + latest.muscle.toFixed(1) + ' lbs. ';
+
+    if (Number.isFinite(muscleDelta)) {
+      if (muscleDelta > 0) {
+        message += 'Recent 7 vs prior 7 entries: +' + muscleDelta.toFixed(2) + ' lbs. ';
+      } else if (muscleDelta < 0) {
+        message += 'Recent 7 vs prior 7 entries: ' + muscleDelta.toFixed(2) + ' lbs. ';
+      } else {
+        message += 'Recent 7 vs prior 7 entries: unchanged. ';
+      }
+    } else {
+      message += 'Need at least 14 skeletal muscle entries for a weekly comparison baseline. ';
+    }
+
+    if (Number.isFinite(weightDelta)) {
+      message += 'Weight trend over the same window: ' + (weightDelta > 0 ? '+' : '') + weightDelta.toFixed(2) + ' lbs. ';
+    }
+
+    if (Number.isFinite(bodyFatDelta)) {
+      message += 'Body fat trend: ' + (bodyFatDelta > 0 ? '+' : '') + bodyFatDelta.toFixed(2) + ' points. ';
+    }
+
+    if (state === 'is-alert' || state === 'is-caution') {
+      message += 'To protect muscle, consider slightly easing calorie deficit, keep resistance intensity, and prioritize protein distribution across meals before increasing cardio volume.';
+    } else if (state === 'is-good') {
+      message += 'Current pattern supports preserving lean mass while reducing fat; keep training and protein timing consistent.';
+    } else {
+      message += 'Continue collecting consistent entries so this signal can become more predictive.';
+    }
+
+    musclePreservationInsightText.textContent = message;
+  }
+
   function renderSmartScaleCharts() {
+    const skeletalMuscleBands = getSkeletalMuscleBands();
+    const boneMassBands = getBoneMassBands();
+
     renderSmartScaleLegend(bmiTrendLegend, SMART_SCALE_BANDS.bmi);
+    renderSmartScaleLegend(muscleMassTrendLegend, skeletalMuscleBands);
+    renderSmartScaleLegend(muscleMassPctTrendLegend, SMART_SCALE_BANDS.muscleMassPct);
     renderSmartScaleLegend(bodyFatTrendLegend, SMART_SCALE_BANDS.bodyFat);
     renderSmartScaleLegend(visceralFatTrendLegend, SMART_SCALE_BANDS.visceralFat);
     renderSmartScaleLegend(bodyWaterTrendLegend, SMART_SCALE_BANDS.bodyWater);
+    renderSmartScaleLegend(boneMassTrendLegend, boneMassBands);
+    renderSmartScaleLegend(proteinTrendLegend, SMART_SCALE_BANDS.protein);
+    renderMusclePreservationInsight();
     renderHydrationInsight();
 
     renderSmartMetricChart({
@@ -4151,6 +4432,36 @@
       bands: SMART_SCALE_BANDS.bmi,
       minFloor: 15,
       maxCeil: 45,
+      decimals: 1
+    });
+
+    renderSmartMetricChart({
+      key: 'muscleMass',
+      canvas: muscleMassTrendChartCanvas,
+      emptyEl: muscleMassTrendEmpty,
+      valueFromEntry: (entry) => entry.muscleMassLbs,
+      label: 'Skeletal Muscle',
+      yTitle: 'Skeletal Muscle (lbs)',
+      unit: 'lbs',
+      color: '#1f8a70',
+      bands: skeletalMuscleBands,
+      minFloor: 35,
+      maxCeil: 140,
+      decimals: 1
+    });
+
+    renderSmartMetricChart({
+      key: 'muscleMassPct',
+      canvas: muscleMassPctTrendChartCanvas,
+      emptyEl: muscleMassPctTrendEmpty,
+      valueFromEntry: (entry) => entry.muscleMassPct,
+      label: 'Muscle Mass %',
+      yTitle: 'Muscle Mass %',
+      unit: '%',
+      color: '#2e8b57',
+      bands: SMART_SCALE_BANDS.muscleMassPct,
+      minFloor: 25,
+      maxCeil: 75,
       decimals: 1
     });
 
@@ -4198,11 +4509,128 @@
       maxCeil: 70,
       decimals: 1
     });
+
+    renderSmartMetricChart({
+      key: 'boneMass',
+      canvas: boneMassTrendChartCanvas,
+      emptyEl: boneMassTrendEmpty,
+      valueFromEntry: (entry) => entry.boneMassLbs,
+      label: 'Bone Mass',
+      yTitle: 'Bone Mass (lbs)',
+      unit: 'lbs',
+      color: '#4f9c7f',
+      bands: boneMassBands,
+      minFloor: 4,
+      maxCeil: 14,
+      decimals: 1
+    });
+
+    renderSmartMetricChart({
+      key: 'protein',
+      canvas: proteinTrendChartCanvas,
+      emptyEl: proteinTrendEmpty,
+      valueFromEntry: (entry) => entry.proteinPct,
+      label: 'Protein %',
+      yTitle: 'Protein %',
+      unit: '%',
+      color: '#1a9d8f',
+      bands: SMART_SCALE_BANDS.protein,
+      minFloor: 8,
+      maxCeil: 26,
+      decimals: 1
+    });
+  }
+
+  function getLatestBmrEntry() {
+    const chrono = sortEntriesOldestFirst(entries)
+      .map(item => ({
+        date: item.date,
+        bmr: Number(item.bmrKcal)
+      }))
+      .filter(item => normalizeDateOnly(item.date) && Number.isFinite(item.bmr) && item.bmr > 0);
+
+    return chrono.length ? chrono[chrono.length - 1] : null;
+  }
+
+  function renderBmrActivityTargets() {
+    if (!bmrActivityGrid || !bmrActivitySummary) {
+      return;
+    }
+
+    const latestBmr = getLatestBmrEntry();
+    bmrActivityGrid.innerHTML = '';
+
+    if (!latestBmr) {
+      bmrActivitySummary.textContent = 'Log a BMR value in any entry to generate activity-based daily energy targets.';
+      const empty = document.createElement('div');
+      empty.className = 'empty-msg';
+      empty.style.padding = '.7rem .3rem .2rem';
+      empty.textContent = 'No BMR values logged yet.';
+      bmrActivityGrid.appendChild(empty);
+      return;
+    }
+
+    bmrActivitySummary.textContent =
+      'Latest BMR: ' + latestBmr.bmr.toFixed(0) + ' kCal/day (from ' + latestBmr.date + ').';
+
+    const levels = [
+      {
+        title: 'Lightly Active (x1.375)',
+        multiplier: 1.375,
+        description: 'Daily walking (20-30 minutes + light household chores)'
+      },
+      {
+        title: 'Moderately Active (x1.55)',
+        multiplier: 1.55,
+        description: 'Consistent daily cardio + regular resistance sessions'
+      },
+      {
+        title: 'Very Active (x1.725)',
+        multiplier: 1.725,
+        description: 'Vigorous daily workouts or physically demanding work all day'
+      }
+    ];
+
+    levels.forEach(level => {
+      const row = document.createElement('div');
+      row.className = 'bmr-activity-row';
+
+      const label = document.createElement('div');
+      label.className = 'bmr-activity-label';
+      label.textContent = level.title;
+
+      const dailyCalories = latestBmr.bmr * level.multiplier;
+      const value = document.createElement('div');
+      value.className = 'bmr-activity-value';
+      value.textContent = dailyCalories.toFixed(0) + ' kCal/day';
+
+      const desc = document.createElement('div');
+      desc.className = 'bmr-activity-desc';
+      desc.textContent = level.description;
+
+      const maintenanceTarget = dailyCalories;
+      const mildDeficitTarget = dailyCalories * 0.9;
+      const moderateDeficitTarget = dailyCalories * 0.8;
+      const cut = document.createElement('div');
+      cut.className = 'bmr-activity-cut';
+      cut.textContent =
+        'Maintenance: ' + maintenanceTarget.toFixed(0) +
+        ' kCal/day | Mild deficit: ' + mildDeficitTarget.toFixed(0) +
+        ' kCal/day | Moderate deficit: ' + moderateDeficitTarget.toFixed(0) +
+        ' kCal/day';
+
+      row.appendChild(label);
+      row.appendChild(value);
+      row.appendChild(desc);
+      row.appendChild(cut);
+      bmrActivityGrid.appendChild(row);
+    });
   }
 
   function renderEntries() {
     refreshTrainingContext();
     renderWeeklyRecompositionScore();
+    renderBmrActivityTargets();
     renderWeightChart();
     renderWaistChart();
     renderThighChart();
