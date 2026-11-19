@@ -48,6 +48,9 @@
     /* RECIPE CARD */
     .recipe-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
     .recipe-card-img { width: 100%; height: 160px; object-fit: cover; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .recipe-card-img.curve-preview { background-size: cover; background-position: center; background-repeat: no-repeat; font-size: 0; }
+    .recipe-card-img.expandable { cursor: zoom-in; }
+    .recipe-card-img.expandable:focus-visible { outline: 3px solid #60a5fa; outline-offset: -3px; }
     .recipe-card-body { padding: 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; gap: .6rem; }
     .recipe-card-title { font-size: 1.05rem; font-weight: 700; color: var(--green-dark); }
     .recipe-card-meta { display: flex; gap: .9rem; font-size: .78rem; color: var(--muted); }
@@ -414,6 +417,13 @@
     .menu-fullscreen-meta { color: #e2e8f0; font-size: .84rem; text-align: center; line-height: 1.4; }
     .menu-fullscreen-close { position: absolute; top: .35rem; right: .35rem; width: 2.2rem; height: 2.2rem; border: 1px solid #cbd5e1; border-radius: 999px; background: rgba(255,255,255,.95); color: #0f172a; font-size: 1.4rem; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
     .menu-fullscreen-close:hover { background: #fff; }
+    .recipe-image-fullscreen-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, .88); display: none; align-items: center; justify-content: center; padding: 1.25rem; z-index: 2210; }
+    .recipe-image-fullscreen-overlay.visible { display: flex; }
+    .recipe-image-fullscreen-dialog { position: relative; width: min(96vw, 1400px); max-height: 94vh; display: flex; flex-direction: column; gap: .45rem; }
+    .recipe-image-fullscreen-img { width: 100%; max-height: calc(94vh - 2.5rem); object-fit: contain; border-radius: 12px; background: #fff; border: 1px solid #d5e3db; }
+    .recipe-image-fullscreen-meta { color: #e2e8f0; font-size: .84rem; text-align: center; line-height: 1.4; }
+    .recipe-image-fullscreen-close { position: absolute; top: .35rem; right: .35rem; width: 2.2rem; height: 2.2rem; border: 1px solid #cbd5e1; border-radius: 999px; background: rgba(255,255,255,.95); color: #0f172a; font-size: 1.4rem; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+    .recipe-image-fullscreen-close:hover { background: #fff; }
   </style>
 </head>
 <body>
@@ -1116,7 +1126,7 @@
          RECIPE 62 — ALMOND FLOUR WAFFLES
     ═══════════════════════════════════════════════ -->
     <div class="recipe-card" data-conditions="celiac dp" data-oxalate="moderate" data-mufa-g="14">
-      <div class="recipe-card-img">🧇🥛🌿</div>
+      <div class="recipe-card-img curve-preview expandable" role="button" tabindex="0" aria-label="Open larger CGM response curve preview for Almond Flour Waffles" data-preview-src="menu/glucose-curves/waffle.png" data-expand-src="menu/glucose-curves/waffle.png" data-expand-alt="CGM response curve preview for Almond Flour Waffles"></div>
       <div class="recipe-card-body">
         <div class="recipe-card-title">Almond Flour Waffles</div>
         <div class="recipe-card-meta">
@@ -10080,6 +10090,78 @@ function closeMenuFullscreen() {
   menuFullscreenModal.overlay.classList.remove('visible');
 }
 
+let recipeImageFullscreenModal = null;
+
+function ensureRecipeImageFullscreenModal() {
+  if (recipeImageFullscreenModal) return recipeImageFullscreenModal;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'recipe-image-fullscreen-overlay';
+  overlay.className = 'recipe-image-fullscreen-overlay';
+  overlay.innerHTML = `
+    <div class="recipe-image-fullscreen-dialog">
+      <button class="recipe-image-fullscreen-close" id="recipe-image-fullscreen-close" type="button" aria-label="Close expanded image">×</button>
+      <img class="recipe-image-fullscreen-img" id="recipe-image-fullscreen-img" alt="Expanded recipe card image" />
+      <div class="recipe-image-fullscreen-meta" id="recipe-image-fullscreen-meta"></div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.getElementById('recipe-image-fullscreen-close')?.addEventListener('click', closeRecipeImageFullscreen);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) closeRecipeImageFullscreen();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeRecipeImageFullscreen();
+  });
+
+  recipeImageFullscreenModal = {
+    overlay,
+    image: document.getElementById('recipe-image-fullscreen-img'),
+    meta: document.getElementById('recipe-image-fullscreen-meta')
+  };
+  return recipeImageFullscreenModal;
+}
+
+function openRecipeImageFullscreen(src, altText) {
+  if (!src) return;
+  const modal = ensureRecipeImageFullscreenModal();
+  modal.image.src = src;
+  modal.image.alt = altText || 'Expanded recipe card image';
+  modal.meta.textContent = altText || '';
+  modal.overlay.classList.add('visible');
+}
+
+function closeRecipeImageFullscreen() {
+  if (!recipeImageFullscreenModal) return;
+  recipeImageFullscreenModal.overlay.classList.remove('visible');
+}
+
+function initRecipeCardCurvePreviews() {
+  document.querySelectorAll('.recipe-card-img[data-preview-src]').forEach((preview) => {
+    const src = (preview.dataset.previewSrc || '').trim();
+    if (!src) return;
+    preview.style.backgroundImage = `url('${src}')`;
+    preview.classList.add('curve-preview');
+  });
+}
+
+function initRecipeCardImageFullscreen() {
+  document.querySelectorAll('.recipe-card-img[data-expand-src]').forEach((preview) => {
+    const openPreview = () => {
+      openRecipeImageFullscreen(preview.dataset.expandSrc, preview.dataset.expandAlt || preview.getAttribute('aria-label') || 'Expanded recipe card image');
+    };
+
+    preview.addEventListener('click', openPreview);
+    preview.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openPreview();
+      }
+    });
+  });
+}
+
 async function initMenuSlideshow() {
   await loadMenuSlides();
   menuSlideIndex = 0;
@@ -10597,6 +10679,8 @@ function renderNutritionTargetCards() {
 document.addEventListener('DOMContentLoaded', () => {
   renderNutritionTargetCards();
   initMenuSlideshow();
+  initRecipeCardCurvePreviews();
+  initRecipeCardImageFullscreen();
   document.getElementById('menu-fullscreen-btn')?.addEventListener('click', openMenuFullscreen);
   document.getElementById('menu-slide-image')?.addEventListener('click', openMenuFullscreen);
   normalizeRecipeCardFooters();
