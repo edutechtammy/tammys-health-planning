@@ -958,6 +958,7 @@
       const intervals=(Array.isArray(session.intervals)?session.intervals:[])
         .filter(item=>item&&Number.isFinite(item.minute));
       const metrics=getMetricPack(session);
+      const durationMin=Number.isFinite(Number(session.durationMin))?Number(session.durationMin):null;
       const hasMinute1=Number.isFinite(findBpmAtMinute(session.postStop,1));
       const hasMinute2=Number.isFinite(findBpmAtMinute(session.postStop,2));
 
@@ -978,10 +979,18 @@
         warnings.push('Missing minute 2 post-stop bpm, so HRR2 will show as a dash.');
       }
       if(workingCount===0){
-        warnings.push('No numeric bpm in minutes 10-20, so working median cannot be calculated.');
+        if(durationMin!=null&&durationMin<10){
+          warnings.push('Session length was '+durationMin+' minutes, so the working-median window (minutes 10-20) is not expected yet.');
+        }else{
+          warnings.push('No numeric bpm in minutes 10-20, so working median cannot be calculated.');
+        }
       }
       if(earlyCount===0||lateCount===0){
-        warnings.push('Need numeric bpm in both minutes 4-8 and 16-20 to calculate drift.');
+        if(durationMin!=null&&durationMin<16){
+          warnings.push('Session length was '+durationMin+' minutes, so drift is expected to stay blank unless both minutes 4-8 and 16-20 are present.');
+        }else{
+          warnings.push('Need numeric bpm in both minutes 4-8 and 16-20 to calculate drift.');
+        }
       }
 
       return warnings;
