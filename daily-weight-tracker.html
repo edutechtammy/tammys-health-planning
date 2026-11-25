@@ -983,7 +983,7 @@
 
   <section class="card">
     <h2>Weekly Recomposition Score</h2>
-    <p class="helper" id="recomp-summary">Uses the latest 7-day vs prior 7-day trend from body fat, muscle, and training context.</p>
+    <p class="helper" id="recomp-summary">Uses Monday-Sunday weekly windows (latest week vs prior week) from body fat, muscle, and training context.</p>
     <div class="recomp-chart-wrap">
       <canvas id="recomp-trend-chart"></canvas>
     </div>
@@ -2029,6 +2029,20 @@
     return toIsoDateFromUtc(utcDate);
   }
 
+  function getWeekEndSundayForDate(isoDate) {
+    const normalized = normalizeDateOnly(isoDate);
+    if (!normalized) {
+      return '';
+    }
+
+    const [year, month, day] = normalized.split('-').map(Number);
+    const utcDate = new Date(Date.UTC(year, month - 1, day));
+    const utcDay = utcDate.getUTCDay();
+    const daysUntilSunday = (7 - utcDay) % 7;
+    utcDate.setUTCDate(utcDate.getUTCDate() + daysUntilSunday);
+    return toIsoDateFromUtc(utcDate);
+  }
+
   function getIsoWeekMonday(weekKey) {
     const match = String(weekKey || '').match(/^(\d{4})-W(\d{2})$/);
     if (!match) {
@@ -2390,7 +2404,7 @@
     };
   }
 
-  function renderRecompTrendChart(latestDate) {
+  function renderRecompTrendChart(latestWeekEndDate) {
     if (!recompTrendChartCanvas) {
       return;
     }
@@ -2402,7 +2416,7 @@
 
     const snapshots = [];
     for (let weekOffset = 7; weekOffset >= 0; weekOffset -= 1) {
-      const endDate = addDaysToIsoDate(latestDate, -(weekOffset * 7));
+      const endDate = addDaysToIsoDate(latestWeekEndDate, -(weekOffset * 7));
       if (!endDate) continue;
       snapshots.push(computeWeeklyRecompSnapshot(endDate));
     }
@@ -2529,7 +2543,7 @@
       }
       if (recompChartEmpty) recompChartEmpty.style.display = 'block';
       recompBadge.textContent = 'Insufficient data';
-      recompSummary.textContent = 'Add entries to compute weekly recomposition score.';
+      recompSummary.textContent = 'Add entries to compute weekly recomposition score (Monday-Sunday weeks).';
       return;
     }
 
@@ -2541,12 +2555,24 @@
       }
       if (recompChartEmpty) recompChartEmpty.style.display = 'block';
       recompBadge.textContent = 'Insufficient data';
-      recompSummary.textContent = 'Add entries to compute weekly recomposition score.';
+      recompSummary.textContent = 'Add entries to compute weekly recomposition score (Monday-Sunday weeks).';
       return;
     }
 
-    const snapshot = computeWeeklyRecompSnapshot(latestDate);
-    renderRecompTrendChart(latestDate);
+    const latestWeekEndDate = getWeekEndSundayForDate(latestDate);
+    if (!latestWeekEndDate) {
+      if (recompTrendChart) {
+        recompTrendChart.destroy();
+        recompTrendChart = null;
+      }
+      if (recompChartEmpty) recompChartEmpty.style.display = 'block';
+      recompBadge.textContent = 'Insufficient data';
+      recompSummary.textContent = 'Add entries to compute weekly recomposition score (Monday-Sunday weeks).';
+      return;
+    }
+
+    const snapshot = computeWeeklyRecompSnapshot(latestWeekEndDate);
+    renderRecompTrendChart(latestWeekEndDate);
 
     appendRecompCheck(
       recompChecks,
