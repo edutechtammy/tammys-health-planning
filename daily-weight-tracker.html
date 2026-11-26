@@ -717,6 +717,33 @@
     .toast.show {
       opacity: 1;
     }
+
+    .chart-key {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: .78rem;
+      color: var(--muted);
+      margin: .15rem 0 .7rem;
+    }
+
+    .chart-key-item {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+    }
+
+    .chart-key-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--green-dark);
+      display: inline-block;
+    }
+
+    .chart-key-dot.solid { background: var(--green-dark); }
+    .chart-key-dot.hollow { background: #fff; }
   </style>
 </head>
 <body>
@@ -761,6 +788,12 @@
           <button type="button" class="bmi-nav-btn" id="bmi-next-btn">Next</button>
         </div>
       </div>
+    </div>
+
+    <div class="chart-key" aria-label="Chart point explanation">
+      <strong>Training the day before:</strong>
+      <span class="chart-key-item"><span class="chart-key-dot hollow" aria-hidden="true"></span> Hollow dot — no cardio or resistance training logged</span>
+      <span class="chart-key-item"><span class="chart-key-dot solid" aria-hidden="true"></span> Solid dot — cardio or resistance training logged</span>
     </div>
 
     <div class="chart-wrap">
@@ -2037,7 +2070,7 @@
 
     const [year, month, day] = normalized.split('-').map(Number);
     const utcDate = new Date(Date.UTC(year, month - 1, day));
-    const utcDay = utcDate.getUTCDay();
+    const utcDay = utcDate.getUTCDay() || 7;
     const daysUntilSunday = (7 - utcDay) % 7;
     utcDate.setUTCDate(utcDate.getUTCDate() + daysUntilSunday);
     return toIsoDateFromUtc(utcDate);
@@ -2709,7 +2742,7 @@
       const muscleMassPctRaw = item.muscleMassPct;
       const muscleMassPctNum = muscleMassPctRaw === '' || muscleMassPctRaw === null || muscleMassPctRaw === undefined
         ? ''
-        : Number(muscleMassPctRaw);
+        : Number(item.muscleMassPct);
       const boneMassRaw = item.boneMassLbs;
       const boneMassNum = boneMassRaw === '' || boneMassRaw === null || boneMassRaw === undefined
         ? ''
@@ -2758,82 +2791,89 @@
       const segmentTrunkFatNum = segmentTrunkFatRaw === '' || segmentTrunkFatRaw === null || segmentTrunkFatRaw === undefined
         ? ''
         : Number(segmentTrunkFatRaw);
-      if (waistNum !== '' && (!Number.isFinite(waistNum) || waistNum <= 0)) {
+
+      if (!date) {
         continue;
       }
-      if (thighNum !== '' && (!Number.isFinite(thighNum) || thighNum <= 0)) {
+      if (Number.isNaN(weightNum) || weightNum <= 0) {
         continue;
       }
-      if (underBustNum !== '' && (!Number.isFinite(underBustNum) || underBustNum <= 0)) {
+      if (waistNum !== '' && (Number.isNaN(waistNum) || waistNum <= 0)) {
         continue;
       }
-      if (upperArmNum !== '' && (!Number.isFinite(upperArmNum) || upperArmNum <= 0)) {
+      if (thighNum !== '' && (Number.isNaN(thighNum) || thighNum <= 0)) {
         continue;
       }
-      if (bodyFatPctNum !== '' && (!Number.isFinite(bodyFatPctNum) || bodyFatPctNum <= 0 || bodyFatPctNum > 75)) {
+      if (underBustNum !== '' && (Number.isNaN(underBustNum) || underBustNum <= 0)) {
         continue;
       }
-      if (muscleMassNum !== '' && (!Number.isFinite(muscleMassNum) || muscleMassNum <= 0)) {
+      if (upperArmNum !== '' && (Number.isNaN(upperArmNum) || upperArmNum <= 0)) {
         continue;
       }
-      if (physicalIndexNum !== '' && (!Number.isFinite(physicalIndexNum) || physicalIndexNum < 0 || physicalIndexNum > 100)) {
+      if (bodyFatPctNum !== '' && (Number.isNaN(bodyFatPctNum) || bodyFatPctNum <= 0 || bodyFatPctNum > 75)) {
         continue;
       }
-      if (visceralFatNum !== '' && (!Number.isFinite(visceralFatNum) || visceralFatNum < 0)) {
+      if (muscleMassNum !== '' && (Number.isNaN(muscleMassNum) || muscleMassNum <= 0)) {
         continue;
       }
-      if (subcutaneousFatPctNum !== '' && (!Number.isFinite(subcutaneousFatPctNum) || subcutaneousFatPctNum < 0 || subcutaneousFatPctNum > 100)) {
+      if (physicalIndexNum !== '' && (Number.isNaN(physicalIndexNum) || physicalIndexNum < 0 || physicalIndexNum > 100)) {
         continue;
       }
-      if (metabolicAgeNum !== '' && (!Number.isFinite(metabolicAgeNum) || metabolicAgeNum <= 0)) {
+      if (visceralFatNum !== '' && (Number.isNaN(visceralFatNum) || visceralFatNum < 0)) {
         continue;
       }
-      if (bodyWaterPctNum !== '' && (!Number.isFinite(bodyWaterPctNum) || bodyWaterPctNum < 0 || bodyWaterPctNum > 100)) {
+      if (subcutaneousFatPctNum !== '' && (Number.isNaN(subcutaneousFatPctNum) || subcutaneousFatPctNum < 0 || subcutaneousFatPctNum > 100)) {
         continue;
       }
-      if (bmrKcalNum !== '' && (!Number.isFinite(bmrKcalNum) || bmrKcalNum <= 0)) {
+      if (metabolicAgeNum !== '' && (Number.isNaN(metabolicAgeNum) || metabolicAgeNum <= 0)) {
         continue;
       }
-      if (fatFreeWeightNum !== '' && (!Number.isFinite(fatFreeWeightNum) || fatFreeWeightNum <= 0)) {
+      if (bodyWaterPctNum !== '' && (Number.isNaN(bodyWaterPctNum) || bodyWaterPctNum < 0 || bodyWaterPctNum > 100)) {
         continue;
       }
-      if (muscleMassPctNum !== '' && (!Number.isFinite(muscleMassPctNum) || muscleMassPctNum < 0 || muscleMassPctNum > 100)) {
+      if (bmrKcalNum !== '' && (Number.isNaN(bmrKcalNum) || bmrKcalNum <= 0)) {
         continue;
       }
-      if (boneMassNum !== '' && (!Number.isFinite(boneMassNum) || boneMassNum <= 0)) {
+      if (fatFreeWeightNum !== '' && (Number.isNaN(fatFreeWeightNum) || fatFreeWeightNum <= 0)) {
         continue;
       }
-      if (proteinPctNum !== '' && (!Number.isFinite(proteinPctNum) || proteinPctNum < 0 || proteinPctNum > 100)) {
+      if (muscleMassPctNum !== '' && (Number.isNaN(muscleMassPctNum) || muscleMassPctNum < 0 || muscleMassPctNum > 100)) {
         continue;
       }
-      if (segmentLeftLegMuscleNum !== '' && (!Number.isFinite(segmentLeftLegMuscleNum) || segmentLeftLegMuscleNum <= 0)) {
+      if (boneMassNum !== '' && (Number.isNaN(boneMassNum) || boneMassNum <= 0)) {
         continue;
       }
-      if (segmentRightLegMuscleNum !== '' && (!Number.isFinite(segmentRightLegMuscleNum) || segmentRightLegMuscleNum <= 0)) {
+      if (proteinPctNum !== '' && (Number.isNaN(proteinPctNum) || proteinPctNum < 0 || proteinPctNum > 100)) {
         continue;
       }
-      if (segmentLeftArmMuscleNum !== '' && (!Number.isFinite(segmentLeftArmMuscleNum) || segmentLeftArmMuscleNum <= 0)) {
+      if (segmentLeftLegMuscleNum !== '' && (Number.isNaN(segmentLeftLegMuscleNum) || segmentLeftLegMuscleNum <= 0)) {
         continue;
       }
-      if (segmentRightArmMuscleNum !== '' && (!Number.isFinite(segmentRightArmMuscleNum) || segmentRightArmMuscleNum <= 0)) {
+      if (segmentRightLegMuscleNum !== '' && (Number.isNaN(segmentRightLegMuscleNum) || segmentRightLegMuscleNum <= 0)) {
         continue;
       }
-      if (segmentTrunkMuscleNum !== '' && (!Number.isFinite(segmentTrunkMuscleNum) || segmentTrunkMuscleNum <= 0)) {
+      if (segmentLeftArmMuscleNum !== '' && (Number.isNaN(segmentLeftArmMuscleNum) || segmentLeftArmMuscleNum <= 0)) {
         continue;
       }
-      if (segmentLeftLegFatNum !== '' && (!Number.isFinite(segmentLeftLegFatNum) || segmentLeftLegFatNum <= 0)) {
+      if (segmentRightArmMuscleNum !== '' && (Number.isNaN(segmentRightArmMuscleNum) || segmentRightArmMuscleNum <= 0)) {
         continue;
       }
-      if (segmentRightLegFatNum !== '' && (!Number.isFinite(segmentRightLegFatNum) || segmentRightLegFatNum <= 0)) {
+      if (segmentTrunkMuscleNum !== '' && (Number.isNaN(segmentTrunkMuscleNum) || segmentTrunkMuscleNum <= 0)) {
         continue;
       }
-      if (segmentLeftArmFatNum !== '' && (!Number.isFinite(segmentLeftArmFatNum) || segmentLeftArmFatNum <= 0)) {
+      if (segmentLeftLegFatNum !== '' && (Number.isNaN(segmentLeftLegFatNum) || segmentLeftLegFatNum <= 0)) {
         continue;
       }
-      if (segmentRightArmFatNum !== '' && (!Number.isFinite(segmentRightArmFatNum) || segmentRightArmFatNum <= 0)) {
+      if (segmentRightLegFatNum !== '' && (Number.isNaN(segmentRightLegFatNum) || segmentRightLegFatNum <= 0)) {
         continue;
       }
-      if (segmentTrunkFatNum !== '' && (!Number.isFinite(segmentTrunkFatNum) || segmentTrunkFatNum <= 0)) {
+      if (segmentLeftArmFatNum !== '' && (Number.isNaN(segmentLeftArmFatNum) || segmentLeftArmFatNum <= 0)) {
+        continue;
+      }
+      if (segmentRightArmFatNum !== '' && (Number.isNaN(segmentRightArmFatNum) || segmentRightArmFatNum <= 0)) {
+        continue;
+      }
+      if (segmentTrunkFatNum !== '' && (Number.isNaN(segmentTrunkFatNum) || segmentTrunkFatNum <= 0)) {
         continue;
       }
 
@@ -2943,10 +2983,21 @@
         cursor += gapMs;
       }
 
+      const originalDate = point.originalDate || point.date || null;
+      const previousDate = originalDate ? addDaysToIsoDate(originalDate, -1) : '';
+      const previousDayContext = previousDate ? trainingContextByDate.get(previousDate) : null;
+      const hasPriorDayTraining = Boolean(
+        previousDayContext && (
+          previousDayContext.cardioSessions > 0 ||
+          previousDayContext.resistanceEntries > 0
+        )
+      );
+
       compressed.push({
         x: cursor,
         y: point.y,
-        originalDate: point.originalDate || point.date || null
+        originalDate,
+        trainingPreviousDay: hasPriorDayTraining
       });
     }
 
@@ -2996,7 +3047,7 @@
     const recentWindowMs = recentWindowDays * dayMs;
 
     function fitWindow(windowPoints) {
-      if (!windowPoints || windowPoints.length < 2) {
+      if (!windowPoints || !windowPoints.length < 2) {
         return null;
       }
 
@@ -3118,6 +3169,9 @@
             pointRadius,
             pointHoverRadius: 4,
             pointHitRadius: 12,
+            pointBackgroundColor: getTrainingPointBackgrounds(weightPoints, '#2d6a4f'),
+            pointBorderColor: getTrainingPointBorders(weightPoints, '#2d6a4f'),
+            pointBorderWidth: 2,
             fill: false
           },
           {
@@ -3187,20 +3241,11 @@
           },
           tooltip: {
             callbacks: {
-              title(context) {
-                if (!context.length) {
-                  return '';
-                }
-                const valueX = Math.round(context[0].parsed.x);
-                const dateForX = dateLookup.get(valueX);
-                return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
-              },
               label(context) {
-                if (context.parsed.y === null) {
-                  return context.dataset.label + ': not enough data yet';
-                }
-                const value = Number(context.parsed.y).toFixed(1);
-                return context.dataset.label + ': ' + value + ' lbs';
+                const value = context.parsed.y;
+                if (!Number.isFinite(value)) return `${context.dataset.label}: n/a`;
+                if (context.dataset.yAxisID === 'y1') return `${context.dataset.label}: ${value.toFixed(1)}%`;
+                return `${context.dataset.label}: ${value.toFixed(1)} lbs`;
               }
             }
           }
@@ -3297,6 +3342,9 @@
             pointRadius,
             pointHoverRadius: 4,
             pointHitRadius: 12,
+            pointBackgroundColor: getTrainingPointBackgrounds(waistPoints, '#b3541e'),
+            pointBorderColor: getTrainingPointBorders(waistPoints, '#b3541e'),
+            pointBorderWidth: 2,
             fill: false
           },
           {
@@ -3355,9 +3403,12 @@
               },
               label(context) {
                 if (context.parsed.y === null) {
-                  return context.dataset.label + ': not enough data yet';
+                  return 'Daily Weight: n/a';
                 }
-                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+                return 'Daily Weight: ' + Number(context.parsed.y).toFixed(1) + ' lbs';
+              },
+              afterLabel(context) {
+                return getTrainingTooltipStatus(context.raw);
               }
             }
           }
@@ -3451,7 +3502,7 @@
       if (hasCustomTarget) {
         thighTargetMeta.textContent = 'Target mode: custom (' + targetThigh.toFixed(1) + ' in).';
       } else {
-        thighTargetMeta.textContent = 'Target mode: auto-estimated at ' + targetThigh.toFixed(1) + ' in from first thigh measurement using your 224 to 160 lb journey ratio.';
+        thighTargetMeta.textContent = 'Target mode: auto-estimated at ' + targetThigh.toFixed(1) + ' in from your 224 to 160 lb journey ratio.';
       }
     }
 
@@ -3471,6 +3522,9 @@
             pointRadius,
             pointHoverRadius: 4,
             pointHitRadius: 12,
+            pointBackgroundColor: getTrainingPointBackgrounds(thighPoints, '#6a4c93'),
+            pointBorderColor: getTrainingPointBorders(thighPoints, '#6a4c93'),
+            pointBorderWidth: 2,
             fill: false
           },
           {
@@ -3532,10 +3586,13 @@
                 return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
               },
               label(context) {
-                if (context.parsed.y === null) {
-                  return context.dataset.label + ': not enough data yet';
+                if (!Number.isFinite(context.parsed.y)) {
+                  return 'Thigh Measurement: n/a';
                 }
-                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+                return 'Thigh Measurement: ' + Number(context.parsed.y).toFixed(1) + ' in';
+              },
+              afterLabel(context) {
+                return getTrainingTooltipStatus(context.raw);
               }
             }
           }
@@ -3647,6 +3704,9 @@
             pointRadius,
             pointHoverRadius: 4,
             pointHitRadius: 12,
+            pointBackgroundColor: getTrainingPointBackgrounds(points, '#126782'),
+            pointBorderColor: getTrainingPointBorders(points, '#126782'),
+            pointBorderWidth: 2,
             fill: false
           },
           {
@@ -3708,10 +3768,13 @@
                 return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
               },
               label(context) {
-                if (context.parsed.y === null) {
-                  return context.dataset.label + ': not enough data yet';
+                if (!Number.isFinite(context.parsed.y)) {
+                  return 'Under Bust Measurement: n/a';
                 }
-                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+                return 'Under Bust Measurement: ' + Number(context.parsed.y).toFixed(1) + ' in';
+              },
+              afterLabel(context) {
+                return getTrainingTooltipStatus(context.raw);
               }
             }
           }
@@ -3823,6 +3886,9 @@
             pointRadius,
             pointHoverRadius: 4,
             pointHitRadius: 12,
+            pointBackgroundColor: getTrainingPointBackgrounds(points, '#7b4f9a'),
+            pointBorderColor: getTrainingPointBorders(points, '#7b4f9a'),
+            pointBorderWidth: 2,
             fill: false
           },
           {
@@ -3884,10 +3950,13 @@
                 return dateForX ? stampToDateLabel(dateToStamp(dateForX)) : '';
               },
               label(context) {
-                if (context.parsed.y === null) {
-                  return context.dataset.label + ': not enough data yet';
+                if (!Number.isFinite(context.parsed.y)) {
+                  return 'Upper Arm Measurement: n/a';
                 }
-                return context.dataset.label + ': ' + Number(context.parsed.y).toFixed(1) + ' in';
+                return 'Upper Arm Measurement: ' + Number(context.parsed.y).toFixed(1) + ' in';
+              },
+              afterLabel(context) {
+                return getTrainingTooltipStatus(context.raw);
               }
             }
           }
@@ -4090,6 +4159,9 @@
             pointRadius: points.length > 220 ? 0 : 2,
             pointHoverRadius: 4,
             pointHitRadius: 12,
+            pointBackgroundColor: getTrainingPointBackgrounds(points, color),
+            pointBorderColor: getTrainingPointBorders(points, color),
+            pointBorderWidth: 2,
             fill: false
           }
         ]
@@ -4107,7 +4179,8 @@
             labelBackground: 'rgba(255,255,255,.62)'
           },
           legend: {
-            display: false
+            position: 'top',
+            labels: { boxWidth: 18 }
           },
           tooltip: {
             callbacks: {
@@ -4124,6 +4197,9 @@
                   return label + ': n/a';
                 }
                 return label + ': ' + Number(context.parsed.y).toFixed(decimals) + ' ' + unit;
+              },
+              afterLabel(context) {
+                return getTrainingTooltipStatus(context.raw);
               }
             }
           }
@@ -5233,51 +5309,66 @@
       const bodyWaterPctNum = item.bodyWaterPct === '' || item.bodyWaterPct === null || item.bodyWaterPct === undefined
         ? ''
         : Number(item.bodyWaterPct);
-      const bmrKcalNum = item.bmrKcal === '' || item.bmrKcal === null || item.bmrKcal === undefined
+      const bmrRaw = item.bmrKcal;
+      const bmrKcalNum = bmrRaw === '' || bmrRaw === null || bmrRaw === undefined
         ? ''
-        : Number(item.bmrKcal);
-      const fatFreeWeightNum = item.fatFreeWeightLbs === '' || item.fatFreeWeightLbs === null || item.fatFreeWeightLbs === undefined
+        : Number(bmrRaw);
+      const fatFreeWeightRaw = item.fatFreeWeightLbs;
+      const fatFreeWeightNum = fatFreeWeightRaw === '' || fatFreeWeightRaw === null || fatFreeWeightRaw === undefined
         ? ''
-        : Number(item.fatFreeWeightLbs);
-      const muscleMassPctNum = item.muscleMassPct === '' || item.muscleMassPct === null || item.muscleMassPct === undefined
+        : Number(fatFreeWeightRaw);
+      const muscleMassPctRaw = item.muscleMassPct;
+      const muscleMassPctNum = muscleMassPctRaw === '' || muscleMassPctRaw === null || muscleMassPctRaw === undefined
         ? ''
         : Number(item.muscleMassPct);
-      const boneMassNum = item.boneMassLbs === '' || item.boneMassLbs === null || item.boneMassLbs === undefined
+      const boneMassRaw = item.boneMassLbs;
+      const boneMassNum = boneMassRaw === '' || boneMassRaw === null || boneMassRaw === undefined
         ? ''
-        : Number(item.boneMassLbs);
-      const proteinPctNum = item.proteinPct === '' || item.proteinPct === null || item.proteinPct === undefined
+        : Number(boneMassRaw);
+      const proteinPctRaw = item.proteinPct;
+      const proteinPctNum = proteinPctRaw === '' || proteinPctRaw === null || proteinPctRaw === undefined
         ? ''
-        : Number(item.proteinPct);
-      const segmentLeftLegMuscleNum = item.segmentLeftLegMuscleLbs === '' || item.segmentLeftLegMuscleLbs === null || item.segmentLeftLegMuscleLbs === undefined
+        : Number(proteinPctRaw);
+      const segmentLeftLegMuscleRaw = item.segmentLeftLegMuscleLbs;
+      const segmentLeftLegMuscleNum = segmentLeftLegMuscleRaw === '' || segmentLeftLegMuscleRaw === null || segmentLeftLegMuscleRaw === undefined
         ? ''
-        : Number(item.segmentLeftLegMuscleLbs);
-      const segmentRightLegMuscleNum = item.segmentRightLegMuscleLbs === '' || item.segmentRightLegMuscleLbs === null || item.segmentRightLegMuscleLbs === undefined
+        : Number(segmentLeftLegMuscleRaw);
+      const segmentRightLegMuscleRaw = item.segmentRightLegMuscleLbs;
+      const segmentRightLegMuscleNum = segmentRightLegMuscleRaw === '' || segmentRightLegMuscleRaw === null || segmentRightLegMuscleRaw === undefined
         ? ''
-        : Number(item.segmentRightLegMuscleLbs);
-      const segmentLeftArmMuscleNum = item.segmentLeftArmMuscleLbs === '' || item.segmentLeftArmMuscleLbs === null || item.segmentLeftArmMuscleLbs === undefined
+        : Number(segmentRightLegMuscleRaw);
+      const segmentLeftArmMuscleRaw = item.segmentLeftArmMuscleLbs;
+      const segmentLeftArmMuscleNum = segmentLeftArmMuscleRaw === '' || segmentLeftArmMuscleRaw === null || segmentLeftArmMuscleRaw === undefined
         ? ''
-        : Number(item.segmentLeftArmMuscleLbs);
-      const segmentRightArmMuscleNum = item.segmentRightArmMuscleLbs === '' || item.segmentRightArmMuscleLbs === null || item.segmentRightArmMuscleLbs === undefined
+        : Number(segmentLeftArmMuscleRaw);
+      const segmentRightArmMuscleRaw = item.segmentRightArmMuscleLbs;
+      const segmentRightArmMuscleNum = segmentRightArmMuscleRaw === '' || segmentRightArmMuscleRaw === null || segmentRightArmMuscleRaw === undefined
         ? ''
-        : Number(item.segmentRightArmMuscleLbs);
-      const segmentTrunkMuscleNum = item.segmentTrunkMuscleLbs === '' || item.segmentTrunkMuscleLbs === null || item.segmentTrunkMuscleLbs === undefined
+        : Number(segmentRightArmMuscleRaw);
+      const segmentTrunkMuscleRaw = item.segmentTrunkMuscleLbs;
+      const segmentTrunkMuscleNum = segmentTrunkMuscleRaw === '' || segmentTrunkMuscleRaw === null || segmentTrunkMuscleRaw === undefined
         ? ''
-        : Number(item.segmentTrunkMuscleLbs);
-      const segmentLeftLegFatNum = item.segmentLeftLegFatLbs === '' || item.segmentLeftLegFatLbs === null || item.segmentLeftLegFatLbs === undefined
+        : Number(segmentTrunkMuscleRaw);
+      const segmentLeftLegFatRaw = item.segmentLeftLegFatLbs;
+      const segmentLeftLegFatNum = segmentLeftLegFatRaw === '' || segmentLeftLegFatRaw === null || segmentLeftLegFatRaw === undefined
         ? ''
-        : Number(item.segmentLeftLegFatLbs);
-      const segmentRightLegFatNum = item.segmentRightLegFatLbs === '' || item.segmentRightLegFatLbs === null || item.segmentRightLegFatLbs === undefined
+        : Number(segmentLeftLegFatRaw);
+      const segmentRightLegFatRaw = item.segmentRightLegFatLbs;
+      const segmentRightLegFatNum = segmentRightLegFatRaw === '' || segmentRightLegFatRaw === null || segmentRightLegFatRaw === undefined
         ? ''
-        : Number(item.segmentRightLegFatLbs);
-      const segmentLeftArmFatNum = item.segmentLeftArmFatLbs === '' || item.segmentLeftArmFatLbs === null || item.segmentLeftArmFatLbs === undefined
+        : Number(segmentRightLegFatRaw);
+      const segmentLeftArmFatRaw = item.segmentLeftArmFatLbs;
+      const segmentLeftArmFatNum = segmentLeftArmFatRaw === '' || segmentLeftArmFatRaw === null || segmentLeftArmFatRaw === undefined
         ? ''
-        : Number(item.segmentLeftArmFatLbs);
-      const segmentRightArmFatNum = item.segmentRightArmFatLbs === '' || item.segmentRightArmFatLbs === null || item.segmentRightArmFatLbs === undefined
+        : Number(segmentLeftArmFatRaw);
+      const segmentRightArmFatRaw = item.segmentRightArmFatLbs;
+      const segmentRightArmFatNum = segmentRightArmFatRaw === '' || segmentRightArmFatRaw === null || segmentRightArmFatRaw === undefined
         ? ''
-        : Number(item.segmentRightArmFatLbs);
-      const segmentTrunkFatNum = item.segmentTrunkFatLbs === '' || item.segmentTrunkFatLbs === null || item.segmentTrunkFatLbs === undefined
+        : Number(segmentRightArmFatRaw);
+      const segmentTrunkFatRaw = item.segmentTrunkFatLbs;
+      const segmentTrunkFatNum = segmentTrunkFatRaw === '' || segmentTrunkFatRaw === null || segmentTrunkFatRaw === undefined
         ? ''
-        : Number(item.segmentTrunkFatLbs);
+        : Number(segmentTrunkFatRaw);
 
       if (!date) {
         continue;
