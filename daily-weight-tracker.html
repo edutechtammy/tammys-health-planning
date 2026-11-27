@@ -1006,6 +1006,7 @@
       <input type="file" id="import-file-input" accept="application/json,.json" hidden />
     </div>
     <div class="edit-state" id="edit-state"></div>
+    <p class="helper" id="data-source-status">Data source: checking local browser storage. Meaning: this app stores entries in your browser unless a backup file restore is needed.</p>
     <p class="helper">Entries are kept in this browser for convenience, and Save Data to File downloads a JSON backup you can keep anywhere. Optional Etekcity body-composition fields can be logged whenever measured.</p>
   </section>
 
@@ -1182,6 +1183,10 @@
     sat: 5,
     sun: 6
   };
+  const AUTO_RESTORE_BACKUP_PATHS = [
+    'manual-backups/daily-weight-waist/daily-weight-data-2026-11-25.json',
+    'manual-backups/daily-weight-waist/daily-weight-data-2026-11-21.json'
+  ];
   const TARGET_WEIGHT = 160;
   const START_WEIGHT_CAP = 230;
   const START_WAIST = 47;
@@ -1396,6 +1401,7 @@
   const upperArmChartEmpty = document.getElementById('upper-arm-chart-empty');
   const addEntryBtn = document.getElementById('add-entry');
   const editState = document.getElementById('edit-state');
+  const dataSourceStatusEl = document.getElementById('data-source-status');
   const bmiImageEl = document.getElementById('bmi-slideshow-image');
   const bmiMetaTextEl = document.getElementById('bmi-meta-text');
   const bmiStatusEl = document.getElementById('bmi-panel-status');
@@ -1863,6 +1869,42 @@
     toast.textContent = message;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 1600);
+  }
+
+  function setDataSourceStatus(message) {
+    if (!dataSourceStatusEl) {
+      return;
+    }
+    dataSourceStatusEl.textContent = message;
+  }
+
+  function renderDataSourceStatus(loadState, restoredFromBackup) {
+    if (restoredFromBackup) {
+      setDataSourceStatus('Data source: auto-restored from backup JSON. Meaning: browser storage had no usable entries, so the app loaded the latest backup file and saved it back to this browser.');
+      return;
+    }
+
+    if (!loadState) {
+      setDataSourceStatus('Data source: unknown. Meaning: startup state could not be determined.');
+      return;
+    }
+
+    if (loadState.parseFailed) {
+      setDataSourceStatus('Data source: local storage parse issue. Meaning: saved browser data could not be read as valid JSON, so no entries were loaded from it.');
+      return;
+    }
+
+    if (loadState.droppedAll) {
+      setDataSourceStatus('Data source: local storage validation issue. Meaning: saved entries were present but did not pass current validation rules, so none were loaded.');
+      return;
+    }
+
+    if (loadState.hasStoredData) {
+      setDataSourceStatus('Data source: browser local storage. Meaning: entries are being loaded from data saved in this browser profile.');
+      return;
+    }
+
+    setDataSourceStatus('Data source: no saved browser data found. Meaning: no local entries were available at startup.');
   }
 
   function resetEditMode() {
@@ -2918,15 +2960,37 @@
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
       entries = [];
-      return;
+      return {
+        hasStoredData: false,
+        parseFailed: false,
+        droppedAll: false
+      };
     }
 
     try {
       const parsed = JSON.parse(raw);
-      entries = sanitizeEntries(parsed);
-      saveToLocalStorage();
+      const parsedCount = Array.isArray(parsed) ? parsed.length : 0;
+      const sanitized = sanitizeEntries(parsed);
+      entries = sanitized;
+
+      const droppedAll = parsedCount > 0 && sanitized.length === 0;
+      if (droppedAll) {
+        console.warn('Loaded entries were fully rejected by sanitization; preserving existing localStorage data as-is.');
+      }
+
+      return {
+        hasStoredData: true,
+        parseFailed: false,
+        droppedAll
+      };
     } catch {
       entries = [];
+      console.warn('Could not parse saved entries from localStorage; preserving existing localStorage value.');
+      return {
+        hasStoredData: true,
+        parseFailed: true,
+        droppedAll: false
+      };
     }
   }
 
@@ -3002,6 +3066,19 @@
     }
 
     return compressed;
+  }
+
+  function getTrainingPointBackgrounds(points, color) {
+    return points.map(point => {
+      if (point && point.trainingPreviousDay) {
+        return color;
+      }
+      return '#fff';
+    });
+  }
+
+  function getTrainingPointBorders(points, color) {
+    return points.map(() => color);
   }
 
   function buildLinearTrendLinePoints(points) {
@@ -5516,6 +5593,7 @@
 
         mergeEntriesByDate(importedEntries);
         saveToLocalStorage();
+        setDataSourceStatus('Data source: imported JSON file. Meaning: entries were loaded from a backup file and are now stored in this browser.');
         renderEntries();
         showToast('Imported ' + importedEntries.length + ' entries.');
       } catch {
@@ -5528,6 +5606,32 @@
     };
 
     reader.readAsText(file);
+  }
+
+  async function tryAutoRestoreEntriesFromBackup() {
+    for (const path of AUTO_RESTORE_BACKUP_PATHS) {
+      try {
+        const response = await fetch(path, { cache: 'no-store' });
+        if (!response.ok) {
+          continue;
+        }
+
+        const payload = await response.json();
+        const importedEntries = normalizeImportedEntries(payload);
+        if (!importedEntries.length) {
+          continue;
+        }
+
+        mergeEntriesByDate(importedEntries);
+        saveToLocalStorage();
+        showToast('Auto-restored ' + importedEntries.length + ' entries from backup JSON.');
+        return true;
+      } catch {
+        continue;
+      }
+    }
+
+    return false;
   }
 
   gapThresholdInput.addEventListener('input', () => {
@@ -5610,10 +5714,25 @@
     }
   });
 
-  loadFromLocalStorage();
-  loadThighSettings();
-  setDefaultDate();
-  renderEntries();
+  async function initializePage() {
+    const loadState = loadFromLocalStorage();
+    let restoredFromBackup = false;
+
+    if (!entries.length) {
+      const shouldTryBackup = !loadState.hasStoredData || loadState.parseFailed || loadState.droppedAll;
+      if (shouldTryBackup) {
+        restoredFromBackup = await tryAutoRestoreEntriesFromBackup();
+      }
+    }
+
+    renderDataSourceStatus(loadState, restoredFromBackup);
+
+    loadThighSettings();
+    setDefaultDate();
+    renderEntries();
+  }
+
+  initializePage();
 </script>
 </body>
 </html>
