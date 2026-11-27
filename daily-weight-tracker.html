@@ -1448,11 +1448,13 @@
       { low: MUSCLE_MASS_PCT_EXCELLENT_FLOOR, high: 80, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
     ],
     protein: [
-      { low: 0, high: 16, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
-      { low: 16, high: 20, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
-      { low: 20, high: 30, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
+      { low: 0, high: 8.1, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 8.1, high: 10.2, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 10.2, high: 22, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
     ]
   };
+  const DEFAULT_SMART_SCALE_BANDS = JSON.parse(JSON.stringify(SMART_SCALE_BANDS));
+  let lastRenderFailureSignature = '';
   let editingDate = null;
 
   function getLatestEntryWeight() {
@@ -4162,6 +4164,98 @@
     );
   }
 
+  function getStableBands(contextLabel, primaryBands, fallbackBands = []) {
+    const sanitize = (bands) => {
+      if (!Array.isArray(bands)) {
+        return [];
+      }
+
+      const out = [];
+      let droppedAny = false;
+
+      for (const band of bands) {
+        if (!band) {
+          droppedAny = true;
+          continue;
+        }
+
+        const low = Number(band.low);
+        const high = Number(band.high);
+        if (!Number.isFinite(low) || !Number.isFinite(high) || high <= low) {
+          droppedAny = true;
+          continue;
+        }
+
+        if (out.length && low < out[out.length - 1].high) {
+          droppedAny = true;
+          continue;
+        }
+
+        out.push({
+          low,
+          high,
+          shortLabel: band.shortLabel,
+          label: band.label,
+          color: band.color
+        });
+      }
+
+      if (droppedAny) {
+        console.warn('Dropped invalid/overlapping bands for', contextLabel);
+      }
+
+      return out;
+    };
+
+    const primary = sanitize(primaryBands);
+    if (primary.length) {
+      return primary;
+    }
+
+    const fallback = sanitize(fallbackBands);
+    if (fallback.length) {
+      console.warn('Using fallback bands for', contextLabel);
+      return fallback;
+    }
+
+    return [];
+  }
+
+  function runRenderStep(failures, label, renderFn) {
+    try {
+      renderFn();
+    } catch (error) {
+      failures.push(label);
+      console.error('Render step failed:', label, error);
+    }
+  }
+
+  function renderDashboardPanels() {
+    const failures = [];
+
+    runRenderStep(failures, 'Weekly recomposition score', renderWeeklyRecompositionScore);
+    runRenderStep(failures, 'BMR activity targets', renderBmrActivityTargets);
+    runRenderStep(failures, 'Weight chart', renderWeightChart);
+    runRenderStep(failures, 'Waist chart', renderWaistChart);
+    runRenderStep(failures, 'Thigh chart', renderThighChart);
+    runRenderStep(failures, 'Under bust chart', renderUnderBustChart);
+    runRenderStep(failures, 'Upper arm chart', renderUpperArmChart);
+    runRenderStep(failures, 'Smart scale charts', renderSmartScaleCharts);
+    runRenderStep(failures, 'Segment balance panel', renderSegmentBalancePanel);
+    runRenderStep(failures, 'Weight/BMI context', renderWeightBmiContext);
+
+    if (failures.length) {
+      const signature = failures.join('|');
+      if (signature !== lastRenderFailureSignature) {
+        showToast('Some panels failed to render: ' + failures.join(', ') + '. See console for details.');
+        lastRenderFailureSignature = signature;
+      }
+      return;
+    }
+
+    lastRenderFailureSignature = '';
+  }
+
   function renderSmartMetricChart(config) {
     const {
       key,
@@ -4585,17 +4679,32 @@
   }
 
   function renderSmartScaleCharts() {
-    const skeletalMuscleBands = getSkeletalMuscleBands();
-    const boneMassBands = getBoneMassBands();
+    const skeletalMuscleBands = getStableBands('Skeletal Muscle', getSkeletalMuscleBands(), [
+      { low: 0, high: 60, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 60, high: 68, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 68, high: SKELETAL_MUSCLE_EXCELLENT_FLOOR, shortLabel: 'High', color: 'rgba(26, 188, 156, .12)' },
+      { low: SKELETAL_MUSCLE_EXCELLENT_FLOOR, high: 140, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
+    ]);
+    const boneMassBands = getStableBands('Bone Mass', getBoneMassBands(), [
+      { low: 0, high: 7.5, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 7.5, high: 9.5, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 9.5, high: 13, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
+    ]);
+    const bmiBands = getStableBands('BMI', SMART_SCALE_BANDS.bmi, DEFAULT_SMART_SCALE_BANDS.bmi);
+    const muscleMassPctBands = getStableBands('Muscle Mass %', SMART_SCALE_BANDS.muscleMassPct, DEFAULT_SMART_SCALE_BANDS.muscleMassPct);
+    const bodyFatBands = getStableBands('Body Fat %', SMART_SCALE_BANDS.bodyFat, DEFAULT_SMART_SCALE_BANDS.bodyFat);
+    const visceralFatBands = getStableBands('Visceral Fat', SMART_SCALE_BANDS.visceralFat, DEFAULT_SMART_SCALE_BANDS.visceralFat);
+    const bodyWaterBands = getStableBands('Body Water %', SMART_SCALE_BANDS.bodyWater, DEFAULT_SMART_SCALE_BANDS.bodyWater);
+    const proteinBands = getStableBands('Protein %', SMART_SCALE_BANDS.protein, DEFAULT_SMART_SCALE_BANDS.protein);
 
-    renderSmartScaleLegend(bmiTrendLegend, SMART_SCALE_BANDS.bmi);
+    renderSmartScaleLegend(bmiTrendLegend, bmiBands);
     renderSmartScaleLegend(muscleMassTrendLegend, skeletalMuscleBands);
-    renderSmartScaleLegend(muscleMassPctTrendLegend, SMART_SCALE_BANDS.muscleMassPct);
-    renderSmartScaleLegend(bodyFatTrendLegend, SMART_SCALE_BANDS.bodyFat);
-    renderSmartScaleLegend(visceralFatTrendLegend, SMART_SCALE_BANDS.visceralFat);
-    renderSmartScaleLegend(bodyWaterTrendLegend, SMART_SCALE_BANDS.bodyWater);
+    renderSmartScaleLegend(muscleMassPctTrendLegend, muscleMassPctBands);
+    renderSmartScaleLegend(bodyFatTrendLegend, bodyFatBands);
+    renderSmartScaleLegend(visceralFatTrendLegend, visceralFatBands);
+    renderSmartScaleLegend(bodyWaterTrendLegend, bodyWaterBands);
     renderSmartScaleLegend(boneMassTrendLegend, boneMassBands);
-    renderSmartScaleLegend(proteinTrendLegend, SMART_SCALE_BANDS.protein);
+    renderSmartScaleLegend(proteinTrendLegend, proteinBands);
     renderMusclePreservationInsight();
     renderHydrationInsight();
 
@@ -4608,7 +4717,7 @@
       yTitle: 'BMI',
       unit: '',
       color: '#5f6caf',
-      bands: SMART_SCALE_BANDS.bmi,
+      bands: bmiBands,
       minFloor: 15,
       maxCeil: 45,
       decimals: 1
@@ -4638,7 +4747,7 @@
       yTitle: 'Muscle Mass %',
       unit: '%',
       color: '#2e8b57',
-      bands: SMART_SCALE_BANDS.muscleMassPct,
+      bands: muscleMassPctBands,
       minFloor: 25,
       maxCeil: 75,
       decimals: 1
@@ -4653,7 +4762,7 @@
       yTitle: 'Body Fat %',
       unit: '%',
       color: '#c0392b',
-      bands: SMART_SCALE_BANDS.bodyFat,
+      bands: bodyFatBands,
       minFloor: 10,
       maxCeil: 55,
       decimals: 1
@@ -4668,7 +4777,7 @@
       yTitle: 'Visceral Fat Index',
       unit: '',
       color: '#af601a',
-      bands: SMART_SCALE_BANDS.visceralFat,
+      bands: visceralFatBands,
       minFloor: 0,
       maxCeil: 30,
       decimals: 1
@@ -4683,7 +4792,7 @@
       yTitle: 'Body Water %',
       unit: '%',
       color: '#1f78b4',
-      bands: SMART_SCALE_BANDS.bodyWater,
+      bands: bodyWaterBands,
       minFloor: 30,
       maxCeil: 70,
       decimals: 1
@@ -4713,9 +4822,9 @@
       yTitle: 'Protein %',
       unit: '%',
       color: '#1a9d8f',
-      bands: SMART_SCALE_BANDS.protein,
+      bands: proteinBands,
       minFloor: 8,
-      maxCeil: 26,
+      maxCeil: 22,
       decimals: 1
     });
   }
@@ -4808,16 +4917,7 @@
 
   function renderEntries() {
     refreshTrainingContext();
-    renderWeeklyRecompositionScore();
-    renderBmrActivityTargets();
-    renderWeightChart();
-    renderWaistChart();
-    renderThighChart();
-    renderUnderBustChart();
-    renderUpperArmChart();
-    renderSmartScaleCharts();
-    renderSegmentBalancePanel();
-    renderWeightBmiContext();
+    renderDashboardPanels();
     if (bmiSelectionMode !== 'manual') {
       applyLatestBmiImage();
     }
