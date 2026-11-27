@@ -1049,8 +1049,8 @@
 
   <section class="card">
     <h2>Smart Scale Label Trends</h2>
-    <p class="helper">Reference zone colors use VeSync-style label guidance. For lean-supporting metrics (muscle, bone, protein, hydration), the upper band is shown as Above Standard.</p>
-    <p class="helper">Cutoffs are working estimates based on your available profile and can be updated whenever you share a newly observed threshold. Current anchors: Skeletal Muscle 71.5 lbs and Muscle Mass 52.4% map to Excellent.</p>
+    <p class="helper">Reference zone colors use VeSync-style label guidance. Top labels vary by metric (for example, Above Standard or Excellent).</p>
+    <p class="helper">Cutoffs are working estimates based on your available profile and can be updated whenever you share a newly observed threshold. Current anchors: Skeletal Muscle 71.5 lbs and Muscle Mass 47.7% map to Excellent.</p>
     <div class="smart-scale-grid">
       <div class="smart-scale-card">
         <div class="smart-scale-title">Skeletal Muscle Mass Trend (lbs)</div>
@@ -1195,7 +1195,7 @@
   const JOURNEY_TARGET_WEIGHT = 160;
   const HEIGHT_INCHES = 68.5;
   const SKELETAL_MUSCLE_EXCELLENT_FLOOR = 71.5;
-  const MUSCLE_MASS_PCT_EXCELLENT_FLOOR = 52.4;
+  const MUSCLE_MASS_PCT_EXCELLENT_FLOOR = 47.7;
   const WAIST_MILESTONE_BANDS = [
     {
       key: 'liver-pancreas-unloading',
@@ -1442,9 +1442,8 @@
       { low: 60, high: 80, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
     ],
     muscleMassPct: [
-      { low: 0, high: 45, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
-      { low: 45, high: 50, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
-      { low: 50, high: MUSCLE_MASS_PCT_EXCELLENT_FLOOR, shortLabel: 'High', color: 'rgba(26, 188, 156, .12)' },
+      { low: 0, high: 37.4, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 37.4, high: MUSCLE_MASS_PCT_EXCELLENT_FLOOR, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
       { low: MUSCLE_MASS_PCT_EXCELLENT_FLOOR, high: 80, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
     ],
     protein: [
@@ -4475,23 +4474,10 @@
   }
 
   function getBoneMassBands() {
-    const latestWeight = getLatestEntryWeight();
-    if (!Number.isFinite(latestWeight) || latestWeight <= 0) {
-      return [
-        { low: 0, high: 7.5, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
-        { low: 7.5, high: 9.5, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
-        { low: 9.5, high: 13, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
-      ];
-    }
-
-    const lowUpper = latestWeight * 0.033;
-    const standardUpper = latestWeight * 0.043;
-    const highUpper = latestWeight * 0.06;
-
     return [
-      { low: 0, high: lowUpper, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
-      { low: lowUpper, high: standardUpper, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
-      { low: standardUpper, high: highUpper, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
+      { low: 0, high: 6.0, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 6.0, high: 7.7, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 7.7, high: 14, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
     ];
   }
 
@@ -4686,9 +4672,9 @@
       { low: SKELETAL_MUSCLE_EXCELLENT_FLOOR, high: 140, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
     ]);
     const boneMassBands = getStableBands('Bone Mass', getBoneMassBands(), [
-      { low: 0, high: 7.5, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
-      { low: 7.5, high: 9.5, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
-      { low: 9.5, high: 13, shortLabel: 'Above Standard', color: 'rgba(26, 188, 156, .12)' }
+      { low: 0, high: 6.0, shortLabel: 'Low', color: 'rgba(231, 76, 60, .12)' },
+      { low: 6.0, high: 7.7, shortLabel: 'Standard', color: 'rgba(39, 174, 96, .12)' },
+      { low: 7.7, high: 14, shortLabel: 'Excellent', color: 'rgba(17, 138, 178, .13)' }
     ]);
     const bmiBands = getStableBands('BMI', SMART_SCALE_BANDS.bmi, DEFAULT_SMART_SCALE_BANDS.bmi);
     const muscleMassPctBands = getStableBands('Muscle Mass %', SMART_SCALE_BANDS.muscleMassPct, DEFAULT_SMART_SCALE_BANDS.muscleMassPct);
