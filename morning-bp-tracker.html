@@ -580,9 +580,9 @@
       </div>
 
       <div class="chart-key" aria-label="Chart point explanation">
-        <strong>Cardio the day before:</strong>
-        <span class="chart-key-item"><span class="chart-key-dot hollow" aria-hidden="true"></span> Hollow dot — no cardio logged</span>
-        <span class="chart-key-item"><span class="chart-key-dot solid" aria-hidden="true"></span> Solid dot — cardio logged</span>
+        <strong>Exercise the day before:</strong>
+        <span class="chart-key-item"><span class="chart-key-dot hollow" aria-hidden="true"></span> Hollow dot — no exercise logged</span>
+        <span class="chart-key-item"><span class="chart-key-dot solid" aria-hidden="true"></span> Solid dot — cardio or resistance logged</span>
       </div>
 
       <div class="chart-grid">
@@ -1487,7 +1487,7 @@
         x: cursor,
         y: Number(points[0][key]),
         originalDate: points[0].date,
-        cardioPreviousDay: Boolean(firstContext && firstContext.cardioSessions > 0)
+        exercisePreviousDay: Boolean(firstContext && (firstContext.cardioSessions > 0 || firstContext.resistanceEntries > 0))
       });
 
       for (let i = 1; i < points.length; i += 1) {
@@ -1501,7 +1501,7 @@
           x: cursor,
           y: Number(current[key]),
           originalDate: current.date,
-          cardioPreviousDay: Boolean(context && context.cardioSessions > 0)
+          exercisePreviousDay: Boolean(context && (context.cardioSessions > 0 || context.resistanceEntries > 0))
         });
       }
 
@@ -1560,7 +1560,7 @@
         borderWidth: 2.4,
         pointRadius: 4,
         pointHoverRadius: 5,
-        pointBackgroundColor: data.map(point => point.cardioPreviousDay ? color : '#ffffff'),
+        pointBackgroundColor: data.map(point => point.exercisePreviousDay ? color : '#ffffff'),
         pointBorderColor: data.map(() => color),
         pointBorderWidth: 2,
         tension: .33,
@@ -1612,9 +1612,9 @@
                 afterLabel(context) {
                   const point = context.raw;
                   if (!point) return '';
-                  return point.cardioPreviousDay
-                    ? 'Cardio logged the day before'
-                    : 'No cardio logged the day before';
+                  return point.exercisePreviousDay
+                    ? 'Cardio or resistance logged the day before'
+                    : 'No cardio or resistance logged the day before';
                 }
               }
             }
